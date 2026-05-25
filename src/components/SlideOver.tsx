@@ -77,18 +77,18 @@ export function SlideOver({
   }, [contentKey]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-40 max-w-full overflow-x-hidden">
+    <div className="pointer-events-none fixed inset-0 z-[60] max-w-full overflow-x-hidden md:z-40">
       <button
         type="button"
         aria-label="Close exhibition"
         onClick={close}
-        className={`pointer-events-auto absolute inset-x-0 bottom-0 top-[65px] cursor-default bg-neutral-950 transition-opacity duration-300 ${
+        className={`pointer-events-auto absolute inset-x-0 bottom-0 top-[65px] hidden cursor-default bg-neutral-950 transition-opacity duration-300 md:block ${
           entered && !closing ? "opacity-[0.2]" : "opacity-0"
         }`}
       />
 
       <div
-        className={`pointer-events-auto absolute inset-x-0 bottom-0 top-[65px] flex min-w-0 flex-col overflow-hidden bg-white transition-transform duration-300 ease-out md:left-auto md:right-5 md:w-[72vw] md:shadow-[0_12px_42px_rgba(0,0,0,0.16)] lg:w-[clamp(47.5rem,60vw,68.75rem)] ${
+        className={`pointer-events-auto absolute inset-0 flex h-[100dvh] w-screen min-w-0 flex-col overflow-hidden bg-white transition-transform duration-300 ease-out md:inset-y-auto md:bottom-0 md:left-auto md:right-5 md:top-[65px] md:h-auto md:w-[72vw] md:shadow-[0_12px_42px_rgba(0,0,0,0.16)] lg:w-[clamp(47.5rem,60vw,68.75rem)] ${
           entered ? "translate-x-0" : "translate-x-full"
         }`}
         role="dialog"
@@ -100,9 +100,9 @@ export function SlideOver({
           type="button"
           onClick={close}
           aria-label="Close"
-          className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center bg-white text-neutral-900 transition-opacity hover:opacity-55 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2 md:right-8 md:top-7"
+          className="absolute right-3 top-3 z-20 flex h-11 w-11 items-center justify-center border-0 bg-transparent p-0 text-neutral-900 transition-opacity hover:opacity-55 focus:outline-none md:right-8 md:top-7 md:bg-white md:focus-visible:ring-2 md:focus-visible:ring-neutral-900 md:focus-visible:ring-offset-2"
         >
-          <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" aria-hidden="true">
+          <svg viewBox="0 0 16 16" className="h-5 w-5 md:h-4 md:w-4" fill="none" aria-hidden="true">
             <path
               d="M2 2l12 12M14 2L2 14"
               stroke="currentColor"
