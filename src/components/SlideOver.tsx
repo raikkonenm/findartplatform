@@ -54,7 +54,7 @@ export function SlideOver({
     const previousPaddingRight = document.body.style.paddingRight;
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
-    if (scrollbarWidth > 0) {
+    if (scrollbarWidth > 0 && window.innerWidth >= 768) {
       document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
 
@@ -77,7 +77,7 @@ export function SlideOver({
   }, [contentKey]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-40">
+    <div className="pointer-events-none fixed inset-0 z-40 max-w-full overflow-x-hidden">
       <button
         type="button"
         aria-label="Close exhibition"
@@ -88,7 +88,7 @@ export function SlideOver({
       />
 
       <div
-        className={`pointer-events-auto absolute inset-x-0 bottom-0 top-[65px] flex flex-col overflow-hidden bg-white transition-transform duration-300 ease-out md:left-auto md:right-5 md:w-[72vw] md:shadow-[0_12px_42px_rgba(0,0,0,0.16)] lg:w-[clamp(47.5rem,60vw,68.75rem)] ${
+        className={`pointer-events-auto absolute inset-x-0 bottom-0 top-[65px] flex min-w-0 flex-col overflow-hidden bg-white transition-transform duration-300 ease-out md:left-auto md:right-5 md:w-[72vw] md:shadow-[0_12px_42px_rgba(0,0,0,0.16)] lg:w-[clamp(47.5rem,60vw,68.75rem)] ${
           entered ? "translate-x-0" : "translate-x-full"
         }`}
         role="dialog"
@@ -100,7 +100,7 @@ export function SlideOver({
           type="button"
           onClick={close}
           aria-label="Close"
-          className="absolute right-5 top-5 z-20 flex h-10 w-10 items-center justify-center bg-white text-neutral-900 transition-opacity hover:opacity-55 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2 sm:right-8 sm:top-7"
+          className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center bg-white text-neutral-900 transition-opacity hover:opacity-55 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2 md:right-8 md:top-7"
         >
           <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" aria-hidden="true">
             <path

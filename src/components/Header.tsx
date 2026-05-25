@@ -11,19 +11,19 @@ type HeaderProps = {
 export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }: HeaderProps) {
   return (
     <header
-      className={`${overlay ? "absolute z-20" : "fixed z-50"} inset-x-0 top-0 px-5 sm:px-8 lg:px-12 ${
+      className={`${overlay ? "absolute z-20" : "fixed z-50"} inset-x-0 top-0 h-[65px] px-4 md:px-8 lg:px-12 ${
         overlay
-          ? "py-7 text-[9px] uppercase tracking-[0.18em] text-white sm:text-[11px] sm:tracking-[0.28em]"
-          : "border-b border-neutral-200 bg-white py-4"
+          ? "text-[8px] uppercase tracking-[0.14em] text-white md:text-[11px] md:tracking-[0.28em]"
+          : "border-b border-neutral-200 bg-white"
       }`}
     >
       <nav
-        className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-8"
+        className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8"
         aria-label="Primary navigation"
       >
         <div
-          className={`flex items-center gap-7 justify-self-start ${
-            overlay ? "" : "text-[11px] uppercase tracking-[0.28em] text-neutral-900"
+          className={`flex max-w-[5.3rem] flex-col items-start gap-1 leading-[1.35] md:max-w-none md:flex-row md:items-center md:gap-7 ${
+            overlay ? "" : "text-[8px] uppercase tracking-[0.14em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
           }`}
         >
           <span>By ArtNomad Curators &#8599;</span>
@@ -41,25 +41,25 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
               alt="FindArt Platform logo"
               width={72}
               height={72}
-              className="h-12 w-12 object-contain sm:h-16 sm:w-16"
+              className="h-10 w-10 object-contain md:h-16 md:w-16"
               priority
             />
           </Link>
         ) : (
           <Link
             href="/"
-            className="justify-self-center text-2xl font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55"
+            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-center md:text-2xl"
             aria-label="FindArt Platform home"
           >
             FindArt Platform
           </Link>
         )}
 
-        <div className="flex items-center gap-5 justify-self-end">
+        <div className="flex items-center gap-3 justify-self-end md:gap-5">
           <Link
             href="/submit"
             className={`transition-opacity hover:opacity-55 ${
-              overlay ? "" : "text-[11px] uppercase tracking-[0.28em] text-neutral-900"
+              overlay ? "" : "text-[9px] uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
             }`}
           >
             Submit

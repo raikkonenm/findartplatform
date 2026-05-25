@@ -63,16 +63,16 @@ function TextAreaField({
 
 export default function SubmitPage() {
   return (
-    <main className="relative min-h-screen bg-white pt-24 sm:pt-28">
+    <main className="relative min-h-screen overflow-x-hidden bg-white pt-20 md:pt-28">
       <Header />
 
-      <section className="px-5 pb-20 pt-10 sm:px-8 lg:px-12 lg:pt-14">
+      <section className="px-5 pb-20 pt-10 md:px-8 lg:px-12 lg:pt-14">
         <div className="grid items-start gap-14 lg:grid-cols-[minmax(19rem,0.78fr)_minmax(32rem,1fr)] lg:gap-20 xl:gap-28">
           <div className="lg:sticky lg:top-32">
             <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
               Open Submission
             </p>
-            <h1 className="editorial-serif mt-6 text-[clamp(3.1rem,5vw,5.3rem)] leading-[0.94] tracking-[-0.055em]">
+            <h1 className="editorial-serif mt-6 break-words text-[clamp(2.75rem,13vw,5.3rem)] leading-[0.94] tracking-[-0.055em] md:text-[clamp(3.1rem,5vw,5.3rem)]">
               Submit an Exhibition
             </h1>
             <p className="mt-8 max-w-md text-[1.05rem] leading-8 text-neutral-600">
@@ -105,21 +105,21 @@ export default function SubmitPage() {
           </div>
 
           <form className="border-t border-neutral-900 pt-1" aria-label="Submission form">
-            <div className="grid sm:grid-cols-2 sm:gap-x-8">
+            <div className="grid md:grid-cols-2 md:gap-x-8">
               <Field label="Name" placeholder="Your name" />
               <Field label="Email" placeholder="Email address" type="email" />
             </div>
             <Field label="Exhibition Title" placeholder="Title" />
-            <div className="grid sm:grid-cols-2 sm:gap-x-8">
+            <div className="grid md:grid-cols-2 md:gap-x-8">
               <Field label="Artists" placeholder="Artist name(s)" />
               <Field label="Curator(s) (optional)" placeholder="Curator name(s)" />
             </div>
             <Field label="Venue / City / Country" placeholder="Venue / City / Country" />
-            <div className="grid sm:grid-cols-2 sm:gap-x-8">
+            <div className="grid md:grid-cols-2 md:gap-x-8">
               <Field label="Opening Date" placeholder="DD / MM / YYYY" />
               <Field label="Closing Date" placeholder="DD / MM / YYYY" />
             </div>
-            <div className="grid sm:grid-cols-2 sm:gap-x-8">
+            <div className="grid md:grid-cols-2 md:gap-x-8">
               <Field label="Instagram (artist or venue)" placeholder="@username" />
               <Field label="Photo Credit" placeholder="Photo credit" />
             </div>
@@ -160,7 +160,7 @@ export default function SubmitPage() {
           </form>
         </div>
 
-        <section className="mt-20 border-t border-neutral-200 pt-10 sm:mt-24 sm:pt-12">
+        <section className="mt-16 border-t border-neutral-200 pt-10 md:mt-24 md:pt-12">
           <h2 className="text-[13px] tracking-[0.01em] text-neutral-800">
             See how exhibitions look on FindArt &rarr;
           </h2>

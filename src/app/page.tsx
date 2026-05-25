@@ -70,7 +70,7 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors ${
+      className={`shrink-0 border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors ${
         active
           ? "border-neutral-900 text-neutral-900"
           : "border-neutral-200 text-neutral-400 hover:border-neutral-400 hover:text-neutral-600"
@@ -120,7 +120,7 @@ function CityDropdown({
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="listbox"
-        className="flex items-center gap-2 border border-neutral-200 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-700 transition-colors hover:border-neutral-400"
+        className="flex shrink-0 items-center gap-2 whitespace-nowrap border border-neutral-200 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-700 transition-colors hover:border-neutral-400"
       >
         <span>{label}</span>
         <svg
@@ -214,13 +214,13 @@ function MoreTagsDropdown({
   }, [open]);
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative shrink-0">
       <button
         type="button"
         onClick={() => setOpen((isOpen) => !isOpen)}
         aria-expanded={open}
         aria-haspopup="listbox"
-        className={`border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors ${
+        className={`shrink-0 border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors ${
           hasSelectedMoreTag
             ? "border-neutral-900 text-neutral-900"
             : "border-neutral-200 text-neutral-400 hover:border-neutral-400 hover:text-neutral-600"
@@ -232,7 +232,7 @@ function MoreTagsDropdown({
         <div
           role="listbox"
           aria-label="More tags"
-          className="absolute left-0 top-full z-30 mt-2 w-[min(34rem,calc(100vw-2.5rem))] border border-neutral-200 bg-white p-3 shadow-[0_4px_14px_rgba(0,0,0,0.05)] sm:p-4"
+          className="absolute right-0 top-full z-30 mt-2 w-[min(34rem,calc(100vw-2.5rem))] border border-neutral-200 bg-white p-3 shadow-[0_4px_14px_rgba(0,0,0,0.05)] md:left-0 md:right-auto md:p-4"
         >
           <div className="flex flex-wrap gap-2">
             {MORE_TAGS.map((tag) => (
@@ -319,29 +319,29 @@ export default function HomePage() {
       </Suspense>
       {/* Header — sticky + high z-index so it remains visible above the
           slide-over panel when an exhibition detail is open. */}
-      <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white px-5 py-3 sm:px-8 lg:px-12">
+      <header className="sticky top-0 z-50 h-[65px] border-b border-neutral-200 bg-white px-4 md:px-8 lg:px-12">
         <nav
-          className="grid grid-cols-[1fr_auto_1fr] items-center"
+          className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]"
           aria-label="Primary navigation"
         >
-          <div className="flex items-center gap-7 justify-self-start text-[11px] uppercase tracking-[0.28em] text-neutral-900">
+          <div className="flex max-w-[5.3rem] flex-col items-start gap-1 text-[8px] uppercase leading-[1.35] tracking-[0.14em] text-neutral-900 md:max-w-none md:flex-row md:items-center md:gap-7 md:text-[11px] md:tracking-[0.28em]">
             <span>By ArtNomad Curators &#8599;</span>
             <span>Practice &#8599;</span>
           </div>
           <Link
             href="/"
-            className="flex flex-col items-center justify-self-center text-center text-2xl font-medium leading-none tracking-tight text-neutral-900 transition-opacity hover:opacity-55"
+            className="absolute left-1/2 flex -translate-x-1/2 flex-col items-center whitespace-nowrap text-center text-[13px] font-medium leading-none tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-center md:text-2xl"
             aria-label="FindArt Platform home"
           >
             <span>FindArt Platform</span>
-            <span className="pointer-events-none mt-[6px] hidden whitespace-nowrap text-[10px] font-normal leading-none tracking-[0.12em] text-black/40 sm:block">
+            <span className="pointer-events-none mt-[6px] hidden whitespace-nowrap text-[10px] font-normal leading-none tracking-[0.12em] text-black/40 md:block">
               Contemporary Art Exhibitions Worldwide
             </span>
           </Link>
-          <div className="flex items-center gap-5 justify-self-end">
+          <div className="flex items-center gap-3 justify-self-end md:gap-5">
             <Link
               href="/submit"
-              className="text-[11px] uppercase tracking-[0.28em] text-neutral-900 transition-opacity hover:opacity-55"
+              className="text-[9px] uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:text-[11px] md:tracking-[0.28em]"
             >
               Submit
             </Link>
@@ -359,9 +359,9 @@ export default function HomePage() {
       </header>
 
       {featuredExhibition && (
-        <section className="bg-white px-5 pb-8 pt-5 sm:px-8 sm:pt-6 lg:px-12">
-          <div className="relative h-[320px] max-h-[360px] overflow-hidden sm:h-[340px] lg:h-[360px]">
-            <div className="absolute inset-0 grid grid-cols-3">
+        <section className="bg-white px-5 pb-6 pt-4 md:px-8 md:pb-8 md:pt-6 lg:px-12">
+          <div className="flex flex-col overflow-hidden md:relative md:block md:h-[340px] md:max-h-[360px] lg:h-[360px]">
+            <div className="order-2 grid h-[58vw] min-h-[178px] max-h-[250px] grid-cols-3 md:absolute md:inset-0 md:h-auto md:max-h-none">
               {featuredExhibition.images.slice(0, 3).map((image, index) => (
                 <div key={image.src} className="relative h-full bg-neutral-100">
                   <Image
@@ -369,19 +369,19 @@ export default function HomePage() {
                     alt={`${featuredExhibition.title} exhibition view ${index + 1}`}
                     fill
                     className={`object-cover ${index === 2 ? "object-[45%_center]" : "object-center"}`}
-                    sizes="33vw"
+                    sizes="(min-width: 768px) 33vw, 34vw"
                   />
                 </div>
               ))}
             </div>
 
-            <div className="absolute inset-y-0 left-0 w-[58%] bg-[linear-gradient(90deg,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.82)_45%,rgba(255,255,255,0)_100%)] sm:w-[48%] lg:w-[40%]" />
+            <div className="absolute inset-y-0 left-0 hidden w-[48%] bg-[linear-gradient(90deg,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.82)_45%,rgba(255,255,255,0)_100%)] md:block lg:w-[40%]" />
 
-            <div className="absolute inset-y-0 left-0 flex max-w-lg -translate-y-2 flex-col justify-center px-7 py-8 sm:px-10 lg:px-[60px]">
+            <div className="order-1 flex flex-col bg-white pb-7 pt-3 md:absolute md:inset-y-0 md:left-0 md:max-w-lg md:-translate-y-2 md:justify-center md:bg-transparent md:px-10 md:py-8 lg:px-[60px]">
               <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-600">
                 Exhibition of the Week
               </p>
-              <h2 className="mt-4 text-[clamp(2.25rem,4vw,3.5rem)] font-medium leading-none tracking-[-0.045em] text-neutral-900">
+              <h2 className="mt-4 break-words text-[clamp(2rem,10vw,3.5rem)] font-medium leading-none tracking-[-0.045em] text-neutral-900 md:text-[clamp(2.25rem,4vw,3.5rem)]">
                 {featuredExhibition.title}
               </h2>
               <p className="mt-4 text-[11px] uppercase tracking-[0.22em] text-neutral-700">
@@ -395,7 +395,7 @@ export default function HomePage() {
               </p>
               <Link
                 href={`/exhibitions/${featuredExhibition.slug}`}
-                className="mt-6 inline-flex w-fit border border-neutral-900 bg-white/70 px-5 py-3 text-[10px] uppercase tracking-[0.24em] text-neutral-900 transition-opacity hover:opacity-55"
+                className="mt-6 inline-flex min-h-11 w-full items-center justify-center border border-neutral-900 bg-white/70 px-5 py-3 text-[10px] uppercase tracking-[0.24em] text-neutral-900 transition-opacity hover:opacity-55 md:w-fit"
               >
                 View Exhibition
               </Link>
@@ -405,9 +405,9 @@ export default function HomePage() {
       )}
 
       {/* Filter bar */}
-      <div className="border-b border-neutral-200 bg-white px-5 py-3 sm:px-8 lg:px-12">
-        <div className="space-y-3">
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
+      <div className="border-b border-neutral-200 bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
+        <div className="space-y-4 md:space-y-3">
+          <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-2">
             {/* City filter */}
             <div className="flex items-center gap-2">
               <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">City:</span>
@@ -415,7 +415,7 @@ export default function HomePage() {
             </div>
 
             {/* Year filter */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="scrollbar-none flex min-w-0 items-center gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
               <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Year:</span>
               {YEARS.map((y) => (
                 <FilterChip key={y} label={y} active={year === y} onClick={() => setYear(y)} />
@@ -428,22 +428,24 @@ export default function HomePage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search exhibitions..."
-              className="ml-auto border-0 border-b border-neutral-300 bg-transparent pb-1 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none sm:w-56"
+              className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:ml-auto md:w-56 md:pb-1"
             />
           </div>
 
-          <div className="flex flex-wrap items-start gap-2">
-            <span className="pt-1.5 text-[10px] uppercase tracking-[0.25em] text-neutral-400">
+          <div className="flex min-w-0 items-start gap-2">
+            <span className="shrink-0 pt-1.5 text-[10px] uppercase tracking-[0.25em] text-neutral-400">
               Tags:
             </span>
-            {PRIMARY_TAGS.map((filterTag) => (
-              <FilterChip
-                key={filterTag}
-                label={filterTag}
-                active={tag === filterTag}
-                onClick={() => selectTag(filterTag)}
-              />
-            ))}
+            <div className="scrollbar-none flex min-w-0 flex-1 gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
+              {PRIMARY_TAGS.map((filterTag) => (
+                <FilterChip
+                  key={filterTag}
+                  label={filterTag}
+                  active={tag === filterTag}
+                  onClick={() => selectTag(filterTag)}
+                />
+              ))}
+            </div>
             <MoreTagsDropdown value={tag} onChange={selectTag} />
           </div>
         </div>
@@ -452,7 +454,7 @@ export default function HomePage() {
       {/* Exhibition feed — CSS columns provides masonry without JS. Cards have
           their own `mb-[72px]` for row rhythm and `break-inside-avoid` to stay
           intact across column boundaries. */}
-      <section className="bg-white px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+      <section className="bg-white px-5 py-10 md:px-8 md:py-16 lg:px-12 lg:py-20">
         {filtered.length === 0 ? (
           savedOnly && savedSlugs.size === 0 ? (
             <p className="py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400">

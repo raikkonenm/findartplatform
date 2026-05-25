@@ -45,14 +45,14 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             fill
             className="object-cover"
             loading={eager ? "eager" : "lazy"}
-            sizes="(min-width: 1200px) 31vw, (min-width: 768px) 47vw, 100vw"
+            sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
         </div>
         <div className="pt-5">
           <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
             {exhibition.city} / {exhibition.year}
           </p>
-          <h2 className="editorial-serif text-[2rem] leading-[1.04] tracking-[-0.035em]">
+          <h2 className="editorial-serif break-words text-[clamp(1.5rem,7.5vw,2rem)] leading-[1.04] tracking-[-0.035em] md:text-[2rem]">
             {exhibition.title.toUpperCase()}
           </h2>
           <p className="mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888]">

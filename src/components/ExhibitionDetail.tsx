@@ -147,11 +147,11 @@ function RelatedExhibitions({
     : exhibitions.filter((candidate) => candidate.slug !== exhibition.slug).slice(0, 3);
 
   return (
-    <section className="mt-16 border-t border-neutral-200 pt-10 sm:mt-20 sm:pt-12">
+    <section className="mt-14 border-t border-neutral-200 pt-10 md:mt-20 md:pt-12">
       <h2 className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">
         Related Exhibitions
       </h2>
-      <div className="mt-8 grid gap-8 sm:grid-cols-3">
+      <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {displayRelated.map((relatedExhibition) => {
           const content = (
             <>
@@ -222,15 +222,15 @@ export function ExhibitionDetail({
   );
 
   return (
-      <article className="bg-white px-5 pb-16 pt-8 text-neutral-900 sm:px-10 sm:pb-20 sm:pt-12 lg:px-12 lg:pt-12">
-        <header className="relative max-w-5xl border-b border-neutral-200 pb-10 pr-36 sm:pr-44">
-          <div className="absolute right-14 top-0 sm:right-16">
+      <article className="min-w-0 bg-white px-5 pb-16 pt-16 text-neutral-900 md:px-10 md:pb-20 md:pt-12 lg:px-12 lg:pt-12">
+        <header className="relative min-w-0 max-w-5xl border-b border-neutral-200 pb-8 md:pb-10 md:pr-[13rem]">
+          <div className="mb-7 flex justify-end pr-12 md:absolute md:right-20 md:top-0 md:mb-0 md:pr-0">
             <SaveExhibitionButton slug={exhibition.slug} title={exhibition.title} />
           </div>
           <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
             {[location, exhibition.year].filter(Boolean).join(" / ")}
           </p>
-          <h1 className="mt-5 max-w-4xl text-[clamp(2rem,4vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.04em]">
+          <h1 className="mt-5 max-w-4xl break-words text-[clamp(1.75rem,9vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.04em] md:text-[clamp(2rem,4vw,3.5rem)]">
             {exhibition.title}
           </h1>
           {(exhibition.gallery || exhibition.venue || exhibition.subtitle) && (
@@ -238,14 +238,14 @@ export function ExhibitionDetail({
           )}
         </header>
 
-        <section className="mt-10 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_14rem] lg:gap-10">
+        <section className="mt-8 grid min-w-0 items-start gap-10 md:mt-10 lg:grid-cols-[minmax(0,1fr)_14rem] lg:gap-10">
           <figure className="mx-auto w-full max-w-[38rem]">
             <Image
               src={exhibition.heroImage}
               alt={`${exhibition.title} installation view`}
               width={1600}
               height={1200}
-              className="mx-auto h-auto max-h-[60vh] w-auto max-w-full object-contain"
+              className="mx-auto h-auto max-h-[60vh] w-full max-w-full object-contain md:w-auto"
               sizes="(min-width: 1200px) 34vw, (min-width: 1024px) 42vw, 100vw"
             />
             <figcaption className="mt-4 text-[11px] leading-5 text-neutral-500">
@@ -259,11 +259,11 @@ export function ExhibitionDetail({
           </aside>
         </section>
 
-        <section className="mx-auto mt-14 max-w-[40rem] border-t border-neutral-200 pt-10 sm:mt-16 sm:pt-12">
+        <section className="mx-auto mt-12 max-w-[40rem] border-t border-neutral-200 pt-10 md:mt-16 md:pt-12">
           {exhibition.description.split(/\n\n+/).map((paragraph) => (
             <p
               key={paragraph}
-              className="mb-6 text-[1rem] leading-[1.7] text-neutral-800 last:mb-0 sm:text-[1.05rem]"
+              className="mb-6 break-words text-[1rem] leading-[1.7] text-neutral-800 last:mb-0 md:text-[1.05rem]"
             >
               {paragraph}
             </p>
@@ -271,7 +271,7 @@ export function ExhibitionDetail({
         </section>
 
         {panelGallery.length > 0 && (
-          <section className="mt-14 space-y-14 border-t border-neutral-200 pt-12 sm:mt-20 sm:space-y-20 sm:pt-16">
+          <section className="mt-14 space-y-14 border-t border-neutral-200 pt-12 md:mt-20 md:space-y-20 md:pt-16">
             {panelGallery.map((image, index) => (
               <figure
                 key={`${image.src}-${index}`}
