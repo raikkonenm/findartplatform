@@ -26,8 +26,8 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
             overlay ? "" : "text-[8px] uppercase tracking-[0.14em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
           }`}
         >
-          <span>By ArtNomad Curators &#8599;</span>
-          <span>Practice &#8599;</span>
+          <a href="https://www.artcnomad.com/">By ArtNomad Curators &#8599;</a>
+          <a href="https://www.artcnomad.com/practice">Practice &#8599;</a>
         </div>
 
         {overlay ? (
