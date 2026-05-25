@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import { ExhibitionCard } from "@/components/ExhibitionCard";
 import { Header } from "@/components/Header";
+import { SubmissionForm } from "@/components/SubmissionForm";
 import { exhibitions } from "@/data/exhibitions";
 
 export const metadata: Metadata = {
@@ -17,49 +17,6 @@ const previewExhibitions = previewSlugs.flatMap((slug) => {
   const exhibition = exhibitions.find((candidate) => candidate.slug === slug);
   return exhibition ? [exhibition] : [];
 });
-
-type FieldProps = {
-  label: ReactNode;
-  placeholder: string;
-  type?: string;
-  className?: string;
-};
-
-function Field({ label, placeholder, type = "text", className = "" }: FieldProps) {
-  return (
-    <label
-      className={`block border-b border-neutral-200 pb-5 pt-6 text-[10px] uppercase tracking-[0.26em] text-neutral-700 ${className}`}
-    >
-      {label}
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="mt-4 block w-full border-0 bg-transparent p-0 text-[15px] normal-case tracking-normal text-neutral-900 outline-none placeholder:text-neutral-400"
-      />
-    </label>
-  );
-}
-
-function TextAreaField({
-  label,
-  placeholder,
-  rows,
-}: {
-  label: string;
-  placeholder: string;
-  rows: number;
-}) {
-  return (
-    <label className="block border-b border-neutral-200 pb-5 pt-6 text-[10px] uppercase tracking-[0.26em] text-neutral-700">
-      {label}
-      <textarea
-        placeholder={placeholder}
-        rows={rows}
-        className="mt-4 block w-full resize-none border-0 bg-transparent p-0 text-[15px] normal-case leading-7 tracking-normal text-neutral-900 outline-none placeholder:text-neutral-400"
-      />
-    </label>
-  );
-}
 
 export default function SubmitPage() {
   return (
@@ -104,60 +61,7 @@ export default function SubmitPage() {
             </p>
           </div>
 
-          <form className="border-t border-neutral-900 pt-1" aria-label="Submission form">
-            <div className="grid md:grid-cols-2 md:gap-x-8">
-              <Field label="Name" placeholder="Your name" />
-              <Field label="Email" placeholder="Email address" type="email" />
-            </div>
-            <Field label="Exhibition Title" placeholder="Title" />
-            <div className="grid md:grid-cols-2 md:gap-x-8">
-              <Field label="Artists" placeholder="Artist name(s)" />
-              <Field label="Curator(s) (optional)" placeholder="Curator name(s)" />
-            </div>
-            <Field label="Venue / City / Country" placeholder="Venue / City / Country" />
-            <div className="grid md:grid-cols-2 md:gap-x-8">
-              <Field label="Opening Date" placeholder="DD / MM / YYYY" />
-              <Field label="Closing Date" placeholder="DD / MM / YYYY" />
-            </div>
-            <div className="grid md:grid-cols-2 md:gap-x-8">
-              <Field label="Instagram (artist or venue)" placeholder="@username" />
-              <Field label="Photo Credit" placeholder="Photo credit" />
-            </div>
-            <Field
-              label={<>Documentation Link (Dropbox / Google Drive &mdash; non-expiring link)</>}
-              placeholder="https://"
-              type="url"
-            />
-            <Field label="Website Link (optional)" placeholder="https://" type="url" />
-            <TextAreaField
-              label="Exhibition Text (press release or short description)"
-              placeholder="Your text"
-              rows={6}
-            />
-            <TextAreaField label="Notes (optional)" placeholder="Additional notes" rows={3} />
-
-            <aside className="mt-8 border border-neutral-200 bg-neutral-50 px-5 py-5">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">
-                Guidelines
-              </p>
-              <p className="mt-4 text-[13px] leading-6 text-neutral-600">
-                Please include installation views and images of individual works.
-                <br />
-                Images minimum 2000px.
-                <br />
-                Send via Dropbox or Google Drive (non-expiring link).
-                <br />
-                Include exhibition text or press release.
-              </p>
-            </aside>
-
-            <button
-              type="button"
-              className="mt-8 w-full bg-neutral-950 px-8 py-5 text-[11px] uppercase tracking-[0.32em] text-white transition-opacity hover:opacity-75"
-            >
-              Submit
-            </button>
-          </form>
+          <SubmissionForm />
         </div>
 
         <section className="mt-16 border-t border-neutral-200 pt-10 md:mt-24 md:pt-12">
