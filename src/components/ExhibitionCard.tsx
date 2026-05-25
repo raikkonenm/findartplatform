@@ -40,7 +40,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
       <Link href={`/exhibitions/${exhibition.slug}`} className="block">
         <div className={`relative ${aspect} overflow-hidden bg-neutral-100`}>
           <Image
-            src={exhibition.previewImage}
+            src={exhibition.coverImage ?? exhibition.previewImage}
             alt={`${exhibition.title} exhibition view`}
             fill
             className="object-cover"

@@ -1,4 +1,5 @@
 import { salivaImport13Seeds } from "./salivaImport13";
+import { coverImageForTitle } from "./coverImages";
 
 export const semanticTags = [
   "INSTALLATION",
@@ -48,6 +49,7 @@ export type Exhibition = {
   description: string;
   summary?: string;
   tags: SemanticTag[];
+  coverImage?: string;
   previewImage: string;
   heroImage: string;
   images: {
@@ -4089,6 +4091,7 @@ export const exhibitions: Exhibition[] = exhibitionSeeds
     city: exhibition.city ?? location,
     year: year?.toString(),
     tags: tagsForExhibition(exhibition),
+    coverImage: coverImageForTitle(exhibition.title),
     previewImage,
     heroImage: heroImage ?? previewImage,
     images,
