@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HeartIcon } from "./SavedExhibitions";
+import { MobileNavigationMenu } from "./MobileNavigationMenu";
 
 type HeaderProps = {
   overlay?: boolean;
@@ -21,8 +22,9 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
         className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8"
         aria-label="Primary navigation"
       >
+        <MobileNavigationMenu inverted={overlay} />
         <div
-          className={`flex max-w-[5.3rem] flex-col items-start gap-1 leading-[1.35] md:max-w-none md:flex-row md:items-center md:gap-7 ${
+          className={`hidden max-w-[5.3rem] flex-col items-start gap-1 leading-[1.35] md:flex md:max-w-none md:flex-row md:items-center md:gap-7 ${
             overlay ? "" : "text-[8px] uppercase tracking-[0.14em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
           }`}
         >

@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { ExhibitionCard } from "@/components/ExhibitionCard";
 import { HeartIcon, useSavedExhibitions } from "@/components/SavedExhibitions";
+import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
 
 const YEARS = ["All", "2026", "2025", "2024", "2023"];
 const PRIMARY_TAGS: Array<"ALL" | SemanticTag> = [
@@ -253,6 +254,85 @@ function MoreTagsDropdown({
   );
 }
 
+function MobileTagsDropdown({
+  value,
+  onChange,
+}: {
+  value: SelectedTag;
+  onChange: (tag: SelectedTag) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const tags: SelectedTag[] = ["ALL", ...semanticTags];
+
+  useEffect(() => {
+    if (!open) return;
+
+    function onMouseDown(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    document.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("keydown", onKey);
+
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative md:hidden">
+      <button
+        type="button"
+        onClick={() => setOpen((isOpen) => !isOpen)}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        className={`flex w-full items-center justify-between border px-3 py-2 text-[10px] uppercase tracking-[0.2em] transition-colors ${
+          value === "ALL" ? "border-neutral-200 text-neutral-500" : "border-neutral-900 text-neutral-900"
+        }`}
+      >
+        <span>Tags</span>
+        <span aria-hidden="true">&#9662;</span>
+      </button>
+      {open && (
+        <ul
+          role="listbox"
+          aria-label="Tags"
+          className="absolute inset-x-0 top-full z-30 mt-1 max-h-[min(60vh,28rem)] overflow-y-auto border border-neutral-200 bg-white"
+        >
+          {tags.map((filterTag) => {
+            const active = value === filterTag;
+            return (
+              <li key={filterTag} role="option" aria-selected={active}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange(active && filterTag !== "ALL" ? "ALL" : filterTag);
+                    setOpen(false);
+                  }}
+                  className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-[10px] uppercase tracking-[0.18em] transition-colors hover:bg-neutral-50 ${
+                    active ? "text-neutral-900" : "text-neutral-500"
+                  }`}
+                >
+                  <span>{filterTag}</span>
+                  {active && <span aria-hidden="true">&#10003;</span>}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export default function HomePage() {
   const router = useRouter();
   const { savedSlugs } = useSavedExhibitions();
@@ -324,7 +404,8 @@ export default function HomePage() {
           className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]"
           aria-label="Primary navigation"
         >
-          <div className="flex max-w-[5.3rem] flex-col items-start gap-1 text-[8px] uppercase leading-[1.35] tracking-[0.14em] text-neutral-900 md:max-w-none md:flex-row md:items-center md:gap-7 md:text-[11px] md:tracking-[0.28em]">
+          <MobileNavigationMenu />
+          <div className="hidden max-w-[5.3rem] flex-col items-start gap-1 text-[8px] uppercase leading-[1.35] tracking-[0.14em] text-neutral-900 md:flex md:max-w-none md:flex-row md:items-center md:gap-7 md:text-[11px] md:tracking-[0.28em]">
             <a href="https://www.artcnomad.com/">By ArtNomad Curators &#8599;</a>
             <a href="https://www.artcnomad.com/practice">Practice &#8599;</a>
           </div>
@@ -408,6 +489,15 @@ export default function HomePage() {
       <div className="border-b border-neutral-200 bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
         <div className="space-y-4 md:space-y-3">
           <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-2">
+            {/* Search */}
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search exhibitions..."
+              className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:order-last md:ml-auto md:w-56 md:pb-1"
+            />
+
             {/* City filter */}
             <div className="flex items-center gap-2">
               <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">City:</span>
@@ -421,18 +511,11 @@ export default function HomePage() {
                 <FilterChip key={y} label={y} active={year === y} onClick={() => setYear(y)} />
               ))}
             </div>
-
-            {/* Search */}
-            <input
-              type="search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search exhibitions..."
-              className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:ml-auto md:w-56 md:pb-1"
-            />
           </div>
 
-          <div className="flex min-w-0 items-start gap-2">
+          <MobileTagsDropdown value={tag} onChange={selectTag} />
+
+          <div className="hidden min-w-0 items-start gap-2 md:flex">
             <span className="shrink-0 pt-1.5 text-[10px] uppercase tracking-[0.25em] text-neutral-400">
               Tags:
             </span>
