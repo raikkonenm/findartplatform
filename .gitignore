@@ -1,0 +1,10 @@
+.next/
+node_modules/
+out/
+tmp/
+.claude/
+.instagram-session/
+.env*
+!.env.example
+npm-debug.log*
+*.tsbuildinfo
