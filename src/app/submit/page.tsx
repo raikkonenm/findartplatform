@@ -39,7 +39,6 @@ export default function SubmitPage() {
 
             <ul className="mt-10 space-y-4 text-[17px] leading-7 text-neutral-800">
               <li>Your exhibition page on findart.platform</li>
-              <li>2M+ monthly impressions across the network</li>
               <li>Shared with @artcnomads audience (127K+)</li>
               <li>Instagram post on @findart.platform (20K+)</li>
             </ul>
