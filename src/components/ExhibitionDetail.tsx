@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { exhibitions, type Exhibition } from "@/data/exhibitions";
+import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { SaveExhibitionButton } from "./SavedExhibitions";
 
 const METADATA_ACRONYMS = new Set(["cac", "acud", "moco"]);
@@ -153,12 +154,13 @@ function RelatedExhibitions({
       </h2>
       <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {displayRelated.map((relatedExhibition) => {
+          const relatedTitle = displayExhibitionTitle(relatedExhibition.title);
           const content = (
             <>
             <div className="relative aspect-[4/5] overflow-hidden bg-neutral-100">
               <Image
                 src={relatedExhibition.previewImage}
-                alt={`${relatedExhibition.title} exhibition view`}
+                alt={`${relatedTitle} exhibition view`}
                 fill
                 className="object-cover"
                 sizes="(min-width: 1024px) 21vw, (min-width: 640px) 28vw, 100vw"
@@ -168,7 +170,7 @@ function RelatedExhibitions({
               {relatedExhibition.city} / {relatedExhibition.year}
             </p>
             <h3 className="mt-2 text-[1.05rem] font-medium leading-[1.18] tracking-[-0.02em]">
-              {relatedExhibition.title}
+              {relatedTitle}
             </h3>
             {(relatedExhibition.gallery || relatedExhibition.venue) && (
               <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[#888]">
@@ -209,6 +211,7 @@ export function ExhibitionDetail({
   exhibition,
   preservePanelNavigation = false,
 }: ExhibitionDetailProps) {
+  const title = displayExhibitionTitle(exhibition.title);
   const location = [exhibition.city, exhibition.country].filter(Boolean).join(", ");
   const venueLine = [
     displayMetadataText(exhibition.gallery ?? exhibition.venue),
@@ -225,13 +228,13 @@ export function ExhibitionDetail({
       <article className="min-w-0 bg-white px-5 pb-16 pt-16 text-neutral-900 md:px-10 md:pb-20 md:pt-12 lg:px-12 lg:pt-12">
         <header className="relative min-w-0 max-w-5xl border-b border-neutral-200 pb-8 md:pb-10 md:pr-[13rem]">
           <div className="mb-7 flex justify-end pr-12 md:absolute md:right-20 md:top-0 md:mb-0 md:pr-0">
-            <SaveExhibitionButton slug={exhibition.slug} title={exhibition.title} />
+            <SaveExhibitionButton slug={exhibition.slug} title={title} />
           </div>
           <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
             {[location, exhibition.year].filter(Boolean).join(" / ")}
           </p>
           <h1 className="mt-5 max-w-4xl break-words text-[clamp(1.75rem,9vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.04em] md:text-[clamp(2rem,4vw,3.5rem)]">
-            {exhibition.title}
+            {title}
           </h1>
           {(exhibition.gallery || exhibition.venue || exhibition.subtitle) && (
             <p className="mt-4 text-[13px] leading-6 text-neutral-500">{venueLine}</p>
@@ -242,7 +245,7 @@ export function ExhibitionDetail({
           <figure className="mx-auto w-full max-w-[38rem]">
             <Image
               src={exhibition.heroImage}
-              alt={`${exhibition.title} installation view`}
+              alt={`${title} installation view`}
               width={1600}
               height={1200}
               className="mx-auto h-auto max-h-[60vh] w-full max-w-full object-contain md:w-auto"
@@ -281,7 +284,7 @@ export function ExhibitionDetail({
               >
                 <Image
                   src={image.src}
-                  alt={`${exhibition.title} installation view ${index + 2}`}
+                  alt={`${title} installation view ${index + 2}`}
                   width={image.orientation === "vertical" ? 1200 : 1800}
                   height={image.orientation === "vertical" ? 1800 : 1200}
                   className="h-auto max-h-[86vh] w-full object-contain"

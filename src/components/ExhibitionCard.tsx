@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Exhibition } from "@/data/exhibitions";
+import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
 type ExhibitionCardProps = {
@@ -31,6 +32,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
   const aspect = aspectClassForSlug(exhibition.slug);
   const { isSaved, toggleSaved } = useSavedExhibitions();
   const saved = isSaved(exhibition.slug);
+  const title = displayExhibitionTitle(exhibition.title);
 
   return (
     // The parent `.masonry > *` rule in globals.css handles
@@ -41,7 +43,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
         <div className={`relative ${aspect} overflow-hidden bg-neutral-100`}>
           <Image
             src={exhibition.coverImage ?? exhibition.previewImage}
-            alt={`${exhibition.title} exhibition view`}
+            alt={`${title} exhibition view`}
             fill
             className="object-cover"
             loading={eager ? "eager" : "lazy"}
@@ -53,7 +55,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             {exhibition.city} / {exhibition.year}
           </p>
           <h2 className="editorial-serif break-words text-[clamp(1.5rem,7.5vw,2rem)] leading-[1.04] tracking-[-0.035em] md:text-[2rem]">
-            {exhibition.title.toUpperCase()}
+            {title.toUpperCase()}
           </h2>
           <p className="mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888]">
             {exhibition.gallery ?? exhibition.venue}
@@ -62,7 +64,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
       </Link>
       <button
         type="button"
-        aria-label={saved ? `Remove ${exhibition.title} from saved exhibitions` : `Save ${exhibition.title}`}
+        aria-label={saved ? `Remove ${title} from saved exhibitions` : `Save ${title}`}
         aria-pressed={saved}
         onClick={(event) => {
           event.preventDefault();

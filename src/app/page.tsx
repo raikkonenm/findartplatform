@@ -8,6 +8,7 @@ import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions"
 import { ExhibitionCard } from "@/components/ExhibitionCard";
 import { HeartIcon, useSavedExhibitions } from "@/components/SavedExhibitions";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
+import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 
 const YEARS = ["All", "2026", "2025", "2024", "2023"];
 const PRIMARY_TAGS: Array<"ALL" | SemanticTag> = [
@@ -20,9 +21,9 @@ const PRIMARY_TAGS: Array<"ALL" | SemanticTag> = [
   "DIGITAL MYTH",
   "DECAY",
   "SOUND",
-  "GROUP SHOW",
 ];
 const MORE_TAGS: SemanticTag[] = [
+  "GROUP SHOW",
   "LIMINALITY",
   "SPECULATIVE FICTION",
   "HYBRID BODIES",
@@ -342,6 +343,7 @@ export default function HomePage() {
   const [savedOnly, setSavedOnly] = useState(false);
   const [search, setSearch] = useState("");
   const featuredExhibition = exhibitions.find((exhibition) => exhibition.slug === FEATURED_SLUG);
+  const featuredTitle = featuredExhibition ? displayExhibitionTitle(featuredExhibition.title) : "";
 
   const selectTag = useCallback(
     (nextTag: SelectedTag) => {
@@ -379,7 +381,7 @@ export default function HomePage() {
         const matchSearch =
           !q ||
           [
-            ex.title,
+            displayExhibitionTitle(ex.title),
             ex.city,
             ex.venue,
             ex.gallery,
@@ -422,7 +424,7 @@ export default function HomePage() {
           <div className="flex items-center gap-3 justify-self-end md:gap-5">
             <Link
               href="/submit"
-              className="text-[9px] uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:text-[11px] md:tracking-[0.28em]"
+              className="text-[9px] font-medium uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:text-[11px] md:tracking-[0.28em]"
             >
               Submit
             </Link>
@@ -447,7 +449,7 @@ export default function HomePage() {
                 <div key={image.src} className="relative h-full bg-neutral-100">
                   <Image
                     src={image.src}
-                    alt={`${featuredExhibition.title} exhibition view ${index + 1}`}
+                    alt={`${featuredTitle} exhibition view ${index + 1}`}
                     fill
                     className={`object-cover ${index === 2 ? "object-[45%_center]" : "object-center"}`}
                     sizes="(min-width: 768px) 33vw, 34vw"
@@ -463,7 +465,7 @@ export default function HomePage() {
                 Exhibition of the Week
               </p>
               <h2 className="mt-4 break-words text-[clamp(2rem,10vw,3.5rem)] font-medium leading-none tracking-[-0.045em] text-neutral-900 md:text-[clamp(2.25rem,4vw,3.5rem)]">
-                {featuredExhibition.title}
+                {featuredTitle}
               </h2>
               <p className="mt-4 text-[11px] uppercase tracking-[0.22em] text-neutral-700">
                 {featuredExhibition.gallery ?? featuredExhibition.venue}
@@ -528,8 +530,8 @@ export default function HomePage() {
                   onClick={() => selectTag(filterTag)}
                 />
               ))}
+              <MoreTagsDropdown value={tag} onChange={selectTag} />
             </div>
-            <MoreTagsDropdown value={tag} onChange={selectTag} />
           </div>
         </div>
       </div>

@@ -51,12 +51,11 @@ export function SlideOver({
     }
 
     const previousOverflow = document.body.style.overflow;
-    const previousPaddingRight = document.body.style.paddingRight;
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    document.body.style.overflow = "hidden";
-    if (scrollbarWidth > 0 && window.innerWidth >= 768) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    const previousWidth = document.body.style.width;
+    if (window.innerWidth >= 768) {
+      document.body.style.width = `${document.body.getBoundingClientRect().width}px`;
     }
+    document.body.style.overflow = "hidden";
 
     document.addEventListener("keydown", onKey);
     const focusTimer = window.setTimeout(() => closeBtnRef.current?.focus(), 350);
@@ -66,7 +65,7 @@ export function SlideOver({
       window.cancelAnimationFrame(animationFrame);
       window.clearTimeout(focusTimer);
       document.body.style.overflow = previousOverflow;
-      document.body.style.paddingRight = previousPaddingRight;
+      document.body.style.width = previousWidth;
     };
   }, [close]);
 
@@ -77,7 +76,7 @@ export function SlideOver({
   }, [contentKey]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[60] max-w-full overflow-x-hidden md:z-40">
+    <div className="pointer-events-none fixed inset-0 z-[60] max-w-full overflow-x-hidden md:z-40 md:max-w-none">
       <button
         type="button"
         aria-label="Close exhibition"
@@ -88,7 +87,7 @@ export function SlideOver({
       />
 
       <div
-        className={`pointer-events-auto absolute inset-0 flex h-[100dvh] w-screen min-w-0 flex-col overflow-hidden bg-white transition-transform duration-300 ease-out md:inset-y-auto md:bottom-0 md:left-auto md:right-5 md:top-[65px] md:h-auto md:w-[72vw] md:shadow-[0_12px_42px_rgba(0,0,0,0.16)] lg:w-[clamp(47.5rem,60vw,68.75rem)] ${
+        className={`pointer-events-auto absolute inset-0 flex h-[100dvh] w-screen min-w-0 flex-col overflow-hidden bg-white transition-transform duration-300 ease-out md:inset-y-auto md:bottom-0 md:left-auto md:right-0 md:top-[65px] md:h-auto md:w-[72vw] md:shadow-[0_12px_42px_rgba(0,0,0,0.16)] lg:w-[clamp(47.5rem,60vw,68.75rem)] ${
           entered ? "translate-x-0" : "translate-x-full"
         }`}
         role="dialog"

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { SlideOver } from "@/components/SlideOver";
 import { ExhibitionDetail } from "@/components/ExhibitionDetail";
 import { getExhibition } from "@/data/exhibitions";
+import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 
 type InterceptedDetailProps = {
   params: Promise<{ slug: string }>;
@@ -29,7 +30,7 @@ export default async function InterceptedExhibitionDetail({
   }
 
   return (
-    <SlideOver label={exhibition.title} contentKey={exhibition.slug}>
+    <SlideOver label={displayExhibitionTitle(exhibition.title)} contentKey={exhibition.slug}>
       <ExhibitionDetail exhibition={exhibition} preservePanelNavigation />
     </SlideOver>
   );

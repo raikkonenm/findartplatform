@@ -4,6 +4,7 @@ import HomePage from "../../page";
 import { SlideOver } from "@/components/SlideOver";
 import { ExhibitionDetail } from "@/components/ExhibitionDetail";
 import { exhibitions, getExhibition } from "@/data/exhibitions";
+import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 
 type DetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
   const exhibition = getExhibition(slug);
 
   return {
-    title: exhibition?.title ?? "Exhibition",
+    title: exhibition ? displayExhibitionTitle(exhibition.title) : "Exhibition",
     description: exhibition?.description,
   };
 }
@@ -35,7 +36,7 @@ export default async function ExhibitionDetailPage({ params }: DetailPageProps) 
     <>
       <HomePage />
       <SlideOver
-        label={exhibition.title}
+        label={displayExhibitionTitle(exhibition.title)}
         closeHref="/"
         contentKey={exhibition.slug}
       >

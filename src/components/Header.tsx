@@ -61,7 +61,7 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
           <Link
             href="/submit"
             className={`transition-opacity hover:opacity-55 ${
-              overlay ? "" : "text-[9px] uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
+              overlay ? "font-medium" : "text-[9px] font-medium uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
             }`}
           >
             Submit
