@@ -33,7 +33,7 @@ type SubmissionField = (typeof submissionFields)[number];
 type SubmissionPayload = Record<SubmissionField, string>;
 
 const defaultSubmissionEndpoint =
-  "https://script.google.com/macros/s/AKfycbyJL_rMz1y_pJtkPYCXv5rwu7kxATDCyLdRw0OPEtzLLUL-Jj0DliYEcTA8OVJKH_LE/exec";
+  "https://script.google.com/macros/s/AKfycbySSIfi0xBKW3WWfwmc7CYheqj1onq2e-9t4q7gWlS-gEtng_u8XPzgfFloEp3aL7Mr/exec";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
