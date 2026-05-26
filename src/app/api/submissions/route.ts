@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const submissionFields = [
+const exhibitionFields = [
   "Name",
   "Email",
   "Exhibition Title",
@@ -17,7 +17,7 @@ const submissionFields = [
   "Notes (optional)",
 ] as const;
 
-const requiredFields = [
+const requiredExhibitionFields = [
   "Name",
   "Email",
   "Exhibition Title",
@@ -29,8 +29,23 @@ const requiredFields = [
   "Exhibition Text",
 ] as const;
 
-type SubmissionField = (typeof submissionFields)[number];
-type SubmissionPayload = Record<SubmissionField, string>;
+const artistFields = [
+  "Name",
+  "Email",
+  "Instagram",
+  "Artist Statement",
+  "Portfolio / Documentation Link",
+  "Website (optional)",
+  "Additional Notes (optional)",
+] as const;
+
+const requiredArtistFields = [
+  "Name",
+  "Email",
+  "Instagram",
+  "Artist Statement",
+  "Portfolio / Documentation Link",
+] as const;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -49,9 +64,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid submission." }, { status: 400 });
   }
 
+  const submissionType = input.submissionType === "artist" ? "artist" : "exhibition";
+  const fields = submissionType === "artist" ? artistFields : exhibitionFields;
+  const requiredFields =
+    submissionType === "artist" ? requiredArtistFields : requiredExhibitionFields;
   const payload = Object.fromEntries(
-    submissionFields.map((field) => [field, typeof input[field] === "string" ? input[field].trim() : ""]),
-  ) as SubmissionPayload;
+    fields.map((field) => [field, typeof input[field] === "string" ? input[field].trim() : ""]),
+  ) as Record<string, string>;
 
   if (requiredFields.some((field) => payload[field].length === 0)) {
     return NextResponse.json({ error: "Required fields are missing." }, { status: 400 });
@@ -65,9 +84,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Email delivery is not configured." }, { status: 503 });
   }
 
-  const text = submissionFields
-    .map((field) => `${field}:\n${payload[field]}`)
-    .join("\n\n");
+  const text = fields.map((field) => `${field}:\n${payload[field]}`).join("\n\n");
+  const subject =
+    submissionType === "artist"
+      ? `New ArtNomads Artist Submission \u2014 ${payload.Name}`
+      : `New FindArt Exhibition Submission \u2014 ${payload["Exhibition Title"]}`;
 
   try {
     const response = await fetch("https://api.resend.com/emails", {
@@ -79,7 +100,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         from: fromEmail,
         to: [toEmail],
-        subject: `New FindArt Exhibition Submission — ${payload["Exhibition Title"]}`,
+        subject,
         text,
       }),
       cache: "no-store",
