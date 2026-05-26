@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
+import { ExhibitionCard } from "@/components/ExhibitionCard";
 import { Header } from "@/components/Header";
 import { SubmissionForm } from "@/components/SubmissionForm";
+import { exhibitions } from "@/data/exhibitions";
 
 export const metadata: Metadata = {
   title: "Submit",
 };
+
+const previewSlugs = [
+  "metempsychosis-the-passion-of-pneumatics",
+  "incommunicability-is-itself-a-source-of-pleasures",
+  "the-worm-at-the-core",
+];
+const previewExhibitions = previewSlugs.flatMap((slug) => {
+  const exhibition = exhibitions.find((candidate) => candidate.slug === slug);
+  return exhibition ? [exhibition] : [];
+});
 
 export default function SubmitPage() {
   return (
@@ -51,6 +63,17 @@ export default function SubmitPage() {
           <SubmissionForm />
         </div>
 
+        <section className="mt-16 border-t border-neutral-200 pt-10 md:mt-24 md:pt-12">
+          <div className="masonry">
+            {previewExhibitions.map((exhibition, index) => (
+              <ExhibitionCard
+                key={exhibition.slug}
+                exhibition={exhibition}
+                eager={index < 3}
+              />
+            ))}
+          </div>
+        </section>
       </section>
     </main>
   );
