@@ -32,16 +32,11 @@ const requiredFields = [
 type SubmissionField = (typeof submissionFields)[number];
 type SubmissionPayload = Record<SubmissionField, string>;
 
-const defaultSubmissionEndpoint =
-  "https://script.google.com/macros/s/AKfycbySSIfi0xBKW3WWfwmc7CYheqj1onq2e-9t4q7gWlS-gEtng_u8XPzgfFloEp3aL7Mr/exec";
-
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export async function POST(request: Request) {
-  const endpoint = process.env.GOOGLE_SHEETS_SUBMISSION_URL ?? defaultSubmissionEndpoint;
-
   let input: unknown;
 
   try {
@@ -62,19 +57,39 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Required fields are missing." }, { status: 400 });
   }
 
+  const apiKey = process.env.RESEND_API_KEY;
+  const toEmail = process.env.SUBMISSION_TO_EMAIL;
+  const fromEmail = process.env.SUBMISSION_FROM_EMAIL;
+
+  if (!apiKey || !toEmail || !fromEmail) {
+    return NextResponse.json({ error: "Email delivery is not configured." }, { status: 503 });
+  }
+
+  const text = submissionFields
+    .map((field) => `${field}:\n${payload[field]}`)
+    .join("\n\n");
+
   try {
-    const response = await fetch(endpoint, {
+    const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [toEmail],
+        subject: `New FindArt Exhibition Submission — ${payload["Exhibition Title"]}`,
+        text,
+      }),
       cache: "no-store",
     });
 
     if (!response.ok) {
-      return NextResponse.json({ error: "Unable to save submission." }, { status: 502 });
+      return NextResponse.json({ error: "Unable to send submission." }, { status: 502 });
     }
   } catch {
-    return NextResponse.json({ error: "Unable to save submission." }, { status: 502 });
+    return NextResponse.json({ error: "Unable to send submission." }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });
