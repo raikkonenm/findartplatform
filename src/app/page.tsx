@@ -517,7 +517,7 @@ export default function HomePage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search exhibitions..."
-              className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:order-last md:ml-auto md:w-56 md:pb-1"
+              className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
             />
 
             {/* City filter */}
@@ -552,6 +552,16 @@ export default function HomePage() {
               ))}
               <MoreTagsDropdown value={tag} onChange={selectTag} />
             </div>
+          </div>
+
+          <div className="hidden pt-1 md:block">
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search exhibitions..."
+              className="h-11 w-full border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none"
+            />
           </div>
         </div>
       </div>
