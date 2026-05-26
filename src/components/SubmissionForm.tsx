@@ -25,7 +25,7 @@ type ArtistFields = {
   name: string;
   email: string;
   instagram: string;
-  artistStatement: string;
+  artistStatementCv: string;
   portfolioLink: string;
   website: string;
   additionalNotes: string;
@@ -52,7 +52,7 @@ const emptyArtistFields: ArtistFields = {
   name: "",
   email: "",
   instagram: "",
-  artistStatement: "",
+  artistStatementCv: "",
   portfolioLink: "",
   website: "",
   additionalNotes: "",
@@ -168,7 +168,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
                 Name: artistFields.name,
                 Email: artistFields.email,
                 Instagram: artistFields.instagram,
-                "Artist Statement": artistFields.artistStatement,
+                "Artist Statement / CV": artistFields.artistStatementCv,
                 "Portfolio / Documentation Link": artistFields.portfolioLink,
                 "Website (optional)": artistFields.website,
                 "Additional Notes (optional)": artistFields.additionalNotes,
@@ -242,7 +242,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
             <Field label="Email" placeholder="Email address" type="email" required value={artistFields.email} onChange={(value) => updateArtistField("email", value)} />
           </div>
           <Field label="Instagram" placeholder="@username" required value={artistFields.instagram} onChange={(value) => updateArtistField("instagram", value)} />
-          <TextAreaField label="Artist Statement" placeholder="Your artist statement" rows={6} required value={artistFields.artistStatement} onChange={(value) => updateArtistField("artistStatement", value)} />
+          <Field label="Artist Statement / CV" placeholder="https://" type="url" required value={artistFields.artistStatementCv} onChange={(value) => updateArtistField("artistStatementCv", value)} />
           <Field label="Portfolio / Documentation Link" placeholder="https://" type="url" required value={artistFields.portfolioLink} onChange={(value) => updateArtistField("portfolioLink", value)} />
           <Field label="Website (optional)" placeholder="https://" type="url" value={artistFields.website} onChange={(value) => updateArtistField("website", value)} />
           <TextAreaField label="Additional Notes (optional)" placeholder="Anything else you'd like us to know - your goals, interests, or what you're looking for." rows={4} value={artistFields.additionalNotes} onChange={(value) => updateArtistField("additionalNotes", value)} />

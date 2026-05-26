@@ -33,7 +33,7 @@ const artistFields = [
   "Name",
   "Email",
   "Instagram",
-  "Artist Statement",
+  "Artist Statement / CV",
   "Portfolio / Documentation Link",
   "Website (optional)",
   "Additional Notes (optional)",
@@ -43,7 +43,7 @@ const requiredArtistFields = [
   "Name",
   "Email",
   "Instagram",
-  "Artist Statement",
+  "Artist Statement / CV",
   "Portfolio / Documentation Link",
 ] as const;
 

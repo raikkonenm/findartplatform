@@ -20,7 +20,7 @@ const submitContent = {
       "Shared with @artnomads audience (127K+)",
       "Instagram post on @findart.platform (20K+)",
     ],
-    feeLabel: "Publication fee: $10.",
+    processingFee: "$10 processing fee.",
   },
   artist: {
     tabTitle: "ArtNomads",
@@ -41,7 +41,7 @@ const submitContent = {
       "Consideration for future projects and features",
       "Portfolio added to our internal artist research base",
     ],
-    feeLabel: "Review fee: $10.",
+    processingFee: "$15 processing fee.",
   },
 } as const;
 
@@ -109,19 +109,13 @@ export function SubmissionExperience() {
             {content.description}
           </p>
 
-          <p className="mt-9 text-[17px] leading-7 text-neutral-900">$10 processing fee.</p>
+          <p className="mt-9 text-[17px] leading-7 text-neutral-900">{content.processingFee}</p>
 
           <ul className="mt-9 space-y-4 text-[17px] leading-7 text-neutral-800">
             {content.benefits.map((benefit) => (
               <li key={benefit}>{benefit}</li>
             ))}
           </ul>
-
-          <div className="mt-12 border-t border-neutral-200 pt-8 text-[15px] leading-7 text-neutral-800">
-            <p>Submission is free.</p>
-            <p>{content.feeLabel}</p>
-            <p>We&apos;ll get back to you within 3 days.</p>
-          </div>
 
           <p className="mt-16 text-[13px] text-neutral-500 lg:mt-24">
             Questions? Write to us at{" "}
