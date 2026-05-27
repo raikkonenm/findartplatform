@@ -380,6 +380,9 @@ export default function HomePage() {
   const [tagsExpanded, setTagsExpanded] = useState(false);
   const [savedOnly, setSavedOnly] = useState(false);
   const [search, setSearch] = useState("");
+  // Mobile-only: collapse Location/Year/Tags behind a single FILTERS toggle.
+  // Desktop ignores this and always shows the rows.
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const featuredExhibition = exhibitions.find((exhibition) => exhibition.slug === FEATURED_SLUG);
   const featuredTitle = featuredExhibition ? displayExhibitionTitle(featuredExhibition.title) : "";
 
@@ -481,6 +484,12 @@ export default function HomePage() {
           </Link>
           <div className="flex items-center gap-3 justify-self-end md:gap-5">
             <Link
+              href="/about"
+              className="hidden text-[9px] font-medium uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:inline md:text-[11px] md:tracking-[0.28em]"
+            >
+              About
+            </Link>
+            <Link
               href="/submit"
               className="text-[9px] font-medium uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:text-[11px] md:tracking-[0.28em]"
             >
@@ -548,32 +557,52 @@ export default function HomePage() {
       {/* Filter bar */}
       <div className="border-b border-neutral-200 bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
         <div className="space-y-4 md:space-y-3">
-          <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-2">
-            {/* Search */}
-            <input
-              type="search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search exhibitions..."
-              className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
-            />
+          {/* Mobile search — always visible above the FILTERS toggle. */}
+          <input
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search exhibitions..."
+            className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
+          />
 
-            {/* Location filter (countries → cities) */}
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Location:</span>
-              <LocationDropdown value={location} tree={locationTree} onChange={setLocation} />
+          {/* Mobile-only FILTERS toggle. On desktop the filter rows below are
+              always visible, so this button is hidden. */}
+          <button
+            type="button"
+            onClick={() => setMobileFiltersOpen((open) => !open)}
+            aria-expanded={mobileFiltersOpen}
+            aria-controls="mobile-filters-panel"
+            className="flex w-full items-center justify-between border border-neutral-200 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-neutral-700 transition-colors hover:border-neutral-400 md:hidden"
+          >
+            <span>Filters</span>
+            <span aria-hidden="true">{mobileFiltersOpen ? "−" : "+"}</span>
+          </button>
+
+          {/* Collapsible filter panel — hidden on mobile when collapsed,
+              always visible on desktop. */}
+          <div
+            id="mobile-filters-panel"
+            className={`${mobileFiltersOpen ? "block" : "hidden"} space-y-4 md:!block md:space-y-3`}
+          >
+            <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-2">
+              {/* Location filter (countries → cities) */}
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Location:</span>
+                <LocationDropdown value={location} tree={locationTree} onChange={setLocation} />
+              </div>
+
+              {/* Year filter */}
+              <div className="scrollbar-none flex min-w-0 items-center gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Year:</span>
+                {YEARS.map((y) => (
+                  <FilterChip key={y} label={y} active={year === y} onClick={() => setYear(y)} />
+                ))}
+              </div>
             </div>
 
-            {/* Year filter */}
-            <div className="scrollbar-none flex min-w-0 items-center gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Year:</span>
-              {YEARS.map((y) => (
-                <FilterChip key={y} label={y} active={year === y} onClick={() => setYear(y)} />
-              ))}
-            </div>
+            <MobileTagsDropdown value={tag} onChange={selectTag} />
           </div>
-
-          <MobileTagsDropdown value={tag} onChange={selectTag} />
 
           {/* Desktop tags — primary chips always shown, MORE chips expand
               inline (no floating dropdown). MORE auto-expands when the

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean }) {
@@ -50,15 +51,15 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
           className="fixed inset-x-0 top-[65px] z-[60] border-b border-neutral-200 bg-white px-5 py-6 text-[10px] uppercase tracking-[0.22em] text-neutral-900 shadow-[0_5px_12px_rgba(0,0,0,0.04)]"
         >
           <div className="flex flex-col items-start gap-5">
+            <Link href="/about" role="menuitem" onClick={() => setOpen(false)}>
+              About
+            </Link>
             <a href="https://www.artcnomad.com/" role="menuitem" onClick={() => setOpen(false)}>
               By Artnomad Curators &#8599;
             </a>
             <a href="https://www.artcnomad.com/practice" role="menuitem" onClick={() => setOpen(false)}>
               Practice &#8599;
             </a>
-            <button type="button" role="menuitem" onClick={() => setOpen(false)}>
-              About
-            </button>
           </div>
         </div>
       )}

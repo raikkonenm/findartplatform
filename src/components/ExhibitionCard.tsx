@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
+import { displayVenueText } from "@/lib/displayVenueText";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
 type ExhibitionCardProps = {
@@ -58,7 +59,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             {title.toUpperCase()}
           </h2>
           <p className="mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888]">
-            {exhibition.gallery ?? exhibition.venue}
+            {displayVenueText(exhibition.venue)}
           </p>
         </div>
       </Link>

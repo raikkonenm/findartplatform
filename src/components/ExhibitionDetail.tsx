@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { exhibitions, type Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
+import { displayVenueText } from "@/lib/displayVenueText";
 import { SaveExhibitionButton } from "./SavedExhibitions";
 
 const METADATA_ACRONYMS = new Set(["cac", "acud", "moco"]);
@@ -245,9 +246,9 @@ function RelatedExhibitions({
               <h3 className="mt-2 text-[1.05rem] font-medium leading-[1.18] tracking-[-0.02em]">
                 {relatedTitle.toUpperCase()}
               </h3>
-              {(relatedExhibition.gallery || relatedExhibition.venue) && (
+              {relatedExhibition.venue && (
                 <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[#888]">
-                  {relatedExhibition.gallery ?? relatedExhibition.venue}
+                  {displayVenueText(relatedExhibition.venue)}
                 </p>
               )}
             </>

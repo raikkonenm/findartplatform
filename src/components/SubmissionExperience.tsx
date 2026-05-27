@@ -10,17 +10,20 @@ const submitContent = {
     title: "Submit an Exhibition",
     description: (
       <>
-        Submit your exhibition to FindArt Platform &mdash; a growing contemporary art archive
-        viewed daily by curators, collectors, galleries, and art professionals worldwide.
-        Selected exhibitions are published on the FindArt website and Instagram.
+        Submit your exhibition to FindArt Platform &mdash; an international contemporary
+        art archive documenting exhibitions across galleries, institutions, and
+        independent spaces worldwide.
+        <br />
+        <br />
+        Selected exhibitions are published on FindArt and shared with curators, collectors,
+        galleries, artists, and contemporary art audiences internationally.
       </>
     ),
     benefits: [
-      "Your exhibition page on findart.platform",
-      "Shared with @artnomads audience (127K+)",
-      "Instagram post on @findart.platform (20K+)",
+      "Exhibition page on FindArt",
+      "Instagram publication on @findart.platform",
     ],
-    processingFee: "$10 processing fee.",
+    processingFee: "$10 processing fee",
   },
   artist: {
     tabTitle: "ArtNomads",
@@ -28,20 +31,22 @@ const submitContent = {
     title: "Submit as an Artist",
     description: (
       <>
-        Submit your practice to ArtNomads for curatorial review, future features, exhibitions,
-        publications, and long-term opportunities across our network.
+        Submit your practice to ArtNomads for curatorial review and consideration for
+        future publications, features, and projects across our platforms.
         <br />
         <br />
-        Selected artists may be considered for ArtNomads projects, editorial features,
-        exhibitions, and curatorial initiatives.
+        Selected artists may be featured through ArtNomads editorial channels, social
+        media, exhibitions, and curatorial initiatives. Submitted portfolios are also
+        added to our internal artist research archive for future opportunities and
+        collaborations.
       </>
     ),
     benefits: [
-      "Curatorial review by ArtNomads",
-      "Consideration for future projects and features",
-      "Portfolio added to our internal artist research base",
+      "Curatorial review",
+      "Consideration for future publications and projects",
+      "Portfolio added to our internal artist research archive",
     ],
-    processingFee: "$15 processing fee.",
+    processingFee: "$15 processing fee",
   },
 } as const;
 
@@ -81,7 +86,7 @@ export function SubmissionExperience() {
   return (
     <>
       <div
-        className="mb-12 flex flex-col gap-2 sm:flex-row md:mb-14"
+        className="mb-8 flex flex-col gap-2 sm:flex-row md:mb-10"
         role="tablist"
         aria-label="Submission type"
       >
@@ -109,13 +114,14 @@ export function SubmissionExperience() {
             {content.description}
           </p>
 
-          <p className="mt-9 text-[17px] leading-7 text-neutral-900">{content.processingFee}</p>
-
-          <ul className="mt-9 space-y-4 text-[17px] leading-7 text-neutral-800">
+          <p className="mt-9 text-[17px] leading-7 text-neutral-900">Included:</p>
+          <ul className="mt-4 space-y-3 text-[17px] leading-7 text-neutral-800">
             {content.benefits.map((benefit) => (
-              <li key={benefit}>{benefit}</li>
+              <li key={benefit}>&mdash; {benefit}</li>
             ))}
           </ul>
+
+          <p className="mt-9 text-[17px] leading-7 text-neutral-900">{content.processingFee}</p>
 
           <p className="mt-16 text-[13px] text-neutral-500 lg:mt-24">
             Questions? Write to us at{" "}
