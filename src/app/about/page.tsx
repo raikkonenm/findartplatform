@@ -15,7 +15,10 @@ export default function AboutPage() {
       <Header />
 
       <section className="px-5 pb-24 md:px-8 lg:px-12">
-        <div className="lg:max-w-[52%] xl:max-w-[46rem]">
+        {/* Main text block — centered, ~640px reading column. The heading and
+            body paragraphs share one centered container; contact + social
+            links stay in their own left-aligned column below. */}
+        <div className="mx-auto max-w-[640px]">
           <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
             FindArt Platform
           </p>
@@ -23,7 +26,7 @@ export default function AboutPage() {
             About
           </h1>
 
-          <div className="mt-8 space-y-6 max-w-md text-[1.05rem] leading-8 text-neutral-600">
+          <div className="mt-8 space-y-6 text-[1.05rem] leading-8 text-neutral-600">
             <p>
               FindArt Platform is a contemporary art exhibition archive founded by Maria
               Raikkonen and developed as part of Art Curatorial Nomads &mdash; a curatorial
@@ -46,13 +49,17 @@ export default function AboutPage() {
               cultural practitioners.
             </p>
           </div>
+        </div>
 
-          <div className="mt-10 space-y-2 text-[15px] leading-8 text-neutral-700">
+        {/* Contact + social — kept left-aligned per spec. Width mirrors the
+            previous About-page column so the rhythm stays consistent. */}
+        <div className="mt-12 lg:max-w-[52%] xl:max-w-[46rem]">
+          <div className="space-y-2 text-[15px] leading-8 text-neutral-700">
             <p>
               For submissions, visit{" "}
               <Link
                 href="/submit"
-                className="text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
+                className="font-semibold text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
               >
                 Submit
               </Link>
@@ -86,7 +93,7 @@ export default function AboutPage() {
               </li>
               <li>
                 <a
-                  href="https://www.instagram.com/artnomads/"
+                  href="https://www.instagram.com/artcnomads/"
                   target="_blank"
                   rel="noreferrer"
                   className="transition-opacity hover:opacity-55"
