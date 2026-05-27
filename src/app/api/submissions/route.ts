@@ -47,6 +47,11 @@ const requiredArtistFields = [
   "Portfolio / Documentation Link",
 ] as const;
 
+const SUBMISSION_RECIPIENTS = {
+  exhibition: "raikkonenmaria7@gmail.com",
+  artist: "artcnomads@gmail.com",
+} as const;
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -77,10 +82,10 @@ export async function POST(request: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.SUBMISSION_TO_EMAIL;
   const fromEmail = process.env.SUBMISSION_FROM_EMAIL;
+  const toEmail = SUBMISSION_RECIPIENTS[submissionType];
 
-  if (!apiKey || !toEmail || !fromEmail) {
+  if (!apiKey || !fromEmail) {
     return NextResponse.json({ error: "Email delivery is not configured." }, { status: 503 });
   }
 

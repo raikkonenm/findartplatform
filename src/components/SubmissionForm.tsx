@@ -257,11 +257,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
         disabled={status === "submitting"}
         className="mt-8 w-full bg-neutral-950 px-8 py-5 text-[11px] uppercase tracking-[0.32em] text-white transition-opacity hover:opacity-75 disabled:cursor-wait disabled:opacity-60"
       >
-        {status === "submitting"
-          ? "Submitting…"
-          : submissionType === "exhibition"
-            ? "Submit & Pay $10"
-            : "Submit & Pay $15"}
+        {status === "submitting" ? "Submitting…" : "Submit"}
       </button>
 
       {status === "success" && (
