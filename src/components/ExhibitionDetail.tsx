@@ -6,6 +6,35 @@ import { SaveExhibitionButton } from "./SavedExhibitions";
 
 const METADATA_ACRONYMS = new Set(["cac", "acud", "moco"]);
 
+// Map of abbreviated month names → full month names. Applied to display values
+// so dates render as "25 April 2026" instead of "25 Apr 2026".
+const MONTH_ABBREVIATIONS: Record<string, string> = {
+  jan: "January",
+  feb: "February",
+  mar: "March",
+  apr: "April",
+  may: "May",
+  jun: "June",
+  jul: "July",
+  aug: "August",
+  sep: "September",
+  sept: "September",
+  oct: "October",
+  nov: "November",
+  dec: "December",
+};
+
+function expandMonthAbbreviations(value?: string) {
+  if (!value) return value;
+  return value.replace(/\b(jan|feb|mar|apr|may|jun|jul|aug|sept|sep|oct|nov|dec)\.?\b/gi, (match) => {
+    const key = match.replace(/\.$/, "").toLowerCase();
+    const full = MONTH_ABBREVIATIONS[key];
+    if (!full) return match;
+    // Preserve title case based on the original first character
+    return full;
+  });
+}
+
 function formatMetadataWord(word: string) {
   const normalized = word.toLowerCase();
 
@@ -62,34 +91,60 @@ function displayCaptionText(value?: string) {
   });
 }
 
+// Join an artists list as required by the design spec:
+// 1 → "X"
+// 2 → "X and Y"
+// 3+ → "X, Y, Z" (comma-separated)
+function joinArtists(artists?: string[]) {
+  if (!artists || artists.length === 0) return undefined;
+  const cleaned = artists.map((artist) => displayPersonText(artist) ?? artist);
+  if (cleaned.length === 1) return cleaned[0];
+  if (cleaned.length === 2) return `${cleaned[0]} and ${cleaned[1]}`;
+  return cleaned.join(", ");
+}
+
+// Deterministic aspect-ratio variant per slug. Kept in sync with
+// ExhibitionCard.aspectClassForSlug so Related Exhibitions cards crop
+// identically to homepage cards.
+function aspectClassForSlug(slug: string): string {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = (hash * 31 + slug.charCodeAt(i)) | 0;
+  }
+  const idx = Math.abs(hash) % 3;
+  if (idx === 0) return "aspect-[3/4]";
+  if (idx === 1) return "aspect-[4/5]";
+  return "aspect-[1/1]";
+}
+
 function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
+  const dates = expandMonthAbbreviations(exhibition.dates);
   const venue = displayMetadataText(exhibition.gallery ?? exhibition.venue);
-  const artists = exhibition.artists?.map((artist) => displayPersonText(artist)).join(", ");
-  const curator = displayPersonText(exhibition.curator);
+  const artistsJoined = joinArtists(exhibition.artists);
+  const curatorJoined = (() => {
+    if (!exhibition.curator) return undefined;
+    // Curator may be a comma-separated string with one or many names —
+    // run each through displayPersonText for consistent capitalisation.
+    const parts = exhibition.curator.split(",").map((part) => part.trim()).filter(Boolean);
+    if (parts.length === 0) return undefined;
+    const cleaned = parts.map((part) => displayPersonText(part) ?? part);
+    if (cleaned.length === 1) return cleaned[0];
+    if (cleaned.length === 2) return `${cleaned[0]} and ${cleaned[1]}`;
+    return cleaned.join(", ");
+  })();
   const photographer = displayPersonText(exhibition.photographer);
-  const tagsEntry = {
-    label: "Tags",
-    value: (
-      <div className="flex flex-wrap gap-2">
-        {exhibition.tags.map((tag) => (
-          <Link
-            key={tag}
-            href={{ pathname: "/", query: { tag } }}
-            scroll={false}
-            className="border border-neutral-200 bg-white px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-600 transition-colors hover:border-neutral-900 hover:text-neutral-900"
-          >
-            {tag}
-          </Link>
-        ))}
-      </div>
-    ),
-  };
+
+  // Required order: Dates, Venue, Artists, Curators, Photo, View, Tags, Exhibition Text.
+  // Each row is rendered only if its value exists.
   const entries: Array<{ label: string; value?: React.ReactNode }> = [
-    { label: "Dates", value: exhibition.dates },
+    { label: "Dates", value: dates },
     { label: "Venue", value: venue },
+    { label: "Artists", value: artistsJoined },
+    { label: "Curators", value: curatorJoined },
+    { label: "Photo", value: photographer },
     exhibition.instagramUrl
       ? {
-          label: "Instagram",
+          label: "View",
           value: (
             <a
               href={exhibition.instagramUrl}
@@ -101,12 +156,25 @@ function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
             </a>
           ),
         }
-      : { label: "Instagram" },
-    ...(!exhibition.photographer ? [tagsEntry] : []),
-    { label: "Artists", value: artists },
-    { label: "Curator", value: curator },
-    { label: "Photo", value: photographer },
-    ...(exhibition.photographer ? [tagsEntry] : []),
+      : { label: "View" },
+    {
+      label: "Tags",
+      value:
+        exhibition.tags && exhibition.tags.length > 0 ? (
+          <div className="flex flex-wrap gap-2">
+            {exhibition.tags.map((tag) => (
+              <Link
+                key={tag}
+                href={{ pathname: "/", query: { tag } }}
+                scroll={false}
+                className="border border-neutral-200 bg-white px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-600 transition-colors hover:border-neutral-900 hover:text-neutral-900"
+              >
+                {tag}
+              </Link>
+            ))}
+          </div>
+        ) : undefined,
+    },
     { label: "Exhibition Text", value: exhibition.exhibitionText },
   ];
 
@@ -155,28 +223,33 @@ function RelatedExhibitions({
       <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {displayRelated.map((relatedExhibition) => {
           const relatedTitle = displayExhibitionTitle(relatedExhibition.title);
+          // Match homepage ExhibitionCard exactly: same cover-image fallback chain
+          // and same deterministic per-slug aspect ratio.
+          const relatedAspect = aspectClassForSlug(relatedExhibition.slug);
+          const relatedCover =
+            relatedExhibition.coverImage ?? relatedExhibition.previewImage;
           const content = (
             <>
-            <div className="relative aspect-[4/5] overflow-hidden bg-neutral-100">
-              <Image
-                src={relatedExhibition.previewImage}
-                alt={`${relatedTitle} exhibition view`}
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 21vw, (min-width: 640px) 28vw, 100vw"
-              />
-            </div>
-            <p className="mt-4 text-[10px] uppercase tracking-[0.26em] text-neutral-500">
-              {relatedExhibition.city} / {relatedExhibition.year}
-            </p>
-            <h3 className="mt-2 text-[1.05rem] font-medium leading-[1.18] tracking-[-0.02em]">
-              {relatedTitle}
-            </h3>
-            {(relatedExhibition.gallery || relatedExhibition.venue) && (
-              <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[#888]">
-                {relatedExhibition.gallery ?? relatedExhibition.venue}
+              <div className={`relative ${relatedAspect} overflow-hidden bg-neutral-100`}>
+                <Image
+                  src={relatedCover}
+                  alt={`${relatedTitle} exhibition view`}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 21vw, (min-width: 640px) 28vw, 100vw"
+                />
+              </div>
+              <p className="mt-4 text-[10px] uppercase tracking-[0.26em] text-neutral-500">
+                {relatedExhibition.city} / {relatedExhibition.year}
               </p>
-            )}
+              <h3 className="mt-2 text-[1.05rem] font-medium leading-[1.18] tracking-[-0.02em]">
+                {relatedTitle.toUpperCase()}
+              </h3>
+              {(relatedExhibition.gallery || relatedExhibition.venue) && (
+                <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[#888]">
+                  {relatedExhibition.gallery ?? relatedExhibition.venue}
+                </p>
+              )}
             </>
           );
           const className = "group block";
@@ -213,12 +286,13 @@ export function ExhibitionDetail({
 }: ExhibitionDetailProps) {
   const title = displayExhibitionTitle(exhibition.title);
   const location = [exhibition.city, exhibition.country].filter(Boolean).join(", ");
-  const venueLine = [
-    displayMetadataText(exhibition.gallery ?? exhibition.venue),
-    displayPersonText(exhibition.subtitle),
-  ]
-    .filter(Boolean)
-    .join(" / ");
+
+  // Subtitle line under the title: "Venue / Artist(s)" — built from the
+  // venue field and the artists array (joined with "and" / commas).
+  const venueText = displayMetadataText(exhibition.gallery ?? exhibition.venue);
+  const artistsJoined = joinArtists(exhibition.artists);
+  const venueLine = [venueText, artistsJoined].filter(Boolean).join(" / ");
+
   const photographer = displayPersonText(exhibition.photographer);
   const panelGallery = exhibition.images.filter(
     (image, index) => image.src !== exhibition.heroImage || index > 0,
@@ -234,9 +308,9 @@ export function ExhibitionDetail({
             {[location, exhibition.year].filter(Boolean).join(" / ")}
           </p>
           <h1 className="mt-5 max-w-4xl break-words text-[clamp(1.75rem,9vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.04em] md:text-[clamp(2rem,4vw,3.5rem)]">
-            {title}
+            {title.toUpperCase()}
           </h1>
-          {(exhibition.gallery || exhibition.venue || exhibition.subtitle) && (
+          {venueLine && (
             <p className="mt-4 text-[13px] leading-6 text-neutral-500">{venueLine}</p>
           )}
         </header>

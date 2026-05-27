@@ -60,6 +60,13 @@ const MORE_TAGS: SemanticTag[] = [
 type SelectedTag = "ALL" | SemanticTag;
 const FEATURED_SLUG = "lullaby-blossoms";
 
+// Hierarchical location filter: "all" / by country / by specific city
+// inside a country.
+type LocationValue =
+  | { kind: "all" }
+  | { kind: "country"; country: string }
+  | { kind: "city"; country: string; city: string };
+
 function tagFromQueryParam(value: string | null): SelectedTag {
   if (value && (semanticTags as readonly string[]).includes(value)) {
     return value as SemanticTag;
@@ -103,16 +110,26 @@ function FilterChip({
   );
 }
 
-function CityDropdown({
+// LOCATION dropdown — countries listed first, with a plus-icon expander on
+// each country revealing its cities inline. Clicking the country header
+// filters to that country; clicking a city filters to that city only.
+function LocationDropdown({
   value,
-  options,
+  tree,
   onChange,
 }: {
-  value: string;
-  options: string[];
-  onChange: (city: string) => void;
+  value: LocationValue;
+  tree: Array<{ country: string; cities: string[] }>;
+  onChange: (next: LocationValue) => void;
 }) {
   const [open, setOpen] = useState(false);
+  const [expandedCountries, setExpandedCountries] = useState<Set<string>>(() => {
+    // Auto-expand the currently selected country so the active city is visible.
+    if (value.kind === "city" || value.kind === "country") {
+      return new Set([value.country]);
+    }
+    return new Set();
+  });
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -133,7 +150,20 @@ function CityDropdown({
     };
   }, [open]);
 
-  const label = value === "All" ? "All cities" : value;
+  const label = (() => {
+    if (value.kind === "all") return "All locations";
+    if (value.kind === "country") return value.country;
+    return `${value.city}, ${value.country}`;
+  })();
+
+  const toggleCountryExpand = (country: string) => {
+    setExpandedCountries((prev) => {
+      const next = new Set(prev);
+      if (next.has(country)) next.delete(country);
+      else next.add(country);
+      return next;
+    });
+  };
 
   return (
     <div ref={ref} className="relative">
@@ -155,120 +185,107 @@ function CityDropdown({
         </svg>
       </button>
       {open && (
-        <ul
-          role="listbox"
-          className="absolute left-0 top-full z-30 mt-1 max-h-72 w-48 overflow-y-auto border border-neutral-200 bg-white"
-        >
-          {options.map((c) => {
-            const active = c === value;
-            return (
-              <li key={c} role="option" aria-selected={active}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onChange(c);
-                    setOpen(false);
-                  }}
-                  className={`flex w-full items-center justify-between px-3 py-2 text-left text-[10px] uppercase tracking-[0.18em] transition-colors hover:bg-neutral-50 ${
-                    active ? "text-neutral-900" : "text-neutral-500"
-                  }`}
-                >
-                  <span>{c === "All" ? "All cities" : c}</span>
-                  {active && (
-                    <svg
-                      className="h-2.5 w-3 shrink-0"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M2 6l3 3 5-6"
-                        stroke="currentColor"
-                        strokeWidth="1.4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  )}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
-  );
-}
-
-function MoreTagsDropdown({
-  value,
-  onChange,
-}: {
-  value: SelectedTag;
-  onChange: (tag: SemanticTag) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const hasSelectedMoreTag = value !== "ALL" && MORE_TAGS.includes(value);
-
-  useEffect(() => {
-    if (!open) return;
-
-    function onMouseDown(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
-
-    function onKey(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", onMouseDown);
-    document.addEventListener("keydown", onKey);
-
-    return () => {
-      document.removeEventListener("mousedown", onMouseDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
-
-  return (
-    <div ref={ref} className="relative shrink-0">
-      <button
-        type="button"
-        onClick={() => setOpen((isOpen) => !isOpen)}
-        aria-expanded={open}
-        aria-haspopup="listbox"
-        className={`shrink-0 border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors ${
-          hasSelectedMoreTag
-            ? "border-neutral-900 text-neutral-900"
-            : "border-neutral-200 text-neutral-400 hover:border-neutral-400 hover:text-neutral-600"
-        }`}
-      >
-        + More &#9662;
-      </button>
-      {open && (
         <div
           role="listbox"
-          aria-label="More tags"
-          className="absolute right-0 top-full z-30 mt-2 w-[min(34rem,calc(100vw-2.5rem))] border border-neutral-200 bg-white p-3 shadow-[0_4px_14px_rgba(0,0,0,0.05)] md:left-0 md:right-auto md:p-4"
+          aria-label="Locations"
+          className="absolute left-0 top-full z-30 mt-1 max-h-[28rem] w-60 overflow-y-auto border border-neutral-200 bg-white"
         >
-          <div className="flex flex-wrap gap-2">
-            {MORE_TAGS.map((tag) => (
-              <FilterChip
-                key={tag}
-                label={tag}
-                active={value === tag}
-                onClick={() => {
-                  onChange(tag);
-                  setOpen(false);
-                }}
-              />
-            ))}
-          </div>
+          <button
+            type="button"
+            onClick={() => {
+              onChange({ kind: "all" });
+              setOpen(false);
+            }}
+            className={`flex w-full items-center justify-between border-b border-neutral-100 px-3 py-2 text-left text-[10px] uppercase tracking-[0.18em] transition-colors hover:bg-neutral-50 ${
+              value.kind === "all" ? "text-neutral-900" : "text-neutral-500"
+            }`}
+          >
+            <span>All locations</span>
+            {value.kind === "all" && (
+              <svg className="h-2.5 w-3 shrink-0" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2 6l3 3 5-6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )}
+          </button>
+          <ul role="group">
+            {tree.map(({ country, cities }) => {
+              const expanded = expandedCountries.has(country);
+              const countryActive = value.kind === "country" && value.country === country;
+              return (
+                <li key={country} className="border-b border-neutral-100 last:border-0">
+                  <div className="flex items-stretch">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onChange({ kind: "country", country });
+                        // Keep country expanded so the user can drill into a
+                        // city without re-clicking the +
+                        setExpandedCountries((prev) => {
+                          const next = new Set(prev);
+                          next.add(country);
+                          return next;
+                        });
+                      }}
+                      className={`flex flex-1 items-center justify-between px-3 py-2 text-left text-[10px] uppercase tracking-[0.18em] transition-colors hover:bg-neutral-50 ${
+                        countryActive ? "text-neutral-900" : "text-neutral-600"
+                      }`}
+                    >
+                      <span>{country}</span>
+                      {countryActive && (
+                        <svg className="h-2.5 w-3 shrink-0" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                          <path d="M2 6l3 3 5-6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </button>
+                    {cities.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => toggleCountryExpand(country)}
+                        aria-label={expanded ? `Collapse ${country}` : `Expand ${country}`}
+                        aria-expanded={expanded}
+                        className="flex shrink-0 items-center justify-center px-3 text-neutral-500 transition-colors hover:bg-neutral-50 hover:text-neutral-900"
+                      >
+                        <span aria-hidden="true" className="text-[14px] leading-none">
+                          {expanded ? "−" : "+"}
+                        </span>
+                      </button>
+                    )}
+                  </div>
+                  {expanded && cities.length > 0 && (
+                    <ul role="group" aria-label={`${country} cities`}>
+                      {cities.map((city) => {
+                        const cityActive =
+                          value.kind === "city" &&
+                          value.country === country &&
+                          value.city === city;
+                        return (
+                          <li key={`${country}/${city}`}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                onChange({ kind: "city", country, city });
+                                setOpen(false);
+                              }}
+                              className={`flex w-full items-center justify-between py-1.5 pl-7 pr-3 text-left text-[10px] uppercase tracking-[0.18em] transition-colors hover:bg-neutral-50 ${
+                                cityActive ? "text-neutral-900" : "text-neutral-500"
+                              }`}
+                            >
+                              <span>{city}</span>
+                              {cityActive && (
+                                <svg className="h-2.5 w-3 shrink-0" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                                  <path d="M2 6l3 3 5-6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                              )}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
     </div>
@@ -357,9 +374,10 @@ function MobileTagsDropdown({
 export default function HomePage() {
   const router = useRouter();
   const { savedSlugs } = useSavedExhibitions();
-  const [city, setCity] = useState("All");
+  const [location, setLocation] = useState<LocationValue>({ kind: "all" });
   const [year, setYear] = useState("All");
   const [tag, setTag] = useState<SelectedTag>("ALL");
+  const [tagsExpanded, setTagsExpanded] = useState(false);
   const [savedOnly, setSavedOnly] = useState(false);
   const [search, setSearch] = useState("");
   const featuredExhibition = exhibitions.find((exhibition) => exhibition.slug === FEATURED_SLUG);
@@ -382,18 +400,35 @@ export default function HomePage() {
     [router],
   );
 
-  const cityOptions = useMemo(() => {
-    const unique = Array.from(
-      new Set(exhibitions.map((e) => e.city).filter((c): c is string => Boolean(c))),
-    );
-    unique.sort((a, b) => a.localeCompare(b));
-    return ["All", ...unique];
+  // Build the country → cities tree once. Both keys are sorted alphabetically.
+  const locationTree = useMemo(() => {
+    const byCountry = new Map<string, Set<string>>();
+    for (const exhibition of exhibitions) {
+      const country = exhibition.country?.trim();
+      if (!country) continue;
+      if (!byCountry.has(country)) {
+        byCountry.set(country, new Set());
+      }
+      if (exhibition.city?.trim()) {
+        byCountry.get(country)!.add(exhibition.city.trim());
+      }
+    }
+    return Array.from(byCountry.entries())
+      .map(([country, cities]) => ({
+        country,
+        cities: Array.from(cities).sort((a, b) => a.localeCompare(b)),
+      }))
+      .sort((a, b) => a.country.localeCompare(b.country));
   }, []);
 
   const filtered = useMemo(
     () =>
       exhibitions.filter((ex) => {
-        const matchCity = city === "All" || ex.city === city;
+        const matchLocation = (() => {
+          if (location.kind === "all") return true;
+          if (location.kind === "country") return ex.country === location.country;
+          return ex.country === location.country && ex.city === location.city;
+        })();
         const matchYear = year === "All" || ex.year === year;
         const matchTag = tag === "ALL" || ex.tags.includes(tag);
         const matchSaved = !savedOnly || savedSlugs.has(ex.slug);
@@ -403,16 +438,19 @@ export default function HomePage() {
           [
             displayExhibitionTitle(ex.title),
             ex.city,
+            ex.country,
             ex.venue,
             ex.gallery,
             ex.description,
             ex.summary,
             ...(ex.artists ?? []),
           ].some((f) => f?.toLowerCase().includes(q));
-        return matchCity && matchYear && matchTag && matchSaved && matchSearch;
+        return matchLocation && matchYear && matchTag && matchSaved && matchSearch;
       }),
-    [city, year, tag, savedOnly, savedSlugs, search],
+    [location, year, tag, savedOnly, savedSlugs, search],
   );
+
+  const showsMoreTagSelected = tag !== "ALL" && (MORE_TAGS as readonly SelectedTag[]).includes(tag);
 
   return (
     <main className="min-h-screen bg-white">
@@ -438,7 +476,7 @@ export default function HomePage() {
           >
             <span>FindArt Platform</span>
             <span className="pointer-events-none mt-[6px] hidden whitespace-nowrap text-[10px] font-normal leading-none tracking-[0.12em] text-black/40 md:block">
-              Contemporary Art Exhibitions Worldwide
+              Contemporary Art Exhibition Archive
             </span>
           </Link>
           <div className="flex items-center gap-3 justify-self-end md:gap-5">
@@ -485,7 +523,7 @@ export default function HomePage() {
                 Exhibition of the Week
               </p>
               <h2 className="mt-4 break-words text-[clamp(2rem,10vw,3.5rem)] font-medium leading-none tracking-[-0.045em] text-neutral-900 md:text-[clamp(2.25rem,4vw,3.5rem)]">
-                {featuredTitle}
+                {featuredTitle.toUpperCase()}
               </h2>
               <p className="mt-4 text-[11px] uppercase tracking-[0.22em] text-neutral-700">
                 {featuredExhibition.gallery ?? featuredExhibition.venue}
@@ -520,10 +558,10 @@ export default function HomePage() {
               className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
             />
 
-            {/* City filter */}
+            {/* Location filter (countries → cities) */}
             <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">City:</span>
-              <CityDropdown value={city} options={cityOptions} onChange={setCity} />
+              <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Location:</span>
+              <LocationDropdown value={location} tree={locationTree} onChange={setLocation} />
             </div>
 
             {/* Year filter */}
@@ -537,11 +575,15 @@ export default function HomePage() {
 
           <MobileTagsDropdown value={tag} onChange={selectTag} />
 
+          {/* Desktop tags — primary chips always shown, MORE chips expand
+              inline (no floating dropdown). MORE auto-expands when the
+              currently selected tag belongs to MORE_TAGS so the chip is
+              visible to the user. */}
           <div className="hidden min-w-0 items-start gap-2 md:flex">
             <span className="shrink-0 pt-1.5 text-[10px] uppercase tracking-[0.25em] text-neutral-400">
               Tags:
             </span>
-            <div className="scrollbar-none flex min-w-0 flex-1 gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
+            <div className="scrollbar-none flex min-w-0 flex-1 flex-wrap gap-2 overflow-x-auto pb-1 md:overflow-visible md:pb-0">
               {PRIMARY_TAGS.map((filterTag) => (
                 <FilterChip
                   key={filterTag}
@@ -550,7 +592,23 @@ export default function HomePage() {
                   onClick={() => selectTag(filterTag)}
                 />
               ))}
-              <MoreTagsDropdown value={tag} onChange={selectTag} />
+              {(tagsExpanded || showsMoreTagSelected) &&
+                MORE_TAGS.map((moreTag) => (
+                  <FilterChip
+                    key={moreTag}
+                    label={moreTag}
+                    active={tag === moreTag}
+                    onClick={() => selectTag(moreTag)}
+                  />
+                ))}
+              <button
+                type="button"
+                onClick={() => setTagsExpanded((expanded) => !expanded)}
+                aria-expanded={tagsExpanded || showsMoreTagSelected}
+                className="shrink-0 border border-neutral-200 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500 transition-colors hover:border-neutral-400 hover:text-neutral-700"
+              >
+                {tagsExpanded || showsMoreTagSelected ? "- Less" : "+ More"}
+              </button>
             </div>
           </div>
 
