@@ -61,7 +61,7 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
           <Link
             href="/about"
             className={`hidden transition-opacity hover:opacity-55 md:inline ${
-              overlay ? "font-medium" : "text-[9px] font-medium uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
+              overlay ? "font-normal" : "text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
             }`}
           >
             About
@@ -69,7 +69,7 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
           <Link
             href="/submit"
             className={`transition-opacity hover:opacity-55 ${
-              overlay ? "font-medium" : "text-[9px] font-medium uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
+              overlay ? "font-semibold" : "text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
             }`}
           >
             Submit

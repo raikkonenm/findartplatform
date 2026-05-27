@@ -485,13 +485,13 @@ export default function HomePage() {
           <div className="flex items-center gap-3 justify-self-end md:gap-5">
             <Link
               href="/about"
-              className="hidden text-[9px] font-medium uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:inline md:text-[11px] md:tracking-[0.28em]"
+              className="hidden text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:inline md:text-[11px] md:tracking-[0.28em]"
             >
               About
             </Link>
             <Link
               href="/submit"
-              className="text-[9px] font-medium uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:text-[11px] md:tracking-[0.28em]"
+              className="text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:text-[11px] md:tracking-[0.28em]"
             >
               Submit
             </Link>

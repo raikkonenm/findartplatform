@@ -28,9 +28,26 @@ export default function AboutPage() {
 
           <div className="mt-8 space-y-6 text-[1.05rem] leading-8 text-neutral-600">
             <p>
-              FindArt Platform is a contemporary art exhibition archive founded by Maria
-              Raikkonen and developed as part of Art Curatorial Nomads &mdash; a curatorial
-              initiative exploring contemporary art practices across borders.
+              FindArt Platform is a contemporary art exhibition archive founded by{" "}
+              <a
+                href="https://www.instagram.com/raikkonen_maria/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
+              >
+                Maria Raikkonen
+              </a>{" "}
+              and developed as part of{" "}
+              <a
+                href="https://www.artcnomad.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
+              >
+                Art Curatorial Nomads
+              </a>{" "}
+              &mdash; a curatorial initiative exploring contemporary art practices across
+              borders.
             </p>
             <p>
               FindArt documents exhibitions from galleries, institutions, and independent
@@ -45,8 +62,17 @@ export default function AboutPage() {
             </p>
             <p>
               FindArt is part of the broader Art Curatorial Nomads ecosystem, which also
-              includes Practice &mdash; a curatorial support initiative for artists and
-              cultural practitioners.
+              includes{" "}
+              <a
+                href="https://www.artcnomad.com/practice"
+                target="_blank"
+                rel="noreferrer"
+                className="text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
+              >
+                Practice
+              </a>{" "}
+              &mdash; a curatorial support initiative for artists and cultural
+              practitioners.
             </p>
           </div>
         </div>
