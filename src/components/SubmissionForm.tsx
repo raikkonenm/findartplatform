@@ -120,6 +120,11 @@ function TextAreaField({
   );
 }
 
+const PAYPAL_URLS: Record<SubmissionType, string> = {
+  exhibition: "https://www.paypal.com/ncp/payment/LHVMZWKHVBGV4",
+  artist: "https://www.paypal.com/ncp/payment/RMBQGACEGJ5XU",
+};
+
 export function SubmissionForm({ submissionType }: { submissionType: SubmissionType }) {
   const [exhibitionFields, setExhibitionFields] = useState<ExhibitionFields>(emptyExhibitionFields);
   const [artistFields, setArtistFields] = useState<ArtistFields>(emptyArtistFields);
@@ -180,12 +185,10 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
         throw new Error("Submission request failed.");
       }
 
-      if (submissionType === "exhibition") {
-        setExhibitionFields(emptyExhibitionFields);
-      } else {
-        setArtistFields(emptyArtistFields);
-      }
+      // Email sent successfully — redirect to the correct PayPal payment link.
+      // Field data is intentionally preserved; the user is leaving the page.
       setStatus("success");
+      window.location.href = PAYPAL_URLS[submissionType];
     } catch {
       setStatus("error");
     }
@@ -254,14 +257,16 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
         disabled={status === "submitting"}
         className="mt-8 w-full bg-neutral-950 px-8 py-5 text-[11px] uppercase tracking-[0.32em] text-white transition-opacity hover:opacity-75 disabled:cursor-wait disabled:opacity-60"
       >
-        {status === "submitting" ? "Submitting" : "Submit"}
+        {status === "submitting"
+          ? "Submitting…"
+          : submissionType === "exhibition"
+            ? "Submit & Pay $10"
+            : "Submit & Pay $15"}
       </button>
 
       {status === "success" && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
-          {submissionType === "exhibition"
-            ? "Thank you. Your exhibition has been submitted for review."
-            : "Thank you. Your artist submission has been submitted for review."}
+          Submission received. Redirecting to payment&hellip;
         </p>
       )}
       {status === "error" && (
