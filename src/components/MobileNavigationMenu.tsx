@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
 
 export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean }) {
   const [open, setOpen] = useState(false);
@@ -57,9 +58,11 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
             <a href="https://www.artcnomad.com/" role="menuitem" onClick={() => setOpen(false)}>
               By Artnomad Curators &#8599;
             </a>
-            <a href="https://www.artcnomad.com/practice" role="menuitem" onClick={() => setOpen(false)}>
-              Practice &#8599;
-            </a>
+            {SHOW_PRACTICE_NAV && (
+              <a href="https://www.artcnomad.com/practice" role="menuitem" onClick={() => setOpen(false)}>
+                Practice &#8599;
+              </a>
+            )}
           </div>
         </div>
       )}

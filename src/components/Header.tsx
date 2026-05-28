@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
 import { HeartIcon } from "./SavedExhibitions";
 import { MobileNavigationMenu } from "./MobileNavigationMenu";
 
@@ -29,7 +30,9 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
           }`}
         >
           <a href="https://www.artcnomad.com/">By ArtNomad Curators &#8599;</a>
-          <a href="https://www.artcnomad.com/practice">Practice &#8599;</a>
+          {SHOW_PRACTICE_NAV && (
+            <a href="https://www.artcnomad.com/practice">Practice &#8599;</a>
+          )}
         </div>
 
         {overlay ? (
