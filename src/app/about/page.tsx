@@ -33,7 +33,7 @@ export default function AboutPage() {
                 href="https://www.instagram.com/raikkonen_maria/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
+                className="underline decoration-1 decoration-neutral-400 underline-offset-4 transition-opacity hover:opacity-55"
               >
                 Maria Raikkonen
               </a>{" "}
@@ -42,7 +42,7 @@ export default function AboutPage() {
                 href="https://www.artcnomad.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
+                className="underline decoration-1 decoration-neutral-400 underline-offset-4 transition-opacity hover:opacity-55"
               >
                 Art Curatorial Nomads
               </a>{" "}
@@ -67,7 +67,7 @@ export default function AboutPage() {
                 href="https://www.artcnomad.com/practice"
                 target="_blank"
                 rel="noreferrer"
-                className="text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
+                className="underline decoration-1 decoration-neutral-400 underline-offset-4 transition-opacity hover:opacity-55"
               >
                 Practice
               </a>{" "}
@@ -95,7 +95,7 @@ export default function AboutPage() {
               For inquiries, contact{" "}
               <a
                 href="mailto:artnomads@gmail.com"
-                className="text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
+                className="underline decoration-1 decoration-neutral-400 underline-offset-4 transition-opacity hover:opacity-55"
               >
                 artnomads@gmail.com
               </a>

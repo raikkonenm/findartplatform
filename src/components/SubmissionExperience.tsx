@@ -121,9 +121,9 @@ export function SubmissionExperience() {
             ))}
           </ul>
 
-          <p className="mt-9 text-[17px] leading-7 text-neutral-900">{content.processingFee}</p>
-
-          <p className="mt-16 text-[13px] text-neutral-500 lg:mt-24">
+          {/* Contact line — desktop only. On mobile the contact line is
+              rendered under the SUBMIT button (see SubmissionForm). */}
+          <p className="mt-16 hidden text-[13px] text-neutral-500 lg:mt-24 lg:block">
             Questions? Write to us at{" "}
             <a
               href="mailto:artnomads@gmail.com"
