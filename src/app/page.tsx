@@ -531,10 +531,7 @@ export default function HomePage() {
             <div className="absolute inset-y-0 left-0 hidden w-[48%] bg-[linear-gradient(90deg,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.82)_45%,rgba(255,255,255,0)_100%)] md:block lg:w-[40%]" />
 
             <div className="order-1 flex flex-col bg-white pb-7 pt-3 md:absolute md:inset-y-0 md:left-0 md:max-w-lg md:-translate-y-2 md:justify-center md:bg-transparent md:px-10 md:py-8 lg:px-[60px]">
-              <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-600">
-                Exhibition of the Week
-              </p>
-              <h2 className="mt-4 break-words text-[clamp(2rem,10vw,3.5rem)] font-medium leading-none tracking-[-0.045em] text-neutral-900 md:text-[clamp(2.25rem,4vw,3.5rem)]">
+              <h2 className="break-words text-[clamp(2rem,10vw,3.5rem)] font-medium leading-none tracking-[-0.045em] text-neutral-900 md:text-[clamp(2.25rem,4vw,3.5rem)]">
                 {featuredTitle.toUpperCase()}
               </h2>
               <p className="mt-4 text-[11px] uppercase tracking-[0.22em] text-neutral-700">

@@ -20,7 +20,7 @@ const submitContent = {
       </>
     ),
     benefits: [
-      "Exhibition page on FindArt",
+      "Exhibition page on FindArt Platform Website",
       "Instagram publication on @findart.platform",
     ],
     processingFee: "$10 processing fee",
@@ -121,17 +121,31 @@ export function SubmissionExperience() {
             ))}
           </ul>
 
-          {/* Contact line — desktop only. On mobile the contact line is
-              rendered under the SUBMIT button (see SubmissionForm). */}
-          <p className="mt-16 hidden text-[13px] text-neutral-500 lg:mt-24 lg:block">
-            Questions? Write to us at{" "}
-            <a
-              href="mailto:artnomads@gmail.com"
-              className="text-neutral-800 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
-            >
-              artnomads@gmail.com
-            </a>
-          </p>
+          {/* Fee + review + contact box — visible on both desktop and
+              mobile. Replaces the previous contact-only paragraph and
+              also absorbs the under-button fee/review lines so this
+              information lives in one place. */}
+          <aside className="mt-12 border border-neutral-200 bg-white p-6 md:mt-14">
+            <p className="text-[15px] font-medium leading-6 text-neutral-900">
+              {submissionType === "exhibition" ? "$10" : "$15"} Submission Fee
+            </p>
+            <p className="mt-4 text-[13px] leading-6 text-neutral-600">
+              Each submission is individually reviewed by our curatorial team.
+            </p>
+            <p className="mt-3 text-[13px] leading-6 text-neutral-600">
+              The fee supports the review process and helps us maintain curatorial standards
+              across the platform.
+            </p>
+            <p className="mt-4 text-[13px] leading-6 text-neutral-600">
+              Questions? Write to us at{" "}
+              <a
+                href="mailto:artnomads@gmail.com"
+                className="text-neutral-800 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
+              >
+                artnomads@gmail.com
+              </a>
+            </p>
+          </aside>
         </div>
 
         <SubmissionForm key={submissionType} submissionType={submissionType} />

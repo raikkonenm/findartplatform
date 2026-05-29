@@ -260,25 +260,6 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
         {status === "submitting" ? "Submitting…" : "Submit"}
       </button>
 
-      {/* Secondary fee/review line under the SUBMIT button. Visible on
-          both desktop and mobile per spec. */}
-      <p className="mt-4 text-[12px] leading-5 text-neutral-500">
-        {submissionType === "exhibition" ? "$10" : "$15"} processing fee. Each submission is
-        carefully reviewed by our curatorial team.
-      </p>
-
-      {/* Mobile-only contact line. On desktop the same line lives in the
-          left rail (see SubmissionExperience). */}
-      <p className="mt-3 text-[12px] leading-5 text-neutral-500 lg:hidden">
-        Questions? Write to us at{" "}
-        <a
-          href="mailto:artnomads@gmail.com"
-          className="text-neutral-700 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
-        >
-          artnomads@gmail.com
-        </a>
-      </p>
-
       {status === "success" && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
           Submission received. Redirecting to payment&hellip;
