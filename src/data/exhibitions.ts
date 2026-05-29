@@ -4180,6 +4180,17 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
   // LOCAL_IMAGE_METADATA_IMPORT_4_END
 ];
 
+// Slugs pinned to the top of the homepage/archive grid in the listed order,
+// ahead of the normal opening-date sort. Add or remove slugs here to change
+// the priority list. Exhibitions not in this array fall through to the
+// regular newest-first ordering.
+const PINNED_FIRST_SLUGS: readonly string[] = ["profusion-antagonist-wishlist"];
+
+function pinnedPriority(slug: string): number {
+  const index = PINNED_FIRST_SLUGS.indexOf(slug);
+  return index === -1 ? Number.POSITIVE_INFINITY : index;
+}
+
 export const exhibitions: Exhibition[] = exhibitionSeeds
   .map(({ location, year, previewImage, heroImage, images, ...exhibition }) => ({
     ...exhibition,
@@ -4192,6 +4203,12 @@ export const exhibitions: Exhibition[] = exhibitionSeeds
     images,
   }))
   .sort((first, second) => {
+    // Pinned slugs come first, in the order they appear in
+    // PINNED_FIRST_SLUGS. Everything else falls through to the
+    // newest-opening-date-first order used previously.
+    const pinnedDifference = pinnedPriority(first.slug) - pinnedPriority(second.slug);
+    if (pinnedDifference !== 0) return pinnedDifference;
+
     const dateDifference = openingDateValue(second) - openingDateValue(first);
     if (dateDifference !== 0) return dateDifference;
 
