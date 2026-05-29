@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { SavedExhibitionsProvider } from "@/components/SavedExhibitions";
 import "./globals.css";
+
+// Google Analytics 4 — the same Measurement ID for every page.
+// Loading via next/script with strategy "afterInteractive" is the
+// pattern the Next.js docs recommend for analytics tags: it inlines
+// the snippet once in the root layout so it ships with every route,
+// without blocking the initial render.
+const GA_MEASUREMENT_ID = "G-258Q2XJMXP";
 
 const sfPro = localFont({
   src: [
@@ -53,6 +61,16 @@ export default function RootLayout({
           {children}
           {modal}
         </SavedExhibitionsProvider>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+        </Script>
       </body>
     </html>
   );
