@@ -4188,7 +4188,10 @@ const PINNED_FIRST_SLUGS: readonly string[] = ["profusion-antagonist-wishlist"];
 
 function pinnedPriority(slug: string): number {
   const index = PINNED_FIRST_SLUGS.indexOf(slug);
-  return index === -1 ? Number.POSITIVE_INFINITY : index;
+  // Use a finite sentinel so `pinnedPriority(a) - pinnedPriority(b)` is 0
+  // when both items are non-pinned. Infinity would produce NaN and break
+  // the comparator for the rest of the feed.
+  return index === -1 ? Number.MAX_SAFE_INTEGER : index;
 }
 
 export const exhibitions: Exhibition[] = exhibitionSeeds
