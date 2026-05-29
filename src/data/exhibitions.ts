@@ -284,6 +284,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "edges-that-blur-bodies-that-fold-into-something-other": ["TRANSFORMATION"],
   "metempsychosis": ["HYBRID BODIES", "TRANSFORMATION", "RITUAL", "POSTHUMAN"],
   "grass-on-roadside-4": ["ECOLOGY"],
+  "the-beautiful-remains": ["MEMORY", "MATERIALITY", "FRAGMENT", "BODY", "ABSENCE", "OBJECTHOOD"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -298,6 +299,36 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "the-beautiful-remains",
+    title: "THE BEAUTIFUL REMAINS",
+    subtitle: "KENJI SAKAI",
+    venue: "Kohtoh",
+    gallery: "Kohtoh",
+    city: "Tokyo",
+    country: "Japan",
+    year: "2026",
+    dates: "28 May - 14 June 2026",
+    startDate: "28 May 2026",
+    endDate: "14 June 2026",
+    dateSource: "exhibition",
+    artists: ["Kenji Sakai"],
+    photographer: "Aya Ogasawara",
+    description: `The exhibition centers on a series developed during the artist's time living in London, exploring how individuals gradually internalize emotional weight, anxiety, and invisible pressure in order to adapt to society and urban life. Sakai became aware of a gap between structure and emotion — how experiences are first understood as systems and patterns before slowly emerging as feeling.
+
+Within society, many things remain unspoken yet continue to accumulate quietly beneath the surface — imagined as a lake where the calmer the water appears, the more sediment rests at the bottom. The works do not depict explosive collapse, but rather a subtle state in which suppressed energies and invisible violence begin to quietly leak through the surface.
+
+Stainless steel frames resembling cremation furnaces, fragmented paintings, sediment-like forms, text on transparent surfaces, and traces collected while wandering through London all function as fragments of this internal structure — an attempt to visualize the invisible load carried inside individuals for society to maintain its stillness.`,
+    previewImage: localExhibitionImage("THE BEAUTIFUL REMAINS BY KENJI SAKAI", "1.jpeg"),
+    heroImage: localExhibitionImage("THE BEAUTIFUL REMAINS BY KENJI SAKAI", "1.jpeg"),
+    images: localExhibitionGallery(
+      "THE BEAUTIFUL REMAINS BY KENJI SAKAI",
+      ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg", "6.jpeg", "7.jpeg", "8.jpeg", "9.jpeg", "10.jpeg"],
+      "vertical",
+      "Aya Ogasawara",
+    ),
+    instagramUrl: "https://www.instagram.com/findart.platform/",
+  },
   {
     slug: "the-shape-of-a-scar",
     title: "The Shape of a Scar",
