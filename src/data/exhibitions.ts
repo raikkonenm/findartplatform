@@ -4180,21 +4180,14 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
   // LOCAL_IMAGE_METADATA_IMPORT_4_END
 ];
 
-// Slugs pinned to the top of the homepage/archive grid in the listed order,
-// ahead of the normal opening-date sort. Add or remove slugs here to change
-// the priority list. Exhibitions not in this array fall through to the
-// regular newest-first ordering.
-const PINNED_FIRST_SLUGS: readonly string[] = ["profusion-antagonist-wishlist"];
+// Single-slug pin override. We do NOT bake this into the sort comparator —
+// instead the comparator stays exactly as it was before this exhibition
+// was added, and we move the pinned entry to position 0 as a separate,
+// surgical post-sort step. This guarantees every other entry keeps its
+// previous relative position byte-for-byte.
+const PINNED_FIRST_SLUG = "profusion-antagonist-wishlist";
 
-function pinnedPriority(slug: string): number {
-  const index = PINNED_FIRST_SLUGS.indexOf(slug);
-  // Use a finite sentinel so `pinnedPriority(a) - pinnedPriority(b)` is 0
-  // when both items are non-pinned. Infinity would produce NaN and break
-  // the comparator for the rest of the feed.
-  return index === -1 ? Number.MAX_SAFE_INTEGER : index;
-}
-
-export const exhibitions: Exhibition[] = exhibitionSeeds
+const sortedExhibitions: Exhibition[] = exhibitionSeeds
   .map(({ location, year, previewImage, heroImage, images, ...exhibition }) => ({
     ...exhibition,
     city: exhibition.city ?? location,
@@ -4206,17 +4199,24 @@ export const exhibitions: Exhibition[] = exhibitionSeeds
     images,
   }))
   .sort((first, second) => {
-    // Pinned slugs come first, in the order they appear in
-    // PINNED_FIRST_SLUGS. Everything else falls through to the
-    // newest-opening-date-first order used previously.
-    const pinnedDifference = pinnedPriority(first.slug) - pinnedPriority(second.slug);
-    if (pinnedDifference !== 0) return pinnedDifference;
-
     const dateDifference = openingDateValue(second) - openingDateValue(first);
     if (dateDifference !== 0) return dateDifference;
 
     return 0;
   });
+
+// Move the pinned exhibition to position 0, preserving every other
+// entry's relative order. If the slug isn't in the dataset (e.g. it was
+// removed), the array is exported unchanged.
+const pinnedIndex = sortedExhibitions.findIndex(
+  (exhibition) => exhibition.slug === PINNED_FIRST_SLUG,
+);
+if (pinnedIndex > 0) {
+  const [pinned] = sortedExhibitions.splice(pinnedIndex, 1);
+  sortedExhibitions.unshift(pinned);
+}
+
+export const exhibitions: Exhibition[] = sortedExhibitions;
 
 export function getExhibition(slug: string) {
   return exhibitions.find((exhibition) => exhibition.slug === slug);
