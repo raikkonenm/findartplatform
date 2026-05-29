@@ -285,6 +285,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "metempsychosis": ["HYBRID BODIES", "TRANSFORMATION", "RITUAL", "POSTHUMAN"],
   "grass-on-roadside-4": ["ECOLOGY"],
   "the-beautiful-remains": ["MEMORY", "MATERIALITY", "FRAGMENT", "BODY", "ABSENCE", "OBJECTHOOD"],
+  "profusion-antagonist-wishlist": ["MEMORY", "ARCHAEOLOGY", "TECHNOLOGY", "FRAGMENT", "OBJECTHOOD"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -299,6 +300,48 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "profusion-antagonist-wishlist",
+    title: "PROFUSION ANTAGONIST WISHLIST",
+    subtitle: "Rebekka Benzenberg, Marc Botschen, Iris Helena Hamers, Alissa Ritter, Emil Walde, Milena Wojhan",
+    venue: "PAW",
+    gallery: "PAW",
+    city: "Düsseldorf",
+    country: "Germany",
+    year: "2026",
+    dates: "1 March - 24 April 2026",
+    startDate: "1 March 2026",
+    endDate: "24 April 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Rebekka Benzenberg",
+      "Marc Botschen",
+      "Iris Helena Hamers",
+      "Alissa Ritter",
+      "Emil Walde",
+      "Milena Wojhan",
+    ],
+    photographer: "Simon Vogel",
+    exhibitionText: "Jennifer Braun",
+    description: `POV: You’re reading one of those “The first word you see is what your 2026 is gonna be like” word grids. Your gaze brushes over PROFUSION, ANTAGONIST, and WISHLIST. Gahdamn, the TikTok witches were right again. It’s just way too fucking much right now. The lie looks like truth, satire like history, and the nightmare like just another day. You long to go outside to touch some grass again. What a shame that your phone is still charging.
+
+Maybe it’s not all that bad. This is just one person’s point of view. But you’ll have to agree that our present, which was promised to be increasingly rational and calm, looks pretty trippy overall. And instead of being there for us, the sitter is now doing some other bullshit. We’re trapped in Alice in Wonderland. But not the classy, old version – it’s the Tim Burton film adaptation. And unfortunately, there is no predetermined hero arc to follow through our adventure to find a light at the end of the tunnel, fall into each other’s arms, and say that the treasure is the friends we made along the way. No predetermined plot and no hero arc will get us out of this timeline.
+
+Who is the hero of our story? Milena Wojhans’ Hero Series (2025) would be a candidate. Milena’s character is trapped in her own bubble and falls out of her world into another cartoon dimension. However, this hero does not seem adventurous, but rather horrified by this rabbit hole. Well, we didn’t choose it either, after all. Emil Walde has torn some glass panels out of the Hall of Doors to move forward. Those must have spent a long time underground, rusting away. These are old panels from Duisburg Central Station, which now look like archaeological finds. Alissa Ritter just barely managed to get her skewered glass fiber grapes back from the white rabbit’s house. The little party snack morphed into a giant weapon. Maybe we’ll need it somewhere later down the way. And there, the Cheshire Cat is already waiting for us. Iris Helena Hamers’ bright green neon fur lights our way through the dark forest. Is her grin real or an AI hallucination? What is real and what is fake, anyway, she asks, climbing up the tree upside down. We can guess as much as we want. Generated, copied, manipulated, constructed, and prompted — what’s the difference anyway? I can already hear the hysterical laughter of the tea party from afar. The clock stopped working ages ago, and so no one wants to go home. Rebekka Benzenberg’s You Think Think This May Stay Forever (2025) has already compressed schizophrenic party mood with absolute exhaustion onto a mattress. In the Queen of Hearts’ garden, Marc Botschen paints the white roses red. He does not allow himself to be completely drawn into rewriting history. Marc shows the truth where he etches it into metal, overlays it, and distorts it. Miss Queen of Hearts, what exactly did your grandparents do for a living from 1933 to 1945?
+
+We’re probably going to be stuck here for quite a while, so we might as well make ourselves comfortable. Would you excuse me now – it looks like I’ve lost my hat somewhere down the rabbit hole.`,
+    previewImage: localExhibitionImage("PROFUSION ANTAGONIST WISHLIST", "1.jpeg"),
+    heroImage: localExhibitionImage("PROFUSION ANTAGONIST WISHLIST", "1.jpeg"),
+    images: [
+      ...localExhibitionGallery("PROFUSION ANTAGONIST WISHLIST", ["1.jpeg"], "vertical", "Simon Vogel"),
+      ...localExhibitionGallery("PROFUSION ANTAGONIST WISHLIST", ["2.jpeg", "3.jpeg", "4.jpeg"], "horizontal", "Simon Vogel"),
+      ...localExhibitionGallery("PROFUSION ANTAGONIST WISHLIST", ["5.jpeg"], "vertical", "Simon Vogel"),
+      ...localExhibitionGallery("PROFUSION ANTAGONIST WISHLIST", ["6.jpeg"], "horizontal", "Simon Vogel"),
+      ...localExhibitionGallery("PROFUSION ANTAGONIST WISHLIST", ["7.jpeg", "8.jpeg", "9.jpeg"], "vertical", "Simon Vogel"),
+      ...localExhibitionGallery("PROFUSION ANTAGONIST WISHLIST", ["10.jpeg"], "horizontal", "Simon Vogel"),
+      ...localExhibitionGallery("PROFUSION ANTAGONIST WISHLIST", ["11.jpeg", "12.jpeg", "13.jpeg", "14.jpeg"], "vertical", "Simon Vogel"),
+    ],
+  },
   {
     slug: "the-beautiful-remains",
     title: "THE BEAUTIFUL REMAINS",
