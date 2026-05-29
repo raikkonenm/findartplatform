@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { SavedExhibitionsProvider } from "@/components/SavedExhibitions";
 import "./globals.css";
 
-// Google Analytics 4 — the same Measurement ID for every page.
-// Loading via next/script with strategy "afterInteractive" is the
-// pattern the Next.js docs recommend for analytics tags: it inlines
-// the snippet once in the root layout so it ships with every route,
-// without blocking the initial render.
+// Google Analytics 4. Using @next/third-parties is the canonical
+// Next.js App Router pattern: the GoogleAnalytics component injects
+// the gtag.js script with strategy "afterInteractive" AND wires up
+// automatic `page_view` events on client-side route changes, which
+// the raw next/script approach does not do on its own.
 const GA_MEASUREMENT_ID = "G-258Q2XJMXP";
 
 const sfPro = localFont({
@@ -61,17 +61,8 @@ export default function RootLayout({
           {children}
           {modal}
         </SavedExhibitionsProvider>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga-init" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${GA_MEASUREMENT_ID}');`}
-        </Script>
       </body>
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
 }
