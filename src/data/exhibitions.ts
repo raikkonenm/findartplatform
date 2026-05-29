@@ -4180,12 +4180,19 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
   // LOCAL_IMAGE_METADATA_IMPORT_4_END
 ];
 
-// Single-slug pin override. We do NOT bake this into the sort comparator —
-// instead the comparator stays exactly as it was before this exhibition
-// was added, and we move the pinned entry to position 0 as a separate,
-// surgical post-sort step. This guarantees every other entry keeps its
-// previous relative position byte-for-byte.
-const PINNED_FIRST_SLUG = "profusion-antagonist-wishlist";
+// Explicit pin override. Slugs listed here take the first N positions in
+// the exported `exhibitions` array, in this exact order. Everything else
+// keeps the order produced by the original opening-date comparator —
+// because we splice each pinned entry out of the sorted array and
+// prepend them as a separate step, the relative order of non-pinned
+// entries is preserved byte-for-byte.
+//
+// To re-pin in the future, edit this array. Empty it to revert to the
+// plain date-sorted feed with no other code changes.
+const PINNED_SLUGS: readonly string[] = [
+  "profusion-antagonist-wishlist",
+  "the-beautiful-remains",
+];
 
 const sortedExhibitions: Exhibition[] = exhibitionSeeds
   .map(({ location, year, previewImage, heroImage, images, ...exhibition }) => ({
@@ -4205,18 +4212,18 @@ const sortedExhibitions: Exhibition[] = exhibitionSeeds
     return 0;
   });
 
-// Move the pinned exhibition to position 0, preserving every other
-// entry's relative order. If the slug isn't in the dataset (e.g. it was
-// removed), the array is exported unchanged.
-const pinnedIndex = sortedExhibitions.findIndex(
-  (exhibition) => exhibition.slug === PINNED_FIRST_SLUG,
-);
-if (pinnedIndex > 0) {
-  const [pinned] = sortedExhibitions.splice(pinnedIndex, 1);
-  sortedExhibitions.unshift(pinned);
+// Pull each pinned entry out of the sorted result one by one (preserving
+// the relative order of everything else) and collect them in the listed
+// order. Slugs not present in the dataset are ignored.
+const pinnedExhibitions: Exhibition[] = [];
+for (const slug of PINNED_SLUGS) {
+  const index = sortedExhibitions.findIndex((exhibition) => exhibition.slug === slug);
+  if (index !== -1) {
+    pinnedExhibitions.push(sortedExhibitions.splice(index, 1)[0]);
+  }
 }
 
-export const exhibitions: Exhibition[] = sortedExhibitions;
+export const exhibitions: Exhibition[] = [...pinnedExhibitions, ...sortedExhibitions];
 
 export function getExhibition(slug: string) {
   return exhibitions.find((exhibition) => exhibition.slug === slug);
