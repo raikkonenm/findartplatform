@@ -52,11 +52,17 @@ const SUBMISSION_RECIPIENTS = {
   artist: "artcnomads@gmail.com",
 } as const;
 
+const SUBMISSIONS_ENABLED = false;
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export async function POST(request: Request) {
+  if (!SUBMISSIONS_ENABLED) {
+    return NextResponse.json({ error: "Submissions are temporarily unavailable." }, { status: 503 });
+  }
+
   let input: unknown;
 
   try {

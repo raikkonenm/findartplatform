@@ -58,6 +58,25 @@ const emptyArtistFields: ArtistFields = {
   additionalNotes: "",
 };
 
+const SUBMISSIONS_ENABLED = false;
+const TEMPORARILY_UNAVAILABLE_MESSAGE = (
+  <>
+    Submissions are temporarily unavailable.
+    <br />
+    We apologize for the inconvenience.
+    <br />
+    The submission system is expected to be restored within the next few days.
+  </>
+);
+
+/*
+ * Temporarily disabled. Restore this payment/submission flow when submissions reopen:
+ *
+ * 1. Set SUBMISSIONS_ENABLED to true.
+ * 2. Reintroduce the PayPal URLs/redirect after a successful email send if paid checkout resumes.
+ * 3. Keep the payload shape below; the API route still contains the original email delivery logic.
+ */
+
 type FieldProps = {
   label: ReactNode;
   placeholder: string;
@@ -120,11 +139,6 @@ function TextAreaField({
   );
 }
 
-const PAYPAL_URLS: Record<SubmissionType, string> = {
-  exhibition: "https://www.paypal.com/ncp/payment/LHVMZWKHVBGV4",
-  artist: "https://www.paypal.com/ncp/payment/RMBQGACEGJ5XU",
-};
-
 export function SubmissionForm({ submissionType }: { submissionType: SubmissionType }) {
   const [exhibitionFields, setExhibitionFields] = useState<ExhibitionFields>(emptyExhibitionFields);
   const [artistFields, setArtistFields] = useState<ArtistFields>(emptyArtistFields);
@@ -143,6 +157,11 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
 
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!SUBMISSIONS_ENABLED) {
+      return;
+    }
+
     setStatus("submitting");
 
     try {
@@ -185,10 +204,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
         throw new Error("Submission request failed.");
       }
 
-      // Email sent successfully — redirect to the correct PayPal payment link.
-      // Field data is intentionally preserved; the user is leaving the page.
       setStatus("success");
-      window.location.href = PAYPAL_URLS[submissionType];
     } catch {
       setStatus("error");
     }
@@ -254,18 +270,27 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
 
       <button
         type="submit"
-        disabled={status === "submitting"}
-        className="mt-8 w-full bg-neutral-950 px-8 py-5 text-[11px] uppercase tracking-[0.32em] text-white transition-opacity hover:opacity-75 disabled:cursor-wait disabled:opacity-60"
+        disabled={!SUBMISSIONS_ENABLED || status === "submitting"}
+        className="mt-8 w-full bg-neutral-950 px-8 py-5 text-[11px] uppercase tracking-[0.32em] text-white transition-opacity hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "submitting" ? "Submitting…" : "Submit"}
+        {SUBMISSIONS_ENABLED
+          ? status === "submitting"
+            ? "Submitting..."
+            : "Submit"
+          : "TEMPORARILY UNAVAILABLE"}
       </button>
 
-      {status === "success" && (
+      {!SUBMISSIONS_ENABLED && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
-          Submission received. Redirecting to payment&hellip;
+          {TEMPORARILY_UNAVAILABLE_MESSAGE}
         </p>
       )}
-      {status === "error" && (
+      {SUBMISSIONS_ENABLED && status === "success" && (
+        <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
+          Submission received.
+        </p>
+      )}
+      {SUBMISSIONS_ENABLED && status === "error" && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
           Submission failed. Please try again or email us directly.
         </p>
