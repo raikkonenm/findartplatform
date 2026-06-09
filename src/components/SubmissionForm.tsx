@@ -58,24 +58,10 @@ const emptyArtistFields: ArtistFields = {
   additionalNotes: "",
 };
 
-const SUBMISSIONS_ENABLED = false;
-const TEMPORARILY_UNAVAILABLE_MESSAGE = (
-  <>
-    Submissions are temporarily unavailable.
-    <br />
-    We apologize for the inconvenience.
-    <br />
-    The submission system is expected to be restored within the next few days.
-  </>
-);
-
-/*
- * Temporarily disabled. Restore this payment/submission flow when submissions reopen:
- *
- * 1. Set SUBMISSIONS_ENABLED to true.
- * 2. Reintroduce the PayPal URLs/redirect after a successful email send if paid checkout resumes.
- * 3. Keep the payload shape below; the API route still contains the original email delivery logic.
- */
+const GUMROAD_URLS: Record<SubmissionType, string> = {
+  exhibition: "https://findartplatform.gumroad.com/l/exhibitionsubmission",
+  artist: "https://findartplatform.gumroad.com/l/submitasanartist",
+};
 
 type FieldProps = {
   label: ReactNode;
@@ -158,10 +144,6 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!SUBMISSIONS_ENABLED) {
-      return;
-    }
-
     setStatus("submitting");
 
     try {
@@ -205,6 +187,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
       }
 
       setStatus("success");
+      window.location.href = GUMROAD_URLS[submissionType];
     } catch {
       setStatus("error");
     }
@@ -270,27 +253,18 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
 
       <button
         type="submit"
-        disabled={!SUBMISSIONS_ENABLED || status === "submitting"}
-        className="mt-8 w-full bg-neutral-950 px-8 py-5 text-[11px] uppercase tracking-[0.32em] text-white transition-opacity hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-60"
+        disabled={status === "submitting"}
+        className="mt-8 w-full bg-neutral-950 px-8 py-5 text-[11px] uppercase tracking-[0.32em] text-white transition-opacity hover:opacity-75 disabled:cursor-wait disabled:opacity-60"
       >
-        {SUBMISSIONS_ENABLED
-          ? status === "submitting"
-            ? "Submitting..."
-            : "Submit"
-          : "TEMPORARILY UNAVAILABLE"}
+        {status === "submitting" ? "Submitting..." : "Submit"}
       </button>
 
-      {!SUBMISSIONS_ENABLED && (
+      {status === "success" && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
-          {TEMPORARILY_UNAVAILABLE_MESSAGE}
+          Submission received. Redirecting to payment&hellip;
         </p>
       )}
-      {SUBMISSIONS_ENABLED && status === "success" && (
-        <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
-          Submission received.
-        </p>
-      )}
-      {SUBMISSIONS_ENABLED && status === "error" && (
+      {status === "error" && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
           Submission failed. Please try again or email us directly.
         </p>
