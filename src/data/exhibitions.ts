@@ -286,6 +286,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "grass-on-roadside-4": ["ECOLOGY"],
   "the-beautiful-remains": ["MEMORY", "MATERIALITY", "FRAGMENT", "BODY", "ABSENCE", "OBJECTHOOD"],
   "profusion-antagonist-wishlist": ["MEMORY", "ARCHAEOLOGY", "TECHNOLOGY", "FRAGMENT", "OBJECTHOOD"],
+  "dont-trust-the-rabbit": ["INSTALLATION", "TECHNOLOGY", "BODY", "SOUND"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -300,6 +301,58 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "dont-trust-the-rabbit",
+    title: "DON'T TRUST THE RABBIT",
+    subtitle: "Group Exhibition",
+    venue: "SSK Düsseldorf",
+    gallery: "SSK Düsseldorf",
+    city: "Düsseldorf",
+    country: "Germany",
+    year: "2026",
+    dates: "24 April — 30 May 2026",
+    startDate: "24 April 2026",
+    endDate: "30 May 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Sophie Schweighart",
+      "Carmen Schaich",
+      "Catherine Lorent",
+      "Birgit Holmer",
+      "Iris Helena Hamers",
+      "Alexander Follez",
+      "Till Bodeker",
+    ],
+    curator: "Jeannine Burch",
+    photographer: "Till Bodeker",
+    description: `A small hole in a counter, crudely drilled, of unknown origin, possibly left behind from when the space was still a stamp factory. The show takes the flaw as its starting point. Fog rises from the opening. Above it, a scanned and 3D-printed body bent over the hole, its joints articulated, its surface white. Across the room, an old cucumber variety grows inside sealed glass pill capsules, real but pre-shaped by the container. A quadruped robot moves through the space with a thermal camera on its back; visitors appear on monitors as accumulating heat silhouettes. Nearby, a series of server-rack frames in raw aluminium hold large-format image fragments, photographic and generated. Upstairs, a walk-in architecture run by an AI that responds to movement with light and sound, its answers dripping from a tap in morse code. Further along, an e-guitar in a wig holds a single distorted note, triggered by a motion sensor and slowly fading as one leaves the show.`,
+    previewImage: localExhibitionImage("DON’T TRUST THE RABBIT", "1.webp"),
+    heroImage: localExhibitionImage("DON’T TRUST THE RABBIT", "1.webp"),
+    images: localExhibitionGallery(
+      "DON’T TRUST THE RABBIT",
+      [
+        "1.webp",
+        "2.webp",
+        "3.webp",
+        "4.webp",
+        "5.webp",
+        "6.webp",
+        "7.webp",
+        "8.webp",
+        "9.webp",
+        "10.webp",
+        "11.webp",
+        "12.webp",
+        "13.webp",
+        "14.webp",
+        "15.webp",
+        "16.webp",
+      ],
+      "vertical",
+      "Till Bodeker",
+    ),
+    instagramUrl: "https://www.instagram.com/sskduesseldorf/",
+  },
   {
     slug: "profusion-antagonist-wishlist",
     title: "PROFUSION ANTAGONIST WISHLIST",
@@ -4190,6 +4243,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "dont-trust-the-rabbit",
   "profusion-antagonist-wishlist",
   "the-beautiful-remains",
 ];
