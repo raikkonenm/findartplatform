@@ -287,6 +287,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "the-beautiful-remains": ["MEMORY", "MATERIALITY", "FRAGMENT", "BODY", "ABSENCE", "OBJECTHOOD"],
   "profusion-antagonist-wishlist": ["MEMORY", "ARCHAEOLOGY", "TECHNOLOGY", "FRAGMENT", "OBJECTHOOD"],
   "dont-trust-the-rabbit": ["INSTALLATION", "TECHNOLOGY", "BODY", "SOUND"],
+  "accomplice": ["INSTALLATION", "MATERIALITY", "TRANSFORMATION", "ECOLOGY", "TECHNOLOGY", "SOUND"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -301,6 +302,55 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "accomplice",
+    title: "ACCOMPLICE",
+    subtitle: "Yein Lee",
+    venue: "Cukrarna",
+    gallery: "Cukrarna",
+    city: "Ljubljana",
+    country: "Slovenia",
+    year: "2026",
+    dates: "30 August 2026",
+    startDate: "30 August 2026",
+    endDate: "30 August 2026",
+    dateSource: "exhibition",
+    artists: ["Yein Lee"],
+    curator: "Ema Ograjenšek",
+    photographer: "Blaž Gutman, Domen Pal",
+    description: `Accomplice brings together a new series of sculptural works by Vienna-based South Korean artist Yein Lee. Developed specifically for the Parterre Gallery, the exhibition consists of five sculptures and a ground-based pool installation. Extending into the architecture of the gallery, the works form a landscape of precarious relations that explores conditions of material instability and spatial uncertainty.
+
+At the centre of Yein Lee's sculptures and installations lies a condition of material becoming. The artist approaches form and matter not as fixed entities but as sites of continual negotiation, shaped by forces that exceed stable control. Within Lee's practice, processes that transform, deform, and adapt resonate with broader conditions of ecological stress and geopolitical volatility, in which environments, infrastructures, and bodies are increasingly exposed to pressure and fatigue, causing instability. Rather than presenting matter as passive or inert, the works foreground its capacity to respond, shift, and reorganise under strain. Material thus appears as active and relational - continuously transforming in response to the tensions and uncertainties that structure contemporary environmental and political realities.
+
+Within this framework, Lee's works emerge through processes of abrasion, accumulation, and provisional balance. Surfaces appear fractured, material elements lean or suspend themselves in precarious alliances, and the sculptural field unfolds as a landscape of tensions.
+
+The five sculptures are distributed across the Parterre Gallery without forming a fixed pattern or centralised arrangement. Varying in scale, some works stand independently while others gather into loose clusters, creating shifting points of attention throughout the space. A larger sculptural element descends from the ceiling, its form mirrored in the reflective surface of the pool below. The reflection establishes a vertical axis that connects the suspended sculpture to the mirrored geometries of the surrounding space.
+
+Each sculpture is characterised by biomorphic forms that evoke structural features found in foliage and twigs, such as veins and vascular systems that transport nutrients through plant bodies. At the same time, these forms recall elements of industrial infrastructure - cables, wires, and steel pipes that channel energy, information, or fluids through technological networks. By deliberately bringing these visual and structural references into proximity, Lee foregrounds formal correspondences between botanical and industrial bodies, tracing the shared structural logics that traverse natural and manufactured systems.
+
+The artist works with polymer gypsum, epoxy putty, and found steel. Gypsum casts are taken from materials and surfaces in unstable or transitional states, carrying their instability and transience as imprints. The casts register moments of pressure, erosion, or displacement, allowing processes of transformation to remain visible within the sculptural form. As such, they can be understood as trace bodies: forms that retain the marks of their making and emerge less as pure authorial expressions than as the result of ongoing exchanges between artist and material.
+
+As the artist notes: "The works protrude out of my own form and into their own. There is an inversion, a turning over, or an exposing of their underbelly. I am drawn to the tension that holds them; the quiet strength and ambivalence between what is fragile and what is rigid, between what yields softly and what resists."
+
+These roles extend into the exhibition space, as the viewer does not simply observe but navigates a field of tensions. Movement and shifting vantage points continually recompose the constellation of the works, drawing the viewer into the same dynamic relations that shape their formation. In this way, the sculptures appear to expand beyond their physical boundaries, reflecting both the material processes from which they emerged and the broader conditions that shape the environments they inhabit.`,
+    previewImage: localExhibitionImage("ACCOMPLICE BY YEIN LEE", "1.jpeg"),
+    heroImage: localExhibitionImage("ACCOMPLICE BY YEIN LEE", "1.jpeg"),
+    images: [
+      ...localExhibitionGallery(
+        "ACCOMPLICE BY YEIN LEE",
+        ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg"],
+        "horizontal",
+        "Blaž Gutman, Domen Pal",
+      ),
+      ...localExhibitionGallery(
+        "ACCOMPLICE BY YEIN LEE",
+        ["6.jpg", "7.jpg", "8.jpg", "9.jpg"],
+        "vertical",
+        "Blaž Gutman, Domen Pal",
+      ),
+    ],
+    instagramUrl: "https://www.instagram.com/cukrarna.art/",
+  },
   {
     slug: "dont-trust-the-rabbit",
     title: "DON'T TRUST THE RABBIT",
@@ -4243,6 +4293,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "accomplice",
   "dont-trust-the-rabbit",
   "profusion-antagonist-wishlist",
   "the-beautiful-remains",
