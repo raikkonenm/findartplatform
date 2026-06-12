@@ -57,6 +57,8 @@ const MORE_TAGS: SemanticTag[] = [
   "DOMESTICITY",
   "ANIMALITY",
   "EROSION",
+  "PHOTOGRAPHY",
+  "DISPLACEMENT",
 ];
 type SelectedTag = "ALL" | SemanticTag;
 const FEATURED_SLUG = "lullaby-blossoms";

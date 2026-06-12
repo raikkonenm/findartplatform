@@ -43,6 +43,8 @@ export const semanticTags = [
   "DOMESTICITY",
   "ANIMALITY",
   "EROSION",
+  "PHOTOGRAPHY",
+  "DISPLACEMENT",
 ] as const;
 
 export type SemanticTag = (typeof semanticTags)[number];
@@ -101,6 +103,18 @@ function localExhibitionGallery(
   photographer?: string,
 ): Exhibition["images"] {
   return filenames.map((filename) => ({
+    src: localExhibitionImage(folder, filename),
+    orientation,
+    caption: photographer ? `Installation view. Photo: ${photographer}` : "Installation view.",
+  }));
+}
+
+function localExhibitionGalleryWithOrientations(
+  folder: string,
+  files: Array<{ filename: string; orientation: "horizontal" | "vertical" }>,
+  photographer?: string,
+): Exhibition["images"] {
+  return files.map(({ filename, orientation }) => ({
     src: localExhibitionImage(folder, filename),
     orientation,
     caption: photographer ? `Installation view. Photo: ${photographer}` : "Installation view.",
@@ -288,6 +302,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "profusion-antagonist-wishlist": ["MEMORY", "ARCHAEOLOGY", "TECHNOLOGY", "FRAGMENT", "OBJECTHOOD"],
   "dont-trust-the-rabbit": ["INSTALLATION", "TECHNOLOGY", "BODY", "SOUND"],
   "accomplice": ["INSTALLATION", "MATERIALITY", "TRANSFORMATION", "ECOLOGY", "TECHNOLOGY", "SOUND"],
+  "dislocation": ["PHOTOGRAPHY", "MEMORY", "IDENTITY", "BODY", "DISPLACEMENT", "ARCHIVE"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -302,6 +317,66 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "dislocation",
+    title: "DISLOCATION",
+    subtitle: "Eva Chapkin",
+    venue: "Arsmonitor",
+    gallery: "Arsmonitor",
+    city: "Bucharest",
+    country: "Romania",
+    year: "2026",
+    dates: "21 May — 3 July 2026",
+    startDate: "21 May 2026",
+    endDate: "3 July 2026",
+    dateSource: "exhibition",
+    artists: ["Eva Chapkin"],
+    curator: "Lina Țărmure",
+    photographer: "Ionuț Dobre",
+    description: `Eva Chapkin (b. 2003) was born in Chișinău, grew up in Tiraspol, Transnistria, received Bulgarian citizenship through her maternal line, and subsequently moved to Romania — first to Constanța, then to Bucharest, where she completed her undergraduate studies at the National University of Arts. The artist's biographical trajectory, marked by successive transitions between geographies, languages, and identities, constitutes not merely the context but the very raw material of her artistic practice.
+
+Working with photography, Eva Chapkin obsessively returns to the image of her own body as a space of negotiation between belonging and estrangement. The frontal approach to her own representation is part of a continuous reconstruction of the self, creating subjects out of backgrounds — more precisely, out of the places she passes through. In this sense, the image, for Eva Chapkin, is a personal mnemosyne: a Warburgian montage of an obscure and intimate micro-history, a mnemonic journal of permanent displacements. This transitive condition and this way of being in the world are simultaneously a means of expression and of inquiry. Photography thus acquires the function of a witness to emotional geographies, inverting the trauma of dislocation by imprinting the spaces that temporarily shelter her with her own image.
+
+Under the auspices of an identity constituted through a series of processes opposed to the fixing of a personal and social self — through destabilization, transition, and affective contamination — the exhibition Dislocation proposes a reading of photography as a practice of permanent presence: a way of remaining in contact with oneself and with one's own experience, precisely in those moments when that experience becomes most difficult to hold in place. The exhibition functions as a montage — an accumulation of obsessions, recurrences, and fragments — that describes Eva Chapkin's practice over recent years.
+
+For Eva Chapkin, the image of the body exceeds the social stakes. The body becomes both presence and trace, and photography is a space in which identity is continuously negotiated. The self-portrait here plays a role of self-recovery — a gesture of mastery over one's own body, but also a fragile attempt to fix something that is in continuous motion.
+
+Perhaps in this continuous exchange of roles — between body and objects, between image and text, between presence and disappearance, between the familiar and the foreign — the title Dislocation simultaneously illuminates both the condition of leaving a place and the visceral need for fixity and anchorage.`,
+    previewImage: localExhibitionImage("DISLOCATION", "1.jpeg"),
+    heroImage: localExhibitionImage("DISLOCATION", "1.jpeg"),
+    images: localExhibitionGalleryWithOrientations(
+      "DISLOCATION",
+      [
+        { filename: "1.jpeg", orientation: "vertical" },
+        { filename: "2.jpeg", orientation: "horizontal" },
+        { filename: "3.jpeg", orientation: "vertical" },
+        { filename: "4.jpeg", orientation: "horizontal" },
+        { filename: "5.jpeg", orientation: "horizontal" },
+        { filename: "6.jpeg", orientation: "horizontal" },
+        { filename: "7.jpeg", orientation: "horizontal" },
+        { filename: "8.jpeg", orientation: "horizontal" },
+        { filename: "9.jpeg", orientation: "horizontal" },
+        { filename: "10.jpeg", orientation: "horizontal" },
+        { filename: "11.jpeg", orientation: "horizontal" },
+        { filename: "12.jpeg", orientation: "horizontal" },
+        { filename: "13.jpeg", orientation: "horizontal" },
+        { filename: "14.jpeg", orientation: "vertical" },
+        { filename: "15.jpeg", orientation: "vertical" },
+        { filename: "16.jpeg", orientation: "vertical" },
+        { filename: "17.jpeg", orientation: "vertical" },
+        { filename: "18.jpeg", orientation: "horizontal" },
+        { filename: "19.jpeg", orientation: "horizontal" },
+        { filename: "20.jpeg", orientation: "horizontal" },
+        { filename: "21.jpeg", orientation: "horizontal" },
+        { filename: "22.jpeg", orientation: "horizontal" },
+        { filename: "23.jpeg", orientation: "vertical" },
+        { filename: "24.jpeg", orientation: "horizontal" },
+      ],
+      "Ionuț Dobre",
+    ),
+    instagramUrl: "https://artviewer.org/eva-chapkin-at-arsmonitor-bucharest/",
+    sourceUrl: "https://artviewer.org/eva-chapkin-at-arsmonitor-bucharest/",
+  },
   {
     slug: "accomplice",
     title: "ACCOMPLICE",
@@ -4293,6 +4368,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "dislocation",
   "accomplice",
   "dont-trust-the-rabbit",
   "profusion-antagonist-wishlist",

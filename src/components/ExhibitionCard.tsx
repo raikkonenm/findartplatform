@@ -34,7 +34,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
   const { isSaved, toggleSaved } = useSavedExhibitions();
   const saved = isSaved(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
-  const useDirectPublicImage = exhibition.slug === "accomplice";
+  const useDirectPublicImage = ["accomplice", "dislocation"].includes(exhibition.slug);
 
   return (
     // The parent `.masonry > *` rule in globals.css handles
