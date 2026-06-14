@@ -303,6 +303,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "dont-trust-the-rabbit": ["INSTALLATION", "TECHNOLOGY", "BODY", "SOUND"],
   "accomplice": ["INSTALLATION", "MATERIALITY", "TRANSFORMATION", "ECOLOGY", "TECHNOLOGY", "SOUND"],
   "dislocation": ["PHOTOGRAPHY", "MEMORY", "IDENTITY", "BODY", "DISPLACEMENT", "ARCHIVE"],
+  "haus-der-luge": ["RITUAL", "SPIRITUALITY", "BODY", "MATERIALITY", "DECAY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -317,6 +318,62 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "haus-der-luge",
+    title: "HAUS DER LÜGE",
+    subtitle: "Radosław Chorab, Czaro Malinkiewicz, Mikołaj Sobotka, Milan Zientara",
+    venue: "Przeciąg Gallery",
+    gallery: "Przeciąg Gallery",
+    city: "Warsaw",
+    country: "Poland",
+    year: "2026",
+    dates: "30 May — 5 July 2026",
+    startDate: "30 May 2026",
+    endDate: "5 July 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Radosław Chorab",
+      "Czaro Malinkiewicz",
+      "Mikołaj Sobotka",
+      "Milan Zientara",
+    ],
+    curator: "Kuba Brzegowy",
+    description: `The exhibition "Haus Der Lüge" addresses questions that reach into the deepest layers of human existence. Here, the sacred is not separated from the profane; the two constantly permeate one another. The exhibition's concept brings together a search for mystical value with an aesthetic of horror.
+
+Both visually and conceptually, the exhibition draws significant inspiration from Pier Paolo Pasolini's "Teorema" and Elias Merhige's experimental film "Begotten". This atmosphere of dark spirituality is reinforced by the recurring motif of mud, which acquires a multifaceted significance within the exhibition. It appears as an ambivalent, liminal material, situated between form and formlessness. Mud not only evokes primordial creation myths but also metaphorically points to existence as a continuous process of becoming and, simultaneously, of disintegration.
+
+Mud embodies what is lowly and corporeal, while also penetrating the darker recesses of the soul — spaces that are not entirely devoid of hope. The exhibition further explores the theme of spiritual exaltation, which may assume mystical forms that verge on madness.
+
+"Haus Der Lüge" reflects on experiences of spiritual transcendence that can take extreme forms and are often intertwined with suffering. The works brought together in the exhibition create a kind of membrane of fears and images that shape our sense of belonging, value, and mysticism.`,
+    previewImage: localExhibitionImage("Haus_Der_Lüge", "1.jpg"),
+    heroImage: localExhibitionImage("Haus_Der_Lüge", "1.jpg"),
+    images: localExhibitionGalleryWithOrientations(
+      "Haus_Der_Lüge",
+      [
+        { filename: "1.jpg", orientation: "vertical" },
+        { filename: "2.jpg", orientation: "vertical" },
+        { filename: "3.jpg", orientation: "vertical" },
+        { filename: "4.jpg", orientation: "vertical" },
+        { filename: "5.jpg", orientation: "vertical" },
+        { filename: "5.1.jpg", orientation: "horizontal" },
+        { filename: "6.jpg", orientation: "horizontal" },
+        { filename: "7.jpg", orientation: "vertical" },
+        { filename: "8.jpg", orientation: "horizontal" },
+        { filename: "9.jpg", orientation: "vertical" },
+        { filename: "10.jpg", orientation: "vertical" },
+        { filename: "11.jpg", orientation: "horizontal" },
+        { filename: "12.jpg", orientation: "vertical" },
+        { filename: "13.jpg", orientation: "horizontal" },
+        { filename: "14.jpg", orientation: "horizontal" },
+        { filename: "15.jpg", orientation: "horizontal" },
+        { filename: "16.jpg", orientation: "horizontal" },
+        { filename: "17.jpg", orientation: "vertical" },
+        { filename: "18.jpg", orientation: "vertical" },
+        { filename: "19.jpg", orientation: "vertical" },
+        { filename: "20.jpg", orientation: "horizontal" },
+      ],
+    ),
+  },
   {
     slug: "dislocation",
     title: "DISLOCATION",
@@ -4368,6 +4425,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "haus-der-luge",
   "dislocation",
   "accomplice",
   "dont-trust-the-rabbit",
