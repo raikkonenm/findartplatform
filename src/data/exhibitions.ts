@@ -338,6 +338,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
       "Milan Zientara",
     ],
     curator: "Kuba Brzegowy",
+    photographer: "Zuzanna Wudarska",
     description: `The exhibition "Haus Der Lüge" addresses questions that reach into the deepest layers of human existence. Here, the sacred is not separated from the profane; the two constantly permeate one another. The exhibition's concept brings together a search for mystical value with an aesthetic of horror.
 
 Both visually and conceptually, the exhibition draws significant inspiration from Pier Paolo Pasolini's "Teorema" and Elias Merhige's experimental film "Begotten". This atmosphere of dark spirituality is reinforced by the recurring motif of mud, which acquires a multifaceted significance within the exhibition. It appears as an ambivalent, liminal material, situated between form and formlessness. Mud not only evokes primordial creation myths but also metaphorically points to existence as a continuous process of becoming and, simultaneously, of disintegration.
@@ -372,6 +373,7 @@ Mud embodies what is lowly and corporeal, while also penetrating the darker rece
         { filename: "19.jpg", orientation: "vertical" },
         { filename: "20.jpg", orientation: "horizontal" },
       ],
+      "Zuzanna Wudarska",
     ),
   },
   {
