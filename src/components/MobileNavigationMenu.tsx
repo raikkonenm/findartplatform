@@ -55,6 +55,13 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
             <Link href="/about" role="menuitem" onClick={() => setOpen(false)}>
               About
             </Link>
+            <a
+              href="https://www.instagram.com/findart.platform/"
+              role="menuitem"
+              onClick={() => setOpen(false)}
+            >
+              Instagram
+            </a>
             <a href="https://www.artcnomad.com/" role="menuitem" onClick={() => setOpen(false)}>
               By Artnomad Curators &#8599;
             </a>

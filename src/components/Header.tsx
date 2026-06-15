@@ -69,6 +69,14 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
           >
             About
           </Link>
+          <a
+            href="https://www.instagram.com/findart.platform/"
+            className={`hidden transition-opacity hover:opacity-55 md:inline ${
+              overlay ? "font-normal" : "text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
+            }`}
+          >
+            Instagram
+          </a>
           <Link
             href="/submit"
             className={`transition-opacity hover:opacity-55 ${

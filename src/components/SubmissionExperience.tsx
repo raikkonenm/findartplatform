@@ -139,10 +139,10 @@ export function SubmissionExperience() {
             <p className="mt-4 text-[13px] leading-6 text-neutral-600">
               Questions? Write to us at{" "}
               <a
-                href="mailto:artnomads@gmail.com"
+                href="mailto:artcnomads@gmail.com"
                 className="text-neutral-800 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
               >
-                artnomads@gmail.com
+                artcnomads@gmail.com
               </a>
             </p>
           </aside>

@@ -94,10 +94,10 @@ export default function AboutPage() {
             <p>
               For inquiries, contact{" "}
               <a
-                href="mailto:artnomads@gmail.com"
+                href="mailto:artcnomads@gmail.com"
                 className="underline decoration-1 decoration-neutral-400 underline-offset-4 transition-opacity hover:opacity-55"
               >
-                artnomads@gmail.com
+                artcnomads@gmail.com
               </a>
             </p>
           </div>
