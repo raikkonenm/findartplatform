@@ -229,9 +229,12 @@ function RelatedExhibitions({
           const relatedAspect = aspectClassForSlug(relatedExhibition.slug);
           const relatedCover =
             relatedExhibition.coverImage ?? relatedExhibition.previewImage;
-          const useDirectPublicImage = ["accomplice", "dislocation", "haus-der-luge"].includes(
-            relatedExhibition.slug,
-          );
+          const useDirectPublicImage = [
+            "accomplice",
+            "dislocation",
+            "haus-der-luge",
+            "actualization-machine",
+          ].includes(relatedExhibition.slug);
           const content = (
             <>
               <div className={`relative ${relatedAspect} overflow-hidden bg-neutral-100`}>
@@ -302,9 +305,12 @@ export function ExhibitionDetail({
   const panelGallery = exhibition.images.filter(
     (image, index) => image.src !== exhibition.heroImage || index > 0,
   );
-  const useDirectPublicImages = ["accomplice", "dislocation", "haus-der-luge"].includes(
-    exhibition.slug,
-  );
+  const useDirectPublicImages = [
+    "accomplice",
+    "dislocation",
+    "haus-der-luge",
+    "actualization-machine",
+  ].includes(exhibition.slug);
 
   return (
       <article className="min-w-0 bg-white px-5 pb-16 pt-16 text-neutral-900 md:px-10 md:pb-20 md:pt-12 lg:px-12 lg:pt-12">

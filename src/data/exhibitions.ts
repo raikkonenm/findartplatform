@@ -304,6 +304,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "accomplice": ["INSTALLATION", "MATERIALITY", "TRANSFORMATION", "ECOLOGY", "TECHNOLOGY", "SOUND"],
   "dislocation": ["PHOTOGRAPHY", "MEMORY", "IDENTITY", "BODY", "DISPLACEMENT", "ARCHIVE"],
   "haus-der-luge": ["RITUAL", "SPIRITUALITY", "BODY", "MATERIALITY", "DECAY"],
+  "actualization-machine": ["TECHNOLOGY", "SURVEILLANCE", "ARCHIVE", "SPIRITUALITY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -318,6 +319,52 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "actualization-machine",
+    title: "ACTUALIZATION MACHINE",
+    subtitle: "Nina Hartmann",
+    venue: "Silke Lindner",
+    gallery: "Silke Lindner",
+    city: "New York",
+    country: "United States",
+    year: "2026",
+    dates: "24 April — 30 May 2026",
+    startDate: "24 April 2026",
+    endDate: "30 May 2026",
+    dateSource: "exhibition",
+    artists: ["Nina Hartmann"],
+    photographer: "Chris Herity",
+    description: `Silke Lindner is pleased to announce Actualization Machine, the second solo exhibition with New York-based artist Nina Hartmann.
+
+Hartmann's new body of work, comprised of shaped pieces of encaustic panels, resin sculptures, and lightboxes, carry images collected during her research into the U.S. government's attempts to understand and develop methods of mind control, telepathy, and other mysterious phenomena during the Cold War.
+
+In 1979 former State Department officer turned journalist John Marks published The Search for the "Manchurian Candidate". This explosive book laid out evidence of the controversial U.S. government efforts to develop methods of behavioral control under the umbrella of MKUltra and its subprojects in the 1950's and 1960's.
+
+In an era of existential panic and paranoia, when the future was uncertain and anything seemed possible, U.S. agencies investigated intelligence suggesting that the Soviet Union was researching parapsychological tools and individuals with paranormal abilities. This instigated the Stargate Project and related operations.
+
+The body of work endeavors to connect related Cold War timelines through the shared theme of attempts to gain control over the unknown. In Hartmann's works, these reality-bending events exist at the intersection of mysticism, magic, and the power of belief, linked through diagrammatic compositions that operate within and across individual pieces.
+
+Understanding the historical origins of attempted psychological control serves as a focused study within a larger inquiry of Hartmann's practice, which highlights and examines the ways in which humans are influenced by information on a daily basis through aesthetics, symbolism, and context.`,
+    previewImage: localExhibitionImage("ACTUALIZATION_MACHINE", "1.jpeg"),
+    heroImage: localExhibitionImage("ACTUALIZATION_MACHINE", "1.jpeg"),
+    images: localExhibitionGalleryWithOrientations(
+      "ACTUALIZATION_MACHINE",
+      [
+        { filename: "1.jpeg", orientation: "horizontal" },
+        { filename: "2.jpeg", orientation: "horizontal" },
+        { filename: "3.jpeg", orientation: "vertical" },
+        { filename: "4.jpeg", orientation: "horizontal" },
+        { filename: "5.jpeg", orientation: "horizontal" },
+        { filename: "6.jpeg", orientation: "vertical" },
+        { filename: "7.jpeg", orientation: "horizontal" },
+        { filename: "8.jpeg", orientation: "vertical" },
+        { filename: "9.jpeg", orientation: "horizontal" },
+      ],
+      "Chris Herity",
+    ),
+    instagramUrl: "https://artviewer.org/nina-hartmann-at-silke-lindner-new-york/",
+    sourceUrl: "https://artviewer.org/nina-hartmann-at-silke-lindner-new-york/",
+  },
   {
     slug: "haus-der-luge",
     title: "HAUS DER LÜGE",
@@ -4427,6 +4474,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "actualization-machine",
   "haus-der-luge",
   "dislocation",
   "accomplice",
