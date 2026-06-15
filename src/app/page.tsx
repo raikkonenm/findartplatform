@@ -494,6 +494,12 @@ export default function HomePage() {
             >
               About
             </Link>
+            <a
+              href="https://www.instagram.com/findart.platform/"
+              className="hidden text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:inline md:text-[11px] md:tracking-[0.28em]"
+            >
+              Instagram
+            </a>
             <Link
               href="/submit"
               className="text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:text-[11px] md:tracking-[0.28em]"
