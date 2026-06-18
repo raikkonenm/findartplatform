@@ -34,12 +34,6 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
   const { isSaved, toggleSaved } = useSavedExhibitions();
   const saved = isSaved(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
-  const useDirectPublicImage = [
-    "accomplice",
-    "dislocation",
-    "haus-der-luge",
-    "actualization-machine",
-  ].includes(exhibition.slug);
 
   return (
     // The parent `.masonry > *` rule in globals.css handles
@@ -54,7 +48,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             fill
             className="object-cover"
             loading={eager ? "eager" : "lazy"}
-            unoptimized={useDirectPublicImage}
+            unoptimized
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
         </div>

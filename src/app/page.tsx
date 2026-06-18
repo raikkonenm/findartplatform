@@ -530,6 +530,7 @@ export default function HomePage() {
                     alt={`${featuredTitle} exhibition view ${index + 1}`}
                     fill
                     className={`object-cover ${index === 2 ? "object-[45%_center]" : "object-center"}`}
+                    unoptimized
                     sizes="(min-width: 768px) 33vw, 34vw"
                   />
                 </div>

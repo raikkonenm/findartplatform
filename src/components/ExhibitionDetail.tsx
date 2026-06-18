@@ -229,12 +229,6 @@ function RelatedExhibitions({
           const relatedAspect = aspectClassForSlug(relatedExhibition.slug);
           const relatedCover =
             relatedExhibition.coverImage ?? relatedExhibition.previewImage;
-          const useDirectPublicImage = [
-            "accomplice",
-            "dislocation",
-            "haus-der-luge",
-            "actualization-machine",
-          ].includes(relatedExhibition.slug);
           const content = (
             <>
               <div className={`relative ${relatedAspect} overflow-hidden bg-neutral-100`}>
@@ -243,7 +237,7 @@ function RelatedExhibitions({
                   alt={`${relatedTitle} exhibition view`}
                   fill
                   className="object-cover"
-                  unoptimized={useDirectPublicImage}
+                  unoptimized
                   sizes="(min-width: 1024px) 21vw, (min-width: 640px) 28vw, 100vw"
                 />
               </div>
@@ -305,12 +299,6 @@ export function ExhibitionDetail({
   const panelGallery = exhibition.images.filter(
     (image, index) => image.src !== exhibition.heroImage || index > 0,
   );
-  const useDirectPublicImages = [
-    "accomplice",
-    "dislocation",
-    "haus-der-luge",
-    "actualization-machine",
-  ].includes(exhibition.slug);
 
   return (
       <article className="min-w-0 bg-white px-5 pb-16 pt-16 text-neutral-900 md:px-10 md:pb-20 md:pt-12 lg:px-12 lg:pt-12">
@@ -337,7 +325,7 @@ export function ExhibitionDetail({
               width={1600}
               height={1200}
               className="mx-auto h-auto max-h-[60vh] w-full max-w-full object-contain md:w-auto"
-              unoptimized={useDirectPublicImages}
+              unoptimized
               sizes="(min-width: 1200px) 34vw, (min-width: 1024px) 42vw, 100vw"
             />
             <figcaption className="mt-4 text-[11px] leading-5 text-neutral-500">
@@ -377,7 +365,7 @@ export function ExhibitionDetail({
                   width={image.orientation === "vertical" ? 1200 : 1800}
                   height={image.orientation === "vertical" ? 1800 : 1200}
                   className="h-auto max-h-[86vh] w-full object-contain"
-                  unoptimized={useDirectPublicImages}
+                  unoptimized
                   sizes={
                     image.orientation === "vertical"
                       ? "(min-width: 1024px) 48vw, 92vw"
