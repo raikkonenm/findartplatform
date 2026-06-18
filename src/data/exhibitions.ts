@@ -305,6 +305,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "dislocation": ["PHOTOGRAPHY", "MEMORY", "IDENTITY", "BODY", "DISPLACEMENT", "ARCHIVE"],
   "haus-der-luge": ["RITUAL", "SPIRITUALITY", "BODY", "MATERIALITY", "DECAY"],
   "actualization-machine": ["TECHNOLOGY", "SURVEILLANCE", "ARCHIVE", "SPIRITUALITY"],
+  "rootkit": ["TECHNOLOGY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -319,6 +320,63 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "rootkit",
+    title: "ROOTKIT",
+    subtitle: "S.A Mayer",
+    venue: "BENTA",
+    gallery: "BENTA",
+    city: "Istanbul",
+    country: "Turkey",
+    year: "2026",
+    dates: "5 June — 18 July 2026",
+    startDate: "5 June 2026",
+    endDate: "18 July 2026",
+    dateSource: "exhibition",
+    artists: ["S.A Mayer"],
+    curator: "Barış Çavuşoğlu",
+    photographer: "Barış Özçetin",
+    exhibitionText: "S.A Mayer",
+    description: `Responding to:
+
+Nokia phones shipped freight, paid via an endless chain of wire transfers.
+
+An Italian fertilizer company under the umbrella of an American agricultural conglomerate, packages adorned with quaint farmer archetypes silhouetted against a skyline.
+
+WhatsApp chats of crudely photographed, crudely made munitions overlaid with dated primetime TV references.
+
+Endless shell companies on either side of an opaque transaction.
+
+— S.A Mayer`,
+    previewImage: localExhibitionImage("ROOTKIT", "1.webp"),
+    heroImage: localExhibitionImage("ROOTKIT", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "ROOTKIT",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "horizontal" },
+      ],
+      "Barış Özçetin",
+    ),
+    instagramUrl: "https://www.ofluxo.net/rootkit-s-a-mayer-benta-istanbul/",
+    sourceUrl: "https://www.ofluxo.net/rootkit-s-a-mayer-benta-istanbul/",
+  },
   {
     slug: "actualization-machine",
     title: "ACTUALIZATION MACHINE",
@@ -4474,6 +4532,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "rootkit",
   "actualization-machine",
   "haus-der-luge",
   "dislocation",
