@@ -306,6 +306,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "haus-der-luge": ["RITUAL", "SPIRITUALITY", "BODY", "MATERIALITY", "DECAY"],
   "actualization-machine": ["TECHNOLOGY", "SURVEILLANCE", "ARCHIVE", "SPIRITUALITY"],
   "rootkit": ["TECHNOLOGY"],
+  "double-star": ["INSTALLATION", "BODY", "MATERIALITY", "ARCHIVE", "MEMORY", "MUTATION"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -320,6 +321,69 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "double-star",
+    title: "DOUBLE STAR",
+    subtitle: "Paola Siri Renard",
+    venue: "nouveaux deuxdeux",
+    gallery: "nouveaux deuxdeux",
+    city: "Munich",
+    country: "Germany",
+    year: "2026",
+    dates: "15 May — 4 July 2026",
+    startDate: "15 May 2026",
+    endDate: "4 July 2026",
+    dateSource: "exhibition",
+    artists: ["Paola Siri Renard"],
+    curator: "Luisa Seipp",
+    photographer: "Dirk Tacke",
+    description: `Paola Siri Renard's sculptures emerge from fragments, from architectural ornaments, equestrian monuments, industrial display systems, membranes, and skeletal forms that are extracted from historical structures and reassembled into unstable constellations. Her practice begins with research into architectural languages, from Gothic and Greco-Roman forms to Art Nouveau, not in order to reconstruct them, but to isolate details that reveal how histories of power become embedded within material surfaces. Ornament, in her work, is never merely decorative but rather evidence.
+
+For her exhibition, Renard continues her investigation into monuments and the political symbolism of the horse. Public equestrian monuments have historically functioned as instruments of domination. They monumentalize military authority, colonial conquest, and heroic masculinity while naturalizing these narratives within urban space. Yet the horse itself occupies an ambiguous role within these structures, being both an emblem of power and suppressed body, vehicle of control and living instrument of labour, war, and extraction.
+
+Rather than representing the whole monumental figure, the artist removes the rider and fragments the horse, dismantling the monument from below and isolating its legs - exposing their internal anatomies. Bones, membranes, and organic structures emerge beneath metallic skins, as though the sculptures were caught in a state of mutation. Seven aluminum cast sculptures derived from preparatory maquettes oscillate between archive and specimen. Dispersed individually, these entities form a fictive constellation. Each leg is divided into two distinct faces - one exaggerated and muscular, the other architectural and ornamental - generating a specular image. The cut creates a mirrored interstice from which a second identity emerges. The works suggest that something continues to grow underneath the surface, a latent violence embedded within architecture, monuments, and historical memory itself.
+
+The artist's engagement with Art Nouveau and colonial history is informed in part by the writings of art historian Debora Silverman, whose research traces how vegetal and ornamental motifs in fin-de-siècle architecture were entangled with colonial expansion and the circulation of exoticized forms. Renard extends this reading into the present, approaching architecture as a living political body that absorbs systems of domination into its decorative skin. In her sculptures, architectural forms become porous, unstable, and bodily.
+
+A central installation culminates this research. Conceived as a recomposed body that merges details drawn from the seven preceding models, the sculpture is fragmented into twelve elements arranged in a circular formation, evoking cyclical time and orbital motion. Suspended from modular stainless-steel structures reminiscent of slaughterhouse hangings, the fragments can either be assembled into a recognizable figure or dispersed throughout the space, oscillating between figuration and abstraction. Echoing the motif of the zipper, the structures present each configuration as a provisional and transitional state.
+
+The title Double Star refers to the astronomical phenomenon in which two celestial bodies orbit around a shared centre. Renard uses this idea as a metaphor for history and perception - meanings change depending on perspective, distance, and position. What appears stable or coherent from one viewpoint may crumble from another.`,
+    previewImage: localExhibitionImage("Double_Star", "2.jpg"),
+    heroImage: localExhibitionImage("Double_Star", "2.jpg"),
+    images: localExhibitionGalleryWithOrientations(
+      "Double_Star",
+      [
+        { filename: "2.jpg", orientation: "vertical" },
+        { filename: "5.jpg", orientation: "horizontal" },
+        { filename: "6.jpg", orientation: "vertical" },
+        { filename: "7.jpg", orientation: "vertical" },
+        { filename: "8.jpg", orientation: "vertical" },
+        { filename: "9.jpg", orientation: "vertical" },
+        { filename: "10.jpg", orientation: "vertical" },
+        { filename: "12.jpg", orientation: "vertical" },
+        { filename: "14.jpg", orientation: "vertical" },
+        { filename: "15.jpg", orientation: "vertical" },
+        { filename: "17.jpg", orientation: "vertical" },
+        { filename: "18.jpg", orientation: "vertical" },
+        { filename: "19.jpg", orientation: "horizontal" },
+        { filename: "20.jpg", orientation: "vertical" },
+        { filename: "21.jpg", orientation: "vertical" },
+        { filename: "22.jpg", orientation: "vertical" },
+        { filename: "23.jpg", orientation: "vertical" },
+        { filename: "24.jpg", orientation: "vertical" },
+        { filename: "25.jpg", orientation: "vertical" },
+        { filename: "26.jpg", orientation: "vertical" },
+        { filename: "27.jpg", orientation: "vertical" },
+        { filename: "28.jpg", orientation: "vertical" },
+        { filename: "29.jpg", orientation: "vertical" },
+        { filename: "30.jpg", orientation: "vertical" },
+      ],
+      "Dirk Tacke",
+    ),
+    instagramUrl: "https://nouveauxdeuxdeux.com/",
+    sourceUrl: "https://nouveauxdeuxdeux.com/",
+    source: "@paolasirirenard",
+  },
   {
     slug: "rootkit",
     title: "ROOTKIT",
@@ -4532,6 +4596,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "double-star",
   "rootkit",
   "actualization-machine",
   "haus-der-luge",
