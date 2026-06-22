@@ -307,6 +307,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "actualization-machine": ["TECHNOLOGY", "SURVEILLANCE", "ARCHIVE", "SPIRITUALITY"],
   "rootkit": ["TECHNOLOGY"],
   "double-star": ["INSTALLATION", "BODY", "MATERIALITY", "ARCHIVE", "MEMORY", "MUTATION"],
+  "tangled-in-shadows-from-an-old-drawer": ["MEMORY", "DECAY", "DOMESTICITY", "ABSENCE"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -321,6 +322,41 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "tangled-in-shadows-from-an-old-drawer",
+    title: "TANGLED IN SHADOWS FROM AN OLD DRAWER",
+    subtitle: "Klaudia Figura",
+    venue: "Łęctwo",
+    gallery: "Łęctwo",
+    city: "Poznań",
+    country: "Poland",
+    year: "2026",
+    dates: "10 April — 26 May 2026",
+    startDate: "10 April 2026",
+    endDate: "26 May 2026",
+    dateSource: "exhibition",
+    artists: ["Klaudia Figura"],
+    curator: "Przemek Sowiński",
+    photographer: "Przemek Sowiński",
+    exhibitionText: "Przemek Sowiński",
+    description: `Klaudia Figura’s exhibition Tangled in Shadows from an Old Drawer creatively and critically explores the notion of a “romantic utopia” — a particular state of longing in which life might be more intense, more meaningful, and more complete than it appears within the conditions of contemporary reality. At its core, romanticism is driven less by fulfillment than by desire: the hope that another way of being is possible, beyond a world that, in its current form, feels insufficient, fragmented, and overly rationalized. The romanticization of glamour and luxury becomes a more comfortable strategy than a genuine attempt to confront the emptiness that surrounds us. In her latest works, Klaudia Figura investigates a state of uncertainty, creating images that resemble blurred layers and deposits of memory, where one is compelled to make a final decision or confront the consequences of previous choices. It is a feeling of losing one’s footing — where what is familiar, comforting, and seemingly predictable, marked by nostalgia, begins to disintegrate when confronted with our expectations. The space is populated by images of contemplative figures enclosed and trapped within comfortable forms, or within harsher environments that evoke the simplicity of distant times. Depictions of abandoned or decaying houses, as well as objects representing a particular symbolic capital, become vehicles for exploring the fragility and transience of our existence. It is a sensation akin to a childhood game with siblings that suddenly ends with someone getting hurt.
+
+— Przemek Sowiński`,
+    previewImage: localExhibitionImage("TANGLED_IN_SHADOWS_FROM_AN_OLD_DRAWER", "1.jpeg"),
+    heroImage: localExhibitionImage("TANGLED_IN_SHADOWS_FROM_AN_OLD_DRAWER", "1.jpeg"),
+    images: localExhibitionGalleryWithOrientations(
+      "TANGLED_IN_SHADOWS_FROM_AN_OLD_DRAWER",
+      Array.from({ length: 18 }, (_, index) => {
+        const imageNumber = index + 1;
+        const verticalImages = [1, 4, 7, 8, 10, 18];
+        return {
+          filename: `${imageNumber}.jpeg`,
+          orientation: verticalImages.includes(imageNumber) ? "vertical" : "horizontal",
+        };
+      }),
+      "Przemek Sowiński",
+    ),
+  },
   {
     slug: "double-star",
     title: "DOUBLE STAR",
@@ -4596,6 +4632,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "tangled-in-shadows-from-an-old-drawer",
   "double-star",
   "rootkit",
   "actualization-machine",
