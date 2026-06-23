@@ -308,6 +308,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "rootkit": ["TECHNOLOGY"],
   "double-star": ["INSTALLATION", "BODY", "MATERIALITY", "ARCHIVE", "MEMORY", "MUTATION"],
   "tangled-in-shadows-from-an-old-drawer": ["MEMORY", "DECAY", "DOMESTICITY", "ABSENCE"],
+  "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo": ["MATERIALITY", "OBJECTHOOD"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -322,6 +323,67 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo",
+    title: "STIAN EIDE KLUGE AT ROTHHAUS, KUNSTNERNES HUS, OSLO",
+    subtitle: "Stian Eide Kluge",
+    venue: "Kunstnernes Hus (Rothaus)",
+    gallery: "Kunstnernes Hus (Rothaus)",
+    city: "Oslo",
+    country: "Norway",
+    year: "2026",
+    dates: "5 June — 21 June 2026",
+    startDate: "5 June 2026",
+    endDate: "21 June 2026",
+    dateSource: "exhibition",
+    artists: ["Stian Eide Kluge"],
+    curator: "Aljoša Eraković, Matias Kiil",
+    photographer: "Courtesy of the artist and Rothaus",
+    description: `Candle wax lamps: steel and curved automotive glass and bolts and adhesive. A number of white candles. 90% paraffin, 10% stearin. Wick. Melting point: approx. 70˚C. Burns with a calm flame. The less steady, the more lifelike.
+
+Candles: this includes tallow candles. Tallow: the fat found around the internal organs of ruminants. The combustion of tallow releases enough energy to sustain a (calm) flame. A flame is the light emitted by glowing gas.
+
+Power supply: 230 V / 50 Hz. Light source: two incandescent bulbs: clear, classic, E27, 25W. Light output: approx. 2 watts. The remainder is released as heat (over 90%). Lamp holder, cord, plug, etc.
+
+Represented by still life with light.
+
+Untitled drawing (2026)
+Colored pencil on paper, water-based stain on oak frame, glass
+33 x 41 x 3 cm
+
+Candle wax lamp (three-facet) (2026)
+Laminated automotive glass, steel, bolts, silicone sealant, mounting adhesive, drum bung, incandescent light bulb, lamp socket, power cord, plug, candles
+24 x 30 x 17 cm
+
+Candle wax lamp (two-facet) (2026)
+Same materials as above
+40 x 39 x 21 cm
+
+Hull (2026)
+Wood batten, screws, polyurethane, print transfer on birch plywood, two-component polyurethane, water-based stain, UV-wax
+42 x 40 x 64 cm`,
+    previewImage: localExhibitionImage(
+      "STIAN EIDE KLUGE AT ROTHAUS, KUNSTNERNES HUS, OSLO",
+      "1.jpeg",
+    ),
+    heroImage: localExhibitionImage(
+      "STIAN EIDE KLUGE AT ROTHAUS, KUNSTNERNES HUS, OSLO",
+      "1.jpeg",
+    ),
+    images: localExhibitionGalleryWithOrientations(
+      "STIAN EIDE KLUGE AT ROTHAUS, KUNSTNERNES HUS, OSLO",
+      Array.from({ length: 10 }, (_, index) => {
+        const imageNumber = index + 1;
+        return {
+          filename: `${imageNumber}.jpeg`,
+          orientation: imageNumber === 7 ? "vertical" : "horizontal",
+        };
+      }),
+      "Courtesy of the artist and Rothaus",
+    ),
+    instagramUrl: "https://kunstnerneshus.no/",
+    sourceUrl: "https://kunstnerneshus.no/",
+  },
   {
     slug: "tangled-in-shadows-from-an-old-drawer",
     title: "TANGLED IN SHADOWS FROM AN OLD DRAWER",
@@ -4632,6 +4694,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo",
   "tangled-in-shadows-from-an-old-drawer",
   "double-star",
   "rootkit",
