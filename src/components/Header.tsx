@@ -30,6 +30,7 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
           }`}
         >
           <a href="https://www.artcnomad.com/">By ArtNomad Curators &#8599;</a>
+          <a href="https://www.artcnomad.com/workflow-art">Workflow.Art &#8599;</a>
           {SHOW_PRACTICE_NAV && (
             <a href="https://www.artcnomad.com/practice">Practice &#8599;</a>
           )}

@@ -473,6 +473,7 @@ export default function HomePage() {
           <MobileNavigationMenu />
           <div className="hidden max-w-[5.3rem] flex-col items-start gap-1 text-[8px] uppercase leading-[1.35] tracking-[0.14em] text-neutral-900 md:flex md:max-w-none md:flex-row md:items-center md:gap-7 md:text-[11px] md:tracking-[0.28em]">
             <a href="https://www.artcnomad.com/">By ArtNomad Curators &#8599;</a>
+            <a href="https://www.artcnomad.com/workflow-art">Workflow.Art &#8599;</a>
             {SHOW_PRACTICE_NAV && (
               <a href="https://www.artcnomad.com/practice">Practice &#8599;</a>
             )}
