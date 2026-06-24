@@ -329,17 +329,18 @@ const exhibitionSeeds: ExhibitionSeed[] = [
   {
     slug: "who-composes-the-song-of-the-crickets",
     title: "WHO COMPOSES THE SONG OF THE CRICKETS?",
-    subtitle: "Hugo Guérin",
-    venue: "Galerie Paris-Beijing",
-    gallery: "Galerie Paris-Beijing",
+    subtitle: "@yugoguerin",
+    venue: "Galerie Suzanne Tarasieve",
+    gallery: "Galerie Suzanne Tarasieve",
     city: "Paris",
     country: "France",
     year: "2026",
     dates: "Until 25 July 2026",
     endDate: "25 July 2026",
     dateSource: "exhibition",
-    artists: ["Hugo Guérin"],
-    photographer: "Hugo Guérin",
+    artists: ["@yugoguerin"],
+    photographer: "@rebeccafanuelephoto",
+    exhibitionText: "@manon_canto",
     description: `“We think we know what the song of the crickets is. No sooner do we hear it than nature seems to be right there. This sound carries a memory: that of a summer’s night, of an imagined countryside, of a landscape we recognise even before we have looked at it.
 
 Who composes the song of the crickets arises from this confusion, at the moment when the obvious begins to crack, when the natural reveals the forms that have made it familiar.”`,
@@ -354,7 +355,7 @@ Who composes the song of the crickets arises from this confusion, at the moment 
           orientation: imageNumber === 2 || imageNumber === 4 ? "horizontal" : "vertical",
         };
       }),
-      "Hugo Guérin",
+      "@rebeccafanuelephoto",
     ),
     instagramUrl: "https://www.instagram.com/HugoGuerin/",
   },
