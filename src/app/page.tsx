@@ -385,10 +385,6 @@ export default function HomePage() {
   // Desktop ignores this and always shows the rows.
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  useEffect(() => {
-    console.log("[FindArt] Active Workflow banner rendered from src/app/page.tsx");
-  }, []);
-
   const selectTag = useCallback(
     (nextTag: SelectedTag) => {
       setTag(nextTag);
@@ -521,11 +517,11 @@ export default function HomePage() {
       </header>
 
       <section className="bg-white px-5 pb-6 pt-4 md:px-8 md:pb-8 md:pt-6 lg:px-12">
-        <div className="flex flex-col gap-10 md:grid md:grid-cols-[45%_55%] md:items-center md:gap-20">
-          <div>
-            <h2 className="break-words text-[clamp(2.75rem,13vw,5rem)] font-medium leading-none tracking-[-0.055em] text-neutral-900 md:text-[clamp(3.25rem,5.6vw,6.5rem)]">
+        <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] md:gap-20">
+          <div className="min-w-0">
+            <h1 className="break-words text-[40px] font-medium leading-none tracking-[-0.055em] text-neutral-900 md:text-[64px]">
               WORKFLOW.ART
-            </h2>
+            </h1>
             <p className="mt-6 max-w-xl text-[1.15rem] leading-7 text-neutral-900 md:text-[1.35rem] md:leading-8">
               Workspace for artists, curators and art projects
             </p>
@@ -539,12 +535,12 @@ export default function HomePage() {
               href="https://www.artcnomad.com/workflow-art"
               target="_blank"
               rel="noreferrer"
-              className="mt-8 inline-flex min-h-11 w-full items-center justify-center border border-neutral-900 px-5 py-3 text-[10px] uppercase tracking-[0.24em] text-neutral-900 transition-opacity hover:opacity-55 md:w-fit"
+              className="mt-8 inline-flex min-h-11 w-full items-center justify-center border border-neutral-900 px-5 py-3 text-[10px] uppercase tracking-[0.24em] text-neutral-900 transition-colors hover:bg-neutral-950 hover:text-white md:w-fit"
             >
               Get Access
             </a>
           </div>
-          <div>
+          <div className="min-w-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/banner/workflow.png"
