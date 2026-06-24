@@ -311,6 +311,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo": ["MATERIALITY", "OBJECTHOOD"],
   "nike-ta-mere-will-fall-on-you": ["INSTALLATION", "DOMESTICITY", "TECHNOLOGY", "BODY"],
   "caged-movements": ["BODY", "SURVEILLANCE"],
+  "who-composes-the-song-of-the-crickets": ["SOUND", "ECOLOGY", "MEMORY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -325,6 +326,38 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "who-composes-the-song-of-the-crickets",
+    title: "WHO COMPOSES THE SONG OF THE CRICKETS?",
+    subtitle: "Hugo Guérin",
+    venue: "Galerie Paris-Beijing",
+    gallery: "Galerie Paris-Beijing",
+    city: "Paris",
+    country: "France",
+    year: "2026",
+    dates: "Until 25 July 2026",
+    endDate: "25 July 2026",
+    dateSource: "exhibition",
+    artists: ["Hugo Guérin"],
+    photographer: "Hugo Guérin",
+    description: `“We think we know what the song of the crickets is. No sooner do we hear it than nature seems to be right there. This sound carries a memory: that of a summer’s night, of an imagined countryside, of a landscape we recognise even before we have looked at it.
+
+Who composes the song of the crickets arises from this confusion, at the moment when the obvious begins to crack, when the natural reveals the forms that have made it familiar.”`,
+    previewImage: localExhibitionImage("WHO COMPOSES THE SONG OF THE CRICKETS", "1.jpg"),
+    heroImage: localExhibitionImage("WHO COMPOSES THE SONG OF THE CRICKETS", "1.jpg"),
+    images: localExhibitionGalleryWithOrientations(
+      "WHO COMPOSES THE SONG OF THE CRICKETS",
+      Array.from({ length: 8 }, (_, index) => {
+        const imageNumber = index + 1;
+        return {
+          filename: `${imageNumber}.jpg`,
+          orientation: imageNumber === 2 || imageNumber === 4 ? "horizontal" : "vertical",
+        };
+      }),
+      "Hugo Guérin",
+    ),
+    instagramUrl: "https://www.instagram.com/HugoGuerin/",
+  },
   {
     slug: "caged-movements",
     title: "Caged movements",
@@ -4775,6 +4808,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "who-composes-the-song-of-the-crickets",
   "caged-movements",
   "nike-ta-mere-will-fall-on-you",
   "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo",
