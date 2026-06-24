@@ -519,10 +519,10 @@ export default function HomePage() {
       <section className="bg-white px-5 pb-6 pt-4 md:px-8 md:pb-8 md:pt-6 lg:px-12">
         <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] md:gap-20">
           <div className="min-w-0">
-            <h1 className="break-words text-[40px] font-medium leading-none tracking-[-0.055em] text-neutral-900 md:text-[64px]">
+            <h1 className="break-words text-[32px] font-medium leading-none tracking-[-0.055em] text-neutral-900 md:text-[48px]">
               WORKFLOW.ART
             </h1>
-            <p className="mt-6 max-w-xl text-[1.15rem] leading-7 text-neutral-900 md:text-[1.35rem] md:leading-8">
+            <p className="mt-4 max-w-xl text-[1.15rem] leading-7 text-neutral-900 md:text-[1.35rem] md:leading-8">
               Workspace for artists, curators and art projects
             </p>
             <p className="mt-5 max-w-lg text-[0.98rem] leading-7 text-neutral-600 md:text-[1.05rem] md:leading-8">
