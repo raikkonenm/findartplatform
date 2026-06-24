@@ -519,13 +519,13 @@ export default function HomePage() {
       <section className="bg-white px-5 pb-6 pt-4 md:px-8 md:pb-8 md:pt-6 lg:px-12">
         <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] md:gap-20">
           <div className="min-w-0">
-            <h1 className="break-words text-[32px] font-medium leading-none tracking-[-0.055em] text-neutral-900 md:text-[48px]">
+            <h1 className="mb-2 break-words text-[16px] font-medium leading-[1.05] tracking-[-0.04em] text-neutral-900 md:mb-0 md:text-[48px] md:leading-none md:tracking-[-0.055em]">
               WORKFLOW.ART
             </h1>
-            <p className="mt-4 max-w-xl text-[1.15rem] leading-7 text-neutral-900 md:text-[1.35rem] md:leading-8">
+            <p className="mt-2 max-w-xl text-[14px] leading-[20px] text-neutral-900 opacity-80 md:mt-4 md:text-[1.35rem] md:leading-8 md:opacity-100">
               Workspace for artists, curators and art projects
             </p>
-            <p className="mt-5 max-w-lg text-[0.98rem] leading-7 text-neutral-600 md:text-[1.05rem] md:leading-8">
+            <p className="mt-4 max-w-lg text-[0.98rem] leading-7 text-neutral-600 md:mt-5 md:text-[1.05rem] md:leading-8">
               Organize your studio, plan exhibitions, manage tasks and collaborate with ease.
             </p>
             <p className="mt-8 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
