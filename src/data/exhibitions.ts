@@ -310,6 +310,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "tangled-in-shadows-from-an-old-drawer": ["MEMORY", "DECAY", "DOMESTICITY", "ABSENCE"],
   "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo": ["MATERIALITY", "OBJECTHOOD"],
   "nike-ta-mere-will-fall-on-you": ["INSTALLATION", "DOMESTICITY", "TECHNOLOGY", "BODY"],
+  "caged-movements": ["BODY", "SURVEILLANCE"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -324,6 +325,54 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "caged-movements",
+    title: "Caged movements",
+    subtitle: "Alex Bartsch, Hannah Hallermann, Manuel Goetz, Seongwon Park, Won Park, Lisa Sifkovits",
+    venue: "NADAN Berlin",
+    gallery: "NADAN Berlin",
+    city: "Berlin",
+    country: "Germany",
+    year: "2026",
+    dates: "19 June — 18 July 2026",
+    startDate: "19 June 2026",
+    endDate: "18 July 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Alex Bartsch",
+      "Hannah Hallermann",
+      "Manuel Goetz",
+      "Seongwon Park",
+      "Won Park",
+      "Lisa Sifkovits",
+    ],
+    curator: "Nari Sarmini",
+    photographer: "Hebo",
+    description: `As Rosa Luxemburg stated, “Those who do not move do not feel their chains.” Following this premise, the idea of the cage in this exhibition concept entails a lived reality where movement is always tied to intersectional attributes and spatial constraints. Social norms, psychological barriers, political systems, controlled landscapes, and digital infrastructures continuously shape how bodies stretch, crumble, withdraw, and disappear in space. In this light, the exhibition understands movement as a condition for awareness and the possibility of change. Rather than understanding constraint solely as suppression, Caged Movements asks how restricted conditions define the ontology of beings and how they are re-negotiated and translated into artistic form.
+
+Seongwon Park’s artistic practice entails wandering through Berlin’s neighborhoods, capturing visual fragments photographically, and rebuilding them in her studio using her own body as a primary measuring rule.
+
+Lisa Sifkovits’ works Disturbia (2007) and Peeping Tom cover architectural surfaces and obstruct transparency, redirecting attention to opacity.
+
+Hannah Hallermann ADJUSTER series function as interventions into politics of attention.
+
+Alex Bartsch examines disciplinary systems through video installation Imitation Machines, tracing links between slavery and contemporary carceral systems.
+
+Manuel Goetz works with industrial materials and sculptural forms oscillating between fetish and function.
+
+Won Park explores restraint and geological time in Schwindel, Gefühle: The Altitude of Recollection (2025).`,
+    previewImage: localExhibitionImage("Caged movements", "1.jpeg"),
+    heroImage: localExhibitionImage("Caged movements", "1.jpeg"),
+    images: localExhibitionGalleryWithOrientations(
+      "Caged movements",
+      Array.from({ length: 8 }, (_, index) => ({
+        filename: `${index + 1}.jpeg`,
+        orientation: "horizontal",
+      })),
+      "Hebo",
+    ),
+    instagramUrl: "https://www.instagram.com/saliva.live/",
+  },
   {
     slug: "nike-ta-mere-will-fall-on-you",
     title: "NIKE, TA MÈRE (WILL FALL ON YOU)",
@@ -4726,6 +4775,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "caged-movements",
   "nike-ta-mere-will-fall-on-you",
   "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo",
   "tangled-in-shadows-from-an-old-drawer",
