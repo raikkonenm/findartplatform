@@ -340,18 +340,10 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     artists: ["Hyewon Mia Lee"],
     curator: "—",
     photographer: "Felix Szpirglas, Clémence Purkat, Cassandre Mretout",
-    description: `NIKE, TA MÈRE (WILL FALL ON YOU) BY HYEWON MIA LEE
+    description: `This scenography is inspired by an accident that occurred in 1998 in a house in Yeonsu, Korea, where a Nike missile, fired by mistake, pierced through the roof and injured a housewife who was working in her kitchen. The tragedy of the housewife in her house comes simultaneously from inside and outside, as much through the role imposed on her within the home as through the violence of military forces.
 
-The installation is based on a 1998 incident in Yeonsu, Korea, where a mistakenly launched Nike missile penetrated a residential roof and injured a woman in her kitchen. The work frames the domestic space as a site where external geopolitical violence and internal social constraint converge, collapsing the boundary between private life and military infrastructure.
-
-The scenography inverts the room: the ceiling becomes the ground, shifting orientation and destabilizing perception. At its center is the figure of an anonymous woman rendered as a sculptural presence, positioned in confrontation with missile debris, evoking a sudden, irrational rupture of reality described in Korean as a “bolt of thunder in a dry sky.”
-
-Artist(s): HyewonMiaLEE
-Curator: —
-Photo: Felix Szpirglas, Clémence Purkat, Cassandre Mretout
-
-@ensapc, Cergy, France, 05 April – 20 May 2026
-@crousparis_galerie, Paris, France, 04 April – 30 April 2026`,
+The word "Nike," whose pronunciation resembles the French swear word "nique," thus gives the title the meaning of "Fuck, your mom."
+Looking at the room upside down, the ceiling becomes the floor on which the bust of this anonymous woman lets out a scream in the face of a debris of missile that came from nowhere, as we say in Korean: "like a bolt of thunder in a dry sky".`,
     previewImage: localExhibitionImage("NIKE", "1.jpg"),
     heroImage: localExhibitionImage("NIKE", "1.jpg"),
     images: localExhibitionGalleryWithOrientations(
