@@ -309,6 +309,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "double-star": ["INSTALLATION", "BODY", "MATERIALITY", "ARCHIVE", "MEMORY", "MUTATION"],
   "tangled-in-shadows-from-an-old-drawer": ["MEMORY", "DECAY", "DOMESTICITY", "ABSENCE"],
   "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo": ["MATERIALITY", "OBJECTHOOD"],
+  "nike-ta-mere-will-fall-on-you": ["INSTALLATION", "DOMESTICITY", "TECHNOLOGY", "BODY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -323,6 +324,45 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "nike-ta-mere-will-fall-on-you",
+    title: "NIKE, TA MÈRE (WILL FALL ON YOU)",
+    subtitle: "Hyewon Mia Lee",
+    venue: "ENSAPC / CROUS Paris",
+    gallery: "ENSAPC / CROUS Paris",
+    city: "Cergy / Paris",
+    country: "France",
+    year: "2026",
+    dates: "04 April – 20 May 2026",
+    startDate: "04 April 2026",
+    endDate: "20 May 2026",
+    dateSource: "exhibition",
+    artists: ["Hyewon Mia Lee"],
+    curator: "—",
+    photographer: "Felix Szpirglas, Clémence Purkat, Cassandre Mretout",
+    description: `NIKE, TA MÈRE (WILL FALL ON YOU) BY HYEWON MIA LEE
+
+The installation is based on a 1998 incident in Yeonsu, Korea, where a mistakenly launched Nike missile penetrated a residential roof and injured a woman in her kitchen. The work frames the domestic space as a site where external geopolitical violence and internal social constraint converge, collapsing the boundary between private life and military infrastructure.
+
+The scenography inverts the room: the ceiling becomes the ground, shifting orientation and destabilizing perception. At its center is the figure of an anonymous woman rendered as a sculptural presence, positioned in confrontation with missile debris, evoking a sudden, irrational rupture of reality described in Korean as a “bolt of thunder in a dry sky.”
+
+Artist(s): HyewonMiaLEE
+Curator: —
+Photo: Felix Szpirglas, Clémence Purkat, Cassandre Mretout
+
+@ensapc, Cergy, France, 05 April – 20 May 2026
+@crousparis_galerie, Paris, France, 04 April – 30 April 2026`,
+    previewImage: localExhibitionImage("NIKE", "1.jpg"),
+    heroImage: localExhibitionImage("NIKE", "1.jpg"),
+    images: localExhibitionGalleryWithOrientations(
+      "NIKE",
+      Array.from({ length: 9 }, (_, index) => ({
+        filename: `${index + 1}.jpg`,
+        orientation: "vertical",
+      })),
+      "Felix Szpirglas, Clémence Purkat, Cassandre Mretout",
+    ),
+  },
   {
     slug: "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo",
     title: "STIAN EIDE KLUGE AT ROTHHAUS, KUNSTNERNES HUS, OSLO",
@@ -4694,6 +4734,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "nike-ta-mere-will-fall-on-you",
   "stian-eide-kluge-at-rothaus-kunstnernes-hus-oslo",
   "tangled-in-shadows-from-an-old-drawer",
   "double-star",
