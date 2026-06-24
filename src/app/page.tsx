@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense, useCallback, useState, useMemo, useRef, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
@@ -61,7 +60,6 @@ const MORE_TAGS: SemanticTag[] = [
   "DISPLACEMENT",
 ];
 type SelectedTag = "ALL" | SemanticTag;
-const FEATURED_SLUG = "lullaby-blossoms";
 
 // Hierarchical location filter: "all" / by country / by specific city
 // inside a country.
@@ -386,8 +384,10 @@ export default function HomePage() {
   // Mobile-only: collapse Location/Year/Tags behind a single FILTERS toggle.
   // Desktop ignores this and always shows the rows.
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const featuredExhibition = exhibitions.find((exhibition) => exhibition.slug === FEATURED_SLUG);
-  const featuredTitle = featuredExhibition ? displayExhibitionTitle(featuredExhibition.title) : "";
+
+  useEffect(() => {
+    console.log("[FindArt] Active Workflow banner rendered from src/app/page.tsx");
+  }, []);
 
   const selectTag = useCallback(
     (nextTag: SelectedTag) => {
@@ -520,49 +520,40 @@ export default function HomePage() {
         </nav>
       </header>
 
-      {featuredExhibition && (
-        <section className="bg-white px-5 pb-6 pt-4 md:px-8 md:pb-8 md:pt-6 lg:px-12">
-          <div className="flex flex-col overflow-hidden md:relative md:block md:h-[340px] md:max-h-[360px] lg:h-[360px]">
-            <div className="order-2 grid h-[58vw] min-h-[178px] max-h-[250px] grid-cols-3 md:absolute md:inset-0 md:h-auto md:max-h-none">
-              {featuredExhibition.images.slice(0, 3).map((image, index) => (
-                <div key={image.src} className="relative h-full bg-neutral-100">
-                  <Image
-                    src={image.src}
-                    alt={`${featuredTitle} exhibition view ${index + 1}`}
-                    fill
-                    className={`object-cover ${index === 2 ? "object-[45%_center]" : "object-center"}`}
-                    unoptimized
-                    sizes="(min-width: 768px) 33vw, 34vw"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="absolute inset-y-0 left-0 hidden w-[48%] bg-[linear-gradient(90deg,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.82)_45%,rgba(255,255,255,0)_100%)] md:block lg:w-[40%]" />
-
-            <div className="order-1 flex flex-col bg-white pb-7 pt-3 md:absolute md:inset-y-0 md:left-0 md:max-w-lg md:-translate-y-2 md:justify-center md:bg-transparent md:px-10 md:py-8 lg:px-[60px]">
-              <h2 className="break-words text-[clamp(2rem,10vw,3.5rem)] font-medium leading-none tracking-[-0.045em] text-neutral-900 md:text-[clamp(2.25rem,4vw,3.5rem)]">
-                {featuredTitle.toUpperCase()}
-              </h2>
-              <p className="mt-4 text-[11px] uppercase tracking-[0.22em] text-neutral-700">
-                {featuredExhibition.gallery ?? featuredExhibition.venue}
-              </p>
-              <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-neutral-600">
-                {[featuredExhibition.city, featuredExhibition.country].filter(Boolean).join(", ")}
-              </p>
-              <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-neutral-600">
-                {featuredExhibition.dates}
-              </p>
-              <Link
-                href={`/exhibitions/${featuredExhibition.slug}`}
-                className="mt-6 inline-flex min-h-11 w-full items-center justify-center border border-neutral-900 bg-white/70 px-5 py-3 text-[10px] uppercase tracking-[0.24em] text-neutral-900 transition-opacity hover:opacity-55 md:w-fit"
-              >
-                View Exhibition
-              </Link>
-            </div>
+      <section className="bg-white px-5 pb-6 pt-4 md:px-8 md:pb-8 md:pt-6 lg:px-12">
+        <div className="flex flex-col gap-10 md:grid md:grid-cols-[45%_55%] md:items-center md:gap-20">
+          <div>
+            <h2 className="break-words text-[clamp(2.75rem,13vw,5rem)] font-medium leading-none tracking-[-0.055em] text-neutral-900 md:text-[clamp(3.25rem,5.6vw,6.5rem)]">
+              WORKFLOW.ART
+            </h2>
+            <p className="mt-6 max-w-xl text-[1.15rem] leading-7 text-neutral-900 md:text-[1.35rem] md:leading-8">
+              Workspace for artists, curators and art projects
+            </p>
+            <p className="mt-5 max-w-lg text-[0.98rem] leading-7 text-neutral-600 md:text-[1.05rem] md:leading-8">
+              Organize your studio, plan exhibitions, manage tasks and collaborate with ease.
+            </p>
+            <p className="mt-8 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
+              Developed by Art Curatorial Nomads
+            </p>
+            <a
+              href="https://www.artcnomad.com/workflow-art"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-8 inline-flex min-h-11 w-full items-center justify-center border border-neutral-900 px-5 py-3 text-[10px] uppercase tracking-[0.24em] text-neutral-900 transition-opacity hover:opacity-55 md:w-fit"
+            >
+              Get Access
+            </a>
           </div>
-        </section>
-      )}
+          <div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/banner/workflow.png"
+              alt="Workflow.Art interface preview"
+              className="block h-auto w-full"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Filter bar */}
       <div className="border-b border-neutral-200 bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
