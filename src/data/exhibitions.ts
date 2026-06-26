@@ -312,6 +312,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "nike-ta-mere-will-fall-on-you": ["INSTALLATION", "DOMESTICITY", "TECHNOLOGY", "BODY"],
   "caged-movements": ["BODY", "SURVEILLANCE"],
   "who-composes-the-song-of-the-crickets": ["SOUND", "ECOLOGY", "MEMORY"],
+  "axes": ["INSTALLATION"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -326,6 +327,50 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "axes",
+    title: "AXES",
+    subtitle: "KiefferWoodtli (Sara Kieffer & Lucien Woodtli)",
+    venue: "Alvarez Chida",
+    gallery: "Alvarez Chida",
+    city: "Mexico City",
+    country: "Mexico",
+    year: "2026",
+    dates: "23 May - 27 June 2026",
+    startDate: "23 May 2026",
+    endDate: "27 June 2026",
+    dateSource: "exhibition",
+    artists: ["KiefferWoodtli"],
+    curator: "Arantza Hernandez",
+    description: `AXES continues the duo’s long-term research into what it means to be part of natural forces that exceed us while simultaneously remaining separate from them. At the center of the exhibition stands Cave, an immersive elliptical installation wrapped in a crystallized textile skin, animated by a moving light and soundscape programmed to follow the site-specific solar path using NASA data. Inside, visitors encounter a shifting environment in which light, darkness, and time unfold as physical experience.
+
+“Inside a cave, there is disorientation — an absence of center. You cannot fully locate yourself,” say KiefferWoodtli. “But gradually, another kind of orientation emerges: not from a single point, but from relation.”
+
+The exhibition unfolds through interdependent conditions of light and darkness, order and chaos, and time and perception. The ellipse becomes a central figure in this thinking, describing a form of stability based on two foci rather than a single center. Across multiple works, AXES translates natural processes into tactile encounters. It ultimately proposes orientation not as certainty, but as a continuous and fragile act of positioning oneself within what cannot be fully measured.`,
+    previewImage: localExhibitionImage("AXES", "1.jpeg"),
+    heroImage: localExhibitionImage("AXES", "1.jpeg"),
+    images: localExhibitionGalleryWithOrientations("AXES", [
+      { filename: "1.jpeg", orientation: "vertical" },
+      { filename: "2.jpeg", orientation: "horizontal" },
+      { filename: "3.jpeg", orientation: "vertical" },
+      { filename: "4.jpeg", orientation: "horizontal" },
+      { filename: "5.jpeg", orientation: "horizontal" },
+      { filename: "6.jpeg", orientation: "vertical" },
+      { filename: "7.jpeg", orientation: "horizontal" },
+      { filename: "8.jpeg", orientation: "vertical" },
+      { filename: "9.jpeg", orientation: "horizontal" },
+      { filename: "10.jpeg", orientation: "horizontal" },
+      { filename: "11.jpeg", orientation: "horizontal" },
+      { filename: "12.jpeg", orientation: "horizontal" },
+      { filename: "13.jpeg", orientation: "vertical" },
+      { filename: "14.jpeg", orientation: "vertical" },
+      { filename: "15.jpeg", orientation: "horizontal" },
+      { filename: "16.jpeg", orientation: "horizontal" },
+      { filename: "17.jpeg", orientation: "horizontal" },
+      { filename: "18.jpeg", orientation: "vertical" },
+      { filename: "19.jpeg", orientation: "vertical" },
+    ]),
+  },
   {
     slug: "territories-of-extraction",
     title: "Territories of Extraction",
