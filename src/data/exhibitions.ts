@@ -327,6 +327,35 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
   {
+    slug: "territories-of-extraction",
+    title: "Territories of Extraction",
+    subtitle: "Lorenzo Zerbini, Ester Gašparová, So Young Park",
+    venue: "Arka Arka",
+    gallery: "Arka Arka",
+    city: "Vienna",
+    country: "Austria",
+    year: "2026",
+    dates: "29 May — 11 June 2026",
+    startDate: "29 May 2026",
+    endDate: "11 June 2026",
+    dateSource: "exhibition",
+    artists: ["Lorenzo Zerbini", "Ester Gašparová", "So Young Park"],
+    description: `Territories of Extraction examines how natural environments and bodies are structured through architectural, political, and symbolic systems. The exhibition brings together three artistic positions that, despite their different cultural backgrounds, share a common formal precision and conceptual consistency.
+
+Ester Gašparová reflects on territorial interventions and the segmentation of landscapes that reorganize ecological systems. Lorenzo Zerbini transforms organic materials into technologically charged relics, questioning processes of archiving and the monumentalization of nature. So Young Park expands sculptural space through performative activation: her works negotiate transitional states between life and decay, turning the body itself into a site of regulation and vulnerability.
+
+The exhibition approaches extraction not only in economic terms, but also as a spatial, epistemic, and affective condition. It asks how territories — both geographical and bodily — are measured, controlled, and recoded.`,
+    previewImage: localExhibitionImage("Territories of Extraction", "1.jpeg"),
+    heroImage: localExhibitionImage("Territories of Extraction", "1.jpeg"),
+    images: localExhibitionGalleryWithOrientations(
+      "Territories of Extraction",
+      Array.from({ length: 22 }, (_, index) => ({
+        filename: `${index + 1}.jpeg`,
+        orientation: "horizontal",
+      })),
+    ),
+  },
+  {
     slug: "who-composes-the-song-of-the-crickets",
     title: "WHO COMPOSES THE SONG OF THE CRICKETS?",
     subtitle: "@yugoguerin",
