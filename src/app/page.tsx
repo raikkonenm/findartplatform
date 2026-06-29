@@ -545,6 +545,7 @@ export default function HomePage() {
             <img
               src="/banner/workflow.png"
               alt="Workflow.Art interface preview"
+              decoding="async"
               className="block h-auto w-full"
             />
           </div>
