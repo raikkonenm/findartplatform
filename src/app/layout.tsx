@@ -14,22 +14,22 @@ const GA_MEASUREMENT_ID = "G-258Q2XJMXP";
 const sfPro = localFont({
   src: [
     {
-      path: "../assets/fonts/sf-pro/SF-Pro-Text-Regular.otf",
+      path: "../assets/fonts/sf-pro/SF-Pro-Text-Regular.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../assets/fonts/sf-pro/SF-Pro-Text-Medium.otf",
+      path: "../assets/fonts/sf-pro/SF-Pro-Text-Medium.woff2",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../assets/fonts/sf-pro/SF-Pro-Text-Semibold.otf",
+      path: "../assets/fonts/sf-pro/SF-Pro-Text-Semibold.woff2",
       weight: "600",
       style: "normal",
     },
     {
-      path: "../assets/fonts/sf-pro/SF-Pro-Text-Bold.otf",
+      path: "../assets/fonts/sf-pro/SF-Pro-Text-Bold.woff2",
       weight: "700",
       style: "normal",
     },

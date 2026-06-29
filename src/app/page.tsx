@@ -545,6 +545,10 @@ export default function HomePage() {
             <img
               src="/banner/workflow.webp"
               alt="Workflow.Art interface preview"
+              width={1920}
+              height={880}
+              loading="eager"
+              fetchPriority="high"
               decoding="async"
               className="block h-auto w-full"
             />
@@ -671,7 +675,7 @@ export default function HomePage() {
               <ExhibitionCard
                 key={exhibition.slug}
                 exhibition={exhibition}
-                eager={index < 3}
+                eager={index === 0}
               />
             ))}
           </div>

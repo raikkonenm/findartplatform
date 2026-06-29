@@ -7,6 +7,7 @@ const coverImagePaths = [
   "/cover/BUCOLICA.png",
   "/cover/Choice Dirt.png",
   "/cover/COMMON LANDSCAPE(S) (GROUP SHOW).png",
+  "/cover/Caged movements.webp",
   "/cover/DISTANT, ENDLESS HUM.png",
   "/cover/DOUBLED PRESENCE IN A DISEMBODIED SPACE.png",
   "/cover/Edges that blur, bodies that fold into something other.png",
@@ -22,12 +23,15 @@ const coverImagePaths = [
   "/cover/Massage Platz.png",
   "/cover/METEMPSYCHOSIS.png",
   "/cover/MOONLIT BOTANICAL COLOUR THEORIES.png",
+  "/cover/NIKE, TA MÈRE (WILL FALL ON YOU).webp",
   "/cover/PARACHUTE (GROUP EXHIBITION).png",
   "/cover/PETRICHOR.png",
   "/cover/PULSES WITHIN.png",
   "/cover/SOFT_SIGHS SYNTHESIS.png",
+  "/cover/STIAN EIDE KLUGE AT ROTHHAUS, KUNSTNERNES HUS, OSLO.webp",
   "/cover/SWEET WORLD 1.png",
   "/cover/TACTICS FOR AN ERA (GROUP SHOW).png",
+  "/cover/TANGLED IN SHADOWS FROM AN OLD DRAWER.webp",
   "/cover/THE LANGUAGE OF THE ENEMY.png",
   "/cover/THE SHAPE OF A SCAR.png",
   "/cover/The Stages of Grief.png",
@@ -37,6 +41,7 @@ const coverImagePaths = [
   "/cover/TOTAL INTERNAL REFLECTION.png",
   "/cover/VITALS VAPORS.png",
   "/cover/WHEN DOORS CLOSE, WALLS RISE.png",
+  "/cover/WHO COMPOSES THE SONG OF THE CRICKETS.webp",
 ] as const;
 
 function normalizeTitle(value: string) {
