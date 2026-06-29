@@ -543,7 +543,7 @@ export default function HomePage() {
           <div className="min-w-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/banner/workflow.png"
+              src="/banner/workflow.webp"
               alt="Workflow.Art interface preview"
               decoding="async"
               className="block h-auto w-full"
