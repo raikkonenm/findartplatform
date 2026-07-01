@@ -314,6 +314,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "who-composes-the-song-of-the-crickets": ["SOUND", "ECOLOGY", "MEMORY"],
   "axes": ["INSTALLATION"],
   "first-date": ["MATERIALITY", "TRANSFORMATION", "ARCHAEOLOGY"],
+  "everything-comes-together-while-pushing-all-apart": ["INSTALLATION", "MATERIALITY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -328,6 +329,46 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "everything-comes-together-while-pushing-all-apart",
+    title: "Everything comes together while pushing all apart",
+    subtitle: "GROUP SHOW",
+    venue: "Reaktor Wien",
+    gallery: "Reaktor Wien",
+    city: "Vienna",
+    country: "Austria",
+    year: "2026",
+    dates: "3 June - 10 June 2026",
+    startDate: "3 June 2026",
+    endDate: "10 June 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Andrei Arion",
+      "Claudiu Lazăr",
+      "Albert Kaan",
+      "Ana Ionescu",
+      "Ana Petrovici",
+    ],
+    curator: "Roxana Morar",
+    description: `Everything comes together while pushing all apart brings together the practices of Andrei Arion, Claudiu Lazăr, Ana Ionescu, Albert Kaan and Ana Petrovici in a shared environment shaped by material tensions, industrial traces, and individual systems of meaning.
+
+Curator Roxana Morar assembled the show to explore how familiar materials, objects, and references can be reconfigured into alternative forms of presence. Each work possesses its own individuality; however, they now learn to coexist, creating new ways of reading through an act of translation.
+
+All involved artists share an educational background in visual arts, transforming personal sensibilities into physical matter through sculpture and installation.`,
+    previewImage: localExhibitionImage("EVERYTHING COMES TOGETHER WHILE PUSHING ALL APART", "cover.webp.webp"),
+    heroImage: localExhibitionImage("EVERYTHING COMES TOGETHER WHILE PUSHING ALL APART", "cover.webp.webp"),
+    images: localExhibitionGalleryWithOrientations("EVERYTHING COMES TOGETHER WHILE PUSHING ALL APART", [
+      { filename: "cover.webp.webp", orientation: "vertical" },
+      { filename: "photo_2026-06-30_11-41-00 (2).webp", orientation: "vertical" },
+      { filename: "photo_2026-06-30_11-41-00 (3).webp", orientation: "vertical" },
+      { filename: "photo_2026-06-30_11-41-00 (4).webp", orientation: "vertical" },
+      { filename: "photo_2026-06-30_11-41-00 (5).webp", orientation: "vertical" },
+      { filename: "photo_2026-06-30_11-41-00 (6).webp", orientation: "vertical" },
+      { filename: "photo_2026-06-30_11-41-00 (7).webp", orientation: "vertical" },
+      { filename: "photo_2026-06-30_11-41-00 (8).webp", orientation: "vertical" },
+      { filename: "photo_2026-06-30_11-41-00 (9).webp", orientation: "vertical" },
+    ]),
+  },
   {
     slug: "first-date",
     title: "First Date",
