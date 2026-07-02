@@ -136,96 +136,9 @@ function numberedLocalExhibitionGallery(
   );
 }
 
-const exhibitionMonths: Record<string, number> = {
-  january: 0,
-  february: 1,
-  march: 2,
-  april: 3,
-  may: 4,
-  june: 5,
-  july: 6,
-  august: 7,
-  september: 8,
-  october: 9,
-  november: 10,
-  december: 11,
-};
-
-type ExhibitionDateParts = {
-  day: number;
-  month: number;
-  year?: number;
-};
-
-function displayYear(exhibition: Pick<Exhibition, "year">) {
-  const years = exhibition.year?.match(/\d{4}/g)?.map(Number) ?? [];
-  return years.length > 0 ? Math.max(...years) : 0;
-}
-
-function parseExhibitionDate(value?: string): ExhibitionDateParts | undefined {
-  if (!value) return undefined;
-
-  const monthNames = Object.keys(exhibitionMonths).join("|");
-  const dayFirst = value.match(
-    new RegExp(`\\b(\\d{1,2})\\s+(${monthNames})(?:,?\\s+(\\d{4}))?`, "i"),
-  );
-  if (dayFirst) {
-    return {
-      day: Number(dayFirst[1]),
-      month: exhibitionMonths[dayFirst[2].toLowerCase()],
-      year: dayFirst[3] ? Number(dayFirst[3]) : undefined,
-    };
-  }
-
-  const monthDay = value.match(
-    new RegExp(`\\b(${monthNames})\\s+(\\d{1,2})(?:,?\\s+(\\d{4}))?\\b`, "i"),
-  );
-  if (monthDay) {
-    return {
-      day: Number(monthDay[2]),
-      month: exhibitionMonths[monthDay[1].toLowerCase()],
-      year: monthDay[3] ? Number(monthDay[3]) : undefined,
-    };
-  }
-
-  const monthOnly = value.match(new RegExp(`\\b(${monthNames})\\s+(\\d{4})\\b`, "i"));
-  if (!monthOnly) return undefined;
-
-  return {
-    day: 1,
-    month: exhibitionMonths[monthOnly[1].toLowerCase()],
-    year: Number(monthOnly[2]),
-  };
-}
-
-function openingDateValue(
-  exhibition: Pick<Exhibition, "year" | "dates" | "startDate" | "postDate">,
-) {
-  const year = displayYear(exhibition);
-  const statedOpening = exhibition.startDate ?? (
-    exhibition.dates && !/^\s*(until|through)\b/i.test(exhibition.dates)
-      ? exhibition.dates
-      : undefined
-  );
-  const opening = parseExhibitionDate(statedOpening) ?? parseExhibitionDate(exhibition.postDate);
-
-  if (!opening) return Date.UTC(year, 0, 1);
-
-  let openingYear = opening.year ?? year;
-  if (!opening.year && exhibition.dates) {
-    const monthNames = Object.keys(exhibitionMonths).join("|");
-    const rangeMonths = Array.from(
-      exhibition.dates.matchAll(new RegExp(`\\b(${monthNames})\\b`, "gi")),
-      (match) => exhibitionMonths[match[1].toLowerCase()],
-    );
-
-    if (rangeMonths.length > 1 && rangeMonths[0] > rangeMonths[1]) {
-      openingYear -= 1;
-    }
-  }
-
-  return Date.UTC(openingYear, opening.month, opening.day);
-}
+// Legacy multi-field date parsing (openingDateValue and its helpers) was
+// removed intentionally. Ordering is now derived from `startDate` alone
+// via the `startDateTimestamp` helper defined next to the sort block.
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "parachute-group-exhibition": ["TRANSFORMATION"],
@@ -312,6 +225,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "nike-ta-mere-will-fall-on-you": ["INSTALLATION", "DOMESTICITY", "TECHNOLOGY", "BODY"],
   "caged-movements": ["BODY", "SURVEILLANCE"],
   "who-composes-the-song-of-the-crickets": ["SOUND", "ECOLOGY", "MEMORY"],
+  "passenger": ["MEMORY", "MATERIALITY", "ARCHIVE", "TRANSFORMATION"],
   "axes": ["INSTALLATION"],
   "first-date": ["MATERIALITY", "TRANSFORMATION", "ARCHAEOLOGY"],
   "everything-comes-together-while-pushing-all-apart": ["INSTALLATION", "MATERIALITY"],
@@ -329,6 +243,42 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "passenger",
+    title: "PASSENGER",
+    subtitle: "Milan Zientara",
+    venue: "Szaber Gallery, Kraków, Poland",
+    gallery: "Szaber Gallery",
+    city: "Kraków",
+    country: "Poland",
+    year: "2026",
+    dates: "26 June 2026 — 26 July 2026",
+    startDate: "26 June 2026",
+    endDate: "26 July 2026",
+    dateSource: "exhibition",
+    artists: ["Milan Zientara"],
+    photographer: "Michał Maliński @mlekoyo",
+    description: `Is it possible to encounter one's own future? Is it possible to experience a life that has not yet happened, yet remains strangely familiar? PASSENGER begins with just such an encounter. In a train compartment, a young man encounters an older passenger – a storyteller, a storyteller, a figure both seductive and unsettling. With each successive story, another's biography reveals itself as a possible version of one's own life. The encounter with the stranger appears as an inevitable catastrophe.
+
+The oil paintings, sculptures, and objects and reliefs made of leather, which comprise the thesis, create a narrative spanning six years of artistic work.
+
+They are not illustrations of individual chapters of the thesis text, but material traces of psychic, affective, and existential processes. The exhibition functions as a passageway in which autobiographical experience is symbolized.
+
+Leather, metal, and the dense paint substance retain traces of gesture, material folds, deformations, and rust. Organic and industrial materials create a psychic archive of experiences, and objects become carriers of memory. The aesthetics of beauty and damage present in these works reveal the complexity of survival mechanisms, compulsive repetition, and attempts to perfect creativity.
+
+PASSENGER is a story about the beginner's mind, blind survival strategies, the destructive desire for closeness, violence disguised as care, and the process of detoxifying one's own biography. It is also an attempt to achieve "escape velocity"—the moment when it becomes possible to abandon old trajectories and develop new ways of being. It leaves the viewer wondering whether it is possible to learn to live as if one had received one's life a second time.`,
+    previewImage: localExhibitionImage("PASSENGER", "0.webp"),
+    heroImage: localExhibitionImage("PASSENGER", "0.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "PASSENGER",
+      Array.from({ length: 14 }, (_, index) => ({
+        filename: `${index}.webp`,
+        orientation: [0, 5, 7, 8, 9, 10, 13].includes(index) ? "vertical" : "horizontal",
+      })),
+      "Michał Maliński @mlekoyo",
+    ),
+    instagramUrl: "https://www.instagram.com/milanzientara/",
+  },
   {
     slug: "everything-comes-together-while-pushing-all-apart",
     title: "Everything comes together while pushing all apart",
@@ -4980,6 +4930,7 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
 // To re-pin in the future, edit this array. Empty it to revert to the
 // plain date-sorted feed with no other code changes.
 const PINNED_SLUGS: readonly string[] = [
+  "passenger",
   "who-composes-the-song-of-the-crickets",
   "caged-movements",
   "nike-ta-mere-will-fall-on-you",
@@ -4996,8 +4947,28 @@ const PINNED_SLUGS: readonly string[] = [
   "the-beautiful-remains",
 ];
 
-const sortedExhibitions: Exhibition[] = exhibitionSeeds
-  .map(({ location, year, previewImage, heroImage, images, ...exhibition }) => ({
+// Single source of truth for exhibition ordering.
+//
+// Rules:
+// 1. Ordering is derived ONLY from `startDate` — never from `dates`,
+//    `postDate`, `year`, or the seed-array insertion order.
+// 2. Sort direction is DESCENDING (newest first) — the exhibition
+//    with the latest startDate is at position 0 of the sorted bucket.
+// 3. If `startDate` is missing or `new Date(startDate)` returns an
+//    invalid timestamp, the exhibition is excluded from the sort
+//    comparison and appended after all validly-dated entries so it
+//    still renders (UI never crashes on bad data).
+// 4. Pinned slugs are then lifted to the top of the array in the
+//    order they appear in PINNED_SLUGS, preserving the relative
+//    order of everything else.
+function startDateTimestamp(startDate?: string): number | null {
+  if (!startDate) return null;
+  const timestamp = new Date(startDate).getTime();
+  return Number.isNaN(timestamp) ? null : timestamp;
+}
+
+const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
+  ({ location, year, previewImage, heroImage, images, ...exhibition }) => ({
     ...exhibition,
     city: exhibition.city ?? location,
     year: year?.toString(),
@@ -5006,13 +4977,27 @@ const sortedExhibitions: Exhibition[] = exhibitionSeeds
     previewImage,
     heroImage: heroImage ?? previewImage,
     images,
-  }))
-  .sort((first, second) => {
-    const dateDifference = openingDateValue(second) - openingDateValue(first);
-    if (dateDifference !== 0) return dateDifference;
+  }),
+);
 
-    return 0;
-  });
+const withStartDate: Array<{ exhibition: Exhibition; timestamp: number }> = [];
+const withoutStartDate: Exhibition[] = [];
+for (const exhibition of mappedExhibitions) {
+  const timestamp = startDateTimestamp(exhibition.startDate);
+  if (timestamp === null) {
+    withoutStartDate.push(exhibition);
+  } else {
+    withStartDate.push({ exhibition, timestamp });
+  }
+}
+
+// new Date(b.startDate) - new Date(a.startDate)  →  descending
+withStartDate.sort((a, b) => b.timestamp - a.timestamp);
+
+const sortedExhibitions: Exhibition[] = [
+  ...withStartDate.map((entry) => entry.exhibition),
+  ...withoutStartDate,
+];
 
 // Pull each pinned entry out of the sorted result one by one (preserving
 // the relative order of everything else) and collect them in the listed
