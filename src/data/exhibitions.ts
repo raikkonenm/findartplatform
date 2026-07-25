@@ -5104,8 +5104,14 @@ export const exhibitions: Exhibition[] = [...mappedExhibitions].sort((first, sec
   if (firstIndex !== undefined && secondIndex !== undefined) {
     return firstIndex - secondIndex;
   }
-  if (firstIndex !== undefined) return -1;
-  if (secondIndex !== undefined) return 1;
+  // New exhibitions whose slug is not yet listed in HOMEPAGE_ORDER float to the
+  // top of the feed automatically. Slugs that ARE in HOMEPAGE_ORDER always stay
+  // in their fixed positions — adding a new exhibition never moves them.
+  // Convention: new seeds go at the top of exhibitionSeeds; among two "unlisted"
+  // seeds, the earlier position in exhibitionSeeds wins (Array.prototype.sort is
+  // stable), so the most recently added seed appears first.
+  if (firstIndex !== undefined) return 1;
+  if (secondIndex !== undefined) return -1;
 
   return 0;
 });
