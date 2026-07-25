@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { ExhibitionCard } from "@/components/ExhibitionCard";
 import { Header } from "@/components/Header";
+import { MasonryGrid } from "@/components/MasonryGrid";
 import { SubmissionExperience } from "@/components/SubmissionExperience";
 import { exhibitions } from "@/data/exhibitions";
 
@@ -27,15 +27,7 @@ export default function SubmitPage() {
         <SubmissionExperience />
 
         <section className="mt-16 border-t border-neutral-200 pt-10 md:mt-24 md:pt-12">
-          <div className="masonry">
-            {previewExhibitions.map((exhibition, index) => (
-              <ExhibitionCard
-                key={exhibition.slug}
-                exhibition={exhibition}
-                eager={index < 3}
-              />
-            ))}
-          </div>
+          <MasonryGrid exhibitions={previewExhibitions} eagerCount={3} />
         </section>
       </section>
     </main>

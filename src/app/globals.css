@@ -51,33 +51,26 @@ a {
   display: none;
 }
 
-/* Archive masonry feed.
-   CSS multi-column gives stable masonry across all browsers, with no JS.
-   Children must declare `break-inside: avoid` so a card never splits across
-   columns. Written as raw CSS (not Tailwind utilities) to guarantee exact
-   behavior independent of any utility-class compilation quirks. */
-.masonry {
-  column-count: 3;
-  column-gap: 48px;
+/* Archive masonry feed — row-major layout.
+   Cards are distributed across columns in JSX (round-robin: card i
+   goes to column i % N), so the visible top row reads left-to-right
+   in exhibition order. The staggered masonry look is preserved because
+   each column is a plain flex column with its own natural card heights;
+   columns are NOT aligned by row. Column count (1/2/3) is decided by
+   MasonryGrid at hydration; CSS just lays out whatever the component
+   emits.
+   48px column gap matches the previous column-gap; 64px row gap inside
+   each column matches the previous per-card margin-bottom. */
+.masonry-rows {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
 }
 
-@media (max-width: 1023px) {
-  .masonry {
-    column-count: 2;
-  }
-}
-
-@media (max-width: 767px) {
-  .masonry {
-    column-count: 1;
-  }
-}
-
-.masonry > * {
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
-  display: block;
-  width: 100%;
-  margin-bottom: 64px;
+.masonry-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 }

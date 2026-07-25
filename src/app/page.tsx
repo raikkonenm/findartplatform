@@ -4,7 +4,7 @@ import { Suspense, useCallback, useState, useMemo, useRef, useEffect } from "rea
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
-import { ExhibitionCard } from "@/components/ExhibitionCard";
+import { MasonryGrid } from "@/components/MasonryGrid";
 import { HeartIcon, useSavedExhibitions } from "@/components/SavedExhibitions";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
@@ -670,15 +670,7 @@ export default function HomePage() {
             </p>
           )
         ) : (
-          <div className="masonry">
-            {filtered.map((exhibition, index) => (
-              <ExhibitionCard
-                key={exhibition.slug}
-                exhibition={exhibition}
-                eager={index === 0}
-              />
-            ))}
-          </div>
+          <MasonryGrid exhibitions={filtered} eagerCount={1} />
         )}
       </section>
     </main>

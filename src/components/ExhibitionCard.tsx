@@ -36,9 +36,10 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
   const title = displayExhibitionTitle(exhibition.title);
 
   return (
-    // The parent `.masonry > *` rule in globals.css handles
-    // `break-inside: avoid`, `display: block`, `width: 100%`, and
-    // `margin-bottom`, so the card itself stays markup-only.
+    // The card is placed inside a `.masonry-col` flex column by
+    // MasonryGrid. Sizing and vertical spacing come from that parent
+    // flex layout (48px column gap, 64px row gap), so the card itself
+    // stays markup-only — no wrapper margins here.
     <article className="group relative">
       <Link href={`/exhibitions/${exhibition.slug}`} className="block">
         <div className={`relative ${aspect} overflow-hidden bg-neutral-100`}>
