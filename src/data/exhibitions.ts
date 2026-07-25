@@ -136,10 +136,6 @@ function numberedLocalExhibitionGallery(
   );
 }
 
-// Legacy multi-field date parsing (openingDateValue and its helpers) was
-// removed intentionally. Ordering is now derived from `startDate` alone
-// via the `startDateTimestamp` helper defined next to the sort block.
-
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "parachute-group-exhibition": ["TRANSFORMATION"],
   "chewing-gum-in-the-motherboard-group-exhibition": ["DIGITAL MYTH", "SURVEILLANCE"],
@@ -226,6 +222,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "caged-movements": ["BODY", "SURVEILLANCE"],
   "who-composes-the-song-of-the-crickets": ["SOUND", "ECOLOGY", "MEMORY"],
   "passenger": ["MEMORY", "MATERIALITY", "ARCHIVE", "TRANSFORMATION"],
+  "old-snag": ["INSTALLATION", "MATERIALITY", "ECOLOGY", "MEMORY", "TRANSFORMATION"],
   "axes": ["INSTALLATION"],
   "first-date": ["MATERIALITY", "TRANSFORMATION", "ARCHAEOLOGY"],
   "everything-comes-together-while-pushing-all-apart": ["INSTALLATION", "MATERIALITY"],
@@ -243,6 +240,56 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "old-snag",
+    title: "OLD SNAG",
+    subtitle: "Ingeborg Tysse",
+    venue: "Société Interludio",
+    gallery: "Société Interludio",
+    city: "Turin",
+    country: "Italy",
+    year: "2026",
+    dates: "24 May - 26 July 2026",
+    startDate: "24 May 2026",
+    endDate: "26 July 2026",
+    dateSource: "exhibition",
+    artists: ["Ingeborg Tysse"],
+    photographer: "Stefano Mattea",
+    exhibitionText: "Caterina Avataneo",
+    sourceUrl: "https://societeinterludio.com/",
+    description: `I usually disdain texts beginning with a definition, but Old Snag definitely demands one. Personally, I could imagine a “hey you!” just preceding it — the kind of expression muttered at the edge of a counter, directed toward some drunk man: a body gone crooked, inexplicably still standing. As it turns out, the term is not typically used for human beings. And yet, if it were, my intuition would not feel entirely misapplied. A snag, in forestry, is a standing dead tree: no longer alive in the biological sense but not yet absorbed back into the ground. A walking dead, in other words! No wonder every existing image of a haunted house includes somewhere in the background a lightning-struck trunk, twisted like a witch’s finger. Wait, hear this before you roll your eyes in disapproval of my fixation with the topic. What is important, and increasingly documented in ecological research, is that these dead standing trees are far from inert remnants. They function as active ecosystems, hosting nesting cavities for birds, shelter for insects, bats, microbial life, fungi, lichens, mosses, and a dense array of organisms that depend precisely on decomposition for vitality.
+
+In Ingeborg Tysse’s exhibition, an old snag appears within an analogous suspended ontology. Sourced from the area surrounding the gallery, the trunk is ceremonially positioned upright. With a pair of owl-looking wings that unfurl at its sides, it assumes a totemic presence. The effect is rather absurd and deliberately unsettling: the trunk is grounded, heavy with its own past, while the wings animate something expected to be devoid of life. The owl too carries a symbolic history, appearing across multiple folk traditions as a creature associated with death omens, obscure knowledge and the threshold between worlds. Other three monumental cherry trunks lie horizontally across the floor, dressed with Elizabethan and clerical collars, as well as belts. The arthritic dark-brown bark and the fleshy fungi bulging from it reveal that, when sourced, these trunks had already been reclaimed by the forest floor. Ecologically, they belong to another category altogether: deadwood, or downed logs. Typically, as moisture infiltrates deadwood from the soil below, moss spreads across its bark and fungi proliferate, while larvae and microbial colonies gradually convert wood into nutrient-rich organic matter, contributing to the slow release of carbon into the soil. A fundamental regenerative process indeed, one that makes the log uncomfortably close to a putrefying corpse. What disgusts us about the cadaver, writes Julia Kristeva in Powers of Horror, is its collapsing of categories we obsess on keeping separate: life and death, self and non-self, body and waste. The corpse is that which exceeds purity and containment — the most disturbing of residues in which life persists as something no longer recognisable as “self.” Think about how we see our dead ones for the last time. It is usually at the funeral parlour: dressed, composed, cosmetically restored, the smell temporarily subdued, the body carefully adjusted into a final image of coherence before the coffin is sealed, and decomposition is removed from sight. What follows — the slow, irreversible transformation of the body into other forms of matter — is systematically withdrawn from the sphere of the living imagination. It is precisely within this logic that the Elizabethan ruffs and belts placed on her trunks resonate. Historically, ruffs functioned as devices of posture and class distinction, producing an image of elegance and aristocratic composure — while also, more implicitly, concealing the softening of the neck and the visible signs of bodily ageing in a pre-Botox era. Belts, too, operate through a similar logic of containment, framing another notoriously soft part of the body. In Tysse’s installation, these anthropic accessories, clumsily off-scale, resemble attempts to stabilise matter in the process of transformation, entering a rather intimate sphere of attachment, where decoration and maintenance become ways of staying with what is lost. The result is both tender and grotesque. As for the bird feathers in the standing trunk, they animate the logs, granting them personality. This is also evident in the pair of small bronze root-like sculptures, each adorned with a collar hat that gives them a lively appearance, as if caught dancing. Or are all these ruffs rather disclosing a whole bunch of beheaded creatures? The doubt can’t but hover in unresolved suspension…
+
+And of course, no parade of the dead would be complete without a ghost. A haunting cylindrical metallic grid rises in the space, shimmering with silver leaves that instil a spectral presence, bearing witness to those forms of disappearance that can no longer be kept at a distance, and allowing for extended grief. Tysse addresses the deeply human desire to preserve and immortalise, while simultaneously placing the death of ecological systems directly in front of us. In doing so, she also quietly invites to ponder on what is deemed worthy of preservation, and what is allowed to disappear unnoticed. The snag, after all, is not simply a lesser-known poetic symbol of mortality, but an increasingly vulnerable element within managed forests, where deadwood is often removed in the name of productivity. Together with this piece, two digital jacquard weavings introduce a synthetic dimension to the whole. Among dense branching tangles disclosing subterranean rib cages or ears popping out of wooden pockets, archaic trippy visions unfold. It’s the effect of the hallucinatory realisation that organic life has always communicated through hidden infrastructures exceeding individual bodies… and that the forest is very much alive (and dying) inside and outside us.
+
+— Caterina Avataneo
+
+Ingeborg Tysse (1992, Stavanger, Norway) lives and works in Oslo. She works across sculpture, installation, weaving, video, and costume, engaging with personal narratives, contemporary and historical myths, craft traditions and environmentalism. Central to her practice is an exploration of prosthetics as extensions of body, space, and time — material encounters between the organic and synthetic, the old and the new, the lost and the re-imagined. Within her work, prosthetics become metaphors for mental, physical, and metaphysical adaptation, addressing how bodies and environments adjust to loss, change, and synthetic intervention. Tysse holds an MFA from Bergen Art Academy from 2024 and a BFA from Oslo National Academy of the Arts, Textile Department, and from Iceland University of the Arts.
+
+Recent solo exhibitions include: Neckwreath, Kiosken Studio, Bergen, Norway (2025); Wild Watch, Norwegian Sculptors Society, Oslo, Norway (2025); Chimed, Ditroit Dream, Milan, Italy (2025), Phantom Gut, L21 Gallery, Palma de Mallorca, Spain (2024); SKRØMT, Hordaland Kunstsenter, Bergen, Norway (2023). Her work has been exhibited in group exhibitions such as Hesten og Plysen, Gamle Innvik Ullvarefabrikk, Stryn, Norway (2025); fantom\\kopi\\klem\\print, She Will Art Space, Oslo, Norway (2025); This is personal, Bergen Kunsthall, Norway (2024); I arrived, I laid an egg, I left, L21 Gallery, Palma de Mallorca, Spain (2024); BACC Bangkok Art and Culture Centre, Thailand (2023); Shared Imaginations, KUNO Biennial, Vilnius, Lithuania (2023); Aeaea, Podium, Oslo, Norway (2023).`,
+    previewImage: localExhibitionImage("OLD SNAG", "1.webp"),
+    heroImage: localExhibitionImage("OLD SNAG", "1.webp"),
+    images: localExhibitionGalleryWithOrientations("OLD SNAG", [
+      { filename: "1.webp", orientation: "vertical" },
+      { filename: "2.webp", orientation: "vertical" },
+      { filename: "3.webp", orientation: "vertical" },
+      { filename: "4.webp", orientation: "vertical" },
+      { filename: "5.webp", orientation: "horizontal" },
+      { filename: "6.webp", orientation: "horizontal" },
+      { filename: "7.webp", orientation: "horizontal" },
+      { filename: "8.webp", orientation: "vertical" },
+      { filename: "9.webp", orientation: "vertical" },
+      { filename: "10.webp", orientation: "vertical" },
+      { filename: "11.webp", orientation: "vertical" },
+      { filename: "12.webp", orientation: "vertical" },
+      { filename: "13.webp", orientation: "vertical" },
+      { filename: "14.webp", orientation: "vertical" },
+      { filename: "15.webp", orientation: "vertical" },
+      { filename: "16.webp", orientation: "vertical" },
+      { filename: "17.webp", orientation: "vertical" },
+    ], "Stefano Mattea"),
+  },
   {
     slug: "passenger",
     title: "PASSENGER",
@@ -4920,17 +4967,26 @@ As a result, relaxation is no longer simply a moment of rest or recovery. As fam
   // LOCAL_IMAGE_METADATA_IMPORT_4_END
 ];
 
-// Explicit pin override. Slugs listed here take the first N positions in
-// the exported `exhibitions` array, in this exact order. Everything else
-// keeps the order produced by the original opening-date comparator —
-// because we splice each pinned entry out of the sorted array and
-// prepend them as a separate step, the relative order of non-pinned
-// entries is preserved byte-for-byte.
-//
-// To re-pin in the future, edit this array. Empty it to revert to the
-// plain date-sorted feed with no other code changes.
-const PINNED_SLUGS: readonly string[] = [
+const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
+  ({ location, year, previewImage, heroImage, images, ...exhibition }) => ({
+    ...exhibition,
+    city: exhibition.city ?? location,
+    year: year?.toString(),
+    tags: tagsForExhibition(exhibition),
+    coverImage: coverImageForTitle(exhibition.title),
+    previewImage,
+    heroImage: heroImage ?? previewImage,
+    images,
+  }),
+);
+
+const HOMEPAGE_ORDER = [
+  "old-snag",
   "passenger",
+  "everything-comes-together-while-pushing-all-apart",
+  "first-date",
+  "axes",
+  "territories-of-extraction",
   "who-composes-the-song-of-the-crickets",
   "caged-movements",
   "nike-ta-mere-will-fall-on-you",
@@ -4945,72 +5001,114 @@ const PINNED_SLUGS: readonly string[] = [
   "dont-trust-the-rabbit",
   "profusion-antagonist-wishlist",
   "the-beautiful-remains",
-];
+  "grass-on-roadside-4",
+  "metempsychosis",
+  "when-doors-close-walls-rise",
+  "edges-that-blur-bodies-that-fold-into-something-other",
+  "exuviae",
+  "choice-dirt",
+  "love",
+  "a-blade-unheld",
+  "tomorrows-forecast-white-clouds-grey-dogs",
+  "incommunicability-is-itself-a-source-of-pleasures",
+  "the-stages-of-grief",
+  "work-of-proof",
+  "kassandra",
+  "bidim-blo",
+  "transparency-report",
+  "external-cryogenics",
+  "metempsychosis-the-passion-of-pneumatics",
+  "a-certain-instance-of-verrition",
+  "the-worm-at-the-core",
+  "contempt",
+  "enter-woodland-spirits",
+  "keteros",
+  "skeletal-scenes",
+  "human-is",
+  "total-internal-reflection",
+  "eutrophy",
+  "petrichor",
+  "limo",
+  "deep-sea-fish",
+  "dialects-of-the-deep",
+  "farm",
+  "falene",
+  "the-neoliberal-urge-to-curate-a-friendsgroup",
+  "tipping-point-phantoms",
+  "down-the-rabbit-hole-2024",
+  "tar-star",
+  "lunar-ensemble-for-uprising-seas",
+  "sweet-garden-of-vanished-pleasures",
+  "tissu-expanse",
+  "distant-endless-hum",
+  "metal-memory",
+  "vitals-vapors",
+  "luca",
+  "encuentro",
+  "the-room-i",
+  "green-growth",
+  "die-sprache-der-voegel",
+  "the-last-drawer-on-the-left",
+  "begone-estrone",
+  "just-about-and-never",
+  "with-feathers-and-flesh",
+  "afterlifes",
+  "fantasy-vanishes-in-flesh",
+  "crash-paendemonia",
+  "parade",
+  "the-language-of-the-enemy",
+  "weaving-back-to-common-grounds",
+  "myths-from-smoldering-skies",
+  "thresholds",
+  "the-signal-the-noice",
+  "motions-to-unfurl",
+  "bucolica",
+  "doubled-presence-in-a-disembodied-space",
+  "the-collapse-manual-the-post-human-field",
+  "common-landscapes",
+  "growing-body",
+  "soft-sighs-synthesis",
+  "moonlit-botanical-colour-theories",
+  "call-me-we-by-lom-of-lama",
+  "main-de-fer-gant-de-velours",
+  "massage-platz",
+  "even-spectres-can-tire",
+  "47-24-35-n-9-44-20-e",
+  "the-shape-of-a-scar",
+  "parachute-group-exhibition",
+  "coagvla",
+  "supported-files",
+  "lullaby-blossoms",
+  "liminality",
+  "mimicking-eternity",
+  "blue-blooded",
+  "chewing-gum-in-the-motherboard-group-exhibition",
+  "ausserkoerperliche-erfahrung-wandering-spirit",
+  "call-someone-group-exhibition",
+  "presence-by-proxy",
+  "lost-encounters-they-cling",
+  "pulses-within",
+  "sweet-world-1",
+  "paradise-rot",
+  "tactics-for-an-era-group-show",
+  "third-skin",
+  "desiring-machines",
+] as const;
 
-// Single source of truth for exhibition ordering.
-//
-// Rules:
-// 1. Ordering is derived ONLY from `startDate` — never from `dates`,
-//    `postDate`, `year`, or the seed-array insertion order.
-// 2. Sort direction is DESCENDING (newest first) — the exhibition
-//    with the latest startDate is at position 0 of the sorted bucket.
-// 3. If `startDate` is missing or `new Date(startDate)` returns an
-//    invalid timestamp, the exhibition is excluded from the sort
-//    comparison and appended after all validly-dated entries so it
-//    still renders (UI never crashes on bad data).
-// 4. Pinned slugs are then lifted to the top of the array in the
-//    order they appear in PINNED_SLUGS, preserving the relative
-//    order of everything else.
-function startDateTimestamp(startDate?: string): number | null {
-  if (!startDate) return null;
-  const timestamp = new Date(startDate).getTime();
-  return Number.isNaN(timestamp) ? null : timestamp;
-}
+const homepageOrderIndex = new Map<string, number>(HOMEPAGE_ORDER.map((slug, index) => [slug, index]));
 
-const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
-  ({ location, year, previewImage, heroImage, images, ...exhibition }) => ({
-    ...exhibition,
-    city: exhibition.city ?? location,
-    year: year?.toString(),
-    tags: tagsForExhibition(exhibition),
-    coverImage: coverImageForTitle(exhibition.title),
-    previewImage,
-    heroImage: heroImage ?? previewImage,
-    images,
-  }),
-);
+export const exhibitions: Exhibition[] = [...mappedExhibitions].sort((first, second) => {
+  const firstIndex = homepageOrderIndex.get(first.slug);
+  const secondIndex = homepageOrderIndex.get(second.slug);
 
-const withStartDate: Array<{ exhibition: Exhibition; timestamp: number }> = [];
-const withoutStartDate: Exhibition[] = [];
-for (const exhibition of mappedExhibitions) {
-  const timestamp = startDateTimestamp(exhibition.startDate);
-  if (timestamp === null) {
-    withoutStartDate.push(exhibition);
-  } else {
-    withStartDate.push({ exhibition, timestamp });
+  if (firstIndex !== undefined && secondIndex !== undefined) {
+    return firstIndex - secondIndex;
   }
-}
+  if (firstIndex !== undefined) return -1;
+  if (secondIndex !== undefined) return 1;
 
-// new Date(b.startDate) - new Date(a.startDate)  →  descending
-withStartDate.sort((a, b) => b.timestamp - a.timestamp);
-
-const sortedExhibitions: Exhibition[] = [
-  ...withStartDate.map((entry) => entry.exhibition),
-  ...withoutStartDate,
-];
-
-// Pull each pinned entry out of the sorted result one by one (preserving
-// the relative order of everything else) and collect them in the listed
-// order. Slugs not present in the dataset are ignored.
-const pinnedExhibitions: Exhibition[] = [];
-for (const slug of PINNED_SLUGS) {
-  const index = sortedExhibitions.findIndex((exhibition) => exhibition.slug === slug);
-  if (index !== -1) {
-    pinnedExhibitions.push(sortedExhibitions.splice(index, 1)[0]);
-  }
-}
-
-export const exhibitions: Exhibition[] = [...pinnedExhibitions, ...sortedExhibitions];
+  return 0;
+});
 
 export function getExhibition(slug: string) {
   return exhibitions.find((exhibition) => exhibition.slug === slug);
