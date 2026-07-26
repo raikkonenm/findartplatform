@@ -226,6 +226,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "axes": ["INSTALLATION"],
   "first-date": ["MATERIALITY", "TRANSFORMATION", "ARCHAEOLOGY"],
   "everything-comes-together-while-pushing-all-apart": ["INSTALLATION", "MATERIALITY"],
+  "you-cant-stop-the-world-from-being-bad": ["INSTALLATION", "MEMORY", "SURVEILLANCE"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -240,6 +241,52 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "you-cant-stop-the-world-from-being-bad",
+    title: "You Can't Stop the World from Being Bad",
+    subtitle: "Andrea Ferrero",
+    venue: "Galería Gato",
+    gallery: "Galería Gato",
+    city: "Lima",
+    country: "Peru",
+    year: "2026",
+    dates: "9 July - 22 August 2026",
+    startDate: "9 July 2026",
+    endDate: "22 August 2026",
+    dateSource: "exhibition",
+    artists: ["Andrea Ferrero"],
+    photographer: "Héctor Delgado",
+    sourceUrl: "https://galeriagato.com/",
+    description: `Extending earlier investigations into fortresses, architectures of security, and imperial gardens, You Can’t Stop the World from Being Bad traces spatial logics of power back to an intimate terrain shaped by childhood imagination, personal memory, and acts of world-building, where systems of control are first encountered at a miniature scale. Castle towers, gates, ornamental details, and protective elements oscillate between the intimate and the architectural, recalling Little Tikes play castles, dollhouses and tiny Polly Pocket environments —contained worlds designed to be held, arranged and governed. Referencing these softened versions of defense architecture that reproduce the language of the fortress, Ferrero returns to an early encounter with space as something magical yet clinically staged.
+
+Borrowing from the structure of fairy tales and early videogame logic, the exhibition unfolds as a sequence of thresholds, turning the gallery into a fragmented castle interior where each room reveals a new level, obstacle, or reward. Tracing architectures of power back to their earliest forms of rehearsal, Ferrero draws from nursery rhymes and early encounters with fiction to consider play as a formative site. Sheer curtains veil the gallery walls, partially revealing what’s hidden behind them and drawing us inward into a private, constructed world where power operates through pretend play. Drawing from narrative structures tied to conquest, weaponry, and “masculine”-coded forms of play so often encountered in children’s stories, protection here takes form through small prosthetics to fantasy: armour, collars, and love padlocks. Gestures of intimacy merge with mechanisms of restriction; while attachment and possession become difficult to detangle. Collapsing childhood fantasy with contemporary systems of surveillance and control, the work returns to a moment when our understanding of the world remains open, unstable, and deeply permeable.`,
+    previewImage: localExhibitionImage("You Can't Stop the World from Being Bad", "1.webp"),
+    heroImage: localExhibitionImage("You Can't Stop the World from Being Bad", "1.webp"),
+    images: localExhibitionGalleryWithOrientations("You Can't Stop the World from Being Bad", [
+      { filename: "1.webp", orientation: "vertical" },
+      { filename: "2.webp", orientation: "vertical" },
+      { filename: "3.webp", orientation: "horizontal" },
+      { filename: "4.webp", orientation: "vertical" },
+      { filename: "5.webp", orientation: "horizontal" },
+      { filename: "6.webp", orientation: "vertical" },
+      { filename: "7.webp", orientation: "vertical" },
+      { filename: "8.webp", orientation: "vertical" },
+      { filename: "9.webp", orientation: "vertical" },
+      { filename: "10.webp", orientation: "horizontal" },
+      { filename: "11.webp", orientation: "vertical" },
+      { filename: "12.webp", orientation: "vertical" },
+      { filename: "13.webp", orientation: "vertical" },
+      { filename: "14.webp", orientation: "vertical" },
+      { filename: "15.webp", orientation: "vertical" },
+      { filename: "16.webp", orientation: "vertical" },
+      { filename: "17.webp", orientation: "vertical" },
+      { filename: "18.webp", orientation: "horizontal" },
+      { filename: "19.webp", orientation: "horizontal" },
+      { filename: "20.webp", orientation: "vertical" },
+      { filename: "21.webp", orientation: "vertical" },
+      { filename: "22.webp", orientation: "vertical" },
+    ], "Héctor Delgado"),
+  },
   {
     slug: "old-snag",
     title: "OLD SNAG",
