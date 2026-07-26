@@ -227,6 +227,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "first-date": ["MATERIALITY", "TRANSFORMATION", "ARCHAEOLOGY"],
   "everything-comes-together-while-pushing-all-apart": ["INSTALLATION", "MATERIALITY"],
   "you-cant-stop-the-world-from-being-bad": ["INSTALLATION", "MEMORY", "SURVEILLANCE"],
+  "make-me-yours": ["RITUAL", "POSTHUMAN", "IDENTITY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -241,6 +242,54 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "make-me-yours",
+    title: "MAKE ME YOURS",
+    subtitle: "Ewa Dacko",
+    venue: "Łęctwo",
+    gallery: "Łęctwo",
+    city: "Poznań",
+    country: "Poland",
+    year: "2026",
+    dates: "14 November — 19 December 2026",
+    startDate: "14 November 2026",
+    endDate: "19 December 2026",
+    dateSource: "exhibition",
+    artists: ["Ewa Dacko"],
+    photographer: "Mateusz Hadaś",
+    exhibitionText: "Julian Baranowski",
+    instagramUrl: "https://www.instagram.com/lectwo_gallery/",
+    description: `We are standing together in front of a shop window in LA, or Paris, or Warsaw, looking at a Givenchy dress we both dream of. The air is warm and heavy today. We say goodbye to the boutique window and head toward the park. The stroller wheels squeak terribly, as if they don't want to go anywhere at all. I need to oil them again. Fortunately, I still have some silicone oil, the same kind I use to fix Evangeline.
+
+We reach the park. These walks, they are like ceremonial, weekly celebrations of love to me. I have to go on them. Otherwise, I might forget how much she means to me. I want her to be able to look at her favorite flowers. I wish she could smell them, too. Or even taste them. I, of course, cannot eat them, but they wouldn't harm her at all. We always come here on Tuesdays at 6:00 PM.
+
+Exactly at this time, five years ago, she appeared at my door. I still remember how excited I was. I immediately wanted to dress her, feed her, hug her; I asked her a bunch of silly questions.
+
+Before she appeared in my life, I was alone. I talked to walls and furniture. I cried and whispered to pillows at night. Today is different. I no longer have time to talk to walls. I fill my days with our shared rituals.
+
+Every morning, I brush her long, thick, pink hair. I have to be very careful not to pull it out. Once her hair is styled, I touch up her French manicure. During dinner, we usually watch Hotel Paradise. Or about handbags, stilettos, and economic crises.
+
+This is how our days pass. E. remains silent, and I take care of her, losing myself in this overwhelming caregiving work.
+
+— Julian Baranowski`,
+    previewImage: localExhibitionImage("MAKE ME YOURS", "1.webp"),
+    heroImage: localExhibitionImage("MAKE ME YOURS", "1.webp"),
+    images: localExhibitionGalleryWithOrientations("MAKE ME YOURS", [
+      { filename: "1.webp", orientation: "vertical" },
+      { filename: "2.webp", orientation: "horizontal" },
+      { filename: "3.webp", orientation: "vertical" },
+      { filename: "4.webp", orientation: "vertical" },
+      { filename: "5.webp", orientation: "vertical" },
+      { filename: "6.webp", orientation: "horizontal" },
+      { filename: "7.webp", orientation: "vertical" },
+      { filename: "8.webp", orientation: "vertical" },
+      { filename: "9.webp", orientation: "horizontal" },
+      { filename: "10.webp", orientation: "horizontal" },
+      { filename: "11.webp", orientation: "horizontal" },
+      { filename: "12.webp", orientation: "horizontal" },
+      { filename: "13.webp", orientation: "horizontal" },
+    ], "Mateusz Hadaś"),
+  },
   {
     slug: "you-cant-stop-the-world-from-being-bad",
     title: "You Can't Stop the World from Being Bad",
@@ -5028,6 +5077,8 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "make-me-yours",
+  "you-cant-stop-the-world-from-being-bad",
   "old-snag",
   "passenger",
   "everything-comes-together-while-pushing-all-apart",
