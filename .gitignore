@@ -3,6 +3,7 @@ node_modules/
 out/
 tmp/
 .claude/
+.cover-backup-double-star/
 .instagram-session/
 .env*
 !.env.example
