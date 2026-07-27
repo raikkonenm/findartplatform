@@ -228,6 +228,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "everything-comes-together-while-pushing-all-apart": ["INSTALLATION", "MATERIALITY"],
   "you-cant-stop-the-world-from-being-bad": ["INSTALLATION", "MEMORY", "SURVEILLANCE"],
   "make-me-yours": ["RITUAL", "POSTHUMAN", "IDENTITY"],
+  "fault-lines": ["ECOLOGY", "MATERIALITY", "EROSION", "MATERIAL MEMORY", "DECAY", "ARCHAEOLOGY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -242,6 +243,58 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "fault-lines",
+    title: "Fault lines",
+    subtitle: "Gabriel Mills & Hannah Morgan",
+    venue: "Public Gallery",
+    gallery: "Public Gallery",
+    city: "London",
+    country: "United Kingdom",
+    year: "2026",
+    dates: "18 June — 25 July 2026",
+    startDate: "18 June 2026",
+    endDate: "25 July 2026",
+    dateSource: "exhibition",
+    artists: ["Gabriel Mills", "Hannah Morgan"],
+    photographer: "all images copyright and courtesy of the artist and Public Gallery, London",
+    sourceUrl: "https://public.gallery/",
+    description: `Public Gallery is pleased to present Fault lines, a duo exhibition of painting and sculpture by Gabriel Mills and Hannah Morgan, each of whom approach their work as a form of geological thinking. Resisting empirical certainty in favour of embodied, latent forms of knowledge, the exhibition situates both practices in relation to the agency of material, where the process of making functions as a form of excavation and discovery.
+
+Mills' practice studies the material conditions and behavioural properties of oil and pigment. His paintings emerge through the accumulation of experimental mixtures with differing rates of oxidation, producing ridges, fissures, and sediment-like strata that parallel the density and atmospheric weight of natural topographies. The work is equally informed by broader questions surrounding consciousness, presence, and the conditions through which form comes into being. Each mark evidences the artist's presence rather than representing an illusion or 'other place', guided by cycles of creation that extend beyond immediate perception and toward an intuitive, subliminal understanding. At the same time, the work operates as a close study of colour as material: how it behaves under specific conditions, or how it is contained within improvised systems akin to mapping a physical terrain. Recent paintings extend this inquiry through a process that redistributes authorship between artist and material. In Auaienm (2026), two heavily worked panels are interrupted by a moment of discipline and restraint: across the central panel, Mills arranges and combs the paint across the surface in a single stroke, testing the threshold between artistic desire and material autonomy.
+
+The veins, seams, and natural crevices of Morgan's English alabaster sculptures mirror the topographic mapping of Mills' densely layered surfaces, while also gesturing toward an interior, unseen world of geological and embodied memory. Formed from ancient saltwater deposits, alabaster sits between mineral and stone, carrying traces of erosion, compression, and environmental change across deep time. Morgan studies alabaster's responsiveness: its capacity to absorb, bruise, and register its surroundings, recording the physical memory of earth and articulating cycles of excavation and emergence. Through her practice, she explores themes of transformation, grief, and timescales beyond the anthropocentric, often drawing upon archaeological sites, coastal landscapes, and histories of extraction. Milky carved stone works such as Animula XV (2026) are presented alongside metal armatures that map anatomical pathways and cartographic systems, while suspended glass oculars operate as speculative or otherworldly portals. Her practice is grounded in concepts of "un-horizoning" and non-linear time, positioning each work as a fragment or footnote within broader enquiries into how grief and memory are materially expressed and temporally experienced.
+
+Fault lines gestures toward geological time and physical landscapes, where the peaks and valleys within Mills' impasto fields resonate with the seams and cavities in Morgan's sculptural installations, framing both practices as parallel terrains of accumulation and erosion. Across the exhibition, the artists pursue long lines of inquiry that grapple with cycles of creation and seismic transformation. Together, they navigate the thresholds of the unknown, relying on alternative, often intuitive forms of knowledge that sit beyond our immediate understanding.`,
+    previewImage: localExhibitionImage("Fault lines", "1.webp"),
+    heroImage: localExhibitionImage("Fault lines", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "Fault lines",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "horizontal" },
+        { filename: "16.webp", orientation: "horizontal" },
+        { filename: "17.webp", orientation: "horizontal" },
+        { filename: "18.webp", orientation: "horizontal" },
+        { filename: "19.webp", orientation: "horizontal" },
+        { filename: "20.webp", orientation: "horizontal" },
+      ],
+      "all images copyright and courtesy of the artist and Public Gallery, London",
+    ),
+  },
   {
     slug: "make-me-yours",
     title: "MAKE ME YOURS",
@@ -5077,6 +5130,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "fault-lines",
   "make-me-yours",
   "you-cant-stop-the-world-from-being-bad",
   "old-snag",
