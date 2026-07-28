@@ -230,6 +230,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "make-me-yours": ["RITUAL", "POSTHUMAN", "IDENTITY"],
   "fault-lines": ["ECOLOGY", "MATERIALITY", "EROSION", "MATERIAL MEMORY", "DECAY", "ARCHAEOLOGY"],
   "joy-ride": ["INSTALLATION", "ARCHIVE", "RITUAL", "POST-INDUSTRIAL", "LABOR", "DECAY"],
+  "triangle-reshapes-the-o-of-my-mouth": ["INSTALLATION", "SOUND", "RITUAL", "TRANSFORMATION", "DOMESTICITY", "FEMININITY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -244,6 +245,60 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "triangle-reshapes-the-o-of-my-mouth",
+    title: "Triangle reshapes the O of my mouth",
+    subtitle: "Anousha Payne",
+    venue: "Sperling",
+    gallery: "Sperling",
+    city: "Munich",
+    country: "Germany",
+    year: "2026",
+    dates: "16 May — 4 July 2026",
+    startDate: "16 May 2026",
+    endDate: "4 July 2026",
+    dateSource: "exhibition",
+    artists: ["Anousha Payne"],
+    photographer: "Sebastian Kissel, Pablo Lauf",
+    sourceUrl: "https://sperling-munich.com/",
+    description: `Sperling is pleased to present the second exhibition by Anousha Payne in Munich, developed in close collaboration with Ushara (sound and opening performance). Building on her first presentation at Sperling's old gallery location – where paper-pulp casts of her own body and ceramic animal heads formed a playful narrative supported by a four channel sound piece – Payne continues to expand her practice through challenging processes. Her work lives between sculpture, storytelling, and embodied experience, tracing the shifts between the human and the non-human, the domestic and the mythological.
+
+At the centre of the exhibition is the figure of the moth. For Payne, the moth is not simply a symbol of attraction or fragility, but a creature that moves across thresholds – between interior and exterior, private and public, constraint and escape. It becomes a speculative figure of transformation: a body that passes through walls, that inhabits and exceeds the architecture of the home. The house itself appears here not merely as a physical structure, but as a psychological and political one – an extension of patriarchal limits, a site in which domestic labour, memory, and identity are inscribed and contested.
+
+This ecology of the home is rendered through an interplay of sculptural elements, text, and sound. Wax circles punctuate the space like traces or imprints – marks that evoke the repeated impact of wings against a surface, preserving movement. The use of batik, with its etymological root in "writing in wax," further layers the exhibition with questions of inscription, inheritance, and material memory. Associated with domestic clothing and intergenerational intimacy, batik here also carries the weight of its colonial trajectories, embedding the work within broader histories of exchange and displacement.
+
+Payne's narrative follows a protagonist increasingly enclosed within the walls of her home, accompanied and gradually transformed – by the presence of the moth. This transformation is not framed as disappearance, but as an expansion of the body: a leaking, multiplying form that extends beyond itself. The figure of the moth/woman resonates with what Virginia Woolf once described in The Death of the Moth as the intensity of life condensed in a small, flickering being – an energy that persists even at the threshold of dissolution. In Payne's work, this fragile vitality is reimagined as a force of resistance: the capacity to move, to mark, to transform within and against enclosing structures.
+
+At the same time, Silvia Federici's Caliban and the Witch sharpens this perspective by tracing how mechanisms of control and persecution have historically disciplined and enclosed female bodies. Within this context, transformation does not appear as a passive dissolution but as a potential refusal: a way of exceeding the structures that seek to contain it. The moth, then, emerges not only as a figure of fragility, but as a quiet strategy of escape – a being that inhabits confinement while simultaneously eroding its limits.
+
+These concerns are extended through Ushara's sound work and live performance, which activate the exhibition as a temporal and affective environment. Composed of field recordings, organ, cello, and voice, the sound piece inhabits the house as a shifting presence, embodying the psychological states of its protagonist. During the opening weekend, Ushara will present an expanded one-woman opera in four acts, combining reinterpretations of Johann Sebastian Bach and Hildegard von Bingen with original compositions. The performance unfolds as a movement through solitude, fragmentation, and renewal, echoing the exhibition's exploration of interiority and transformation.`,
+    previewImage: localExhibitionImage("Triangle reshapes the O of my mouth", "1.webp"),
+    heroImage: localExhibitionImage("Triangle reshapes the O of my mouth", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "Triangle reshapes the O of my mouth",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "horizontal" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "horizontal" },
+      ],
+      "Sebastian Kissel, Pablo Lauf",
+    ),
+  },
   {
     slug: "joy-ride",
     title: "JOY RIDE",
@@ -5197,6 +5252,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "triangle-reshapes-the-o-of-my-mouth",
   "joy-ride",
   "fault-lines",
   "make-me-yours",
