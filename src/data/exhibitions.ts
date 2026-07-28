@@ -229,6 +229,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "you-cant-stop-the-world-from-being-bad": ["INSTALLATION", "MEMORY", "SURVEILLANCE"],
   "make-me-yours": ["RITUAL", "POSTHUMAN", "IDENTITY"],
   "fault-lines": ["ECOLOGY", "MATERIALITY", "EROSION", "MATERIAL MEMORY", "DECAY", "ARCHAEOLOGY"],
+  "joy-ride": ["INSTALLATION", "ARCHIVE", "RITUAL", "POST-INDUSTRIAL", "LABOR", "DECAY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -243,6 +244,72 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "joy-ride",
+    title: "JOY RIDE",
+    subtitle: "Alessandro Cugola",
+    venue: "Jester",
+    gallery: "Jester",
+    city: "Genk",
+    country: "Belgium",
+    year: "2026",
+    dates: "20 June — 23 August 2026",
+    startDate: "20 June 2026",
+    endDate: "23 August 2026",
+    dateSource: "exhibition",
+    artists: ["Alessandro Cugola"],
+    curator: "Karel Op 't Eynde",
+    photographer: "Silvia Cappellari",
+    description: `Joy Ride by Alessandro Cugola is an exhibition developed at Jester in dialogue with the institution's archive, containing a vast amount of artworks, editions, and documentation. Through site-specific installations and a durational performance, Cugola reactivates fifty years of artistic production. The exhibition triggers a chain reaction in which the archive is moved, exposed, contaminated, conserved and eventually packed away again. The archive enters a temporary traffic system, a joy ride.
+
+With this exhibition, Jester celebrates its fifth anniversary, alongside the fortieth anniversary of FLACC and fiftieth anniversary of CIAP, the organisations that merged to form Jester.
+
+FLACC and CIAP shaped this vast collection of works, both with different approaches to archiving. As a result, it brings together objects and artworks that were not necessarily intended to form one coherent collection. Some works were produced in close relation to the institution, others remained as traces of projects or decisions made along the way.
+
+During the opening, Cugola initiates the process of archiving himself through a performance. Working with the codes and protocols of art handling, he activates Ventilation Organ (2026) and sets the archive in motion, beginning a process in which works are handled and gradually archived. Over the following weeks, this action is continued by volunteers connected to the organisation.
+
+An archive traditionally makes promises of order as it gathers and classifies. It attempts to hold its contents together, to prevent them from dissolving into dissociation. Joy Ride accumulates and overflows. It contaminates itself. Where do we begin? How long should it be kept? It questions if movement itself can become a temporary answer.
+
+The first space of the exhibition titled Analchon, turns the archive toward the body. The word is deliberately unstable and carries the archive and the arkheion, but it also twists them through anality, digestion and exhaustion. Drawing on Georges Bataille's The Solar Anus (1931), the anal dimension of the archive can be read as a distorted circulation—matter moves, turns, and returns, refusing a clean linearity of historical order. Cugola shifts the archive from a legal or institutional structure to a body that absorbs, processes, retains and eventually expels. For how long does matter remain inside? How is it digested? In Analchon, the archive becomes an exhausted digestive system, one that takes everything in while things continue to slip from its hands.
+
+The second space, titled Anarchive, brings together archive and anarchy or anachronism. The materials Cugola responds to have passed through a series of imperfect locations; former casino buildings, storage spaces, cellars, and attics. They were kept in conditions that were too humid, too provisional, too close to neglect. Following the exhibition, the archive will be permanently stored in the Jester building, entering a more controlled environment that is centralized, perhaps even ideal.
+
+But Cugola asks whether solving its location solves all issues. It may now be housed, but it has not settled. What remains unclear is how the archive will be used, who will speak through it, and what role it can play within Jester's future activities. Is it a collection, a resource, a responsibility, a burden, or a working tool? The installation Anarchive Cabinets I–III (2026) speaks to an unfinished order as it suggests an authority that is present but unable to fully act, suspended at the point of beginning, unsure where to start. The archive is not chaotic because of its lack of structure, it is chaotic because structure does not resolve the pressure to make decisions. Cabinets become figures of an authority that stores without necessarily interpreting, one that protects without necessarily knowing what kind of value it holds.
+
+Ventilation Organ (2026) introduces another kind of authority, one of the building itself. The work hacks the existing climate control system of Jester's Kunsthal, making the conditions that intend to safeguard or stabilize the works on display audible. The building speaks and sings. It has its own presence, its own capacity to dictate or infiltrate. In Anarchive, the building becomes part of its own condition. The archive may have found a place, but that place also acts upon it.
+
+In the third space of the exhibition, titled Joy Ride, visitors can consult the archive. Cugola focuses on the substrate, the actual support that makes looking and handling possible. In archival logic, this is often imagined as a technical condition, something that holds contents or facilitates access. In this space, a transparent table-shaped installation, supported by Ford-branded wheels, subverts this logic, turns the handler upside down and changes the conditions of seeing.
+
+As the viewer looks through the transparent support, the work continues into the ceiling, into the body behind it, into the surrounding architecture. Because the support is placed on wheels, it also remains mobile. The archive appears, but not as something finally fixed. Even at the moment of access, it is still contingent.
+
+In Joy Ride, Alessandro Cugola describes the archive that "speaks about archiving". At Jester, it is stored, but not quite claimed. It is protected, but not fully interpreted. Responsibility passes from the institution to the artist, from the artist to volunteers, from volunteers to visitors, as if the exhibition itself might reveal what the archive is, or what its value might be. Authority is not absent but it is displaced. It acts through delegation, hesitation, postponement. Or, as Cugola notes, "the authority is still there, but it acts through non-decision."
+
+The title Joy Ride refers to a sort of movement without destination, acceleration without resolution, circulation without decision. It is not a heroic journey and not a clean route from origin to endpoint. It is a loop, a temporary activation, a taking-out-for-a-ride. The archive is brought out, shown, handled, looked at, and then returned. Its status is not solved by any movement. Its value is not secured once and for all. Instead, movement exposes the conditions that make the archive uncertain in the first place.
+
+In Genk, the image of a car and its tires call back to the now closed Ford factories with their industrial production, labour infrastructure and eventual abandonment. Joy Ride inevitably touches the city's histories of repetitions of the assembly line, the loading and unloading of material. Cugola treats these as labour organised through linear motion, repeated gestures and exhaustion.
+
+For Cugola, the archive is what remains when responsibility is passed on, when authority acts through non-decision, and when movement itself becomes the only available form of temporary care. Joy Ride does not solve the issue. It takes it out for a ride.`,
+    previewImage: localExhibitionImage("JOY RIDE", "1.webp"),
+    heroImage: localExhibitionImage("JOY RIDE", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "JOY RIDE",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "horizontal" },
+      ],
+      "Silvia Cappellari",
+    ),
+  },
   {
     slug: "fault-lines",
     title: "Fault lines",
@@ -5130,6 +5197,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "joy-ride",
   "fault-lines",
   "make-me-yours",
   "you-cant-stop-the-world-from-being-bad",
