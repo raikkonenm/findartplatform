@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
     // mobile, tablet, desktop). Fewer variants = fewer edge cache
     // entries and faster first transform per unique width.
     deviceSizes: [640, 750, 828, 1080, 1200],
+    // Trim default imageSizes too — feed cards never render below
+    // ~240 px CSS width even on the smallest phones, so anything
+    // below 128 is dead weight in the srcSet. Two entries keep
+    // low-DPR retina renders covered without bloating the HTML.
+    imageSizes: [128, 256],
   },
 };
 

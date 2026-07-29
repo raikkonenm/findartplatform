@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 import { SavedExhibitionsProvider } from "@/components/SavedExhibitions";
 import "./globals.css";
 
-// Google Analytics 4. Using @next/third-parties is the canonical
-// Next.js App Router pattern: the GoogleAnalytics component injects
-// the gtag.js script with strategy "afterInteractive" AND wires up
-// automatic `page_view` events on client-side route changes, which
-// the raw next/script approach does not do on its own.
+// Google Analytics 4. We inject gtag.js manually via next/script with
+// strategy="lazyOnload" instead of @next/third-parties/GoogleAnalytics
+// (which is hard-coded to strategy="afterInteractive"). Loading GA
+// after window.onload frees ~90 KB of bandwidth during the LCP window
+// on mobile, at the cost of dropping analytics events for users who
+// leave before onload fires.
 const GA_MEASUREMENT_ID = "G-258Q2XJMXP";
 
 const sfPro = localFont({
@@ -57,7 +58,21 @@ export default function RootLayout({
           {modal}
         </SavedExhibitionsProvider>
       </body>
-      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+      <Script
+        id="_ga-init"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`,
+        }}
+      />
+      <Script
+        id="_ga-src"
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+      />
     </html>
   );
 }
