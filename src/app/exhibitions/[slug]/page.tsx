@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import HomePage from "../../page";
+import HomePageClient from "../../HomePageClient";
 import { SlideOver } from "@/components/SlideOver";
 import { ExhibitionDetail } from "@/components/ExhibitionDetail";
 import { exhibitions, getExhibition } from "@/data/exhibitions";
@@ -34,7 +34,7 @@ export default async function ExhibitionDetailPage({ params }: DetailPageProps) 
 
   return (
     <>
-      <HomePage />
+      <HomePageClient initialIsMobile={false} />
       <SlideOver
         label={displayExhibitionTitle(exhibition.title)}
         closeHref="/"

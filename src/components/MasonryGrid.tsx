@@ -6,11 +6,13 @@ import { ExhibitionCard } from "./ExhibitionCard";
 
 // Determine how many columns the masonry grid should use. Mirrors the
 // previous CSS breakpoints exactly: 1 column below 768px, 2 columns
-// between 768–1023px, 3 columns from 1024px up. Defaults to 3 on the
-// server so SSR HTML matches the most common desktop viewport; the
-// value is reconciled at hydration.
-function useColumnCount(): number {
-  const [count, setCount] = useState(3);
+// between 768–1023px, 3 columns from 1024px up. The initial value is
+// seeded from a server-detected UA hint (`initialIsMobile` prop) so
+// SSR HTML matches what the client hydrates to — no masonry CLS jump
+// on mobile. After hydration, matchMedia takes over for genuine
+// viewport changes (resize, orientation).
+function useColumnCount(initialIsMobile: boolean): number {
+  const [count, setCount] = useState(initialIsMobile ? 1 : 3);
   useEffect(() => {
     const single = window.matchMedia("(max-width: 767px)");
     const double = window.matchMedia("(max-width: 1023px)");
@@ -49,11 +51,13 @@ type BucketItem = { exhibition: Exhibition; flatIdx: number };
 export function MasonryGrid({
   exhibitions,
   eagerCount = 0,
+  initialIsMobile = false,
 }: {
   exhibitions: Exhibition[];
   eagerCount?: number;
+  initialIsMobile?: boolean;
 }) {
-  const columnCount = useColumnCount();
+  const columnCount = useColumnCount(initialIsMobile);
 
   const columns: BucketItem[][] = Array.from({ length: columnCount }, () => []);
   exhibitions.forEach((exhibition, flatIdx) => {

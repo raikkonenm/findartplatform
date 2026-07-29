@@ -49,7 +49,6 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             fill
             className="object-cover"
             loading={eager ? "eager" : "lazy"}
-            unoptimized
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
         </div>
