@@ -49,7 +49,9 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             fill
             className="object-cover"
             priority={eager}
-            {...(eager ? {} : { loading: "lazy" as const })}
+            {...(eager
+              ? { fetchPriority: "high" as const }
+              : { loading: "lazy" as const })}
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
         </div>
