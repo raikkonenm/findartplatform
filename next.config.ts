@@ -10,9 +10,10 @@ const nextConfig: NextConfig = {
     // long TTL never serves stale content and eliminates the cold-
     // transform latency (~1.4s TTFB) we were seeing on every visit.
     minimumCacheTTL: 31536000,
-    // Prefer AVIF where the client accepts it (better compression
-    // than WebP); WebP is the fallback. Both are broadly supported.
-    formats: ["image/avif", "image/webp"],
+    // Stay on Next.js's default format ("image/webp"). AVIF at
+    // quality=75 was over-compressing card covers into visibly
+    // softer/mushier previews on the feed — the ~30–50% size
+    // savings weren't worth the quality regression.
     // Trim the default deviceSizes down to the widths this design
     // actually consumes (feed cards at 100vw / 47vw / 31vw across
     // mobile, tablet, desktop). Fewer variants = fewer edge cache
