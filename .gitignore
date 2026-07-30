@@ -5,6 +5,7 @@ tmp/
 .claude/
 .cover-backup-double-star/
 .compress-backup-round2/
+.compress-backup/
 .instagram-session/
 .env*
 !.env.example

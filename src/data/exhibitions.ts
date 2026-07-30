@@ -231,6 +231,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "fault-lines": ["ECOLOGY", "MATERIALITY", "EROSION", "MATERIAL MEMORY", "DECAY", "ARCHAEOLOGY"],
   "joy-ride": ["INSTALLATION", "ARCHIVE", "RITUAL", "POST-INDUSTRIAL", "LABOR", "DECAY"],
   "triangle-reshapes-the-o-of-my-mouth": ["INSTALLATION", "SOUND", "RITUAL", "TRANSFORMATION", "DOMESTICITY", "FEMININITY"],
+  "we-are-deeply-alarmed-and-express-our-grave-concern": ["INSTALLATION", "IDENTITY", "DISPLACEMENT", "FRAGMENT", "MATERIALITY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -245,6 +246,54 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "we-are-deeply-alarmed-and-express-our-grave-concern",
+    title: "We are deeply alarmed and express our grave concern",
+    subtitle: "Vitalii Shupliak",
+    venue: "DOMIE",
+    gallery: "DOMIE",
+    city: "Poznań",
+    country: "Poland",
+    year: "2026",
+    dates: "11 July — 28 July 2026",
+    startDate: "11 July 2026",
+    endDate: "28 July 2026",
+    dateSource: "exhibition",
+    artists: ["Vitalii Shupliak"],
+    curator: "Liso Stec",
+    photographer: "Mikołaj Wojnar",
+    sourceUrl: "https://saliva.live/",
+    description: `The exhibition emerges from the tension between the idealization of a European community and the experience of its erosion. A space that promises security and solidarity increasingly reveals its own fractures: in its responses to wars, migration, social crises, and the consequences of political decisions. In this context, questions of agency and responsibility acquire an increasingly sharp dimension.
+
+The exhibition space unfolds like an organism: a situational construction, changeable and open to reconfiguration, similar to the self-organizing ocean in Stanisław Lem's novel Solaris. Mirrored, fiery forms reflect the viewer and the surroundings, drawing them into an encounter with a projection and with their own reaction to it. In the context of growing political tensions and radicalization, this figure of "otherness" increasingly becomes the foundation of counter-narratives and a tool for producing fear, borders, and exclusion. Shupliak asks where, in whom, and why we begin to see the stranger.
+
+The exhibition resembles a provisional playground that may turn into a barrier. The artist offers the possibility of play, arrangement, and observation, yet this is not an innocent situation. Every movement takes place among reflections, sharp edges, and mutual acts of watching. This play is marked by an awareness of one's own position.
+
+Another part of the exhibition is a drawing created with a lead toy soldier, which the artist uses to rub imprints of coins. One of its strongest connotations is the price of European security. It is no longer only about how much we are ready to pay for it. What becomes more important is who ultimately becomes the payer.
+
+Above the space looms the artist's hand holding an object composed of two different euro coins. Shupliak appears to offer a gift, but through the artistic gesture the coins lose their functionality and fall out of economic circulation. The fleshy, corporeal image of the hand can be read in multiple ways: as a suggestion that the fate of Europe is in our hands, or, conversely, that it remains in the hands of selected, privileged, essentially male subjects. The gesture of reconstructing the symbol of the EU leads to a question of resource distribution. Is the European community, living in relative security, ready to reach out and share its capital with those it perceives as strangers?
+
+The exhibition touches upon fragility, the weight of decisions, and the price of European security, but it does not lead reflection solely toward dystopian scenarios. Its modular structure activates the possibility of creating new arrangements, constructions, and meanings. What has been cut, separated, or deprived of its original function holds the potential for reconfiguration. Places of rupture may become places of contact, and cracks may indicate where a more stable and lasting form can be created. This is not an easy task. It remains possible.`,
+    previewImage: localExhibitionImage("We are deeply alarmed and express our grave concern", "1.webp"),
+    heroImage: localExhibitionImage("We are deeply alarmed and express our grave concern", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "We are deeply alarmed and express our grave concern",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "vertical" },
+      ],
+      "Mikołaj Wojnar",
+    ),
+  },
   {
     slug: "triangle-reshapes-the-o-of-my-mouth",
     title: "Triangle reshapes the O of my mouth",
@@ -5252,6 +5301,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "we-are-deeply-alarmed-and-express-our-grave-concern",
   "triangle-reshapes-the-o-of-my-mouth",
   "joy-ride",
   "fault-lines",
