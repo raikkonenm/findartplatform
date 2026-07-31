@@ -232,6 +232,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "joy-ride": ["INSTALLATION", "ARCHIVE", "RITUAL", "POST-INDUSTRIAL", "LABOR", "DECAY"],
   "triangle-reshapes-the-o-of-my-mouth": ["INSTALLATION", "SOUND", "RITUAL", "TRANSFORMATION", "DOMESTICITY", "FEMININITY"],
   "we-are-deeply-alarmed-and-express-our-grave-concern": ["INSTALLATION", "IDENTITY", "DISPLACEMENT", "FRAGMENT", "MATERIALITY"],
+  "24-preludes-op-34-no-22-in-g-minor-adagio": ["SOUND", "INSTALLATION", "MATERIALITY", "LIMINALITY", "ABSENCE"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -246,6 +247,51 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "24-preludes-op-34-no-22-in-g-minor-adagio",
+    title: "24 Preludes, Op. 34: No. 22 in G minor (Adagio)",
+    subtitle: "Francesco Muggetti & Yongbin Lee",
+    venue: "Studiya Gallery",
+    gallery: "Studiya Gallery",
+    city: "Seoul",
+    country: "South Korea",
+    year: "2026",
+    dates: "10 July — 28 July 2026",
+    startDate: "10 July 2026",
+    endDate: "28 July 2026",
+    dateSource: "exhibition",
+    artists: ["Francesco Muggetti", "Yongbin Lee"],
+    curator: "Chaewon Yoon",
+    photographer: "Studiya Gallery",
+    description: `The two practices do not translate one another. Muggetti's sound does not explain Lee's sculpture, and Lee's sculpture does not reduce Muggetti's sound to image. What matters is not combination, but the interval between them, where each materiality becomes more distinct.
+
+What is heard remains unresolved, and what is seen never fully gives itself away. What lingers between them is not a single meaning, but a condition still left open. There, silence becomes the longest lingering note.`,
+    previewImage: localExhibitionImage("24 PRELUDES, OP. 34 NO. 22 IN G MINOR (ADAGIO)", "1.webp"),
+    heroImage: localExhibitionImage("24 PRELUDES, OP. 34 NO. 22 IN G MINOR (ADAGIO)", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "24 PRELUDES, OP. 34 NO. 22 IN G MINOR (ADAGIO)",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "horizontal" },
+        { filename: "17.webp", orientation: "vertical" },
+      ],
+      "Studiya Gallery",
+    ),
+  },
   {
     slug: "we-are-deeply-alarmed-and-express-our-grave-concern",
     title: "We are deeply alarmed and express our grave concern",
@@ -5301,6 +5347,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "24-preludes-op-34-no-22-in-g-minor-adagio",
   "we-are-deeply-alarmed-and-express-our-grave-concern",
   "triangle-reshapes-the-o-of-my-mouth",
   "joy-ride",
