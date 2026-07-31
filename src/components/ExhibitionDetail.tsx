@@ -237,6 +237,7 @@ function RelatedExhibitions({
                   alt={`${relatedTitle} exhibition view`}
                   fill
                   className="object-cover"
+                  {...(relatedExhibition.unoptimized ? { unoptimized: true } : {})}
                   sizes="(min-width: 1024px) 21vw, (min-width: 640px) 28vw, 100vw"
                 />
               </div>
@@ -324,6 +325,7 @@ export function ExhibitionDetail({
               width={1600}
               height={1200}
               className="mx-auto h-auto max-h-[60vh] w-full max-w-full object-contain md:w-auto"
+              {...(exhibition.unoptimized ? { unoptimized: true } : {})}
               sizes="(min-width: 1200px) 34vw, (min-width: 1024px) 42vw, 100vw"
             />
             <figcaption className="mt-4 text-[11px] leading-5 text-neutral-500">
@@ -363,6 +365,7 @@ export function ExhibitionDetail({
                   width={image.orientation === "vertical" ? 1200 : 1800}
                   height={image.orientation === "vertical" ? 1800 : 1200}
                   className="h-auto max-h-[86vh] w-full object-contain"
+                  {...(exhibition.unoptimized ? { unoptimized: true } : {})}
                   sizes={
                     image.orientation === "vertical"
                       ? "(min-width: 1024px) 48vw, 92vw"

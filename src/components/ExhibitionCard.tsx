@@ -52,6 +52,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             {...(eager
               ? { fetchPriority: "high" as const }
               : { loading: "lazy" as const })}
+            {...(exhibition.unoptimized ? { unoptimized: true } : {})}
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
         </div>

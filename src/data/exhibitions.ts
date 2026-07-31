@@ -82,6 +82,13 @@ export type Exhibition = {
   instagramUrl?: string;
   source?: string;
   sourceUrl?: string;
+  // Opt-out from Next.js Image optimization (/_next/image). Set true
+  // when Vercel's per-project transformation quota is unavailable for
+  // an exhibition and its files are already reasonably compressed WebP
+  // that can be served as-is from public/. Consumers (ExhibitionCard,
+  // ExhibitionDetail) pass this through as the Image `unoptimized`
+  // prop.
+  unoptimized?: boolean;
 };
 
 type ExhibitionSeed = Omit<Exhibition, "year" | "tags" | "previewImage" | "heroImage" | "images"> & {
@@ -263,13 +270,17 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     artists: ["Francesco Muggetti", "Yongbin Lee"],
     curator: "Chaewon Yoon",
     photographer: "Studiya Gallery",
+    // Vercel Hobby image-optimization quota is exhausted for this
+    // billing cycle; served straight from public/ as static WebP
+    // instead of routing through /_next/image (which returns 402).
+    unoptimized: true,
     description: `The two practices do not translate one another. Muggetti's sound does not explain Lee's sculpture, and Lee's sculpture does not reduce Muggetti's sound to image. What matters is not combination, but the interval between them, where each materiality becomes more distinct.
 
 What is heard remains unresolved, and what is seen never fully gives itself away. What lingers between them is not a single meaning, but a condition still left open. There, silence becomes the longest lingering note.`,
-    previewImage: localExhibitionImage("24 PRELUDES, OP. 34 NO. 22 IN G MINOR (ADAGIO)", "1.webp"),
-    heroImage: localExhibitionImage("24 PRELUDES, OP. 34 NO. 22 IN G MINOR (ADAGIO)", "1.webp"),
+    previewImage: localExhibitionImage("24-preludes-op-34-no-22-in-g-minor-adagio", "1.webp"),
+    heroImage: localExhibitionImage("24-preludes-op-34-no-22-in-g-minor-adagio", "1.webp"),
     images: localExhibitionGalleryWithOrientations(
-      "24 PRELUDES, OP. 34 NO. 22 IN G MINOR (ADAGIO)",
+      "24-preludes-op-34-no-22-in-g-minor-adagio",
       [
         { filename: "1.webp", orientation: "vertical" },
         { filename: "2.webp", orientation: "horizontal" },
