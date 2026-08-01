@@ -240,6 +240,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "triangle-reshapes-the-o-of-my-mouth": ["INSTALLATION", "SOUND", "RITUAL", "TRANSFORMATION", "DOMESTICITY", "FEMININITY"],
   "we-are-deeply-alarmed-and-express-our-grave-concern": ["INSTALLATION", "IDENTITY", "DISPLACEMENT", "FRAGMENT", "MATERIALITY"],
   "24-preludes-op-34-no-22-in-g-minor-adagio": ["SOUND", "INSTALLATION", "MATERIALITY", "LIMINALITY", "ABSENCE"],
+  "the-stasis-garden-or-pixies-memories": ["INSTALLATION", "POSTHUMAN", "IDENTITY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -254,6 +255,46 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "the-stasis-garden-or-pixies-memories",
+    title: "The Stasis Garden (or Pixies Memories)",
+    subtitle: "Floryan Varennes",
+    venue: "Ville d'Angers (Château d'Angers)",
+    gallery: "Ville d'Angers (Château d'Angers)",
+    city: "Angers",
+    country: "France",
+    year: "2026",
+    dates: "4 July 2026 — 3 January 2027",
+    startDate: "4 July 2026",
+    endDate: "3 January 2027",
+    dateSource: "exhibition",
+    artists: ["Floryan Varennes"],
+    curator: "Château d'Angers",
+    photographer: "Antoine Denoual",
+    // Vercel Hobby image-optimization quota is exhausted for this
+    // billing cycle; served straight from public/ as static WebP
+    // instead of routing through /_next/image (which returns 402).
+    unoptimized: true,
+    description: `The installation is presented as part of a group exhibition "Respawn in Heroic".
+
+Made up of a series of suspended modular elements, The Stasis Garden unfolds across the space as a collection of 7 hybrid forms reminiscent of armour, medical braces and floral corollas. Crafted from opalescent PVC, stainless steel and flexible tubing, these structures appear to derive from a single original model that repeats itself without ever being an exact duplicate.
+
+Each element appears as a variation on a prototype, an attempt to adapt to changing conditions. Somewhere between organism and apparatus, they evoke absent bodies of which only the supporting structures or adaptive envelopes remain.`,
+    previewImage: localExhibitionImage("the-stasis-garden-or-pixies-memories", "1.webp"),
+    heroImage: localExhibitionImage("the-stasis-garden-or-pixies-memories", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "the-stasis-garden-or-pixies-memories",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+      ],
+      "Antoine Denoual",
+    ),
+  },
   {
     slug: "24-preludes-op-34-no-22-in-g-minor-adagio",
     title: "24 Preludes, Op. 34: No. 22 in G minor (Adagio)",
@@ -5358,6 +5399,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "the-stasis-garden-or-pixies-memories",
   "24-preludes-op-34-no-22-in-g-minor-adagio",
   "we-are-deeply-alarmed-and-express-our-grave-concern",
   "triangle-reshapes-the-o-of-my-mouth",
