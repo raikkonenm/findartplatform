@@ -241,6 +241,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "we-are-deeply-alarmed-and-express-our-grave-concern": ["INSTALLATION", "IDENTITY", "DISPLACEMENT", "FRAGMENT", "MATERIALITY"],
   "24-preludes-op-34-no-22-in-g-minor-adagio": ["SOUND", "INSTALLATION", "MATERIALITY", "LIMINALITY", "ABSENCE"],
   "the-stasis-garden-or-pixies-memories": ["INSTALLATION", "POSTHUMAN", "IDENTITY"],
+  "der-kopf-ist-rund": ["MYTH", "FEMININITY", "IDENTITY", "MATERIAL MEMORY", "ARCHAEOLOGY", "RITUAL"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -255,6 +256,56 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "der-kopf-ist-rund",
+    title: "Der Kopf ist rund, damit das Denken die Richtung wechseln kann",
+    subtitle: "Peles Duo (Barbara Wolff & Katharina Stöver)",
+    venue: "Galerie Brugger",
+    gallery: "Galerie Brugger",
+    city: "Klaus in Vorarlberg",
+    country: "Austria",
+    year: "2026",
+    dates: "31 May — 10 July 2026",
+    startDate: "31 May 2026",
+    endDate: "10 July 2026",
+    dateSource: "exhibition",
+    artists: ["Barbara Wolff", "Katharina Stöver"],
+    photographer: "Markus Tretter",
+    exhibitionText: "Lucia Zelenáková",
+    // Vercel Hobby image-optimization quota is exhausted for this
+    // billing cycle; served straight from public/ as static WebP
+    // instead of routing through /_next/image (which returns 402).
+    unoptimized: true,
+    description: `When our eyes grasp the past through residual images, history may, at first glance, appear as a linear, steady accumulation of forms, images, and ideas over time. Yet history often reveals itself through deferred actions (Nachträglichkeit), retroactive interpretations of virtual potentialities folded within the physical sediments of the past. Aside from preserving what has been, history (woven into the fabric of matter) invites us to construct meanings from what is embedded within its structure. However, it is the semantic opacity of matter, together with the differences among individual acts of reception – shaped by changing collective worldviews – that leads to the continual re-creation of the meanings associated with forms and ideas. Meaning is never fully present; concepts have no existence separate from the process that brings them into being: that is, the act of engaging with the image.
+
+Peles Duo's exhibition engages with a chain of visual representations of myths, symbols, and ideas as they appeared on their shifting trajectories throughout history. Take, for instance, the echoes of the goddess Cybele, woven throughout several works here. Heavy sculptures resting on metal pallets make various references to her shifting appropriations across cultural spaces. Residual images of the past – from the story of her mythical hermaphroditic origin to divergent interpretations of her iconographical features – are repeatedly revisited by the artists, guided by the Deleuzian principle of "unlimited finitude." As for the meanings of these motifs, they came to be interpreted as deferred actions referring to the ritual sacrifices of Cybele's eunuch priests, eclipsing earlier associations of the pomegranate with femininity in the ancient world. Overall, one finds oneself immersed in a semantic density, a surreal collision of symbols and myths that have been expressed through the images. This is precisely how the artists question our perception of history (or herstory, to be more precise), gently demonstrating how female power and trans communities already occupied an important place in the imagination of past societies.
+
+The interplay of quoted iconography recurs in the present paintings. The echo of the sculptural form of our mother goddess is embedded within a network of visual references to other historical figures. Here, you may catch the eyes of Saint Ottilia; a motif commonly read as a reference to Ottilia's miraculous recovery of sight. Or maybe you will engage with Ciamberlano's engraving depicting human emotions, while wondering if the signifier (e.g., the image of a scream) is truly a fingerprint of a particular emotion. As we already know, the connection between the two sides of the sign (signifier and signified) is always somewhat arbitrary. Moreover, as Lisa Feldman Barrett suggests, emotions are merely constructed perceptions created by the brain of the viewer; with face-reading being just the brain's best guess, conditioned by context and culturally situated knowledge. One may need a miraculous recovery of sight to grasp the meaning that facial expressions held in the past.
+
+From one work to another, several visual references are layered upon one another. But just as important as what is being referenced is the question of how and why these references are made. Techniques such as sampling or remixing are used to transform Peles Duo's artworks into a network of entangled anticipations and reconstructions. Thus, the process of reproduction and remediation serves as a strategy for recognizing material objects as temporal unities and time itself as something material. The site-specific wallpaper exemplifies this well. It is constructed by means of continual remediation: surrealist photographs of ceramic pit fire (baptism by fire, so to speak) are assembled next to the eyes of Saint Ottilia, dancing around reproductions of Peles Duo's former installation, and so on. Collected elements are remixed and assembled, and then printed on sheets of paper. The wallpaper thus serves as an archaeological field of sedimented traces of elements' former existence. Moreover, the chain of continual reproduction sometimes culminates in situations where certain parts of the print no longer point to anything beyond their own materiality. A coherent yet phantasmagoric composition of layered, remediated images often hits the limits of matter's capacity to mediate, document, and hold memory.
+
+According to an old theory, art arises from a deep human need to impose meaning on the world, a need that goes hand in hand with the effort to capture and preserve revealed truth for eternity. An exhibition by artistic duo Barbara Wolff and Katharina Stöver offers a different perspective on this theory. By means of reproduction and remediation, artists merge historical references and their own previous works. Through their surreal portrayal of past images, they demonstrate how ideas change direction as they travel across time and space. They show how images constantly shift in meaning from the very moment they encounter a different gaze, or are reproduced in a different context. After all, that is how images and ideas endure across historical contexts.
+
+"Our heads are round so our thoughts can change direction." So as the image aiming at eternity, constantly changes direction of its significance.`,
+    previewImage: localExhibitionImage("der-kopf-ist-rund", "1.webp"),
+    heroImage: localExhibitionImage("der-kopf-ist-rund", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "der-kopf-ist-rund",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "vertical" },
+      ],
+      "Markus Tretter",
+    ),
+  },
   {
     slug: "the-stasis-garden-or-pixies-memories",
     title: "The Stasis Garden (or Pixies Memories)",
@@ -5399,6 +5450,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "der-kopf-ist-rund",
   "the-stasis-garden-or-pixies-memories",
   "24-preludes-op-34-no-22-in-g-minor-adagio",
   "we-are-deeply-alarmed-and-express-our-grave-concern",
