@@ -11,6 +11,7 @@ import "./globals.css";
 // on mobile, at the cost of dropping analytics events for users who
 // leave before onload fires.
 const GA_MEASUREMENT_ID = "G-258Q2XJMXP";
+const GTM_CONTAINER_ID = "GTM-TXNSKZMT";
 
 const sfPro = localFont({
   src: [
@@ -81,7 +82,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Tag Manager — head snippet, per Google's official
+            install instructions. Emitted as a raw inline <script> in
+            the SSR HTML (not next/script) so it fires during initial
+            parse instead of waiting for React hydration. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`,
+          }}
+        />
+        {/* End Google Tag Manager */}
+      </head>
       <body className={sfPro.variable}>
+        {/* Google Tag Manager (noscript) — placed immediately after the
+            opening <body> tag per Google's install instructions. */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
         <SavedExhibitionsProvider>
           {children}
           {modal}
