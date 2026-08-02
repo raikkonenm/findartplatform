@@ -44,6 +44,11 @@ const HOME_DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Root canonical points at the homepage; child pages (static and
+  // detail alike) already set their own `alternates.canonical` which
+  // overrides this. Pages without their own metadata (/_not-found)
+  // inherit "/", which is fine because those routes are not indexed.
+  alternates: { canonical: "/" },
   title: {
     // `default` is what the root URL "/" gets. Child pages either
     // provide `title: "..."` (interpolated via `template`) or
