@@ -2,8 +2,26 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 
+const ABOUT_TITLE = "About — FindArt Platform";
+const ABOUT_DESCRIPTION =
+  "FindArt Platform is a contemporary art exhibition archive by Art Curatorial Nomads, run by curators for artists, galleries and audiences worldwide.";
+const ABOUT_URL = "https://www.findartplatform.com/about";
+
 export const metadata: Metadata = {
-  title: "About",
+  title: { absolute: ABOUT_TITLE },
+  description: ABOUT_DESCRIPTION,
+  alternates: { canonical: ABOUT_URL },
+  openGraph: {
+    type: "website",
+    url: ABOUT_URL,
+    title: ABOUT_TITLE,
+    description: ABOUT_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: ABOUT_TITLE,
+    description: ABOUT_DESCRIPTION,
+  },
 };
 
 // Renders the About page. Layout mirrors the left-hand text block on the

@@ -35,12 +35,36 @@ const sfPro = localFont({
   fallback: ["-apple-system", "BlinkMacSystemFont", "Segoe UI", "Arial", "sans-serif"],
 });
 
+const SITE_URL = "https://www.findartplatform.com";
+const SITE_NAME = "FindArt Platform";
+const HOME_TITLE =
+  "FindArt Platform — Contemporary Art Exhibitions Archive";
+const HOME_DESCRIPTION =
+  "Discover contemporary art exhibitions from galleries worldwide. Installation views, artist statements and curatorial texts from ongoing and recent shows.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "FindArt Platform",
+    // `default` is what the root URL "/" gets. Child pages either
+    // provide `title: "..."` (interpolated via `template`) or
+    // `title: { absolute: "..." }` when they want to opt out.
+    default: HOME_TITLE,
     template: "%s | FindArt Platform",
   },
-  description: "International exhibition archive and open submission platform.",
+  description: HOME_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    url: SITE_URL,
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({

@@ -9,8 +9,26 @@ function isMobileUserAgent(ua: string): boolean {
   return /Mobi|Android|iP(hone|od)|BlackBerry|IEMobile|Opera Mini|Kindle|Silk/i.test(ua);
 }
 
+const SUBMIT_TITLE = "Submit Your Exhibition — Open Call for Artists";
+const SUBMIT_DESCRIPTION =
+  "Send us photos and details of your exhibition to be featured in the FindArt Platform archive. Free open call for artists, curators and galleries.";
+const SUBMIT_URL = "https://www.findartplatform.com/submit";
+
 export const metadata: Metadata = {
-  title: "Submit",
+  title: { absolute: SUBMIT_TITLE },
+  description: SUBMIT_DESCRIPTION,
+  alternates: { canonical: SUBMIT_URL },
+  openGraph: {
+    type: "website",
+    url: SUBMIT_URL,
+    title: SUBMIT_TITLE,
+    description: SUBMIT_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SUBMIT_TITLE,
+    description: SUBMIT_DESCRIPTION,
+  },
 };
 
 const previewSlugs = [
