@@ -242,6 +242,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "24-preludes-op-34-no-22-in-g-minor-adagio": ["SOUND", "INSTALLATION", "MATERIALITY", "LIMINALITY", "ABSENCE"],
   "the-stasis-garden-or-pixies-memories": ["INSTALLATION", "POSTHUMAN", "IDENTITY"],
   "der-kopf-ist-rund": ["MYTH", "FEMININITY", "IDENTITY", "MATERIAL MEMORY", "ARCHAEOLOGY", "RITUAL"],
+  "impotenza": ["INSTALLATION", "POSTHUMAN", "IDENTITY", "BODY", "HYBRID BODIES"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -256,6 +257,64 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "impotenza",
+    title: "Impotenza",
+    subtitle: "Uffe Isolotto",
+    venue: "Palazzo Monti",
+    gallery: "Palazzo Monti",
+    city: "Brescia",
+    country: "Italy",
+    year: "2026",
+    dates: "13 June — 18 December 2026",
+    startDate: "13 June 2026",
+    endDate: "18 December 2026",
+    dateSource: "exhibition",
+    artists: ["Uffe Isolotto"],
+    curator: "Edoardo Monti",
+    photographer: "All images copyright and courtesy of their respective authors, photographers and, where applicable, the gallery",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `Four years after representing Denmark at the Venice Biennale with We Walked the Earth—an ambitious and technically complex installation that transformed the Danish Pavilion into a speculative ecosystem inhabited by hyperreal hybrid beings—Uffe Isolotto returns with what might initially appear as its opposite.
+
+If the Biennale project embodied a condition of overwhelming capability, a demonstration of what artistic production can achieve through the coordinated expertise of fabricators, artisans, technicians and specialists, Impotenza begins from a radically different premise. The title suggests not only the absence of power, but a state of insufficiency, vulnerability and frustrated aspiration. It names a condition familiar to every artist: the distance between imagination and execution, between what one hopes to create and what one's hands are actually capable of producing.
+
+In many ways, Impotenza emerges from a conscious reversal of artistic progression. Contemporary art often measures success through expansion: larger productions, broader collaborations, increasingly sophisticated technologies and ever more specialised forms of labour. Isolotto himself has been deeply associated with this trajectory. His celebrated installations have relied on extraordinary networks of expertise to achieve their uncanny realism and emotional intensity. Yet here, rather than moving further toward mastery, he deliberately retreats from it.
+
+At Palazzo Monti, the artist reclaims direct physical authorship over the works. Third-party intervention is reduced to a minimum. The sculptures bear the marks of a slower, less mediated process, one in which uncertainty and approximation are not hidden but exposed. The exhibition becomes a return—not to origins exactly, but to a more fragile relationship between artist and object, where making is once again entangled with limitation.
+
+This condition of incompleteness extends beyond the artist's process and into the status of the works themselves. Several sculptures derive from earlier works by Isolotto or function as models for future realisations in bronze or marble. Rather than presenting finished objects, Impotenza inhabits a space between what has been and what might yet become. The works remain open, provisional and unresolved, suggesting that impotence is not only a condition of limitation, but also one of potentiality.
+
+The contrast becomes particularly striking when considered alongside We Walked the Earth. There, potency appeared as an active force: generative, expansive, capable of transforming desire into form. Impotenza, by contrast, inhabits the moment when such confidence begins to falter. Yet rather than presenting impotence as mere failure, Isolotto approaches it as a productive state—a condition from which new forms of artistic sincerity might emerge.
+
+If potency concerns the capacity to act, impotence concerns the awareness of one's inability to fully realise that capacity. The two conditions are less opposites than interdependent forces, each revealing the limits and possibilities of the other.
+
+Throughout the exhibition, bodies appear caught between aspiration and inadequacy. A headless centaur-like figure carries two human heads in a sling across its torso, as if burdened by multiple identities, histories or consciousnesses. These soft silicone appendages hang where virility, authority or mythological power might traditionally be asserted, transforming heroic symbolism into something vulnerable, ambiguous and faintly absurd. Nearby, a young boy balances precariously on his toes, his body traversed by a crude wooden rod that enters through his jaw, passes through his skull, and continues upward toward the frescoed ceilings above. The same rod anchors him to the floor, functioning simultaneously as support, spine and conduit. The gesture oscillates between aspiration and dependence: the child reaches toward centuries of artistic achievement only by means of the very structure that holds him upright. The work stages ambition as an inherently unstable condition, suggesting that elevation is inseparable from vulnerability. Yet the figure is not defeated.
+
+Suspended between effort and collapse, it remains animated by the stubborn persistence of desire itself.
+
+Installed within the historic interiors of Palazzo Monti, these figures enter into dialogue with a building shaped by generations of patronage, cultivation and artistic inheritance. Frescoes, marble surfaces and architectural grandeur become active participants in the exhibition, embodying standards of excellence accumulated across centuries. Against this backdrop, Isolotto's sculptures appear intentionally precarious. Bronze, marble and fresco encounter silicone, readymades and provisional interventions. Mastery meets hesitation. Permanence confronts experimentation.
+
+The works unfold less as stable allegories than as uncertain propositions. Meaning emerges through proximity, association and emotional resonance rather than through symbolic clarity. Their language is bodily, theatrical and archaic, yet somehow unable—or unwilling—to fully stabilise into narrative. They seem to speak from a place just beyond certainty, where symbols continue to function despite the erosion of their authority.
+
+What emerges is not a rejection of ambition but a reconsideration of its conditions. The exhibition suggests that artistic maturity may not consist in expanding one's means indefinitely, but in confronting the limits that remain regardless of success.
+
+The artist who once mobilised an entire ecosystem of expertise now returns to the vulnerability of direct making, exposing the gap between intention and execution rather than attempting to erase it.
+
+In Impotenza, gestures of mastery persist precisely where mastery appears impossible. Ambition survives beyond certainty. Desire continues after authority has begun to dissolve. Impotence is not romanticised as innocence, nor celebrated as failure. Instead, it is presented as a risky and profoundly human condition: the recognition that one may never fully achieve what one imagines, and the decision to continue nonetheless.`,
+    previewImage: localExhibitionImage("impotenza", "1.webp"),
+    heroImage: localExhibitionImage("impotenza", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "impotenza",
+      Array.from({ length: 15 }, (_, i) => ({
+        filename: `${i + 1}.webp`,
+        orientation: "vertical" as const,
+      })),
+      "Palazzo Monti",
+    ),
+  },
   {
     slug: "der-kopf-ist-rund",
     title: "Der Kopf ist rund, damit das Denken die Richtung wechseln kann",
@@ -5450,6 +5509,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "impotenza",
   "der-kopf-ist-rund",
   "the-stasis-garden-or-pixies-memories",
   "24-preludes-op-34-no-22-in-g-minor-adagio",
