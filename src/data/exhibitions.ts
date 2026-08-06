@@ -291,6 +291,7 @@ Conceived as an immersive experience that encourages the public to wander throug
 The imagery in the paintings comes from the artist's wanderings through the library's collection as well as views of the garden and the structure's exterior. Initially the books that Jacquot selected matched subjects of interests: art history, political and social history of Mexico, philosophy, Mexican cinema etc. but eventually the books were chosen in a somewhat arbitrary manner determined by the appeal of the particular view from within the library.
 
 Made with blue cotton canvases of domestic origin and industrial pigments that disperse light, the works never appear as fixed images, remaining responsive to the gravity of the space itself and becoming activated by the various sources of light reflecting off the pigments on the surface of the paintings.`,
+    coverImage: localExhibitionImage("tantalo", "cover.webp"),
     previewImage: localExhibitionImage("tantalo", "1.webp"),
     heroImage: localExhibitionImage("tantalo", "1.webp"),
     images: localExhibitionGalleryWithOrientations(
