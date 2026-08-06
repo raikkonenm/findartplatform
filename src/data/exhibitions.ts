@@ -5649,7 +5649,11 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
     city: exhibition.city ?? location,
     year: year?.toString(),
     tags: tagsForExhibition(exhibition),
-    coverImage: coverImageForTitle(exhibition.title),
+    // Prefer the seed's own coverImage (e.g. a bespoke shot dropped
+    // into the exhibition's own folder); fall back to the title-based
+    // lookup in coverImages.ts so all pre-existing exhibitions keep
+    // their /cover/*.webp thumbnails.
+    coverImage: exhibition.coverImage ?? coverImageForTitle(exhibition.title),
     previewImage,
     heroImage: heroImage ?? previewImage,
     images,
