@@ -243,6 +243,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "the-stasis-garden-or-pixies-memories": ["INSTALLATION", "POSTHUMAN", "IDENTITY"],
   "der-kopf-ist-rund": ["MYTH", "FEMININITY", "IDENTITY", "MATERIAL MEMORY", "ARCHAEOLOGY", "RITUAL"],
   "impotenza": ["INSTALLATION", "POSTHUMAN", "IDENTITY", "BODY", "HYBRID BODIES"],
+  "a-gentle-kiss-on-a-double-forehead": ["INSTALLATION", "RITUAL", "ANIMALITY", "MATERIALITY", "HYBRID BODIES", "MEMORY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -257,6 +258,66 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "a-gentle-kiss-on-a-double-forehead",
+    title: "A Gentle Kiss on a Double Forehead",
+    subtitle: "Jan Baszak",
+    venue: "BGSW / Baszta",
+    gallery: "BGSW / Baszta",
+    city: "Słupsk",
+    country: "Poland",
+    year: "2026",
+    dates: "20 June — 5 September 2026",
+    startDate: "20 June 2026",
+    endDate: "5 September 2026",
+    dateSource: "exhibition",
+    artists: ["Jan Baszak"],
+    curator: "Kamil Mizgała",
+    photographer: "Bartosz Zalewski",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `Attention is the rarest and purest form of generosity. It does not entail working out a subtext or categorising things to your liking, but persistence in being with what is there. Its significance grows whenever it encounters what has been harmed or deprived of a voice of its own, allowing us to take a pause and survey the traces of a vanished whole. In the exhibition of Jan Baszak's work, such role seems to be performed by leather. It operates as a piece stripped of its subjectivity, while remaining at the same time in disturbing proximity. It stops you in your tracks by not being completely reducible to the status of a material and, in this way, amplifies attention.
+
+This peculiar practice applies not only to exhibits but is embedded in the very architecture of the show. Upholstery sculpts the space to provide favourable conditions for the works on display. This allows all the components of the exhibition to be treated as a carefully orchestrated setting for arranged situations. The designed circumstances are reminiscent of anthropological descriptions of ritual spaces in which materials organise the experience of transition between orders. At the same time, it is faux and not real leather that has been used to line the old tower. Artificial though it is, the fabric imitates leather and is thus able to evoke the visual and cultural implications the real thing carries, while remaining distinct from them. It is an embellishing substitute, complementing the space with its fakeness and a suggestion of memory, creating an inseparable whole.
+
+The artist creates links by uniting the floors in the building, animal sculptures, props and materials. Padded with brown leather, the pieces make a formal reference to catafalques and bring to mind as much exhibition furniture as funerary equipment. Still, they continue to be what they were before – a suggestion of a resting place, a mock-up home. Their complete integration with the surroundings becomes crucial. The brown leather restores the objects, replacing their original whiteness. They become an integral part of the environment of the exhibition. In this way, they acquire a ceremonial character, further enhanced by the architecture of the site. A sculpture of a cowering dog has been inscribed into the furniture arrangement. Made of black socks, it is not easily perceptible. The fabric retains the memory of its contact with the body, meaning that the sculpture is more a collection of surfaces than a representation of an animal. The shape appears both organic and textile as if the dog had been reduced to its own coating or soft shadow. It emerges as a former partner of the gaze, gradually separated from human experience and transposed into the image.
+
+The works displayed on the first floor can be described as operations conducted on the status of representation in which visibility arrangement becomes crucial. In livestock farming, a little two-headed calf is an unwanted body doomed to early death. Particularly significant in this context is the potential cleft – a two-headed calf challenges the fundamental principle of the oneness of a body as a condition for its visual legibility. As a result, there is a shift from identification to interpretive uncertainty that forces the viewer to constantly revise the language of description. The object is simultaneously a figure of life and an element of objectification systems. The idea of attention as a cognitive practice free from appropriation reappears here. Attention directed at the calf cannot be fully separated from the knowledge of its status as a breeding animal and, therefore, already caught in the logic of exploitation. This enables the victim's perspective to emerge as one of the positions proposed by the exhibition.
+
+This kind of shifting focus onto a fragment brings the logic of fetish into the picture. Fetish renders absence tangible, retargeting desire from a person to an object and investing the latter with surplus meanings. In this arrangement, the fragment does not lead to a whole but begins to function autonomously, as the relationship with the object intensifies. Jan Baszak's object-masks generate this type of contact through their materiality, capturing attention with their own surface as part of the experience. Here, leather produces the effect of continually shifting references, with the fetish differentiating them, preventing the gaze from concluding its relationship with the object.
+
+The second floor of the exhibition, which centres on masks, resembles a dressing room, a rehearsal space or the wings of a carnival show. Animal heads in Baszak's work allow for masquerade-like hiding and scare-giving and, simultaneously, for experiencing a unifying metamorphosis. As a result, it is unclear if we are dealing with a body, a part of it, or a costume. The possibility of becoming another entity for a moment, or rather taking an intermediate position between oneself and the figure of a mask, is crucial. While retaining their utility, masks are what can be put on, what operates in time and in relation with the body. They are similar to the artist's furniture objects in that they are both utilitarian and sculptural, shaping the body's relationship with space rather than merely representing it.
+
+The question of the relationship between body and costume can be linked with the framing of the puppet as an unreflective form and, in this way, paradoxically more 'pure' in its expression. In the case of the masks displayed at the exhibition, this purity is not restored; what does happen is a suspension of the distinction between the body and its surface. They seem to be theatrical and dead at the same time – eyeless heads tied behind like theatrical props. Animals emerge here as partners of former closeness. A gaze directed at masks results in the contemplation of the remains of a relationship, and consequently they end up among the most melancholic objects, exposing the fetish as a story of a lost connection.
+
+When viewing Jan Baszak's sculptural situations, it is easy to return to the observation that attention means being with a thing that is not readily translatable into meaning. This could be interpreted as a state in which an object is not appropriated by thought but is present within it in its opacity. The scenery of the exhibition can be viewed as a way of quietly fostering the relationship between the viewer and the object in which contact leads to prolongation of the act of looking, activating the almost ritual nature of being within a space. Inscribed in it, the sculptures have been constructed upon fragmentary incompatibility whose elements attract attention only to reject it after a while. They are the archives of the processes that have shaped them, remaining close to them and preventing the gaze from settling on one final meaning. They do not regain a lost wholeness, nor do they return to their original functions. They continue as fragments which keep regulating the distance and this may be why any contact with them does not lead to interpretation but maintains a relation with what remains partially opaque.
+
+— Kamil Mizgała`,
+    previewImage: localExhibitionImage("a-gentle-kiss-on-a-double-forehead", "1.webp"),
+    heroImage: localExhibitionImage("a-gentle-kiss-on-a-double-forehead", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "a-gentle-kiss-on-a-double-forehead",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "vertical" },
+      ],
+      "Bartosz Zalewski",
+    ),
+  },
   {
     slug: "impotenza",
     title: "Impotenza",
@@ -5509,6 +5570,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "a-gentle-kiss-on-a-double-forehead",
   "impotenza",
   "der-kopf-ist-rund",
   "the-stasis-garden-or-pixies-memories",
