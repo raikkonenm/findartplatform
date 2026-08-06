@@ -244,6 +244,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "der-kopf-ist-rund": ["MYTH", "FEMININITY", "IDENTITY", "MATERIAL MEMORY", "ARCHAEOLOGY", "RITUAL"],
   "impotenza": ["INSTALLATION", "POSTHUMAN", "IDENTITY", "BODY", "HYBRID BODIES"],
   "a-gentle-kiss-on-a-double-forehead": ["INSTALLATION", "RITUAL", "ANIMALITY", "MATERIALITY", "HYBRID BODIES", "MEMORY"],
+  "nymphenbrunnen": ["INSTALLATION", "IDENTITY", "DIGITAL MYTH", "MYTH", "HYBRID BODIES", "BODY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -258,6 +259,39 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "nymphenbrunnen",
+    title: "Nymphenbrunnen",
+    subtitle: "Adele Vivet",
+    venue: "Espace Nonono",
+    gallery: "Espace Nonono",
+    city: "Paris",
+    country: "France",
+    year: "2026",
+    dates: "2026",
+    artists: ["Adele Vivet"],
+    curator: "Mathilda Portoghese",
+    photographer: "Lucia y los demás",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `The Chimerea series consists of five totemic sculptures that combine the architectural language of caryatids with the layered narrative structure of bas-relief. These hydro-chimeras become confessional portraits, exploring the contradictions of a young woman caught between desire and guilt, profound disappointment and moments of joy.
+
+Oscillating between the technological precision of 3D printing and the tactile qualities of ceramics, the sculptures merge mythology, fantasy, and contemporary visual culture. Through this hybrid vocabulary, the work reflects on identity, vulnerability, and the fragmented narratives we construct around ourselves.
+
+Sound design: Laze LF.`,
+    previewImage: localExhibitionImage("nymphenbrunnen", "1.webp"),
+    heroImage: localExhibitionImage("nymphenbrunnen", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "nymphenbrunnen",
+      Array.from({ length: 8 }, (_, i) => ({
+        filename: `${i + 1}.webp`,
+        orientation: "vertical" as const,
+      })),
+      "Lucia y los demás",
+    ),
+  },
   {
     slug: "a-gentle-kiss-on-a-double-forehead",
     title: "A Gentle Kiss on a Double Forehead",
@@ -5570,6 +5604,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "nymphenbrunnen",
   "a-gentle-kiss-on-a-double-forehead",
   "impotenza",
   "der-kopf-ist-rund",
