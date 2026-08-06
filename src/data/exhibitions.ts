@@ -245,6 +245,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "impotenza": ["INSTALLATION", "POSTHUMAN", "IDENTITY", "BODY", "HYBRID BODIES"],
   "a-gentle-kiss-on-a-double-forehead": ["INSTALLATION", "RITUAL", "ANIMALITY", "MATERIALITY", "HYBRID BODIES", "MEMORY"],
   "nymphenbrunnen": ["INSTALLATION", "IDENTITY", "DIGITAL MYTH", "MYTH", "HYBRID BODIES", "BODY"],
+  "tantalo": ["INSTALLATION", "MYTH", "LIMINALITY", "MATERIALITY", "ABSENCE", "SPECULATIVE FICTION"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -259,6 +260,57 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "tantalo",
+    title: "Tántalo",
+    subtitle: "Louis Jacquot",
+    venue: "Biblioteca Vasconcelos",
+    gallery: "Biblioteca Vasconcelos",
+    city: "Ciudad de México",
+    country: "Mexico",
+    year: "2026",
+    dates: "31 January — 1 March 2026",
+    startDate: "31 January 2026",
+    endDate: "1 March 2026",
+    dateSource: "exhibition",
+    artists: ["Louis Jacquot"],
+    curator: "Cy Schnabel",
+    exhibitionText: "Cy Schnabel",
+    photographer: "Gerardo Landa Rojano",
+    sourceUrl: "https://saliva.live/",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `Tántalo refers both to tantalum -a metal- and to the Greek myth of Tantalus, king of Frigia and son of Zeus; condemned to stand in a pool of clear water that recedes each time he tries to drink from it. Above him, branches laden with fruit withdraw whenever he tries to reach for them. This story evokes an experience that is pertinent throughout all of Jacquot's work: a constant tension between appearance and withdrawal, between matter and its disappearance, the promise of an image and the impossibility of fixing it. A fading reflection, a slipping glimmer, a surface that never fully gives itself. In a place like the Biblioteca Vasconcelos -suspended, transparent, layered- this idea finds a natural resonance. The space itself seems to offer forms that appear and retreat, as if the building shared this "tantalizing" condition.
+
+The project presents 20 floating paintings that engage in dialogue with the library's building. One of the most emblematic sites of modern Mexican architecture designed by Alberto Kalach, partially inspired by the surrealist infrastructure depicted by Jorge Luis Borges in his short story The Library of Babel, through the impression of an infinite and ultimately unattainable body of knowledge. Distributed like a map suspended in the air, the works function simultaneously as paintings, objects, and a unified installation.
+
+Conceived as an immersive experience that encourages the public to wander throughout the labyrinth-like structure and appreciate the countless interior views and angles within the building, the project explores reflection and perception, fostering a sensitive dialogue between art, public space, and knowledge.
+
+The imagery in the paintings comes from the artist's wanderings through the library's collection as well as views of the garden and the structure's exterior. Initially the books that Jacquot selected matched subjects of interests: art history, political and social history of Mexico, philosophy, Mexican cinema etc. but eventually the books were chosen in a somewhat arbitrary manner determined by the appeal of the particular view from within the library.
+
+Made with blue cotton canvases of domestic origin and industrial pigments that disperse light, the works never appear as fixed images, remaining responsive to the gravity of the space itself and becoming activated by the various sources of light reflecting off the pigments on the surface of the paintings.`,
+    previewImage: localExhibitionImage("tantalo", "1.webp"),
+    heroImage: localExhibitionImage("tantalo", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "tantalo",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "vertical" },
+      ],
+      "Gerardo Landa Rojano",
+    ),
+  },
   {
     slug: "nymphenbrunnen",
     title: "Nymphenbrunnen",
@@ -5604,6 +5656,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "tantalo",
   "nymphenbrunnen",
   "a-gentle-kiss-on-a-double-forehead",
   "impotenza",
