@@ -37,6 +37,20 @@ const nextConfig: NextConfig = {
     // low-DPR retina renders covered without bloating the HTML.
     imageSizes: [128, 256],
   },
+  // Force the apex domain to permanent-redirect (308) to www so
+  // Google consolidates ranking signals and stops flagging apex
+  // URLs as duplicates. Vercel's default apex→www hop is 307
+  // (temporary), which keeps Google treating both hosts as live.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "findartplatform.com" }],
+        destination: "https://www.findartplatform.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
