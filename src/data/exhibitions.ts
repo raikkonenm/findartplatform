@@ -246,6 +246,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "a-gentle-kiss-on-a-double-forehead": ["INSTALLATION", "RITUAL", "ANIMALITY", "MATERIALITY", "HYBRID BODIES", "MEMORY"],
   "nymphenbrunnen": ["INSTALLATION", "IDENTITY", "DIGITAL MYTH", "MYTH", "HYBRID BODIES", "BODY"],
   "tantalo": ["INSTALLATION", "MYTH", "LIMINALITY", "MATERIALITY", "ABSENCE", "SPECULATIVE FICTION"],
+  "what-we-see-what-looks-back-at-us": ["INSTALLATION", "IDENTITY", "POSTHUMAN", "OBJECTHOOD", "SURVEILLANCE"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -260,6 +261,51 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "what-we-see-what-looks-back-at-us",
+    title: "What We See, What Looks Back at Us",
+    subtitle: "Group show",
+    venue: "Emergency Space",
+    gallery: "Emergency Space",
+    city: "Paris",
+    country: "France",
+    year: "2026",
+    dates: "4 July — 10 August 2026",
+    startDate: "4 July 2026",
+    endDate: "10 August 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Robert Brambora",
+      "Emily Dietrich",
+      "Jana Köhle",
+      "Dominik Münch",
+      "Emilio Marroquin",
+      "Romain Sarrot",
+      "Jan van Hal",
+    ],
+    curator: "Egor Miroshnichenko",
+    exhibitionText: "Egor Miroshnichenko",
+    photographer: "Misha Gudwin",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `An exhibition usually assumes a simple contract: the visitor looks, the object submits to being seen. The gaze passively travels from point A to point B, recognizes familiar contours, draws its conclusions. But in fact any gaze mirrors the viewer. The works gathered here operate in this register. They are more interested in watching the visitors than in how they appear to them. The objects return the gaze, delay it, and distort it.
+
+The title refers to Georges Didi-Huberman's «Ce que nous voyons, ce qui nous regarde» (1992; What We See, What Looks Back at Us), one of the first books to problematize this relation. Didi-Huberman writes against "What you see is what you see," the credo of Minimalism that reduces the object to pure visibility — and proposes the opposite optic: precisely the mute, self-evident object is the one that opens up, holds the gaze, and returns it. In this gaze the viewer finds their own reflection: the height of their body, its temperature, its position in space. The object is scaled to the viewer, faces them at their volume and measures them as much as they measure it.
+
+— Egor Miroshnichenko`,
+    previewImage: localExhibitionImage("what-we-see-what-looks-back-at-us", "1.webp"),
+    heroImage: localExhibitionImage("what-we-see-what-looks-back-at-us", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "what-we-see-what-looks-back-at-us",
+      Array.from({ length: 13 }, (_, i) => ({
+        filename: `${i + 1}.webp`,
+        orientation: "vertical" as const,
+      })),
+      "Misha Gudwin",
+    ),
+  },
   {
     slug: "tantalo",
     title: "Tántalo",
@@ -5661,6 +5707,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "what-we-see-what-looks-back-at-us",
   "tantalo",
   "nymphenbrunnen",
   "a-gentle-kiss-on-a-double-forehead",
