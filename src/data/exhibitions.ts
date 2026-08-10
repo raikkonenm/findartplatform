@@ -247,6 +247,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "nymphenbrunnen": ["INSTALLATION", "IDENTITY", "DIGITAL MYTH", "MYTH", "HYBRID BODIES", "BODY"],
   "tantalo": ["INSTALLATION", "MYTH", "LIMINALITY", "MATERIALITY", "ABSENCE", "SPECULATIVE FICTION"],
   "what-we-see-what-looks-back-at-us": ["INSTALLATION", "IDENTITY", "POSTHUMAN", "OBJECTHOOD", "SURVEILLANCE"],
+  "ethereal-robes-of-vulnerability": ["INSTALLATION", "POSTHUMAN", "ECOLOGY", "PHOTOGRAPHY", "MATERIALITY", "BODY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -261,6 +262,61 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "ethereal-robes-of-vulnerability",
+    title: "Ethereal Robes of Vulnerability",
+    subtitle: "Group show",
+    venue: "Aikas Žado Laboratory (Žeimiai Manor House)",
+    gallery: "Aikas Žado Laboratory (Žeimiai Manor House)",
+    city: "Vilnius District Municipality",
+    country: "Lithuania",
+    year: "2026",
+    dates: "11 July — 30 August 2026",
+    startDate: "11 July 2026",
+    endDate: "30 August 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Agate Tūna",
+      "Emilija Povilanskaitė",
+      "Gedvilė Tamošiūnaitė",
+      "Geistė Marija Kinčinaitytė",
+      "Inside Job (Ula Lucińska and Michał Knychaus)",
+      "Mónika Üveges",
+    ],
+    curator: "Eglė Ambrasaitė",
+    exhibitionText: "Eglė Ambrasaitė",
+    photographer: "Lukas Mykolaitis",
+    sourceUrl: "https://saliva.live/",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `"Ethereal Robes of Vulnerability" is a group exhibition that engages the shifting ontology of the image through the post-photographic practices of six emerging Eastern European artists working within new materialist and post-human frameworks. At a moment when images proliferate and circulate incessantly, the exhibition reimagines them as a site of encounter, agency, and becoming. Across photography and video, sculpture, and installation, the artists' praxes merge into a fluid conversation between image and matter, tracing entanglements between the natural and the synthetic, technology and spirituality, the dead and the living. Skin-like material image-objects unfold as oracular and ethereal robes of vulnerability, revealing states that are simultaneously beautiful and horrific, hopeful and trepidatious, serene and violent. This approach draws upon both a poetic and a scientific analogy between the image and the skin. Like skin, photography is a light-sensitive surface capable of registering contact, traces, wounds, and transformation. Building on philosopher Jean-Luc Nancy's notion of expeausition - a fusion of exposition (to expose, to show) and peau (skin) - the image is understood here as a surface through which relations unfold. For Nancy, skin is "the most political" because it mediates not only between body and world, but also in one's relation to oneself, marking the threshold between lived experience and possibilities yet to emerge.
+
+This understanding materialises in Mónika Üveges' (HU) "Membrane I". Replacing stretched canvas with flesh-coloured resin held within a curved chrome frame, the work resembles a preserved specimen suspended between display and decay. Evoking both flower petals and human skin, its glowing LED-lit surface and opalescent layered texture bring beauty and deterioration into an uneasy coexistence. A similar attention to material transformation appears in "Thistle Study I" by the artist duo Inside Job (Ula Lucińska and Michał Knychaus, PL). Turning towards resilient non-human forms of life thriving within post-industrial ruins, the thistle emerges as a figure of ecological survival and speculative futures, intertwining forgotten histories, contemporary extraction, and alternative modes of coexistence. In Agate Tūna's (LV) project "Familiar", photography becomes a relational form through which delicate stories of care are transmitted. Drawing on healing practices, herbal knowledge, and spoken charms preserved by generations of women in her family, the artist explores the unstable boundary between threat and protection, belief and superstition. Traces accumulated on the surface of analogue negatives become carriers of memory, intimacy, and shared existence, transforming photography into a companioning presence rather than a representational device. Gedvilė Tamošiūnaitė's (LT) "Vase" offers a contemporary scrying experience. Printed onto tinted glass, the ghostly image of a Soviet-era Murano vase resists stable perception. Its reflective surface constantly shifts according to light conditions and the viewer's position, turning every attempt to capture the image into a form of self-portraiture. Behind the apparition of the vase emerges the viewer's own reflection, quietly evoking fractured intimacies and lingering absences. From these intimate surfaces of memory and care, the exhibition expands towards larger atmospheric and planetary scales. Emilija Povilanskaitė's (LT) "Static" focuses on atmospheric processes unfolding immediately before electrical discharge. Working with real-time decoded NOAA satellite data, the artist reveals invisible streams of signals and information through which our relationship with the environment is increasingly mediated. Likewise, in "Sunless Seas of Ice," Geistė Marija Kinčinaitytė (LT) examines techno-utopian desires to transcend the limits of Earth. Through the aesthetics of the eerie, she exposes how fantasies of expansion, escape, and survival become entangled with ecological crises and collective anxieties about the future.`,
+    previewImage: localExhibitionImage("ethereal-robes-of-vulnerability", "1.webp"),
+    heroImage: localExhibitionImage("ethereal-robes-of-vulnerability", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "ethereal-robes-of-vulnerability",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "vertical" },
+      ],
+      "Lukas Mykolaitis",
+    ),
+  },
   {
     slug: "what-we-see-what-looks-back-at-us",
     title: "What We See, What Looks Back at Us",
@@ -5707,6 +5763,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "ethereal-robes-of-vulnerability",
   "what-we-see-what-looks-back-at-us",
   "tantalo",
   "nymphenbrunnen",
