@@ -248,6 +248,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "tantalo": ["INSTALLATION", "MYTH", "LIMINALITY", "MATERIALITY", "ABSENCE", "SPECULATIVE FICTION"],
   "what-we-see-what-looks-back-at-us": ["INSTALLATION", "IDENTITY", "POSTHUMAN", "OBJECTHOOD", "SURVEILLANCE"],
   "ethereal-robes-of-vulnerability": ["INSTALLATION", "POSTHUMAN", "ECOLOGY", "PHOTOGRAPHY", "MATERIALITY", "BODY"],
+  "tangerine-reverie": ["INSTALLATION", "ECOLOGY", "RITUAL", "POST-INDUSTRIAL", "LIMINALITY", "MATERIALITY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -262,6 +263,61 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "tangerine-reverie",
+    title: "Tangerine Reverie",
+    subtitle: "Group show",
+    venue: "Bangdo",
+    gallery: "Bangdo",
+    city: "Seoul",
+    country: "South Korea",
+    year: "2026",
+    dates: "4 August — 13 August 2026",
+    startDate: "4 August 2026",
+    endDate: "13 August 2026",
+    dateSource: "exhibition",
+    artists: ["Jina Shin", "Hyeran Jang", "Bang Seonu"],
+    curator: "Song Hyojin",
+    exhibitionText: "Song Hyojin",
+    photographer: "Dongwoong Lee, Jeongkyun Goh, Shin Seongmin",
+    sourceUrl: "https://saliva.live/",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `Tangerine Reverie brings together works by Jina Shin, Hyeran Jang, and Bang Seonu at Bangdo, an art space housed in a converted residence in Yeongdeungpo, Seoul.
+
+Tangerine Reverie begins with a question arising from an image of a slash-and-burn landscape, where fire, ash, and haze intersect beneath a tangerine fog. Is the breath we take in drawing the flesh of another into our lungs? Are we ingesting one another as breath, recycling each other as air?
+
+Once a traditional agricultural practice, swidden farming has been transformed in the rapidly urbanized present into a practice that causes severe ecological damage and hardship. The romantic tangerine dusk encountered in a resort landscape arrives, paradoxically, both as a medium that conjures the others concealed within histories of industrialization and extraction and as an unsettling echo of those same histories.
+
+Taking tangerine-hued fog and breath as its central motifs, the exhibition examines the religious, historical, and ecological narratives that emerge as social structures and desires become entangled. Air and breath shape how movement unfolds through time and space, disclosing our sense of place and the limits of our presence. To bring these ideas into material form, a haze machine and tangerine lighting inhabit the exhibition space like specters.`,
+    previewImage: localExhibitionImage("tangerine-reverie", "1.webp"),
+    heroImage: localExhibitionImage("tangerine-reverie", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "tangerine-reverie",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+      ],
+      "Dongwoong Lee, Jeongkyun Goh, Shin Seongmin",
+    ),
+  },
   {
     slug: "ethereal-robes-of-vulnerability",
     title: "Ethereal Robes of Vulnerability",
@@ -5764,6 +5820,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "tangerine-reverie",
   "ethereal-robes-of-vulnerability",
   "what-we-see-what-looks-back-at-us",
   "tantalo",
