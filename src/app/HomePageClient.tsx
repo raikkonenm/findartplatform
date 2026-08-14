@@ -4,7 +4,7 @@ import { Suspense, useCallback, useState, useMemo, useRef, useEffect } from "rea
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
-import { MasonryGrid } from "@/components/MasonryGrid";
+import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { HeartIcon, useSavedExhibitions } from "@/components/SavedExhibitions";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
@@ -109,6 +109,77 @@ function FilterChip({
     >
       {label}
     </button>
+  );
+}
+
+/**
+ * Icon-only toggle that cycles feed density. Glyph shows current
+ * state (3 / 4 / 5 vertical bars) so the user can tell which mode
+ * they are in without a label. Active border styling matches
+ * FilterChip so the button reads as part of the same filter row.
+ */
+function DensityToggleButton({
+  density,
+  onCycle,
+}: {
+  density: MasonryDensity;
+  onCycle: () => void;
+}) {
+  const isActive = density !== "normal";
+  return (
+    <button
+      type="button"
+      onClick={onCycle}
+      aria-label={`Feed density: ${density}. Tap to cycle.`}
+      className={`shrink-0 border p-2 transition-colors ${
+        isActive
+          ? "border-neutral-900 text-neutral-900"
+          : "border-neutral-200 text-neutral-500 hover:border-neutral-400 hover:text-neutral-700"
+      }`}
+    >
+      <DensityGlyph density={density} />
+    </button>
+  );
+}
+
+function DensityGlyph({ density }: { density: MasonryDensity }) {
+  const commonProps = {
+    width: 16,
+    height: 16,
+    viewBox: "0 0 16 16",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.5,
+    strokeLinecap: "square" as const,
+    "aria-hidden": true,
+  };
+  if (density === "normal") {
+    return (
+      <svg {...commonProps}>
+        <line x1="3" y1="3" x2="3" y2="13" />
+        <line x1="8" y1="3" x2="8" y2="13" />
+        <line x1="13" y1="3" x2="13" y2="13" />
+      </svg>
+    );
+  }
+  if (density === "medium") {
+    return (
+      <svg {...commonProps}>
+        <line x1="2" y1="3" x2="2" y2="13" />
+        <line x1="6.5" y1="3" x2="6.5" y2="13" />
+        <line x1="9.5" y1="3" x2="9.5" y2="13" />
+        <line x1="14" y1="3" x2="14" y2="13" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...commonProps}>
+      <line x1="1.5" y1="3" x2="1.5" y2="13" />
+      <line x1="5" y1="3" x2="5" y2="13" />
+      <line x1="8.5" y1="3" x2="8.5" y2="13" />
+      <line x1="12" y1="3" x2="12" y2="13" />
+      <line x1="14.5" y1="3" x2="14.5" y2="13" />
+    </svg>
   );
 }
 
@@ -390,9 +461,24 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setNowMs(Date.now());
   }, [onViewOnly]);
-  // Feed density: `normal` (1/2/3 columns) vs `dense` (2/3/5).
-  // Default matches current behaviour; only the toggle icon flips it.
-  const [dense, setDense] = useState(false);
+  // Feed density cycle. Desktop cycles [normal → medium → dense →
+  // normal], mobile cycles [normal → dense → normal] — the two
+  // visually distinct states on a phone. Default matches current
+  // behaviour (1 col mobile / 3 col desktop).
+  const [density, setDensity] = useState<MasonryDensity>("normal");
+  const cycleDensity = useCallback(() => {
+    const isDesktop =
+      typeof window !== "undefined" &&
+      window.matchMedia("(min-width: 1024px)").matches;
+    const cycle: MasonryDensity[] = isDesktop
+      ? ["normal", "medium", "dense"]
+      : ["normal", "dense"];
+    setDensity((current) => {
+      const idx = cycle.indexOf(current);
+      const nextIdx = idx >= 0 ? (idx + 1) % cycle.length : 0;
+      return cycle[nextIdx];
+    });
+  }, []);
   const [search, setSearch] = useState("");
   // Mobile-only: collapse Location/Year/Tags behind a single FILTERS toggle.
   // Desktop ignores this and always shows the rows.
@@ -600,62 +686,13 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
                 />
               </div>
 
-              {/* Density toggle — pushed to the right edge on desktop
-                  (md:ml-auto). Small icon-only button whose glyph flips
-                  between a 3-bar and 5-bar grid so it reads as a
-                  view-density switch. Only affects column count in
-                  MasonryGrid; row-major order, pinning, on-view dot and
-                  the other filters are untouched. */}
-              <div className="flex items-center gap-2 md:ml-auto">
-                <button
-                  type="button"
-                  onClick={() => setDense((v) => !v)}
-                  aria-label={
-                    dense
-                      ? "Switch to normal grid density"
-                      : "Switch to dense grid density"
-                  }
-                  aria-pressed={dense}
-                  className={`shrink-0 border p-2 transition-colors ${
-                    dense
-                      ? "border-neutral-900 text-neutral-900"
-                      : "border-neutral-200 text-neutral-500 hover:border-neutral-400 hover:text-neutral-700"
-                  }`}
-                >
-                  {dense ? (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="square"
-                      aria-hidden="true"
-                    >
-                      <line x1="1.5" y1="3" x2="1.5" y2="13" />
-                      <line x1="5" y1="3" x2="5" y2="13" />
-                      <line x1="8.5" y1="3" x2="8.5" y2="13" />
-                      <line x1="12" y1="3" x2="12" y2="13" />
-                      <line x1="14.5" y1="3" x2="14.5" y2="13" />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="square"
-                      aria-hidden="true"
-                    >
-                      <line x1="3" y1="3" x2="3" y2="13" />
-                      <line x1="8" y1="3" x2="8" y2="13" />
-                      <line x1="13" y1="3" x2="13" y2="13" />
-                    </svg>
-                  )}
-                </button>
+              {/* Density toggle (desktop-only slot). Right-edge in the
+                  filter row via md:ml-auto; hidden on mobile — the
+                  same button is rendered again in a dedicated strip
+                  above the grid on mobile so it stays visible when
+                  the Filters panel is collapsed. */}
+              <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                <DensityToggleButton density={density} onCycle={cycleDensity} />
               </div>
             </div>
 
@@ -711,6 +748,14 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
         </div>
       </div>
 
+      {/* Mobile-only density strip. Sits between the Filters block
+          and the grid so the toggle is always visible even when the
+          collapsible mobile Filters panel is closed. Hidden on md+
+          because the desktop copy lives inside the filter row. */}
+      <div className="flex justify-end px-5 pt-4 md:hidden">
+        <DensityToggleButton density={density} onCycle={cycleDensity} />
+      </div>
+
       {/* Exhibition feed — CSS columns provides masonry without JS. Cards have
           their own `mb-[72px]` for row rhythm and `break-inside-avoid` to stay
           intact across column boundaries. */}
@@ -730,7 +775,7 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             exhibitions={filtered}
             eagerCount={1}
             initialIsMobile={initialIsMobile}
-            density={dense ? "dense" : "normal"}
+            density={density}
           />
         )}
       </section>

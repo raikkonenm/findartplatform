@@ -4,15 +4,19 @@ import { useEffect, useState } from "react";
 import type { Exhibition } from "@/data/exhibitions";
 import { ExhibitionCard } from "./ExhibitionCard";
 
-export type MasonryDensity = "normal" | "dense";
+export type MasonryDensity = "normal" | "medium" | "dense";
 
 // Per-breakpoint column counts for each density mode:
-//   normal  → 1 (mobile) / 2 (tablet) / 3 (desktop)  ← current default
-//   dense   → 2 (mobile) / 3 (tablet) / 5 (desktop)  ← denser variant
-// Everything else in the layout (row-major bucketing, gap, per-card
-// aspect ratios) stays untouched.
+//   normal → 1 (mobile) / 2 (tablet) / 3 (desktop)  ← current default
+//   medium → 2 (mobile) / 3 (tablet) / 4 (desktop)  ← in-between
+//   dense  → 2 (mobile) / 3 (tablet) / 5 (desktop)
+// The density toggle cycles [normal, medium, dense] on desktop and
+// only [normal, dense] on mobile (mobile has just two visually
+// distinct states). Everything else in the layout — row-major
+// bucketing, gap, per-card aspect ratios — stays untouched.
 const COLUMNS_BY_DENSITY: Record<MasonryDensity, { small: number; medium: number; large: number }> = {
   normal: { small: 1, medium: 2, large: 3 },
+  medium: { small: 2, medium: 3, large: 4 },
   dense: { small: 2, medium: 3, large: 5 },
 };
 

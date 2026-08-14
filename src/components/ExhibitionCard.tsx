@@ -65,7 +65,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             />
             {exhibition.city} / {exhibition.year}
           </p>
-          <h2 className="editorial-serif break-words text-[clamp(1.5rem,7.5vw,2rem)] leading-[1.04] tracking-[-0.035em] md:text-[2rem]">
+          <h2 className="editorial-serif break-words text-[clamp(1.05rem,5vw,1.6rem)] leading-[1.06] tracking-[-0.035em] md:text-[2rem] md:leading-[1.04]">
             {title.toUpperCase()}
           </h2>
           <p className="mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888]">
