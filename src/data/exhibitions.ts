@@ -294,7 +294,6 @@ Leversby points to what remains after the digital promise – its rituals and sa
     images: localExhibitionGalleryWithOrientations(
       "after-the-offerings",
       [
-        { filename: "0.webp", orientation: "vertical" },
         { filename: "1.webp", orientation: "horizontal" },
         { filename: "2.webp", orientation: "horizontal" },
         { filename: "3.webp", orientation: "vertical" },
