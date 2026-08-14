@@ -3,6 +3,7 @@ import Link from "next/link";
 import { exhibitions, type Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayVenueText } from "@/lib/displayVenueText";
+import { OnViewDot } from "./OnViewDot";
 import { SaveExhibitionButton } from "./SavedExhibitions";
 
 const METADATA_ACRONYMS = new Set(["cac", "acud", "moco"]);
@@ -136,9 +137,20 @@ function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
   const photographer = displayPersonText(exhibition.photographer);
 
   // Required order: Dates, Venue, Artists, Curators, Photo, View, Tags, Exhibition Text.
-  // Each row is rendered only if its value exists.
+  // Each row is rendered only if its value exists. Dates get a tiny
+  // on-view dot rendered inline before the date string when the
+  // exhibition is running today.
+  const datesValue = dates ? (
+    <>
+      <OnViewDot
+        startDate={exhibition.startDate}
+        endDate={exhibition.endDate}
+      />
+      {dates}
+    </>
+  ) : undefined;
   const entries: Array<{ label: string; value?: React.ReactNode }> = [
-    { label: "Dates", value: dates },
+    { label: "Dates", value: datesValue },
     { label: "Venue", value: venue },
     { label: "Artists", value: artistsJoined },
     { label: "Curators", value: curatorJoined },

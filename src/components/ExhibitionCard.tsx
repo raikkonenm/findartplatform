@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayVenueText } from "@/lib/displayVenueText";
-import { isExhibitionOnView } from "@/lib/isOnView";
+import { OnViewDot } from "./OnViewDot";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
 type ExhibitionCardProps = {
@@ -37,19 +36,6 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
   const saved = isSaved(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
 
-  // Compute "on view now" strictly on the client so the flag reflects
-  // the visitor's actual today, not the SSG build day. SSR renders the
-  // card without the dot; the effect flips it on after hydration if
-  // the exhibition is currently running. `Date.now()` is intentionally
-  // read inside the effect (not during render) so server and client
-  // agree on the initial hydration snapshot; eslint-disable is scoped
-  // to this one line because that is exactly the point here.
-  const [isOnView, setIsOnView] = useState(false);
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsOnView(isExhibitionOnView(exhibition, Date.now()));
-  }, [exhibition]);
-
   return (
     // The card is placed inside a `.masonry-col` flex column by
     // MasonryGrid. Sizing and vertical spacing come from that parent
@@ -73,9 +59,10 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
         </div>
         <div className="pt-5">
           <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
-            {isOnView && (
-              <span className="on-view-dot" aria-label="On view now" />
-            )}
+            <OnViewDot
+              startDate={exhibition.startDate}
+              endDate={exhibition.endDate}
+            />
             {exhibition.city} / {exhibition.year}
           </p>
           <h2 className="editorial-serif break-words text-[clamp(1.5rem,7.5vw,2rem)] leading-[1.04] tracking-[-0.035em] md:text-[2rem]">
