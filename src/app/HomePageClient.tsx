@@ -8,6 +8,7 @@ import { MasonryGrid } from "@/components/MasonryGrid";
 import { HeartIcon, useSavedExhibitions } from "@/components/SavedExhibitions";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
+import { isExhibitionOnView } from "@/lib/isOnView";
 import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
 
 const YEARS = ["All", "2026", "2025", "2024", "2023"];
@@ -380,6 +381,15 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
   const [tag, setTag] = useState<SelectedTag>("ALL");
   const [tagsExpanded, setTagsExpanded] = useState(false);
   const [savedOnly, setSavedOnly] = useState(false);
+  const [onViewOnly, setOnViewOnly] = useState(false);
+  // Timestamp used by the "On view" filter. Refreshed on mount and on
+  // every toggle so filtering always uses a recent `Date.now()`, but
+  // never during render (that would violate react-hooks/purity).
+  const [nowMs, setNowMs] = useState(0);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setNowMs(Date.now());
+  }, [onViewOnly]);
   const [search, setSearch] = useState("");
   // Mobile-only: collapse Location/Year/Tags behind a single FILTERS toggle.
   // Desktop ignores this and always shows the rows.
@@ -424,8 +434,8 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
   }, []);
 
   const filtered = useMemo(
-    () =>
-      exhibitions.filter((ex) => {
+    () => {
+      return exhibitions.filter((ex) => {
         const matchLocation = (() => {
           if (location.kind === "all") return true;
           if (location.kind === "country") return ex.country === location.country;
@@ -434,6 +444,11 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
         const matchYear = year === "All" || ex.year === year;
         const matchTag = tag === "ALL" || ex.tags.includes(tag);
         const matchSaved = !savedOnly || savedSlugs.has(ex.slug);
+        // `nowMs > 0` guards the very first render before useEffect
+        // has run — if the flag somehow starts true, we play it safe
+        // and treat as "no match" until we have a real timestamp.
+        const matchOnView =
+          !onViewOnly || (nowMs > 0 && isExhibitionOnView(ex, nowMs));
         const q = search.toLowerCase();
         const matchSearch =
           !q ||
@@ -447,9 +462,17 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             ex.summary,
             ...(ex.artists ?? []),
           ].some((f) => f?.toLowerCase().includes(q));
-        return matchLocation && matchYear && matchTag && matchSaved && matchSearch;
-      }),
-    [location, year, tag, savedOnly, savedSlugs, search],
+        return (
+          matchLocation &&
+          matchYear &&
+          matchTag &&
+          matchSaved &&
+          matchOnView &&
+          matchSearch
+        );
+      });
+    },
+    [location, year, tag, savedOnly, onViewOnly, nowMs, savedSlugs, search],
   );
 
   const showsMoreTagSelected = tag !== "ALL" && (MORE_TAGS as readonly SelectedTag[]).includes(tag);
@@ -560,6 +583,18 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
                 {YEARS.map((y) => (
                   <FilterChip key={y} label={y} active={year === y} onClick={() => setYear(y)} />
                 ))}
+              </div>
+
+              {/* Now / on-view toggle — a single FilterChip, styled
+                  identically to Year/Tags chips. Combines with the
+                  other filters (does not reset them). */}
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Now:</span>
+                <FilterChip
+                  label="On view"
+                  active={onViewOnly}
+                  onClick={() => setOnViewOnly((v) => !v)}
+                />
               </div>
             </div>
 
