@@ -142,43 +142,30 @@ function DensityToggleButton({
   );
 }
 
+/**
+ * Three vertical strokes that rotate 90° when density flips to
+ * `dense`, so the toggle reads as an orientation switch rather than
+ * a count switch. Same glyph in every state — only its rotation
+ * changes, with a smooth CSS transition.
+ */
 function DensityGlyph({ density }: { density: MasonryDensity }) {
-  const commonProps = {
-    width: 16,
-    height: 16,
-    viewBox: "0 0 16 16",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.5,
-    strokeLinecap: "square" as const,
-    "aria-hidden": true,
-  };
-  if (density === "normal") {
-    return (
-      <svg {...commonProps}>
-        <line x1="3" y1="3" x2="3" y2="13" />
-        <line x1="8" y1="3" x2="8" y2="13" />
-        <line x1="13" y1="3" x2="13" y2="13" />
-      </svg>
-    );
-  }
-  if (density === "medium") {
-    return (
-      <svg {...commonProps}>
-        <line x1="2" y1="3" x2="2" y2="13" />
-        <line x1="6.5" y1="3" x2="6.5" y2="13" />
-        <line x1="9.5" y1="3" x2="9.5" y2="13" />
-        <line x1="14" y1="3" x2="14" y2="13" />
-      </svg>
-    );
-  }
   return (
-    <svg {...commonProps}>
-      <line x1="1.5" y1="3" x2="1.5" y2="13" />
-      <line x1="5" y1="3" x2="5" y2="13" />
-      <line x1="8.5" y1="3" x2="8.5" y2="13" />
-      <line x1="12" y1="3" x2="12" y2="13" />
-      <line x1="14.5" y1="3" x2="14.5" y2="13" />
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="square"
+      aria-hidden="true"
+      className={`transition-transform duration-300 ease-out ${
+        density === "dense" ? "rotate-90" : "rotate-0"
+      }`}
+    >
+      <line x1="3" y1="3" x2="3" y2="13" />
+      <line x1="8" y1="3" x2="8" y2="13" />
+      <line x1="13" y1="3" x2="13" y2="13" />
     </svg>
   );
 }
@@ -461,23 +448,14 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setNowMs(Date.now());
   }, [onViewOnly]);
-  // Feed density cycle. Desktop cycles [normal → medium → dense →
-  // normal], mobile cycles [normal → dense → normal] — the two
-  // visually distinct states on a phone. Default matches current
-  // behaviour (1 col mobile / 3 col desktop).
+  // Feed density — two states on every viewport:
+  //   normal: 1 (mobile) / 3 (desktop)  ← default
+  //   dense : 2 (mobile) / 5 (desktop)
+  // The toggle just flips between them; the icon spins 90° so the
+  // active state is obvious.
   const [density, setDensity] = useState<MasonryDensity>("normal");
   const cycleDensity = useCallback(() => {
-    const isDesktop =
-      typeof window !== "undefined" &&
-      window.matchMedia("(min-width: 1024px)").matches;
-    const cycle: MasonryDensity[] = isDesktop
-      ? ["normal", "medium", "dense"]
-      : ["normal", "dense"];
-    setDensity((current) => {
-      const idx = cycle.indexOf(current);
-      const nextIdx = idx >= 0 ? (idx + 1) % cycle.length : 0;
-      return cycle[nextIdx];
-    });
+    setDensity((current) => (current === "normal" ? "dense" : "normal"));
   }, []);
   const [search, setSearch] = useState("");
   // Mobile-only: collapse Location/Year/Tags behind a single FILTERS toggle.
