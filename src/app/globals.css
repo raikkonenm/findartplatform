@@ -74,3 +74,27 @@ a {
   flex-direction: column;
   gap: 64px;
 }
+
+/* "On view now" indicator — small green dot rendered inline with the
+   city/year line on ExhibitionCard when today falls inside an
+   exhibition's start/end range. See src/lib/isOnView.ts for the range
+   test. Only the card's <span class="on-view-dot"> receives this
+   styling; markup elsewhere is unchanged. */
+.on-view-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #1D9E75;
+  margin-right: 8px;
+  vertical-align: 1px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .on-view-dot {
+    animation: on-view-pulse 1.8s ease-in-out infinite;
+  }
+}
+@keyframes on-view-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.15); }
+}
