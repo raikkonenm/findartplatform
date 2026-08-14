@@ -101,7 +101,7 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`shrink-0 border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors ${
+      className={`shrink-0 border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition duration-200 ease-out ${
         active
           ? "border-neutral-900 text-neutral-900"
           : "border-neutral-200 text-neutral-400 hover:border-neutral-400 hover:text-neutral-600"
@@ -131,7 +131,7 @@ function DensityToggleButton({
       type="button"
       onClick={onCycle}
       aria-label={`Feed density: ${density}. Tap to cycle.`}
-      className={`shrink-0 border p-2 transition-colors ${
+      className={`shrink-0 border p-2 transition duration-200 ease-out ${
         isActive
           ? "border-neutral-900 text-neutral-900"
           : "border-neutral-200 text-neutral-500 hover:border-neutral-400 hover:text-neutral-700"
@@ -232,7 +232,7 @@ function LocationDropdown({
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="listbox"
-        className="flex shrink-0 items-center gap-2 whitespace-nowrap border border-neutral-200 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-700 transition-colors hover:border-neutral-400"
+        className="flex shrink-0 items-center gap-2 whitespace-nowrap border border-neutral-200 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-700 transition duration-200 ease-out hover:border-neutral-400"
       >
         <span>{label}</span>
         <svg
@@ -256,7 +256,7 @@ function LocationDropdown({
               onChange({ kind: "all" });
               setOpen(false);
             }}
-            className={`flex w-full items-center justify-between border-b border-neutral-100 px-3 py-2 text-left text-[10px] uppercase tracking-[0.18em] transition-colors hover:bg-neutral-50 ${
+            className={`flex w-full items-center justify-between border-b border-neutral-100 px-3 py-2 text-left text-[10px] uppercase tracking-[0.18em] transition duration-200 ease-out hover:bg-neutral-50 ${
               value.kind === "all" ? "text-neutral-900" : "text-neutral-500"
             }`}
           >
@@ -286,7 +286,7 @@ function LocationDropdown({
                           return next;
                         });
                       }}
-                      className={`flex flex-1 items-center justify-between px-3 py-2 text-left text-[10px] uppercase tracking-[0.18em] transition-colors hover:bg-neutral-50 ${
+                      className={`flex flex-1 items-center justify-between px-3 py-2 text-left text-[10px] uppercase tracking-[0.18em] transition duration-200 ease-out hover:bg-neutral-50 ${
                         countryActive ? "text-neutral-900" : "text-neutral-600"
                       }`}
                     >
@@ -303,7 +303,7 @@ function LocationDropdown({
                         onClick={() => toggleCountryExpand(country)}
                         aria-label={expanded ? `Collapse ${country}` : `Expand ${country}`}
                         aria-expanded={expanded}
-                        className="flex shrink-0 items-center justify-center px-3 text-neutral-500 transition-colors hover:bg-neutral-50 hover:text-neutral-900"
+                        className="flex shrink-0 items-center justify-center px-3 text-neutral-500 transition duration-200 ease-out hover:bg-neutral-50 hover:text-neutral-900"
                       >
                         <span aria-hidden="true" className="text-[14px] leading-none">
                           {expanded ? "−" : "+"}
@@ -326,7 +326,7 @@ function LocationDropdown({
                                 onChange({ kind: "city", country, city });
                                 setOpen(false);
                               }}
-                              className={`flex w-full items-center justify-between py-1.5 pl-7 pr-3 text-left text-[10px] uppercase tracking-[0.18em] transition-colors hover:bg-neutral-50 ${
+                              className={`flex w-full items-center justify-between py-1.5 pl-7 pr-3 text-left text-[10px] uppercase tracking-[0.18em] transition duration-200 ease-out hover:bg-neutral-50 ${
                                 cityActive ? "text-neutral-900" : "text-neutral-500"
                               }`}
                             >
@@ -392,7 +392,7 @@ function MobileTagsDropdown({
         onClick={() => setOpen((isOpen) => !isOpen)}
         aria-expanded={open}
         aria-haspopup="listbox"
-        className={`flex w-full items-center justify-between border px-3 py-2 text-[10px] uppercase tracking-[0.2em] transition-colors ${
+        className={`flex w-full items-center justify-between border px-3 py-2 text-[10px] uppercase tracking-[0.2em] transition duration-200 ease-out ${
           value === "ALL" ? "border-neutral-200 text-neutral-500" : "border-neutral-900 text-neutral-900"
         }`}
       >
@@ -415,7 +415,7 @@ function MobileTagsDropdown({
                     onChange(active && filterTag !== "ALL" ? "ALL" : filterTag);
                     setOpen(false);
                   }}
-                  className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-[10px] uppercase tracking-[0.18em] transition-colors hover:bg-neutral-50 ${
+                  className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-[10px] uppercase tracking-[0.18em] transition duration-200 ease-out hover:bg-neutral-50 ${
                     active ? "text-neutral-900" : "text-neutral-500"
                   }`}
                 >
@@ -629,10 +629,17 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
               onClick={() => setMobileFiltersOpen((open) => !open)}
               aria-expanded={mobileFiltersOpen}
               aria-controls="mobile-filters-panel"
-              className="flex flex-1 items-center justify-between border border-neutral-200 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-neutral-700 transition-colors hover:border-neutral-400"
+              className="flex flex-1 items-center justify-between border border-neutral-200 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-neutral-700 transition duration-200 ease-out hover:border-neutral-400"
             >
               <span>Filters</span>
-              <span aria-hidden="true">{mobileFiltersOpen ? "−" : "+"}</span>
+              <span
+                aria-hidden="true"
+                className={`inline-block transition-transform duration-200 ease-out ${
+                  mobileFiltersOpen ? "rotate-45" : "rotate-0"
+                }`}
+              >
+                +
+              </span>
             </button>
             <DensityToggleButton density={density} onCycle={cycleDensity} />
           </div>
@@ -670,12 +677,20 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
                 />
               </div>
 
-              {/* Density toggle (desktop-only slot). Right-edge in the
-                  filter row via md:ml-auto; hidden on mobile — the
-                  same button is rendered again in a dedicated strip
-                  above the grid on mobile so it stays visible when
-                  the Filters panel is collapsed. */}
-              <div className="hidden items-center gap-2 md:ml-auto md:flex">
+              {/* Right-aligned group on desktop: search field + density
+                  toggle. Search sits directly to the left of the
+                  density button so the two feed-view controls form
+                  one logical cluster at the right edge. Hidden on
+                  mobile — mobile search is above the Filters button
+                  and mobile density lives next to it. */}
+              <div className="hidden items-center gap-3 md:ml-auto md:flex">
+                <input
+                  type="search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search exhibitions..."
+                  className="h-9 w-56 border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 transition duration-200 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none"
+                />
                 <DensityToggleButton density={density} onCycle={cycleDensity} />
               </div>
             </div>
@@ -713,22 +728,13 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
                 type="button"
                 onClick={() => setTagsExpanded((expanded) => !expanded)}
                 aria-expanded={tagsExpanded || showsMoreTagSelected}
-                className="shrink-0 border border-neutral-200 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500 transition-colors hover:border-neutral-400 hover:text-neutral-700"
+                className="shrink-0 border border-neutral-200 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500 transition duration-200 ease-out hover:border-neutral-400 hover:text-neutral-700"
               >
                 {tagsExpanded || showsMoreTagSelected ? "- Less" : "+ More"}
               </button>
             </div>
           </div>
 
-          <div className="hidden pt-1 md:block">
-            <input
-              type="search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search exhibitions..."
-              className="h-11 w-full border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none"
-            />
-          </div>
         </div>
       </div>
 

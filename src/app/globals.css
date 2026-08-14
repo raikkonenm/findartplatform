@@ -72,8 +72,8 @@ a {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  /* Tighter vertical rhythm on mobile — full 64px on tablet+ */
-  gap: 40px;
+  /* Tight vertical rhythm on mobile — full 64px on tablet+ */
+  gap: 28px;
 }
 @media (min-width: 768px) {
   .masonry-col {
