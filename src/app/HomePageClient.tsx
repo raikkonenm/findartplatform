@@ -390,6 +390,9 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setNowMs(Date.now());
   }, [onViewOnly]);
+  // Feed density: `normal` (1/2/3 columns) vs `dense` (2/3/5).
+  // Default matches current behaviour; only the toggle icon flips it.
+  const [dense, setDense] = useState(false);
   const [search, setSearch] = useState("");
   // Mobile-only: collapse Location/Year/Tags behind a single FILTERS toggle.
   // Desktop ignores this and always shows the rows.
@@ -596,6 +599,64 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
                   onClick={() => setOnViewOnly((v) => !v)}
                 />
               </div>
+
+              {/* Density toggle — pushed to the right edge on desktop
+                  (md:ml-auto). Small icon-only button whose glyph flips
+                  between a 3-bar and 5-bar grid so it reads as a
+                  view-density switch. Only affects column count in
+                  MasonryGrid; row-major order, pinning, on-view dot and
+                  the other filters are untouched. */}
+              <div className="flex items-center gap-2 md:ml-auto">
+                <button
+                  type="button"
+                  onClick={() => setDense((v) => !v)}
+                  aria-label={
+                    dense
+                      ? "Switch to normal grid density"
+                      : "Switch to dense grid density"
+                  }
+                  aria-pressed={dense}
+                  className={`shrink-0 border p-2 transition-colors ${
+                    dense
+                      ? "border-neutral-900 text-neutral-900"
+                      : "border-neutral-200 text-neutral-500 hover:border-neutral-400 hover:text-neutral-700"
+                  }`}
+                >
+                  {dense ? (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="square"
+                      aria-hidden="true"
+                    >
+                      <line x1="1.5" y1="3" x2="1.5" y2="13" />
+                      <line x1="5" y1="3" x2="5" y2="13" />
+                      <line x1="8.5" y1="3" x2="8.5" y2="13" />
+                      <line x1="12" y1="3" x2="12" y2="13" />
+                      <line x1="14.5" y1="3" x2="14.5" y2="13" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="square"
+                      aria-hidden="true"
+                    >
+                      <line x1="3" y1="3" x2="3" y2="13" />
+                      <line x1="8" y1="3" x2="8" y2="13" />
+                      <line x1="13" y1="3" x2="13" y2="13" />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
 
             <MobileTagsDropdown value={tag} onChange={selectTag} />
@@ -665,7 +726,12 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             </p>
           )
         ) : (
-          <MasonryGrid exhibitions={filtered} eagerCount={1} initialIsMobile={initialIsMobile} />
+          <MasonryGrid
+            exhibitions={filtered}
+            eagerCount={1}
+            initialIsMobile={initialIsMobile}
+            density={dense ? "dense" : "normal"}
+          />
         )}
       </section>
     </main>

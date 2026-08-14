@@ -4,22 +4,34 @@ import { useEffect, useState } from "react";
 import type { Exhibition } from "@/data/exhibitions";
 import { ExhibitionCard } from "./ExhibitionCard";
 
+export type MasonryDensity = "normal" | "dense";
+
+// Per-breakpoint column counts for each density mode:
+//   normal  → 1 (mobile) / 2 (tablet) / 3 (desktop)  ← current default
+//   dense   → 2 (mobile) / 3 (tablet) / 5 (desktop)  ← denser variant
+// Everything else in the layout (row-major bucketing, gap, per-card
+// aspect ratios) stays untouched.
+const COLUMNS_BY_DENSITY: Record<MasonryDensity, { small: number; medium: number; large: number }> = {
+  normal: { small: 1, medium: 2, large: 3 },
+  dense: { small: 2, medium: 3, large: 5 },
+};
+
 // Determine how many columns the masonry grid should use. Mirrors the
-// previous CSS breakpoints exactly: 1 column below 768px, 2 columns
-// between 768–1023px, 3 columns from 1024px up. The initial value is
-// seeded from a server-detected UA hint (`initialIsMobile` prop) so
-// SSR HTML matches what the client hydrates to — no masonry CLS jump
-// on mobile. After hydration, matchMedia takes over for genuine
-// viewport changes (resize, orientation).
-function useColumnCount(initialIsMobile: boolean): number {
-  const [count, setCount] = useState(initialIsMobile ? 1 : 3);
+// previous CSS breakpoints exactly: <768px = small, 768–1023px = medium,
+// ≥1024px = large. The initial value is seeded from a server-detected UA
+// hint (`initialIsMobile` prop) so SSR HTML matches what the client
+// hydrates to — no masonry CLS jump on mobile. After hydration,
+// matchMedia takes over for genuine viewport changes (resize, orientation).
+function useColumnCount(initialIsMobile: boolean, density: MasonryDensity): number {
+  const cols = COLUMNS_BY_DENSITY[density];
+  const [count, setCount] = useState(initialIsMobile ? cols.small : cols.large);
   useEffect(() => {
     const single = window.matchMedia("(max-width: 767px)");
     const double = window.matchMedia("(max-width: 1023px)");
     const update = () => {
-      if (single.matches) setCount(1);
-      else if (double.matches) setCount(2);
-      else setCount(3);
+      if (single.matches) setCount(cols.small);
+      else if (double.matches) setCount(cols.medium);
+      else setCount(cols.large);
     };
     update();
     single.addEventListener("change", update);
@@ -28,7 +40,7 @@ function useColumnCount(initialIsMobile: boolean): number {
       single.removeEventListener("change", update);
       double.removeEventListener("change", update);
     };
-  }, []);
+  }, [cols.small, cols.medium, cols.large]);
   return count;
 }
 
@@ -52,12 +64,14 @@ export function MasonryGrid({
   exhibitions,
   eagerCount = 0,
   initialIsMobile = false,
+  density = "normal",
 }: {
   exhibitions: Exhibition[];
   eagerCount?: number;
   initialIsMobile?: boolean;
+  density?: MasonryDensity;
 }) {
-  const columnCount = useColumnCount(initialIsMobile);
+  const columnCount = useColumnCount(initialIsMobile, density);
 
   const columns: BucketItem[][] = Array.from({ length: columnCount }, () => []);
   exhibitions.forEach((exhibition, flatIdx) => {
