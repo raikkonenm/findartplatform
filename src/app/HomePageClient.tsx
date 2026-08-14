@@ -640,18 +640,24 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
           />
 
-          {/* Mobile-only FILTERS toggle. On desktop the filter rows below are
-              always visible, so this button is hidden. */}
-          <button
-            type="button"
-            onClick={() => setMobileFiltersOpen((open) => !open)}
-            aria-expanded={mobileFiltersOpen}
-            aria-controls="mobile-filters-panel"
-            className="flex w-full items-center justify-between border border-neutral-200 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-neutral-700 transition-colors hover:border-neutral-400 md:hidden"
-          >
-            <span>Filters</span>
-            <span aria-hidden="true">{mobileFiltersOpen ? "−" : "+"}</span>
-          </button>
+          {/* Mobile-only row: FILTERS toggle + density switch side by
+              side. Filters no longer spans the full width so the
+              density icon sits to its right in the same horizontal
+              line. Hidden on desktop where the filter rows are
+              always visible and density lives in the filter row. */}
+          <div className="flex items-center gap-2 md:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileFiltersOpen((open) => !open)}
+              aria-expanded={mobileFiltersOpen}
+              aria-controls="mobile-filters-panel"
+              className="flex flex-1 items-center justify-between border border-neutral-200 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-neutral-700 transition-colors hover:border-neutral-400"
+            >
+              <span>Filters</span>
+              <span aria-hidden="true">{mobileFiltersOpen ? "−" : "+"}</span>
+            </button>
+            <DensityToggleButton density={density} onCycle={cycleDensity} />
+          </div>
 
           {/* Collapsible filter panel — hidden on mobile when collapsed,
               always visible on desktop. */}
@@ -746,14 +752,6 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             />
           </div>
         </div>
-      </div>
-
-      {/* Mobile-only density strip. Sits between the Filters block
-          and the grid so the toggle is always visible even when the
-          collapsible mobile Filters panel is closed. Hidden on md+
-          because the desktop copy lives inside the filter row. */}
-      <div className="flex justify-end px-5 pt-4 md:hidden">
-        <DensityToggleButton density={density} onCycle={cycleDensity} />
       </div>
 
       {/* Exhibition feed — CSS columns provides masonry without JS. Cards have
