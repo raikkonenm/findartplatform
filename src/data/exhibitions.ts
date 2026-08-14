@@ -249,6 +249,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "what-we-see-what-looks-back-at-us": ["INSTALLATION", "IDENTITY", "POSTHUMAN", "OBJECTHOOD", "SURVEILLANCE"],
   "ethereal-robes-of-vulnerability": ["INSTALLATION", "POSTHUMAN", "ECOLOGY", "PHOTOGRAPHY", "MATERIALITY", "BODY"],
   "tangerine-reverie": ["INSTALLATION", "ECOLOGY", "RITUAL", "POST-INDUSTRIAL", "LIMINALITY", "MATERIALITY"],
+  "after-the-offerings": ["INSTALLATION", "SURVEILLANCE", "RITUAL", "IDENTITY", "DIGITAL MYTH", "BODY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -263,6 +264,54 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "after-the-offerings",
+    title: "After the Offerings",
+    subtitle: "Margaret Abeshu Leversby",
+    venue: "inter.pblc",
+    gallery: "inter.pblc",
+    city: "Copenhagen",
+    country: "Denmark",
+    year: "2026",
+    dates: "1 July — 11 July 2026",
+    startDate: "1 July 2026",
+    endDate: "11 July 2026",
+    dateSource: "exhibition",
+    artists: ["Margaret Abeshu Leversby"],
+    curator: "2curators1collapse (Joachim Aagaard Friis & Elia-Rosa Guirous-Amasse)",
+    photographer: "Luis Maria Sulzmann",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `AFTER THE OFFERINGS is Leversby's first solo show outside of Norway. The exhibition invites viewers into a speculative temporality where medieval sculptural references (a sabaton, a chandelier) are interwoven with fragments of contemporary accelerationism, artificiality and competition (repurposed motorcycle mirrors, deer antlers). At the heart of the show is the question: how do we see, and how are we being seen?
+
+Leversby approaches surveillance as both a contemporary and historical condition, identifying similar underlying mechanisms in medieval Christianity's practice of confession, where believers were encouraged to voluntarily produce knowledge about themselves to atone for their sins. It further asks how the figure of the prey and the hunter becomes indistinguishable, for example in social media circuits where gazes are exchanged incessantly without clear distinctions as to who's watching and being watched at any given moment. The works explore this ambivalent contemporary condition where exposure, pursuit and self-monitoring become mutually reinforcing.
+
+Leversby points to what remains after the digital promise – its rituals and sacrifices – tracing processes of circulation and repetition that continue to shape our perception and behavior to this day. As such, the exhibition unveils surveillance's mechanisms not as an invention of the modern world but as a structure that is ancient, recurring, and intimately inscribed into the ways bodies become visible to each other across time – from the logic of the hunt to the ritual of confession, from the weight of the gaze to the quiet refusal of exposure.`,
+    previewImage: localExhibitionImage("after-the-offerings", "1.webp"),
+    heroImage: localExhibitionImage("after-the-offerings", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "after-the-offerings",
+      [
+        { filename: "0.webp", orientation: "vertical" },
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+      ],
+      "Luis Maria Sulzmann",
+    ),
+  },
   {
     slug: "tangerine-reverie",
     title: "Tangerine Reverie",
@@ -5820,6 +5869,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "after-the-offerings",
   "tangerine-reverie",
   "ethereal-robes-of-vulnerability",
   "what-we-see-what-looks-back-at-us",
