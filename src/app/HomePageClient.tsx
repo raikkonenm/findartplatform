@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useCallback, useState, useMemo, useRef, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
@@ -668,6 +669,17 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
           </div>
         </nav>
       </header>
+
+      <Image
+        src="/banner/banner1.png"
+        alt="Featured exhibition installation view"
+        width={1739}
+        height={796}
+        sizes="100vw"
+        priority
+        unoptimized
+        className="block h-auto w-full"
+      />
 
       {/* Filter bar — same on mobile and desktop now: the Filters
           collapsible button is gone, every filter is a dropdown
