@@ -676,7 +676,10 @@ export default function HomePageClient({
             FindArt Platform
           </Link>
           <div className="hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.28em] text-neutral-900 md:flex md:justify-self-center">
-            <Link href="/" className="transition-opacity hover:opacity-55">
+            <Link
+              href="/"
+              className={`transition-opacity hover:opacity-55 ${showFeaturedBanners ? "font-semibold" : ""}`}
+            >
               Explore
             </Link>
             <button type="button" aria-disabled="true" className="cursor-default">
