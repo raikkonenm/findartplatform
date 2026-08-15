@@ -43,7 +43,7 @@ export default async function EditorialDetailPage({ params }: EditorialDetailPag
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-white pt-[65px]">
-      <Header />
+      <Header savedHref="/editorial?saved=1" />
       <EditorialDetail artist={artist} />
     </main>
   );

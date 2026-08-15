@@ -163,3 +163,7 @@ Yihan Pan works with microscopes and telescopes, moving between scales - from a 
 export function getEditorialArtist(slug: string): EditorialArtist | undefined {
   return editorialArtists.find((entry) => entry.slug === slug);
 }
+
+export function editorialSavedKey(slug: string): string {
+  return `editorial:${slug}`;
+}

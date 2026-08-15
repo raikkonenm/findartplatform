@@ -8,9 +8,15 @@ type HeaderProps = {
   overlay?: boolean;
   savedOnly?: boolean;
   onToggleSavedOnly?: () => void;
+  savedHref?: string;
 };
 
-export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }: HeaderProps) {
+export function Header({
+  overlay = false,
+  savedOnly = false,
+  onToggleSavedOnly,
+  savedHref = "/?saved=1",
+}: HeaderProps) {
   return (
     <header
       className={`${overlay ? "absolute z-20" : "fixed z-50"} inset-x-0 top-0 h-[65px] px-4 md:px-8 lg:px-12 ${
@@ -104,6 +110,15 @@ export function Header({ overlay = false, savedOnly = false, onToggleSavedOnly }
             >
               <HeartIcon filled={savedOnly} className="h-4 w-4" />
             </button>
+          )}
+          {!onToggleSavedOnly && !overlay && (
+            <Link
+              href={savedHref}
+              aria-label="View saved items"
+              className="text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
+            >
+              <HeartIcon filled={false} className="h-4 w-4" />
+            </Link>
           )}
         </div>
       </nav>

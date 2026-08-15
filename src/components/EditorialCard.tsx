@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import type { EditorialArtist } from "@/data/editorial";
+import { editorialSavedKey, type EditorialArtist } from "@/data/editorial";
+import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
 export function EditorialCard({
   artist,
@@ -9,8 +12,12 @@ export function EditorialCard({
   artist: EditorialArtist;
   eager?: boolean;
 }) {
+  const { isSaved, toggleSaved } = useSavedExhibitions();
+  const savedKey = editorialSavedKey(artist.slug);
+  const saved = isSaved(savedKey);
+
   return (
-    <article className="group min-w-0">
+    <article className="group relative min-w-0">
       <Link href={`/editorial/${artist.slug}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden bg-neutral-100">
           <Image
@@ -35,6 +42,21 @@ export function EditorialCard({
           </p>
         </div>
       </Link>
+      <button
+        type="button"
+        aria-label={saved ? `Remove ${artist.artistName} from saved` : `Save ${artist.artistName}`}
+        aria-pressed={saved}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          toggleSaved(savedKey);
+        }}
+        className={`absolute right-4 top-4 z-10 text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none ${
+          saved ? "opacity-100" : "opacity-100 md:opacity-0 md:group-hover:opacity-100"
+        }`}
+      >
+        <HeartIcon filled={saved} className="h-5 w-5" />
+      </button>
     </article>
   );
 }

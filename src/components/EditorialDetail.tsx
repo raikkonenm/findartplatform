@@ -1,12 +1,13 @@
 import Image from "next/image";
-import type { EditorialArtist } from "@/data/editorial";
+import { editorialSavedKey, type EditorialArtist } from "@/data/editorial";
+import { SaveExhibitionButton } from "./SavedExhibitions";
 
 export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
   const [heroImage, ...galleryImages] = artist.images;
 
   return (
     <article className="bg-white px-5 pb-20 pt-10 text-neutral-900 md:px-8 md:pb-28 md:pt-14 lg:px-12">
-      <header className="border-b border-neutral-200 pb-8 md:pb-10">
+      <header className="flex items-start justify-between gap-6 border-b border-neutral-200 pb-8 md:pb-10">
         <a
           href={artist.instagramUrl}
           target="_blank"
@@ -15,6 +16,10 @@ export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
         >
           {artist.instagramHandle}
         </a>
+        <SaveExhibitionButton
+          slug={editorialSavedKey(artist.slug)}
+          title={artist.artistName}
+        />
       </header>
 
       <figure className="mx-auto mt-10 w-full max-w-[48rem] md:mt-14">
