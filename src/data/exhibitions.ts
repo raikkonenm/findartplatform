@@ -250,6 +250,7 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "ethereal-robes-of-vulnerability": ["INSTALLATION", "POSTHUMAN", "ECOLOGY", "PHOTOGRAPHY", "MATERIALITY", "BODY"],
   "tangerine-reverie": ["INSTALLATION", "ECOLOGY", "RITUAL", "POST-INDUSTRIAL", "LIMINALITY", "MATERIALITY"],
   "after-the-offerings": ["INSTALLATION", "SURVEILLANCE", "RITUAL", "IDENTITY", "DIGITAL MYTH", "BODY"],
+  "axial-core": ["INSTALLATION", "SOUND", "POSTHUMAN", "MACHINE", "TECHNOLOGY"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
@@ -264,6 +265,54 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   ...salivaImport13Seeds,
+  {
+    slug: "axial-core",
+    title: "AXIAL-CORE",
+    subtitle: "Leo Pum",
+    venue: "La Térmica (KRVCE festival)",
+    gallery: "La Térmica (KRVCE festival)",
+    city: "Málaga",
+    country: "Spain",
+    year: "2026",
+    dates: "22 May — 1 June 2026",
+    startDate: "22 May 2026",
+    endDate: "1 June 2026",
+    dateSource: "exhibition",
+    artists: ["Leo Pum"],
+    curator: "Doble Erre",
+    exhibitionText: "Leandro Mora",
+    photographer: "Leandro Mora",
+    sourceUrl: "https://leopum.com/",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `AXIAL-CORE is an immersive audiovisual installation by LEO PUM operating between orbital infrastructure, ballistic systems, and synthetic organisms. Through truss structures, motorized lighting, LED panels, exposed cabling, fog, and multichannel audio, the piece transforms space into an active transmission system where light, sound, and architecture synchronize as a single entity.
+
+Its radial structure evokes mechanical wings or chimeric prosthetics, suggesting a biomechanical device suspended between a machine, aerospace infrastructure, and a dreamlike robotic beast. Inspired by sound system culture, rave aesthetics, and video game soundtracks such as Shadow of the Colossus, AXIAL-CORE constructs a sensory environment based on sonic pressure, atmospheric density, and luminous control.
+
+The project's technical direction was developed alongside Marco Ferreira, while the sonic atmosphere, "Ballistic Angel", created by Diego V. Navarro, brings an epic and contemplative dimension to the installation.
+
+— Leandro Mora`,
+    previewImage: localExhibitionImage("axial-core", "1.webp"),
+    heroImage: localExhibitionImage("axial-core", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "axial-core",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "horizontal" },
+      ],
+      "Leandro Mora",
+    ),
+  },
   {
     slug: "after-the-offerings",
     title: "After the Offerings",
@@ -5868,6 +5917,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "axial-core",
   "after-the-offerings",
   "tangerine-reverie",
   "ethereal-robes-of-vulnerability",
