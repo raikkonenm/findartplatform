@@ -1248,7 +1248,7 @@ export default function HomePageClient({
             />
           </div>
 
-          <div className="hidden min-w-0 items-start gap-4 pt-3 md:flex">
+          <div className="hidden min-w-0 items-center gap-4 pt-3 md:flex">
             <div className="min-w-0 flex-1">
               {desktopFilterPanel === "tags" && (
                 <HorizontalFilterRail resetKey="tags" autoLoop>
