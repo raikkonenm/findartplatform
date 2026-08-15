@@ -171,7 +171,7 @@ a {
   }
 }
 
-/* "On view now" indicator — small green dot rendered inline with the
+/* "On view now" indicator — theme-contrast dot rendered inline with the
    city/year line on ExhibitionCard when today falls inside an
    exhibition's start/end range. See src/lib/isOnView.ts for the range
    test. Only the card's <span class="on-view-dot"> receives this
@@ -181,7 +181,7 @@ a {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #1D9E75;
+  background: var(--foreground);
   margin-right: 8px;
   vertical-align: 1px;
 }

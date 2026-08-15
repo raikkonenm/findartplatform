@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { HeartIcon } from "./SavedExhibitions";
 import { MobileNavigationMenu } from "./MobileNavigationMenu";
 import { ThemeToggleButton } from "./ThemeToggleButton";
@@ -16,6 +19,14 @@ export function Header({
   onToggleSavedOnly,
   savedHref = "/?saved=1",
 }: HeaderProps) {
+  const pathname = usePathname();
+  const navLinkClass = (href: string, emphasized = false) => {
+    const active = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+    return `border-b pb-1 transition-opacity hover:opacity-55 ${
+      active ? "border-current font-semibold" : "border-transparent"
+    } ${emphasized ? "font-semibold" : ""}`;
+  };
+
   return (
     <header
       className={`${overlay ? "absolute z-20" : "fixed z-50"} inset-x-0 top-0 h-[65px] px-4 md:px-8 lg:px-12 ${
@@ -46,19 +57,19 @@ export function Header({
               : "text-[11px] font-normal tracking-[0.28em] text-neutral-900"
           }`}
         >
-          <Link href="/" className="transition-opacity hover:opacity-55">
+          <Link href="/" className={navLinkClass("/")}>
             Explore
           </Link>
           <button type="button" aria-disabled="true" className="cursor-default">
             COLLECT
           </button>
-          <Link href="/exhibitions" className="transition-opacity hover:opacity-55">
+          <Link href="/exhibitions" className={navLinkClass("/exhibitions")}>
             Exhibitions
           </Link>
-          <Link href="/editorial" className="transition-opacity hover:opacity-55">
+          <Link href="/editorial" className={navLinkClass("/editorial")}>
             Editorial
           </Link>
-          <Link href="/submit" className="font-semibold transition-opacity hover:opacity-55">
+          <Link href="/submit" className={navLinkClass("/submit", true)}>
             Submit
           </Link>
         </div>

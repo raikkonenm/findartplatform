@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 
 export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -109,19 +111,35 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
               </button>
             </div>
             <nav className="flex flex-col items-start gap-5 px-5 py-6 text-[11px] uppercase tracking-[0.22em] text-neutral-900">
-              <Link href="/" onClick={() => setOpen(false)}>
+              <Link
+                href="/"
+                onClick={() => setOpen(false)}
+                className={pathname === "/" ? "font-semibold underline underline-offset-4" : ""}
+              >
                 Explore
               </Link>
               <button type="button" aria-disabled="true" className="cursor-default uppercase">
                 COLLECT
               </button>
-              <Link href="/exhibitions" onClick={() => setOpen(false)}>
+              <Link
+                href="/exhibitions"
+                onClick={() => setOpen(false)}
+                className={pathname.startsWith("/exhibitions") ? "font-semibold underline underline-offset-4" : ""}
+              >
                 Exhibitions
               </Link>
-              <Link href="/editorial" onClick={() => setOpen(false)}>
+              <Link
+                href="/editorial"
+                onClick={() => setOpen(false)}
+                className={pathname.startsWith("/editorial") ? "font-semibold underline underline-offset-4" : ""}
+              >
                 Editorial
               </Link>
-              <Link href="/about" onClick={() => setOpen(false)}>
+              <Link
+                href="/about"
+                onClick={() => setOpen(false)}
+                className={pathname.startsWith("/about") ? "font-semibold underline underline-offset-4" : ""}
+              >
                 About
               </Link>
               <a

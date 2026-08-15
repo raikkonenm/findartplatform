@@ -3,7 +3,7 @@
 import { Suspense, useCallback, useState, useMemo, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { HeartIcon, useSavedExhibitions } from "@/components/SavedExhibitions";
@@ -548,6 +548,7 @@ export default function HomePageClient({
   showEditorialPromo?: boolean;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { savedSlugs } = useSavedExhibitions();
   const [location, setLocation] = useState<LocationValue>({ kind: "all" });
   const [year, setYear] = useState("All");
@@ -558,6 +559,12 @@ export default function HomePageClient({
   // every toggle so filtering always uses a recent `Date.now()`, but
   // never during render (that would violate react-hooks/purity).
   const [nowMs, setNowMs] = useState(0);
+  const navLinkClass = (href: string, emphasized = false) => {
+    const active = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+    return `border-b pb-1 transition-opacity hover:opacity-55 ${
+      active ? "border-current font-semibold" : "border-transparent"
+    } ${emphasized ? "font-semibold" : ""}`;
+  };
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setNowMs(Date.now());
@@ -678,22 +685,22 @@ export default function HomePageClient({
           <div className="hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.28em] text-neutral-900 md:flex md:justify-self-center">
             <Link
               href="/"
-              className={`transition-opacity hover:opacity-55 ${showFeaturedBanners ? "font-semibold" : ""}`}
+              className={navLinkClass("/")}
             >
               Explore
             </Link>
             <button type="button" aria-disabled="true" className="cursor-default">
               COLLECT
             </button>
-            <Link href="/exhibitions" className="transition-opacity hover:opacity-55">
+            <Link href="/exhibitions" className={navLinkClass("/exhibitions")}>
               Exhibitions
             </Link>
-            <Link href="/editorial" className="transition-opacity hover:opacity-55">
+            <Link href="/editorial" className={navLinkClass("/editorial")}>
               Editorial
             </Link>
             <Link
               href="/submit"
-              className="font-semibold transition-opacity hover:opacity-55"
+              className={navLinkClass("/submit", true)}
             >
               Submit
             </Link>
