@@ -123,16 +123,18 @@ function MobileFeaturedCarousel() {
             </Link>
           </div>
           <div className="w-full shrink-0 px-4">
-            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-              <Image
-                src="/banner/blue.webp"
+            <Link
+              href="/exhibitions/axial-core"
+              aria-label="View Axial-Core exhibition"
+              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+            >
+              <FeaturedExhibitionSlideshow
+                slug="axial-core"
+                initialSrc="/banner/blue.webp"
                 alt="Axial-Core exhibition installation view"
-                fill
-                unoptimized
                 sizes="100vw"
-                className="object-cover"
               />
-            </div>
+            </Link>
           </div>
           <div className="w-full shrink-0 px-4">
             <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
@@ -922,16 +924,18 @@ export default function HomePageClient({
         </article>
 
         <article className="min-w-0">
-          <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-            <Image
-              src="/banner/blue.webp"
+          <Link
+            href="/exhibitions/axial-core"
+            aria-label="View Axial-Core exhibition"
+            className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+          >
+            <FeaturedExhibitionSlideshow
+              slug="axial-core"
+              initialSrc="/banner/blue.webp"
               alt="Axial-Core exhibition installation view"
-              fill
-              unoptimized
               sizes="33vw"
-              className="object-cover"
             />
-          </div>
+          </Link>
           <div className="pt-4">
             <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
               May 22 — June 01, 2026
