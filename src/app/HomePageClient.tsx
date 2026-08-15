@@ -840,7 +840,7 @@ export default function HomePageClient({
           >
             FindArt Platform
           </Link>
-          <div className="editorial-serif hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.32em] text-neutral-900 md:flex md:justify-self-center">
+          <div className="editorial-serif hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-900 md:flex md:justify-self-center">
             <Link
               href="/"
               className={navLinkClass("/")}

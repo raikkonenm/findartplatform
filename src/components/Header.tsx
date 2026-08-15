@@ -55,7 +55,7 @@ export function Header({
           className={`editorial-serif hidden items-center gap-5 uppercase md:flex md:justify-self-center ${
             overlay
               ? "font-normal"
-              : "text-[11px] font-normal tracking-[0.32em] text-neutral-900"
+              : "text-[11px] font-normal tracking-[0.08em] text-neutral-900"
           }`}
         >
           <Link href="/" className={navLinkClass("/")}>
