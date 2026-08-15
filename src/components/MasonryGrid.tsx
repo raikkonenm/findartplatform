@@ -102,7 +102,7 @@ export function MasonryGrid({
   });
 
   return (
-    <div className="masonry-rows">
+    <div className="archive-card-grid masonry-rows">
       {columns.map((column, colIdx) => (
         <div className="masonry-col" key={colIdx}>
           {column.map((item) =>

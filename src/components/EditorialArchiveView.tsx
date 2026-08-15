@@ -69,7 +69,7 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
           </p>
         ) : (
           <div
-            className={`grid grid-cols-1 gap-x-12 gap-y-14 md:gap-y-16 ${
+            className={`archive-card-grid grid grid-cols-1 gap-x-12 gap-y-14 md:gap-y-16 ${
               density === "dense"
                 ? "md:grid-cols-3 md:gap-x-6 lg:grid-cols-5 lg:gap-x-5"
                 : "md:grid-cols-2 lg:grid-cols-3"

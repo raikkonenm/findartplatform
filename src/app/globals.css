@@ -69,6 +69,12 @@
   color: #ffffff !important;
 }
 
+:root[data-theme="dark"] body .archive-card-grid article h2,
+:root[data-theme="dark"] body .archive-card-grid article h3,
+:root[data-theme="dark"] body .archive-card-grid article p {
+  color: #ffffff !important;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 500ms;

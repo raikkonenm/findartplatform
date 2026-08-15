@@ -15,7 +15,7 @@ export function ExhibitionGrid({ exhibitions, heading = "Exhibition Archive" }: 
           {String(exhibitions.length).padStart(2, "0")} Exhibitions
         </p>
       </div>
-      <div className="grid grid-cols-1 gap-x-10 gap-y-[64px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-14 lg:gap-y-[72px]">
+      <div className="archive-card-grid grid grid-cols-1 gap-x-10 gap-y-[64px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-14 lg:gap-y-[72px]">
         {exhibitions.map((exhibition, index) => (
           <ExhibitionCard key={exhibition.slug} exhibition={exhibition} eager={index < 3} />
         ))}

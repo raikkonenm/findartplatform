@@ -233,7 +233,7 @@ function RelatedExhibitions({
       <h2 className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">
         Related Exhibitions
       </h2>
-      <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="archive-card-grid mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {displayRelated.map((relatedExhibition) => {
           const relatedTitle = displayExhibitionTitle(relatedExhibition.title);
           // Match homepage ExhibitionCard exactly: same cover-image fallback chain
