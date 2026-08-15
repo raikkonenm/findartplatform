@@ -23,9 +23,9 @@ export function Header({
   const pathname = usePathname();
   const navLinkClass = (href: string, emphasized = false) => {
     const active = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
-    return `border-b pb-1 transition-opacity hover:opacity-55 ${
-      active ? "border-current font-semibold" : "border-transparent"
-    } ${emphasized ? "font-semibold" : ""}`;
+    return `transition-opacity hover:opacity-55 ${active ? "font-semibold" : ""} ${
+      emphasized ? "font-semibold" : ""
+    }`;
   };
 
   return (

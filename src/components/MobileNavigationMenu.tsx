@@ -114,7 +114,7 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
               <Link
                 href="/"
                 onClick={() => setOpen(false)}
-                className={pathname === "/" ? "font-semibold underline underline-offset-4" : ""}
+                className={pathname === "/" ? "font-semibold" : ""}
               >
                 Explore
               </Link>
@@ -124,21 +124,21 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
               <Link
                 href="/exhibitions"
                 onClick={() => setOpen(false)}
-                className={pathname.startsWith("/exhibitions") ? "font-semibold underline underline-offset-4" : ""}
+                className={pathname.startsWith("/exhibitions") ? "font-semibold" : ""}
               >
                 Exhibitions
               </Link>
               <Link
                 href="/editorial"
                 onClick={() => setOpen(false)}
-                className={pathname.startsWith("/editorial") ? "font-semibold underline underline-offset-4" : ""}
+                className={pathname.startsWith("/editorial") ? "font-semibold" : ""}
               >
                 Editorial
               </Link>
               <Link
                 href="/about"
                 onClick={() => setOpen(false)}
-                className={pathname.startsWith("/about") ? "font-semibold underline underline-offset-4" : ""}
+                className={pathname.startsWith("/about") ? "font-semibold" : ""}
               >
                 About
               </Link>

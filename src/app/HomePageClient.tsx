@@ -562,9 +562,9 @@ export default function HomePageClient({
   const [nowMs, setNowMs] = useState(0);
   const navLinkClass = (href: string, emphasized = false) => {
     const active = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
-    return `border-b pb-1 transition-opacity hover:opacity-55 ${
-      active ? "border-current font-semibold" : "border-transparent"
-    } ${emphasized ? "font-semibold" : ""}`;
+    return `transition-opacity hover:opacity-55 ${active ? "font-semibold" : ""} ${
+      emphasized ? "font-semibold" : ""
+    }`;
   };
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -807,24 +807,26 @@ export default function HomePageClient({
 
         <article className="min-w-0">
           <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-            <Image
-              src="/banner/black.webp"
-              alt="Coagvla exhibition installation view"
-              fill
-              unoptimized
-              sizes="33vw"
-              className="object-cover"
-            />
+            {!initialIsMobile && (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Artcnomads curatorial projects"
+                className="absolute inset-0 h-full w-full object-cover"
+              >
+                <source src="/banner/AC.web.mp4" type="video/mp4" />
+              </video>
+            )}
           </div>
           <div className="pt-4">
-            <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
-              February 26 — April 17, 2026
-            </p>
             <h2 className="editorial-serif mt-2 break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em]">
-              Coagvla
+              Artcnomads
             </h2>
             <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-              Lena Becerra @Acefala Gallery, Buenos Aires
+              Curate your exhibition
             </p>
           </div>
         </article>
