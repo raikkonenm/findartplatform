@@ -122,6 +122,42 @@ function DensityGlyph({ density }: { density: MasonryDensity }) {
   );
 }
 
+function DesktopSearch({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const expanded = value.length > 0;
+
+  return (
+    <label className="group/search flex h-9 cursor-text items-center justify-end text-neutral-500">
+      <span className="sr-only">Search exhibitions</span>
+      <input
+        type="search"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder="Search exhibitions..."
+        className={`h-9 border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 transition-[width,opacity] duration-300 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none ${
+          expanded
+            ? "mr-2 w-56 opacity-100"
+            : "w-0 opacity-0 group-hover/search:mr-2 group-hover/search:w-56 group-hover/search:opacity-100 group-focus-within/search:mr-2 group-focus-within/search:w-56 group-focus-within/search:opacity-100"
+        }`}
+      />
+      <svg
+        viewBox="0 0 20 20"
+        className="h-4 w-4 shrink-0 transition-colors duration-200 group-hover/search:text-neutral-900 group-focus-within/search:text-neutral-900"
+        fill="none"
+        aria-hidden="true"
+      >
+        <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.25" />
+        <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.25" />
+      </svg>
+    </label>
+  );
+}
+
 // LOCATION dropdown — countries listed first, with a plus-icon expander on
 // each country revealing its cities inline. Clicking the country header
 // filters to that country; clicking a city filters to that city only.
@@ -631,18 +667,15 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             FindArt Platform
           </Link>
           <div className="hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.28em] text-neutral-900 md:flex md:justify-self-center">
+            <Link href="/" className="transition-opacity hover:opacity-55">
+              Exhibitions
+            </Link>
             <Link href="/editorial" className="transition-opacity hover:opacity-55">
               Editorial
             </Link>
             <Link href="/about" className="transition-opacity hover:opacity-55">
               About
             </Link>
-            <a
-              href="https://www.instagram.com/findart.platform/"
-              className="transition-opacity hover:opacity-55"
-            >
-              Instagram
-            </a>
             <Link
               href="/submit"
               className="font-semibold transition-opacity hover:opacity-55"
@@ -651,6 +684,12 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             </Link>
           </div>
           <div className="flex items-center gap-3 justify-self-end md:gap-5">
+            <a
+              href="https://www.instagram.com/findart.platform/"
+              className="hidden text-[11px] uppercase tracking-[0.28em] text-neutral-900 transition-opacity hover:opacity-55 md:inline"
+            >
+              Instagram
+            </a>
             <Link
               href="/submit"
               className="text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:hidden"
@@ -742,24 +781,16 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
               onClick={() => setOnViewOnly((v) => !v)}
             />
 
-            {/* Desktop right-cluster: search field + density. Uses
-                ml-auto to push to the right edge, hidden on mobile. */}
-            <div className="hidden items-center gap-3 md:ml-auto md:flex">
-              <input
-                type="search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search exhibitions..."
-                className="h-9 w-56 border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 transition duration-200 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none"
-              />
-              <DensityToggleButton density={density} onCycle={cycleDensity} />
-            </div>
-
             {/* Mobile: density button pushed to the right within the
                 filter chip row. */}
             <div className="ml-auto md:hidden">
               <DensityToggleButton density={density} onCycle={cycleDensity} />
             </div>
+          </div>
+
+          <div className="hidden items-center justify-end gap-3 pt-3 md:flex">
+            <DesktopSearch value={search} onChange={setSearch} />
+            <DensityToggleButton density={density} onCycle={cycleDensity} />
           </div>
         </div>
       </div>
