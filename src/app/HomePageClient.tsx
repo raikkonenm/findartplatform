@@ -862,12 +862,6 @@ export default function HomePageClient({
             </Link>
           </div>
           <div className="flex items-center gap-3 justify-self-end md:gap-5">
-            <a
-              href="https://www.instagram.com/findart.platform/"
-              className="hidden text-[11px] uppercase tracking-[0.28em] text-neutral-900 transition-opacity hover:opacity-55 md:inline"
-            >
-              Instagram
-            </a>
             <Link
               href="/submit"
               className="text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:hidden"

@@ -76,16 +76,6 @@ export function Header({
         </div>
 
         <div className="flex items-center gap-3 justify-self-end md:gap-5">
-          <a
-            href="https://www.instagram.com/findart.platform/"
-            className={`hidden uppercase transition-opacity hover:opacity-55 md:inline ${
-              overlay
-                ? "font-normal"
-                : "text-[11px] font-normal tracking-[0.28em] text-neutral-900"
-            }`}
-          >
-            Instagram
-          </a>
           <Link
             href="/submit"
             className={`transition-opacity hover:opacity-55 md:hidden ${
