@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { DensityToggleButton, type DensityValue } from "./DensityToggleButton";
 import { EditorialCard } from "./EditorialCard";
 import { Header } from "./Header";
 import { useSavedExhibitions } from "./SavedExhibitions";
@@ -9,9 +10,47 @@ import {
   type EditorialArtist,
 } from "@/data/editorial";
 
+function EditorialSearch({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const expanded = value.length > 0;
+
+  return (
+    <label className="group/search flex h-9 cursor-text items-center justify-end text-neutral-500">
+      <span className="sr-only">Search</span>
+      <input
+        type="search"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder="Search"
+        className={`h-9 border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 transition-[width,opacity] duration-300 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none ${
+          expanded
+            ? "mr-2 w-56 opacity-100"
+            : "w-0 opacity-0 group-hover/search:mr-2 group-hover/search:w-56 group-hover/search:opacity-100 group-focus-within/search:mr-2 group-focus-within/search:w-56 group-focus-within/search:opacity-100"
+        }`}
+      />
+      <svg
+        viewBox="0 0 20 20"
+        className="h-4 w-4 shrink-0 transition-colors duration-200 group-hover/search:text-neutral-900 group-focus-within/search:text-neutral-900"
+        fill="none"
+        aria-hidden="true"
+      >
+        <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.25" />
+        <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.25" />
+      </svg>
+    </label>
+  );
+}
+
 export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }) {
   const { savedSlugs } = useSavedExhibitions();
   const [savedOnly, setSavedOnly] = useState(false);
+  const [density, setDensity] = useState<DensityValue>("dense");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get("saved") === "1") {
@@ -21,9 +60,18 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
     }
   }, []);
 
-  const displayedArtists = savedOnly
+  const savedArtists = savedOnly
     ? artists.filter((artist) => savedSlugs.has(editorialSavedKey(artist.slug)))
     : artists;
+  const normalizedSearch = search.trim().toLowerCase();
+  const displayedArtists = normalizedSearch
+    ? savedArtists.filter((artist) =>
+        [artist.artistName, artist.instagramHandle, artist.excerpt, artist.body]
+          .join(" ")
+          .toLowerCase()
+          .includes(normalizedSearch),
+      )
+    : savedArtists;
 
   const toggleSavedOnly = () => {
     const next = !savedOnly;
@@ -42,19 +90,41 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
         savedHref="/editorial?saved=1"
       />
       <section className="px-5 py-8 md:px-8 md:py-10 lg:px-12 lg:py-12">
-        <a
-          href="https://www.instagram.com/artcnomads/"
-          className="mb-8 inline-block text-[11px] uppercase tracking-[0.24em] text-neutral-900 transition-opacity hover:opacity-55 md:mb-10"
-        >
-          By Art Curatorial Nomads &#8599;
-        </a>
+        <div className="mb-8 flex items-center justify-between gap-5 md:mb-10">
+          <a
+            href="https://www.instagram.com/artcnomads/"
+            className="text-[11px] uppercase tracking-[0.24em] text-neutral-900 transition-opacity hover:opacity-55"
+          >
+            By Art Curatorial Nomads &#8599;
+          </a>
+          <div className="hidden items-center gap-3 md:flex">
+            <EditorialSearch value={search} onChange={setSearch} />
+            <DensityToggleButton
+              density={density}
+              onCycle={() =>
+                setDensity((current) => (current === "normal" ? "dense" : "normal"))
+              }
+            />
+          </div>
+        </div>
+        <input
+          type="search"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          placeholder="Search"
+          className="mb-8 w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] uppercase tracking-[0.18em] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
+        />
         {displayedArtists.length === 0 ? (
           <p className="py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400">
             No saved editorial yet
           </p>
         ) : (
           <div
-            className="archive-card-grid grid grid-cols-1 gap-x-5 gap-y-14 md:grid-cols-3 md:gap-y-16 lg:grid-cols-5"
+            className={`archive-card-grid grid grid-cols-1 gap-y-14 md:gap-y-16 ${
+              density === "dense"
+                ? "gap-x-5 md:grid-cols-3 lg:grid-cols-5"
+                : "gap-x-12 md:grid-cols-2 lg:grid-cols-3"
+            }`}
           >
             {displayedArtists.map((artist, index) => (
               <EditorialCard key={artist.slug} artist={artist} eager={index === 0} />

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HeartIcon } from "./SavedExhibitions";
 import { MobileNavigationMenu } from "./MobileNavigationMenu";
+import { NavigationProgress } from "./NavigationProgress";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 
 type HeaderProps = {
@@ -116,6 +117,7 @@ export function Header({
           {!overlay && <ThemeToggleButton className="hidden md:flex" />}
         </div>
       </nav>
+      <NavigationProgress />
     </header>
   );
 }
