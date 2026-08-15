@@ -8,6 +8,7 @@ import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions"
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { HeartIcon, useSavedExhibitions } from "@/components/SavedExhibitions";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
+import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { isExhibitionOnView } from "@/lib/isOnView";
 
@@ -705,6 +706,7 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             >
               <HeartIcon filled={savedOnly} className="h-4 w-4" />
             </button>
+            <ThemeToggleButton className="hidden md:flex" />
           </div>
         </nav>
       </header>
@@ -815,6 +817,7 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             eagerCount={1}
             initialIsMobile={initialIsMobile}
             density={density}
+            editorialPromo
           />
         )}
       </section>

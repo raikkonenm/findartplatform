@@ -84,6 +84,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var theme=localStorage.getItem('findart-theme');document.documentElement.dataset.theme=theme==='dark'?'dark':'light';}catch(e){document.documentElement.dataset.theme='light';}})();`,
+          }}
+        />
         {/* Google Tag Manager — head snippet, per Google's official
             install instructions. Emitted as a raw inline <script> in
             the SSR HTML (not next/script) so it fires during initial

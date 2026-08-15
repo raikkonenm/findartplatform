@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Exhibition } from "@/data/exhibitions";
+import { EditorialPromoCard } from "./EditorialPromoCard";
 import { ExhibitionCard } from "./ExhibitionCard";
 
 export type MasonryDensity = "normal" | "dense";
@@ -45,7 +46,9 @@ function useColumnCount(initialIsMobile: boolean, density: MasonryDensity): numb
   return count;
 }
 
-type BucketItem = { exhibition: Exhibition; flatIdx: number };
+type BucketItem =
+  | { kind: "exhibition"; exhibition: Exhibition; flatIdx: number }
+  | { kind: "editorial"; flatIdx: number };
 
 /**
  * Row-major masonry grid.
@@ -66,30 +69,53 @@ export function MasonryGrid({
   eagerCount = 0,
   initialIsMobile = false,
   density = "normal",
+  editorialPromo = false,
 }: {
   exhibitions: Exhibition[];
   eagerCount?: number;
   initialIsMobile?: boolean;
   density?: MasonryDensity;
+  editorialPromo?: boolean;
 }) {
   const columnCount = useColumnCount(initialIsMobile, density);
 
+  const items: BucketItem[] = exhibitions.map((exhibition, flatIdx) => ({
+    kind: "exhibition",
+    exhibition,
+    flatIdx,
+  }));
+  if (editorialPromo) {
+    const nymphenbrunnenIndex = exhibitions.findIndex(
+      (exhibition) => exhibition.slug === "nymphenbrunnen",
+    );
+    if (nymphenbrunnenIndex >= 0) {
+      items.splice(nymphenbrunnenIndex, 0, {
+        kind: "editorial",
+        flatIdx: nymphenbrunnenIndex,
+      });
+    }
+  }
+
   const columns: BucketItem[][] = Array.from({ length: columnCount }, () => []);
-  exhibitions.forEach((exhibition, flatIdx) => {
-    columns[flatIdx % columnCount].push({ exhibition, flatIdx });
+  items.forEach((item, itemIndex) => {
+    columns[itemIndex % columnCount].push(item);
   });
 
   return (
     <div className="masonry-rows">
       {columns.map((column, colIdx) => (
         <div className="masonry-col" key={colIdx}>
-          {column.map(({ exhibition, flatIdx }) => (
-            <ExhibitionCard
-              key={exhibition.slug}
-              exhibition={exhibition}
-              eager={flatIdx < eagerCount}
-            />
-          ))}
+          {column.map((item) =>
+            item.kind === "editorial" ? (
+              <EditorialPromoCard key="editorial-promo" />
+            ) : (
+              <ExhibitionCard
+                key={item.exhibition.slug}
+                exhibition={item.exhibition}
+                eager={item.flatIdx < eagerCount}
+              />
+            ),
+          )}
         </div>
       ))}
     </div>

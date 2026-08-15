@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
+import { ThemeToggleButton } from "./ThemeToggleButton";
 
 export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean }) {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
       return;
     }
     if (mounted) {
-      const t = setTimeout(() => setMounted(false), 300);
+      const t = setTimeout(() => setMounted(false), 480);
       return () => clearTimeout(t);
     }
   }, [open, mounted]);
@@ -82,21 +83,19 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
             type="button"
             aria-label="Close navigation menu"
             onClick={() => setOpen(false)}
-            className={`absolute inset-0 h-full w-full cursor-default bg-black/40 transition-opacity duration-300 ease-out ${
+            className={`absolute inset-0 h-full w-full cursor-default bg-black/40 transition-opacity duration-500 ease-out ${
               open ? "opacity-100" : "opacity-0"
             }`}
           />
 
           {/* Off-canvas panel, slides in from the left. */}
           <aside
-            className={`absolute left-0 top-0 flex h-full w-[82%] max-w-[320px] flex-col bg-white shadow-[4px_0_24px_rgba(0,0,0,0.08)] transition-transform duration-300 ease-out ${
+            className={`absolute left-0 top-0 flex h-full w-[82%] max-w-[320px] flex-col bg-white shadow-[4px_0_24px_rgba(0,0,0,0.08)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               open ? "translate-x-0" : "-translate-x-full"
             }`}
           >
             <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
-              <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
-                Menu
-              </span>
+              <ThemeToggleButton />
               <button
                 ref={closeButtonRef}
                 type="button"

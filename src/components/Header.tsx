@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HeartIcon } from "./SavedExhibitions";
 import { MobileNavigationMenu } from "./MobileNavigationMenu";
+import { ThemeToggleButton } from "./ThemeToggleButton";
 
 type HeaderProps = {
   overlay?: boolean;
@@ -98,6 +99,7 @@ export function Header({
               <HeartIcon filled={false} className="h-4 w-4" />
             </Link>
           )}
+          {!overlay && <ThemeToggleButton className="hidden md:flex" />}
         </div>
       </nav>
     </header>
