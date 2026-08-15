@@ -15,6 +15,67 @@ import { isExhibitionOnView } from "@/lib/isOnView";
 const YEARS = ["All", "2026", "2025", "2024", "2023"];
 type SelectedTag = "ALL" | SemanticTag;
 
+function FeaturedExhibitionSlideshow({
+  slug,
+  initialSrc,
+  alt,
+  priority = false,
+}: {
+  slug: string;
+  initialSrc: string;
+  alt: string;
+  priority?: boolean;
+}) {
+  const exhibition = exhibitions.find((item) => item.slug === slug);
+  const slides = [initialSrc, ...(exhibition?.images.map((image) => image.src) ?? [])].filter(
+    (src, index, items) => items.indexOf(src) === index,
+  );
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    if (slides.length < 2) return;
+    const desktop = window.matchMedia("(min-width: 768px)");
+    let interval: number | undefined;
+    const syncInterval = () => {
+      if (interval !== undefined) window.clearInterval(interval);
+      interval = desktop.matches
+        ? window.setInterval(() => {
+            setActiveSlide((current) => (current + 1) % slides.length);
+          }, 1000)
+        : undefined;
+    };
+
+    syncInterval();
+    desktop.addEventListener("change", syncInterval);
+    return () => {
+      desktop.removeEventListener("change", syncInterval);
+      if (interval !== undefined) window.clearInterval(interval);
+    };
+  }, [slides.length]);
+
+  return (
+    <div className="relative h-full w-full">
+      {slides.map((src, index) => (
+        <Image
+          key={src}
+          src={src}
+          alt={index === 0 ? alt : ""}
+          fill
+          priority={priority && index === 0}
+          {...(priority && index === 0
+            ? { fetchPriority: "high" as const }
+            : { loading: "lazy" as const })}
+          unoptimized
+          sizes="33vw"
+          className={`object-cover transition-opacity duration-300 ease-in-out ${
+            index === activeSlide ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
 // Hierarchical location filter: "all" / by country / by specific city
 // inside a country.
 type LocationValue =
@@ -752,17 +813,18 @@ export default function HomePageClient({
             aria-label="Featured exhibitions"
           >
         <article className="min-w-0">
-          <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-            <Image
-              src="/banner/banner1.webp"
+          <Link
+            href="/exhibitions/der-kopf-ist-rund"
+            className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+            aria-label="View Der Kopf ist rund exhibition"
+          >
+            <FeaturedExhibitionSlideshow
+              slug="der-kopf-ist-rund"
+              initialSrc="/banner/banner1.webp"
               alt="Der Kopf ist rund exhibition installation view"
-              fill
               priority
-              unoptimized
-              sizes="33vw"
-              className="object-cover"
             />
-          </div>
+          </Link>
           <div className="pt-4">
             <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
               Klaus in Vorarlberg / 2026
@@ -804,23 +866,27 @@ export default function HomePageClient({
         </article>
 
         <article className="min-w-0">
-          <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-            <Image
-              src="/banner/black.webp"
+          <Link
+            href="/exhibitions/coagvla"
+            className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+            aria-label="View Coagvla exhibition"
+          >
+            <FeaturedExhibitionSlideshow
+              slug="coagvla"
+              initialSrc="/banner/black.webp"
               alt="Coagvla exhibition installation view"
-              fill
-              unoptimized
-              sizes="33vw"
-              className="object-cover"
             />
-          </div>
+          </Link>
           <div className="pt-4">
             <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
               February 26 — April 17, 2026
             </p>
-            <h2 className="editorial-serif mt-2 break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em]">
+            <Link
+              href="/exhibitions/coagvla"
+              className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
+            >
               Coagvla
-            </h2>
+            </Link>
             <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
               Lena Becerra @Acefala Gallery, Buenos Aires
             </p>
