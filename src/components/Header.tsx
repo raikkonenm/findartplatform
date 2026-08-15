@@ -52,9 +52,6 @@ export function Header({
           <Link href="/editorial" className="transition-opacity hover:opacity-55">
             Editorial
           </Link>
-          <Link href="/about" className="transition-opacity hover:opacity-55">
-            About
-          </Link>
           <Link href="/submit" className="font-semibold transition-opacity hover:opacity-55">
             Submit
           </Link>
