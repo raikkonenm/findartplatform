@@ -14,7 +14,15 @@ type ExhibitionCardProps = {
   eager?: boolean;
 };
 
-const DESKTOP_SLIDESHOW_SLUGS = new Set(["nymphenbrunnen", "make-me-yours"]);
+const DESKTOP_SLIDESHOW_SLUGS = new Set([
+  "nymphenbrunnen",
+  "make-me-yours",
+  "who-composes-the-song-of-the-crickets",
+  "everything-comes-together-while-pushing-all-apart",
+  "double-star",
+  "rootkit",
+  "profusion-antagonist-wishlist",
+]);
 
 function DesktopCardSlideshow({ exhibition, title }: { exhibition: Exhibition; title: string }) {
   const slides = exhibition.images.filter((image) => image.orientation === "vertical");
