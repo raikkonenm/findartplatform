@@ -113,7 +113,7 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                 Explore
               </Link>
               <button type="button" aria-disabled="true" className="cursor-default uppercase">
-                Collect
+                COLLECT
               </button>
               <Link href="/exhibitions" onClick={() => setOpen(false)}>
                 Exhibitions

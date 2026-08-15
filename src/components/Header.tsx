@@ -50,7 +50,7 @@ export function Header({
             Explore
           </Link>
           <button type="button" aria-disabled="true" className="cursor-default">
-            Collect
+            COLLECT
           </button>
           <Link href="/exhibitions" className="transition-opacity hover:opacity-55">
             Exhibitions

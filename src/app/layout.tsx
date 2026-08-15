@@ -86,7 +86,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var theme=localStorage.getItem('findart-theme');document.documentElement.dataset.theme=theme==='dark'?'dark':'light';}catch(e){document.documentElement.dataset.theme='light';}})();`,
+            __html: `(function(){try{var theme=localStorage.getItem('findart-theme');document.documentElement.dataset.theme=theme==='light'?'light':'dark';}catch(e){document.documentElement.dataset.theme='dark';}})();`,
           }}
         />
         {/* Google Tag Manager — head snippet, per Google's official
