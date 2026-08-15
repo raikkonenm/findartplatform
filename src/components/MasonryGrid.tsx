@@ -87,15 +87,11 @@ export function MasonryGrid({
     flatIdx,
   }));
   if (editorialPromo) {
-    const nymphenbrunnenIndex = exhibitions.findIndex(
-      (exhibition) => exhibition.slug === "nymphenbrunnen",
-    );
-    if (nymphenbrunnenIndex >= 0) {
-      items.splice(nymphenbrunnenIndex, 0, {
-        kind: "editorial",
-        flatIdx: nymphenbrunnenIndex,
-      });
-    }
+    const editorialPromoIndex = Math.min(5, items.length);
+    items.splice(editorialPromoIndex, 0, {
+      kind: "editorial",
+      flatIdx: editorialPromoIndex,
+    });
   }
 
   const columns: BucketItem[][] = Array.from({ length: columnCount }, () => []);
