@@ -14,12 +14,7 @@ type HeaderProps = {
   savedHref?: string;
 };
 
-export function Header({
-  overlay = false,
-  savedOnly = false,
-  onToggleSavedOnly,
-  savedHref = "/?saved=1",
-}: HeaderProps) {
+export function Header({ overlay = false }: HeaderProps) {
   const pathname = usePathname();
   const navLinkClass = (href: string, emphasized = false) => {
     const active = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
@@ -84,24 +79,13 @@ export function Header({
           >
             Submit
           </Link>
-          {onToggleSavedOnly && !overlay && (
-            <button
-              type="button"
-              aria-label={savedOnly ? "Show all exhibitions" : "Show saved exhibitions only"}
-              aria-pressed={savedOnly}
-              onClick={onToggleSavedOnly}
-              className="text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
-            >
-              <HeartIcon filled={savedOnly} className="h-4 w-4" />
-            </button>
-          )}
-          {!onToggleSavedOnly && !overlay && (
+          {!overlay && (
             <Link
-              href={savedHref}
+              href="/saved"
               aria-label="View saved items"
               className="text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
             >
-              <HeartIcon filled={false} className="h-4 w-4" />
+              <HeartIcon filled={pathname === "/saved"} className="h-4 w-4" />
             </Link>
           )}
           {!overlay && <ThemeToggleButton className="hidden md:flex" />}

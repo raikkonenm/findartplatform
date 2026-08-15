@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
-import { HeartIcon, useSavedExhibitions } from "@/components/SavedExhibitions";
+import { HeartIcon } from "@/components/SavedExhibitions";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
 import { NavigationProgress } from "@/components/NavigationProgress";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
@@ -344,9 +344,18 @@ function DesktopFilterModeButton({
   );
 }
 
-function HorizontalFilterRail({ children, resetKey }: { children: ReactNode; resetKey: string }) {
+function HorizontalFilterRail({
+  children,
+  resetKey,
+  autoLoop = false,
+}: {
+  children: ReactNode;
+  resetKey: string;
+  autoLoop?: boolean;
+}) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const scrollTimerRef = useRef<number | null>(null);
+  const autoPausedRef = useRef(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
@@ -383,16 +392,30 @@ function HorizontalFilterRail({ children, resetKey }: { children: ReactNode; res
 
   useEffect(() => stopScrolling, [stopScrolling]);
 
+  useEffect(() => {
+    if (!autoLoop || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => {
+      const viewport = viewportRef.current;
+      if (!viewport || autoPausedRef.current || viewport.scrollWidth <= viewport.clientWidth) return;
+      const end = viewport.scrollWidth - viewport.clientWidth;
+      viewport.scrollLeft = viewport.scrollLeft >= end - 1 ? 0 : viewport.scrollLeft + 1;
+    }, 30);
+    return () => window.clearInterval(timer);
+  }, [autoLoop, resetKey]);
+
+  const hasOverflow = canScrollLeft || canScrollRight;
+
   return (
     <div className="flex min-w-0 flex-1 items-center gap-2">
-      {canScrollLeft && (
+      {hasOverflow && (
         <button
           type="button"
           aria-label="Scroll filters left"
+          disabled={!canScrollLeft}
           onPointerEnter={() => startScrolling(-1)}
           onPointerLeave={stopScrolling}
           onClick={() => viewportRef.current?.scrollBy({ left: -240, behavior: "smooth" })}
-          className="shrink-0 px-1.5 py-1 text-[15px] text-neutral-500 transition-colors hover:text-neutral-900"
+          className="shrink-0 px-1.5 py-1 text-[15px] text-neutral-500 transition-colors hover:text-neutral-900 disabled:opacity-25"
         >
           &#8592;
         </button>
@@ -400,18 +423,27 @@ function HorizontalFilterRail({ children, resetKey }: { children: ReactNode; res
       <div
         ref={viewportRef}
         onScroll={updateArrows}
+        onPointerEnter={(event) => {
+          if (!autoLoop || event.pointerType !== "mouse") return;
+          autoPausedRef.current = true;
+          event.currentTarget.scrollLeft = 0;
+        }}
+        onPointerLeave={(event) => {
+          if (autoLoop && event.pointerType === "mouse") autoPausedRef.current = false;
+        }}
         className="scrollbar-none flex min-w-0 flex-1 items-center gap-6 overflow-x-auto py-1"
       >
         {children}
       </div>
-      {canScrollRight && (
+      {hasOverflow && (
         <button
           type="button"
           aria-label="Scroll filters right"
+          disabled={!canScrollRight}
           onPointerEnter={() => startScrolling(1)}
           onPointerLeave={stopScrolling}
           onClick={() => viewportRef.current?.scrollBy({ left: 240, behavior: "smooth" })}
-          className="shrink-0 px-1.5 py-1 text-[15px] text-neutral-500 transition-colors hover:text-neutral-900"
+          className="shrink-0 px-1.5 py-1 text-[15px] text-neutral-500 transition-colors hover:text-neutral-900 disabled:opacity-25"
         >
           &#8594;
         </button>
@@ -841,11 +873,9 @@ export default function HomePageClient({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { savedSlugs } = useSavedExhibitions();
   const [location, setLocation] = useState<LocationValue>({ kind: "all" });
   const [year, setYear] = useState("All");
   const [tag, setTag] = useState<SelectedTag>("ALL");
-  const [savedOnly, setSavedOnly] = useState(false);
   const [onViewOnly, setOnViewOnly] = useState(false);
   // Timestamp used by the "On view" filter. Refreshed on mount and on
   // every toggle so filtering always uses a recent `Date.now()`, but
@@ -924,7 +954,6 @@ export default function HomePageClient({
         })();
         const matchYear = year === "All" || ex.year === year;
         const matchTag = tag === "ALL" || ex.tags.includes(tag);
-        const matchSaved = !savedOnly || savedSlugs.has(ex.slug);
         // `nowMs > 0` guards the very first render before useEffect
         // has run — if the flag somehow starts true, we play it safe
         // and treat as "no match" until we have a real timestamp.
@@ -947,13 +976,12 @@ export default function HomePageClient({
           matchLocation &&
           matchYear &&
           matchTag &&
-          matchSaved &&
           matchOnView &&
           matchSearch
         );
       });
     },
-    [location, year, tag, savedOnly, onViewOnly, nowMs, savedSlugs, search],
+    [location, year, tag, onViewOnly, nowMs, search],
   );
 
   const tagOptions: SelectedTag[] = ["ALL", ...semanticTags];
@@ -1017,15 +1045,13 @@ export default function HomePageClient({
             >
               Submit
             </Link>
-            <button
-              type="button"
-              aria-label={savedOnly ? "Show all exhibitions" : "Show saved exhibitions only"}
-              aria-pressed={savedOnly}
-              onClick={() => setSavedOnly((active) => !active)}
+            <Link
+              href="/saved"
+              aria-label="View saved items"
               className="text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
             >
-              <HeartIcon filled={savedOnly} className="h-4 w-4" />
-            </button>
+              <HeartIcon filled={false} className="h-4 w-4" />
+            </Link>
             <ThemeToggleButton className="hidden md:flex" />
           </div>
         </nav>
@@ -1214,7 +1240,7 @@ export default function HomePageClient({
           <div className="hidden min-w-0 items-start gap-4 pt-3 md:flex">
             <div className="min-w-0 flex-1">
               {desktopFilterPanel === "tags" && (
-                <HorizontalFilterRail resetKey="tags">
+                <HorizontalFilterRail resetKey="tags" autoLoop>
                   {tagOptions.map((option) => (
                     <RailOption
                       key={option}
@@ -1302,15 +1328,9 @@ export default function HomePageClient({
           intact across column boundaries. */}
       <section className="bg-white px-5 pb-10 pt-3 md:px-8 md:pb-16 md:pt-4 lg:px-12 lg:pb-20">
         {filtered.length === 0 ? (
-          savedOnly && savedSlugs.size === 0 ? (
-            <p className="py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400">
-              No saved exhibitions yet
-            </p>
-          ) : (
-            <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400">
-              No exhibitions match your filters.
-            </p>
-          )
+          <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400">
+            No exhibitions match your filters.
+          </p>
         ) : (
           <MasonryGrid
             exhibitions={filtered}

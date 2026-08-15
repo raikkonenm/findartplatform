@@ -1,15 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { buildCollectArtworks, type CollectCategory } from "@/lib/collectArtworks";
+import { CollectArtworkCard } from "./CollectArtworkCard";
 import { Header } from "./Header";
 
 type CollectColumns = 2 | 4;
-type Category = "All" | "Surreal" | "Abstract" | "Illustration" | "Photography" | "Painting" | "Portrait";
+type Category = "All" | CollectCategory;
 type PriceRange = "All" | "Up to $100" | "$100-$1,000" | "$1,000+";
 type SortOrder = "Newest" | "Price: low to high" | "Price: high to low";
 
-const ASPECT_CLASSES = ["aspect-[3/4]", "aspect-[4/5]", "aspect-square"];
 const CATEGORY_OPTIONS: Category[] = [
   "All",
   "Surreal",
@@ -21,14 +21,6 @@ const CATEGORY_OPTIONS: Category[] = [
 ];
 const PRICE_OPTIONS: PriceRange[] = ["All", "Up to $100", "$100-$1,000", "$1,000+"];
 const SORT_OPTIONS: SortOrder[] = ["Newest", "Price: low to high", "Price: high to low"];
-const ARTWORK_DETAILS: Array<{ category: Exclude<Category, "All">; price: number }> = [
-  { category: "Painting", price: 75 },
-  { category: "Abstract", price: 450 },
-  { category: "Illustration", price: 1400 },
-  { category: "Photography", price: 90 },
-  { category: "Portrait", price: 800 },
-  { category: "Surreal", price: 1800 },
-];
 
 function useCollectDropdown() {
   const [open, setOpen] = useState(false);
@@ -332,17 +324,11 @@ export function CollectArchiveView({ images }: { images: string[] }) {
   const [sortOrder, setSortOrder] = useState<SortOrder>("Newest");
   const artworks = useMemo(
     () => {
-      const filtered = images
-        .map((src, index) => ({
-          src,
-          index,
-          ...ARTWORK_DETAILS[index % ARTWORK_DETAILS.length],
-        }))
-        .filter(({ index }) => {
+      const filtered = buildCollectArtworks(images)
+        .filter(({ index, category: artworkCategory }) => {
           const query = search.trim().toLowerCase();
           if (!query) return true;
-          const details = ARTWORK_DETAILS[index % ARTWORK_DETAILS.length];
-          return `name ${index + 1} chungkook lee price by request ${details.category}`
+          return `name ${index + 1} chungkook lee price by request ${artworkCategory}`
             .toLowerCase()
             .includes(query);
         })
@@ -417,34 +403,13 @@ export function CollectArchiveView({ images }: { images: string[] }) {
             columns === 4 ? "lg:columns-4" : "lg:columns-2"
           }`}
         >
-          {artworks.map(({ src, index }) => (
-            <article
-              key={src}
-              tabIndex={0}
-              aria-label={`Name by Chungkook Lee, artwork ${index + 1}`}
-              className="group relative mb-5 break-inside-avoid overflow-hidden bg-neutral-100 outline-none md:mb-16"
-            >
-              <div className={`relative ${ASPECT_CLASSES[index % ASPECT_CLASSES.length]}`}>
-                <Image
-                  src={src}
-                  alt={`Name by Chungkook Lee, artwork ${index + 1}`}
-                  fill
-                  unoptimized
-                  loading="lazy"
-                  sizes={columns === 4 ? "(min-width: 1024px) 23vw, (min-width: 640px) 47vw, 100vw" : "(min-width: 1024px) 47vw, (min-width: 640px) 47vw, 100vw"}
-                  className="object-cover"
-                />
-              </div>
-              <div className="absolute inset-x-0 bottom-0 translate-y-3 bg-black/90 px-4 py-4 text-white opacity-0 transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 md:px-5 md:py-5">
-                <p className="text-[18px] leading-tight md:text-[20px]">Name</p>
-                <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em]">
-                  CHUNKOOK LEE
-                </p>
-                <p className="mt-1 text-[12px] tracking-[0.05em] text-white/80">
-                  Price by request
-                </p>
-              </div>
-            </article>
+          {artworks.map((artwork) => (
+            <CollectArtworkCard
+              key={artwork.src}
+              artwork={artwork}
+              columns={columns}
+              className="mb-5 break-inside-avoid md:mb-16"
+            />
           ))}
         </section>
       )}
