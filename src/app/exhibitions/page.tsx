@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { ExhibitionsArchiveView } from "@/components/ExhibitionsArchiveView";
-import { exhibitions } from "@/data/exhibitions";
+import { headers } from "next/headers";
+import HomePageClient from "../HomePageClient";
 
 const EXHIBITIONS_TITLE = "All Exhibitions — Contemporary Art Archive";
 const EXHIBITIONS_DESCRIPTION =
@@ -24,6 +24,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ExhibitionsPage() {
-  return <ExhibitionsArchiveView exhibitions={exhibitions} />;
+function isMobileUserAgent(ua: string): boolean {
+  return /Mobi|Android|iP(hone|od)|BlackBerry|IEMobile|Opera Mini|Kindle|Silk/i.test(ua);
+}
+
+export default async function ExhibitionsPage() {
+  const userAgent = (await headers()).get("user-agent") ?? "";
+  return (
+    <HomePageClient
+      initialIsMobile={isMobileUserAgent(userAgent)}
+      showFeaturedBanners={false}
+      showEditorialPromo={false}
+    />
+  );
 }

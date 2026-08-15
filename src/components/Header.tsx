@@ -47,6 +47,12 @@ export function Header({
           }`}
         >
           <Link href="/" className="transition-opacity hover:opacity-55">
+            Explore
+          </Link>
+          <button type="button" aria-disabled="true" className="cursor-default">
+            Collect
+          </button>
+          <Link href="/exhibitions" className="transition-opacity hover:opacity-55">
             Exhibitions
           </Link>
           <Link href="/editorial" className="transition-opacity hover:opacity-55">

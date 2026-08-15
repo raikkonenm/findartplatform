@@ -538,7 +538,15 @@ function SelectDropdown<T extends string>({
   );
 }
 
-export default function HomePageClient({ initialIsMobile }: { initialIsMobile: boolean }) {
+export default function HomePageClient({
+  initialIsMobile,
+  showFeaturedBanners = true,
+  showEditorialPromo = true,
+}: {
+  initialIsMobile: boolean;
+  showFeaturedBanners?: boolean;
+  showEditorialPromo?: boolean;
+}) {
   const router = useRouter();
   const { savedSlugs } = useSavedExhibitions();
   const [location, setLocation] = useState<LocationValue>({ kind: "all" });
@@ -669,6 +677,12 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
           </Link>
           <div className="hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.28em] text-neutral-900 md:flex md:justify-self-center">
             <Link href="/" className="transition-opacity hover:opacity-55">
+              Explore
+            </Link>
+            <button type="button" aria-disabled="true" className="cursor-default">
+              Collect
+            </button>
+            <Link href="/exhibitions" className="transition-opacity hover:opacity-55">
               Exhibitions
             </Link>
             <Link href="/editorial" className="transition-opacity hover:opacity-55">
@@ -708,23 +722,25 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
         </nav>
       </header>
 
-      <section className="relative md:hidden" aria-label="Featured exhibition">
-        <Image
-          src="/banner/banner1.webp"
-          alt="Featured exhibition installation view"
-          width={1739}
-          height={796}
-          sizes="100vw"
-          priority
-          unoptimized
-          className="block h-auto w-full"
-        />
-      </section>
+      {showFeaturedBanners && (
+        <>
+          <section className="relative md:hidden" aria-label="Featured exhibition">
+            <Image
+              src="/banner/banner1.webp"
+              alt="Featured exhibition installation view"
+              width={1739}
+              height={796}
+              sizes="100vw"
+              priority
+              unoptimized
+              className="block h-auto w-full"
+            />
+          </section>
 
-      <section
-        className="hidden grid-cols-3 gap-6 bg-white px-8 pb-12 pt-8 md:grid lg:gap-8 lg:px-12"
-        aria-label="Featured exhibitions"
-      >
+          <section
+            className="hidden grid-cols-3 gap-6 bg-white px-8 pb-12 pt-8 md:grid lg:gap-8 lg:px-12"
+            aria-label="Featured exhibitions"
+          >
         <article className="min-w-0">
           <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
             <Image
@@ -800,7 +816,9 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             </p>
           </div>
         </article>
-      </section>
+          </section>
+        </>
+      )}
 
       {/* Filter bar — same on mobile and desktop now: the Filters
           collapsible button is gone, every filter is a dropdown
@@ -879,7 +897,7 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
             eagerCount={1}
             initialIsMobile={initialIsMobile}
             density={density}
-            editorialPromo
+            editorialPromo={showEditorialPromo}
           />
         )}
       </section>

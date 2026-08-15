@@ -109,6 +109,15 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
               </button>
             </div>
             <nav className="flex flex-col items-start gap-5 px-5 py-6 text-[11px] uppercase tracking-[0.22em] text-neutral-900">
+              <Link href="/" onClick={() => setOpen(false)}>
+                Explore
+              </Link>
+              <button type="button" aria-disabled="true" className="cursor-default uppercase">
+                Collect
+              </button>
+              <Link href="/exhibitions" onClick={() => setOpen(false)}>
+                Exhibitions
+              </Link>
               <Link href="/editorial" onClick={() => setOpen(false)}>
                 Editorial
               </Link>
