@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useCallback, useState, useMemo, useRef, useEffect } from "react";
+import { Suspense, useCallback, useState, useMemo, useRef, useEffect, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -312,6 +312,140 @@ function DesktopSearch({
         <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.25" />
       </svg>
     </label>
+  );
+}
+
+type DesktopFilterPanel = "tags" | "location" | "year";
+
+function DesktopFilterModeButton({
+  label,
+  active,
+  onHover,
+}: {
+  label: string;
+  active: boolean;
+  onHover: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse") onHover();
+      }}
+      onFocus={onHover}
+      className={`shrink-0 border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${
+        active
+          ? "border-[var(--foreground)] text-[var(--foreground)]"
+          : "border-neutral-200 text-neutral-500 hover:border-neutral-400"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function HorizontalFilterRail({ children, resetKey }: { children: ReactNode; resetKey: string }) {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const scrollTimerRef = useRef<number | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const updateArrows = useCallback(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    setCanScrollLeft(viewport.scrollLeft > 2);
+    setCanScrollRight(viewport.scrollLeft + viewport.clientWidth < viewport.scrollWidth - 2);
+  }, []);
+
+  const stopScrolling = useCallback(() => {
+    if (scrollTimerRef.current !== null) {
+      window.clearInterval(scrollTimerRef.current);
+      scrollTimerRef.current = null;
+    }
+  }, []);
+
+  const startScrolling = (direction: -1 | 1) => {
+    stopScrolling();
+    scrollTimerRef.current = window.setInterval(() => {
+      viewportRef.current?.scrollBy({ left: direction * 10 });
+    }, 20);
+  };
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    viewport.scrollLeft = 0;
+    updateArrows();
+    const resizeObserver = new ResizeObserver(updateArrows);
+    resizeObserver.observe(viewport);
+    return () => resizeObserver.disconnect();
+  }, [resetKey, updateArrows]);
+
+  useEffect(() => stopScrolling, [stopScrolling]);
+
+  return (
+    <div className="flex min-w-0 flex-1 items-center gap-2">
+      {canScrollLeft && (
+        <button
+          type="button"
+          aria-label="Scroll filters left"
+          onPointerEnter={() => startScrolling(-1)}
+          onPointerLeave={stopScrolling}
+          onClick={() => viewportRef.current?.scrollBy({ left: -240, behavior: "smooth" })}
+          className="shrink-0 px-1.5 py-1 text-[15px] text-neutral-500 transition-colors hover:text-neutral-900"
+        >
+          &#8592;
+        </button>
+      )}
+      <div
+        ref={viewportRef}
+        onScroll={updateArrows}
+        className="scrollbar-none flex min-w-0 flex-1 items-center gap-6 overflow-x-auto py-1"
+      >
+        {children}
+      </div>
+      {canScrollRight && (
+        <button
+          type="button"
+          aria-label="Scroll filters right"
+          onPointerEnter={() => startScrolling(1)}
+          onPointerLeave={stopScrolling}
+          onClick={() => viewportRef.current?.scrollBy({ left: 240, behavior: "smooth" })}
+          className="shrink-0 px-1.5 py-1 text-[15px] text-neutral-500 transition-colors hover:text-neutral-900"
+        >
+          &#8594;
+        </button>
+      )}
+    </div>
+  );
+}
+
+function RailOption({
+  label,
+  active,
+  onClick,
+  onHover,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+  onHover?: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse") onHover?.();
+      }}
+      className={`shrink-0 whitespace-nowrap text-[10px] uppercase tracking-[0.16em] transition-colors duration-200 ${
+        active
+          ? "font-semibold text-[var(--foreground)]"
+          : "text-neutral-500 hover:text-neutral-900"
+      }`}
+    >
+      {label}
+    </button>
   );
 }
 
@@ -739,6 +873,8 @@ export default function HomePageClient({
     setDensity((current) => (current === "normal" ? "dense" : "normal"));
   }, []);
   const [search, setSearch] = useState("");
+  const [desktopFilterPanel, setDesktopFilterPanel] = useState<DesktopFilterPanel>("tags");
+  const [hoveredLocationCountry, setHoveredLocationCountry] = useState<string | null>(null);
 
   const selectTag = useCallback(
     (nextTag: SelectedTag) => {
@@ -821,6 +957,15 @@ export default function HomePageClient({
   );
 
   const tagOptions: SelectedTag[] = ["ALL", ...semanticTags];
+  const desktopLocationLabel =
+    location.kind === "all"
+      ? "All locations"
+      : location.kind === "country"
+        ? location.country
+        : `${location.city}, ${location.country}`;
+  const hoveredLocationCities = hoveredLocationCountry
+    ? locationTree.find(({ country }) => country === hoveredLocationCountry)?.cities ?? []
+    : [];
 
   return (
     <main className="min-h-screen bg-white">
@@ -837,7 +982,7 @@ export default function HomePageClient({
           <MobileNavigationMenu />
           <Link
             href="/"
-            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[12px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-[18px]"
+            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[12px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-[16px]"
             aria-label="FindArt Platform home"
           >
             FindArt Platform
@@ -1003,9 +1148,8 @@ export default function HomePageClient({
             className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 transition duration-200 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
           />
 
-          {/* Single row of filters, wraps to two lines if needed on
-              narrow viewports. Tags → Location → Year → On view. */}
-          <div className="flex flex-wrap items-center gap-2 md:gap-3">
+          {/* Mobile keeps the existing tap-driven dropdown controls. */}
+          <div className="flex flex-wrap items-center gap-2 md:hidden">
             <SelectDropdown<SelectedTag>
               label="Tags"
               value={tag}
@@ -1029,16 +1173,126 @@ export default function HomePageClient({
               onClick={() => setOnViewOnly((v) => !v)}
             />
 
-            {/* Mobile: density button pushed to the right within the
-                filter chip row. */}
-            <div className="ml-auto md:hidden">
+            <div className="ml-auto">
               <DensityToggleButton density={density} onCycle={cycleDensity} />
             </div>
           </div>
 
-          <div className="hidden items-center justify-end gap-3 pt-3 md:flex">
-            <DesktopSearch value={search} onChange={setSearch} />
-            <DensityToggleButton density={density} onCycle={cycleDensity} />
+          {/* Desktop filter labels switch the horizontal option rail on hover. */}
+          <div className="hidden items-center gap-3 md:flex">
+            <DesktopFilterModeButton
+              label={tag === "ALL" ? "All tags" : tag}
+              active={desktopFilterPanel === "tags"}
+              onHover={() => {
+                setDesktopFilterPanel("tags");
+                setHoveredLocationCountry(null);
+              }}
+            />
+            <DesktopFilterModeButton
+              label={desktopLocationLabel}
+              active={desktopFilterPanel === "location"}
+              onHover={() => {
+                setDesktopFilterPanel("location");
+                if (location.kind !== "all") setHoveredLocationCountry(location.country);
+              }}
+            />
+            <DesktopFilterModeButton
+              label={year === "All" ? "All years" : year}
+              active={desktopFilterPanel === "year"}
+              onHover={() => {
+                setDesktopFilterPanel("year");
+                setHoveredLocationCountry(null);
+              }}
+            />
+            <FilterChip
+              label="On view"
+              active={onViewOnly}
+              onClick={() => setOnViewOnly((value) => !value)}
+            />
+          </div>
+
+          <div className="hidden min-w-0 items-start gap-4 pt-3 md:flex">
+            <div className="min-w-0 flex-1">
+              {desktopFilterPanel === "tags" && (
+                <HorizontalFilterRail resetKey="tags">
+                  {tagOptions.map((option) => (
+                    <RailOption
+                      key={option}
+                      label={option === "ALL" ? "All tags" : option}
+                      active={tag === option}
+                      onClick={() => selectTag(option)}
+                    />
+                  ))}
+                </HorizontalFilterRail>
+              )}
+
+              {desktopFilterPanel === "year" && (
+                <HorizontalFilterRail resetKey="years">
+                  {YEARS.map((option) => (
+                    <RailOption
+                      key={option}
+                      label={option === "All" ? "All years" : option}
+                      active={year === option}
+                      onClick={() => setYear(option)}
+                    />
+                  ))}
+                </HorizontalFilterRail>
+              )}
+
+              {desktopFilterPanel === "location" && (
+                <div>
+                  <HorizontalFilterRail resetKey="locations">
+                    <RailOption
+                      label="All locations"
+                      active={location.kind === "all"}
+                      onHover={() => setHoveredLocationCountry(null)}
+                      onClick={() => {
+                        setLocation({ kind: "all" });
+                        setHoveredLocationCountry(null);
+                      }}
+                    />
+                    {locationTree.map(({ country }) => (
+                      <RailOption
+                        key={country}
+                        label={country}
+                        active={location.kind !== "all" && location.country === country}
+                        onHover={() => setHoveredLocationCountry(country)}
+                        onClick={() => setLocation({ kind: "country", country })}
+                      />
+                    ))}
+                  </HorizontalFilterRail>
+                  {hoveredLocationCountry && hoveredLocationCities.length > 0 && (
+                    <div className="pt-2">
+                      <HorizontalFilterRail resetKey={`cities-${hoveredLocationCountry}`}>
+                        {hoveredLocationCities.map((city) => (
+                          <RailOption
+                            key={`${hoveredLocationCountry}/${city}`}
+                            label={city}
+                            active={
+                              location.kind === "city" &&
+                              location.country === hoveredLocationCountry &&
+                              location.city === city
+                            }
+                            onClick={() =>
+                              setLocation({
+                                kind: "city",
+                                country: hoveredLocationCountry,
+                                city,
+                              })
+                            }
+                          />
+                        ))}
+                      </HorizontalFilterRail>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="flex shrink-0 items-center gap-3">
+              <DesktopSearch value={search} onChange={setSearch} />
+              <DensityToggleButton density={density} onCycle={cycleDensity} />
+            </div>
           </div>
         </div>
       </div>
