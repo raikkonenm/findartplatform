@@ -394,21 +394,10 @@ export function CollectArchiveView({ images }: { images: string[] }) {
         </div>
       </div>
 
-      <div className="md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-10 md:px-8 md:pb-20 md:pt-5 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-14 lg:px-12">
-        <aside className="hidden border-r border-neutral-200 pr-8 md:block lg:pr-10" aria-label="Collect filters">
+      <div className="md:grid md:grid-cols-[180px_minmax(0,1fr)] md:gap-6 md:px-8 md:pb-20 md:pt-5 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8 lg:px-12">
+        <aside className="hidden border-r border-neutral-200 pr-5 md:block lg:pr-6" aria-label="Collect filters">
           <div className="sticky top-[89px] max-h-[calc(100vh-110px)] overflow-y-auto pb-8">
-            <label className="block">
-              <span className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">Search artworks</span>
-              <input
-                type="search"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search"
-                className="mt-3 h-10 w-full border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.08em] text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
-              />
-            </label>
-
-            <div className="mt-8">
+            <div>
               <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">Category</p>
               <div className="mt-3 flex flex-col gap-1">
                 {CATEGORY_OPTIONS.map((option) => (
@@ -500,14 +489,14 @@ export function CollectArchiveView({ images }: { images: string[] }) {
               </div>
             </div>
 
-            <div className="mt-8 border-t border-neutral-200 pt-6">
-              <p className="mb-3 text-[10px] uppercase tracking-[0.18em] text-neutral-500">Layout</p>
-              <ColumnsToggle columns={columns} onClick={() => setColumns((current) => (current === 4 ? 2 : 4))} />
-            </div>
           </div>
         </aside>
 
-        <div className="min-w-0">
+        <div className="min-w-0 md:w-full md:max-w-[1480px]">
+          <div className="mb-4 hidden items-center justify-end gap-3 md:flex">
+            <SearchControl value={search} onChange={setSearch} />
+            <ColumnsToggle columns={columns} onClick={() => setColumns((current) => (current === 4 ? 2 : 4))} />
+          </div>
           {artworks.length === 0 ? (
             <p className="px-5 py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400 md:px-0">
               No artworks match your search.
@@ -515,7 +504,7 @@ export function CollectArchiveView({ images }: { images: string[] }) {
           ) : (
             <section
               aria-label="Collect artworks"
-              className={`columns-1 gap-5 px-5 pb-20 pt-3 sm:columns-2 md:gap-8 md:px-0 md:pb-0 md:pt-0 lg:gap-10 ${
+              className={`columns-1 gap-5 px-5 pb-20 pt-3 sm:columns-2 md:gap-5 md:px-0 md:pb-0 md:pt-0 lg:gap-6 ${
                 columns === 4 ? "lg:columns-4" : "lg:columns-2"
               }`}
             >
@@ -524,7 +513,7 @@ export function CollectArchiveView({ images }: { images: string[] }) {
                   key={artwork.src}
                   artwork={artwork}
                   columns={columns}
-                  className="mb-5 break-inside-avoid md:mb-12"
+                  className="mb-5 break-inside-avoid md:mb-8"
                 />
               ))}
             </section>
