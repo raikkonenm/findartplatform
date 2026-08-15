@@ -43,7 +43,7 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
         savedHref="/editorial?saved=1"
       />
       <Image
-        src="/banner/banner2.webp"
+        src="/banner/banner3.webp"
         alt="Editorial featured artwork"
         width={1739}
         height={796}
