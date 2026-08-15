@@ -78,20 +78,6 @@ export default function AboutPage() {
               emerging and established art scenes beyond geographic and institutional
               centers.
             </p>
-            <p>
-              FindArt is part of the broader Art Curatorial Nomads ecosystem, which also
-              includes{" "}
-              <a
-                href="https://www.artcnomad.com/practice"
-                target="_blank"
-                rel="noreferrer"
-                className="underline decoration-1 decoration-neutral-400 underline-offset-4 transition-opacity hover:opacity-55"
-              >
-                Practice
-              </a>{" "}
-              &mdash; a curatorial support initiative for artists and cultural
-              practitioners.
-            </p>
           </div>
         </div>
 
