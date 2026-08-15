@@ -102,7 +102,7 @@ export function SlideOver({
           type="button"
           onClick={close}
           aria-label="Close"
-          className="absolute right-3 top-3 z-20 flex h-11 w-11 items-center justify-center border-0 bg-transparent p-0 text-neutral-900 transition-opacity hover:opacity-55 focus:outline-none md:right-8 md:top-7 md:bg-white md:focus-visible:ring-2 md:focus-visible:ring-neutral-900 md:focus-visible:ring-offset-2"
+          className="absolute right-3 top-3 z-20 flex h-11 w-11 items-center justify-center border-0 bg-transparent p-0 text-neutral-900 transition-opacity hover:opacity-55 focus:outline-none md:right-8 md:top-7 md:focus-visible:ring-2 md:focus-visible:ring-neutral-900 md:focus-visible:ring-offset-2"
         >
           <svg viewBox="0 0 16 16" className="h-5 w-5 md:h-4 md:w-4" fill="none" aria-hidden="true">
             <path

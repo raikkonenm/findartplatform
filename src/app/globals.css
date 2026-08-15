@@ -198,11 +198,22 @@ html.route-progress-loading.route-progress-complete::after {
   }
 }
 
-/* "On view now" indicator — theme-contrast dot rendered inline with the
-   city/year line on ExhibitionCard when today falls inside an
-   exhibition's start/end range. See src/lib/isOnView.ts for the range
-   test. Only the card's <span class="on-view-dot"> receives this
-   styling; markup elsewhere is unchanged. */
+/* "On view now" indicators. Archive cards use a theme-contrast glow;
+   metadata elsewhere keeps the compact inline dot. */
+.on-view-card-media {
+  box-shadow:
+    0 0 0 1px #111111,
+    0 0 16px rgba(17, 17, 17, 0.55),
+    inset 0 0 18px rgba(17, 17, 17, 0.3);
+}
+
+:root[data-theme="dark"] .on-view-card-media {
+  box-shadow:
+    0 0 0 1px #ffffff,
+    0 0 16px rgba(255, 255, 255, 0.55),
+    inset 0 0 18px rgba(255, 255, 255, 0.3);
+}
+
 .on-view-dot {
   display: inline-block;
   width: 7px;

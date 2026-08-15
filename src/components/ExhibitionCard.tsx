@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import type { Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayVenueText } from "@/lib/displayVenueText";
-import { OnViewDot } from "./OnViewDot";
+import { isExhibitionOnView } from "@/lib/isOnView";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
 type ExhibitionCardProps = {
@@ -98,6 +98,12 @@ export function ExhibitionCard({
   const saved = isSaved(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
   const desktopSlideshow = DESKTOP_SLIDESHOW_SLUGS.has(exhibition.slug);
+  const [onView, setOnView] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setOnView(isExhibitionOnView(exhibition, Date.now()));
+  }, [exhibition]);
 
   return (
     // The card is placed inside a `.masonry-col` flex column by
@@ -106,7 +112,11 @@ export function ExhibitionCard({
     // stays markup-only — no wrapper margins here.
     <article className="group relative">
       <Link href={`/exhibitions/${exhibition.slug}`} className="block">
-        <div className={`relative ${aspect} overflow-hidden bg-neutral-100`}>
+        <div
+          className={`relative ${aspect} overflow-hidden bg-neutral-100 ${
+            onView ? "on-view-card-media" : ""
+          }`}
+        >
           <Image
             src={exhibition.coverImage ?? exhibition.previewImage}
             alt={`${title} exhibition view`}
@@ -125,10 +135,6 @@ export function ExhibitionCard({
         </div>
         <div className="archive-card-copy pt-5">
           <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
-            <OnViewDot
-              startDate={exhibition.startDate}
-              endDate={exhibition.endDate}
-            />
             {exhibition.city} / {exhibition.year}
           </p>
           <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[2rem] md:leading-[1.04]">
