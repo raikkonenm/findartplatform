@@ -29,14 +29,14 @@ export default function CollectPage() {
       <Header />
       <section
         aria-label="Collect artworks"
-        className="columns-1 gap-5 px-5 pb-20 pt-6 sm:columns-2 md:gap-12 md:px-8 md:pt-8 lg:columns-4 lg:px-12"
+        className="flex flex-wrap justify-center gap-x-5 gap-y-5 px-5 pb-20 pt-6 sm:gap-x-12 sm:gap-y-16 md:px-8 md:pt-8 lg:px-12"
       >
         {images.map((src, index) => (
           <article
             key={src}
             tabIndex={0}
             aria-label={`Name by Chungkook Lee, artwork ${index + 1}`}
-            className="group relative mb-5 break-inside-avoid overflow-hidden bg-neutral-100 outline-none md:mb-16"
+            className="group relative w-full overflow-hidden bg-neutral-100 outline-none sm:w-[calc((100%_-_3rem)/2)] lg:w-[calc((100%_-_9rem)/4)]"
           >
             <Image
               src={src}
