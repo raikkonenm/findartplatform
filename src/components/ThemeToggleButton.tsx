@@ -21,9 +21,20 @@ export function ThemeToggleButton({ className = "" }: { className?: string }) {
 
   function toggleTheme() {
     const nextTheme: Theme = dark ? "light" : "dark";
-    document.documentElement.dataset.theme = nextTheme;
-    localStorage.setItem("findart-theme", nextTheme);
-    window.dispatchEvent(new Event(THEME_EVENT));
+    const applyTheme = () => {
+      document.documentElement.dataset.theme = nextTheme;
+      localStorage.setItem("findart-theme", nextTheme);
+      window.dispatchEvent(new Event(THEME_EVENT));
+    };
+    const transitionDocument = document as Document & {
+      startViewTransition?: (update: () => void) => void;
+    };
+
+    if (transitionDocument.startViewTransition) {
+      transitionDocument.startViewTransition(applyTheme);
+    } else {
+      applyTheme();
+    }
   }
 
   return (

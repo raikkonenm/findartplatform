@@ -57,7 +57,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
         </div>
-        <div className="pt-5">
+        <div className="archive-card-copy pt-5">
           <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
             <OnViewDot
               startDate={exhibition.startDate}

@@ -723,7 +723,7 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
           className="block h-auto w-full"
         />
         <div className="pointer-events-none absolute inset-0 hidden items-center bg-[linear-gradient(90deg,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.78)_30%,rgba(255,255,255,0.25)_55%,rgba(255,255,255,0)_72%)] px-8 md:flex lg:px-12">
-          <div className="pointer-events-auto max-w-[52vw] text-neutral-900">
+          <div className="featured-banner-copy pointer-events-auto max-w-[52vw] text-neutral-900">
             <p className="mb-4 text-[10px] uppercase tracking-[0.28em] text-neutral-600 lg:text-[11px]">
               Klaus in Vorarlberg / 2026
             </p>

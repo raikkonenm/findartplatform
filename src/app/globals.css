@@ -56,6 +56,25 @@
   color: #8e8e8e;
 }
 
+:root[data-theme="dark"] .featured-banner-copy {
+  color: #111111 !important;
+}
+
+:root[data-theme="dark"] .featured-banner-copy .text-neutral-600 {
+  color: #525252 !important;
+}
+
+:root[data-theme="dark"] .archive-card-copy,
+:root[data-theme="dark"] .archive-card-copy * {
+  color: #ffffff !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 * {
   box-sizing: border-box;
 }

@@ -33,7 +33,7 @@ export function EditorialCard({
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
         </div>
-        <div className="pt-5">
+        <div className="archive-card-copy pt-5">
           <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[2rem] md:leading-[1.04]">
             {artist.artistName.toUpperCase()}
           </h2>
