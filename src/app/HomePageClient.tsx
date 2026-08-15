@@ -125,6 +125,14 @@ function DensityGlyph({ density }: { density: MasonryDensity }) {
 // LOCATION dropdown — countries listed first, with a plus-icon expander on
 // each country revealing its cities inline. Clicking the country header
 // filters to that country; clicking a city filters to that city only.
+function supportsDesktopHover(pointerType: string) {
+  return (
+    pointerType === "mouse" &&
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  );
+}
+
 function LocationDropdown({
   value,
   tree,
@@ -143,6 +151,38 @@ function LocationDropdown({
     return new Set();
   });
   const ref = useRef<HTMLDivElement>(null);
+  const hoverCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearHoverCloseTimer = () => {
+    if (hoverCloseTimerRef.current) {
+      window.clearTimeout(hoverCloseTimerRef.current);
+      hoverCloseTimerRef.current = null;
+    }
+  };
+
+  const handlePointerEnter = (pointerType: string) => {
+    if (!supportsDesktopHover(pointerType)) return;
+    clearHoverCloseTimer();
+    setOpen(true);
+  };
+
+  const handlePointerLeave = (pointerType: string) => {
+    if (!supportsDesktopHover(pointerType)) return;
+    clearHoverCloseTimer();
+    hoverCloseTimerRef.current = setTimeout(() => {
+      setOpen(false);
+      hoverCloseTimerRef.current = null;
+    }, 180);
+  };
+
+  useEffect(
+    () => () => {
+      if (hoverCloseTimerRef.current) {
+        window.clearTimeout(hoverCloseTimerRef.current);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -178,7 +218,12 @@ function LocationDropdown({
   };
 
   return (
-    <div ref={ref} className="relative">
+    <div
+      ref={ref}
+      className="relative"
+      onPointerEnter={(event) => handlePointerEnter(event.pointerType)}
+      onPointerLeave={(event) => handlePointerLeave(event.pointerType)}
+    >
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -330,6 +375,38 @@ function SelectDropdown<T extends string>({
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const hoverCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearHoverCloseTimer = () => {
+    if (hoverCloseTimerRef.current) {
+      window.clearTimeout(hoverCloseTimerRef.current);
+      hoverCloseTimerRef.current = null;
+    }
+  };
+
+  const handlePointerEnter = (pointerType: string) => {
+    if (!supportsDesktopHover(pointerType)) return;
+    clearHoverCloseTimer();
+    setOpen(true);
+  };
+
+  const handlePointerLeave = (pointerType: string) => {
+    if (!supportsDesktopHover(pointerType)) return;
+    clearHoverCloseTimer();
+    hoverCloseTimerRef.current = setTimeout(() => {
+      setOpen(false);
+      hoverCloseTimerRef.current = null;
+    }, 180);
+  };
+
+  useEffect(
+    () => () => {
+      if (hoverCloseTimerRef.current) {
+        window.clearTimeout(hoverCloseTimerRef.current);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -353,7 +430,12 @@ function SelectDropdown<T extends string>({
   const displayLabel = isAll ? allLabel : (value as string);
 
   return (
-    <div ref={ref} className={`relative ${className}`}>
+    <div
+      ref={ref}
+      className={`relative ${className}`}
+      onPointerEnter={(event) => handlePointerEnter(event.pointerType)}
+      onPointerLeave={(event) => handlePointerLeave(event.pointerType)}
+    >
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
