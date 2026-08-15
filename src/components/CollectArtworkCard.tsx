@@ -35,7 +35,7 @@ export function CollectArtworkCard({
           loading="lazy"
           sizes={
             columns === 4
-              ? "(min-width: 1024px) 23vw, (min-width: 640px) 47vw, 100vw"
+              ? "(min-width: 1024px) 23vw, 47vw"
               : columns === 3
                 ? "(min-width: 1024px) 31vw, (min-width: 640px) 47vw, 100vw"
                 : "(min-width: 1024px) 47vw, (min-width: 640px) 47vw, 100vw"

@@ -504,8 +504,8 @@ export function CollectArchiveView({ images }: { images: string[] }) {
           ) : (
             <section
               aria-label="Collect artworks"
-              className={`columns-1 gap-5 px-5 pb-20 pt-3 sm:columns-2 md:gap-5 md:px-0 md:pb-0 md:pt-0 lg:gap-6 ${
-                columns === 4 ? "lg:columns-4" : "lg:columns-2"
+              className={`gap-3 px-5 pb-20 pt-3 sm:columns-2 md:gap-5 md:px-0 md:pb-0 md:pt-0 lg:gap-6 ${
+                columns === 4 ? "columns-2 lg:columns-4" : "columns-1 lg:columns-2"
               }`}
             >
               {artworks.map((artwork) => (
