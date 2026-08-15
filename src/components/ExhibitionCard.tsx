@@ -12,6 +12,7 @@ import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 type ExhibitionCardProps = {
   exhibition: Exhibition;
   eager?: boolean;
+  hideMobileSubtitle?: boolean;
 };
 
 const DESKTOP_SLIDESHOW_SLUGS = new Set([
@@ -87,7 +88,11 @@ function aspectClassForSlug(slug: string): string {
   return "aspect-[1/1]";
 }
 
-export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProps) {
+export function ExhibitionCard({
+  exhibition,
+  eager = false,
+  hideMobileSubtitle = false,
+}: ExhibitionCardProps) {
   const aspect = aspectClassForSlug(exhibition.slug);
   const { isSaved, toggleSaved } = useSavedExhibitions();
   const saved = isSaved(exhibition.slug);
@@ -129,7 +134,11 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
           <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[2rem] md:leading-[1.04]">
             {title.toUpperCase()}
           </h2>
-          <p className="mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888]">
+          <p
+            className={`mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888] ${
+              hideMobileSubtitle ? "hidden md:block" : ""
+            }`}
+          >
             {displayVenueText(exhibition.venue)}
           </p>
         </div>

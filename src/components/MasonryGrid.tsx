@@ -70,12 +70,14 @@ export function MasonryGrid({
   initialIsMobile = false,
   density = "normal",
   editorialPromo = false,
+  hideMobileSubtitles = false,
 }: {
   exhibitions: Exhibition[];
   eagerCount?: number;
   initialIsMobile?: boolean;
   density?: MasonryDensity;
   editorialPromo?: boolean;
+  hideMobileSubtitles?: boolean;
 }) {
   const columnCount = useColumnCount(initialIsMobile, density);
 
@@ -113,6 +115,7 @@ export function MasonryGrid({
                 key={item.exhibition.slug}
                 exhibition={item.exhibition}
                 eager={item.flatIdx < eagerCount}
+                hideMobileSubtitle={hideMobileSubtitles}
               />
             ),
           )}

@@ -575,7 +575,9 @@ export default function HomePageClient({
   //   dense : 2 (mobile) / 5 (desktop)
   // The toggle just flips between them; the icon spins 90° so the
   // active state is obvious.
-  const [density, setDensity] = useState<MasonryDensity>("normal");
+  const [density, setDensity] = useState<MasonryDensity>(
+    initialIsMobile ? "dense" : "normal",
+  );
   const cycleDensity = useCallback(() => {
     setDensity((current) => (current === "normal" ? "dense" : "normal"));
   }, []);
@@ -912,6 +914,7 @@ export default function HomePageClient({
             initialIsMobile={initialIsMobile}
             density={density}
             editorialPromo={showEditorialPromo}
+            hideMobileSubtitles={showEditorialPromo}
           />
         )}
       </section>
