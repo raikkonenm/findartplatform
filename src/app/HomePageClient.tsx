@@ -108,19 +108,23 @@ function MobileFeaturedCarousel() {
           style={{ transform: `translateX(-${activeSlide * 100}%)` }}
         >
           <div className="w-full shrink-0 px-4">
-            <Link
-              href="/exhibitions/der-kopf-ist-rund"
-              aria-label="View Der Kopf ist rund exhibition"
+            <a
+              href="https://www.artcnomad.com/workflow-art"
+              aria-label="Open Workflow.Art"
               className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
-              <FeaturedExhibitionSlideshow
-                slug="der-kopf-ist-rund"
-                initialSrc="/banner/banner1.webp"
-                alt="Der Kopf ist rund exhibition installation view"
-                priority
-                sizes="100vw"
-              />
-            </Link>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Workflow.Art platform preview"
+                className="absolute inset-0 h-full w-full object-cover"
+              >
+                <source src="/banner/workflow.web.mp4" type="video/mp4" />
+              </video>
+            </a>
           </div>
           <div className="w-full shrink-0 px-4">
             <Link
@@ -899,6 +903,12 @@ export default function HomePageClient({
   const [density, setDensity] = useState<MasonryDensity>(
     initialDensity ?? (initialIsMobile ? "dense" : "normal"),
   );
+  useEffect(() => {
+    if (!showFeaturedBanners || !window.matchMedia("(max-width: 767px)").matches) return;
+    // Mobile Explore always starts in the two-column catalogue view.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setDensity("dense");
+  }, [showFeaturedBanners]);
   const cycleDensity = useCallback(() => {
     setDensity((current) => (current === "normal" ? "dense" : "normal"));
   }, []);
@@ -1067,31 +1077,32 @@ export default function HomePageClient({
             aria-label="Featured exhibitions"
           >
         <article className="min-w-0">
-          <Link
-            href="/exhibitions/der-kopf-ist-rund"
-            aria-label="View Der Kopf ist rund exhibition"
+          <a
+            href="https://www.artcnomad.com/workflow-art"
+            aria-label="Open Workflow.Art"
             className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
           >
-            <FeaturedExhibitionSlideshow
-              slug="der-kopf-ist-rund"
-              initialSrc="/banner/banner1.webp"
-              alt="Der Kopf ist rund exhibition installation view"
-              priority
-              sizes="33vw"
-            />
-          </Link>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="Workflow.Art platform preview"
+              className="absolute inset-0 h-full w-full object-cover"
+            >
+              <source src="/banner/workflow.web.mp4" type="video/mp4" />
+            </video>
+          </a>
           <div className="pt-4">
-            <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
-              Klaus in Vorarlberg / 2026
-            </p>
-            <Link
-              href="/exhibitions/der-kopf-ist-rund"
+            <a
+              href="https://www.artcnomad.com/workflow-art"
               className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
             >
-              Der Kopf ist rund, damit das Denken die Richtung wechseln kann
-            </Link>
-            <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-              Galerie Brugger
+              Workflow.Art
+            </a>
+            <p className="mt-2 text-[11px] leading-relaxed tracking-[0.04em] text-neutral-500">
+              Everything you need to plan, apply, and move your art career forward.
             </p>
           </div>
         </article>

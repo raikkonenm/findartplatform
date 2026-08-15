@@ -43,6 +43,11 @@ export function CollectArtworkCard({
           className="object-cover"
         />
       </div>
+      <div className="archive-card-copy bg-white pt-4">
+        <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] uppercase leading-[1.08] tracking-[-0.035em] md:text-[2rem] md:leading-[1.04]">
+          CHUNKOOK LEE
+        </h2>
+      </div>
       <button
         type="button"
         aria-label={saved ? "Remove Name from saved artworks" : "Save Name"}

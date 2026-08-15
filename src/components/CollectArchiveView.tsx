@@ -363,56 +363,174 @@ export function CollectArchiveView({ images }: { images: string[] }) {
     <main className="min-h-screen overflow-x-hidden bg-white pt-[65px]">
       <Header />
 
-      <div className="flex flex-wrap items-center gap-2 px-5 pb-3 pt-4 md:gap-3 md:px-8 lg:px-12">
-        <SelectFilter
-          label="Category"
-          value={category}
-          options={CATEGORY_OPTIONS}
-          allValue="All"
-          onChange={setCategory}
-        />
-        <PriceFilter
-          value={priceRange}
-          minimum={minimumPrice}
-          maximum={maximumPrice}
-          onChange={setPriceRange}
-          onMinimumChange={setMinimumPrice}
-          onMaximumChange={setMaximumPrice}
-        />
-        <SelectFilter
-          label="Sort"
-          value={sortOrder}
-          options={SORT_OPTIONS}
-          onChange={setSortOrder}
-          showSelection={false}
-        />
-        <div className="ml-auto flex items-center gap-3">
-          <SearchControl value={search} onChange={setSearch} />
-          <ColumnsToggle columns={columns} onClick={() => setColumns((current) => (current === 4 ? 2 : 4))} />
+      <div className="px-5 pb-3 pt-4 md:hidden">
+        <div className="flex flex-wrap items-center gap-2">
+          <SelectFilter
+            label="Category"
+            value={category}
+            options={CATEGORY_OPTIONS}
+            allValue="All"
+            onChange={setCategory}
+          />
+          <PriceFilter
+            value={priceRange}
+            minimum={minimumPrice}
+            maximum={maximumPrice}
+            onChange={setPriceRange}
+            onMinimumChange={setMinimumPrice}
+            onMaximumChange={setMaximumPrice}
+          />
+          <SelectFilter
+            label="Sort"
+            value={sortOrder}
+            options={SORT_OPTIONS}
+            onChange={setSortOrder}
+            showSelection={false}
+          />
+          <div className="ml-auto flex items-center gap-3">
+            <SearchControl value={search} onChange={setSearch} />
+            <ColumnsToggle columns={columns} onClick={() => setColumns((current) => (current === 4 ? 2 : 4))} />
+          </div>
         </div>
       </div>
 
-      {artworks.length === 0 ? (
-        <p className="px-5 py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400 md:px-8 lg:px-12">
-          No artworks match your search.
-        </p>
-      ) : (
-        <section
-          aria-label="Collect artworks"
-          className={`columns-1 gap-5 px-5 pb-20 pt-3 sm:columns-2 md:gap-12 md:px-8 md:pt-4 lg:px-12 ${
-            columns === 4 ? "lg:columns-4" : "lg:columns-2"
-          }`}
-        >
-          {artworks.map((artwork) => (
-            <CollectArtworkCard
-              key={artwork.src}
-              artwork={artwork}
-              columns={columns}
-              className="mb-5 break-inside-avoid md:mb-16"
-            />
-          ))}
-        </section>
-      )}
+      <div className="md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-10 md:px-8 md:pb-20 md:pt-5 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-14 lg:px-12">
+        <aside className="hidden border-r border-neutral-200 pr-8 md:block lg:pr-10" aria-label="Collect filters">
+          <div className="sticky top-[89px] max-h-[calc(100vh-110px)] overflow-y-auto pb-8">
+            <label className="block">
+              <span className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">Search artworks</span>
+              <input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Search"
+                className="mt-3 h-10 w-full border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.08em] text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
+              />
+            </label>
+
+            <div className="mt-8">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">Category</p>
+              <div className="mt-3 flex flex-col gap-1">
+                {CATEGORY_OPTIONS.map((option) => (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => setCategory(option)}
+                    className={`w-full px-3 py-2 text-left text-[11px] uppercase tracking-[0.12em] transition-colors ${
+                      category === option
+                        ? "bg-neutral-100 font-semibold text-neutral-900"
+                        : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900"
+                    }`}
+                  >
+                    {option === "All" ? "All categories" : option}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8 border-t border-neutral-200 pt-6">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">Price</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {PRICE_OPTIONS.map((option) => (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => {
+                      setPriceRange(option);
+                      setMinimumPrice("");
+                      setMaximumPrice("");
+                    }}
+                    className={`border px-3 py-2 text-[10px] uppercase tracking-[0.1em] transition-colors ${
+                      priceRange === option && minimumPrice === "" && maximumPrice === ""
+                        ? "border-neutral-900 text-neutral-900"
+                        : "border-neutral-200 text-neutral-500 hover:border-neutral-400"
+                    }`}
+                  >
+                    {option === "All" ? "All prices" : option.replace("-", "\u2013")}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <input
+                  type="number"
+                  min="0"
+                  inputMode="decimal"
+                  value={minimumPrice}
+                  onChange={(event) => {
+                    setPriceRange("All");
+                    setMinimumPrice(event.target.value);
+                  }}
+                  placeholder="Minimum"
+                  aria-label="Minimum price"
+                  className="min-w-0 border border-neutral-200 bg-transparent px-2 py-2 text-[10px] uppercase tracking-[0.08em] text-neutral-900 outline-none focus:border-neutral-900"
+                />
+                <input
+                  type="number"
+                  min="0"
+                  inputMode="decimal"
+                  value={maximumPrice}
+                  onChange={(event) => {
+                    setPriceRange("All");
+                    setMaximumPrice(event.target.value);
+                  }}
+                  placeholder="Maximum"
+                  aria-label="Maximum price"
+                  className="min-w-0 border border-neutral-200 bg-transparent px-2 py-2 text-[10px] uppercase tracking-[0.08em] text-neutral-900 outline-none focus:border-neutral-900"
+                />
+              </div>
+            </div>
+
+            <div className="mt-8 border-t border-neutral-200 pt-6">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">Sort</p>
+              <div className="mt-3 flex flex-col gap-1">
+                {SORT_OPTIONS.map((option) => (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => setSortOrder(option)}
+                    className={`w-full px-3 py-2 text-left text-[11px] uppercase tracking-[0.1em] transition-colors ${
+                      sortOrder === option
+                        ? "bg-neutral-100 font-semibold text-neutral-900"
+                        : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900"
+                    }`}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8 border-t border-neutral-200 pt-6">
+              <p className="mb-3 text-[10px] uppercase tracking-[0.18em] text-neutral-500">Layout</p>
+              <ColumnsToggle columns={columns} onClick={() => setColumns((current) => (current === 4 ? 2 : 4))} />
+            </div>
+          </div>
+        </aside>
+
+        <div className="min-w-0">
+          {artworks.length === 0 ? (
+            <p className="px-5 py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400 md:px-0">
+              No artworks match your search.
+            </p>
+          ) : (
+            <section
+              aria-label="Collect artworks"
+              className={`columns-1 gap-5 px-5 pb-20 pt-3 sm:columns-2 md:gap-8 md:px-0 md:pb-0 md:pt-0 lg:gap-10 ${
+                columns === 4 ? "lg:columns-4" : "lg:columns-2"
+              }`}
+            >
+              {artworks.map((artwork) => (
+                <CollectArtworkCard
+                  key={artwork.src}
+                  artwork={artwork}
+                  columns={columns}
+                  className="mb-5 break-inside-avoid md:mb-12"
+                />
+              ))}
+            </section>
+          )}
+        </div>
+      </div>
     </main>
   );
 }
