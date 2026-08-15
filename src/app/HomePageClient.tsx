@@ -9,7 +9,6 @@ import { HeartIcon, useSavedExhibitions } from "@/components/SavedExhibitions";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { isExhibitionOnView } from "@/lib/isOnView";
-import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
 
 const YEARS = ["All", "2026", "2025", "2024", "2023"];
 type SelectedTag = "ALL" | SemanticTag;
@@ -623,45 +622,37 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
           aria-label="Primary navigation"
         >
           <MobileNavigationMenu />
-          <div className="hidden max-w-[5.3rem] flex-col items-start gap-1 text-[8px] uppercase leading-[1.35] tracking-[0.14em] text-neutral-900 md:flex md:max-w-none md:flex-row md:items-center md:gap-7 md:text-[11px] md:tracking-[0.28em]">
-            <a href="https://www.artcnomad.com/">By ArtNomad Curators &#8599;</a>
-            <a href="https://www.artcnomad.com/workflow-art">Workflow.Art &#8599;</a>
-            {SHOW_PRACTICE_NAV && (
-              <a href="https://www.artcnomad.com/practice">Practice &#8599;</a>
-            )}
-          </div>
           <Link
             href="/"
-            className="absolute left-1/2 flex -translate-x-1/2 flex-col items-center whitespace-nowrap text-center text-[13px] font-medium leading-none tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-center md:text-2xl"
+            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-xl"
             aria-label="FindArt Platform home"
           >
-            <span>FindArt Platform</span>
-            <span className="pointer-events-none mt-[6px] hidden whitespace-nowrap text-[10px] font-normal leading-none tracking-[0.12em] text-black/40 md:block">
-              Contemporary Art Exhibition Archive
-            </span>
+            FindArt Platform
           </Link>
-          <div className="flex items-center gap-3 justify-self-end md:gap-5">
-            <Link
-              href="/editorial"
-              className="hidden text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:inline md:text-[11px] md:tracking-[0.28em]"
-            >
+          <div className="hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.28em] text-neutral-900 md:flex md:justify-self-center">
+            <Link href="/editorial" className="transition-opacity hover:opacity-55">
               Editorial
             </Link>
-            <Link
-              href="/about"
-              className="hidden text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:inline md:text-[11px] md:tracking-[0.28em]"
-            >
+            <Link href="/about" className="transition-opacity hover:opacity-55">
               About
             </Link>
             <a
               href="https://www.instagram.com/findart.platform/"
-              className="hidden text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:inline md:text-[11px] md:tracking-[0.28em]"
+              className="transition-opacity hover:opacity-55"
             >
               Instagram
             </a>
             <Link
               href="/submit"
-              className="text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:text-[11px] md:tracking-[0.28em]"
+              className="font-semibold transition-opacity hover:opacity-55"
+            >
+              Submit
+            </Link>
+          </div>
+          <div className="flex items-center gap-3 justify-self-end md:gap-5">
+            <Link
+              href="/submit"
+              className="text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:hidden"
             >
               Submit
             </Link>

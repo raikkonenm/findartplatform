@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
+import { Footer } from "@/components/Footer";
 import { SavedExhibitionsProvider } from "@/components/SavedExhibitions";
 import "./globals.css";
 
@@ -112,6 +113,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager (noscript) */}
         <SavedExhibitionsProvider>
           {children}
+          <Footer />
           {modal}
         </SavedExhibitionsProvider>
       </body>

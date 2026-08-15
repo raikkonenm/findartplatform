@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
 import { HeartIcon } from "./SavedExhibitions";
 import { MobileNavigationMenu } from "./MobileNavigationMenu";
 
@@ -30,71 +28,44 @@ export function Header({
         aria-label="Primary navigation"
       >
         <MobileNavigationMenu inverted={overlay} />
+        <Link
+          href="/"
+          className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-medium tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-xl ${
+            overlay ? "text-white" : "text-neutral-900"
+          }`}
+          aria-label="FindArt Platform home"
+        >
+          FindArt Platform
+        </Link>
+
         <div
-          className={`hidden max-w-[5.3rem] flex-col items-start gap-1 leading-[1.35] md:flex md:max-w-none md:flex-row md:items-center md:gap-7 ${
-            overlay ? "" : "text-[8px] uppercase tracking-[0.14em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
+          className={`hidden items-center gap-5 uppercase md:flex md:justify-self-center ${
+            overlay
+              ? "font-normal"
+              : "text-[11px] font-normal tracking-[0.28em] text-neutral-900"
           }`}
         >
-          <a href="https://www.artcnomad.com/">By ArtNomad Curators &#8599;</a>
-          <a href="https://www.artcnomad.com/workflow-art">Workflow.Art &#8599;</a>
-          {SHOW_PRACTICE_NAV && (
-            <a href="https://www.artcnomad.com/practice">Practice &#8599;</a>
-          )}
-        </div>
-
-        {overlay ? (
-          <Link
-            href="/"
-            className="justify-self-center transition-opacity hover:opacity-55"
-            aria-label="FindArt Platform home"
-          >
-            <Image
-              src="/exhibitions/logo.png"
-              alt="FindArt Platform logo"
-              width={72}
-              height={72}
-              className="h-10 w-10 object-contain md:h-16 md:w-16"
-              priority
-            />
-          </Link>
-        ) : (
-          <Link
-            href="/"
-            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-center md:text-2xl"
-            aria-label="FindArt Platform home"
-          >
-            FindArt Platform
-          </Link>
-        )}
-
-        <div className="flex items-center gap-3 justify-self-end md:gap-5">
-          <Link
-            href="/editorial"
-            className={`hidden transition-opacity hover:opacity-55 md:inline ${
-              overlay ? "font-normal" : "text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
-            }`}
-          >
+          <Link href="/editorial" className="transition-opacity hover:opacity-55">
             Editorial
           </Link>
-          <Link
-            href="/about"
-            className={`hidden transition-opacity hover:opacity-55 md:inline ${
-              overlay ? "font-normal" : "text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
-            }`}
-          >
+          <Link href="/about" className="transition-opacity hover:opacity-55">
             About
           </Link>
           <a
             href="https://www.instagram.com/findart.platform/"
-            className={`hidden transition-opacity hover:opacity-55 md:inline ${
-              overlay ? "font-normal" : "text-[9px] font-normal uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
-            }`}
+            className="transition-opacity hover:opacity-55"
           >
             Instagram
           </a>
+          <Link href="/submit" className="font-semibold transition-opacity hover:opacity-55">
+            Submit
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-3 justify-self-end md:gap-5">
           <Link
             href="/submit"
-            className={`transition-opacity hover:opacity-55 ${
+            className={`transition-opacity hover:opacity-55 md:hidden ${
               overlay ? "font-semibold" : "text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
             }`}
           >
