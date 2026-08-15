@@ -35,6 +35,7 @@ export default async function ExhibitionsPage() {
       initialIsMobile={isMobileUserAgent(userAgent)}
       showFeaturedBanners={false}
       showEditorialPromo={false}
+      initialDensity="dense"
     />
   );
 }

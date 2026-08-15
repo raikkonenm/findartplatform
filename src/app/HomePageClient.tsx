@@ -698,10 +698,12 @@ export default function HomePageClient({
   initialIsMobile,
   showFeaturedBanners = true,
   showEditorialPromo = true,
+  initialDensity,
 }: {
   initialIsMobile: boolean;
   showFeaturedBanners?: boolean;
   showEditorialPromo?: boolean;
+  initialDensity?: MasonryDensity;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -731,7 +733,7 @@ export default function HomePageClient({
   // The toggle just flips between them; the icon spins 90° so the
   // active state is obvious.
   const [density, setDensity] = useState<MasonryDensity>(
-    initialIsMobile ? "dense" : "normal",
+    initialDensity ?? (initialIsMobile ? "dense" : "normal"),
   );
   const cycleDensity = useCallback(() => {
     setDensity((current) => (current === "normal" ? "dense" : "normal"));
