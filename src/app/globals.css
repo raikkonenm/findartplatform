@@ -28,6 +28,7 @@
 }
 
 :root[data-theme="dark"] .text-neutral-900,
+:root[data-theme="dark"] .text-neutral-800,
 :root[data-theme="dark"] .text-neutral-700 {
   color: #f4f4f4 !important;
 }
