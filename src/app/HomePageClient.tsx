@@ -825,7 +825,7 @@ export default function HomePageClient({
       </Suspense>
       {/* Header — sticky + high z-index so it remains visible above the
           slide-over panel when an exhibition detail is open. */}
-      <header className="sticky top-0 z-50 h-[65px] border-b border-neutral-200 bg-white px-4 md:px-8 lg:px-12">
+      <header className="sticky top-0 z-50 h-[65px] bg-white px-4 md:px-8 lg:px-12">
         <nav
           className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]"
           aria-label="Primary navigation"
@@ -888,7 +888,7 @@ export default function HomePageClient({
           <MobileFeaturedCarousel />
 
           <section
-            className="hidden grid-cols-3 gap-6 bg-white px-8 pb-12 pt-8 md:grid lg:gap-8 lg:px-12"
+            className="hidden grid-cols-3 gap-6 bg-white px-8 pb-12 pt-4 md:grid lg:gap-8 lg:px-12"
             aria-label="Featured exhibitions"
           >
         <article className="min-w-0">
@@ -962,9 +962,15 @@ export default function HomePageClient({
             )}
           </div>
           <div className="pt-4">
-            <h2 className="editorial-serif mt-2 break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em]">
-              Artcnomads
-            </h2>
+            <p className="text-[10px] tracking-[0.18em] text-neutral-500">
+              artcnomad.com
+            </p>
+            <a
+              href="https://www.artcnomad.com/"
+              className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
+            >
+              ART CURATORIAL NOMADS
+            </a>
             <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
               Curate your exhibition
             </p>
@@ -980,7 +986,7 @@ export default function HomePageClient({
           + search live at the right edge on desktop; on mobile the
           density button sits after the On view chip and the search
           field is the row above. */}
-      <div className="border-b border-neutral-200 bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
+      <div className="border-t border-neutral-200 bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
         <div className="space-y-3">
           {/* Mobile search — full-width row above the filter chips. */}
           <input

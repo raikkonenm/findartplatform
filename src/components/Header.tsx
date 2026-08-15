@@ -33,7 +33,7 @@ export function Header({
       className={`${overlay ? "absolute z-20" : "fixed z-50"} inset-x-0 top-0 h-[65px] px-4 md:px-8 lg:px-12 ${
         overlay
           ? "text-[8px] uppercase tracking-[0.14em] text-white md:text-[11px] md:tracking-[0.28em]"
-          : "border-b border-neutral-200 bg-white"
+          : "bg-white"
       }`}
     >
       <nav
