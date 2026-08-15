@@ -670,16 +670,34 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
         </nav>
       </header>
 
-      <Image
-        src="/banner/banner1.png"
-        alt="Featured exhibition installation view"
-        width={1739}
-        height={796}
-        sizes="100vw"
-        priority
-        unoptimized
-        className="block h-auto w-full"
-      />
+      <section className="relative" aria-label="Featured exhibition">
+        <Image
+          src="/banner/banner1.png"
+          alt="Featured exhibition installation view"
+          width={1739}
+          height={796}
+          sizes="100vw"
+          priority
+          unoptimized
+          className="block h-auto w-full"
+        />
+        <div className="pointer-events-none absolute inset-0 hidden items-center bg-[linear-gradient(90deg,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.78)_30%,rgba(255,255,255,0.25)_55%,rgba(255,255,255,0)_72%)] px-8 md:flex lg:px-12">
+          <div className="pointer-events-auto max-w-[52vw] text-neutral-900">
+            <p className="mb-4 text-[10px] uppercase tracking-[0.28em] text-neutral-600 lg:text-[11px]">
+              Klaus in Vorarlberg / 2026
+            </p>
+            <Link
+              href="/exhibitions/der-kopf-ist-rund"
+              className="editorial-serif block break-words text-[clamp(1.7rem,3.3vw,3.5rem)] uppercase leading-[0.98] tracking-[-0.04em] transition-opacity hover:opacity-60"
+            >
+              Der Kopf ist rund, damit das Denken die Richtung wechseln kann
+            </Link>
+            <p className="mt-5 text-[11px] uppercase tracking-[0.2em] text-neutral-600 lg:text-[13px]">
+              Galerie Brugger
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Filter bar — same on mobile and desktop now: the Filters
           collapsible button is gone, every filter is a dropdown
