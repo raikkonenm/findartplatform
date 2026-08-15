@@ -110,7 +110,7 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                 </svg>
               </button>
             </div>
-            <nav className="flex flex-col items-start gap-5 px-5 py-6 text-[11px] uppercase tracking-[0.22em] text-neutral-900">
+            <nav className="editorial-serif flex flex-col items-start gap-5 px-5 py-6 text-[11px] uppercase tracking-[0.28em] text-neutral-900">
               <Link
                 href="/"
                 onClick={() => setOpen(false)}

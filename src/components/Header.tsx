@@ -52,10 +52,10 @@ export function Header({
         </Link>
 
         <div
-          className={`hidden items-center gap-5 uppercase md:flex md:justify-self-center ${
+          className={`editorial-serif hidden items-center gap-5 uppercase md:flex md:justify-self-center ${
             overlay
               ? "font-normal"
-              : "text-[11px] font-normal tracking-[0.28em] text-neutral-900"
+              : "text-[11px] font-normal tracking-[0.32em] text-neutral-900"
           }`}
         >
           <Link href="/" className={navLinkClass("/")}>
@@ -79,7 +79,7 @@ export function Header({
           <Link
             href="/submit"
             className={`transition-opacity hover:opacity-55 md:hidden ${
-              overlay ? "font-semibold" : "text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 md:text-[11px] md:tracking-[0.28em]"
+              overlay ? "font-semibold" : "editorial-serif text-[9px] font-semibold uppercase tracking-[0.24em] text-neutral-900 md:text-[11px] md:tracking-[0.32em]"
             }`}
           >
             Submit

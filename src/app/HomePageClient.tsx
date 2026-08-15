@@ -840,7 +840,7 @@ export default function HomePageClient({
           >
             FindArt Platform
           </Link>
-          <div className="hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.28em] text-neutral-900 md:flex md:justify-self-center">
+          <div className="editorial-serif hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.32em] text-neutral-900 md:flex md:justify-self-center">
             <Link
               href="/"
               className={navLinkClass("/")}
@@ -866,7 +866,7 @@ export default function HomePageClient({
           <div className="flex items-center gap-3 justify-self-end md:gap-5">
             <Link
               href="/submit"
-              className="text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-900 transition-opacity hover:opacity-55 md:hidden"
+              className="editorial-serif text-[9px] font-semibold uppercase tracking-[0.24em] text-neutral-900 transition-opacity hover:opacity-55 md:hidden"
             >
               Submit
             </Link>
