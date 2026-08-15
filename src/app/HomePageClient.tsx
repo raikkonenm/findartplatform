@@ -1044,7 +1044,7 @@ export default function HomePageClient({
       {/* Exhibition feed — CSS columns provides masonry without JS. Cards have
           their own `mb-[72px]` for row rhythm and `break-inside-avoid` to stay
           intact across column boundaries. */}
-      <section className="bg-white px-5 py-10 md:px-8 md:py-16 lg:px-12 lg:py-20">
+      <section className="bg-white px-5 py-10 md:px-8 md:pb-16 md:pt-8 lg:px-12 lg:pb-20">
         {filtered.length === 0 ? (
           savedOnly && savedSlugs.size === 0 ? (
             <p className="py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400">
