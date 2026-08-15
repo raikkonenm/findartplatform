@@ -708,7 +708,7 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
         </nav>
       </header>
 
-      <section className="relative" aria-label="Featured exhibition">
+      <section className="relative md:hidden" aria-label="Featured exhibition">
         <Image
           src="/banner/banner1.webp"
           alt="Featured exhibition installation view"
@@ -719,22 +719,87 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
           unoptimized
           className="block h-auto w-full"
         />
-        <div className="pointer-events-none absolute inset-0 hidden items-center bg-[linear-gradient(90deg,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.78)_30%,rgba(255,255,255,0.25)_55%,rgba(255,255,255,0)_72%)] px-8 md:flex lg:px-12">
-          <div className="featured-banner-copy pointer-events-auto max-w-[52vw] text-neutral-900">
-            <p className="mb-4 text-[10px] uppercase tracking-[0.28em] text-neutral-600 lg:text-[11px]">
+      </section>
+
+      <section
+        className="hidden grid-cols-3 gap-6 bg-white px-8 pb-12 pt-8 md:grid lg:gap-8 lg:px-12"
+        aria-label="Featured exhibitions"
+      >
+        <article className="min-w-0">
+          <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+            <Image
+              src="/banner/banner1.webp"
+              alt="Der Kopf ist rund exhibition installation view"
+              fill
+              priority
+              unoptimized
+              sizes="33vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="pt-4">
+            <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
               Klaus in Vorarlberg / 2026
             </p>
             <Link
               href="/exhibitions/der-kopf-ist-rund"
-              className="editorial-serif block break-words text-[clamp(1.7rem,3.3vw,3.5rem)] uppercase leading-[0.98] tracking-[-0.04em] transition-opacity hover:opacity-60"
+              className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
             >
               Der Kopf ist rund, damit das Denken die Richtung wechseln kann
             </Link>
-            <p className="mt-5 text-[11px] uppercase tracking-[0.2em] text-neutral-600 lg:text-[13px]">
+            <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
               Galerie Brugger
             </p>
           </div>
-        </div>
+        </article>
+
+        <article className="min-w-0">
+          <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+            <Image
+              src="/banner/blue.webp"
+              alt="Axial-Core exhibition installation view"
+              fill
+              unoptimized
+              sizes="33vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="pt-4">
+            <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
+              May 22 — June 01, 2026
+            </p>
+            <h2 className="editorial-serif mt-2 break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em]">
+              Axial-Core
+            </h2>
+            <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+              Leo Pum @La Térmica, Málaga KRVCE festival
+            </p>
+          </div>
+        </article>
+
+        <article className="min-w-0">
+          <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+            <Image
+              src="/banner/black.webp"
+              alt="Coagvla exhibition installation view"
+              fill
+              unoptimized
+              sizes="33vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="pt-4">
+            <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
+              February 26 — April 17, 2026
+            </p>
+            <h2 className="editorial-serif mt-2 break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em]">
+              Coagvla
+            </h2>
+            <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+              Lena Becerra @Acefala Gallery, Buenos Aires
+            </p>
+          </div>
+        </article>
       </section>
 
       {/* Filter bar — same on mobile and desktop now: the Filters
