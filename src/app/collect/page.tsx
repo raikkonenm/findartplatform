@@ -29,14 +29,14 @@ export default function CollectPage() {
       <Header />
       <section
         aria-label="Collect artworks"
-        className="columns-1 gap-5 px-5 pb-20 pt-6 sm:columns-2 md:gap-8 md:px-8 md:pt-8 lg:columns-3 lg:gap-12 lg:px-12"
+        className="mx-auto max-w-[1560px] columns-1 gap-3 px-5 pb-20 pt-6 sm:columns-2 md:px-8 md:pt-8 lg:columns-4"
       >
         {images.map((src, index) => (
           <article
             key={src}
             tabIndex={0}
             aria-label={`Name by Chungkook Lee, artwork ${index + 1}`}
-            className="group relative mb-5 break-inside-avoid overflow-hidden bg-neutral-100 outline-none md:mb-8 lg:mb-12"
+            className="group relative mb-3 break-inside-avoid overflow-hidden bg-neutral-100 outline-none"
           >
             <Image
               src={src}
@@ -44,7 +44,7 @@ export default function CollectPage() {
               width={1080}
               height={1350}
               unoptimized
-              sizes="(min-width: 1024px) 31vw, (min-width: 640px) 47vw, 100vw"
+              sizes="(min-width: 1024px) 24vw, (min-width: 640px) 47vw, 100vw"
               className="block h-auto w-full"
             />
             <div className="absolute inset-x-0 bottom-0 translate-y-3 bg-black/90 px-4 py-4 text-white opacity-0 transition-[opacity,transform] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100 md:px-5 md:py-5">
