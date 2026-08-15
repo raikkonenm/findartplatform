@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { EditorialCard } from "./EditorialCard";
 import { Header } from "./Header";
@@ -40,6 +41,16 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
         savedOnly={savedOnly}
         onToggleSavedOnly={toggleSavedOnly}
         savedHref="/editorial?saved=1"
+      />
+      <Image
+        src="/banner/banner2.webp"
+        alt="Editorial featured artwork"
+        width={1739}
+        height={796}
+        sizes="100vw"
+        priority
+        unoptimized
+        className="block h-auto w-full"
       />
       <section className="px-5 py-10 md:px-8 md:py-16 lg:px-12 lg:py-20">
         {displayedArtists.length === 0 ? (

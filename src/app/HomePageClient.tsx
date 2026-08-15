@@ -672,7 +672,7 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
 
       <section className="relative" aria-label="Featured exhibition">
         <Image
-          src="/banner/banner1.png"
+          src="/banner/banner1.webp"
           alt="Featured exhibition installation view"
           width={1739}
           height={796}
