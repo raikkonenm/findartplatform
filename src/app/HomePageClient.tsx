@@ -835,7 +835,7 @@ export default function HomePageClient({
           <MobileNavigationMenu />
           <Link
             href="/"
-            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[13px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-xl"
+            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[12px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-[18px]"
             aria-label="FindArt Platform home"
           >
             FindArt Platform
@@ -990,7 +990,7 @@ export default function HomePageClient({
           + search live at the right edge on desktop; on mobile the
           density button sits after the On view chip and the search
           field is the row above. */}
-      <div className="border-t border-neutral-200 bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
+      <div className="bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
         <div className="space-y-3">
           {/* Mobile search — full-width row above the filter chips. */}
           <input
@@ -1044,7 +1044,7 @@ export default function HomePageClient({
       {/* Exhibition feed — CSS columns provides masonry without JS. Cards have
           their own `mb-[72px]` for row rhythm and `break-inside-avoid` to stay
           intact across column boundaries. */}
-      <section className="bg-white px-5 py-10 md:px-8 md:pb-16 md:pt-8 lg:px-12 lg:pb-20">
+      <section className="bg-white px-5 pb-10 pt-3 md:px-8 md:pb-16 md:pt-4 lg:px-12 lg:pb-20">
         {filtered.length === 0 ? (
           savedOnly && savedSlugs.size === 0 ? (
             <p className="py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400">
