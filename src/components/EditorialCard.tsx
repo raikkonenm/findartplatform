@@ -34,10 +34,7 @@ export function EditorialCard({
           />
         </div>
         <div className="archive-card-copy pt-5">
-          <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[2rem] md:leading-[1.04]">
-            {artist.artistName.toUpperCase()}
-          </h2>
-          <p className="mt-3 truncate text-[0.85em] leading-6 text-neutral-500">
+          <p className="truncate text-[0.85em] leading-6 text-neutral-500">
             {artist.excerpt}
           </p>
         </div>
