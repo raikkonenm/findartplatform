@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import type { Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayVenueText } from "@/lib/displayVenueText";
@@ -12,6 +13,54 @@ type ExhibitionCardProps = {
   exhibition: Exhibition;
   eager?: boolean;
 };
+
+const DESKTOP_SLIDESHOW_SLUGS = new Set(["nymphenbrunnen", "make-me-yours"]);
+
+function DesktopCardSlideshow({ exhibition, title }: { exhibition: Exhibition; title: string }) {
+  const slides = exhibition.images.filter((image) => image.orientation === "vertical");
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    if (slides.length < 2) return;
+
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    let interval: number | undefined;
+    const syncInterval = () => {
+      if (interval !== undefined) window.clearInterval(interval);
+      interval = desktop.matches
+        ? window.setInterval(() => {
+            setActiveSlide((current) => (current + 1) % slides.length);
+          }, 1000)
+        : undefined;
+    };
+
+    syncInterval();
+    desktop.addEventListener("change", syncInterval);
+    return () => {
+      desktop.removeEventListener("change", syncInterval);
+      if (interval !== undefined) window.clearInterval(interval);
+    };
+  }, [slides.length]);
+
+  return (
+    <div className="absolute inset-0 hidden lg:block">
+      {slides.map((image, index) => (
+        <Image
+          key={image.src}
+          src={image.src}
+          alt={index === 0 ? `${title} exhibition view` : ""}
+          fill
+          loading="lazy"
+          className={`object-cover transition-opacity duration-300 ease-in-out ${
+            index === activeSlide ? "opacity-100" : "opacity-0"
+          }`}
+          {...(exhibition.unoptimized ? { unoptimized: true } : {})}
+          sizes="31vw"
+        />
+      ))}
+    </div>
+  );
+}
 
 /**
  * Deterministic aspect-ratio variant per slug so the masonry feed has natural
@@ -35,6 +84,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
   const { isSaved, toggleSaved } = useSavedExhibitions();
   const saved = isSaved(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
+  const desktopSlideshow = DESKTOP_SLIDESHOW_SLUGS.has(exhibition.slug);
 
   return (
     // The card is placed inside a `.masonry-col` flex column by
@@ -48,7 +98,7 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             src={exhibition.coverImage ?? exhibition.previewImage}
             alt={`${title} exhibition view`}
             fill
-            className="object-cover"
+            className={`object-cover ${desktopSlideshow ? "lg:hidden" : ""}`}
             priority={eager}
             {...(eager
               ? { fetchPriority: "high" as const }
@@ -56,6 +106,9 @@ export function ExhibitionCard({ exhibition, eager = false }: ExhibitionCardProp
             {...(exhibition.unoptimized ? { unoptimized: true } : {})}
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
+          {desktopSlideshow && (
+            <DesktopCardSlideshow exhibition={exhibition} title={title} />
+          )}
         </div>
         <div className="archive-card-copy pt-5">
           <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
