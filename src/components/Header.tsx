@@ -61,9 +61,9 @@ export function Header({
           <Link href="/" className={navLinkClass("/")}>
             Explore
           </Link>
-          <button type="button" aria-disabled="true" className="cursor-default">
+          <Link href="/collect" className={navLinkClass("/collect")}>
             COLLECT
-          </button>
+          </Link>
           <Link href="/exhibitions" className={navLinkClass("/exhibitions")}>
             Exhibitions
           </Link>

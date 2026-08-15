@@ -118,9 +118,13 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
               >
                 Explore
               </Link>
-              <button type="button" aria-disabled="true" className="cursor-default uppercase">
+              <Link
+                href="/collect"
+                onClick={() => setOpen(false)}
+                className={pathname.startsWith("/collect") ? "font-semibold" : ""}
+              >
                 COLLECT
-              </button>
+              </Link>
               <Link
                 href="/exhibitions"
                 onClick={() => setOpen(false)}
