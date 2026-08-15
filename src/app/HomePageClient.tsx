@@ -12,54 +12,6 @@ import { isExhibitionOnView } from "@/lib/isOnView";
 import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
 
 const YEARS = ["All", "2026", "2025", "2024", "2023"];
-const PRIMARY_TAGS: Array<"ALL" | SemanticTag> = [
-  "ALL",
-  "INSTALLATION",
-  "POSTHUMAN",
-  "ECOLOGY",
-  "RITUAL",
-  "IDENTITY",
-  "DIGITAL MYTH",
-  "DECAY",
-  "SOUND",
-];
-const MORE_TAGS: SemanticTag[] = [
-  "GROUP SHOW",
-  "LIMINALITY",
-  "SPECULATIVE FICTION",
-  "HYBRID BODIES",
-  "SURVEILLANCE",
-  "MATERIALITY",
-  "TRANSFORMATION",
-  "MYTH",
-  "DREAM LOGIC",
-  "ORGANIC SYSTEMS",
-  "NON-HUMAN",
-  "SIMULATION",
-  "MUTATION",
-  "BODY",
-  "MACHINE",
-  "TEXTILE",
-  "RUINS",
-  "ARCHIVE",
-  "FRAGMENT",
-  "MEMORY",
-  "POST-INDUSTRIAL",
-  "OBJECTHOOD",
-  "SPIRITUALITY",
-  "FEMININITY",
-  "LABOR",
-  "TECHNOLOGY",
-  "SPECULATIVE BODY",
-  "ARCHAEOLOGY",
-  "ABSENCE",
-  "MATERIAL MEMORY",
-  "DOMESTICITY",
-  "ANIMALITY",
-  "EROSION",
-  "PHOTOGRAPHY",
-  "DISPLACEMENT",
-];
 type SelectedTag = "ALL" | SemanticTag;
 
 // Hierarchical location filter: "all" / by country / by specific city
@@ -352,75 +304,111 @@ function LocationDropdown({
   );
 }
 
-function MobileTagsDropdown({
+/**
+ * Reusable dropdown for flat single-select filters (Tags, Year).
+ * Same visual language as LocationDropdown — chevron button, click-
+ * outside/Escape closes, active option gets a check. `allValue` is
+ * the sentinel that represents "no filter"; clicking any option
+ * commits the selection and closes the panel.
+ */
+function SelectDropdown<T extends string>({
+  label,
   value,
+  allValue,
+  allLabel,
+  options,
   onChange,
+  className = "",
 }: {
-  value: SelectedTag;
-  onChange: (tag: SelectedTag) => void;
+  label: string;
+  value: T;
+  allValue: T;
+  allLabel: string;
+  options: readonly T[];
+  onChange: (next: T) => void;
+  className?: string;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const tags: SelectedTag[] = ["ALL", ...semanticTags];
 
   useEffect(() => {
     if (!open) return;
-
     function onMouseDown(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         setOpen(false);
       }
     }
-
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") setOpen(false);
     }
-
     document.addEventListener("mousedown", onMouseDown);
     document.addEventListener("keydown", onKey);
-
     return () => {
       document.removeEventListener("mousedown", onMouseDown);
       document.removeEventListener("keydown", onKey);
     };
   }, [open]);
 
+  const isAll = value === allValue;
+  const displayLabel = isAll ? allLabel : (value as string);
+
   return (
-    <div ref={ref} className="relative md:hidden">
+    <div ref={ref} className={`relative ${className}`}>
       <button
         type="button"
-        onClick={() => setOpen((isOpen) => !isOpen)}
+        onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="listbox"
-        className={`flex w-full items-center justify-between border px-3 py-2 text-[10px] uppercase tracking-[0.2em] transition duration-200 ease-out ${
-          value === "ALL" ? "border-neutral-200 text-neutral-500" : "border-neutral-900 text-neutral-900"
+        aria-label={label}
+        className={`flex w-full shrink-0 items-center justify-between gap-2 whitespace-nowrap border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition duration-200 ease-out md:w-auto ${
+          isAll
+            ? "border-neutral-200 text-neutral-700 hover:border-neutral-400"
+            : "border-neutral-900 text-neutral-900"
         }`}
       >
-        <span>Tags</span>
-        <span aria-hidden="true">&#9662;</span>
+        <span>{displayLabel}</span>
+        <svg
+          className={`h-2 w-2.5 shrink-0 transition-transform duration-200 ease-out ${open ? "rotate-180" : ""}`}
+          viewBox="0 0 10 6"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
       </button>
       {open && (
         <ul
           role="listbox"
-          aria-label="Tags"
-          className="absolute inset-x-0 top-full z-30 mt-1 max-h-[min(60vh,28rem)] overflow-y-auto border border-neutral-200 bg-white"
+          aria-label={label}
+          className="absolute left-0 top-full z-30 mt-1 max-h-[min(60vh,28rem)] w-full min-w-[10rem] overflow-y-auto border border-neutral-200 bg-white md:w-auto"
         >
-          {tags.map((filterTag) => {
-            const active = value === filterTag;
+          {options.map((option) => {
+            const active = value === option;
+            const optionLabel = option === allValue ? allLabel : (option as string);
             return (
-              <li key={filterTag} role="option" aria-selected={active}>
+              <li key={option} role="option" aria-selected={active}>
                 <button
                   type="button"
                   onClick={() => {
-                    onChange(active && filterTag !== "ALL" ? "ALL" : filterTag);
+                    onChange(option);
                     setOpen(false);
                   }}
-                  className={`flex w-full items-center justify-between px-3 py-2.5 text-left text-[10px] uppercase tracking-[0.18em] transition duration-200 ease-out hover:bg-neutral-50 ${
+                  className={`flex w-full items-center justify-between px-3 py-2 text-left text-[10px] uppercase tracking-[0.18em] transition duration-200 ease-out hover:bg-neutral-50 ${
                     active ? "text-neutral-900" : "text-neutral-500"
                   }`}
                 >
-                  <span>{filterTag}</span>
-                  {active && <span aria-hidden="true">&#10003;</span>}
+                  <span>{optionLabel}</span>
+                  {active && (
+                    <svg className="h-2.5 w-3 shrink-0" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                      <path
+                        d="M2 6l3 3 5-6"
+                        stroke="currentColor"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
                 </button>
               </li>
             );
@@ -437,7 +425,6 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
   const [location, setLocation] = useState<LocationValue>({ kind: "all" });
   const [year, setYear] = useState("All");
   const [tag, setTag] = useState<SelectedTag>("ALL");
-  const [tagsExpanded, setTagsExpanded] = useState(false);
   const [savedOnly, setSavedOnly] = useState(false);
   const [onViewOnly, setOnViewOnly] = useState(false);
   // Timestamp used by the "On view" filter. Refreshed on mount and on
@@ -458,9 +445,6 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
     setDensity((current) => (current === "normal" ? "dense" : "normal"));
   }, []);
   const [search, setSearch] = useState("");
-  // Mobile-only: collapse Location/Year/Tags behind a single FILTERS toggle.
-  // Desktop ignores this and always shows the rows.
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const selectTag = useCallback(
     (nextTag: SelectedTag) => {
@@ -542,7 +526,7 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
     [location, year, tag, savedOnly, onViewOnly, nowMs, savedSlugs, search],
   );
 
-  const showsMoreTagSelected = tag !== "ALL" && (MORE_TAGS as readonly SelectedTag[]).includes(tag);
+  const tagOptions: SelectedTag[] = ["ALL", ...semanticTags];
 
   return (
     <main className="min-h-screen bg-white">
@@ -606,135 +590,68 @@ export default function HomePageClient({ initialIsMobile }: { initialIsMobile: b
         </nav>
       </header>
 
-      {/* Filter bar */}
+      {/* Filter bar — same on mobile and desktop now: the Filters
+          collapsible button is gone, every filter is a dropdown
+          (Tags → Location → Year), then the On view chip. Density
+          + search live at the right edge on desktop; on mobile the
+          density button sits after the On view chip and the search
+          field is the row above. */}
       <div className="border-b border-neutral-200 bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
-        <div className="space-y-4 md:space-y-3">
-          {/* Mobile search — always visible above the FILTERS toggle. */}
+        <div className="space-y-3">
+          {/* Mobile search — full-width row above the filter chips. */}
           <input
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search exhibitions..."
-            className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
+            className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 transition duration-200 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
           />
 
-          {/* Mobile-only row: FILTERS toggle + density switch side by
-              side. Filters no longer spans the full width so the
-              density icon sits to its right in the same horizontal
-              line. Hidden on desktop where the filter rows are
-              always visible and density lives in the filter row. */}
-          <div className="flex items-center gap-2 md:hidden">
-            <button
-              type="button"
-              onClick={() => setMobileFiltersOpen((open) => !open)}
-              aria-expanded={mobileFiltersOpen}
-              aria-controls="mobile-filters-panel"
-              className="flex flex-1 items-center justify-between border border-neutral-200 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-neutral-700 transition duration-200 ease-out hover:border-neutral-400"
-            >
-              <span>Filters</span>
-              <span
-                aria-hidden="true"
-                className={`inline-block transition-transform duration-200 ease-out ${
-                  mobileFiltersOpen ? "rotate-45" : "rotate-0"
-                }`}
-              >
-                +
-              </span>
-            </button>
-            <DensityToggleButton density={density} onCycle={cycleDensity} />
-          </div>
+          {/* Single row of filters, wraps to two lines if needed on
+              narrow viewports. Tags → Location → Year → On view. */}
+          <div className="flex flex-wrap items-center gap-2 md:gap-3">
+            <SelectDropdown<SelectedTag>
+              label="Tags"
+              value={tag}
+              allValue="ALL"
+              allLabel="All tags"
+              options={tagOptions}
+              onChange={selectTag}
+            />
+            <LocationDropdown value={location} tree={locationTree} onChange={setLocation} />
+            <SelectDropdown<string>
+              label="Year"
+              value={year}
+              allValue="All"
+              allLabel="All years"
+              options={YEARS}
+              onChange={setYear}
+            />
+            <FilterChip
+              label="On view"
+              active={onViewOnly}
+              onClick={() => setOnViewOnly((v) => !v)}
+            />
 
-          {/* Collapsible filter panel — hidden on mobile when collapsed,
-              always visible on desktop. */}
-          <div
-            id="mobile-filters-panel"
-            className={`${mobileFiltersOpen ? "block" : "hidden"} space-y-4 md:!block md:space-y-3`}
-          >
-            <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center md:gap-x-8 md:gap-y-2">
-              {/* Location filter (countries → cities) */}
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Location:</span>
-                <LocationDropdown value={location} tree={locationTree} onChange={setLocation} />
-              </div>
-
-              {/* Year filter */}
-              <div className="scrollbar-none flex min-w-0 items-center gap-2 overflow-x-auto pb-1 md:flex-wrap md:overflow-visible md:pb-0">
-                <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Year:</span>
-                {YEARS.map((y) => (
-                  <FilterChip key={y} label={y} active={year === y} onClick={() => setYear(y)} />
-                ))}
-              </div>
-
-              {/* Now / on-view toggle — a single FilterChip, styled
-                  identically to Year/Tags chips. Combines with the
-                  other filters (does not reset them). */}
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] uppercase tracking-[0.25em] text-neutral-400">Now:</span>
-                <FilterChip
-                  label="On view"
-                  active={onViewOnly}
-                  onClick={() => setOnViewOnly((v) => !v)}
-                />
-              </div>
-
-              {/* Right-aligned group on desktop: search field + density
-                  toggle. Search sits directly to the left of the
-                  density button so the two feed-view controls form
-                  one logical cluster at the right edge. Hidden on
-                  mobile — mobile search is above the Filters button
-                  and mobile density lives next to it. */}
-              <div className="hidden items-center gap-3 md:ml-auto md:flex">
-                <input
-                  type="search"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search exhibitions..."
-                  className="h-9 w-56 border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 transition duration-200 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none"
-                />
-                <DensityToggleButton density={density} onCycle={cycleDensity} />
-              </div>
+            {/* Desktop right-cluster: search field + density. Uses
+                ml-auto to push to the right edge, hidden on mobile. */}
+            <div className="hidden items-center gap-3 md:ml-auto md:flex">
+              <input
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search exhibitions..."
+                className="h-9 w-56 border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 transition duration-200 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none"
+              />
+              <DensityToggleButton density={density} onCycle={cycleDensity} />
             </div>
 
-            <MobileTagsDropdown value={tag} onChange={selectTag} />
-          </div>
-
-          {/* Desktop tags — primary chips always shown, MORE chips expand
-              inline (no floating dropdown). MORE auto-expands when the
-              currently selected tag belongs to MORE_TAGS so the chip is
-              visible to the user. */}
-          <div className="hidden min-w-0 items-start gap-2 md:flex">
-            <span className="shrink-0 pt-1.5 text-[10px] uppercase tracking-[0.25em] text-neutral-400">
-              Tags:
-            </span>
-            <div className="scrollbar-none flex min-w-0 flex-1 flex-wrap gap-2 overflow-x-auto pb-1 md:overflow-visible md:pb-0">
-              {PRIMARY_TAGS.map((filterTag) => (
-                <FilterChip
-                  key={filterTag}
-                  label={filterTag}
-                  active={tag === filterTag}
-                  onClick={() => selectTag(filterTag)}
-                />
-              ))}
-              {(tagsExpanded || showsMoreTagSelected) &&
-                MORE_TAGS.map((moreTag) => (
-                  <FilterChip
-                    key={moreTag}
-                    label={moreTag}
-                    active={tag === moreTag}
-                    onClick={() => selectTag(moreTag)}
-                  />
-                ))}
-              <button
-                type="button"
-                onClick={() => setTagsExpanded((expanded) => !expanded)}
-                aria-expanded={tagsExpanded || showsMoreTagSelected}
-                className="shrink-0 border border-neutral-200 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500 transition duration-200 ease-out hover:border-neutral-400 hover:text-neutral-700"
-              >
-                {tagsExpanded || showsMoreTagSelected ? "- Less" : "+ More"}
-              </button>
+            {/* Mobile: density button pushed to the right within the
+                filter chip row. */}
+            <div className="ml-auto md:hidden">
+              <DensityToggleButton density={density} onCycle={cycleDensity} />
             </div>
           </div>
-
         </div>
       </div>
 

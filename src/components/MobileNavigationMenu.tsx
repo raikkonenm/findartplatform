@@ -6,39 +6,62 @@ import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
 
 export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean }) {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
+  // Two-phase mount so the slide-in animation actually plays on first
+  // open: we render with -translate-x-full for one frame, then flip
+  // to translate-x-0 in the next paint, and on close we swap back and
+  // unmount only after the 300ms transform transition finishes. The
+  // eslint pragma below is intentional: this is genuinely event-
+  // driven state we want to defer to after the render, and the rule
+  // has no notion of animation timing.
+  useEffect(() => {
+    if (open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMounted(true);
+      return;
+    }
+    if (mounted) {
+      const t = setTimeout(() => setMounted(false), 300);
+      return () => clearTimeout(t);
+    }
+  }, [open, mounted]);
+
+  // Body scroll lock while the drawer is open.
   useEffect(() => {
     if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
 
-    function onMouseDown(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
-
+  // Escape closes the drawer; focus the close button on open for a
+  // sane keyboard entry point.
+  useEffect(() => {
+    if (!open) return;
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") setOpen(false);
     }
-
-    document.addEventListener("mousedown", onMouseDown);
     document.addEventListener("keydown", onKeyDown);
-
+    const focusTimer = setTimeout(() => closeButtonRef.current?.focus(), 20);
     return () => {
-      document.removeEventListener("mousedown", onMouseDown);
       document.removeEventListener("keydown", onKeyDown);
+      clearTimeout(focusTimer);
     };
   }, [open]);
 
   return (
-    <div ref={ref} className="md:hidden">
+    <div className="md:hidden">
       <button
         type="button"
         aria-label={open ? "Close navigation menu" : "Open navigation menu"}
         aria-expanded={open}
-        aria-haspopup="menu"
+        aria-haspopup="dialog"
         onClick={() => setOpen((isOpen) => !isOpen)}
-        className={`flex h-10 w-10 items-center justify-start transition-opacity hover:opacity-55 ${
+        className={`flex h-10 w-10 items-center justify-start transition-opacity duration-200 ease-out hover:opacity-55 ${
           inverted ? "text-white" : "text-neutral-900"
         }`}
       >
@@ -46,38 +69,75 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
           <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="1.25" />
         </svg>
       </button>
-      {open && (
+
+      {mounted && (
         <div
-          role="menu"
-          className="fixed inset-x-0 top-[65px] z-[60] border-b border-neutral-200 bg-white px-5 py-6 text-[10px] uppercase tracking-[0.22em] text-neutral-900 shadow-[0_5px_12px_rgba(0,0,0,0.04)]"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation"
+          className="fixed inset-0 z-[70]"
         >
-          <div className="flex flex-col items-start gap-5">
-            <Link href="/about" role="menuitem" onClick={() => setOpen(false)}>
-              About
-            </Link>
-            <a
-              href="https://www.instagram.com/findart.platform/"
-              role="menuitem"
-              onClick={() => setOpen(false)}
-            >
-              Instagram
-            </a>
-            <a href="https://www.artcnomad.com/" role="menuitem" onClick={() => setOpen(false)}>
-              By Artnomad Curators &#8599;
-            </a>
-            <a
-              href="https://www.artcnomad.com/workflow-art"
-              role="menuitem"
-              onClick={() => setOpen(false)}
-            >
-              Workflow.Art &#8599;
-            </a>
-            {SHOW_PRACTICE_NAV && (
-              <a href="https://www.artcnomad.com/practice" role="menuitem" onClick={() => setOpen(false)}>
-                Practice &#8599;
+          {/* Overlay — click closes. Fades in/out with the drawer. */}
+          <button
+            type="button"
+            aria-label="Close navigation menu"
+            onClick={() => setOpen(false)}
+            className={`absolute inset-0 h-full w-full cursor-default bg-black/40 transition-opacity duration-300 ease-out ${
+              open ? "opacity-100" : "opacity-0"
+            }`}
+          />
+
+          {/* Off-canvas panel, slides in from the left. */}
+          <aside
+            className={`absolute left-0 top-0 flex h-full w-[82%] max-w-[320px] flex-col bg-white shadow-[4px_0_24px_rgba(0,0,0,0.08)] transition-transform duration-300 ease-out ${
+              open ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
+              <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
+                Menu
+              </span>
+              <button
+                ref={closeButtonRef}
+                type="button"
+                aria-label="Close navigation menu"
+                onClick={() => setOpen(false)}
+                className="flex h-8 w-8 items-center justify-center text-neutral-900 transition-opacity duration-200 ease-out hover:opacity-55"
+              >
+                <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
+                  <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.25" />
+                </svg>
+              </button>
+            </div>
+            <nav className="flex flex-col items-start gap-5 px-5 py-6 text-[11px] uppercase tracking-[0.22em] text-neutral-900">
+              <Link href="/about" onClick={() => setOpen(false)}>
+                About
+              </Link>
+              <a
+                href="https://www.instagram.com/findart.platform/"
+                onClick={() => setOpen(false)}
+              >
+                Instagram
               </a>
-            )}
-          </div>
+              <a href="https://www.artcnomad.com/" onClick={() => setOpen(false)}>
+                By Artnomad Curators &#8599;
+              </a>
+              <a
+                href="https://www.artcnomad.com/workflow-art"
+                onClick={() => setOpen(false)}
+              >
+                Workflow.Art &#8599;
+              </a>
+              {SHOW_PRACTICE_NAV && (
+                <a
+                  href="https://www.artcnomad.com/practice"
+                  onClick={() => setOpen(false)}
+                >
+                  Practice &#8599;
+                </a>
+              )}
+            </nav>
+          </aside>
         </div>
       )}
     </div>
