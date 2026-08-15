@@ -16,6 +16,159 @@ import { isExhibitionOnView } from "@/lib/isOnView";
 const YEARS = ["All", "2026", "2025", "2024", "2023"];
 type SelectedTag = "ALL" | SemanticTag;
 
+function FeaturedExhibitionSlideshow({
+  slug,
+  initialSrc,
+  alt,
+  priority = false,
+  sizes,
+}: {
+  slug: string;
+  initialSrc: string;
+  alt: string;
+  priority?: boolean;
+  sizes: string;
+}) {
+  const exhibition = exhibitions.find((item) => item.slug === slug);
+  const slides = [initialSrc, ...(exhibition?.images.map((image) => image.src) ?? [])].filter(
+    (src, index, items) => items.indexOf(src) === index,
+  );
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    if (slides.length < 2) return;
+    const interval = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % slides.length);
+    }, 1000);
+
+    return () => window.clearInterval(interval);
+  }, [slides.length]);
+
+  return (
+    <div className="relative h-full w-full">
+      {slides.map((src, index) => (
+        <Image
+          key={src}
+          src={src}
+          alt={index === 0 ? alt : ""}
+          fill
+          priority={priority && index === 0}
+          {...(priority && index === 0
+            ? { fetchPriority: "high" as const }
+            : { loading: "lazy" as const })}
+          unoptimized
+          sizes={sizes}
+          className={`object-cover transition-opacity duration-300 ease-in-out ${
+            index === activeSlide ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
+function MobileFeaturedCarousel() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const slideCount = 3;
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % slideCount);
+    }, 5000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const moveTo = (index: number) => {
+    setActiveSlide((index + slideCount) % slideCount);
+  };
+
+  return (
+    <section className="overflow-hidden bg-white pb-4 pt-4 md:hidden" aria-label="Featured exhibitions">
+      <div
+        className="overflow-hidden"
+        onTouchStart={(event) => {
+          touchStartX.current = event.touches[0]?.clientX ?? null;
+        }}
+        onTouchEnd={(event) => {
+          if (touchStartX.current === null) return;
+          const touchEndX = event.changedTouches[0]?.clientX;
+          if (touchEndX === undefined) {
+            touchStartX.current = null;
+            return;
+          }
+          const delta = touchEndX - touchStartX.current;
+          touchStartX.current = null;
+          if (Math.abs(delta) < 40) return;
+          moveTo(activeSlide + (delta < 0 ? 1 : -1));
+        }}
+      >
+        <div
+          className="flex transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+        >
+          <div className="w-full shrink-0 px-4">
+            <Link
+              href="/exhibitions/der-kopf-ist-rund"
+              aria-label="View Der Kopf ist rund exhibition"
+              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+            >
+              <FeaturedExhibitionSlideshow
+                slug="der-kopf-ist-rund"
+                initialSrc="/banner/banner1.webp"
+                alt="Der Kopf ist rund exhibition installation view"
+                priority
+                sizes="100vw"
+              />
+            </Link>
+          </div>
+          <div className="w-full shrink-0 px-4">
+            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+              <Image
+                src="/banner/blue.webp"
+                alt="Axial-Core exhibition installation view"
+                fill
+                unoptimized
+                sizes="100vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+          <div className="w-full shrink-0 px-4">
+            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Artcnomads curatorial projects"
+                className="absolute inset-0 h-full w-full object-cover"
+              >
+                <source src="/banner/AC.web.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-3 flex items-center justify-center gap-2" aria-label="Choose featured banner">
+        {Array.from({ length: slideCount }, (_, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => moveTo(index)}
+            aria-label={`Show featured banner ${index + 1}`}
+            aria-current={index === activeSlide ? "true" : undefined}
+            className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
+              index === activeSlide ? "bg-neutral-900" : "bg-neutral-400"
+            }`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // Hierarchical location filter: "all" / by country / by specific city
 // inside a country.
 type LocationValue =
@@ -738,35 +891,26 @@ export default function HomePageClient({
 
       {showFeaturedBanners && (
         <>
-          <section className="relative md:hidden" aria-label="Featured exhibition">
-            <Image
-              src="/banner/banner1.webp"
-              alt="Featured exhibition installation view"
-              width={1739}
-              height={796}
-              sizes="100vw"
-              priority
-              unoptimized
-              className="block h-auto w-full"
-            />
-          </section>
+          <MobileFeaturedCarousel />
 
           <section
             className="hidden grid-cols-3 gap-6 bg-white px-8 pb-12 pt-8 md:grid lg:gap-8 lg:px-12"
             aria-label="Featured exhibitions"
           >
         <article className="min-w-0">
-          <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-            <Image
-              src="/banner/banner1.webp"
+          <Link
+            href="/exhibitions/der-kopf-ist-rund"
+            aria-label="View Der Kopf ist rund exhibition"
+            className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+          >
+            <FeaturedExhibitionSlideshow
+              slug="der-kopf-ist-rund"
+              initialSrc="/banner/banner1.webp"
               alt="Der Kopf ist rund exhibition installation view"
-              fill
               priority
-              unoptimized
               sizes="33vw"
-              className="object-cover"
             />
-          </div>
+          </Link>
           <div className="pt-4">
             <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
               Klaus in Vorarlberg / 2026
