@@ -96,7 +96,10 @@ Through these tactile and psychologically charged forms, Albuquerque reflects on
     excerpt:
       "Seoul-based artist Koesy works across animation, sculpture, and character design, building a distinctive universe between reality and the virtual.",
     body: `Seoul-based artist Koesy works across animation, sculpture, and character design, building a distinctive universe between reality and the virtual. Through fictional worlds and recurring characters, his practice explores inner anxiety and the process of overcoming it.`,
-    images: imageSequence("KOESY", [2, 3, 4, 5, 6, 7, 8]),
+    images: [
+      { src: "/editorial/KOESY/banner.webp", width: 1440, height: 1800 },
+      ...imageSequence("KOESY", [2, 3, 4, 5, 6, 7, 8]),
+    ],
   }),
   artist({
     slug: "kim-myungchan",
@@ -108,7 +111,14 @@ Through these tactile and psychologically charged forms, Albuquerque reflects on
     body: `Myungchan Kim examines how digital technologies reshape our relationship with the body, memory, and physical presence. Working primarily through painting, he contrasts tactile, gestural surfaces with ghostly human silhouettes and industrial structures, creating spaces where the organic and the artificial coexist in uneasy balance.
 
 Rather than rejecting technology, Kim explores the “offline body” as a fragile anchor-a reminder of touch, materiality, and embodied experience in an increasingly virtual world.`,
-    images: imageSequence("KIM MYUNGCHAN", [2, 3, 4, 5, 6, 7, 8, 9, 10]),
+    images: [
+      {
+        src: "/editorial/KIM%20MYUNGCHAN/banner.webp",
+        width: 1440,
+        height: 1800,
+      },
+      ...imageSequence("KIM MYUNGCHAN", [2, 3, 4, 5, 6, 7, 8, 9, 10]),
+    ],
   }),
   artist({
     slug: "yukino-yamanaka",
@@ -156,7 +166,10 @@ Investigating the convergence of the real and the virtual, Zhang creates imagine
     body: `Yihan explores how fleeting forms carry traces of transformation. A drop of water, a ray of light, a particle of dust - these are not background for her, but subjects worthy of close attention. She is drawn to the boundary between the visible and the vanishing, between presence and withdrawal, between the attempt to measure the world and the moment when measurement falls apart.
 
 Yihan Pan works with microscopes and telescopes, moving between scales - from a speck of dust to a landscape. At the core of her practice are water, light, and dust, materials that seem almost weightless yet carry the quiet gravity of time.`,
-    images: imageSequence("YIHAN PAN", [2, 3, 4, 5, 6, 7, 8, 9]),
+    images: [
+      { src: "/editorial/YIHAN%20PAN/banner.webp", width: 1440, height: 1800 },
+      ...imageSequence("YIHAN PAN", [2, 3, 4, 5, 6, 7, 8, 9]),
+    ],
   }),
 ];
 
