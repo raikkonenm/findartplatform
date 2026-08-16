@@ -1220,8 +1220,11 @@ export default function HomePageClient({
               OPPORTUNITIES
             </Link>
             <Link href="/editorial" className={navLinkClass("/editorial")}>
-              Editorial
+              Features
             </Link>
+            <button type="button" className="transition-opacity hover:opacity-55">
+              Editorial
+            </button>
             <button type="button" className="transition-opacity hover:opacity-55">
               INDEX
             </button>
