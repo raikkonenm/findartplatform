@@ -39,6 +39,20 @@ const DESKTOP_SLIDESHOW_SLUGS = new Set([
   "distant-endless-hum",
   "fantasy-vanishes-in-flesh",
   "doubled-presence-in-a-disembodied-space",
+  "ethereal-robes-of-vulnerability",
+  "after-the-offerings",
+  "24-preludes-op-34-no-22-in-g-minor-adagio",
+  "triangle-reshapes-the-o-of-my-mouth",
+  "luca",
+  "the-room-i",
+  "parade",
+  "call-me-we-by-lom-of-lama",
+  "massage-platz",
+  "lullaby-blossoms",
+  "parachute-group-exhibition",
+  "ausserkoerperliche-erfahrung-wandering-spirit",
+  "presence-by-proxy",
+  "sweet-world-1",
 ]);
 
 function DesktopCardSlideshow({ exhibition, title }: { exhibition: Exhibition; title: string }) {
