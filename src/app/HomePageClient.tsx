@@ -1219,13 +1219,13 @@ export default function HomePageClient({
               Exhibitions
             </Link>
             <button type="button" className="transition-opacity hover:opacity-55">
-              Opportunities
+              OPPORTUNITIES
             </button>
             <Link href="/editorial" className={navLinkClass("/editorial")}>
               Editorial
             </Link>
             <button type="button" className="transition-opacity hover:opacity-55">
-              Media Precence
+              MEDIA
             </button>
             <Link
               href="/submit"
