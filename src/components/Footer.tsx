@@ -85,6 +85,66 @@ export function Footer() {
             Start collect art
           </a>
         </div>
+
+        <div>
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
+            Digital Products
+          </p>
+          <a
+            href="https://www.artcnomad.com/workflow-art"
+            className={footerLinkClass}
+          >
+            Workflow.Art &#8599;
+          </a>
+        </div>
+
+        <div>
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
+            Follow us
+          </p>
+          <div className="flex flex-col items-start gap-3">
+            <a
+              href="https://www.instagram.com/findart.platform/"
+              className={footerLinkClass}
+            >
+              FindArt Platform Instagram &#8599;
+            </a>
+            <a
+              href="https://www.instagram.com/artcnomads/"
+              className={footerLinkClass}
+            >
+              Artcnomads Instagram &#8599;
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
+            Inquiries
+          </p>
+          <a
+            href="mailto:raikkonenmaria7@gmail.com"
+            className="text-[12px] transition-opacity hover:opacity-55"
+          >
+            raikkonenmaria7@gmail.com
+          </a>
+        </div>
+
+        <div>
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
+            Submissions
+          </p>
+          <p className="text-[12px] leading-6">
+            For submissions{" "}
+            <Link
+              href="/submit"
+              className="font-semibold underline underline-offset-4 transition-opacity hover:opacity-55"
+            >
+              visit here
+            </Link>
+            .
+          </p>
+        </div>
       </div>
     </footer>
   );

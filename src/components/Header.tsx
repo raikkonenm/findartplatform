@@ -69,7 +69,7 @@ export function Header({ overlay = false }: HeaderProps) {
             Features
           </Link>
           <button type="button" className="transition-opacity hover:opacity-55">
-            Editorial
+            EDITORIAL
           </button>
           <button type="button" className="transition-opacity hover:opacity-55">
             INDEX
