@@ -139,7 +139,7 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
           >
             ArtNomads
           </a>{" "}
-          Instagram.
+          Instagram ↗
         </p>
       </section>
     </main>

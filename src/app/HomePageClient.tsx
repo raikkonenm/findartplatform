@@ -439,7 +439,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
                 href="https://www.artcnomad.com/"
                 className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
               >
-                ART CURATORIAL NOMADS
+                ART CURATORIAL NOMADS ↗
               </a>
               <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
                 Curate your exhibition
@@ -470,7 +470,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
                 href="https://www.artcnomad.com/workflow-art"
                 className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
               >
-                Workflow.Art
+                Workflow.Art ↗
               </a>
               <p className="mt-2 text-[11px] leading-relaxed tracking-[0.04em] text-neutral-500">
                 Everything you need to plan, apply, and move your art career forward.
