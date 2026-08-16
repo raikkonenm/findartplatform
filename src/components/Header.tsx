@@ -71,9 +71,9 @@ export function Header({ overlay = false }: HeaderProps) {
           <button type="button" className="transition-opacity hover:opacity-55">
             EDITORIAL
           </button>
-          <Link href="/index" className={navLinkClass("/index")}>
+          <button type="button" className="transition-opacity hover:opacity-55">
             INDEX
-          </Link>
+          </button>
           <Link href="/submit" className={navLinkClass("/submit", true)}>
             Submit
           </Link>
