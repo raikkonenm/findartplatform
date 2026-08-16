@@ -1225,9 +1225,9 @@ export default function HomePageClient({
             <button type="button" className="transition-opacity hover:opacity-55">
               EDITORIAL
             </button>
-            <Link href="/index" className={navLinkClass("/index")}>
+            <button type="button" className="transition-opacity hover:opacity-55">
               INDEX
-            </Link>
+            </button>
             <Link
               href="/submit"
               className={navLinkClass("/submit", true)}
