@@ -1218,9 +1218,9 @@ export default function HomePageClient({
             <Link href="/exhibitions" className={navLinkClass("/exhibitions")}>
               Exhibitions
             </Link>
-            <button type="button" className="transition-opacity hover:opacity-55">
+            <Link href="/opportunities" className={navLinkClass("/opportunities")}>
               OPPORTUNITIES
-            </button>
+            </Link>
             <Link href="/editorial" className={navLinkClass("/editorial")}>
               Editorial
             </Link>

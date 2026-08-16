@@ -140,6 +140,13 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                 Editorial
               </Link>
               <Link
+                href="/opportunities"
+                onClick={() => setOpen(false)}
+                className={pathname.startsWith("/opportunities") ? "font-semibold" : ""}
+              >
+                Opportunities
+              </Link>
+              <Link
                 href="/about"
                 onClick={() => setOpen(false)}
                 className={pathname.startsWith("/about") ? "font-semibold" : ""}
