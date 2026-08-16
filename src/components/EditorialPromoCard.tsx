@@ -45,7 +45,7 @@ export function EditorialPromoCard() {
           />
         ))}
         <span className="absolute inset-0 bg-black/15 transition-colors duration-300 group-hover:bg-black/25" />
-        <span className="absolute inset-0 flex items-center justify-center px-2 text-center text-[16px] font-bold uppercase tracking-[0.18em] text-white md:px-4 md:text-[40px] md:tracking-[0.24em]">
+        <span className="absolute inset-0 flex items-center justify-center px-2 text-center text-[11px] font-bold uppercase tracking-[0.14em] text-white md:px-4 md:text-[24px] md:tracking-[0.18em]">
           Editorial
         </span>
       </Link>
