@@ -55,34 +55,29 @@ const DESKTOP_SLIDESHOW_SLUGS = new Set([
   "sweet-world-1",
 ]);
 
-function DesktopCardSlideshow({ exhibition, title }: { exhibition: Exhibition; title: string }) {
-  const slides = exhibition.images.filter((image) => image.orientation === "vertical");
+const ALL_IMAGE_SLIDESHOW_SLUGS = new Set([
+  "after-the-offerings",
+  "sweet-world-1",
+]);
+
+function CardSlideshow({ exhibition, title }: { exhibition: Exhibition; title: string }) {
+  const slides = ALL_IMAGE_SLIDESHOW_SLUGS.has(exhibition.slug)
+    ? exhibition.images
+    : exhibition.images.filter((image) => image.orientation === "vertical");
   const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     if (slides.length < 2) return;
 
-    const desktop = window.matchMedia("(min-width: 1024px)");
-    let interval: number | undefined;
-    const syncInterval = () => {
-      if (interval !== undefined) window.clearInterval(interval);
-      interval = desktop.matches
-        ? window.setInterval(() => {
-            setActiveSlide((current) => (current + 1) % slides.length);
-          }, 1000)
-        : undefined;
-    };
+    const interval = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % slides.length);
+    }, 1000);
 
-    syncInterval();
-    desktop.addEventListener("change", syncInterval);
-    return () => {
-      desktop.removeEventListener("change", syncInterval);
-      if (interval !== undefined) window.clearInterval(interval);
-    };
+    return () => window.clearInterval(interval);
   }, [slides.length]);
 
   return (
-    <div className="absolute inset-0 hidden lg:block">
+    <div className="absolute inset-0">
       {slides.map((image, index) => (
         <Image
           key={image.src}
@@ -94,7 +89,7 @@ function DesktopCardSlideshow({ exhibition, title }: { exhibition: Exhibition; t
             index === activeSlide ? "opacity-100" : "opacity-0"
           }`}
           {...(exhibition.unoptimized ? { unoptimized: true } : {})}
-          sizes="31vw"
+          sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 50vw"
         />
       ))}
     </div>
@@ -142,7 +137,7 @@ export function ExhibitionCard({
             alt={`${title} exhibition view`}
             fill
             className={`object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025] ${
-              desktopSlideshow ? "lg:hidden" : ""
+              desktopSlideshow ? "hidden" : ""
             }`}
             priority={eager}
             {...(eager
@@ -152,7 +147,7 @@ export function ExhibitionCard({
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
           {desktopSlideshow && (
-            <DesktopCardSlideshow exhibition={exhibition} title={title} />
+            <CardSlideshow exhibition={exhibition} title={title} />
           )}
         </div>
         <div className="archive-card-copy pt-5">
