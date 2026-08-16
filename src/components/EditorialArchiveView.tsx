@@ -131,6 +131,16 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
             ))}
           </div>
         )}
+        <p className="mx-auto mt-16 text-center text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-tight tracking-[0.05em] md:mt-24">
+          Read more on the{" "}
+          <a
+            href="https://www.instagram.com/artcnomads"
+            className="font-semibold underline underline-offset-4 transition-opacity hover:opacity-55"
+          >
+            ArtNomads
+          </a>{" "}
+          Instagram.
+        </p>
       </section>
     </main>
   );

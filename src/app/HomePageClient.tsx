@@ -70,12 +70,12 @@ function FeaturedExhibitionSlideshow({
 function MobileFeaturedCarousel() {
   const [activeSlide, setActiveSlide] = useState(0);
   const touchStartX = useRef<number | null>(null);
-  const slideCount = 3;
+  const slideCount = 4;
 
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveSlide((current) => (current + 1) % slideCount);
-    }, 5000);
+    }, 10000);
     return () => window.clearInterval(interval);
   }, []);
 
@@ -108,23 +108,19 @@ function MobileFeaturedCarousel() {
           style={{ transform: `translateX(-${activeSlide * 100}%)` }}
         >
           <div className="w-full shrink-0 px-4">
-            <a
-              href="https://www.artcnomad.com/workflow-art"
-              aria-label="Open Workflow.Art"
+            <Link
+              href="/exhibitions/der-kopf-ist-rund"
+              aria-label="View Der Kopf ist rund exhibition"
               className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Workflow.Art platform preview"
-                className="absolute inset-0 h-full w-full object-cover"
-              >
-                <source src="/banner/workflow.web.mp4" type="video/mp4" />
-              </video>
-            </a>
+              <FeaturedExhibitionSlideshow
+                slug="der-kopf-ist-rund"
+                initialSrc="/banner/banner1.webp"
+                alt="Der Kopf ist rund exhibition installation view"
+                priority
+                sizes="100vw"
+              />
+            </Link>
           </div>
           <div className="w-full shrink-0 px-4">
             <Link
@@ -154,6 +150,25 @@ function MobileFeaturedCarousel() {
                 <source src="/banner/AC.web.mp4" type="video/mp4" />
               </video>
             </div>
+          </div>
+          <div className="w-full shrink-0 px-4">
+            <a
+              href="https://www.artcnomad.com/workflow-art"
+              aria-label="Open Workflow.Art"
+              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+            >
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Workflow.Art platform preview"
+                className="absolute inset-0 h-full w-full scale-[1.04] object-cover"
+              >
+                <source src="/banner/workflow.web.mp4" type="video/mp4" />
+              </video>
+            </a>
           </div>
         </div>
       </div>
@@ -316,6 +331,170 @@ function DesktopSearch({
         <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.25" />
       </svg>
     </label>
+  );
+}
+
+function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean }) {
+  const [activePage, setActivePage] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActivePage((current) => (current + 1) % 2);
+    }, 10000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  return (
+    <section
+      className="hidden overflow-hidden bg-white px-8 pb-12 pt-4 md:block lg:px-12"
+      aria-label="Featured exhibitions"
+    >
+      <div className="overflow-hidden">
+        <div
+          className="grid gap-6 [--banner-gap:1.5rem] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] lg:gap-8 lg:[--banner-gap:2rem]"
+          style={{
+            gridTemplateColumns:
+              "repeat(4, calc((100% - var(--banner-gap) - var(--banner-gap)) / 3))",
+            transform:
+              activePage === 0
+                ? "translateX(0)"
+                : "translateX(calc(-1 * (((100% - var(--banner-gap) - var(--banner-gap)) / 3) + var(--banner-gap))))",
+          }}
+        >
+          <article className="min-w-0">
+            <Link
+              href="/exhibitions/der-kopf-ist-rund"
+              aria-label="View Der Kopf ist rund exhibition"
+              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+            >
+              <FeaturedExhibitionSlideshow
+                slug="der-kopf-ist-rund"
+                initialSrc="/banner/banner1.webp"
+                alt="Der Kopf ist rund exhibition installation view"
+                priority
+                sizes="33vw"
+              />
+            </Link>
+            <div className="pt-4">
+              <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
+                Klaus in Vorarlberg / 2026
+              </p>
+              <Link
+                href="/exhibitions/der-kopf-ist-rund"
+                className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
+              >
+                Der Kopf ist rund, damit das Denken die Richtung wechseln kann
+              </Link>
+              <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+                Galerie Brugger
+              </p>
+            </div>
+          </article>
+
+          <article className="min-w-0">
+            <Link
+              href="/exhibitions/axial-core"
+              aria-label="View Axial-Core exhibition"
+              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+            >
+              <FeaturedExhibitionSlideshow
+                slug="axial-core"
+                initialSrc="/banner/blue.webp"
+                alt="Axial-Core exhibition installation view"
+                sizes="33vw"
+              />
+            </Link>
+            <div className="pt-4">
+              <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
+                May 22 — June 01, 2026
+              </p>
+              <h2 className="editorial-serif mt-2 break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em]">
+                Axial-Core
+              </h2>
+              <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+                Leo Pum @La Térmica, Málaga KRVCE festival
+              </p>
+            </div>
+          </article>
+
+          <article className="min-w-0">
+            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+              {!initialIsMobile && (
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="Artcnomads curatorial projects"
+                  className="absolute inset-0 h-full w-full object-cover"
+                >
+                  <source src="/banner/AC.web.mp4" type="video/mp4" />
+                </video>
+              )}
+            </div>
+            <div className="pt-4">
+              <p className="text-[10px] tracking-[0.18em] text-neutral-500">artcnomad.com</p>
+              <a
+                href="https://www.artcnomad.com/"
+                className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
+              >
+                ART CURATORIAL NOMADS
+              </a>
+              <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
+                Curate your exhibition
+              </p>
+            </div>
+          </article>
+
+          <article className="min-w-0">
+            <a
+              href="https://www.artcnomad.com/workflow-art"
+              aria-label="Open Workflow.Art"
+              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+            >
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Workflow.Art platform preview"
+                className="absolute inset-0 h-full w-full scale-[1.04] object-cover"
+              >
+                <source src="/banner/workflow.web.mp4" type="video/mp4" />
+              </video>
+            </a>
+            <div className="pt-4">
+              <a
+                href="https://www.artcnomad.com/workflow-art"
+                className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
+              >
+                Workflow.Art
+              </a>
+              <p className="mt-2 text-[11px] leading-relaxed tracking-[0.04em] text-neutral-500">
+                Everything you need to plan, apply, and move your art career forward.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div className="mt-6 flex justify-center gap-3" aria-label="Choose featured banners">
+        {[0, 1].map((page) => (
+          <button
+            key={page}
+            type="button"
+            onClick={() => setActivePage(page)}
+            aria-label={`Show featured banners ${page + 1}`}
+            aria-current={page === activePage ? "true" : undefined}
+            className={`h-px w-20 transition-colors duration-300 ${
+              page === activePage ? "bg-[var(--foreground)]" : "bg-neutral-400"
+            }`}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -1071,100 +1250,7 @@ export default function HomePageClient({
       {showFeaturedBanners && (
         <>
           <MobileFeaturedCarousel />
-
-          <section
-            className="hidden grid-cols-3 gap-6 bg-white px-8 pb-12 pt-4 md:grid lg:gap-8 lg:px-12"
-            aria-label="Featured exhibitions"
-          >
-        <article className="min-w-0">
-          <a
-            href="https://www.artcnomad.com/workflow-art"
-            aria-label="Open Workflow.Art"
-            className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
-          >
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              aria-label="Workflow.Art platform preview"
-              className="absolute inset-0 h-full w-full object-cover"
-            >
-              <source src="/banner/workflow.web.mp4" type="video/mp4" />
-            </video>
-          </a>
-          <div className="pt-4">
-            <a
-              href="https://www.artcnomad.com/workflow-art"
-              className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
-            >
-              Workflow.Art
-            </a>
-            <p className="mt-2 text-[11px] leading-relaxed tracking-[0.04em] text-neutral-500">
-              Everything you need to plan, apply, and move your art career forward.
-            </p>
-          </div>
-        </article>
-
-        <article className="min-w-0">
-          <Link
-            href="/exhibitions/axial-core"
-            aria-label="View Axial-Core exhibition"
-            className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
-          >
-            <FeaturedExhibitionSlideshow
-              slug="axial-core"
-              initialSrc="/banner/blue.webp"
-              alt="Axial-Core exhibition installation view"
-              sizes="33vw"
-            />
-          </Link>
-          <div className="pt-4">
-            <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
-              May 22 — June 01, 2026
-            </p>
-            <h2 className="editorial-serif mt-2 break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em]">
-              Axial-Core
-            </h2>
-            <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-              Leo Pum @La Térmica, Málaga KRVCE festival
-            </p>
-          </div>
-        </article>
-
-        <article className="min-w-0">
-          <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-            {!initialIsMobile && (
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Artcnomads curatorial projects"
-                className="absolute inset-0 h-full w-full object-cover"
-              >
-                <source src="/banner/AC.web.mp4" type="video/mp4" />
-              </video>
-            )}
-          </div>
-          <div className="pt-4">
-            <p className="text-[10px] tracking-[0.18em] text-neutral-500">
-              artcnomad.com
-            </p>
-            <a
-              href="https://www.artcnomad.com/"
-              className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
-            >
-              ART CURATORIAL NOMADS
-            </a>
-            <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-              Curate your exhibition
-            </p>
-          </div>
-        </article>
-          </section>
+          <DesktopFeaturedCarousel initialIsMobile={initialIsMobile} />
         </>
       )}
 
