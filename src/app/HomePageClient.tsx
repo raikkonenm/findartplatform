@@ -486,6 +486,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             key={page}
             type="button"
             onClick={() => setActivePage(page)}
+            onMouseEnter={() => setActivePage(page)}
             aria-label={`Show featured banners ${page + 1}`}
             aria-current={page === activePage ? "true" : undefined}
             className={`h-px w-10 transition-colors duration-300 ${
