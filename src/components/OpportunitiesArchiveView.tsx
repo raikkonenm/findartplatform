@@ -127,7 +127,7 @@ function FilterRail({ mode, selected, onSelect }: { mode: FilterMode; selected: 
 
 function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; onOpen: () => void }) {
   return (
-    <article className="flex min-h-[430px] flex-col border border-[var(--border)] p-5 transition-colors duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-900 md:p-6">
+    <article className="flex min-h-[430px] flex-col border border-[var(--border)] p-5 transition-colors duration-300 hover:border-neutral-500 md:p-6">
       <p className="mb-8 text-[10px] uppercase tracking-[0.2em] text-neutral-500">{opportunity.organizer}</p>
       <h2 className="editorial-serif mb-10 text-[clamp(1.65rem,2.4vw,2.5rem)] uppercase leading-[0.98] tracking-[-0.035em]">{opportunity.title}</h2>
       <dl className="space-y-4 border-t border-[var(--border)] pt-5 text-[12px] leading-relaxed">
@@ -184,7 +184,7 @@ function OpportunityDetail({ opportunity, onClose }: { opportunity: Opportunity;
             <div className="flex flex-wrap gap-2">
               {opportunity.tags.map((tag) => <span key={tag} className="border border-[var(--border)] px-2.5 py-1.5 text-[8px] uppercase tracking-[0.18em]">{tag}</span>)}
             </div>
-            <a href={opportunity.applyUrl} target="_blank" rel="noopener noreferrer" className="border border-[var(--foreground)] bg-[var(--foreground)] px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--background)] transition-opacity hover:opacity-70">Apply ↗</a>
+            <a href={opportunity.applyUrl} target="_blank" rel="noopener noreferrer" className="border border-[var(--foreground)] bg-transparent px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--foreground)] transition-opacity hover:opacity-55">Apply ↗</a>
           </div>
         </div>
       </aside>

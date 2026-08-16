@@ -480,7 +480,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
         </div>
       </div>
 
-      <div className="mt-6 flex justify-end gap-2" aria-label="Choose featured banners">
+      <div className="-mt-4 flex justify-end gap-2" aria-label="Choose featured banners">
         {[0, 1].map((page) => (
           <button
             key={page}
@@ -1080,9 +1080,7 @@ export default function HomePageClient({
   //   dense : 2 (mobile) / 5 (desktop)
   // The toggle just flips between them; the icon spins 90° so the
   // active state is obvious.
-  const [density, setDensity] = useState<MasonryDensity>(
-    initialDensity ?? (initialIsMobile ? "dense" : "normal"),
-  );
+  const [density, setDensity] = useState<MasonryDensity>(initialDensity ?? "dense");
   useEffect(() => {
     if (!showFeaturedBanners || !window.matchMedia("(max-width: 767px)").matches) return;
     // Mobile Explore always starts in the two-column catalogue view.
@@ -1225,7 +1223,7 @@ export default function HomePageClient({
               Editorial
             </Link>
             <button type="button" className="transition-opacity hover:opacity-55">
-              MEDIA
+              INDEX
             </button>
             <Link
               href="/submit"

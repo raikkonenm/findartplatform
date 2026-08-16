@@ -49,7 +49,7 @@ function EditorialSearch({
 export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }) {
   const { savedSlugs } = useSavedExhibitions();
   const [savedOnly, setSavedOnly] = useState(false);
-  const [density, setDensity] = useState<DensityValue>("normal");
+  const [density, setDensity] = useState<DensityValue>("dense");
   const [search, setSearch] = useState("");
 
   useEffect(() => {

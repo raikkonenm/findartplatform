@@ -69,7 +69,7 @@ export function Header({ overlay = false }: HeaderProps) {
             Editorial
           </Link>
           <button type="button" className="transition-opacity hover:opacity-55">
-            MEDIA
+            INDEX
           </button>
           <Link href="/submit" className={navLinkClass("/submit", true)}>
             Submit
