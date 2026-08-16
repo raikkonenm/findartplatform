@@ -5,7 +5,7 @@ import { IndexImageCarousel } from "@/components/IndexImageCarousel";
 export const metadata: Metadata = {
   title: "Index — FindArt Platform",
   description:
-    "Index of artists and creative practices archived by FindArt Platform.",
+    "Discover how artists, galleries and institutions present their work online.",
 };
 
 type IndexEntry = {
@@ -39,12 +39,15 @@ export default function DirectoryPage() {
     <main className="min-h-screen overflow-x-hidden bg-white pt-[65px]">
       <Header />
       <section className="px-5 pb-24 pt-8 md:px-8 md:pt-12 lg:px-12">
-        <h1 className="mb-10 text-[11px] uppercase tracking-[0.28em] text-neutral-500">
+        <p className="mb-3 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
           Index
+        </p>
+        <h1 className="editorial-serif mb-14 max-w-3xl break-words text-[clamp(1.4rem,4.5vw,2.5rem)] leading-[1.15] tracking-[-0.02em] text-neutral-800">
+          Discover how artists, galleries and institutions present their work online.
         </h1>
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
           <DirectoryCard entry={ruby}>
-            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+            <div className="relative aspect-[2/1] overflow-hidden bg-neutral-100">
               <video
                 autoPlay
                 muted
@@ -59,10 +62,8 @@ export default function DirectoryPage() {
           </DirectoryCard>
 
           <DirectoryCard entry={ivana}>
-            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-              <div className="transition-transform duration-500 ease-out md:group-hover:scale-[1.025]">
-                <IndexImageCarousel images={ivanaImages} alt="Ivana Basic" />
-              </div>
+            <div className="relative aspect-[2/1] overflow-hidden bg-neutral-100">
+              <IndexImageCarousel images={ivanaImages} alt="Ivana Basic" />
             </div>
           </DirectoryCard>
         </div>
