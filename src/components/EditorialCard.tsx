@@ -24,7 +24,7 @@ export function EditorialCard({
             src={artist.coverImage.src}
             alt={`${artist.artistName} editorial portrait`}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025]"
             priority={eager}
             {...(eager
               ? { fetchPriority: "high" as const }

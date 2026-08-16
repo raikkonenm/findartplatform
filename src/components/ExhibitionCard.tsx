@@ -59,7 +59,7 @@ function DesktopCardSlideshow({ exhibition, title }: { exhibition: Exhibition; t
           alt={index === 0 ? `${title} exhibition view` : ""}
           fill
           loading="lazy"
-          className={`object-cover transition-opacity duration-300 ease-in-out ${
+          className={`object-cover transition-[opacity,transform] duration-500 ease-out md:group-hover:scale-[1.025] ${
             index === activeSlide ? "opacity-100" : "opacity-0"
           }`}
           {...(exhibition.unoptimized ? { unoptimized: true } : {})}
@@ -110,7 +110,9 @@ export function ExhibitionCard({
             src={exhibition.coverImage ?? exhibition.previewImage}
             alt={`${title} exhibition view`}
             fill
-            className={`object-cover ${desktopSlideshow ? "lg:hidden" : ""}`}
+            className={`object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025] ${
+              desktopSlideshow ? "lg:hidden" : ""
+            }`}
             priority={eager}
             {...(eager
               ? { fetchPriority: "high" as const }
