@@ -117,6 +117,9 @@ export function OpportunitiesArchiveView() {
     <main className="min-h-screen overflow-x-hidden bg-white pt-[65px]">
       <Header />
       <section className="px-5 pb-24 pt-8 md:px-8 md:pt-12 lg:px-12">
+        <h1 className="editorial-serif mb-10 text-[clamp(2rem,5vw,4.5rem)] uppercase leading-[0.95] tracking-[-0.04em] md:mb-14">
+          No Fees Opportunities
+        </h1>
         <div className="flex flex-wrap items-center gap-3">
           {(Object.keys(FILTER_LABELS) as FilterMode[]).map((filterMode) => (
             <button
