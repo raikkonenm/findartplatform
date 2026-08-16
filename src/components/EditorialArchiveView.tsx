@@ -21,12 +21,12 @@ function EditorialSearch({
 
   return (
     <label className="group/search flex h-9 cursor-text items-center justify-end text-neutral-500">
-      <span className="sr-only">Search</span>
+      <span className="sr-only">Search articles</span>
       <input
         type="search"
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        placeholder="Search"
+        placeholder="Search articles"
         className={`h-9 border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 transition-[width,opacity] duration-300 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none ${
           expanded
             ? "mr-2 w-56 opacity-100"
@@ -111,7 +111,7 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
           type="search"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          placeholder="Search"
+          placeholder="Search articles"
           className="mb-8 w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] uppercase tracking-[0.18em] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
         />
         {displayedArtists.length === 0 ? (

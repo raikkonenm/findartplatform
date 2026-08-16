@@ -8,14 +8,19 @@ export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
   return (
     <article className="bg-white px-5 pb-20 pt-10 text-neutral-900 md:px-8 md:pb-28 md:pt-14 lg:px-12">
       <header className="flex items-start justify-between gap-6 border-b border-neutral-200 pb-8 md:pb-10">
-        <a
-          href={artist.instagramUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="text-[11px] uppercase tracking-[0.28em] text-neutral-600 transition-opacity hover:opacity-55"
-        >
-          {artist.instagramHandle}
-        </a>
+        <div className="min-w-0">
+          <h1 className="editorial-serif break-words text-[clamp(1.3rem,3vw,2.5rem)] uppercase leading-[1.04] tracking-[-0.035em]">
+            {artist.artistName}
+          </h1>
+          <a
+            href={artist.instagramUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 block text-[11px] uppercase tracking-[0.24em] text-neutral-600 transition-opacity hover:opacity-55"
+          >
+            {artist.instagramHandle}
+          </a>
+        </div>
         <SaveExhibitionButton
           slug={editorialSavedKey(artist.slug)}
           title={artist.artistName}

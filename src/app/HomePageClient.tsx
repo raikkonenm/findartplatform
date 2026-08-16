@@ -1246,6 +1246,10 @@ export default function HomePageClient({
               active={onViewOnly}
               onClick={() => setOnViewOnly((value) => !value)}
             />
+            <div className="ml-auto flex shrink-0 items-center gap-3">
+              <DesktopSearch value={search} onChange={setSearch} />
+              <DensityToggleButton density={density} onCycle={cycleDensity} />
+            </div>
           </div>
 
           <div className="hidden min-w-0 items-center gap-4 pt-3 md:flex">
@@ -1326,10 +1330,6 @@ export default function HomePageClient({
               )}
             </div>
 
-            <div className="flex shrink-0 items-center gap-3">
-              <DesktopSearch value={search} onChange={setSearch} />
-              <DensityToggleButton density={density} onCycle={cycleDensity} />
-            </div>
           </div>
         </div>
       </div>
