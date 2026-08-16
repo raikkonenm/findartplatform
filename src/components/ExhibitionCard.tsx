@@ -158,11 +158,11 @@ export function ExhibitionCard({
             />
             {exhibition.city} / {exhibition.year}
           </p>
-          <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[2rem] md:leading-[1.04]">
+          <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]">
             {title.toUpperCase()}
           </h2>
           <p
-            className={`mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888] ${
+            className={`mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888] md:text-[11px] md:tracking-[0.18em] md:text-neutral-500 ${
               hideMobileSubtitle ? "hidden md:block" : ""
             }`}
           >
