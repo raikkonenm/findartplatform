@@ -480,7 +480,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
         </div>
       </div>
 
-      <div className="mt-6 flex justify-center gap-3" aria-label="Choose featured banners">
+      <div className="mt-6 flex justify-end gap-2" aria-label="Choose featured banners">
         {[0, 1].map((page) => (
           <button
             key={page}
@@ -488,7 +488,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             onClick={() => setActivePage(page)}
             aria-label={`Show featured banners ${page + 1}`}
             aria-current={page === activePage ? "true" : undefined}
-            className={`h-px w-20 transition-colors duration-300 ${
+            className={`h-px w-10 transition-colors duration-300 ${
               page === activePage ? "bg-[var(--foreground)]" : "bg-neutral-400"
             }`}
           />
