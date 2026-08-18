@@ -5,8 +5,6 @@ import type { CollectArtwork } from "@/lib/collectArtworks";
 import { artworkSavedKey } from "@/lib/collectArtworks";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
-const DESKTOP_ASPECTS = ["3 / 4", "4 / 5", "1 / 1"];
-
 const WORK_TITLES = [
   "Untitled",
   "Silent Field",
@@ -55,10 +53,7 @@ export function CollectArtworkCard({
       aria-label={`${title} by Chungkook Lee, ${year}`}
       className={`group relative outline-none ${className}`}
     >
-      <div
-        className="relative aspect-[3/4] overflow-hidden bg-neutral-100 md:[aspect-ratio:var(--card-aspect)] md:aspect-auto"
-        style={{ ["--card-aspect" as string]: DESKTOP_ASPECTS[artwork.index % DESKTOP_ASPECTS.length] }}
-      >
+      <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
         <Image
           src={artwork.src}
           alt={`${title} by Chungkook Lee, ${year}`}

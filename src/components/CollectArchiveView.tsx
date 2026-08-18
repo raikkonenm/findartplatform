@@ -566,8 +566,8 @@ export function CollectArchiveView({ images }: { images: string[] }) {
           ) : (
             <section
               aria-label="Collect artworks"
-              className={`grid grid-cols-2 gap-3 px-5 pb-20 pt-3 md:block md:gap-5 md:px-0 md:pb-0 md:pt-0 md:columns-2 lg:gap-6 ${
-                columns === 4 ? "lg:columns-4" : "lg:columns-2"
+              className={`grid grid-cols-2 gap-3 px-5 pb-20 pt-3 md:px-0 md:pb-0 md:pt-0 md:gap-6 lg:gap-8 ${
+                columns === 4 ? "md:grid-cols-3 lg:grid-cols-4" : "md:grid-cols-2 lg:grid-cols-2"
               }`}
             >
               {artworks.map((artwork) => (
@@ -575,7 +575,6 @@ export function CollectArchiveView({ images }: { images: string[] }) {
                   key={artwork.src}
                   artwork={artwork}
                   columns={columns}
-                  className="md:mb-8 md:break-inside-avoid"
                 />
               ))}
             </section>
