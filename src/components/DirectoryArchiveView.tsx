@@ -40,6 +40,41 @@ const ENTRIES: IndexEntry[] = [
       "/directory/ivana4.webp",
     ],
   },
+  {
+    name: "JULIA BELOVA",
+    href: "https://www.juliabelova.com/",
+    subtitle: "juliabelova.com",
+    kind: "video",
+    media: "/directory/juliabelova.web.mp4",
+  },
+  {
+    name: "ANDREA FERRERO",
+    href: "https://www.andrea-ferrero.com/",
+    subtitle: "andrea-ferrero.com",
+    kind: "video",
+    media: "/directory/andrea-ferrero.web.mp4",
+  },
+  {
+    name: "ANGELIKA PUFF",
+    href: "https://angelikapuff.com/",
+    subtitle: "angelikapuff.com",
+    kind: "video",
+    media: "/directory/angelikapuff.web.mp4",
+  },
+  {
+    name: "TAEWON AHN",
+    href: "https://irupp.kr/",
+    subtitle: "irupp.kr",
+    kind: "video",
+    media: "/directory/taewon.web.mp4",
+  },
+  {
+    name: "AGNES QUESTIONMARK",
+    href: "https://www.agnesquestionmark.com/",
+    subtitle: "agnesquestionmark.com",
+    kind: "video",
+    media: "/directory/agnesquestionmark.web.mp4",
+  },
 ];
 
 function DensityToggle({ density, onCycle }: { density: Density; onCycle: () => void }) {
@@ -104,7 +139,7 @@ export function DirectoryArchiveView() {
           Discover how artists, galleries and institutions present their work online.
         </h1>
 
-        <div className="flex flex-col gap-3 border-t border-[var(--border)] pt-4 md:flex-row md:items-center md:gap-4">
+        <div className="flex flex-col gap-3 border-t border-[var(--border)] pt-4 md:flex-row md:items-center md:gap-4 md:border-t-0 md:pt-0">
           <SearchBar
             value={query}
             onChange={setQuery}

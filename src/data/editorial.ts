@@ -171,6 +171,148 @@ Yihan Pan works with microscopes and telescopes, moving between scales - from a 
       ...imageSequence("YIHAN PAN", [2, 3, 4, 5, 6, 7, 8, 9]),
     ],
   }),
+  artist({
+    slug: "emma-beatrez",
+    artistName: "Emma Beatrez",
+    instagramHandle: "@emma.beatrez",
+    instagramUrl: "https://www.instagram.com/emma.beatrez/",
+    excerpt:
+      "Emma Beatrez examines the visual and ritual dimensions of American mass culture, focusing on cheerleaders and small-town pep-rally bonfires.",
+    body: `In her painting practice, Emma Beatrez examines the visual and ritual dimensions of American mass culture, focusing on the imagery of cheerleaders and the spectacle of small-town pep-rally bonfires.
+
+These scenes are not presented as nostalgic or documentary, but as charged, almost occult situations in which collective enthusiasm borders on threat and violence. Ordinary American rituals are displaced into the realm of an unsettling spectacle.
+
+Her works are infused with a dark energy: synthetic fabrics, fire, sharp gestures, and frozen poses transform athletic and celebratory actions into states resembling trance. Beatrez's painting recodes familiar cultural symbols into surreal, nearly mythological scenes. Through them, she exposes the contradictions of American identity, revealing how secular traditions can mutate into ominous rituals that reflect hidden tensions and social hierarchies.
+
+Photo: @emma.beatrez official Instagram.`,
+    images: imageSequence("EMMA BEATREZ", [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+  }),
+  artist({
+    slug: "sophia-gatzkan",
+    artistName: "Sophia Gatzkan",
+    instagramHandle: "@s_gatzkan",
+    instagramUrl: "https://www.instagram.com/s_gatzkan/",
+    excerpt:
+      "Sophia Gatzkan's practice explores the human body through the discourse of disability, approaching non-normative morphology as an alternative mode of being.",
+    body: `AND THE BACKDROP WAS CHAOS BY SOPHIA GATZKAN, 2025.
+
+Sophia Gatzkan's practice explores the human body through the discourse of disability, approaching non-normative morphology as an alternative mode of being. Through sculpture, she destabilizes bodily integrity, creating forms of corporeal ambiguity and fluidity that invite reflection on ethics, power structures, and dominant conceptions of the human.
+
+Installation on view at «Machinic Metabolism» exhibition, Lothringer 13, Munich, September 18 — December 28, 2025.
+
+Curators: #KalasLiebfried, #ZakirahRabaney, #JakobBraito. Special thanks to @j2mel002 for artistic support. Photo: #ChristianKain.`,
+    images: imageSequence("SOPHIA GATZKAN", [1, 2, 3]),
+  }),
+  artist({
+    slug: "jacopo-pagin",
+    artistName: "Jacopo Pagin",
+    instagramHandle: "@pax_aliena",
+    instagramUrl: "https://www.instagram.com/pax_aliena/",
+    excerpt:
+      "Jacopo Pagin approaches art as a space of freedom and disorientation — an experience that moves beyond utilitarian logic and predictable narratives.",
+    body: `Jacopo Pagin approaches art as a space of freedom and disorientation — an experience that moves beyond utilitarian logic and predictable narratives. His practice brings together painting, drawing, and installation, where historical artistic techniques intersect with a contemporary visual language. Everyday scenes in Pagin's work are imbued with a sense of displacement and uncertainty, transforming into meditative spaces in which the viewer loses familiar points of reference.
+
+Time, nostalgia, and collective memory are central themes in his work, alongside the tense relationship between past and present. Through mirrored compositions, reflections, and repetition, Pagin explores dualities such as control and chaos, memory and perception, the organic and the artificial. These strategies produce a layered sense of reality in which images simultaneously emerge and dissolve.
+
+Photo: @pax_aliena official Instagram.`,
+    images: imageSequence("JACOPO PAGIN", [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+  }),
+  artist({
+    slug: "doris-salcedo",
+    artistName: "Doris Salcedo",
+    instagramHandle: "#DorisSalcedo",
+    instagramUrl: "https://www.instagram.com/explore/tags/dorissalcedo/",
+    excerpt:
+      "Atrabiliarios, 1996 — drywall, shoes, cow bladder, surgical thread.",
+    body: `ATRABILIARIOS BY DORIS SALCEDO, 1996.
+
+Drywall, shoes, cow bladder, surgical thread.
+
+Text: #EvanMoffitt.`,
+    images: imageSequence("DORIS SALCEDO", [1, 2, 3, 4, 5, 6, 7]),
+  }),
+  artist({
+    slug: "yeon-gyeong-seok",
+    artistName: "Yeon Gyeong-seok",
+    instagramHandle: "@camelostrich",
+    instagramUrl: "https://www.instagram.com/camelostrich/",
+    excerpt:
+      "Yeon Gyeong-seok works with 3D graphics, turning personal memory into sculptural form.",
+    body: `SONGHAK OF JAN., 2026 BY YEON GYEONG-SEOK.
+
+3D printed, magnet, acrylic, urethane, 520 × 1500 × 1180 mm.
+
+Yeon Gyeong-seok works with 3D graphics, turning personal memory into sculptural form. The starting point was the pandemic lockdown: cut off from Shanghai, where he spent his childhood, he began reconstructing places that exist only in memory — without archives, without reference, relying solely on internal images.
+
+The practice moves from screen to object. Graphics born from memory are transformed into sculptural forms — deliberately distorted, removed from any real prototype. Not documentation, but deformation: how memory shifts when it is extracted and translated into physical space.`,
+    images: imageSequence("YEON GYEONG-SEOK", [1, 2, 3, 4, 5, 6]),
+  }),
+  artist({
+    slug: "nathan-careme",
+    artistName: "Nathan Carême",
+    instagramHandle: "@nadaecc",
+    instagramUrl: "https://www.instagram.com/nadaecc/",
+    excerpt:
+      "L'HALETEMENT — presented at Manoir Mouthier, Mouthier-Haute-Pierre, France, 18 April — 23 May 2026.",
+    body: `L'HALETEMENT BY NATHAN CARÊME.
+
+On display during the «Microwave exhibition» with @joriscreuze and @tindarasparta.
+
+Courtesy of Galery Pietro Spartà.
+
+@manoir_mouthier, Mouthier-Haute-Pierre, France, 18 April — 23 May 2026.`,
+    images: imageSequence("NATHAN CAREME", [1, 2, 3, 4, 5, 6, 7]),
+  }),
+  artist({
+    slug: "arghavan-khosravi",
+    artistName: "Arghavan Khosravi",
+    instagramHandle: "@arghavan_khosravi",
+    instagramUrl: "https://www.instagram.com/arghavan_khosravi/",
+    excerpt:
+      "\"What Remains\" reimagines the structure of devotional altarpieces through fragmented compositions balancing tension, restriction, and resistance.",
+    body: `WHAT REMAINS BY ARGHAVAN KHOSRAVI.
+
+"What Remains" at @uffnerliu reimagines the structure of devotional altarpieces through fragmented compositions balancing tension, restriction, and resistance. The exhibition brings together shaped panels, mirrored surfaces, and layered imagery that refuse stable resolution.
+
+Drawing from Persian miniature painting and medieval European iconography, Arghavan Khosravi's practice explores the social, political, and religious systems that shape women's bodies and autonomy.
+
+@uffnerliu, New York, USA, 15 May — 2 July 2026.`,
+    images: imageSequence("ARGHAVAN KHOSRAVI", [1, 2, 3, 4, 5, 6]),
+  }),
+  artist({
+    slug: "que-fresca",
+    artistName: "que.fresca",
+    instagramHandle: "@que.fresca",
+    instagramUrl: "https://www.instagram.com/que.fresca/",
+    excerpt:
+      "que.fresca constructs hybrid sculptural forms from silicone, animal remains, circuit boards, textiles, and found industrial materials.",
+    body: `IN THE GARDEN OF EARTHLY DELIGHTS: I BEND TO PARADISE BY QUE.FRESCA.
+
+Presented as part of "In the Garden of Earthly Delights: I Bend to Paradise" at @icasandiego, que.fresca constructs hybrid sculptural forms from silicone, animal remains, circuit boards, textiles, and found industrial materials. Balancing grotesque humor with bodily tension, the works move between pop-cultural references, decay, fetish aesthetics, and fragmented memory.
+
+Curator: #ICASanDiego. Photo: #BarnabásNeográdyKiss.
+
+@icasandiego, San Diego, USA. Until 25 May 2026.`,
+    images: imageSequence("QUE.FRESCA", [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+  }),
+  artist({
+    slug: "taewon-ahn",
+    artistName: "Taewon Ahn",
+    instagramHandle: "@ppuri_",
+    instagramUrl: "https://www.instagram.com/ppuri_/",
+    excerpt:
+      "Taewon Ahn explores the overlap between digital culture and physical reality through painting and sculpture.",
+    body: `Taewon Ahn explores the overlap between digital culture and physical reality through painting and sculpture. Working intuitively across two- and three-dimensional formats, Ahn embraces chance, improvisation, and material experimentation.
+
+Recurring figures — especially his cat Hiro — become vehicles for examining the gap between image, memory, and perception, where the familiar often appears strange, humorous, and slightly uncanny.
+
+The work is part of the exhibition «Balance in Motion», @p21.kr, May 14 — July 4, 2026.
+
+1, 2, 3: Mishmash, 2026. 4, 5: Watchtower, 2026.
+
+Powered by Minjin Chae (@minjin.chae) & P21. Photo: @leeeuirock.`,
+    images: imageSequence("TAEWON AHN", [1, 2, 3, 4, 5, 6]),
+  }),
 ];
 
 export function getEditorialArtist(slug: string): EditorialArtist | undefined {

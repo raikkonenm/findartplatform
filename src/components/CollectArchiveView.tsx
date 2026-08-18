@@ -24,6 +24,13 @@ const CATEGORY_OPTIONS: Category[] = [
 const PRICE_OPTIONS: PriceRange[] = ["All", "Up to $100", "$100-$1,000", "$1,000+"];
 const SORT_OPTIONS: SortOrder[] = ["Newest", "Price: low to high", "Price: high to low"];
 
+type Availability = "buy" | "reserve" | "auction";
+const AVAILABILITY_OPTIONS: Array<{ id: Availability; label: string }> = [
+  { id: "buy", label: "Buy Now" },
+  { id: "reserve", label: "Reserve" },
+  { id: "auction", label: "On Auction" },
+];
+
 function useCollectDropdown() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -325,6 +332,11 @@ export function CollectArchiveView({ images }: { images: string[] }) {
   const [maximumPrice, setMaximumPrice] = useState("");
   const [sortOrder, setSortOrder] = useState<SortOrder>("Newest");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  // Availability is a display-only filter for now — buildCollectArtworks doesn't
+  // carry an availability field yet. Kept in state so the sidebar controls stay
+  // responsive; hooking it into the filter pipeline can happen once the source
+  // data has that column.
+  const [availability, setAvailability] = useState<Set<Availability>>(new Set());
   const artworks = useMemo(
     () => {
       const filtered = buildCollectArtworks(images)
@@ -375,108 +387,192 @@ export function CollectArchiveView({ images }: { images: string[] }) {
         />
       </div>
 
-      <div className="md:grid md:grid-cols-[180px_minmax(0,1fr)] md:gap-6 md:px-8 md:pb-20 md:pt-5 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8 lg:px-12">
-        <aside className="hidden border-r border-neutral-200 pr-5 md:block lg:pr-6" aria-label="Collect filters">
-          <div className="sticky top-[89px] max-h-[calc(100vh-110px)] overflow-y-auto pb-8">
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">Category</p>
-              <div className="mt-3 flex flex-col gap-1">
-                {CATEGORY_OPTIONS.map((option) => (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => setCategory(option)}
-                    className={`w-full px-3 py-2 text-left text-[11px] uppercase tracking-[0.12em] transition-colors ${
-                      category === option
-                        ? "bg-neutral-100 font-semibold text-neutral-900"
-                        : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900"
-                    }`}
-                  >
-                    {option === "All" ? "All categories" : option}
-                  </button>
-                ))}
-              </div>
-            </div>
+      <div className="md:grid md:grid-cols-[280px_minmax(0,1fr)] md:gap-8 md:px-8 md:pb-20 md:pt-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-10 lg:px-12">
+        <aside className="hidden md:block" aria-label="Collect filters">
+          <div className="sticky top-[89px] max-h-[calc(100vh-110px)] overflow-y-auto pb-8 pr-2">
+            <p className="mb-3 text-[13px] font-medium text-neutral-900">Search artworks</p>
+            <label className="flex h-10 items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 text-neutral-500 focus-within:border-neutral-400">
+              <svg viewBox="0 0 20 20" className="h-4 w-4 text-neutral-400" fill="none" aria-hidden="true">
+                <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.35" />
+                <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+              </svg>
+              <input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Search by title, artist, keyword..."
+                aria-label="Search artworks"
+                className="flex-1 bg-transparent text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
+              />
+            </label>
 
-            <div className="mt-8 border-t border-neutral-200 pt-6">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">Price</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {PRICE_OPTIONS.map((option) => (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => {
-                      setPriceRange(option);
-                      setMinimumPrice("");
-                      setMaximumPrice("");
-                    }}
-                    className={`border px-3 py-2 text-[10px] uppercase tracking-[0.1em] transition-colors ${
-                      priceRange === option && minimumPrice === "" && maximumPrice === ""
-                        ? "border-neutral-900 text-neutral-900"
-                        : "border-neutral-200 text-neutral-500 hover:border-neutral-400"
-                    }`}
-                  >
-                    {option === "All" ? "All prices" : option.replace("-", "\u2013")}
-                  </button>
-                ))}
+            <section className="mt-8">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Category</p>
+              <div className="flex flex-wrap gap-2">
+                {CATEGORY_OPTIONS.map((option) => {
+                  const active = category === option;
+                  return (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => setCategory(option)}
+                      className={`rounded-full border px-3.5 py-1.5 text-[12px] transition-colors ${active ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-neutral-300"}`}
+                    >
+                      {option === "All" ? "All Categories" : option}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+
+            <section className="mt-8 border-t border-neutral-200 pt-6">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Price</p>
+              <div className="flex flex-wrap gap-2">
+                {PRICE_OPTIONS.map((option) => {
+                  const active = priceRange === option && minimumPrice === "" && maximumPrice === "";
+                  return (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => {
+                        setPriceRange(option);
+                        setMinimumPrice("");
+                        setMaximumPrice("");
+                      }}
+                      className={`rounded-full border px-3.5 py-1.5 text-[12px] transition-colors ${active ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-neutral-300"}`}
+                    >
+                      {option === "All" ? "All Prices" : option.replace("-", "\u2013")}
+                    </button>
+                  );
+                })}
               </div>
               <div className="mt-4 grid grid-cols-2 gap-2">
-                <input
-                  type="number"
-                  min="0"
-                  inputMode="decimal"
-                  value={minimumPrice}
-                  onChange={(event) => {
-                    setPriceRange("All");
-                    setMinimumPrice(event.target.value);
-                  }}
-                  placeholder="Minimum"
-                  aria-label="Minimum price"
-                  className="min-w-0 border border-neutral-200 bg-transparent px-2 py-2 text-[10px] uppercase tracking-[0.08em] text-neutral-900 outline-none focus:border-neutral-900"
-                />
-                <input
-                  type="number"
-                  min="0"
-                  inputMode="decimal"
-                  value={maximumPrice}
-                  onChange={(event) => {
-                    setPriceRange("All");
-                    setMaximumPrice(event.target.value);
-                  }}
-                  placeholder="Maximum"
-                  aria-label="Maximum price"
-                  className="min-w-0 border border-neutral-200 bg-transparent px-2 py-2 text-[10px] uppercase tracking-[0.08em] text-neutral-900 outline-none focus:border-neutral-900"
-                />
+                <label className="flex h-10 items-center rounded-lg border border-neutral-200 bg-white px-2.5 focus-within:border-neutral-400">
+                  <input
+                    type="number"
+                    min="0"
+                    inputMode="decimal"
+                    value={minimumPrice}
+                    onChange={(event) => {
+                      setPriceRange("All");
+                      setMinimumPrice(event.target.value);
+                    }}
+                    placeholder="Min price"
+                    aria-label="Minimum price"
+                    className="min-w-0 flex-1 bg-transparent text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
+                  />
+                  <span className="ml-1 text-[10px] uppercase tracking-[0.15em] text-neutral-400">USD</span>
+                </label>
+                <label className="flex h-10 items-center rounded-lg border border-neutral-200 bg-white px-2.5 focus-within:border-neutral-400">
+                  <input
+                    type="number"
+                    min="0"
+                    inputMode="decimal"
+                    value={maximumPrice}
+                    onChange={(event) => {
+                      setPriceRange("All");
+                      setMaximumPrice(event.target.value);
+                    }}
+                    placeholder="Max price"
+                    aria-label="Maximum price"
+                    className="min-w-0 flex-1 bg-transparent text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
+                  />
+                  <span className="ml-1 text-[10px] uppercase tracking-[0.15em] text-neutral-400">USD</span>
+                </label>
               </div>
-            </div>
+            </section>
 
-            <div className="mt-8 border-t border-neutral-200 pt-6">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-neutral-500">Sort</p>
-              <div className="mt-3 flex flex-col gap-1">
-                {SORT_OPTIONS.map((option) => (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => setSortOrder(option)}
-                    className={`w-full px-3 py-2 text-left text-[11px] uppercase tracking-[0.1em] transition-colors ${
-                      sortOrder === option
-                        ? "bg-neutral-100 font-semibold text-neutral-900"
-                        : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900"
-                    }`}
-                  >
-                    {option}
-                  </button>
-                ))}
+            <section className="mt-8 border-t border-neutral-200 pt-6">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Availability</p>
+              <ul className="space-y-2.5">
+                {AVAILABILITY_OPTIONS.map((option) => {
+                  const active = availability.has(option.id);
+                  return (
+                    <li key={option.id}>
+                      <label className="flex cursor-pointer items-center justify-between gap-3 text-[13px] text-neutral-700">
+                        <span className="flex items-center gap-3">
+                          <span className={`flex h-4 w-4 items-center justify-center rounded border transition-colors ${active ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 bg-white"}`}>
+                            {active && (
+                              <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none" aria-hidden="true">
+                                <path d="M2.5 6.2l2.4 2.4L9.5 3.9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            )}
+                          </span>
+                          <input
+                            type="checkbox"
+                            className="sr-only"
+                            checked={active}
+                            onChange={() =>
+                              setAvailability((current) => {
+                                const next = new Set(current);
+                                if (next.has(option.id)) next.delete(option.id); else next.add(option.id);
+                                return next;
+                              })
+                            }
+                          />
+                          {option.label}
+                        </span>
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+
+            <section className="mt-8 border-t border-neutral-200 pt-6">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Sort By</p>
+              <div className="relative">
+                <select
+                  value={sortOrder}
+                  onChange={(event) => setSortOrder(event.target.value as SortOrder)}
+                  className="h-10 w-full appearance-none rounded-lg border border-neutral-200 bg-white px-3 pr-8 text-[13px] text-neutral-900 focus:border-neutral-400 focus:outline-none"
+                >
+                  {SORT_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option === "Newest" ? "Recently Added" : option}
+                    </option>
+                  ))}
+                </select>
+                <span aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400">\u25be</span>
               </div>
-            </div>
+            </section>
 
+            <div className="mt-8 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  /* Filters apply live; button provided for parity with the reference layout. */
+                }}
+                className="flex-1 rounded-lg bg-neutral-900 py-3 text-[13px] font-medium text-white transition-opacity hover:opacity-90"
+              >
+                Apply Filters
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setCategory("All");
+                  setPriceRange("All");
+                  setMinimumPrice("");
+                  setMaximumPrice("");
+                  setSortOrder("Newest");
+                  setColumns(4);
+                  setAvailability(new Set());
+                  setSearch("");
+                }}
+                className="text-[13px] text-neutral-700 underline-offset-4 transition-opacity hover:underline"
+              >
+                Clear All
+              </button>
+            </div>
           </div>
         </aside>
 
         <div className="min-w-0 md:w-full md:max-w-[1480px]">
-          <div className="mb-4 hidden items-center justify-end gap-3 md:flex">
-            <SearchControl value={search} onChange={setSearch} />
-            <ColumnsToggle columns={columns} onClick={() => setColumns((current) => (current === 4 ? 2 : 4))} />
+          <div className="mb-4 hidden items-center justify-between md:flex">
+            <p className="text-[13px] text-neutral-500">{artworks.length} artworks</p>
+            <div className="flex items-center gap-3">
+              <ColumnsToggle columns={columns} onClick={() => setColumns((current) => (current === 4 ? 2 : 4))} />
+            </div>
           </div>
           {artworks.length === 0 ? (
             <p className="px-5 py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400 md:px-0">

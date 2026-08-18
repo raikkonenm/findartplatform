@@ -224,3 +224,14 @@ html.route-progress-loading.route-progress-complete::after {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%      { opacity: 0.6; transform: scale(1.15); }
 }
+
+/* Free-to-apply chip — subtle pulse so it reads as an active call-out */
+@media (prefers-reduced-motion: no-preference) {
+  .free-tag-blink {
+    animation: free-tag-pulse 1.9s ease-in-out infinite;
+  }
+}
+@keyframes free-tag-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}

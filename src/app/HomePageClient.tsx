@@ -177,7 +177,7 @@ function MobileFeaturedCarousel() {
         >
           {slides.map((slide) => {
             const inner = (
-              <div className="relative block aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100">
+              <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
                 {slide.media}
                 {/* Bottom-anchored scrim so the caption is always legible. */}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
@@ -399,7 +399,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             <Link
               href="/exhibitions/der-kopf-ist-rund"
               aria-label="View Der Kopf ist rund exhibition"
-              className="relative block aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100"
+              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
               <FeaturedExhibitionSlideshow
                 slug="der-kopf-ist-rund"
@@ -429,7 +429,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             <Link
               href="/exhibitions/axial-core"
               aria-label="View Axial-Core exhibition"
-              className="relative block aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100"
+              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
               <FeaturedExhibitionSlideshow
                 slug="axial-core"
@@ -452,7 +452,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
           </article>
 
           <article className="min-w-0">
-            <div className="relative aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100">
+            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
               {!initialIsMobile && (
                 <video
                   autoPlay
@@ -485,7 +485,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             <a
               href="https://www.artcnomad.com/workflow-art"
               aria-label="Open Workflow.Art"
-              className="relative block aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100"
+              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
               <video
                 autoPlay

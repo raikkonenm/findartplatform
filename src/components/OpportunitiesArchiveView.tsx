@@ -116,6 +116,16 @@ const OPPORTUNITIES: Opportunity[] = [
 
 const FILTER_LABELS: Record<FilterMode, string> = { type: "Type", field: "Artistic field", reward: "Reward" };
 
+// Desktop chip row also exposes Application fee alongside the standard
+// filter modes; its rail options are wired to the feeFilter state below.
+type DesktopFilterMode = FilterMode | "fee";
+const DESKTOP_FILTER_LABELS: Record<DesktopFilterMode, string> = {
+  type: "Type",
+  field: "Artistic field",
+  reward: "Reward",
+  fee: "Application fee",
+};
+
 const PRIMARY_TYPE_MAP: Record<string, string> = {
   "Residencies": "RESIDENCY",
   "Open Calls": "OPEN CALL",
@@ -244,107 +254,191 @@ function OpportunitiesViewToggle({ viewMode, onChange }: { viewMode: ViewMode; o
   );
 }
 
-function FeeTag({ fee }: { fee: string }) {
-  const isFree = fee.toUpperCase() === "FREE";
+function FeeRail({ value, onSelect }: { value: FeeFilter; onSelect: (value: FeeFilter) => void }) {
+  const options: Array<{ id: FeeFilter; label: string }> = [
+    { id: "all", label: "All fees" },
+    { id: "free", label: "Free to apply" },
+    { id: "paid", label: "Paid application" },
+  ];
   return (
-    <span className={`inline-flex items-center border px-2.5 py-1 text-[8.5px] uppercase tracking-[0.2em] ${isFree ? "border-neutral-800 text-neutral-800" : "border-neutral-400 text-neutral-600"}`}>
-      {isFree ? "Free to apply" : `Application fee ${fee}`}
+    <div className="scrollbar-none overflow-x-auto scroll-smooth py-5" aria-label="Application fee options">
+      <div className="flex min-w-max items-center gap-8 pr-12">
+        {options.map((option) => (
+          <button
+            key={option.id}
+            type="button"
+            onClick={() => onSelect(option.id)}
+            className={`shrink-0 text-[11px] uppercase tracking-[0.2em] transition-opacity hover:opacity-55 ${value === option.id ? "font-semibold text-[var(--foreground)]" : "text-neutral-500"}`}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
+  const isFree = fee.toUpperCase() === "FREE";
+  const sizing = compact
+    ? "px-2 py-0.5 text-[8px]"
+    : "px-2.5 py-1 text-[8.5px]";
+  return (
+    <span
+      className={`inline-flex items-center border uppercase tracking-[0.2em] ${sizing} ${
+        isFree
+          ? "free-tag-blink border-neutral-800 text-neutral-800"
+          : "border-neutral-400 text-neutral-600"
+      }`}
+    >
+      {isFree ? "Free to apply" : compact ? fee : `Application fee ${fee}`}
     </span>
   );
 }
 
 function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; onOpen: () => void }) {
   return (
-    <article className="flex min-h-[280px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[430px] md:p-6">
+    <article className="group/card flex min-h-[280px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[430px] md:p-6">
       <div className="mb-4 flex items-start justify-between gap-2 md:mb-8 md:gap-3">
         <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 md:text-[10px]">{opportunity.organizer}</p>
         <FeeTag fee={opportunity.applicationFee} />
       </div>
-      <h2 className="editorial-serif mb-6 text-[clamp(1rem,4vw,1.4rem)] uppercase leading-[1.02] tracking-[-0.03em] md:mb-10 md:text-[clamp(1.65rem,2.4vw,2.5rem)] md:leading-[0.98] md:tracking-[-0.035em]">{opportunity.title}</h2>
+      <button
+        type="button"
+        onClick={onOpen}
+        className="editorial-serif mb-6 block text-left text-[clamp(1rem,4vw,1.4rem)] uppercase leading-[1.02] tracking-[-0.03em] transition-opacity group-hover/card:opacity-75 md:mb-10 md:text-[clamp(1.65rem,2.4vw,2.5rem)] md:leading-[0.98] md:tracking-[-0.035em]"
+      >
+        {opportunity.title}
+      </button>
       <dl className="space-y-2 border-t border-[var(--border)] pt-3 text-[11px] leading-relaxed md:space-y-4 md:pt-5 md:text-[12px]">
         <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Deadline</dt><dd>{opportunity.deadline}</dd></div>
         <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Location</dt><dd>{opportunity.location}</dd></div>
         <div className="hidden md:grid md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[9px] uppercase tracking-[0.2em] text-neutral-500">For</dt><dd>{opportunity.audience}</dd></div>
       </dl>
       <div className="mt-auto pt-5 md:pt-8">
-        <div className="mb-4 hidden flex-wrap gap-2 md:mb-6 md:flex">
+        <div className="hidden flex-wrap gap-2 md:flex">
           {opportunity.tags.map((tag) => <span key={tag} className="border border-[var(--border)] px-2.5 py-1.5 text-[8px] uppercase tracking-[0.18em]">{tag}</span>)}
         </div>
-        <button type="button" onClick={onOpen} className="text-[10px] font-semibold uppercase tracking-[0.2em] underline-offset-4 transition-opacity hover:opacity-55 hover:underline">View details ↗</button>
       </div>
     </article>
   );
 }
 
+// Wide desktop table grid: ORG · OPPORTUNITY · TYPE · FEE (tag) · DEADLINE · LOCATION · FOR · TAGS · VIEW · SAVE
+const LIST_ROW_COLS =
+  "md:grid-cols-[140px_minmax(0,2.2fr)_100px_minmax(0,1fr)_100px_minmax(0,1.1fr)_minmax(0,1.2fr)_minmax(0,1.6fr)_72px_24px]";
+
 function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void; today: Date | null }) {
   const daysLeft = daysRemainingLabel(opportunity.deadlineDate, today);
-  const isFree = opportunity.applicationFee.toUpperCase() === "FREE";
+
+  const stopBubble = (event: React.MouseEvent) => event.stopPropagation();
+
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    if (event.target !== event.currentTarget) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onOpen();
+    }
+  };
 
   return (
     <div
       role="button"
       tabIndex={0}
       onClick={onOpen}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          onOpen();
-        }
-      }}
-      className="group grid cursor-pointer grid-cols-[1fr_auto_28px] items-start gap-x-5 gap-y-2 border-b border-[var(--border)] px-2 py-7 transition-colors duration-200 hover:bg-neutral-50 md:grid-cols-[110px_minmax(0,2.4fr)_minmax(0,1.4fr)_minmax(0,1.2fr)_minmax(0,1fr)_82px_112px_28px] md:items-baseline md:gap-x-6 md:px-3 md:py-8"
+      onKeyDown={onKeyDown}
+      className={`group grid cursor-pointer grid-cols-[1fr_auto_28px] items-start gap-x-5 gap-y-2 border-b border-[var(--border)] px-2 py-6 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-5 md:px-3 md:py-6`}
     >
-      {/* TYPE — mobile: eyebrow before title; desktop: first column */}
-      <span className="order-1 col-span-2 text-[10px] uppercase tracking-[0.22em] text-neutral-500 md:order-none md:col-span-1">
-        {primaryTypeLabel(opportunity.type)}
-      </span>
-
-      {/* OPPORTUNITY — always most prominent */}
-      <h3 className="editorial-serif order-2 col-span-2 break-words text-[clamp(1.05rem,2.4vw,1.5rem)] leading-[1.1] tracking-[-0.02em] transition-opacity group-hover:opacity-70 md:order-none md:col-span-1 md:text-[1.55rem] md:leading-[1.05]">
-        {shortTitle(opportunity.title)}
-      </h3>
-
-      {/* ORGANIZATION — hidden on mobile */}
-      <span className="hidden text-[12px] leading-snug text-neutral-700 md:block">
+      {/* ORGANIZATION — desktop first column */}
+      <span className="order-0 hidden text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-900 md:col-span-1 md:block">
         {opportunity.organizer}
       </span>
 
-      {/* LOCATION — hidden on mobile */}
-      <span className="hidden text-[12px] leading-snug text-neutral-500 md:block">
-        {opportunity.location}
+      {/* TYPE eyebrow — mobile only */}
+      <span className="order-1 col-span-2 text-[10px] uppercase tracking-[0.22em] text-neutral-500 md:hidden">
+        {primaryTypeLabel(opportunity.type)}
       </span>
 
-      {/* REWARD — hidden on mobile */}
-      <span className="hidden text-[11px] uppercase tracking-[0.16em] text-neutral-800 md:block">
-        {opportunity.rewardSummary}
+      {/* OPPORTUNITY — most prominent */}
+      <h3
+        onClick={(event) => {
+          event.stopPropagation();
+          onOpen();
+        }}
+        className="editorial-serif order-2 col-span-2 break-words text-[clamp(1.05rem,2.4vw,1.5rem)] leading-[1.1] tracking-[-0.02em] transition-opacity group-hover:opacity-70 md:col-span-1 md:text-[1.35rem] md:leading-[1.05]"
+      >
+        {shortTitle(opportunity.title)}
+      </h3>
+
+      {/* TYPE — desktop */}
+      <span className="hidden text-[11px] uppercase tracking-[0.14em] text-neutral-600 md:block">
+        {primaryTypeLabel(opportunity.type)}
       </span>
 
-      {/* FEE — mobile: bottom-left cluster */}
-      <span className={`order-4 text-[11px] uppercase tracking-[0.18em] md:text-[11px] ${isFree ? "text-neutral-800" : "text-neutral-600"}`}>
-        {opportunity.applicationFee}
+      {/* APPLICATION FEE tag — desktop */}
+      <span className="hidden md:block">
+        <FeeTag fee={opportunity.applicationFee} compact />
       </span>
 
-      {/* DEADLINE — mobile: bottom-right cluster */}
+      {/* DEADLINE */}
       <div className="order-5 justify-self-end text-right md:justify-self-start md:text-left">
-        <div className="text-[13px] uppercase tracking-[0.18em] text-neutral-900">
-          {shortDeadline(opportunity.deadlineDate)}
-        </div>
+        <div className="text-[12px] text-neutral-900">{shortDeadline(opportunity.deadlineDate)}</div>
         {daysLeft && (
-          <div className="mt-1 text-[9px] uppercase tracking-[0.22em] text-neutral-500">
-            {daysLeft}
-          </div>
+          <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-neutral-400">{daysLeft}</div>
         )}
       </div>
 
-      {/* SAVE — always far right */}
+      {/* LOCATION */}
+      <span className="hidden text-[12px] leading-snug text-neutral-700 md:block">
+        {opportunity.location}
+      </span>
+
+      {/* FOR (audience) */}
+      <span className="hidden text-[12px] leading-snug text-neutral-500 md:block">
+        {opportunity.audience}
+      </span>
+
+      {/* TAGS chip row */}
+      <div className="hidden flex-wrap items-center gap-1.5 md:flex">
+        {opportunity.tags.slice(0, 3).map((tag) => (
+          <span key={tag} className="border border-neutral-300 px-2 py-1 text-[8px] uppercase tracking-[0.18em] text-neutral-700">
+            {tag}
+          </span>
+        ))}
+        {opportunity.tags.length > 3 && (
+          <span className="border border-neutral-300 px-2 py-1 text-[8px] uppercase tracking-[0.18em] text-neutral-500">
+            +{opportunity.tags.length - 3}
+          </span>
+        )}
+      </div>
+
+      {/* VIEW cell */}
+      <button
+        type="button"
+        onClick={(event) => {
+          event.stopPropagation();
+          onOpen();
+        }}
+        className="hidden text-[10px] uppercase tracking-[0.2em] text-neutral-700 transition-opacity hover:opacity-55 md:inline-flex md:items-center md:gap-1"
+      >
+        View Details <span aria-hidden="true">↗</span>
+      </button>
+
+      {/* FEE — mobile bottom-left */}
+      <span className="order-4 text-[11px] uppercase tracking-[0.18em] text-neutral-700 md:hidden">
+        {opportunity.applicationFee}
+      </span>
+
+      {/* SAVE — always right */}
       <button
         type="button"
         aria-label={isSaved ? "Unsave opportunity" : "Save opportunity"}
         aria-pressed={isSaved}
         onClick={(event) => {
-          event.stopPropagation();
+          stopBubble(event);
           onToggleSaved();
         }}
-        className={`order-3 justify-self-end self-start text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none md:order-none md:self-baseline ${isSaved ? "opacity-100" : "opacity-40 group-hover:opacity-100"}`}
+        className={`order-3 justify-self-end self-start text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none md:order-none md:self-center ${isSaved ? "opacity-100" : "opacity-40 group-hover:opacity-100"}`}
       >
         <HeartIcon filled={isSaved} className="h-4 w-4" />
       </button>
@@ -355,14 +449,20 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
 function OpportunitiesListView({ opportunities, onOpen, savedSet, onToggleSaved, sortDirection, onToggleSort, today }: { opportunities: Opportunity[]; onOpen: (opp: Opportunity) => void; savedSet: Set<string>; onToggleSaved: (slug: string) => void; sortDirection: SortDirection; onToggleSort: () => void; today: Date | null }) {
   return (
     <div className="mt-8">
-      {/* Column header — desktop only */}
-      <div className="hidden border-b border-[var(--border)] px-3 pb-3 text-[9px] uppercase tracking-[0.22em] text-neutral-500 md:grid md:grid-cols-[110px_minmax(0,2.4fr)_minmax(0,1.4fr)_minmax(0,1.2fr)_minmax(0,1fr)_82px_112px_28px] md:items-baseline md:gap-x-6">
-        <span>Type</span>
-        <span>Opportunity</span>
+      {/* Column header — desktop only, matches OpportunityRow grid template. */}
+      <div className={`hidden border-b border-neutral-200 bg-neutral-50 px-3 py-3 text-[9px] uppercase tracking-[0.22em] text-neutral-500 md:grid ${LIST_ROW_COLS} md:items-center md:gap-x-5`}>
         <span>Organization</span>
-        <span>Location</span>
-        <span>Reward</span>
-        <span>Fee</span>
+        <button
+          type="button"
+          onClick={onToggleSort}
+          className="flex items-center gap-1 text-left uppercase tracking-[0.22em] text-neutral-500 transition-opacity hover:opacity-70"
+          aria-label={`Sort by deadline ${sortDirection === "asc" ? "descending" : "ascending"}`}
+        >
+          Opportunity
+          <span aria-hidden="true" className="text-[10px]">▾</span>
+        </button>
+        <span>Type</span>
+        <span>Application fee</span>
         <button
           type="button"
           onClick={onToggleSort}
@@ -370,10 +470,12 @@ function OpportunitiesListView({ opportunities, onOpen, savedSet, onToggleSaved,
           aria-label={`Sort by deadline ${sortDirection === "asc" ? "descending" : "ascending"}`}
         >
           Deadline
-          <span aria-hidden="true" className="text-[10px]">
-            {sortDirection === "asc" ? "↑" : "↓"}
-          </span>
+          <span aria-hidden="true" className="text-[10px]">{sortDirection === "asc" ? "↑" : "↓"}</span>
         </button>
+        <span>Location</span>
+        <span>For</span>
+        <span>Tags</span>
+        <span>View</span>
         <span className="sr-only">Save</span>
       </div>
 
@@ -629,7 +731,7 @@ function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilter
 }
 
 export function OpportunitiesArchiveView() {
-  const [mode, setMode] = useState<FilterMode>("type");
+  const [mode, setMode] = useState<DesktopFilterMode>("type");
   const [selectedFilters, setSelectedFilters] = useState<Record<FilterMode, string>>({ type: FILTERS.type[0], field: FILTERS.field[0], reward: FILTERS.reward[0] });
   const [feeFilter, setFeeFilter] = useState<FeeFilter>("all");
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
@@ -697,8 +799,8 @@ export function OpportunitiesArchiveView() {
 
         {/* Desktop chip row: filter mode buttons on the left, expanding search + view toggle on the right (mirrors /exhibitions). */}
         <div className="mt-6 hidden flex-wrap items-center gap-3 md:flex">
-          {(Object.keys(FILTER_LABELS) as FilterMode[]).map((filterMode) => (
-            <button key={filterMode} type="button" onClick={() => setMode(filterMode)} onMouseEnter={() => setMode(filterMode)} className={`border px-3 py-2 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${mode === filterMode ? "border-[var(--foreground)] text-[var(--foreground)]" : "border-neutral-400 text-neutral-500 hover:border-neutral-500"}`}>{FILTER_LABELS[filterMode]}</button>
+          {(Object.keys(DESKTOP_FILTER_LABELS) as DesktopFilterMode[]).map((filterMode) => (
+            <button key={filterMode} type="button" onClick={() => setMode(filterMode)} onMouseEnter={() => setMode(filterMode)} className={`border px-3 py-2 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${mode === filterMode ? "border-[var(--foreground)] text-[var(--foreground)]" : "border-neutral-400 text-neutral-500 hover:border-neutral-500"}`}>{DESKTOP_FILTER_LABELS[filterMode]}</button>
           ))}
           <div className="ml-auto flex shrink-0 items-center gap-3">
             <OpportunitiesInlineSearch value={query} onChange={setQuery} />
@@ -707,21 +809,17 @@ export function OpportunitiesArchiveView() {
         </div>
 
         <div className="hidden md:block">
-          <FilterRail mode={mode} selected={selectedFilters[mode]} onSelect={(value) => setSelectedFilters((current) => ({ ...current, [mode]: value }))} />
-        </div>
-
-        <div className="hidden flex-wrap items-center gap-5 border-t border-[var(--border)] pt-4 text-[10px] uppercase tracking-[0.2em] md:flex">
-          <span className="text-neutral-500">Application fee</span>
-          {FEE_FILTERS.map((option) => (
-            <button
-              key={option.id}
-              type="button"
-              onClick={() => setFeeFilter(option.id)}
-              className={`transition-opacity hover:opacity-60 ${feeFilter === option.id ? "font-semibold text-[var(--foreground)]" : "text-neutral-500"}`}
-            >
-              {option.label}
-            </button>
-          ))}
+          {mode === "fee" ? (
+            <FeeRail value={feeFilter} onSelect={setFeeFilter} />
+          ) : (
+            <FilterRail
+              mode={mode}
+              selected={selectedFilters[mode]}
+              onSelect={(value) =>
+                setSelectedFilters((current) => ({ ...current, [mode]: value }))
+              }
+            />
+          )}
         </div>
 
         {visibleOpportunities.length > 0 ? (
