@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "techno-worlds-final-sampling": ["INSTALLATION", "SOUND", "TECHNOLOGY", "DIGITAL MYTH", "MACHINE"],
   "parachute-group-exhibition": ["TRANSFORMATION"],
   "chewing-gum-in-the-motherboard-group-exhibition": ["DIGITAL MYTH", "SURVEILLANCE"],
   "call-me-we-by-lom-of-lama": ["IDENTITY"],
@@ -264,6 +265,67 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "techno-worlds-final-sampling",
+    title: "Techno Worlds — Final Sampling",
+    subtitle: "Group show",
+    venue: "Power Station of Art",
+    gallery: "Power Station of Art",
+    city: "Shanghai",
+    country: "China",
+    year: "2026",
+    dates: "25 April — 28 June 2026",
+    startDate: "25 April 2026",
+    endDate: "28 June 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Aleksandra Domanović",
+      "ayrtbh",
+      "Benjamin Bacon & Vivian Xu",
+      "Carsten Nicolai",
+      "Chicks on Speed",
+      "Daniel Pflumm",
+      "DeForrest Brown Jr. & AbuQadim Haqq",
+      "Henrike Naumann & Bastian Hagedorn",
+      "Jeremy Shaw",
+      "Kerstin Greiner",
+      "Mamba Negra",
+      "Maryam Jafri",
+      "Rangoato Hlasane",
+      "Robert Lippok",
+      "Ryōji Ikeda",
+      "Sarah Schönfeld",
+      "The Otolith Group",
+      "Tobias Zielony",
+      "Tony Cokes",
+      "UFO Media Lab",
+      "Adel-Jing Wang",
+      "Zhang Ding",
+      "Zuzanna Czebatul",
+    ],
+    curator: "Mathilde Weh, Justin Hoffmann, Creamcake, Sensend",
+    // Redundant under the current global images.unoptimized flag,
+    // but kept so the exhibition keeps working if that flag is
+    // flipped back off (Vercel Hobby quota is still exhausted).
+    unoptimized: true,
+    description: `The exhibition explores the relationships between technology, subjectivity, and social structures. It examines resistant practices that emerge against increasingly smooth, efficient, and predictable technological systems.`,
+    previewImage: localExhibitionImage("techno-worlds-final-sampling", "1.webp"),
+    heroImage: localExhibitionImage("techno-worlds-final-sampling", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "techno-worlds-final-sampling",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+      ],
+    ),
+  },
   ...salivaImport13Seeds,
   {
     slug: "axial-core",
@@ -5917,6 +5979,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "techno-worlds-final-sampling",
   "axial-core",
   "after-the-offerings",
   "tangerine-reverie",
