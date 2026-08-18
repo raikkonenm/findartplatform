@@ -37,13 +37,14 @@ export function Header({ overlay = false }: HeaderProps) {
         className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8"
         aria-label="Primary navigation"
       >
-        {/* Left cluster: hamburger + logo, both aligned to the left edge on
-            mobile and desktop. */}
+        {/* Mobile: hamburger left, logo absolute-centered.
+            Desktop: hamburger hidden, logo shifts back into the left cluster
+            (justify-self-start) alongside the (hidden on mobile) hamburger slot. */}
         <div className="flex items-center gap-3 md:gap-4 md:justify-self-start">
           <MobileNavigationMenu inverted={overlay} />
           <Link
             href="/"
-            className={`whitespace-nowrap text-[16px] font-medium tracking-tight transition-opacity hover:opacity-55 md:text-[16px] ${
+            className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px] ${
               overlay ? "text-white" : "text-neutral-900"
             }`}
             aria-label="FindArt Platform home"

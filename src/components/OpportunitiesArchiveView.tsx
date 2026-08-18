@@ -309,7 +309,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
           event.stopPropagation();
           onOpen();
         }}
-        className="order-2 col-span-2 break-words font-normal text-[clamp(1rem,2.4vw,1.4rem)] leading-[1.15] tracking-tight text-neutral-900 transition-opacity group-hover:opacity-70 md:col-span-1 md:text-[1.35rem] md:leading-[1.15]"
+        className="order-2 col-span-2 break-words font-normal text-[clamp(1rem,2.4vw,1.4rem)] leading-[1.15] tracking-tight text-neutral-900 transition-opacity group-hover:opacity-70 md:order-none md:col-span-1 md:text-[1.35rem] md:leading-[1.15]"
       >
         {shortTitle(opportunity.title)}
       </h3>
@@ -325,7 +325,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       </span>
 
       {/* DEADLINE */}
-      <div className="order-5 justify-self-end text-right md:justify-self-start md:text-left">
+      <div className="order-5 justify-self-end text-right md:order-none md:justify-self-start md:text-left">
         <div className="text-[13px] text-neutral-900 md:text-neutral-800">{longDeadline(opportunity.deadlineDate)}</div>
         {daysLeft && (
           <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-neutral-400 md:hidden">{daysLeft}</div>

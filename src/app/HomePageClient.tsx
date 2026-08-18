@@ -523,10 +523,15 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             onMouseEnter={() => setActivePage(page)}
             aria-label={`Show featured banners ${page + 1}`}
             aria-current={page === activePage ? "true" : undefined}
-            className={`h-px w-10 transition-colors duration-300 ${
-              page === activePage ? "bg-[var(--foreground)]" : "bg-neutral-400"
-            }`}
-          />
+            className="group/pagline relative flex h-4 w-10 items-center justify-center"
+          >
+            <span
+              aria-hidden="true"
+              className={`h-px w-full transition-colors duration-300 ${
+                page === activePage ? "bg-[var(--foreground)]" : "bg-neutral-400"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </section>
@@ -1236,7 +1241,7 @@ export default function HomePageClient({
             <MobileNavigationMenu />
             <Link
               href="/"
-              className="whitespace-nowrap text-[16px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:text-[16px]"
+              className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px]"
               aria-label="FindArt Platform home"
             >
               FindArt Platform

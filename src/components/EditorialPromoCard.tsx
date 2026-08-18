@@ -27,7 +27,7 @@ export function EditorialPromoCard() {
     <article>
       <Link
         href="/editorial"
-        aria-label="Open Editorial"
+        aria-label="Open Features"
         className="group relative block aspect-[3/4] overflow-hidden bg-neutral-100"
       >
         {editorialSlides.map((src, index) => (
@@ -46,7 +46,7 @@ export function EditorialPromoCard() {
         ))}
         <span className="absolute inset-0 bg-black/15 transition-colors duration-300 group-hover:bg-black/25" />
         <span className="absolute inset-0 flex items-center justify-center px-2 text-center text-[11px] font-bold uppercase tracking-[0.14em] text-white md:px-4 md:text-[24px] md:tracking-[0.18em]">
-          Editorial
+          Features
         </span>
       </Link>
     </article>
