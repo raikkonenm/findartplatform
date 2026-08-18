@@ -150,30 +150,6 @@ export function DirectoryArchiveView() {
               onFilterClick={() => setMobileFiltersOpen(true)}
             />
           </div>
-          {/* Desktop-only Grid/List + density toggle. Mobile uses the drawer. */}
-          <div className="hidden md:flex md:items-center md:gap-3">
-            <div className="inline-flex items-center rounded-lg border border-neutral-200 text-[10px] uppercase tracking-[0.18em]">
-              <button
-                type="button"
-                onClick={() => setViewMode("grid")}
-                aria-pressed={viewMode === "grid"}
-                className={`h-11 px-4 transition-colors ${viewMode === "grid" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"} rounded-l-lg`}
-              >
-                Grid
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode("list")}
-                aria-pressed={viewMode === "list"}
-                className={`h-11 border-l border-neutral-200 px-4 transition-colors ${viewMode === "list" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"} rounded-r-lg`}
-              >
-                List
-              </button>
-            </div>
-            {viewMode === "grid" && (
-              <DensityToggle density={density} onCycle={() => setDensity((current) => (current === "normal" ? "dense" : "normal"))} />
-            )}
-          </div>
         </div>
 
         {visible.length === 0 ? (

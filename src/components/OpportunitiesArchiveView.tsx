@@ -226,15 +226,11 @@ function OpportunitiesViewToggle({ viewMode, onChange }: { viewMode: ViewMode; o
 
 function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
   const isFree = fee.toUpperCase() === "FREE";
-  const sizing = compact
-    ? "px-2 py-0.5 text-[8px]"
-    : "px-2.5 py-1 text-[8.5px]";
+  const sizing = compact ? "text-[12px]" : "text-[13px]";
   return (
     <span
-      className={`inline-flex items-center border uppercase tracking-[0.2em] ${sizing} ${
-        isFree
-          ? "free-tag-blink border-neutral-800 text-neutral-800"
-          : "border-neutral-400 text-neutral-600"
+      className={`inline-flex items-center font-medium uppercase tracking-[0.14em] ${sizing} ${
+        isFree ? "free-tag-blink text-neutral-900" : "text-neutral-900"
       }`}
     >
       {isFree ? "Free to apply" : compact ? fee : `Application fee ${fee}`}
@@ -270,9 +266,9 @@ function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; on
   );
 }
 
-// Desktop table grid: ORG · OPPORTUNITY · TYPE · FEE · DEADLINE · LOCATION · FOR · TAGS · VIEW
+// Desktop table grid: ORG · OPPORTUNITY · TYPE · FEE · DEADLINE · LOCATION · FOR · TAGS
 const LIST_ROW_COLS =
-  "md:grid-cols-[130px_minmax(0,2.2fr)_100px_120px_110px_minmax(0,1.1fr)_minmax(0,1.2fr)_minmax(0,1.6fr)_100px]";
+  "md:grid-cols-[130px_minmax(0,2.2fr)_100px_120px_110px_minmax(0,1.1fr)_minmax(0,1.2fr)_minmax(0,1.6fr)]";
 
 function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void; today: Date | null }) {
   const daysLeft = daysRemainingLabel(opportunity.deadlineDate, today);
@@ -342,31 +338,19 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
         {opportunity.audience}
       </span>
 
-      {/* TAGS chip row */}
-      <div className="hidden flex-wrap items-center gap-1.5 md:flex">
+      {/* TAGS row — plain uppercase text, no chip boxes */}
+      <div className="hidden flex-wrap items-center gap-x-3 gap-y-1 md:flex">
         {opportunity.tags.slice(0, 3).map((tag) => (
-          <span key={tag} className="whitespace-nowrap border border-neutral-300 px-2 py-1 text-[9px] uppercase tracking-[0.14em] text-neutral-700">
+          <span key={tag} className="whitespace-nowrap text-[11px] uppercase tracking-[0.14em] text-neutral-700">
             {tag}
           </span>
         ))}
         {opportunity.tags.length > 3 && (
-          <span className="whitespace-nowrap border border-neutral-300 px-2 py-1 text-[9px] uppercase tracking-[0.14em] text-neutral-500">
+          <span className="whitespace-nowrap text-[11px] uppercase tracking-[0.14em] text-neutral-400">
             +{opportunity.tags.length - 3}
           </span>
         )}
       </div>
-
-      {/* VIEW cell */}
-      <button
-        type="button"
-        onClick={(event) => {
-          event.stopPropagation();
-          onOpen();
-        }}
-        className="hidden self-center text-[13px] text-neutral-700 transition-opacity hover:opacity-55 md:inline-flex md:items-center md:gap-1"
-      >
-        View Details <span aria-hidden="true">↗</span>
-      </button>
 
       {/* FEE — mobile bottom-left */}
       <span className="order-4 text-[11px] uppercase tracking-[0.18em] text-neutral-700 md:hidden">
@@ -424,7 +408,6 @@ function OpportunitiesListView({ opportunities, onOpen, savedSet, onToggleSaved,
         <span>Location</span>
         <span>For</span>
         <span>Tags</span>
-        <span>View</span>
       </div>
 
       <div>
@@ -678,9 +661,15 @@ function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilter
   );
 }
 
+type DesktopMode = "type" | "fee" | "location" | "audience" | "tags";
+
 export function OpportunitiesArchiveView() {
   const [selectedFilters, setSelectedFilters] = useState<Record<FilterMode, string>>({ type: FILTERS.type[0], field: FILTERS.field[0], reward: FILTERS.reward[0] });
   const [feeFilter, setFeeFilter] = useState<FeeFilter>("all");
+  const [selectedLocation, setSelectedLocation] = useState("All");
+  const [selectedAudience, setSelectedAudience] = useState("All");
+  const [selectedTag, setSelectedTag] = useState("All");
+  const [desktopMode, setDesktopMode] = useState<DesktopMode>("type");
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
@@ -693,6 +682,19 @@ export function OpportunitiesArchiveView() {
     setToday(new Date());
   }, []);
 
+  const locationOptions = useMemo(
+    () => ["All", ...Array.from(new Set(OPPORTUNITIES.map((o) => o.location))).sort()],
+    [],
+  );
+  const audienceOptions = useMemo(
+    () => ["All", ...Array.from(new Set(OPPORTUNITIES.map((o) => o.audience))).sort()],
+    [],
+  );
+  const tagOptions = useMemo(
+    () => ["All", ...Array.from(new Set(OPPORTUNITIES.flatMap((o) => o.tags))).sort()],
+    [],
+  );
+
   const visibleOpportunities = useMemo(() => {
     const q = query.trim().toLowerCase();
     const filtered = OPPORTUNITIES.filter((opportunity) => {
@@ -701,8 +703,11 @@ export function OpportunitiesArchiveView() {
       const rewardMatches = selectedFilters.reward === FILTERS.reward[0] || opportunity.rewards.includes(selectedFilters.reward);
       const isFree = opportunity.applicationFee.toUpperCase() === "FREE";
       const feeMatches = feeFilter === "all" || (feeFilter === "free" && isFree) || (feeFilter === "paid" && !isFree);
+      const locationMatches = selectedLocation === "All" || opportunity.location === selectedLocation;
+      const audienceMatches = selectedAudience === "All" || opportunity.audience === selectedAudience;
+      const tagMatches = selectedTag === "All" || opportunity.tags.includes(selectedTag);
       const queryMatches = !q || opportunity.title.toLowerCase().includes(q) || opportunity.organizer.toLowerCase().includes(q) || opportunity.location.toLowerCase().includes(q) || opportunity.tags.some((tag) => tag.toLowerCase().includes(q));
-      return typeMatches && fieldMatches && rewardMatches && feeMatches && queryMatches;
+      return typeMatches && fieldMatches && rewardMatches && feeMatches && locationMatches && audienceMatches && tagMatches && queryMatches;
     });
     if (viewMode === "list") {
       return [...filtered].sort((a, b) => {
@@ -711,9 +716,9 @@ export function OpportunitiesArchiveView() {
       });
     }
     return filtered;
-  }, [selectedFilters, feeFilter, viewMode, sortDirection, query]);
+  }, [selectedFilters, feeFilter, selectedLocation, selectedAudience, selectedTag, viewMode, sortDirection, query]);
 
-  const activeFilterCount = (selectedFilters.type !== FILTERS.type[0] ? 1 : 0) + (selectedFilters.field !== FILTERS.field[0] ? 1 : 0) + (selectedFilters.reward !== FILTERS.reward[0] ? 1 : 0) + (feeFilter !== "all" ? 1 : 0);
+  const activeFilterCount = (selectedFilters.type !== FILTERS.type[0] ? 1 : 0) + (selectedFilters.field !== FILTERS.field[0] ? 1 : 0) + (selectedFilters.reward !== FILTERS.reward[0] ? 1 : 0) + (feeFilter !== "all" ? 1 : 0) + (selectedLocation !== "All" ? 1 : 0) + (selectedAudience !== "All" ? 1 : 0) + (selectedTag !== "All" ? 1 : 0);
   const resetMobileFilters = () => {
     setSelectedFilters({ type: FILTERS.type[0], field: FILTERS.field[0], reward: FILTERS.reward[0] });
     setFeeFilter("all");
@@ -744,56 +749,122 @@ export function OpportunitiesArchiveView() {
           />
         </div>
 
-        {/* Desktop: TYPE category tabs — plain uppercase text, no button boxes,
-            active is bolder / darker. Search + view toggle sit on the right. */}
-        <div className="mt-6 hidden items-baseline gap-6 md:flex">
-          <div className="scrollbar-none min-w-0 flex-1 overflow-x-auto">
-            <div className="flex min-w-max items-baseline gap-8">
-              {FILTERS.type.map((option) => {
-                const active = selectedFilters.type === option;
+        {/* Desktop: one row of filter categories (label + current value),
+            hovering swaps the rail below to that category's options.
+            Matches the /exhibitions filter pattern. */}
+        {(() => {
+          const feeLabel =
+            feeFilter === "all" ? "All Fees" : feeFilter === "free" ? "Free to apply" : "Paid application";
+          const modes: Array<{ id: DesktopMode; label: string }> = [
+            {
+              id: "type",
+              label:
+                selectedFilters.type === FILTERS.type[0]
+                  ? "ALL TYPES"
+                  : selectedFilters.type.toUpperCase(),
+            },
+            { id: "fee", label: `APPLICATION FEE · ${feeLabel.toUpperCase()}` },
+            {
+              id: "location",
+              label:
+                selectedLocation === "All"
+                  ? "ALL LOCATIONS"
+                  : selectedLocation.toUpperCase(),
+            },
+            {
+              id: "audience",
+              label:
+                selectedAudience === "All" ? "ALL FOR" : selectedAudience.toUpperCase(),
+            },
+            {
+              id: "tags",
+              label: selectedTag === "All" ? "ALL TAGS" : selectedTag.toUpperCase(),
+            },
+          ];
+          return (
+            <div className="mt-6 hidden items-baseline gap-8 md:flex">
+              {modes.map((m) => {
+                const active = desktopMode === m.id;
                 return (
                   <button
-                    key={option}
+                    key={m.id}
                     type="button"
-                    onClick={() =>
-                      setSelectedFilters((current) => ({ ...current, type: option }))
-                    }
+                    onClick={() => setDesktopMode(m.id)}
+                    onMouseEnter={() => setDesktopMode(m.id)}
                     className={`shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.18em] transition-colors ${active ? "font-semibold text-neutral-900" : "text-neutral-500 hover:text-neutral-800"}`}
                   >
-                    {option === FILTERS.type[0] ? "All Types" : option}
+                    {m.label}
                   </button>
                 );
               })}
             </div>
-          </div>
-          <div className="flex shrink-0 items-center gap-3">
-            <OpportunitiesViewToggle viewMode={viewMode} onChange={setViewMode} />
-          </div>
-        </div>
+          );
+        })()}
 
-        {/* Divider under TYPE tabs (desktop only). */}
+        {/* Divider under the filter category row (desktop only). */}
         <hr className="mt-4 hidden border-neutral-200 md:block" />
 
-        {/* Application fee — small inline text filter row (desktop only). */}
-        <div className="mt-4 hidden items-baseline gap-5 text-[11px] uppercase tracking-[0.18em] md:flex">
-          <span className="text-neutral-500">Application fee</span>
-          {[
-            { id: "all" as FeeFilter, label: "All" },
-            { id: "free" as FeeFilter, label: "Free to apply" },
-            { id: "paid" as FeeFilter, label: "Paid application" },
-          ].map((option) => {
-            const active = feeFilter === option.id;
+        {/* Options rail for the current desktop mode — horizontal scroll, click to filter. */}
+        <div className="mt-4 hidden md:block">
+          {(() => {
+            const config: Record<
+              DesktopMode,
+              { options: string[]; current: string; onSelect: (option: string) => void; labelFor: (option: string) => string }
+            > = {
+              type: {
+                options: [...FILTERS.type],
+                current: selectedFilters.type,
+                onSelect: (option) =>
+                  setSelectedFilters((current) => ({ ...current, type: option })),
+                labelFor: (option) => (option === FILTERS.type[0] ? "All types" : option),
+              },
+              fee: {
+                options: ["all", "free", "paid"],
+                current: feeFilter,
+                onSelect: (option) => setFeeFilter(option as FeeFilter),
+                labelFor: (option) =>
+                  option === "all" ? "All fees" : option === "free" ? "Free to apply" : "Paid application",
+              },
+              location: {
+                options: locationOptions,
+                current: selectedLocation,
+                onSelect: setSelectedLocation,
+                labelFor: (option) => (option === "All" ? "All locations" : option),
+              },
+              audience: {
+                options: audienceOptions,
+                current: selectedAudience,
+                onSelect: setSelectedAudience,
+                labelFor: (option) => (option === "All" ? "All audiences" : option),
+              },
+              tags: {
+                options: tagOptions,
+                current: selectedTag,
+                onSelect: setSelectedTag,
+                labelFor: (option) => (option === "All" ? "All tags" : option),
+              },
+            };
+            const active = config[desktopMode];
             return (
-              <button
-                key={option.id}
-                type="button"
-                onClick={() => setFeeFilter(option.id)}
-                className={`transition-colors ${active ? "font-semibold text-neutral-900" : "text-neutral-500 hover:text-neutral-800"}`}
-              >
-                {option.label}
-              </button>
+              <div className="scrollbar-none overflow-x-auto pb-2">
+                <div className="flex min-w-max items-baseline gap-6">
+                  {active.options.map((option) => {
+                    const isActive = active.current === option;
+                    return (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => active.onSelect(option)}
+                        className={`shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.18em] transition-colors ${isActive ? "font-semibold text-neutral-900" : "text-neutral-500 hover:text-neutral-800"}`}
+                      >
+                        {active.labelFor(option)}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             );
-          })}
+          })()}
         </div>
 
         {visibleOpportunities.length > 0 ? (

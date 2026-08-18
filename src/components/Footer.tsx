@@ -120,6 +120,18 @@ export function Footer() {
 
         <div>
           <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
+            Advertising
+          </p>
+          <a
+            href="mailto:raikkonenmaria7@gmail.com?subject=Advertising%20inquiry"
+            className={footerLinkClass}
+          >
+            Advertise with us
+          </a>
+        </div>
+
+        <div>
+          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
             Inquiries
           </p>
           <a
