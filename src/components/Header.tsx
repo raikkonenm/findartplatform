@@ -38,7 +38,7 @@ export function Header({ overlay = false }: HeaderProps) {
         <MobileNavigationMenu inverted={overlay} />
         <Link
           href="/"
-          className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[12px] font-medium tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-[16px] ${
+          className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-[16px] ${
             overlay ? "text-white" : "text-neutral-900"
           }`}
           aria-label="FindArt Platform home"
@@ -74,7 +74,11 @@ export function Header({ overlay = false }: HeaderProps) {
           <Link href="/directory" className={navLinkClass("/directory")}>
             INDEX
           </Link>
-          <Link href="/submit" className={navLinkClass("/submit", true)}>
+          <Link
+            href="/submit"
+            className={navLinkClass("/submit", true)}
+            style={{ textDecorationLine: "underline", textDecorationThickness: "1px", textUnderlineOffset: "6px" }}
+          >
             Submit
           </Link>
         </div>

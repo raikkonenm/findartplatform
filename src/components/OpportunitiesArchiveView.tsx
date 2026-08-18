@@ -385,6 +385,83 @@ const FEE_FILTERS: Array<{ id: FeeFilter; label: string }> = [
   { id: "paid", label: "Paid application" },
 ];
 
+function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilters, feeFilter, setFeeFilter, resultCount, onReset }: { open: boolean; onClose: () => void; selectedFilters: Record<FilterMode, string>; setSelectedFilters: (fn: (current: Record<FilterMode, string>) => Record<FilterMode, string>) => void; feeFilter: FeeFilter; setFeeFilter: (value: FeeFilter) => void; resultCount: number; onReset: () => void; }) {
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const section = (mode: FilterMode) => (
+    <section key={mode} className="border-t border-[var(--border)] py-6">
+      <h3 className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
+        {FILTER_LABELS[mode]}
+      </h3>
+      <ul className="space-y-3">
+        {FILTERS[mode].map((option) => {
+          const active = selectedFilters[mode] === option;
+          return (
+            <li key={option}>
+              <button
+                type="button"
+                onClick={() => setSelectedFilters((current) => ({ ...current, [mode]: option }))}
+                className={`text-left text-[12px] uppercase tracking-[0.18em] transition-opacity hover:opacity-60 ${active ? "font-semibold text-[var(--foreground)]" : "text-neutral-500"}`}
+              >
+                {option}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+
+  return (
+    <div className="fixed inset-0 z-[80] md:hidden" role="dialog" aria-modal="true" aria-label="Filters">
+      <button type="button" aria-label="Close filters" onClick={onClose} className="absolute inset-0 bg-black/40" />
+      <aside className="absolute inset-y-0 right-0 flex w-[90%] max-w-[380px] flex-col bg-white shadow-[-12px_0_35px_rgba(0,0,0,0.15)]">
+        <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-neutral-900">Filters</h2>
+          <button type="button" onClick={onClose} aria-label="Close filters" className="flex h-9 w-9 items-center justify-center text-2xl font-light leading-none transition-opacity hover:opacity-55">×</button>
+        </div>
+        <div className="flex-1 overflow-y-auto px-5">
+          {(Object.keys(FILTER_LABELS) as FilterMode[]).map(section)}
+          <section className="border-t border-[var(--border)] py-6">
+            <h3 className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Application fee</h3>
+            <ul className="space-y-3">
+              {FEE_FILTERS.map((option) => (
+                <li key={option.id}>
+                  <button
+                    type="button"
+                    onClick={() => setFeeFilter(option.id)}
+                    className={`text-left text-[12px] uppercase tracking-[0.18em] transition-opacity hover:opacity-60 ${feeFilter === option.id ? "font-semibold text-[var(--foreground)]" : "text-neutral-500"}`}
+                  >
+                    {option.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+        <div className="grid grid-cols-2 gap-3 border-t border-[var(--border)] px-5 py-4">
+          <button type="button" onClick={onReset} className="border border-[var(--border)] px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-neutral-700 transition-colors hover:border-neutral-900 hover:text-neutral-900">Reset</button>
+          <button type="button" onClick={onClose} className="bg-neutral-900 px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-white transition-opacity hover:opacity-80">
+            Show {resultCount} {resultCount === 1 ? "result" : "results"}
+          </button>
+        </div>
+      </aside>
+    </div>
+  );
+}
+
 export function OpportunitiesArchiveView() {
   const [mode, setMode] = useState<FilterMode>("type");
   const [selectedFilters, setSelectedFilters] = useState<Record<FilterMode, string>>({ type: FILTERS.type[0], field: FILTERS.field[0], reward: FILTERS.reward[0] });
@@ -394,19 +471,23 @@ export function OpportunitiesArchiveView() {
   const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
   const [today, setToday] = useState<Date | null>(null);
   const [selectedOpportunity, setSelectedOpportunity] = useState<Opportunity | null>(null);
+  const [query, setQuery] = useState("");
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   useEffect(() => {
     setToday(new Date());
   }, []);
 
   const visibleOpportunities = useMemo(() => {
+    const q = query.trim().toLowerCase();
     const filtered = OPPORTUNITIES.filter((opportunity) => {
       const typeMatches = selectedFilters.type === FILTERS.type[0] || opportunity.type.includes(selectedFilters.type);
       const fieldMatches = selectedFilters.field === FILTERS.field[0] || opportunity.fields.includes(selectedFilters.field);
       const rewardMatches = selectedFilters.reward === FILTERS.reward[0] || opportunity.rewards.includes(selectedFilters.reward);
       const isFree = opportunity.applicationFee.toUpperCase() === "FREE";
       const feeMatches = feeFilter === "all" || (feeFilter === "free" && isFree) || (feeFilter === "paid" && !isFree);
-      return typeMatches && fieldMatches && rewardMatches && feeMatches;
+      const queryMatches = !q || opportunity.title.toLowerCase().includes(q) || opportunity.organizer.toLowerCase().includes(q) || opportunity.location.toLowerCase().includes(q) || opportunity.tags.some((tag) => tag.toLowerCase().includes(q));
+      return typeMatches && fieldMatches && rewardMatches && feeMatches && queryMatches;
     });
     if (viewMode === "list") {
       return [...filtered].sort((a, b) => {
@@ -415,7 +496,13 @@ export function OpportunitiesArchiveView() {
       });
     }
     return filtered;
-  }, [selectedFilters, feeFilter, viewMode, sortDirection]);
+  }, [selectedFilters, feeFilter, viewMode, sortDirection, query]);
+
+  const activeFilterCount = (selectedFilters.type !== FILTERS.type[0] ? 1 : 0) + (selectedFilters.field !== FILTERS.field[0] ? 1 : 0) + (selectedFilters.reward !== FILTERS.reward[0] ? 1 : 0) + (feeFilter !== "all" ? 1 : 0);
+  const resetMobileFilters = () => {
+    setSelectedFilters({ type: FILTERS.type[0], field: FILTERS.field[0], reward: FILTERS.reward[0] });
+    setFeeFilter("all");
+  };
 
   const toggleSaved = (slug: string) => {
     setSavedSet((current) => {
@@ -431,18 +518,13 @@ export function OpportunitiesArchiveView() {
       <section className="px-5 pb-24 pt-8 md:px-8 md:pt-12 lg:px-12">
         <h1 className="editorial-serif mb-8 text-[clamp(1.5rem,3vw,2.8rem)] uppercase leading-none tracking-[-0.025em] md:mb-10">Opportunities</h1>
 
-        <div className="flex flex-wrap items-center justify-between gap-y-4">
-          <div className="flex flex-wrap items-center gap-3">
-            {(Object.keys(FILTER_LABELS) as FilterMode[]).map((filterMode) => (
-              <button key={filterMode} type="button" onClick={() => setMode(filterMode)} onMouseEnter={() => setMode(filterMode)} className={`border px-3 py-2 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${mode === filterMode ? "border-[var(--foreground)] text-[var(--foreground)]" : "border-neutral-400 text-neutral-500 hover:border-neutral-500"}`}>{FILTER_LABELS[filterMode]}</button>
-            ))}
-          </div>
-
+        {/* Mobile toolbar: Grid/List on left, FILTERS on right, search below */}
+        <div className="flex items-center justify-between gap-3 md:hidden">
           <div className="inline-flex items-center border border-[var(--border)] text-[10px] uppercase tracking-[0.18em]">
             <button
               type="button"
               onClick={() => setViewMode("grid")}
-              className={`px-3 py-2 transition-colors ${viewMode === "grid" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-neutral-500 hover:text-[var(--foreground)]"}`}
+              className={`px-3 py-2 transition-colors ${viewMode === "grid" ? "bg-neutral-900 text-white" : "text-neutral-500"}`}
               aria-pressed={viewMode === "grid"}
             >
               Grid
@@ -450,17 +532,79 @@ export function OpportunitiesArchiveView() {
             <button
               type="button"
               onClick={() => setViewMode("list")}
-              className={`border-l border-[var(--border)] px-3 py-2 transition-colors ${viewMode === "list" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-neutral-500 hover:text-[var(--foreground)]"}`}
+              className={`border-l border-[var(--border)] px-3 py-2 transition-colors ${viewMode === "list" ? "bg-neutral-900 text-white" : "text-neutral-500"}`}
               aria-pressed={viewMode === "list"}
             >
               List
             </button>
           </div>
+          <button
+            type="button"
+            onClick={() => setMobileFiltersOpen(true)}
+            className="inline-flex items-center gap-2 border border-[var(--border)] px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-neutral-900 transition-colors hover:border-neutral-900"
+          >
+            Filters
+            {activeFilterCount > 0 && (
+              <span className="inline-flex h-4 min-w-[16px] items-center justify-center bg-neutral-900 px-1 text-[9px] text-white">
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
+        </div>
+        <div className="mt-3 md:hidden">
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search opportunities"
+            aria-label="Search opportunities"
+            className="w-full border border-[var(--border)] bg-transparent px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-neutral-800 placeholder:text-neutral-400 focus:border-neutral-800 focus:outline-none"
+          />
         </div>
 
-        <FilterRail mode={mode} selected={selectedFilters[mode]} onSelect={(value) => setSelectedFilters((current) => ({ ...current, [mode]: value }))} />
+        {/* Desktop toolbar: full filter chips + grid/list on right + search inline */}
+        <div className="hidden flex-wrap items-center justify-between gap-y-4 md:flex">
+          <div className="flex flex-wrap items-center gap-3">
+            {(Object.keys(FILTER_LABELS) as FilterMode[]).map((filterMode) => (
+              <button key={filterMode} type="button" onClick={() => setMode(filterMode)} onMouseEnter={() => setMode(filterMode)} className={`border px-3 py-2 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${mode === filterMode ? "border-[var(--foreground)] text-[var(--foreground)]" : "border-neutral-400 text-neutral-500 hover:border-neutral-500"}`}>{FILTER_LABELS[filterMode]}</button>
+            ))}
+          </div>
 
-        <div className="flex flex-wrap items-center gap-5 border-t border-[var(--border)] pt-4 text-[10px] uppercase tracking-[0.2em]">
+          <div className="flex items-center gap-3">
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search opportunities"
+              aria-label="Search opportunities"
+              className="w-[240px] border border-[var(--border)] bg-transparent px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-neutral-800 placeholder:text-neutral-400 focus:border-neutral-800 focus:outline-none"
+            />
+            <div className="inline-flex items-center border border-[var(--border)] text-[10px] uppercase tracking-[0.18em]">
+              <button
+                type="button"
+                onClick={() => setViewMode("grid")}
+                className={`px-3 py-2 transition-colors ${viewMode === "grid" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-neutral-500 hover:text-[var(--foreground)]"}`}
+                aria-pressed={viewMode === "grid"}
+              >
+                Grid
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("list")}
+                className={`border-l border-[var(--border)] px-3 py-2 transition-colors ${viewMode === "list" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-neutral-500 hover:text-[var(--foreground)]"}`}
+                aria-pressed={viewMode === "list"}
+              >
+                List
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden md:block">
+          <FilterRail mode={mode} selected={selectedFilters[mode]} onSelect={(value) => setSelectedFilters((current) => ({ ...current, [mode]: value }))} />
+        </div>
+
+        <div className="hidden flex-wrap items-center gap-5 border-t border-[var(--border)] pt-4 text-[10px] uppercase tracking-[0.2em] md:flex">
           <span className="text-neutral-500">Application fee</span>
           {FEE_FILTERS.map((option) => (
             <button
@@ -495,6 +639,16 @@ export function OpportunitiesArchiveView() {
         )}
       </section>
       {selectedOpportunity ? <OpportunityDetail opportunity={selectedOpportunity} onClose={() => setSelectedOpportunity(null)} /> : null}
+      <MobileFiltersDrawer
+        open={mobileFiltersOpen}
+        onClose={() => setMobileFiltersOpen(false)}
+        selectedFilters={selectedFilters}
+        setSelectedFilters={setSelectedFilters}
+        feeFilter={feeFilter}
+        setFeeFilter={setFeeFilter}
+        resultCount={visibleOpportunities.length}
+        onReset={resetMobileFilters}
+      />
     </main>
   );
 }

@@ -110,72 +110,104 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                 </svg>
               </button>
             </div>
-            <nav className="editorial-serif flex flex-col items-start gap-5 px-5 py-6 text-[11px] uppercase tracking-[0.28em] text-neutral-900">
-              <Link
-                href="/"
-                onClick={() => setOpen(false)}
-                className={pathname === "/" ? "font-semibold" : ""}
-              >
-                Explore
-              </Link>
-              <Link
-                href="/collect"
-                onClick={() => setOpen(false)}
-                className={pathname.startsWith("/collect") ? "font-semibold" : ""}
-              >
-                COLLECT
-              </Link>
-              <Link
-                href="/exhibitions"
-                onClick={() => setOpen(false)}
-                className={pathname.startsWith("/exhibitions") ? "font-semibold" : ""}
-              >
-                Exhibitions
-              </Link>
-              <Link
-                href="/editorial"
-                onClick={() => setOpen(false)}
-                className={pathname.startsWith("/editorial") ? "font-semibold" : ""}
-              >
-                Editorial
-              </Link>
-              <Link
-                href="/opportunities"
-                onClick={() => setOpen(false)}
-                className={pathname.startsWith("/opportunities") ? "font-semibold" : ""}
-              >
-                Opportunities
-              </Link>
-              <Link
-                href="/about"
-                onClick={() => setOpen(false)}
-                className={pathname.startsWith("/about") ? "font-semibold" : ""}
-              >
-                About
-              </Link>
-              <a
-                href="https://www.instagram.com/findart.platform/"
-                onClick={() => setOpen(false)}
-              >
-                Instagram
-              </a>
-              <a href="https://www.artcnomad.com/" onClick={() => setOpen(false)}>
-                By Artnomad Curators &#8599;
-              </a>
-              <a
-                href="https://www.artcnomad.com/workflow-art"
-                onClick={() => setOpen(false)}
-              >
-                Workflow.Art &#8599;
-              </a>
-              {SHOW_PRACTICE_NAV && (
+            <nav className="editorial-serif flex flex-1 flex-col items-start px-5 py-6 text-[11px] uppercase tracking-[0.28em] text-neutral-900">
+              <div className="flex flex-col items-start gap-5">
+                <Link
+                  href="/"
+                  onClick={() => setOpen(false)}
+                  className={pathname === "/" ? "font-semibold" : ""}
+                >
+                  Explore
+                </Link>
+                <Link
+                  href="/collect"
+                  onClick={() => setOpen(false)}
+                  className={pathname.startsWith("/collect") ? "font-semibold" : ""}
+                >
+                  COLLECT
+                </Link>
+                <Link
+                  href="/exhibitions"
+                  onClick={() => setOpen(false)}
+                  className={pathname.startsWith("/exhibitions") ? "font-semibold" : ""}
+                >
+                  Exhibitions
+                </Link>
+                <Link
+                  href="/editorial"
+                  onClick={() => setOpen(false)}
+                  className={pathname.startsWith("/editorial") ? "font-semibold" : ""}
+                >
+                  Features
+                </Link>
+                <Link
+                  href="/opportunities"
+                  onClick={() => setOpen(false)}
+                  className={pathname.startsWith("/opportunities") ? "font-semibold" : ""}
+                >
+                  Opportunities
+                </Link>
+                <Link
+                  href="/editorial"
+                  onClick={() => setOpen(false)}
+                  className={pathname.startsWith("/editorial") ? "font-semibold" : ""}
+                >
+                  Editorial
+                </Link>
+                <Link
+                  href="/directory"
+                  onClick={() => setOpen(false)}
+                  className={pathname.startsWith("/directory") ? "font-semibold" : ""}
+                >
+                  Index
+                </Link>
+              </div>
+
+              <div className="mt-12 flex flex-col items-start gap-5">
+                <a href="https://www.artcnomad.com/" onClick={() => setOpen(false)}>
+                  By Artnomad Curators &#8599;
+                </a>
                 <a
-                  href="https://www.artcnomad.com/practice"
+                  href="https://www.artcnomad.com/workflow-art"
                   onClick={() => setOpen(false)}
                 >
-                  Practice &#8599;
+                  Workflow.Art &#8599;
                 </a>
-              )}
+                {SHOW_PRACTICE_NAV && (
+                  <a
+                    href="https://www.artcnomad.com/practice"
+                    onClick={() => setOpen(false)}
+                  >
+                    Practice &#8599;
+                  </a>
+                )}
+              </div>
+
+              <div className="mt-10">
+                <Link
+                  href="/submit"
+                  onClick={() => setOpen(false)}
+                  className="font-semibold"
+                  style={{ textDecorationLine: "underline", textDecorationThickness: "1px", textUnderlineOffset: "6px" }}
+                >
+                  Submit
+                </Link>
+              </div>
+
+              <div className="mt-auto pt-8">
+                <a
+                  href="https://www.instagram.com/findart.platform/"
+                  onClick={() => setOpen(false)}
+                  aria-label="FindArt on Instagram"
+                  className="inline-flex h-9 w-9 items-center justify-center text-neutral-900 transition-opacity hover:opacity-55"
+                >
+                  <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="4.5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+                </a>
+              </div>
             </nav>
           </aside>
         </div>

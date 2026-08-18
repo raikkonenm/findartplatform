@@ -67,24 +67,89 @@ function FeaturedExhibitionSlideshow({
   );
 }
 
+type MobileSlide = {
+  href: string;
+  external?: boolean;
+  ariaLabel: string;
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  media: React.ReactNode;
+};
+
 function MobileFeaturedCarousel() {
   const [activeSlide, setActiveSlide] = useState(0);
   const touchStartX = useRef<number | null>(null);
-  const slideCount = 4;
+
+  const slides: MobileSlide[] = [
+    {
+      href: "/exhibitions/der-kopf-ist-rund",
+      ariaLabel: "View Der Kopf ist rund exhibition",
+      eyebrow: "Klaus in Vorarlberg / 2026",
+      title: "Der Kopf ist rund, damit das Denken die Richtung wechseln kann",
+      subtitle: "Galerie Brugger",
+      media: (
+        <FeaturedExhibitionSlideshow
+          slug="der-kopf-ist-rund"
+          initialSrc="/banner/banner1.webp"
+          alt="Der Kopf ist rund exhibition installation view"
+          priority
+          sizes="100vw"
+        />
+      ),
+    },
+    {
+      href: "/exhibitions/axial-core",
+      ariaLabel: "View Axial-Core exhibition",
+      eyebrow: "May 22 — June 01, 2026",
+      title: "Axial-Core",
+      subtitle: "Leo Pum @La Térmica, Málaga KRVCE festival",
+      media: (
+        <FeaturedExhibitionSlideshow
+          slug="axial-core"
+          initialSrc="/banner/blue.webp"
+          alt="Axial-Core exhibition installation view"
+          sizes="100vw"
+        />
+      ),
+    },
+    {
+      href: "https://www.artcnomad.com/",
+      external: true,
+      ariaLabel: "Open Art Curatorial Nomads",
+      eyebrow: "artcnomad.com",
+      title: "ART CURATORIAL NOMADS ↗",
+      subtitle: "Curate your exhibition",
+      media: (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label="Artcnomads curatorial projects"
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/banner/AC.web.mp4" type="video/mp4" />
+        </video>
+      ),
+    },
+  ];
+  const slideCount = slides.length;
 
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveSlide((current) => (current + 1) % slideCount);
     }, 10000);
     return () => window.clearInterval(interval);
-  }, []);
+  }, [slideCount]);
 
   const moveTo = (index: number) => {
-    setActiveSlide((index + slideCount) % slideCount);
+    setActiveSlide(((index % slideCount) + slideCount) % slideCount);
   };
 
   return (
-    <section className="overflow-hidden bg-white pb-4 pt-4 md:hidden" aria-label="Featured exhibitions">
+    <section className="overflow-hidden bg-white pb-6 pt-4 md:hidden" aria-label="Featured exhibitions">
       <div
         className="overflow-hidden"
         onTouchStart={(event) => {
@@ -107,81 +172,49 @@ function MobileFeaturedCarousel() {
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${activeSlide * 100}%)` }}
         >
-          <div className="w-full shrink-0 px-4">
-            <Link
-              href="/exhibitions/der-kopf-ist-rund"
-              aria-label="View Der Kopf ist rund exhibition"
-              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
-            >
-              <FeaturedExhibitionSlideshow
-                slug="der-kopf-ist-rund"
-                initialSrc="/banner/banner1.webp"
-                alt="Der Kopf ist rund exhibition installation view"
-                priority
-                sizes="100vw"
-              />
-            </Link>
-          </div>
-          <div className="w-full shrink-0 px-4">
-            <Link
-              href="/exhibitions/axial-core"
-              aria-label="View Axial-Core exhibition"
-              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
-            >
-              <FeaturedExhibitionSlideshow
-                slug="axial-core"
-                initialSrc="/banner/blue.webp"
-                alt="Axial-Core exhibition installation view"
-                sizes="100vw"
-              />
-            </Link>
-          </div>
-          <div className="w-full shrink-0 px-4">
-            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Artcnomads curatorial projects"
-                className="absolute inset-0 h-full w-full object-cover"
-              >
-                <source src="/banner/AC.web.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </div>
-          <div className="w-full shrink-0 px-4">
-            <a
-              href="https://www.artcnomad.com/workflow-art"
-              aria-label="Open Workflow.Art"
-              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
-            >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Workflow.Art platform preview"
-                className="absolute inset-0 h-full w-full scale-[1.04] object-cover"
-              >
-                <source src="/banner/workflow.web.mp4" type="video/mp4" />
-              </video>
-            </a>
-          </div>
+          {slides.map((slide) => {
+            const mediaBlock = (
+              <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
+                {slide.media}
+              </div>
+            );
+            const caption = (
+              <div className="pt-4">
+                <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">{slide.eyebrow}</p>
+                <p className="editorial-serif mt-2 break-words text-[clamp(1rem,4.6vw,1.6rem)] uppercase leading-[1.05] tracking-[-0.03em] text-neutral-900">
+                  {slide.title}
+                </p>
+                <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">{slide.subtitle}</p>
+              </div>
+            );
+            return (
+              <div key={slide.href} className="w-full shrink-0 px-4">
+                {slide.external ? (
+                  <a href={slide.href} aria-label={slide.ariaLabel} className="block">
+                    {mediaBlock}
+                    {caption}
+                  </a>
+                ) : (
+                  <Link href={slide.href} aria-label={slide.ariaLabel} className="block">
+                    {mediaBlock}
+                    {caption}
+                  </Link>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
-      <div className="mt-3 flex items-center justify-center gap-2" aria-label="Choose featured banner">
-        {Array.from({ length: slideCount }, (_, index) => (
+      <div className="mt-6 flex items-center justify-center gap-2 px-4" aria-label="Choose featured banner">
+        {slides.map((_, index) => (
           <button
             key={index}
             type="button"
             onClick={() => moveTo(index)}
             aria-label={`Show featured banner ${index + 1}`}
             aria-current={index === activeSlide ? "true" : undefined}
-            className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
-              index === activeSlide ? "bg-neutral-900" : "bg-neutral-400"
+            className={`h-[2px] flex-1 max-w-[64px] transition-colors duration-300 ${
+              index === activeSlide ? "bg-neutral-900" : "bg-neutral-300"
             }`}
           />
         ))}
@@ -1198,7 +1231,7 @@ export default function HomePageClient({
           <MobileNavigationMenu />
           <Link
             href="/"
-            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[12px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-[16px]"
+            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-[16px]"
             aria-label="FindArt Platform home"
           >
             FindArt Platform
@@ -1231,6 +1264,7 @@ export default function HomePageClient({
             <Link
               href="/submit"
               className={navLinkClass("/submit", true)}
+              style={{ textDecorationLine: "underline", textDecorationThickness: "1px", textUnderlineOffset: "6px" }}
             >
               Submit
             </Link>
