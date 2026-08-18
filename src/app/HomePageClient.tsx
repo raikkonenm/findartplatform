@@ -7,9 +7,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { HeartIcon } from "@/components/SavedExhibitions";
-import { MobileGlobalSearch } from "@/components/MobileGlobalSearch";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "@/components/MobileFilterSheet";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
+import { useSearchPanel } from "@/components/SearchPanelContext";
 import { SearchBar } from "@/components/SearchBar";
 import { NavigationProgress } from "@/components/NavigationProgress";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
@@ -177,7 +177,7 @@ function MobileFeaturedCarousel() {
         >
           {slides.map((slide) => {
             const inner = (
-              <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
+              <div className="relative block aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100">
                 {slide.media}
                 {/* Bottom-anchored scrim so the caption is always legible. */}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
@@ -399,7 +399,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             <Link
               href="/exhibitions/der-kopf-ist-rund"
               aria-label="View Der Kopf ist rund exhibition"
-              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+              className="relative block aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100"
             >
               <FeaturedExhibitionSlideshow
                 slug="der-kopf-ist-rund"
@@ -429,7 +429,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             <Link
               href="/exhibitions/axial-core"
               aria-label="View Axial-Core exhibition"
-              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+              className="relative block aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100"
             >
               <FeaturedExhibitionSlideshow
                 slug="axial-core"
@@ -452,7 +452,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
           </article>
 
           <article className="min-w-0">
-            <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
+            <div className="relative aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100">
               {!initialIsMobile && (
                 <video
                   autoPlay
@@ -485,7 +485,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             <a
               href="https://www.artcnomad.com/workflow-art"
               aria-label="Open Workflow.Art"
-              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+              className="relative block aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-neutral-100"
             >
               <video
                 autoPlay
@@ -1128,6 +1128,7 @@ export default function HomePageClient({
   const [desktopFilterPanel, setDesktopFilterPanel] = useState<DesktopFilterPanel>("tags");
   const [hoveredLocationCountry, setHoveredLocationCountry] = useState<string | null>(null);
   const [mobileExhibFiltersOpen, setMobileExhibFiltersOpen] = useState(false);
+  const { setOpen: setSearchOpen } = useSearchPanel();
 
   const selectTag = useCallback(
     (nextTag: SelectedTag) => {
@@ -1231,14 +1232,16 @@ export default function HomePageClient({
           className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]"
           aria-label="Primary navigation"
         >
-          <MobileNavigationMenu />
-          <Link
-            href="/"
-            className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-[16px]"
-            aria-label="FindArt Platform home"
-          >
-            FindArt Platform
-          </Link>
+          <div className="flex items-center gap-3 md:gap-4 md:justify-self-start">
+            <MobileNavigationMenu />
+            <Link
+              href="/"
+              className="whitespace-nowrap text-[16px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:text-[16px]"
+              aria-label="FindArt Platform home"
+            >
+              FindArt Platform
+            </Link>
+          </div>
           <div className="editorial-serif hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.08em] text-neutral-900 md:flex md:justify-self-center">
             <Link
               href="/"
@@ -1272,13 +1275,18 @@ export default function HomePageClient({
               Submit
             </Link>
           </div>
-          <div className="flex items-center gap-3 justify-self-end md:gap-5">
-            <Link
-              href="/submit"
-              className="editorial-serif text-[9px] font-semibold uppercase tracking-[0.24em] text-neutral-900 transition-opacity hover:opacity-55 md:hidden"
+          <div className="flex items-center gap-3 justify-self-end md:gap-4">
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              aria-label="Open search"
+              className="flex h-8 w-8 items-center justify-center text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
             >
-              Submit
-            </Link>
+              <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
+                <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.35" />
+                <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+              </svg>
+            </button>
             <Link
               href="/saved"
               aria-label="View saved items"
@@ -1294,7 +1302,6 @@ export default function HomePageClient({
 
       {showFeaturedBanners && (
         <>
-          <MobileGlobalSearch />
           <MobileFeaturedCarousel />
           <DesktopFeaturedCarousel initialIsMobile={initialIsMobile} />
         </>
@@ -1506,6 +1513,94 @@ export default function HomePageClient({
             setDensity("normal");
           }}
         >
+          {/* TAGS — pill-chip row */}
+          <section className="border-t border-neutral-200 pt-6">
+            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Tags</p>
+            <div className="scrollbar-none -mx-1 flex gap-2 overflow-x-auto pb-1 px-1">
+              {tagOptions.map((option) => {
+                const active = tag === option;
+                return (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => selectTag(option)}
+                    className={`whitespace-nowrap rounded-full border px-3.5 py-1.5 text-[12px] transition-colors ${active ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-neutral-300"}`}
+                  >
+                    {option === "ALL" ? "All tags" : option}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* LOCATION — country list; tap to toggle country filter */}
+          <section className="border-t border-neutral-200 pt-6">
+            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Location</p>
+            <ul>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => setLocation({ kind: "all" })}
+                  className={`flex w-full items-center justify-between px-3 py-3 text-[14px] transition-colors ${location.kind === "all" ? "rounded-md bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900"}`}
+                >
+                  <span>All locations</span>
+                  {location.kind === "all" && <span className="h-2 w-2 rounded-full bg-neutral-900" aria-hidden="true" />}
+                </button>
+              </li>
+              {locationTree.map(({ country }) => {
+                const active = location.kind !== "all" && location.country === country;
+                return (
+                  <li key={country}>
+                    <button
+                      type="button"
+                      onClick={() => setLocation({ kind: "country", country })}
+                      className={`flex w-full items-center justify-between px-3 py-3 text-[14px] transition-colors ${active ? "rounded-md bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900"}`}
+                    >
+                      <span>{country}</span>
+                      {active && <span className="h-2 w-2 rounded-full bg-neutral-900" aria-hidden="true" />}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+
+          {/* YEAR */}
+          <section className="border-t border-neutral-200 pt-6">
+            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Year</p>
+            <ul>
+              {YEARS.map((option) => {
+                const active = year === option;
+                return (
+                  <li key={option}>
+                    <button
+                      type="button"
+                      onClick={() => setYear(option)}
+                      className={`flex w-full items-center justify-between px-3 py-3 text-[14px] transition-colors ${active ? "rounded-md bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900"}`}
+                    >
+                      <span>{option === "All" ? "All years" : option}</span>
+                      {active && <span className="h-2 w-2 rounded-full bg-neutral-900" aria-hidden="true" />}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+
+          {/* ON VIEW toggle */}
+          <section className="border-t border-neutral-200 pt-6">
+            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">On view</p>
+            <button
+              type="button"
+              onClick={() => setOnViewOnly((v) => !v)}
+              className={`flex w-full items-center justify-between px-3 py-3 text-[14px] transition-colors ${onViewOnly ? "rounded-md bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900"}`}
+              aria-pressed={onViewOnly}
+            >
+              <span>Only exhibitions on view today</span>
+              {onViewOnly && <span className="h-2 w-2 rounded-full bg-neutral-900" aria-hidden="true" />}
+            </button>
+          </section>
+
           <LayoutSection<MasonryDensity>
             value={density}
             onChange={setDensity}

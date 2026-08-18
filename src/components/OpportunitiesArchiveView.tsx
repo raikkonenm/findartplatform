@@ -183,6 +183,67 @@ function FilterRail({ mode, selected, onSelect }: { mode: FilterMode; selected: 
   );
 }
 
+function OpportunitiesInlineSearch({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const expanded = value.length > 0;
+  return (
+    <label className="group/search flex h-9 cursor-text items-center justify-end text-neutral-500">
+      <span className="sr-only">Search opportunities</span>
+      <input
+        type="search"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder="Search opportunities"
+        className={`h-9 border-0 border-b border-neutral-300 bg-transparent text-[12px] uppercase tracking-[0.18em] text-neutral-900 transition-[width,opacity] duration-300 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none ${
+          expanded
+            ? "mr-2 w-56 opacity-100"
+            : "w-0 opacity-0 group-hover/search:mr-2 group-hover/search:w-56 group-hover/search:opacity-100 group-focus-within/search:mr-2 group-focus-within/search:w-56 group-focus-within/search:opacity-100"
+        }`}
+      />
+      <svg
+        viewBox="0 0 20 20"
+        className="h-4 w-4 shrink-0 transition-colors duration-200 group-hover/search:text-neutral-900 group-focus-within/search:text-neutral-900"
+        fill="none"
+        aria-hidden="true"
+      >
+        <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.25" />
+        <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.25" />
+      </svg>
+    </label>
+  );
+}
+
+function OpportunitiesViewToggle({ viewMode, onChange }: { viewMode: ViewMode; onChange: (value: ViewMode) => void }) {
+  return (
+    <div className="inline-flex items-center border border-neutral-200 text-neutral-700">
+      <button
+        type="button"
+        onClick={() => onChange("grid")}
+        aria-label="Grid view"
+        aria-pressed={viewMode === "grid"}
+        className={`flex h-9 w-9 items-center justify-center transition-colors ${viewMode === "grid" ? "bg-neutral-900 text-white" : "hover:text-neutral-900"}`}
+      >
+        <svg viewBox="0 0 18 18" className="h-[14px] w-[14px]" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="6" height="6" stroke="currentColor" strokeWidth="1.35" />
+          <rect x="10" y="2" width="6" height="6" stroke="currentColor" strokeWidth="1.35" />
+          <rect x="2" y="10" width="6" height="6" stroke="currentColor" strokeWidth="1.35" />
+          <rect x="10" y="10" width="6" height="6" stroke="currentColor" strokeWidth="1.35" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange("list")}
+        aria-label="List view"
+        aria-pressed={viewMode === "list"}
+        className={`flex h-9 w-9 items-center justify-center border-l border-neutral-200 transition-colors ${viewMode === "list" ? "bg-neutral-900 text-white" : "hover:text-neutral-900"}`}
+      >
+        <svg viewBox="0 0 18 18" className="h-[14px] w-[14px]" fill="none" aria-hidden="true">
+          <path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
 function FeeTag({ fee }: { fee: string }) {
   const isFree = fee.toUpperCase() === "FREE";
   return (
@@ -194,19 +255,19 @@ function FeeTag({ fee }: { fee: string }) {
 
 function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; onOpen: () => void }) {
   return (
-    <article className="flex min-h-[430px] flex-col border border-[var(--border)] p-5 transition-colors duration-300 hover:border-neutral-500 md:p-6">
-      <div className="mb-8 flex items-start justify-between gap-3">
-        <p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500">{opportunity.organizer}</p>
+    <article className="flex min-h-[280px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[430px] md:p-6">
+      <div className="mb-4 flex items-start justify-between gap-2 md:mb-8 md:gap-3">
+        <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 md:text-[10px]">{opportunity.organizer}</p>
         <FeeTag fee={opportunity.applicationFee} />
       </div>
-      <h2 className="editorial-serif mb-10 text-[clamp(1.65rem,2.4vw,2.5rem)] uppercase leading-[0.98] tracking-[-0.035em]">{opportunity.title}</h2>
-      <dl className="space-y-4 border-t border-[var(--border)] pt-5 text-[12px] leading-relaxed">
-        <div className="grid grid-cols-[88px_1fr] gap-3"><dt className="text-[9px] uppercase tracking-[0.2em] text-neutral-500">Deadline</dt><dd>{opportunity.deadline}</dd></div>
-        <div className="grid grid-cols-[88px_1fr] gap-3"><dt className="text-[9px] uppercase tracking-[0.2em] text-neutral-500">Location</dt><dd>{opportunity.location}</dd></div>
-        <div className="grid grid-cols-[88px_1fr] gap-3"><dt className="text-[9px] uppercase tracking-[0.2em] text-neutral-500">For</dt><dd>{opportunity.audience}</dd></div>
+      <h2 className="editorial-serif mb-6 text-[clamp(1rem,4vw,1.4rem)] uppercase leading-[1.02] tracking-[-0.03em] md:mb-10 md:text-[clamp(1.65rem,2.4vw,2.5rem)] md:leading-[0.98] md:tracking-[-0.035em]">{opportunity.title}</h2>
+      <dl className="space-y-2 border-t border-[var(--border)] pt-3 text-[11px] leading-relaxed md:space-y-4 md:pt-5 md:text-[12px]">
+        <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Deadline</dt><dd>{opportunity.deadline}</dd></div>
+        <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Location</dt><dd>{opportunity.location}</dd></div>
+        <div className="hidden md:grid md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[9px] uppercase tracking-[0.2em] text-neutral-500">For</dt><dd>{opportunity.audience}</dd></div>
       </dl>
-      <div className="mt-auto pt-8">
-        <div className="mb-6 flex flex-wrap gap-2">
+      <div className="mt-auto pt-5 md:pt-8">
+        <div className="mb-4 hidden flex-wrap gap-2 md:mb-6 md:flex">
           {opportunity.tags.map((tag) => <span key={tag} className="border border-[var(--border)] px-2.5 py-1.5 text-[8px] uppercase tracking-[0.18em]">{tag}</span>)}
         </div>
         <button type="button" onClick={onOpen} className="text-[10px] font-semibold uppercase tracking-[0.2em] underline-offset-4 transition-opacity hover:opacity-55 hover:underline">View details ↗</button>
@@ -623,41 +684,26 @@ export function OpportunitiesArchiveView() {
       <section className="px-5 pb-24 pt-8 md:px-8 md:pt-12 lg:px-12">
         <h1 className="editorial-serif mb-8 text-[clamp(1.5rem,3vw,2.8rem)] uppercase leading-none tracking-[-0.025em] md:mb-10">Opportunities</h1>
 
-        {/* Universal search + view controls (mobile + desktop) */}
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+        {/* Mobile-only search + filter button. Desktop toolbar sits with the filter chips below. */}
+        <div className="md:hidden">
           <SearchBar
             value={query}
             onChange={setQuery}
             placeholder="Search opportunities"
-            className="md:max-w-[440px] md:flex-1"
             onFilterClick={() => setMobileFiltersOpen(true)}
             filterBadge={activeFilterCount}
           />
-          <div className="hidden md:ml-auto md:inline-flex md:items-center rounded-lg border border-neutral-200 text-[10px] uppercase tracking-[0.18em]">
-            <button
-              type="button"
-              onClick={() => setViewMode("grid")}
-              className={`h-11 px-4 rounded-l-lg transition-colors ${viewMode === "grid" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
-              aria-pressed={viewMode === "grid"}
-            >
-              Grid
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode("list")}
-              className={`h-11 px-4 border-l border-neutral-200 rounded-r-lg transition-colors ${viewMode === "list" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
-              aria-pressed={viewMode === "list"}
-            >
-              List
-            </button>
-          </div>
         </div>
 
-        {/* Desktop chip row + rail — hidden on mobile (mobile uses the drawer via SearchBar filter button) */}
+        {/* Desktop chip row: filter mode buttons on the left, expanding search + view toggle on the right (mirrors /exhibitions). */}
         <div className="mt-6 hidden flex-wrap items-center gap-3 md:flex">
           {(Object.keys(FILTER_LABELS) as FilterMode[]).map((filterMode) => (
             <button key={filterMode} type="button" onClick={() => setMode(filterMode)} onMouseEnter={() => setMode(filterMode)} className={`border px-3 py-2 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${mode === filterMode ? "border-[var(--foreground)] text-[var(--foreground)]" : "border-neutral-400 text-neutral-500 hover:border-neutral-500"}`}>{FILTER_LABELS[filterMode]}</button>
           ))}
+          <div className="ml-auto flex shrink-0 items-center gap-3">
+            <OpportunitiesInlineSearch value={query} onChange={setQuery} />
+            <OpportunitiesViewToggle viewMode={viewMode} onChange={setViewMode} />
+          </div>
         </div>
 
         <div className="hidden md:block">
@@ -680,7 +726,7 @@ export function OpportunitiesArchiveView() {
 
         {visibleOpportunities.length > 0 ? (
           viewMode === "grid" ? (
-            <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
               {visibleOpportunities.map((opportunity) => <OpportunityCard key={opportunity.slug} opportunity={opportunity} onOpen={() => setSelectedOpportunity(opportunity)} />)}
             </div>
           ) : (

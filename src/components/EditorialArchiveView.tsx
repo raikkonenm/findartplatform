@@ -51,6 +51,8 @@ function EditorialSearch({
 export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }) {
   const { savedSlugs } = useSavedExhibitions();
   const [savedOnly, setSavedOnly] = useState(false);
+  // Mobile: dense = 2 cols (default), normal = 1 col.
+  // Desktop: dense = 5 cols, normal = 3 cols.
   const [density, setDensity] = useState<DensityValue>("dense");
   const [search, setSearch] = useState("");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -124,10 +126,10 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
           </p>
         ) : (
           <div
-            className={`archive-card-grid grid grid-cols-1 gap-y-14 md:gap-y-16 ${
+            className={`archive-card-grid grid gap-y-10 md:gap-y-16 ${
               density === "dense"
-                ? "gap-x-5 md:grid-cols-3 lg:grid-cols-5"
-                : "gap-x-12 md:grid-cols-2 lg:grid-cols-3"
+                ? "grid-cols-2 gap-x-4 md:grid-cols-3 md:gap-x-5 lg:grid-cols-5"
+                : "grid-cols-1 gap-x-6 md:grid-cols-2 md:gap-x-12 lg:grid-cols-3"
             }`}
           >
             {displayedArtists.map((artist, index) => (

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchPanel } from "./SearchPanelContext";
 
 type SearchItem = {
   id: string;
@@ -138,7 +139,7 @@ function SectionRow({
 }
 
 export function MobileGlobalSearch() {
-  const [open, setOpen] = useState(false);
+  const { open, setOpen } = useSearchPanel();
   const [query, setQuery] = useState("");
   const [recent, setRecent] = useState<SearchItem[]>([]);
   const overlayInputRef = useRef<HTMLInputElement>(null);
@@ -158,7 +159,7 @@ export function MobileGlobalSearch() {
       window.clearTimeout(timer);
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [open]);
+  }, [open, setOpen]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -183,28 +184,16 @@ export function MobileGlobalSearch() {
     setQuery("");
   };
 
+  if (!open) return null;
+
   return (
     <>
-      {/* Compact trigger field pinned above the mobile hero carousel. */}
-      <div className="px-4 pt-3 md:hidden">
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="Open search"
-          className="flex h-10 w-full items-center gap-2.5 border border-neutral-300 bg-transparent px-3 text-left text-neutral-500 transition-colors hover:border-neutral-900"
-        >
-          <SearchIcon className="h-[14px] w-[14px] text-neutral-500" />
-          <span className="text-[13px] text-neutral-500">Search</span>
-        </button>
-      </div>
-
-      {open && (
-        <div
-          className="fixed inset-0 z-[75] flex flex-col bg-white md:hidden"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Search"
-        >
+      <div
+        className="fixed inset-0 z-[75] flex flex-col bg-white"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search"
+      >
           <div className="flex items-center gap-3 border-b border-neutral-200 px-4 py-3">
             <div className="flex flex-1 items-center gap-3 border border-neutral-900 px-4 py-3">
               <SearchIcon className="h-4 w-4 text-neutral-500" />
@@ -248,7 +237,6 @@ export function MobileGlobalSearch() {
               )}
           </div>
         </div>
-      )}
     </>
   );
 }

@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Footer } from "@/components/Footer";
+import { MobileGlobalSearch } from "@/components/MobileGlobalSearch";
 import { SavedExhibitionsProvider } from "@/components/SavedExhibitions";
+import { SearchPanelProvider } from "@/components/SearchPanelContext";
 import "./globals.css";
 
 // Google Analytics 4. We inject gtag.js manually via next/script with
@@ -117,9 +119,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         <SavedExhibitionsProvider>
-          {children}
-          <Footer />
-          {modal}
+          <SearchPanelProvider>
+            {children}
+            <Footer />
+            {modal}
+            <MobileGlobalSearch />
+          </SearchPanelProvider>
         </SavedExhibitionsProvider>
       </body>
       <Script

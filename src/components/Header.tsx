@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { HeartIcon } from "./SavedExhibitions";
 import { MobileNavigationMenu } from "./MobileNavigationMenu";
 import { NavigationProgress } from "./NavigationProgress";
+import { useSearchPanel } from "./SearchPanelContext";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 
 type HeaderProps = {
@@ -16,6 +17,7 @@ type HeaderProps = {
 
 export function Header({ overlay = false }: HeaderProps) {
   const pathname = usePathname();
+  const { setOpen: setSearchOpen } = useSearchPanel();
   const navLinkClass = (href: string, emphasized = false) => {
     const active = href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
     return `transition-opacity hover:opacity-55 ${active ? "font-semibold" : ""} ${
@@ -35,16 +37,20 @@ export function Header({ overlay = false }: HeaderProps) {
         className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8"
         aria-label="Primary navigation"
       >
-        <MobileNavigationMenu inverted={overlay} />
-        <Link
-          href="/"
-          className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:justify-self-start md:text-[16px] ${
-            overlay ? "text-white" : "text-neutral-900"
-          }`}
-          aria-label="FindArt Platform home"
-        >
-          FindArt Platform
-        </Link>
+        {/* Left cluster: hamburger + logo, both aligned to the left edge on
+            mobile and desktop. */}
+        <div className="flex items-center gap-3 md:gap-4 md:justify-self-start">
+          <MobileNavigationMenu inverted={overlay} />
+          <Link
+            href="/"
+            className={`whitespace-nowrap text-[16px] font-medium tracking-tight transition-opacity hover:opacity-55 md:text-[16px] ${
+              overlay ? "text-white" : "text-neutral-900"
+            }`}
+            aria-label="FindArt Platform home"
+          >
+            FindArt Platform
+          </Link>
+        </div>
 
         <div
           className={`editorial-serif hidden items-center gap-5 uppercase md:flex md:justify-self-center ${
@@ -83,15 +89,20 @@ export function Header({ overlay = false }: HeaderProps) {
           </Link>
         </div>
 
-        <div className="flex items-center gap-3 justify-self-end md:gap-5">
-          <Link
-            href="/submit"
-            className={`transition-opacity hover:opacity-55 md:hidden ${
-              overlay ? "font-semibold" : "editorial-serif text-[9px] font-semibold uppercase tracking-[0.24em] text-neutral-900 md:text-[11px] md:tracking-[0.32em]"
-            }`}
-          >
-            Submit
-          </Link>
+        <div className="flex items-center gap-3 justify-self-end md:gap-4">
+          {!overlay && (
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              aria-label="Open search"
+              className="flex h-8 w-8 items-center justify-center text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
+            >
+              <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
+                <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.35" />
+                <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+              </svg>
+            </button>
+          )}
           {!overlay && (
             <Link
               href="/saved"
