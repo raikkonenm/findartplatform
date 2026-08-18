@@ -147,10 +147,16 @@ function shortTitle(title: string): string {
 }
 
 const SHORT_MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function shortDeadline(isoDate: string): string {
   const [, month, day] = isoDate.split("-").map(Number);
   return `${String(day).padStart(2, "0")} ${SHORT_MONTHS[month - 1]}`;
+}
+
+function longDeadline(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  return `${day} ${MONTH_NAMES[month - 1]} ${year}`;
 }
 
 function daysRemainingLabel(isoDate: string, today: Date | null): string {
@@ -324,14 +330,12 @@ function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; on
   );
 }
 
-// Wide desktop table grid: ORG · OPPORTUNITY · TYPE · FEE (tag) · DEADLINE · LOCATION · FOR · TAGS · VIEW · SAVE
+// Desktop table grid: ORG · OPPORTUNITY · TYPE · FEE · DEADLINE · LOCATION · FOR · TAGS · VIEW
 const LIST_ROW_COLS =
-  "md:grid-cols-[140px_minmax(0,2.2fr)_100px_minmax(0,1fr)_100px_minmax(0,1.1fr)_minmax(0,1.2fr)_minmax(0,1.6fr)_72px_24px]";
+  "md:grid-cols-[130px_minmax(0,2.2fr)_100px_120px_110px_minmax(0,1.1fr)_minmax(0,1.2fr)_minmax(0,1.6fr)_100px]";
 
 function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void; today: Date | null }) {
   const daysLeft = daysRemainingLabel(opportunity.deadlineDate, today);
-
-  const stopBubble = (event: React.MouseEvent) => event.stopPropagation();
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.target !== event.currentTarget) return;
@@ -347,10 +351,10 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       tabIndex={0}
       onClick={onOpen}
       onKeyDown={onKeyDown}
-      className={`group grid cursor-pointer grid-cols-[1fr_auto_28px] items-start gap-x-5 gap-y-2 border-b border-[var(--border)] px-2 py-6 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-5 md:px-3 md:py-6`}
+      className={`group grid cursor-pointer grid-cols-[1fr_auto_28px] items-start gap-x-5 gap-y-2 border-b border-neutral-200 px-2 py-6 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6`}
     >
       {/* ORGANIZATION — desktop first column */}
-      <span className="order-0 hidden text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-900 md:col-span-1 md:block">
+      <span className="order-0 hidden self-center text-[10px] font-medium uppercase leading-snug tracking-[0.18em] text-neutral-900 md:col-span-1 md:block">
         {opportunity.organizer}
       </span>
 
@@ -359,54 +363,54 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
         {primaryTypeLabel(opportunity.type)}
       </span>
 
-      {/* OPPORTUNITY — most prominent */}
+      {/* OPPORTUNITY — headline */}
       <h3
         onClick={(event) => {
           event.stopPropagation();
           onOpen();
         }}
-        className="editorial-serif order-2 col-span-2 break-words text-[clamp(1.05rem,2.4vw,1.5rem)] leading-[1.1] tracking-[-0.02em] transition-opacity group-hover:opacity-70 md:col-span-1 md:text-[1.35rem] md:leading-[1.05]"
+        className="order-2 col-span-2 break-words font-normal text-[clamp(1rem,2.4vw,1.4rem)] leading-[1.15] tracking-tight text-neutral-900 transition-opacity group-hover:opacity-70 md:col-span-1 md:text-[1.35rem] md:leading-[1.15]"
       >
         {shortTitle(opportunity.title)}
       </h3>
 
       {/* TYPE — desktop */}
-      <span className="hidden text-[11px] uppercase tracking-[0.14em] text-neutral-600 md:block">
-        {primaryTypeLabel(opportunity.type)}
+      <span className="hidden text-[13px] text-neutral-700 md:block">
+        {primaryTypeCapitalised(opportunity.type)}
       </span>
 
-      {/* APPLICATION FEE tag — desktop */}
+      {/* APPLICATION FEE tag — desktop, always bordered rectangle */}
       <span className="hidden md:block">
         <FeeTag fee={opportunity.applicationFee} compact />
       </span>
 
       {/* DEADLINE */}
       <div className="order-5 justify-self-end text-right md:justify-self-start md:text-left">
-        <div className="text-[12px] text-neutral-900">{shortDeadline(opportunity.deadlineDate)}</div>
+        <div className="text-[13px] text-neutral-900 md:text-neutral-800">{longDeadline(opportunity.deadlineDate)}</div>
         {daysLeft && (
-          <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-neutral-400">{daysLeft}</div>
+          <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-neutral-400 md:hidden">{daysLeft}</div>
         )}
       </div>
 
       {/* LOCATION */}
-      <span className="hidden text-[12px] leading-snug text-neutral-700 md:block">
+      <span className="hidden text-[13px] leading-snug text-neutral-700 md:block">
         {opportunity.location}
       </span>
 
       {/* FOR (audience) */}
-      <span className="hidden text-[12px] leading-snug text-neutral-500 md:block">
+      <span className="hidden text-[13px] leading-snug text-neutral-500 md:block">
         {opportunity.audience}
       </span>
 
       {/* TAGS chip row */}
       <div className="hidden flex-wrap items-center gap-1.5 md:flex">
         {opportunity.tags.slice(0, 3).map((tag) => (
-          <span key={tag} className="border border-neutral-300 px-2 py-1 text-[8px] uppercase tracking-[0.18em] text-neutral-700">
+          <span key={tag} className="whitespace-nowrap border border-neutral-300 px-2 py-1 text-[9px] uppercase tracking-[0.14em] text-neutral-700">
             {tag}
           </span>
         ))}
         {opportunity.tags.length > 3 && (
-          <span className="border border-neutral-300 px-2 py-1 text-[8px] uppercase tracking-[0.18em] text-neutral-500">
+          <span className="whitespace-nowrap border border-neutral-300 px-2 py-1 text-[9px] uppercase tracking-[0.14em] text-neutral-500">
             +{opportunity.tags.length - 3}
           </span>
         )}
@@ -419,26 +423,26 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
           event.stopPropagation();
           onOpen();
         }}
-        className="hidden text-[10px] uppercase tracking-[0.2em] text-neutral-700 transition-opacity hover:opacity-55 md:inline-flex md:items-center md:gap-1"
+        className="hidden self-center text-[13px] text-neutral-700 transition-opacity hover:opacity-55 md:inline-flex md:items-center md:gap-1"
       >
         View Details <span aria-hidden="true">↗</span>
       </button>
 
       {/* FEE — mobile bottom-left */}
       <span className="order-4 text-[11px] uppercase tracking-[0.18em] text-neutral-700 md:hidden">
-        {opportunity.applicationFee}
+        <FeeTag fee={opportunity.applicationFee} compact />
       </span>
 
-      {/* SAVE — always right */}
+      {/* SAVE — mobile only, desktop VIEW replaces it */}
       <button
         type="button"
         aria-label={isSaved ? "Unsave opportunity" : "Save opportunity"}
         aria-pressed={isSaved}
         onClick={(event) => {
-          stopBubble(event);
+          event.stopPropagation();
           onToggleSaved();
         }}
-        className={`order-3 justify-self-end self-start text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none md:order-none md:self-center ${isSaved ? "opacity-100" : "opacity-40 group-hover:opacity-100"}`}
+        className={`order-3 justify-self-end self-start text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none md:hidden ${isSaved ? "opacity-100" : "opacity-40 group-hover:opacity-100"}`}
       >
         <HeartIcon filled={isSaved} className="h-4 w-4" />
       </button>
@@ -446,37 +450,41 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
   );
 }
 
+function primaryTypeCapitalised(types: string[]): string {
+  const primary = types[0] ?? "";
+  // "Residencies" -> "Residency", "Open Calls" -> "Open Call", "Commissions" -> "Commission"
+  return primary
+    .replace(/Residencies/i, "Residency")
+    .replace(/Open Calls/i, "Open Call")
+    .replace(/Commissions/i, "Commission")
+    .replace(/Collaborations/i, "Collaboration")
+    .replace(/Grants & Stipends/i, "Grant")
+    .replace(/Awards & Prizes/i, "Award")
+    .replace(/Jobs/i, "Job")
+    .replace(/Calls for Curators/i, "Open Call");
+}
+
 function OpportunitiesListView({ opportunities, onOpen, savedSet, onToggleSaved, sortDirection, onToggleSort, today }: { opportunities: Opportunity[]; onOpen: (opp: Opportunity) => void; savedSet: Set<string>; onToggleSaved: (slug: string) => void; sortDirection: SortDirection; onToggleSort: () => void; today: Date | null }) {
   return (
     <div className="mt-8">
       {/* Column header — desktop only, matches OpportunityRow grid template. */}
-      <div className={`hidden border-b border-neutral-200 bg-neutral-50 px-3 py-3 text-[9px] uppercase tracking-[0.22em] text-neutral-500 md:grid ${LIST_ROW_COLS} md:items-center md:gap-x-5`}>
+      <div className={`hidden border-y border-neutral-200 bg-neutral-100 px-4 py-3.5 text-[10px] uppercase tracking-[0.18em] text-neutral-500 md:grid ${LIST_ROW_COLS} md:items-center md:gap-x-6`}>
         <span>Organization</span>
-        <button
-          type="button"
-          onClick={onToggleSort}
-          className="flex items-center gap-1 text-left uppercase tracking-[0.22em] text-neutral-500 transition-opacity hover:opacity-70"
-          aria-label={`Sort by deadline ${sortDirection === "asc" ? "descending" : "ascending"}`}
-        >
-          Opportunity
-          <span aria-hidden="true" className="text-[10px]">▾</span>
-        </button>
+        <span className="flex items-center gap-1">Opportunity <span aria-hidden="true" className="text-[10px]">▾</span></span>
         <span>Type</span>
-        <span>Application fee</span>
+        <span>Application Fee</span>
         <button
           type="button"
           onClick={onToggleSort}
-          className="flex items-center gap-1 text-left uppercase tracking-[0.22em] text-neutral-500 transition-opacity hover:opacity-70"
+          className="flex items-center gap-1 text-left uppercase tracking-[0.18em] text-neutral-500 transition-opacity hover:opacity-70"
           aria-label={`Sort by deadline ${sortDirection === "asc" ? "descending" : "ascending"}`}
         >
-          Deadline
-          <span aria-hidden="true" className="text-[10px]">{sortDirection === "asc" ? "↑" : "↓"}</span>
+          Deadline <span aria-hidden="true" className="text-[10px]">{sortDirection === "asc" ? "▾" : "▴"}</span>
         </button>
         <span>Location</span>
         <span>For</span>
         <span>Tags</span>
         <span>View</span>
-        <span className="sr-only">Save</span>
       </div>
 
       <div>
