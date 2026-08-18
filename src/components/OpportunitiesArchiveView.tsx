@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Header } from "./Header";
 import { HeartIcon } from "./SavedExhibitions";
 import { SearchBar } from "./SearchBar";
@@ -116,15 +116,6 @@ const OPPORTUNITIES: Opportunity[] = [
 
 const FILTER_LABELS: Record<FilterMode, string> = { type: "Type", field: "Artistic field", reward: "Reward" };
 
-// Desktop chip row also exposes Application fee alongside the standard
-// filter modes; its rail options are wired to the feeFilter state below.
-type DesktopFilterMode = FilterMode | "fee";
-const DESKTOP_FILTER_LABELS: Record<DesktopFilterMode, string> = {
-  type: "Type",
-  field: "Artistic field",
-  reward: "Reward",
-  fee: "Application fee",
-};
 
 const PRIMARY_TYPE_MAP: Record<string, string> = {
   "Residencies": "RESIDENCY",
@@ -170,33 +161,6 @@ function daysRemainingLabel(isoDate: string, today: Date | null): string {
   if (diffDays === 0) return "TODAY";
   if (diffDays === 1) return "1 DAY LEFT";
   return `${diffDays} DAYS LEFT`;
-}
-
-function FilterRail({ mode, selected, onSelect }: { mode: FilterMode; selected: string; onSelect: (value: string) => void }) {
-  const railRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (mode !== "type") return;
-    const rail = railRef.current;
-    if (!rail) return;
-    const interval = window.setInterval(() => {
-      const maxScroll = rail.scrollWidth - rail.clientWidth;
-      rail.scrollLeft = rail.scrollLeft >= maxScroll - 2 ? 0 : rail.scrollLeft + 1;
-    }, 34);
-    return () => window.clearInterval(interval);
-  }, [mode]);
-
-  return (
-    <div ref={railRef} className="scrollbar-none overflow-x-auto scroll-smooth py-5" aria-label={`${FILTER_LABELS[mode]} options`}>
-      <div className="flex min-w-max items-center gap-8 pr-12">
-        {FILTERS[mode].map((option) => (
-          <button key={option} type="button" onClick={() => onSelect(option)} className={`shrink-0 text-[11px] uppercase tracking-[0.2em] transition-opacity hover:opacity-55 ${selected === option ? "font-semibold text-[var(--foreground)]" : "text-neutral-500"}`}>
-            {option}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 function OpportunitiesInlineSearch({ value, onChange }: { value: string; onChange: (value: string) => void }) {
@@ -256,30 +220,6 @@ function OpportunitiesViewToggle({ viewMode, onChange }: { viewMode: ViewMode; o
           <path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
         </svg>
       </button>
-    </div>
-  );
-}
-
-function FeeRail({ value, onSelect }: { value: FeeFilter; onSelect: (value: FeeFilter) => void }) {
-  const options: Array<{ id: FeeFilter; label: string }> = [
-    { id: "all", label: "All fees" },
-    { id: "free", label: "Free to apply" },
-    { id: "paid", label: "Paid application" },
-  ];
-  return (
-    <div className="scrollbar-none overflow-x-auto scroll-smooth py-5" aria-label="Application fee options">
-      <div className="flex min-w-max items-center gap-8 pr-12">
-        {options.map((option) => (
-          <button
-            key={option.id}
-            type="button"
-            onClick={() => onSelect(option.id)}
-            className={`shrink-0 text-[11px] uppercase tracking-[0.2em] transition-opacity hover:opacity-55 ${value === option.id ? "font-semibold text-[var(--foreground)]" : "text-neutral-500"}`}
-          >
-            {option.label}
-          </button>
-        ))}
-      </div>
     </div>
   );
 }
@@ -739,10 +679,9 @@ function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilter
 }
 
 export function OpportunitiesArchiveView() {
-  const [mode, setMode] = useState<DesktopFilterMode>("type");
   const [selectedFilters, setSelectedFilters] = useState<Record<FilterMode, string>>({ type: FILTERS.type[0], field: FILTERS.field[0], reward: FILTERS.reward[0] });
   const [feeFilter, setFeeFilter] = useState<FeeFilter>("all");
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
   const [today, setToday] = useState<Date | null>(null);
@@ -805,29 +744,57 @@ export function OpportunitiesArchiveView() {
           />
         </div>
 
-        {/* Desktop chip row: filter mode buttons on the left, expanding search + view toggle on the right (mirrors /exhibitions). */}
-        <div className="mt-6 hidden flex-wrap items-center gap-3 md:flex">
-          {(Object.keys(DESKTOP_FILTER_LABELS) as DesktopFilterMode[]).map((filterMode) => (
-            <button key={filterMode} type="button" onClick={() => setMode(filterMode)} onMouseEnter={() => setMode(filterMode)} className={`border px-3 py-2 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${mode === filterMode ? "border-[var(--foreground)] text-[var(--foreground)]" : "border-neutral-400 text-neutral-500 hover:border-neutral-500"}`}>{DESKTOP_FILTER_LABELS[filterMode]}</button>
-          ))}
-          <div className="ml-auto flex shrink-0 items-center gap-3">
+        {/* Desktop: TYPE category tabs — plain uppercase text, no button boxes,
+            active is bolder / darker. Search + view toggle sit on the right. */}
+        <div className="mt-6 hidden items-baseline gap-6 md:flex">
+          <div className="scrollbar-none min-w-0 flex-1 overflow-x-auto">
+            <div className="flex min-w-max items-baseline gap-8">
+              {FILTERS.type.map((option) => {
+                const active = selectedFilters.type === option;
+                return (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() =>
+                      setSelectedFilters((current) => ({ ...current, type: option }))
+                    }
+                    className={`shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.18em] transition-colors ${active ? "font-semibold text-neutral-900" : "text-neutral-500 hover:text-neutral-800"}`}
+                  >
+                    {option === FILTERS.type[0] ? "All Types" : option}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div className="flex shrink-0 items-center gap-3">
             <OpportunitiesInlineSearch value={query} onChange={setQuery} />
             <OpportunitiesViewToggle viewMode={viewMode} onChange={setViewMode} />
           </div>
         </div>
 
-        <div className="hidden md:block">
-          {mode === "fee" ? (
-            <FeeRail value={feeFilter} onSelect={setFeeFilter} />
-          ) : (
-            <FilterRail
-              mode={mode}
-              selected={selectedFilters[mode]}
-              onSelect={(value) =>
-                setSelectedFilters((current) => ({ ...current, [mode]: value }))
-              }
-            />
-          )}
+        {/* Divider under TYPE tabs (desktop only). */}
+        <hr className="mt-4 hidden border-neutral-200 md:block" />
+
+        {/* Application fee — small inline text filter row (desktop only). */}
+        <div className="mt-4 hidden items-baseline gap-5 text-[11px] uppercase tracking-[0.18em] md:flex">
+          <span className="text-neutral-500">Application fee</span>
+          {[
+            { id: "all" as FeeFilter, label: "All" },
+            { id: "free" as FeeFilter, label: "Free to apply" },
+            { id: "paid" as FeeFilter, label: "Paid application" },
+          ].map((option) => {
+            const active = feeFilter === option.id;
+            return (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => setFeeFilter(option.id)}
+                className={`transition-colors ${active ? "font-semibold text-neutral-900" : "text-neutral-500 hover:text-neutral-800"}`}
+              >
+                {option.label}
+              </button>
+            );
+          })}
         </div>
 
         {visibleOpportunities.length > 0 ? (
