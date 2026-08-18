@@ -12,6 +12,7 @@ type IndexEntry = {
   subtitle: string;
   kind: "video" | "carousel";
   media: string | string[];
+  fit?: "cover" | "contain";
 };
 
 const ENTRIES: IndexEntry[] = [
@@ -27,6 +28,7 @@ const ENTRIES: IndexEntry[] = [
     href: "https://www.ivanabasic.com/",
     subtitle: "ivanabasic.com",
     kind: "carousel",
+    fit: "contain",
     media: [
       "/directory/ivana.webp",
       "/directory/ivana1.webp",
@@ -132,7 +134,11 @@ function DirectoryCard({ entry }: { entry: IndexEntry }) {
             <source src={entry.media as string} type="video/mp4" />
           </video>
         ) : (
-          <IndexImageCarousel images={entry.media as string[]} alt={entry.name} />
+          <IndexImageCarousel
+            images={entry.media as string[]}
+            alt={entry.name}
+            fit={entry.fit ?? "cover"}
+          />
         )}
       </div>
       <div className="archive-card-copy pt-5">

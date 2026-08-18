@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 type IndexImageCarouselProps = {
   images: string[];
   alt: string;
+  fit?: "cover" | "contain";
 };
 
-export function IndexImageCarousel({ images, alt }: IndexImageCarouselProps) {
+export function IndexImageCarousel({ images, alt, fit = "cover" }: IndexImageCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -28,9 +29,9 @@ export function IndexImageCarousel({ images, alt }: IndexImageCarouselProps) {
           alt={index === 0 ? alt : ""}
           fill
           sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
-          className={`object-cover transition-opacity duration-700 ease-out ${
-            index === activeIndex ? "opacity-100" : "opacity-0"
-          }`}
+          className={`transition-opacity duration-700 ease-out ${
+            fit === "contain" ? "object-contain" : "object-cover"
+          } ${index === activeIndex ? "opacity-100" : "opacity-0"}`}
           priority={index === 0}
         />
       ))}

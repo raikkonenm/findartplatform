@@ -7,6 +7,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { HeartIcon } from "@/components/SavedExhibitions";
+import { MobileGlobalSearch } from "@/components/MobileGlobalSearch";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
 import { NavigationProgress } from "@/components/NavigationProgress";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
@@ -173,31 +174,29 @@ function MobileFeaturedCarousel() {
           style={{ transform: `translateX(-${activeSlide * 100}%)` }}
         >
           {slides.map((slide) => {
-            const mediaBlock = (
-              <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
+            const inner = (
+              <div className="relative block aspect-[4/5] overflow-hidden bg-neutral-100">
                 {slide.media}
-              </div>
-            );
-            const caption = (
-              <div className="pt-4">
-                <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">{slide.eyebrow}</p>
-                <p className="editorial-serif mt-2 break-words text-[clamp(1rem,4.6vw,1.6rem)] uppercase leading-[1.05] tracking-[-0.03em] text-neutral-900">
-                  {slide.title}
-                </p>
-                <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">{slide.subtitle}</p>
+                {/* Bottom-anchored scrim so the caption is always legible. */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 text-white">
+                  <p className="text-[10px] uppercase tracking-[0.28em] text-white/70">{slide.eyebrow}</p>
+                  <p className="editorial-serif mt-2 break-words text-[clamp(1.2rem,5.5vw,1.9rem)] leading-[1.05] tracking-[-0.02em]">
+                    {slide.title}
+                  </p>
+                  <p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-white/75">{slide.subtitle}</p>
+                </div>
               </div>
             );
             return (
               <div key={slide.href} className="w-full shrink-0 px-4">
                 {slide.external ? (
                   <a href={slide.href} aria-label={slide.ariaLabel} className="block">
-                    {mediaBlock}
-                    {caption}
+                    {inner}
                   </a>
                 ) : (
                   <Link href={slide.href} aria-label={slide.ariaLabel} className="block">
-                    {mediaBlock}
-                    {caption}
+                    {inner}
                   </Link>
                 )}
               </div>
@@ -1289,6 +1288,8 @@ export default function HomePageClient({
         <NavigationProgress />
       </header>
 
+      <MobileGlobalSearch />
+
       {showFeaturedBanners && (
         <>
           <MobileFeaturedCarousel />
@@ -1304,16 +1305,9 @@ export default function HomePageClient({
           field is the row above. */}
       <div className="bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
         <div className="space-y-3">
-          {/* Mobile search — full-width row above the filter chips. */}
-          <input
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search exhibitions..."
-            className="w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] text-neutral-900 transition duration-200 ease-out placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
-          />
-
-          {/* Mobile keeps the existing tap-driven dropdown controls. */}
+          {/* Mobile keeps the existing tap-driven dropdown controls.
+              The mobile search field lives above the hero carousel now
+              (MobileGlobalSearch) and no longer duplicates itself here. */}
           <div className="flex flex-wrap items-center gap-2 md:hidden">
             <SelectDropdown<SelectedTag>
               label="Tags"
