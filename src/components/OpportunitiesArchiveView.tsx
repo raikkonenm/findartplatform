@@ -266,9 +266,9 @@ function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; on
   );
 }
 
-// Desktop table grid: ORG · OPPORTUNITY · TYPE · FEE · DEADLINE · LOCATION · FOR · TAGS
+// Desktop table grid: OPPORTUNITY (+ organizer under) · TYPE · DEADLINE · LOCATION · FOR · FEE · TAGS
 const LIST_ROW_COLS =
-  "md:grid-cols-[130px_minmax(0,2.2fr)_100px_120px_110px_minmax(0,1.1fr)_minmax(0,1.2fr)_minmax(0,1.6fr)]";
+  "md:grid-cols-[minmax(0,2.4fr)_110px_110px_minmax(0,1.1fr)_minmax(0,1.3fr)_120px_minmax(0,1.6fr)]";
 
 function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void; today: Date | null }) {
   const daysLeft = daysRemainingLabel(opportunity.deadlineDate, today);
@@ -289,35 +289,30 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       onKeyDown={onKeyDown}
       className={`group grid cursor-pointer grid-cols-[1fr_auto_28px] items-start gap-x-5 gap-y-2 border-b border-neutral-200 px-2 py-6 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6`}
     >
-      {/* ORGANIZATION — desktop first column */}
-      <span className="order-0 hidden self-center text-[10px] font-medium uppercase leading-snug tracking-[0.18em] text-neutral-900 md:col-span-1 md:block">
-        {opportunity.organizer}
-      </span>
-
       {/* TYPE eyebrow — mobile only */}
       <span className="order-1 col-span-2 text-[10px] uppercase tracking-[0.22em] text-neutral-500 md:hidden">
         {primaryTypeLabel(opportunity.type)}
       </span>
 
-      {/* OPPORTUNITY — headline */}
-      <h3
-        onClick={(event) => {
-          event.stopPropagation();
-          onOpen();
-        }}
-        className="order-2 col-span-2 break-words font-normal text-[clamp(1rem,2.4vw,1.4rem)] leading-[1.15] tracking-tight text-neutral-900 transition-opacity group-hover:opacity-70 md:order-none md:col-span-1 md:text-[1.35rem] md:leading-[1.15]"
-      >
-        {shortTitle(opportunity.title)}
-      </h3>
+      {/* OPPORTUNITY — headline + organizer underneath on desktop */}
+      <div className="order-2 col-span-2 md:order-none md:col-span-1">
+        <h3
+          onClick={(event) => {
+            event.stopPropagation();
+            onOpen();
+          }}
+          className="break-words font-normal text-[clamp(1rem,2.4vw,1.4rem)] leading-[1.15] tracking-tight text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[1.35rem] md:leading-[1.15]"
+        >
+          {shortTitle(opportunity.title)}
+        </h3>
+        <p className="mt-1 hidden text-[10px] uppercase tracking-[0.16em] text-neutral-500 md:block">
+          {opportunity.organizer}
+        </p>
+      </div>
 
       {/* TYPE — desktop */}
       <span className="hidden text-[13px] text-neutral-700 md:block">
         {primaryTypeCapitalised(opportunity.type)}
-      </span>
-
-      {/* APPLICATION FEE tag — desktop, always bordered rectangle */}
-      <span className="hidden md:block">
-        <FeeTag fee={opportunity.applicationFee} compact />
       </span>
 
       {/* DEADLINE */}
@@ -336,6 +331,11 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       {/* FOR (audience) */}
       <span className="hidden text-[13px] leading-snug text-neutral-500 md:block">
         {opportunity.audience}
+      </span>
+
+      {/* APPLICATION FEE — desktop */}
+      <span className="hidden md:block">
+        <FeeTag fee={opportunity.applicationFee} compact />
       </span>
 
       {/* TAGS row — plain uppercase text, no chip boxes */}
@@ -393,10 +393,8 @@ function OpportunitiesListView({ opportunities, onOpen, savedSet, onToggleSaved,
     <div className="mt-8">
       {/* Column header — desktop only, matches OpportunityRow grid template. */}
       <div className={`hidden border-y border-neutral-200 bg-neutral-100 px-4 py-3.5 text-[10px] uppercase tracking-[0.18em] text-neutral-500 md:grid ${LIST_ROW_COLS} md:items-center md:gap-x-6`}>
-        <span>Organization</span>
         <span className="flex items-center gap-1">Opportunity <span aria-hidden="true" className="text-[10px]">▾</span></span>
         <span>Type</span>
-        <span>Application Fee</span>
         <button
           type="button"
           onClick={onToggleSort}
@@ -407,6 +405,7 @@ function OpportunitiesListView({ opportunities, onOpen, savedSet, onToggleSaved,
         </button>
         <span>Location</span>
         <span>For</span>
+        <span>Application Fee</span>
         <span>Tags</span>
       </div>
 
