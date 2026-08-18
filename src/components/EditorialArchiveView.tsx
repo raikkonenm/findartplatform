@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { DensityToggleButton, type DensityValue } from "./DensityToggleButton";
 import { EditorialCard } from "./EditorialCard";
 import { Header } from "./Header";
+import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
+import { SearchBar } from "./SearchBar";
 import { useSavedExhibitions } from "./SavedExhibitions";
 import {
   editorialSavedKey,
@@ -51,6 +53,7 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
   const [savedOnly, setSavedOnly] = useState(false);
   const [density, setDensity] = useState<DensityValue>("dense");
   const [search, setSearch] = useState("");
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get("saved") === "1") {
@@ -107,13 +110,14 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
             />
           </div>
         </div>
-        <input
-          type="search"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          placeholder="Search articles"
-          className="mb-8 w-full border-0 border-b border-neutral-300 bg-transparent pb-2 text-[12px] uppercase tracking-[0.18em] text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900 focus:outline-none md:hidden"
-        />
+        <div className="mb-8 md:hidden">
+          <SearchBar
+            value={search}
+            onChange={setSearch}
+            placeholder="Search articles"
+            onFilterClick={() => setMobileFiltersOpen(true)}
+          />
+        </div>
         {displayedArtists.length === 0 ? (
           <p className="py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400">
             No saved editorial yet
@@ -142,6 +146,24 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
           Instagram ↗
         </p>
       </section>
+      <MobileFilterSheet
+        open={mobileFiltersOpen}
+        onClose={() => setMobileFiltersOpen(false)}
+        searchValue={search}
+        onSearchChange={setSearch}
+        searchPlaceholder="Search articles"
+        onClearAll={() => setDensity("dense")}
+        resultCount={displayedArtists.length}
+      >
+        <LayoutSection<DensityValue>
+          value={density}
+          onChange={setDensity}
+          options={[
+            { id: "normal", label: "Comfortable grid", glyph: LayoutGlyphs.gridNormal },
+            { id: "dense", label: "Dense grid", glyph: LayoutGlyphs.gridDense },
+          ]}
+        />
+      </MobileFilterSheet>
     </main>
   );
 }

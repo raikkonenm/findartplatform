@@ -8,7 +8,9 @@ import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions"
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { HeartIcon } from "@/components/SavedExhibitions";
 import { MobileGlobalSearch } from "@/components/MobileGlobalSearch";
+import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "@/components/MobileFilterSheet";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
+import { SearchBar } from "@/components/SearchBar";
 import { NavigationProgress } from "@/components/NavigationProgress";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
@@ -1125,6 +1127,7 @@ export default function HomePageClient({
   const [search, setSearch] = useState("");
   const [desktopFilterPanel, setDesktopFilterPanel] = useState<DesktopFilterPanel>("tags");
   const [hoveredLocationCountry, setHoveredLocationCountry] = useState<string | null>(null);
+  const [mobileExhibFiltersOpen, setMobileExhibFiltersOpen] = useState(false);
 
   const selectTag = useCallback(
     (nextTag: SelectedTag) => {
@@ -1289,10 +1292,9 @@ export default function HomePageClient({
         <NavigationProgress />
       </header>
 
-      <MobileGlobalSearch />
-
       {showFeaturedBanners && (
         <>
+          <MobileGlobalSearch />
           <MobileFeaturedCarousel />
           <DesktopFeaturedCarousel initialIsMobile={initialIsMobile} />
         </>
@@ -1306,10 +1308,23 @@ export default function HomePageClient({
           field is the row above. */}
       <div className="bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
         <div className="space-y-3">
-          {/* Mobile keeps the existing tap-driven dropdown controls.
-              The mobile search field lives above the hero carousel now
-              (MobileGlobalSearch) and no longer duplicates itself here. */}
-          <div className="flex flex-wrap items-center gap-2 md:hidden">
+          {/* Exhibitions mobile: SearchBar + filter button opens Layout drawer. */}
+          {!showFeaturedBanners && (
+            <div className="md:hidden">
+              <SearchBar
+                value={search}
+                onChange={setSearch}
+                placeholder="Search exhibitions"
+                onFilterClick={() => setMobileExhibFiltersOpen(true)}
+              />
+            </div>
+          )}
+
+          {/* Homepage mobile: keep the existing tap-driven dropdown controls.
+              Exhibitions mobile uses the SearchBar drawer above and hides this. */}
+          <div
+            className={`${showFeaturedBanners ? "flex" : "hidden"} flex-wrap items-center gap-2 md:hidden`}
+          >
             <SelectDropdown<SelectedTag>
               label="Tags"
               value={tag}
@@ -1476,6 +1491,31 @@ export default function HomePageClient({
           />
         )}
       </section>
+      {!showFeaturedBanners && (
+        <MobileFilterSheet
+          open={mobileExhibFiltersOpen}
+          onClose={() => setMobileExhibFiltersOpen(false)}
+          searchValue={search}
+          onSearchChange={setSearch}
+          searchPlaceholder="Search exhibitions"
+          onClearAll={() => {
+            selectTag("ALL");
+            setLocation({ kind: "all" });
+            setYear("All");
+            setOnViewOnly(false);
+            setDensity("normal");
+          }}
+        >
+          <LayoutSection<MasonryDensity>
+            value={density}
+            onChange={setDensity}
+            options={[
+              { id: "normal", label: "Comfortable grid", glyph: LayoutGlyphs.gridNormal },
+              { id: "dense", label: "Dense grid", glyph: LayoutGlyphs.gridDense },
+            ]}
+          />
+        </MobileFilterSheet>
+      )}
     </main>
   );
 }

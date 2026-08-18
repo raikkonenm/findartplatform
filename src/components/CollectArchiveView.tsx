@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { buildCollectArtworks, type CollectCategory } from "@/lib/collectArtworks";
 import { CollectArtworkCard } from "./CollectArtworkCard";
 import { Header } from "./Header";
+import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
+import { SearchBar } from "./SearchBar";
 
 type CollectColumns = 2 | 4;
 type Category = "All" | CollectCategory;
@@ -322,6 +324,7 @@ export function CollectArchiveView({ images }: { images: string[] }) {
   const [minimumPrice, setMinimumPrice] = useState("");
   const [maximumPrice, setMaximumPrice] = useState("");
   const [sortOrder, setSortOrder] = useState<SortOrder>("Newest");
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const artworks = useMemo(
     () => {
       const filtered = buildCollectArtworks(images)
@@ -364,34 +367,12 @@ export function CollectArchiveView({ images }: { images: string[] }) {
       <Header />
 
       <div className="px-5 pb-3 pt-4 md:hidden">
-        <div className="flex flex-wrap items-center gap-2">
-          <SelectFilter
-            label="Category"
-            value={category}
-            options={CATEGORY_OPTIONS}
-            allValue="All"
-            onChange={setCategory}
-          />
-          <PriceFilter
-            value={priceRange}
-            minimum={minimumPrice}
-            maximum={maximumPrice}
-            onChange={setPriceRange}
-            onMinimumChange={setMinimumPrice}
-            onMaximumChange={setMaximumPrice}
-          />
-          <SelectFilter
-            label="Sort"
-            value={sortOrder}
-            options={SORT_OPTIONS}
-            onChange={setSortOrder}
-            showSelection={false}
-          />
-          <div className="ml-auto flex items-center gap-3">
-            <SearchControl value={search} onChange={setSearch} />
-            <ColumnsToggle columns={columns} onClick={() => setColumns((current) => (current === 4 ? 2 : 4))} />
-          </div>
-        </div>
+        <SearchBar
+          value={search}
+          onChange={setSearch}
+          placeholder="Search artworks"
+          onFilterClick={() => setMobileFiltersOpen(true)}
+        />
       </div>
 
       <div className="md:grid md:grid-cols-[180px_minmax(0,1fr)] md:gap-6 md:px-8 md:pb-20 md:pt-5 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-8 lg:px-12">
@@ -520,6 +501,31 @@ export function CollectArchiveView({ images }: { images: string[] }) {
           )}
         </div>
       </div>
+      <MobileFilterSheet
+        open={mobileFiltersOpen}
+        onClose={() => setMobileFiltersOpen(false)}
+        searchValue={search}
+        onSearchChange={setSearch}
+        searchPlaceholder="Search artworks"
+        onClearAll={() => {
+          setCategory("All");
+          setPriceRange("All");
+          setMinimumPrice("");
+          setMaximumPrice("");
+          setSortOrder("Newest");
+          setColumns(4);
+        }}
+        resultCount={artworks.length}
+      >
+        <LayoutSection<CollectColumns>
+          value={columns}
+          onChange={setColumns}
+          options={[
+            { id: 2, label: "Comfortable grid", glyph: LayoutGlyphs.gridNormal },
+            { id: 4, label: "Dense grid", glyph: LayoutGlyphs.gridDense },
+          ]}
+        />
+      </MobileFilterSheet>
     </main>
   );
 }

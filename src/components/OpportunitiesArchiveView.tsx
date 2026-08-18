@@ -633,7 +633,7 @@ export function OpportunitiesArchiveView() {
             onFilterClick={() => setMobileFiltersOpen(true)}
             filterBadge={activeFilterCount}
           />
-          <div className="md:ml-auto inline-flex items-center rounded-lg border border-neutral-200 text-[10px] uppercase tracking-[0.18em]">
+          <div className="hidden md:ml-auto md:inline-flex md:items-center rounded-lg border border-neutral-200 text-[10px] uppercase tracking-[0.18em]">
             <button
               type="button"
               onClick={() => setViewMode("grid")}

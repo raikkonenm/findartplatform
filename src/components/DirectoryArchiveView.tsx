@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Header } from "./Header";
 import { IndexImageCarousel } from "./IndexImageCarousel";
+import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
 import { SearchBar } from "./SearchBar";
 
 type ViewMode = "grid" | "list";
@@ -77,6 +78,7 @@ export function DirectoryArchiveView() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [density, setDensity] = useState<Density>("normal");
   const [query, setQuery] = useState("");
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -108,8 +110,10 @@ export function DirectoryArchiveView() {
             onChange={setQuery}
             placeholder="Search websites"
             className="md:max-w-[420px] md:flex-1"
+            onFilterClick={() => setMobileFiltersOpen(true)}
           />
-          <div className="flex items-center gap-3 md:ml-auto">
+          {/* Desktop-only Grid/List + density toggle. Mobile uses the drawer. */}
+          <div className="hidden md:ml-auto md:flex md:items-center md:gap-3">
             <div className="inline-flex items-center rounded-lg border border-neutral-200 text-[10px] uppercase tracking-[0.18em]">
               <button
                 type="button"
@@ -152,6 +156,28 @@ export function DirectoryArchiveView() {
           </div>
         )}
       </section>
+      <MobileFilterSheet
+        open={mobileFiltersOpen}
+        onClose={() => setMobileFiltersOpen(false)}
+        searchValue={query}
+        onSearchChange={setQuery}
+        searchPlaceholder="Search websites"
+        onClearAll={() => {
+          setQuery("");
+          setDensity("normal");
+          setViewMode("grid");
+        }}
+        resultCount={visible.length}
+      >
+        <LayoutSection<Density>
+          value={density}
+          onChange={setDensity}
+          options={[
+            { id: "normal", label: "Comfortable grid", glyph: LayoutGlyphs.gridNormal },
+            { id: "dense", label: "Dense grid", glyph: LayoutGlyphs.gridDense },
+          ]}
+        />
+      </MobileFilterSheet>
     </main>
   );
 }
