@@ -139,16 +139,19 @@ export function DirectoryArchiveView() {
           Discover how artists, galleries and institutions present their work online.
         </h1>
 
-        <div className="flex flex-col gap-3 border-t border-[var(--border)] pt-4 md:flex-row md:items-center md:gap-4 md:border-t-0 md:pt-0">
-          <SearchBar
-            value={query}
-            onChange={setQuery}
-            placeholder="Search websites"
-            className="md:max-w-[420px] md:flex-1"
-            onFilterClick={() => setMobileFiltersOpen(true)}
-          />
+        <div className="flex flex-col gap-3 border-t border-[var(--border)] pt-4 md:flex-row md:items-center md:justify-end md:gap-4 md:border-t-0 md:pt-0">
+          {/* Mobile: SearchBar + filter drawer trigger. Desktop uses the global
+              header search; page-level search is hidden. */}
+          <div className="md:hidden">
+            <SearchBar
+              value={query}
+              onChange={setQuery}
+              placeholder="Search websites"
+              onFilterClick={() => setMobileFiltersOpen(true)}
+            />
+          </div>
           {/* Desktop-only Grid/List + density toggle. Mobile uses the drawer. */}
-          <div className="hidden md:ml-auto md:flex md:items-center md:gap-3">
+          <div className="hidden md:flex md:items-center md:gap-3">
             <div className="inline-flex items-center rounded-lg border border-neutral-200 text-[10px] uppercase tracking-[0.18em]">
               <button
                 type="button"

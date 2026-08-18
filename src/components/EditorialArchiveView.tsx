@@ -103,7 +103,6 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
             By Art Curatorial Nomads &#8599;
           </a>
           <div className="hidden items-center gap-3 md:flex">
-            <EditorialSearch value={search} onChange={setSearch} />
             <DensityToggleButton
               density={density}
               onCycle={() =>

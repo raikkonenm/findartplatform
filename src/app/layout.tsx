@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Footer } from "@/components/Footer";
-import { MobileGlobalSearch } from "@/components/MobileGlobalSearch";
+import { GlobalSearchOverlay } from "@/components/GlobalSearchOverlay";
 import { SavedExhibitionsProvider } from "@/components/SavedExhibitions";
 import { SearchPanelProvider } from "@/components/SearchPanelContext";
 import "./globals.css";
@@ -123,7 +123,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             {children}
             <Footer />
             {modal}
-            <MobileGlobalSearch />
+            <GlobalSearchOverlay />
           </SearchPanelProvider>
         </SavedExhibitionsProvider>
       </body>

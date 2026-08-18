@@ -767,7 +767,6 @@ export function OpportunitiesArchiveView() {
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-3">
-            <OpportunitiesInlineSearch value={query} onChange={setQuery} />
             <OpportunitiesViewToggle viewMode={viewMode} onChange={setViewMode} />
           </div>
         </div>
