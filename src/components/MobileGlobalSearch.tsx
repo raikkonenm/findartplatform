@@ -71,30 +71,30 @@ function SearchIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-function SquareTile({ item, onNavigate }: { item: SearchItem; onNavigate: () => void }) {
+function ListRow({ item, onNavigate }: { item: SearchItem; onNavigate: () => void }) {
   const media = (
     <>
-      <div className="relative aspect-square w-20 shrink-0 overflow-hidden bg-neutral-100">
+      <div className="relative h-12 w-12 shrink-0 overflow-hidden bg-neutral-100">
         <Image
           src={item.thumb}
           alt=""
           fill
-          sizes="80px"
+          sizes="48px"
           className={item.thumbFit === "contain" ? "object-contain" : "object-cover"}
         />
       </div>
-      <div className="mt-2 w-20">
-        <p className="truncate text-[11px] font-medium leading-tight text-neutral-900">
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[14px] leading-tight text-neutral-900">
           {item.title}
         </p>
-        <p className="truncate text-[10px] uppercase tracking-[0.14em] text-neutral-500">
+        <p className="truncate text-[12px] leading-tight text-neutral-400">
           {item.subtitle}
         </p>
       </div>
     </>
   );
 
-  const commonClasses = "flex shrink-0 flex-col";
+  const commonClasses = "flex items-center gap-3 py-2.5";
 
   return item.external ? (
     <a
@@ -124,13 +124,13 @@ function SectionRow({
 }) {
   if (items.length === 0) return null;
   return (
-    <section className="mt-6">
-      <p className="mb-3 text-[10px] uppercase tracking-[0.24em] text-neutral-500">
+    <section className="mt-5">
+      <p className="mb-2 text-[10px] uppercase tracking-[0.24em] text-neutral-500">
         {label}
       </p>
-      <div className="scrollbar-none flex gap-4 overflow-x-auto pb-1">
+      <div>
         {items.map((item) => (
-          <SquareTile key={`${label}-${item.id}`} item={item} onNavigate={() => onNavigate(item)} />
+          <ListRow key={`${label}-${item.id}`} item={item} onNavigate={() => onNavigate(item)} />
         ))}
       </div>
     </section>
@@ -191,12 +191,10 @@ export function MobileGlobalSearch() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Open search"
-          className="flex w-full items-center gap-3 border border-neutral-900 bg-transparent px-4 py-3 text-left text-neutral-500 transition-colors hover:border-neutral-900"
+          className="flex h-10 w-full items-center gap-2.5 border border-neutral-300 bg-transparent px-3 text-left text-neutral-500 transition-colors hover:border-neutral-900"
         >
-          <SearchIcon className="h-4 w-4 text-neutral-500" />
-          <span className="editorial-serif text-[13px] uppercase tracking-[0.22em]">
-            Search
-          </span>
+          <SearchIcon className="h-[14px] w-[14px] text-neutral-500" />
+          <span className="text-[13px] text-neutral-500">Search</span>
         </button>
       </div>
 

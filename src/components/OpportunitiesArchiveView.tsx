@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Header } from "./Header";
 import { HeartIcon } from "./SavedExhibitions";
+import { SearchBar } from "./SearchBar";
 
 const FILTERS = {
   type: ["All types", "Residencies", "Awards & Prizes", "Calls for Curators", "Collaborations", "Commissions", "Education", "Grants & Stipends", "Jobs", "Open Calls"],
@@ -385,7 +386,7 @@ const FEE_FILTERS: Array<{ id: FeeFilter; label: string }> = [
   { id: "paid", label: "Paid application" },
 ];
 
-function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilters, feeFilter, setFeeFilter, resultCount, onReset }: { open: boolean; onClose: () => void; selectedFilters: Record<FilterMode, string>; setSelectedFilters: (fn: (current: Record<FilterMode, string>) => Record<FilterMode, string>) => void; feeFilter: FeeFilter; setFeeFilter: (value: FeeFilter) => void; resultCount: number; onReset: () => void; }) {
+function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilters, feeFilter, setFeeFilter, resultCount, onReset, viewMode, setViewMode, sortDirection, setSortDirection, drawerQuery, setDrawerQuery }: { open: boolean; onClose: () => void; selectedFilters: Record<FilterMode, string>; setSelectedFilters: (fn: (current: Record<FilterMode, string>) => Record<FilterMode, string>) => void; feeFilter: FeeFilter; setFeeFilter: (value: FeeFilter) => void; resultCount: number; onReset: () => void; viewMode: ViewMode; setViewMode: (value: ViewMode) => void; sortDirection: SortDirection; setSortDirection: (value: SortDirection) => void; drawerQuery: string; setDrawerQuery: (value: string) => void; }) {
   useEffect(() => {
     if (!open) return;
     const previous = document.body.style.overflow;
@@ -400,60 +401,164 @@ function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilter
 
   if (!open) return null;
 
-  const section = (mode: FilterMode) => (
-    <section key={mode} className="border-t border-[var(--border)] py-6">
-      <h3 className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
+  // Chips row for a filter dimension. Horizontal scroll on overflow.
+  const chipRow = (mode: FilterMode) => (
+    <section key={mode} className="border-t border-neutral-200 pt-6">
+      <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
         {FILTER_LABELS[mode]}
-      </h3>
-      <ul className="space-y-3">
+      </p>
+      <div className="scrollbar-none -mx-1 flex gap-2 overflow-x-auto pb-1 px-1">
         {FILTERS[mode].map((option) => {
           const active = selectedFilters[mode] === option;
           return (
-            <li key={option}>
-              <button
-                type="button"
-                onClick={() => setSelectedFilters((current) => ({ ...current, [mode]: option }))}
-                className={`text-left text-[12px] uppercase tracking-[0.18em] transition-opacity hover:opacity-60 ${active ? "font-semibold text-[var(--foreground)]" : "text-neutral-500"}`}
-              >
-                {option}
-              </button>
-            </li>
+            <button
+              key={option}
+              type="button"
+              onClick={() => setSelectedFilters((current) => ({ ...current, [mode]: option }))}
+              className={`whitespace-nowrap rounded-full border px-3.5 py-1.5 text-[12px] transition-colors ${active ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-neutral-300"}`}
+            >
+              {option}
+            </button>
           );
         })}
-      </ul>
+      </div>
     </section>
   );
 
+  const layoutButton = (mode: ViewMode, label: string, glyph: React.ReactNode) => {
+    const active = viewMode === mode;
+    return (
+      <button
+        key={mode}
+        type="button"
+        onClick={() => setViewMode(mode)}
+        aria-pressed={active}
+        aria-label={label}
+        className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${active ? "border-neutral-900 bg-neutral-100 text-neutral-900" : "border-neutral-200 text-neutral-500 hover:border-neutral-300"}`}
+      >
+        {glyph}
+      </button>
+    );
+  };
+
+  const viewOptions: Array<{ id: FeeFilter; label: string }> = FEE_FILTERS;
+
   return (
-    <div className="fixed inset-0 z-[80] md:hidden" role="dialog" aria-modal="true" aria-label="Filters">
+    <div className="fixed inset-0 z-[80] md:hidden" role="dialog" aria-modal="true" aria-label="Filter & Sort">
       <button type="button" aria-label="Close filters" onClick={onClose} className="absolute inset-0 bg-black/40" />
-      <aside className="absolute inset-y-0 right-0 flex w-[90%] max-w-[380px] flex-col bg-white shadow-[-12px_0_35px_rgba(0,0,0,0.15)]">
-        <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
-          <h2 className="text-[11px] font-semibold uppercase tracking-[0.24em] text-neutral-900">Filters</h2>
-          <button type="button" onClick={onClose} aria-label="Close filters" className="flex h-9 w-9 items-center justify-center text-2xl font-light leading-none transition-opacity hover:opacity-55">×</button>
+      <aside className="absolute inset-y-0 right-0 flex w-[92%] max-w-[420px] flex-col bg-white shadow-[-12px_0_35px_rgba(0,0,0,0.15)]">
+        <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
+          <h2 className="text-[15px] font-medium text-neutral-900">Filter &amp; Sort</h2>
+          <button type="button" onClick={onClose} aria-label="Close filters" className="flex h-9 w-9 items-center justify-center rounded-md border border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400">
+            <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
+              <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.35" />
+            </svg>
+          </button>
         </div>
-        <div className="flex-1 overflow-y-auto px-5">
-          {(Object.keys(FILTER_LABELS) as FilterMode[]).map(section)}
-          <section className="border-t border-[var(--border)] py-6">
-            <h3 className="mb-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Application fee</h3>
-            <ul className="space-y-3">
-              {FEE_FILTERS.map((option) => (
-                <li key={option.id}>
-                  <button
-                    type="button"
-                    onClick={() => setFeeFilter(option.id)}
-                    className={`text-left text-[12px] uppercase tracking-[0.18em] transition-opacity hover:opacity-60 ${feeFilter === option.id ? "font-semibold text-[var(--foreground)]" : "text-neutral-500"}`}
-                  >
-                    {option.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </section>
+
+        <div className="flex-1 overflow-y-auto px-5 pt-4">
+          <div className="mb-4 flex justify-end">
+            <button
+              type="button"
+              onClick={onReset}
+              className="text-[13px] text-neutral-700 underline-offset-4 hover:underline"
+            >
+              Clear all
+            </button>
+          </div>
+
+          <SearchBar
+            value={drawerQuery}
+            onChange={setDrawerQuery}
+            placeholder="Search opportunities"
+          />
+
+          <div className="mt-6 space-y-6 pb-6">
+            {chipRow("type")}
+            {chipRow("field")}
+            {chipRow("reward")}
+
+            {/* LAYOUT — icons for grid/list */}
+            <section className="border-t border-neutral-200 pt-6">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
+                Layout
+              </p>
+              <div className="flex gap-3">
+                {layoutButton(
+                  "grid",
+                  "Grid layout",
+                  <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
+                    <rect x="2" y="2" width="6" height="6" stroke="currentColor" strokeWidth="1.35" />
+                    <rect x="10" y="2" width="6" height="6" stroke="currentColor" strokeWidth="1.35" />
+                    <rect x="2" y="10" width="6" height="6" stroke="currentColor" strokeWidth="1.35" />
+                    <rect x="10" y="10" width="6" height="6" stroke="currentColor" strokeWidth="1.35" />
+                  </svg>
+                )}
+                {layoutButton(
+                  "list",
+                  "List layout",
+                  <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
+                    <path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+                  </svg>
+                )}
+              </div>
+            </section>
+
+            {/* VIEW — application fee list */}
+            <section className="border-t border-neutral-200 pt-6">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
+                Application fee
+              </p>
+              <ul>
+                {viewOptions.map((option) => {
+                  const active = feeFilter === option.id;
+                  return (
+                    <li key={option.id}>
+                      <button
+                        type="button"
+                        onClick={() => setFeeFilter(option.id)}
+                        className={`flex w-full items-center justify-between px-3 py-3 text-[14px] transition-colors ${active ? "rounded-md bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900"}`}
+                      >
+                        <span>{option.label}</span>
+                        {active && <span className="h-2 w-2 rounded-full bg-neutral-900" aria-hidden="true" />}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+
+            {/* SORT */}
+            <section className="border-t border-neutral-200 pt-6">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
+                Sort
+              </p>
+              <ul>
+                {[
+                  { id: "asc" as SortDirection, label: "Deadline · Soonest first" },
+                  { id: "desc" as SortDirection, label: "Deadline · Latest first" },
+                ].map((option) => {
+                  const active = sortDirection === option.id;
+                  return (
+                    <li key={option.id}>
+                      <button
+                        type="button"
+                        onClick={() => setSortDirection(option.id)}
+                        className={`flex w-full items-center justify-between px-3 py-3 text-[14px] transition-colors ${active ? "rounded-md bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900"}`}
+                      >
+                        <span>{option.label}</span>
+                        {active && <span className="h-2 w-2 rounded-full bg-neutral-900" aria-hidden="true" />}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-3 border-t border-[var(--border)] px-5 py-4">
-          <button type="button" onClick={onReset} className="border border-[var(--border)] px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-neutral-700 transition-colors hover:border-neutral-900 hover:text-neutral-900">Reset</button>
-          <button type="button" onClick={onClose} className="bg-neutral-900 px-4 py-3 text-[10px] uppercase tracking-[0.22em] text-white transition-opacity hover:opacity-80">
+
+        <div className="border-t border-neutral-200 px-5 py-4">
+          <button type="button" onClick={onClose} className="w-full rounded-lg bg-neutral-900 py-3 text-[13px] font-medium text-white transition-opacity hover:opacity-90">
             Show {resultCount} {resultCount === 1 ? "result" : "results"}
           </button>
         </div>
@@ -518,13 +623,21 @@ export function OpportunitiesArchiveView() {
       <section className="px-5 pb-24 pt-8 md:px-8 md:pt-12 lg:px-12">
         <h1 className="editorial-serif mb-8 text-[clamp(1.5rem,3vw,2.8rem)] uppercase leading-none tracking-[-0.025em] md:mb-10">Opportunities</h1>
 
-        {/* Mobile toolbar: Grid/List on left, FILTERS on right, search below */}
-        <div className="flex items-center justify-between gap-3 md:hidden">
-          <div className="inline-flex items-center border border-[var(--border)] text-[10px] uppercase tracking-[0.18em]">
+        {/* Universal search + view controls (mobile + desktop) */}
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+          <SearchBar
+            value={query}
+            onChange={setQuery}
+            placeholder="Search opportunities"
+            className="md:max-w-[440px] md:flex-1"
+            onFilterClick={() => setMobileFiltersOpen(true)}
+            filterBadge={activeFilterCount}
+          />
+          <div className="md:ml-auto inline-flex items-center rounded-lg border border-neutral-200 text-[10px] uppercase tracking-[0.18em]">
             <button
               type="button"
               onClick={() => setViewMode("grid")}
-              className={`px-3 py-2 transition-colors ${viewMode === "grid" ? "bg-neutral-900 text-white" : "text-neutral-500"}`}
+              className={`h-11 px-4 rounded-l-lg transition-colors ${viewMode === "grid" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
               aria-pressed={viewMode === "grid"}
             >
               Grid
@@ -532,72 +645,19 @@ export function OpportunitiesArchiveView() {
             <button
               type="button"
               onClick={() => setViewMode("list")}
-              className={`border-l border-[var(--border)] px-3 py-2 transition-colors ${viewMode === "list" ? "bg-neutral-900 text-white" : "text-neutral-500"}`}
+              className={`h-11 px-4 border-l border-neutral-200 rounded-r-lg transition-colors ${viewMode === "list" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
               aria-pressed={viewMode === "list"}
             >
               List
             </button>
           </div>
-          <button
-            type="button"
-            onClick={() => setMobileFiltersOpen(true)}
-            className="inline-flex items-center gap-2 border border-[var(--border)] px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-neutral-900 transition-colors hover:border-neutral-900"
-          >
-            Filters
-            {activeFilterCount > 0 && (
-              <span className="inline-flex h-4 min-w-[16px] items-center justify-center bg-neutral-900 px-1 text-[9px] text-white">
-                {activeFilterCount}
-              </span>
-            )}
-          </button>
-        </div>
-        <div className="mt-3 md:hidden">
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search opportunities"
-            aria-label="Search opportunities"
-            className="w-full border border-[var(--border)] bg-transparent px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-neutral-800 placeholder:text-neutral-400 focus:border-neutral-800 focus:outline-none"
-          />
         </div>
 
-        {/* Desktop toolbar: full filter chips + grid/list on right + search inline */}
-        <div className="hidden flex-wrap items-center justify-between gap-y-4 md:flex">
-          <div className="flex flex-wrap items-center gap-3">
-            {(Object.keys(FILTER_LABELS) as FilterMode[]).map((filterMode) => (
-              <button key={filterMode} type="button" onClick={() => setMode(filterMode)} onMouseEnter={() => setMode(filterMode)} className={`border px-3 py-2 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${mode === filterMode ? "border-[var(--foreground)] text-[var(--foreground)]" : "border-neutral-400 text-neutral-500 hover:border-neutral-500"}`}>{FILTER_LABELS[filterMode]}</button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search opportunities"
-              aria-label="Search opportunities"
-              className="w-[240px] border border-[var(--border)] bg-transparent px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-neutral-800 placeholder:text-neutral-400 focus:border-neutral-800 focus:outline-none"
-            />
-            <div className="inline-flex items-center border border-[var(--border)] text-[10px] uppercase tracking-[0.18em]">
-              <button
-                type="button"
-                onClick={() => setViewMode("grid")}
-                className={`px-3 py-2 transition-colors ${viewMode === "grid" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-neutral-500 hover:text-[var(--foreground)]"}`}
-                aria-pressed={viewMode === "grid"}
-              >
-                Grid
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode("list")}
-                className={`border-l border-[var(--border)] px-3 py-2 transition-colors ${viewMode === "list" ? "bg-[var(--foreground)] text-[var(--background)]" : "text-neutral-500 hover:text-[var(--foreground)]"}`}
-                aria-pressed={viewMode === "list"}
-              >
-                List
-              </button>
-            </div>
-          </div>
+        {/* Desktop chip row + rail — hidden on mobile (mobile uses the drawer via SearchBar filter button) */}
+        <div className="mt-6 hidden flex-wrap items-center gap-3 md:flex">
+          {(Object.keys(FILTER_LABELS) as FilterMode[]).map((filterMode) => (
+            <button key={filterMode} type="button" onClick={() => setMode(filterMode)} onMouseEnter={() => setMode(filterMode)} className={`border px-3 py-2 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${mode === filterMode ? "border-[var(--foreground)] text-[var(--foreground)]" : "border-neutral-400 text-neutral-500 hover:border-neutral-500"}`}>{FILTER_LABELS[filterMode]}</button>
+          ))}
         </div>
 
         <div className="hidden md:block">
@@ -648,6 +708,12 @@ export function OpportunitiesArchiveView() {
         setFeeFilter={setFeeFilter}
         resultCount={visibleOpportunities.length}
         onReset={resetMobileFilters}
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        sortDirection={sortDirection}
+        setSortDirection={setSortDirection}
+        drawerQuery={query}
+        setDrawerQuery={setQuery}
       />
     </main>
   );

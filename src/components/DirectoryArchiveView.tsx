@@ -3,8 +3,10 @@
 import { useMemo, useState } from "react";
 import { Header } from "./Header";
 import { IndexImageCarousel } from "./IndexImageCarousel";
+import { SearchBar } from "./SearchBar";
 
 type ViewMode = "grid" | "list";
+type Density = "normal" | "dense";
 
 type IndexEntry = {
   name: string;
@@ -39,8 +41,41 @@ const ENTRIES: IndexEntry[] = [
   },
 ];
 
+function DensityToggle({ density, onCycle }: { density: Density; onCycle: () => void }) {
+  const isActive = density === "dense";
+  return (
+    <button
+      type="button"
+      onClick={onCycle}
+      aria-label={`Feed density: ${density}. Tap to cycle.`}
+      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border transition duration-200 ease-out ${
+        isActive
+          ? "border-neutral-900 text-neutral-900"
+          : "border-neutral-200 text-neutral-500 hover:border-neutral-400 hover:text-neutral-700"
+      }`}
+    >
+      <svg
+        width={16}
+        height={16}
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        strokeLinecap="square"
+        aria-hidden="true"
+        className={`transition-transform duration-300 ease-out ${density === "dense" ? "rotate-90" : "rotate-0"}`}
+      >
+        <line x1="3" y1="3" x2="3" y2="13" />
+        <line x1="8" y1="3" x2="8" y2="13" />
+        <line x1="13" y1="3" x2="13" y2="13" />
+      </svg>
+    </button>
+  );
+}
+
 export function DirectoryArchiveView() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const [density, setDensity] = useState<Density>("normal");
   const [query, setQuery] = useState("");
 
   const visible = useMemo(() => {
@@ -50,6 +85,11 @@ export function DirectoryArchiveView() {
       entry.name.toLowerCase().includes(q) || entry.subtitle.toLowerCase().includes(q)
     );
   }, [query]);
+
+  const gridColsClass =
+    density === "dense"
+      ? "grid-cols-2 md:grid-cols-4 lg:grid-cols-5"
+      : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-white pt-[65px]">
@@ -62,32 +102,35 @@ export function DirectoryArchiveView() {
           Discover how artists, galleries and institutions present their work online.
         </h1>
 
-        <div className="flex flex-wrap items-center gap-3 border-t border-[var(--border)] pt-4 md:justify-between">
-          <input
-            type="search"
+        <div className="flex flex-col gap-3 border-t border-[var(--border)] pt-4 md:flex-row md:items-center md:gap-4">
+          <SearchBar
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search index"
-            aria-label="Search index"
-            className="w-full max-w-[320px] border border-[var(--border)] bg-transparent px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-neutral-800 placeholder:text-neutral-400 focus:border-neutral-800 focus:outline-none md:order-2"
+            onChange={setQuery}
+            placeholder="Search websites"
+            className="md:max-w-[420px] md:flex-1"
           />
-          <div className="inline-flex items-center border border-[var(--border)] text-[10px] uppercase tracking-[0.18em] md:order-1">
-            <button
-              type="button"
-              onClick={() => setViewMode("grid")}
-              aria-pressed={viewMode === "grid"}
-              className={`px-3 py-2 transition-colors ${viewMode === "grid" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
-            >
-              Grid
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode("list")}
-              aria-pressed={viewMode === "list"}
-              className={`border-l border-[var(--border)] px-3 py-2 transition-colors ${viewMode === "list" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"}`}
-            >
-              List
-            </button>
+          <div className="flex items-center gap-3 md:ml-auto">
+            <div className="inline-flex items-center rounded-lg border border-neutral-200 text-[10px] uppercase tracking-[0.18em]">
+              <button
+                type="button"
+                onClick={() => setViewMode("grid")}
+                aria-pressed={viewMode === "grid"}
+                className={`h-11 px-4 transition-colors ${viewMode === "grid" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"} rounded-l-lg`}
+              >
+                Grid
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("list")}
+                aria-pressed={viewMode === "list"}
+                className={`h-11 border-l border-neutral-200 px-4 transition-colors ${viewMode === "list" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-900"} rounded-r-lg`}
+              >
+                List
+              </button>
+            </div>
+            {viewMode === "grid" && (
+              <DensityToggle density={density} onCycle={() => setDensity((current) => (current === "normal" ? "dense" : "normal"))} />
+            )}
           </div>
         </div>
 
@@ -96,7 +139,7 @@ export function DirectoryArchiveView() {
             Nothing matches this search
           </p>
         ) : viewMode === "grid" ? (
-          <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+          <div className={`mt-10 grid gap-x-8 gap-y-14 ${gridColsClass}`}>
             {visible.map((entry) => (
               <DirectoryCard key={entry.name} entry={entry} />
             ))}

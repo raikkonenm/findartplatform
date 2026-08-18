@@ -175,16 +175,16 @@ function MobileFeaturedCarousel() {
         >
           {slides.map((slide) => {
             const inner = (
-              <div className="relative block aspect-[4/5] overflow-hidden bg-neutral-100">
+              <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
                 {slide.media}
                 {/* Bottom-anchored scrim so the caption is always legible. */}
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 text-white">
-                  <p className="text-[10px] uppercase tracking-[0.28em] text-white/70">{slide.eyebrow}</p>
-                  <p className="editorial-serif mt-2 break-words text-[clamp(1.2rem,5.5vw,1.9rem)] leading-[1.05] tracking-[-0.02em]">
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4 text-white">
+                  <p className="text-[9px] uppercase tracking-[0.26em] text-white/70">{slide.eyebrow}</p>
+                  <p className="editorial-serif mt-1.5 break-words text-[clamp(1rem,4.4vw,1.4rem)] leading-[1.08] tracking-[-0.02em]">
                     {slide.title}
                   </p>
-                  <p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-white/75">{slide.subtitle}</p>
+                  <p className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-white/75">{slide.subtitle}</p>
                 </div>
               </div>
             );
@@ -204,7 +204,7 @@ function MobileFeaturedCarousel() {
           })}
         </div>
       </div>
-      <div className="mt-6 flex items-center justify-center gap-2 px-4" aria-label="Choose featured banner">
+      <div className="mt-4 flex items-center justify-center gap-2" aria-label="Choose featured banner">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -212,7 +212,7 @@ function MobileFeaturedCarousel() {
             onClick={() => moveTo(index)}
             aria-label={`Show featured banner ${index + 1}`}
             aria-current={index === activeSlide ? "true" : undefined}
-            className={`h-[2px] flex-1 max-w-[64px] transition-colors duration-300 ${
+            className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
               index === activeSlide ? "bg-neutral-900" : "bg-neutral-300"
             }`}
           />
@@ -1138,9 +1138,10 @@ export default function HomePageClient({
       }
 
       const query = params.toString();
-      router.replace(query ? `/?${query}` : "/", { scroll: false });
+      const basePath = pathname || "/";
+      router.replace(query ? `${basePath}?${query}` : basePath, { scroll: false });
     },
-    [router],
+    [router, pathname],
   );
 
   // Build the country → cities tree once. Both keys are sorted alphabetically.
