@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Header } from "./Header";
 import { HeartIcon } from "./SavedExhibitions";
@@ -735,7 +736,17 @@ export function OpportunitiesArchiveView() {
     <main className="min-h-screen overflow-x-hidden bg-[var(--background)] pt-[65px] text-[var(--foreground)]">
       <Header />
       <section className="px-5 pb-24 pt-8 md:px-8 md:pt-12 lg:px-12">
-        <h1 className="editorial-serif mb-8 text-[clamp(1.5rem,3vw,2.8rem)] uppercase leading-none tracking-[-0.025em] md:mb-10">Opportunities</h1>
+        <div className="mb-8 flex items-baseline justify-between gap-5 md:mb-10">
+          <h1 className="editorial-serif text-[clamp(1.2rem,2vw,1.8rem)] uppercase leading-none tracking-[-0.02em]">
+            Opportunities
+          </h1>
+          <Link
+            href="/submit"
+            className="shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.2em] text-neutral-700 transition-opacity hover:opacity-55"
+          >
+            Submit an opportunity <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
 
         {/* Mobile-only search + filter button. Desktop toolbar sits with the filter chips below. */}
         <div className="md:hidden">
