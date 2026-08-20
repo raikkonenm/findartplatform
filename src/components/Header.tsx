@@ -28,9 +28,7 @@ export function Header({ overlay = false }: HeaderProps) {
   return (
     <header
       className={`${overlay ? "absolute z-20" : "fixed z-50"} inset-x-0 top-0 h-[65px] px-4 md:px-8 lg:px-12 ${
-        overlay
-          ? "text-[8px] uppercase tracking-[0.14em] text-white md:text-[11px] md:tracking-[0.28em]"
-          : "bg-white"
+        overlay ? "" : "bg-white"
       }`}
     >
       <nav
@@ -54,10 +52,8 @@ export function Header({ overlay = false }: HeaderProps) {
         </div>
 
         <div
-          className={`editorial-serif hidden items-center gap-5 uppercase md:flex md:justify-self-center ${
-            overlay
-              ? "font-normal"
-              : "text-[11px] font-normal tracking-[0.08em] text-neutral-900"
+          className={`editorial-serif hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.08em] md:flex md:justify-self-center ${
+            overlay ? "text-white" : "text-neutral-900"
           }`}
         >
           <Link href="/" className={navLinkClass("/")}>
