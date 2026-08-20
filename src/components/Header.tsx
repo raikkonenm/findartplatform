@@ -44,7 +44,7 @@ export function Header({ overlay = false }: HeaderProps) {
           <MobileNavigationMenu inverted={overlay} />
           <Link
             href="/"
-            className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px] ${
+            className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium normal-case tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px] ${
               overlay ? "text-white" : "text-neutral-900"
             }`}
             aria-label="FindArt Platform home"
