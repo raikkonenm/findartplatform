@@ -57,14 +57,6 @@
   color: #8e8e8e;
 }
 
-:root[data-theme="dark"] .featured-banner-copy {
-  color: #111111 !important;
-}
-
-:root[data-theme="dark"] .featured-banner-copy .text-neutral-600 {
-  color: #525252 !important;
-}
-
 :root[data-theme="dark"] .archive-card-copy,
 :root[data-theme="dark"] .archive-card-copy * {
   color: #ffffff !important;

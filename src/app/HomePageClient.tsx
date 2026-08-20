@@ -152,7 +152,7 @@ function MobileFeaturedCarousel() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white pb-6 md:hidden" aria-label="Featured exhibitions">
+    <section className="overflow-hidden bg-white pb-6 pt-4 md:hidden" aria-label="Featured exhibitions">
       <div
         className="overflow-hidden"
         onTouchStart={(event) => {
@@ -177,7 +177,7 @@ function MobileFeaturedCarousel() {
         >
           {slides.map((slide) => {
             const inner = (
-              <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
+              <div className="relative block aspect-[16/9] overflow-hidden rounded-md bg-neutral-100">
                 {slide.media}
                 {/* Bottom-anchored scrim so the caption is always legible. */}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
@@ -191,7 +191,7 @@ function MobileFeaturedCarousel() {
               </div>
             );
             return (
-              <div key={slide.href} className="w-full shrink-0">
+              <div key={slide.href} className="w-full shrink-0 px-4">
                 {slide.external ? (
                   <a href={slide.href} aria-label={slide.ariaLabel} className="block">
                     {inner}
@@ -415,7 +415,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
               </p>
               <Link
                 href="/exhibitions/der-kopf-ist-rund"
-                className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
+                className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] text-neutral-900 transition-opacity hover:opacity-60"
               >
                 Der Kopf ist rund, damit das Denken die Richtung wechseln kann
               </Link>
@@ -442,7 +442,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
               <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
                 May 22 — June 01, 2026
               </p>
-              <h2 className="editorial-serif mt-2 break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em]">
+              <h2 className="editorial-serif mt-2 break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] text-neutral-900">
                 Axial-Core
               </h2>
               <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
@@ -471,7 +471,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
               <p className="text-[10px] tracking-[0.18em] text-neutral-500">artcnomad.com</p>
               <a
                 href="https://www.artcnomad.com/"
-                className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
+                className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] text-neutral-900 transition-opacity hover:opacity-60"
               >
                 ART CURATORIAL NOMADS ↗
               </a>
@@ -502,7 +502,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
             <div className="pt-4">
               <a
                 href="https://www.artcnomad.com/workflow-art"
-                className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] transition-opacity hover:opacity-60"
+                className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] text-neutral-900 transition-opacity hover:opacity-60"
               >
                 Workflow.Art ↗
               </a>
@@ -1232,16 +1232,16 @@ export default function HomePageClient({
       </Suspense>
       {/* Header — sticky + high z-index so it remains visible above the
           slide-over panel when an exhibition detail is open. */}
-      <header className={`h-[65px] px-4 md:px-8 lg:px-12 md:sticky md:top-0 md:z-50 md:bg-white ${showFeaturedBanners ? "absolute inset-x-0 top-0 z-30 bg-transparent" : "sticky top-0 z-50 bg-white"}`}>
+      <header className="sticky top-0 z-50 h-[65px] bg-white px-4 md:px-8 lg:px-12">
         <nav
           className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]"
           aria-label="Primary navigation"
         >
           <div className="flex items-center gap-3 md:gap-4 md:justify-self-start">
-            <MobileNavigationMenu inverted={showFeaturedBanners} />
+            <MobileNavigationMenu />
             <Link
               href="/"
-              className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium normal-case tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px] md:text-neutral-900 ${showFeaturedBanners ? "text-white" : "text-neutral-900"}`}
+              className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium normal-case tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px]"
               aria-label="FindArt Platform home"
             >
               FindArt Platform
@@ -1285,7 +1285,7 @@ export default function HomePageClient({
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label="Open search"
-              className={`flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-55 focus-visible:outline-none md:text-neutral-900 ${showFeaturedBanners ? "text-white" : "text-neutral-900"}`}
+              className="flex h-8 w-8 items-center justify-center text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
             >
               <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
                 <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.35" />
@@ -1295,7 +1295,7 @@ export default function HomePageClient({
             <Link
               href="/saved"
               aria-label="View saved items"
-              className={`transition-opacity hover:opacity-55 focus-visible:outline-none md:text-neutral-900 ${showFeaturedBanners ? "text-white" : "text-neutral-900"}`}
+              className="text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
             >
               <HeartIcon filled={false} className="h-4 w-4" />
             </Link>

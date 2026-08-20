@@ -202,7 +202,7 @@ function DirectoryCard({ entry }: { entry: IndexEntry }) {
         rel="noopener noreferrer"
         className="block"
       >
-        <div className="relative aspect-[2/1] overflow-hidden rounded-lg bg-neutral-100 md:rounded-none">
+        <div className="relative aspect-[2/1] overflow-hidden rounded-md bg-neutral-100 md:rounded-none">
           {entry.kind === "video" ? (
             <video
               autoPlay

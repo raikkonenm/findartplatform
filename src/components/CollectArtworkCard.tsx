@@ -53,7 +53,7 @@ export function CollectArtworkCard({
       aria-label={`${title} by Chungkook Lee, ${year}`}
       className={`group relative outline-none ${className}`}
     >
-      <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-neutral-100 md:rounded-none">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-neutral-100 md:rounded-none">
         <Image
           src={artwork.src}
           alt={`${title} by Chungkook Lee, ${year}`}
