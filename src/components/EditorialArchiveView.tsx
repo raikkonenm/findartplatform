@@ -15,8 +15,7 @@ type Banner =
 
 const FEATURES_BANNERS: Banner[] = [
   { type: "video", src: "/editorial/banner/1.mp4", alt: "Features banner 1", duration: 7500 },
-  { type: "image", src: "/editorial/banner/2.webp", alt: "Features banner 2", duration: 5000 },
-  { type: "image", src: "/editorial/banner/3.webp", alt: "Features banner 3", duration: 5000 },
+  { type: "image", src: "/editorial/banner/3.webp", alt: "Features banner 2", duration: 5000 },
 ];
 
 function FeaturesBanner() {
@@ -34,7 +33,7 @@ function FeaturesBanner() {
 
   return (
     <section aria-label="Features banners" className="relative">
-      <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100 md:aspect-[21/9]">
+      <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100 md:aspect-auto md:h-screen">
         {FEATURES_BANNERS.map((banner, index) =>
           banner.type === "video" ? (
             <video

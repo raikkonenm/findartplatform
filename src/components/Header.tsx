@@ -113,7 +113,8 @@ export function Header({ overlay = false }: HeaderProps) {
           >
             <HeartIcon filled={pathname === "/saved"} className="h-4 w-4" />
           </Link>
-          {!overlay && <ThemeToggleButton className="hidden md:flex" />}
+          <ThemeToggleButton className={`hidden md:flex ${overlay ? "text-white" : ""}`} />
+
         </div>
       </nav>
       <NavigationProgress />
