@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Header } from "./Header";
 import { HeartIcon } from "./SavedExhibitions";
 import { SearchBar } from "./SearchBar";
@@ -446,7 +446,7 @@ function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; on
       <button
         type="button"
         onClick={onOpen}
-        className="editorial-serif mb-6 block text-left text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] transition-opacity group-hover/card:opacity-75 md:mb-8 md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]"
+        className="editorial-serif mb-6 block text-left text-[clamp(1.15rem,4.5vw,1.6rem)] leading-[1.05] tracking-[-0.035em] transition-opacity group-hover/card:opacity-75 md:mb-8 md:text-[clamp(1.35rem,2.2vw,2rem)] md:leading-[1.02]"
       >
         {shortTitle(opportunity.title)}
       </button>
@@ -499,7 +499,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
             event.stopPropagation();
             onOpen();
           }}
-          className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]"
+          className="editorial-serif break-words text-[clamp(1.05rem,4vw,1.4rem)] leading-[1.08] tracking-[-0.035em] text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[clamp(1.15rem,1.9vw,1.75rem)] md:leading-[1.02]"
         >
           {shortTitle(opportunity.title)}
         </h3>
@@ -635,11 +635,11 @@ function OpportunityDetail({ opportunity, onClose }: { opportunity: Opportunity;
       <button type="button" aria-label="Close opportunity" onClick={onClose} className="absolute inset-0 bg-black/25" />
       <aside className="absolute inset-y-0 right-0 w-full overflow-y-auto bg-[var(--background)] shadow-[-12px_0_35px_rgba(0,0,0,0.12)] md:w-[72vw] lg:w-[62vw] lg:max-w-[1050px]">
         <div className="mx-auto max-w-[880px] px-5 pb-20 pt-6 md:px-10 md:pt-10 lg:px-14">
-          <div className="mb-12 flex items-start justify-between gap-6 border-b border-[var(--border)] pb-6">
+          <div className="mb-6 flex items-start justify-between gap-6">
             <p className="pt-2 text-[10px] uppercase tracking-[0.2em] text-neutral-500">{opportunity.organizer}</p>
             <button type="button" onClick={onClose} aria-label="Close opportunity" className="flex h-10 w-10 shrink-0 items-center justify-center text-3xl font-light leading-none transition-opacity hover:opacity-50">×</button>
           </div>
-          <h2 className="editorial-serif max-w-[760px] break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]">{shortTitle(opportunity.title)}</h2>
+          <h2 className="editorial-serif max-w-[760px] break-words text-[clamp(1.6rem,5vw,2.2rem)] leading-[1.02] tracking-[-0.035em] md:text-[clamp(2rem,3vw,3rem)] md:leading-[1.02]">{shortTitle(opportunity.title)}</h2>
           <dl className="my-10 grid gap-5 border-y border-[var(--border)] py-6 text-[13px] md:grid-cols-4">
             <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Deadline</dt><dd>{opportunity.deadline}</dd></div>
             <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Location</dt><dd>{opportunity.location}</dd></div>
@@ -876,19 +876,39 @@ export function OpportunitiesArchiveView() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const optionsRailRef = useRef<HTMLDivElement>(null);
   const railPausedRef = useRef(false);
+  const railManualScrollRef = useRef<number | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
     setToday(new Date());
   }, []);
 
+  const updateRailArrows = useCallback(() => {
+    const rail = optionsRailRef.current;
+    if (!rail) return;
+    setCanScrollLeft(rail.scrollLeft > 2);
+    setCanScrollRight(rail.scrollLeft + rail.clientWidth < rail.scrollWidth - 2);
+  }, []);
+
+  // Reset scroll + arrows whenever the active filter mode changes.
+  useEffect(() => {
+    const rail = optionsRailRef.current;
+    if (!rail) return;
+    rail.scrollLeft = 0;
+    updateRailArrows();
+    const observer = new ResizeObserver(updateRailArrows);
+    observer.observe(rail);
+    return () => observer.disconnect();
+  }, [desktopMode, updateRailArrows]);
+
   // Auto-scroll the options rail for the active mode (mirrors /exhibitions).
-  // Pauses on hover, respects prefers-reduced-motion, resets when mode flips.
+  // Pauses on hover, respects prefers-reduced-motion.
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const rail = optionsRailRef.current;
     if (!rail) return;
-    rail.scrollLeft = 0;
     const timer = window.setInterval(() => {
       if (railPausedRef.current) return;
       if (rail.scrollWidth <= rail.clientWidth) return;
@@ -898,10 +918,40 @@ export function OpportunitiesArchiveView() {
     return () => window.clearInterval(timer);
   }, [desktopMode]);
 
-  const locationOptions = useMemo(
-    () => ["All", ...Array.from(new Set(OPPORTUNITIES.map((o) => o.location))).sort()],
-    [],
-  );
+  const stopManualScroll = useCallback(() => {
+    if (railManualScrollRef.current !== null) {
+      window.clearInterval(railManualScrollRef.current);
+      railManualScrollRef.current = null;
+    }
+  }, []);
+
+  const startManualScroll = useCallback((direction: -1 | 1) => {
+    stopManualScroll();
+    railManualScrollRef.current = window.setInterval(() => {
+      optionsRailRef.current?.scrollBy({ left: direction * 12 });
+    }, 20);
+  }, [stopManualScroll]);
+
+  useEffect(() => stopManualScroll, [stopManualScroll]);
+
+  // Structured country → cities tree, derived from opportunity.location
+  // strings which use "City, Country" (or a single token like "Global" /
+  // "Remote").
+  const locationTree = useMemo(() => {
+    const byCountry = new Map<string, Set<string>>();
+    for (const opp of OPPORTUNITIES) {
+      const raw = opp.location.trim();
+      const commaIndex = raw.lastIndexOf(",");
+      const country = commaIndex >= 0 ? raw.slice(commaIndex + 1).trim() : raw;
+      const city = commaIndex >= 0 ? raw.slice(0, commaIndex).trim() : "";
+      if (!byCountry.has(country)) byCountry.set(country, new Set());
+      if (city) byCountry.get(country)!.add(city);
+    }
+    return Array.from(byCountry.entries())
+      .map(([country, cities]) => ({ country, cities: Array.from(cities).sort() }))
+      .sort((a, b) => a.country.localeCompare(b.country));
+  }, []);
+  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
   const audienceOptions = useMemo(
     () => ["All", ...Array.from(new Set(OPPORTUNITIES.map((o) => o.audience))).sort()],
     [],
@@ -919,7 +969,12 @@ export function OpportunitiesArchiveView() {
       const rewardMatches = selectedFilters.reward === FILTERS.reward[0] || opportunity.rewards.includes(selectedFilters.reward);
       const isFree = opportunity.applicationFee.toUpperCase() === "FREE";
       const feeMatches = feeFilter === "all" || (feeFilter === "free" && isFree) || (feeFilter === "paid" && !isFree);
-      const locationMatches = selectedLocation === "All" || opportunity.location === selectedLocation;
+      const locationMatches = (() => {
+        if (selectedLocation === "All") return true;
+        if (opportunity.location === selectedLocation) return true;
+        // Country-only selection: match any opportunity in that country.
+        return opportunity.location.endsWith(`, ${selectedLocation}`) || opportunity.location === selectedLocation;
+      })();
       const audienceMatches = selectedAudience === "All" || opportunity.audience === selectedAudience;
       const tagMatches = selectedTag === "All" || opportunity.tags.includes(selectedTag);
       const queryMatches = !q || opportunity.title.toLowerCase().includes(q) || opportunity.organizer.toLowerCase().includes(q) || opportunity.location.toLowerCase().includes(q) || opportunity.tags.some((tag) => tag.toLowerCase().includes(q));
@@ -995,7 +1050,10 @@ export function OpportunitiesArchiveView() {
                   ? "ALL TYPES"
                   : selectedFilters.type.toUpperCase(),
             },
-            { id: "fee", label: `APPLICATION FEE · ${feeLabel.toUpperCase()}` },
+            {
+              id: "fee",
+              label: feeFilter === "all" ? "APPLICATION FEE" : feeLabel.toUpperCase(),
+            },
             {
               id: "location",
               label:
@@ -1054,9 +1112,13 @@ export function OpportunitiesArchiveView() {
                   option === "all" ? "All fees" : option === "free" ? "Free to apply" : "Paid application",
               },
               location: {
-                options: locationOptions,
-                current: selectedLocation,
-                onSelect: setSelectedLocation,
+                options: ["All", ...locationTree.map((entry) => entry.country)],
+                current:
+                  selectedLocation === "All"
+                    ? "All"
+                    : (locationTree.find((e) => e.country === selectedLocation) ? selectedLocation
+                        : locationTree.find((e) => selectedLocation.endsWith(`, ${e.country}`))?.country ?? "All"),
+                onSelect: (option) => setSelectedLocation(option === "All" ? "All" : option),
                 labelFor: (option) => (option === "All" ? "All locations" : option),
               },
               audience: {
@@ -1073,34 +1135,98 @@ export function OpportunitiesArchiveView() {
               },
             };
             const active = config[desktopMode];
+            const hasOverflow = canScrollLeft || canScrollRight;
+            const highlightedCountry =
+              desktopMode === "location"
+                ? hoveredCountry ?? (typeof active.current === "string" && active.current !== "All" ? active.current : null)
+                : null;
+            const highlightedCities =
+              highlightedCountry
+                ? locationTree.find((e) => e.country === highlightedCountry)?.cities ?? []
+                : [];
             return (
-              <div
-                ref={optionsRailRef}
-                onPointerEnter={(event) => {
-                  if (event.pointerType !== "mouse") return;
-                  railPausedRef.current = true;
-                }}
-                onPointerLeave={(event) => {
-                  if (event.pointerType !== "mouse") return;
-                  railPausedRef.current = false;
-                }}
-                className="scrollbar-none overflow-x-auto pb-2"
-              >
-                <div className="flex min-w-max items-baseline gap-6">
-                  {active.options.map((option) => {
-                    const isActive = active.current === option;
-                    return (
-                      <button
-                        key={option}
-                        type="button"
-                        onClick={() => active.onSelect(option)}
-                        className={`shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.18em] transition-colors ${isActive ? "font-semibold text-neutral-900" : "text-neutral-500 hover:text-neutral-800"}`}
-                      >
-                        {active.labelFor(option)}
-                      </button>
-                    );
-                  })}
+              <div>
+                <div className="flex items-center gap-2">
+                  {hasOverflow && (
+                    <button
+                      type="button"
+                      aria-label="Scroll filters left"
+                      disabled={!canScrollLeft}
+                      onPointerEnter={() => startManualScroll(-1)}
+                      onPointerLeave={stopManualScroll}
+                      onClick={() => optionsRailRef.current?.scrollBy({ left: -240, behavior: "smooth" })}
+                      className="shrink-0 px-1.5 py-1 text-[15px] text-neutral-500 transition-colors hover:text-neutral-900 disabled:opacity-25"
+                    >
+                      &#8592;
+                    </button>
+                  )}
+                  <div
+                    ref={optionsRailRef}
+                    onScroll={updateRailArrows}
+                    onPointerEnter={(event) => {
+                      if (event.pointerType !== "mouse") return;
+                      railPausedRef.current = true;
+                    }}
+                    onPointerLeave={(event) => {
+                      if (event.pointerType !== "mouse") return;
+                      railPausedRef.current = false;
+                      if (desktopMode === "location") setHoveredCountry(null);
+                    }}
+                    className="scrollbar-none min-w-0 flex-1 overflow-x-auto pb-2"
+                  >
+                    <div className="flex min-w-max items-baseline gap-6">
+                      {active.options.map((option) => {
+                        const isActive = active.current === option;
+                        return (
+                          <button
+                            key={option}
+                            type="button"
+                            onClick={() => active.onSelect(option)}
+                            onMouseEnter={
+                              desktopMode === "location" && option !== "All"
+                                ? () => setHoveredCountry(option)
+                                : undefined
+                            }
+                            className={`shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.18em] transition-colors ${isActive ? "font-semibold text-neutral-900" : "text-neutral-500 hover:text-neutral-800"}`}
+                          >
+                            {active.labelFor(option)}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  {hasOverflow && (
+                    <button
+                      type="button"
+                      aria-label="Scroll filters right"
+                      disabled={!canScrollRight}
+                      onPointerEnter={() => startManualScroll(1)}
+                      onPointerLeave={stopManualScroll}
+                      onClick={() => optionsRailRef.current?.scrollBy({ left: 240, behavior: "smooth" })}
+                      className="shrink-0 px-1.5 py-1 text-[15px] text-neutral-500 transition-colors hover:text-neutral-900 disabled:opacity-25"
+                    >
+                      &#8594;
+                    </button>
+                  )}
                 </div>
+                {desktopMode === "location" && highlightedCountry && highlightedCities.length > 0 && (
+                  <div className="mt-2 flex flex-wrap items-baseline gap-x-6 gap-y-2 pl-8 pr-8">
+                    {highlightedCities.map((city) => {
+                      const fullValue = `${city}, ${highlightedCountry}`;
+                      const isActive = selectedLocation === fullValue;
+                      return (
+                        <button
+                          key={fullValue}
+                          type="button"
+                          onClick={() => setSelectedLocation(fullValue)}
+                          className={`text-[10px] uppercase tracking-[0.18em] transition-colors ${isActive ? "font-semibold text-neutral-900" : "text-neutral-400 hover:text-neutral-800"}`}
+                        >
+                          {city}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             );
           })()}
