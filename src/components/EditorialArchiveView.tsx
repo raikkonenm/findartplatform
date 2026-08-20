@@ -9,9 +9,14 @@ import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSh
 import { SearchBar } from "./SearchBar";
 import { useSavedExhibitions } from "./SavedExhibitions";
 
-const FEATURES_BANNERS = [
-  { src: "/editorial/banner/1.webp", alt: "Features banner 1" },
-  { src: "/editorial/banner/2.webp", alt: "Features banner 2" },
+type Banner =
+  | { type: "video"; src: string; alt: string; duration: number }
+  | { type: "image"; src: string; alt: string; duration: number };
+
+const FEATURES_BANNERS: Banner[] = [
+  { type: "video", src: "/editorial/banner/1.mp4", alt: "Features banner 1", duration: 7500 },
+  { type: "image", src: "/editorial/banner/2.webp", alt: "Features banner 2", duration: 5000 },
+  { type: "image", src: "/editorial/banner/3.webp", alt: "Features banner 3", duration: 5000 },
 ];
 
 function FeaturesBanner() {
@@ -20,30 +25,46 @@ function FeaturesBanner() {
   const count = FEATURES_BANNERS.length;
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
+    const timer = window.setTimeout(() => {
       if (pausedRef.current) return;
       setActive((current) => (current + 1) % count);
-    }, 5000);
-    return () => window.clearInterval(timer);
-  }, [count]);
+    }, FEATURES_BANNERS[active].duration);
+    return () => window.clearTimeout(timer);
+  }, [active, count]);
 
   return (
     <section aria-label="Features banners" className="relative">
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100 md:aspect-[21/9]">
-        {FEATURES_BANNERS.map((banner, index) => (
-          <Image
-            key={banner.src}
-            src={banner.src}
-            alt={index === 0 ? banner.alt : ""}
-            fill
-            unoptimized
-            sizes="100vw"
-            priority={index === 0}
-            className={`object-cover transition-opacity duration-700 ease-out ${
-              index === active ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
+        {FEATURES_BANNERS.map((banner, index) =>
+          banner.type === "video" ? (
+            <video
+              key={banner.src}
+              src={banner.src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-label={banner.alt}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
+                index === active ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ) : (
+            <Image
+              key={banner.src}
+              src={banner.src}
+              alt={index === 0 ? banner.alt : ""}
+              fill
+              unoptimized
+              sizes="100vw"
+              priority={index === 0}
+              className={`object-cover transition-opacity duration-700 ease-out ${
+                index === active ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ),
+        )}
       </div>
       <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2">
         {FEATURES_BANNERS.map((_, index) => (
