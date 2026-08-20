@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "rot-summer": ["INSTALLATION", "DIGITAL MYTH", "TECHNOLOGY", "IDENTITY", "OBJECTHOOD"],
   "techno-worlds-final-sampling": ["INSTALLATION", "SOUND", "TECHNOLOGY", "DIGITAL MYTH", "MACHINE"],
   "parachute-group-exhibition": ["TRANSFORMATION"],
   "chewing-gum-in-the-motherboard-group-exhibition": ["DIGITAL MYTH", "SURVEILLANCE"],
@@ -265,6 +266,55 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "rot-summer",
+    title: "ROT SUMMER",
+    subtitle: "Markéta Slaná & Karolina Jarzębak",
+    venue: "Holešovická šachta",
+    gallery: "Holešovická šachta",
+    city: "Prague",
+    country: "Czech Republic",
+    year: "2026",
+    dates: "30 July — 27 August 2026",
+    startDate: "30 July 2026",
+    endDate: "27 August 2026",
+    dateSource: "exhibition",
+    artists: ["Markéta Slaná", "Karolina Jarzębak"],
+    curator: "Tina Poliačková",
+    photographer: "Markéta Slaná",
+    source: "O FLUXO",
+    sourceUrl: "https://www.ofluxo.net/",
+    unoptimized: true,
+    description: `With a bit of hyperbole, one could say that every society can be described by what it secretly craves: the shiny surfaces that brush against our skin, the things we devour with fascination, upload, apathetically doomscroll through, monetize, and so eagerly gamble away. It is no coincidence that the rhythm of everyday communication and common cultural understanding is increasingly dictated by viral movements, memetic shorthand, and references that contribute to the formation of the collective imagination and often emotionally fabricated political preferences. Mechanisms woven into the logic of social media—such as compulsive imitation, repetition, and ironic play with shifts in meaning—enable us to create recognizable patterns within the chaotic mass of information; thanks to their catchy, hashtag-friendly names, these patterns simply stick to us and gain greater intensity in the form of sharpness and saturation. For feminist theorist Sarah Ahmed, in her book The Cultural Politics of Emotion (2004), the sensually charged concept of "stickiness" became one of the central metaphors through which she prophetically predicted, already at the dawn of the 2000s, the impending importance of the affective interconnection between human emotions and non-human, machine-like bodies. In the current context of post-digital society, therefore, we are not hostages to our own emotions—that we release into the surrounding world—but rather we share and mutually amplify them together with the algorithms themselves. Their adhesiveness grows alongside digital circulation or repetition and appears more as an active node within a pervasive affective economy.
+
+The Rot Summer exhibition is thus a journey through algorithmic terrain, in which the ready-made objects and sculptural installations by Markéta Slaná and Karolina Jarzębak encounter the stickiness of viral structures, the colonization of attention, performative self-optimization, and chains of compulsive gestures. In her suspended object in the form of a lamp, aptly titled Memorial for Paulina K. (2024), Jarzębak explores the remarkable case of a young woman who fell into an obsessive love for Polish soccer player Artur Boruc and, at the turn of the 2000s and 2010s, created a schizo-paranoid series of blog posts and YouTube videos that in many ways resemble the emotionally charged nature of contemporary TikTok vlogs. She also explores a certain illusory self-projection in a pair of mirrors featuring toxic-positive affirmations titled 10 Commandments of a Looker (2025). This theme is further explored in Markéta Slaná's monumental metal heart titled x²+(y−√∣x∣)²=1 (2026), shaped like a Fibonacci spiral, which speculates on the mathematical formulas of the "ideal of beauty and love" and the algorithmic modeling of the pattern recognition of bodily perfection in the online sphere. Slaná's objects themselves often conceal the seeds of performative gestures, such as the experience of dopamine-fueled euphoria from scratching off a lottery ticket in the work Lottery Tickets (2025), which gambles on the promise of creating truly viral content. Similarly, the Paperclips (2024) evoke the interconnection of bureaucratic regulations and data, much like the chaining of algorithmic instructions, which—due to their sheer volume—ironically become a potential weapon for workers.
+
+Many Reddit conspirators view today's internet as a vast digital graveyard, where we wander through a true ghost town of abandoned discussion forums, user accounts, and defunct websites—a place now ruled by new spectres: automated bots or generative AI serving corporate interests. Wandering through the necropolis of Karolína Jarzębak's Graves of the Anonymus (2020), we're getting involved in a collective, post-ironic lament over the loss of our own autonomy, but also over the dizzyingly rapid obsolescence of digital content, with which a part of ourselves also fades away. What happens when the life of a favorite viral video or meme fizzles out? The artist's Cockroach Doomscroller (2025) chooses the path of apathetic "bed rotting," yet at the same time suggests, in a Kafkaesque manner, that in the post-digital wasteland we ourselves become fully functional machines, and that nothing like absolute death exists—only a path of constant transformation and reinvention into new affective structures.`,
+    previewImage: localExhibitionImage("ROT SUMMER", "1.webp"),
+    heroImage: localExhibitionImage("ROT SUMMER", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "ROT SUMMER",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+      ],
+      "Markéta Slaná",
+    ),
+  },
   {
     slug: "techno-worlds-final-sampling",
     title: "Techno Worlds — Final Sampling",
@@ -5979,6 +6029,7 @@ const mappedExhibitions: Exhibition[] = exhibitionSeeds.map(
 );
 
 const HOMEPAGE_ORDER = [
+  "rot-summer",
   "techno-worlds-final-sampling",
   "axial-core",
   "after-the-offerings",
