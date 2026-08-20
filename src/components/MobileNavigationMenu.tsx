@@ -92,8 +92,8 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
 
           {/* Off-canvas panel, slides in from the left. */}
           <aside
-            className={`absolute left-0 top-0 flex h-full w-[82%] max-w-[320px] flex-col bg-white shadow-[4px_0_24px_rgba(0,0,0,0.08)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              open ? "translate-x-0" : "-translate-x-full"
+            className={`absolute inset-x-0 top-0 flex max-h-[92vh] w-full flex-col bg-white shadow-[0_12px_28px_rgba(0,0,0,0.08)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              open ? "translate-y-0" : "-translate-y-full"
             }`}
           >
             <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">

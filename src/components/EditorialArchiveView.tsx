@@ -1,12 +1,74 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { DensityToggleButton, type DensityValue } from "./DensityToggleButton";
 import { EditorialCard } from "./EditorialCard";
 import { Header } from "./Header";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
 import { SearchBar } from "./SearchBar";
 import { useSavedExhibitions } from "./SavedExhibitions";
+
+const FEATURES_BANNERS = [
+  { src: "/editorial/banner/1.webp", alt: "Features banner 1" },
+  { src: "/editorial/banner/2.webp", alt: "Features banner 2" },
+];
+
+function FeaturesBanner() {
+  const [active, setActive] = useState(0);
+  const pausedRef = useRef(false);
+  const count = FEATURES_BANNERS.length;
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      if (pausedRef.current) return;
+      setActive((current) => (current + 1) % count);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [count]);
+
+  return (
+    <section aria-label="Features banners" className="relative">
+      <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100 md:aspect-[21/9]">
+        {FEATURES_BANNERS.map((banner, index) => (
+          <Image
+            key={banner.src}
+            src={banner.src}
+            alt={index === 0 ? banner.alt : ""}
+            fill
+            unoptimized
+            sizes="100vw"
+            priority={index === 0}
+            className={`object-cover transition-opacity duration-700 ease-out ${
+              index === active ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+      </div>
+      <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2">
+        {FEATURES_BANNERS.map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            aria-label={`Show features banner ${index + 1}`}
+            aria-current={index === active ? "true" : undefined}
+            onClick={() => setActive(index)}
+            onMouseEnter={() => {
+              pausedRef.current = true;
+              setActive(index);
+            }}
+            onMouseLeave={() => {
+              pausedRef.current = false;
+            }}
+            className={`h-[3px] w-10 transition-colors duration-300 ${
+              index === active ? "bg-white" : "bg-white/40"
+            }`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
 import {
   editorialSavedKey,
   type EditorialArtist,
@@ -94,6 +156,7 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
         onToggleSavedOnly={toggleSavedOnly}
         savedHref="/editorial?saved=1"
       />
+      <FeaturesBanner />
       <section className="px-5 py-8 md:px-8 md:py-10 lg:px-12 lg:py-12">
         <div className="mb-8 flex items-center justify-between gap-5 md:mb-10">
           <a

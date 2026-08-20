@@ -337,6 +337,7 @@ export function CollectArchiveView({ images }: { images: string[] }) {
   // responsive; hooking it into the filter pipeline can happen once the source
   // data has that column.
   const [availability, setAvailability] = useState<Set<Availability>>(new Set());
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const artworks = useMemo(
     () => {
       const filtered = buildCollectArtworks(images)
@@ -387,9 +388,19 @@ export function CollectArchiveView({ images }: { images: string[] }) {
         />
       </div>
 
-      <div className="md:grid md:grid-cols-[280px_minmax(0,1fr)] md:gap-8 md:px-8 md:pb-20 md:pt-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-10 lg:px-12">
+      <div className={`md:grid md:gap-8 md:px-8 md:pb-20 md:pt-6 lg:gap-10 lg:px-12 ${sidebarOpen ? "md:grid-cols-[280px_minmax(0,1fr)] lg:grid-cols-[300px_minmax(0,1fr)]" : "md:grid-cols-[90px_minmax(0,1fr)]"}`}>
         <aside className="hidden md:block" aria-label="Collect filters">
           <div className="sticky top-[89px] max-h-[calc(100vh-110px)] overflow-y-auto pb-8 pr-2">
+            <button
+              type="button"
+              onClick={() => setSidebarOpen((current) => !current)}
+              className="mb-5 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-700 transition-opacity hover:opacity-55"
+            >
+              <span aria-hidden="true" className="text-[13px] leading-none">{sidebarOpen ? "←" : "→"}</span>
+              Filters
+            </button>
+            {sidebarOpen && (
+              <>
             <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Search artworks</p>
             <label className="flex h-10 items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 text-neutral-500 focus-within:border-neutral-400">
               <svg viewBox="0 0 20 20" className="h-4 w-4 text-neutral-400" fill="none" aria-hidden="true">
@@ -564,6 +575,8 @@ export function CollectArchiveView({ images }: { images: string[] }) {
                 Clear All
               </button>
             </div>
+              </>
+            )}
           </div>
         </aside>
 

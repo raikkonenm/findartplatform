@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Header } from "./Header";
 import { HeartIcon } from "./SavedExhibitions";
@@ -50,7 +51,7 @@ const AUDIENCE_OPTIONS = [
   "Interdisciplinary practitioners",
 ] as const;
 
-const OPPORTUNITIES: Opportunity[] = [
+export const OPPORTUNITIES: Opportunity[] = [
   {
     slug: "das-minsk-culinary-residency",
     organizer: "DAS MINSK Kunsthaus",
@@ -795,10 +796,24 @@ function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
   );
 }
 
-function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; onOpen: () => void }) {
+function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void }) {
   return (
-    <article className="group/card flex min-h-[260px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[340px] md:p-5">
-      <div className="mb-4 flex items-start justify-between gap-2 md:mb-8 md:gap-3">
+    <article className="group/card relative flex min-h-[260px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[340px] md:p-5">
+      <button
+        type="button"
+        aria-label={isSaved ? `Remove ${opportunity.title} from saved` : `Save ${opportunity.title}`}
+        aria-pressed={isSaved}
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggleSaved();
+        }}
+        className={`absolute right-3 top-3 z-10 text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none ${
+          isSaved ? "opacity-100" : "opacity-0 group-hover/card:opacity-100"
+        }`}
+      >
+        <HeartIcon filled={isSaved} className="h-4 w-4" />
+      </button>
+      <div className="mb-4 flex items-start justify-between gap-2 pr-6 md:mb-8 md:gap-3">
         <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 md:text-[10px]">{opportunity.organizer}</p>
         <FeeTag fee={opportunity.applicationFee} />
       </div>
@@ -992,7 +1007,7 @@ function OpportunityDetail({ opportunity, onClose }: { opportunity: Opportunity;
   return (
     <div className="fixed inset-x-0 bottom-0 top-[65px] z-[70]" role="dialog" aria-modal="true">
       <button type="button" aria-label="Close opportunity" onClick={onClose} className="absolute inset-0 bg-black/25" />
-      <aside className="absolute inset-y-0 right-0 w-full overflow-y-auto bg-[var(--background)] shadow-[-12px_0_35px_rgba(0,0,0,0.12)] md:w-[72vw] lg:w-[62vw] lg:max-w-[1050px]">
+      <aside className="absolute inset-x-0 top-0 max-h-[92vh] w-full overflow-y-auto bg-[var(--background)] shadow-[0_16px_35px_rgba(0,0,0,0.15)] md:inset-y-0 md:right-0 md:left-auto md:top-0 md:max-h-none md:w-[72vw] md:shadow-[-12px_0_35px_rgba(0,0,0,0.12)] lg:w-[62vw] lg:max-w-[1050px]">
         <div className="mx-auto max-w-[880px] px-5 pb-20 pt-6 md:px-10 md:pt-10 lg:px-14">
           <div className="mb-6 flex items-start justify-between gap-6">
             <p className="pt-2 text-[10px] uppercase tracking-[0.2em] text-neutral-500">{opportunity.organizer}</p>
@@ -1096,7 +1111,7 @@ function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilter
   return (
     <div className="fixed inset-0 z-[80] md:hidden" role="dialog" aria-modal="true" aria-label="Filter & Sort">
       <button type="button" aria-label="Close filters" onClick={onClose} className="absolute inset-0 bg-black/40" />
-      <aside className="absolute inset-y-0 right-0 flex w-[92%] max-w-[420px] flex-col bg-white shadow-[-12px_0_35px_rgba(0,0,0,0.15)]">
+      <aside className="absolute inset-x-0 top-0 flex max-h-[92vh] w-full flex-col bg-white shadow-[0_16px_35px_rgba(0,0,0,0.15)]">
         <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
           <h2 className="text-[15px] font-medium text-neutral-900">Filter &amp; Sort</h2>
           <button type="button" onClick={onClose} aria-label="Close filters" className="flex h-9 w-9 items-center justify-center rounded-md border border-neutral-200 text-neutral-700 transition-colors hover:border-neutral-400">
@@ -1230,9 +1245,40 @@ export function OpportunitiesArchiveView() {
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
   const [today, setToday] = useState<Date | null>(null);
-  const [selectedOpportunity, setSelectedOpportunity] = useState<Opportunity | null>(null);
+  const [selectedOpportunity, setSelectedOpportunityState] = useState<Opportunity | null>(null);
   const [query, setQuery] = useState("");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Bidirectional URL sync: opening a card pushes ?opp=slug so the URL
+  // is shareable and bookmarkable; landing on such a URL opens the
+  // corresponding drawer on first paint. Closing the drawer clears the
+  // param.
+  const openOpportunity = useCallback(
+    (opp: Opportunity | null) => {
+      setSelectedOpportunityState(opp);
+      if (typeof window === "undefined") return;
+      const params = new URLSearchParams(window.location.search);
+      if (opp) params.set("opp", opp.slug);
+      else params.delete("opp");
+      const query = params.toString();
+      router.replace(query ? `/opportunities?${query}` : "/opportunities", { scroll: false });
+    },
+    [router],
+  );
+
+  useEffect(() => {
+    const slug = searchParams.get("opp");
+    if (!slug) {
+      if (selectedOpportunity) setSelectedOpportunityState(null);
+      return;
+    }
+    if (selectedOpportunity?.slug === slug) return;
+    const match = OPPORTUNITIES.find((o) => o.slug === slug);
+    if (match) setSelectedOpportunityState(match);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
   const optionsRailRef = useRef<HTMLDivElement>(null);
   const railPausedRef = useRef(false);
   const railManualScrollRef = useRef<number | null>(null);
@@ -1593,12 +1639,20 @@ export function OpportunitiesArchiveView() {
         {visibleOpportunities.length > 0 ? (
           viewMode === "grid" ? (
             <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
-              {visibleOpportunities.map((opportunity) => <OpportunityCard key={opportunity.slug} opportunity={opportunity} onOpen={() => setSelectedOpportunity(opportunity)} />)}
+              {visibleOpportunities.map((opportunity) => (
+                <OpportunityCard
+                  key={opportunity.slug}
+                  opportunity={opportunity}
+                  onOpen={() => openOpportunity(opportunity)}
+                  isSaved={savedSet.has(opportunity.slug)}
+                  onToggleSaved={() => toggleSaved(opportunity.slug)}
+                />
+              ))}
             </div>
           ) : (
             <OpportunitiesListView
               opportunities={visibleOpportunities}
-              onOpen={(opp) => setSelectedOpportunity(opp)}
+              onOpen={(opp) => openOpportunity(opp)}
               savedSet={savedSet}
               onToggleSaved={toggleSaved}
               sortDirection={sortDirection}
@@ -1610,7 +1664,7 @@ export function OpportunitiesArchiveView() {
           <p className="py-24 text-center text-[12px] uppercase tracking-[0.18em] text-neutral-500">No opportunities match these filters</p>
         )}
       </section>
-      {selectedOpportunity ? <OpportunityDetail opportunity={selectedOpportunity} onClose={() => setSelectedOpportunity(null)} /> : null}
+      {selectedOpportunity ? <OpportunityDetail opportunity={selectedOpportunity} onClose={() => openOpportunity(null)} /> : null}
       <MobileFiltersDrawer
         open={mobileFiltersOpen}
         onClose={() => setMobileFiltersOpen(false)}

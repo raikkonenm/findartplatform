@@ -61,7 +61,7 @@ export function MobileFilterSheet({
         onClick={onClose}
         className="absolute inset-0 bg-black/40"
       />
-      <aside className="absolute inset-y-0 right-0 flex w-[92%] max-w-[420px] flex-col bg-white shadow-[-12px_0_35px_rgba(0,0,0,0.15)]">
+      <aside className="absolute inset-x-0 top-0 flex max-h-[92vh] w-full flex-col bg-white shadow-[0_16px_35px_rgba(0,0,0,0.15)]">
         <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
           <h2 className="text-[15px] font-medium text-neutral-900">{title}</h2>
           <button

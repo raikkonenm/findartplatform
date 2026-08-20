@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { exhibitions } from "@/data/exhibitions";
 import { editorialArtists } from "@/data/editorial";
+import { OPPORTUNITIES } from "./OpportunitiesArchiveView";
 import { useSearchPanel } from "./SearchPanelContext";
 
 type SearchCategory = "Exhibition" | "Feature" | "Opportunity" | "Index" | "Collect";
@@ -15,93 +16,10 @@ type SearchItem = {
   category: SearchCategory;
   href: string;
   external?: boolean;
+  /** Additional free-text pool searched alongside title / subtitle. */
+  haystack?: string;
 };
 
-const OPPORTUNITIES_INDEX: SearchItem[] = [
-  {
-    id: "opp-industra",
-    category: "Opportunity",
-    title: "Industra Art Open Call 2027",
-    subtitle: "INDUSTRA ART Gallery · Brno, Czech Republic · 31 Aug 2026",
-    href: "/opportunities",
-  },
-  {
-    id: "opp-minsk",
-    category: "Opportunity",
-    title: "Culinary Residency",
-    subtitle: "DAS MINSK Kunsthaus · Potsdam, Germany · 5 Sep 2026",
-    href: "/opportunities",
-  },
-  {
-    id: "opp-ctm",
-    category: "Opportunity",
-    title: "In Listening 2027",
-    subtitle: "CTM Festival · Berlin, Germany · 6 Sep 2026",
-    href: "/opportunities",
-  },
-  {
-    id: "opp-atmospheric",
-    category: "Opportunity",
-    title: "Atmospheric Waves",
-    subtitle: "ASTE · Liepāja, Latvia · 4 Sep 2026",
-    href: "/opportunities",
-  },
-  {
-    id: "opp-oasis-le-garage",
-    category: "Opportunity",
-    title: "OASIs 2026 — International Residency",
-    subtitle: "Le Garage Moderne · Bordeaux, France · 1 Sep 2026",
-    href: "/opportunities",
-  },
-  {
-    id: "opp-artists-in-the-library",
-    category: "Opportunity",
-    title: "Artists in the Library",
-    subtitle: "Toronto Arts Council · Toronto, Canada · 6 Oct 2026",
-    href: "/opportunities",
-  },
-  {
-    id: "opp-cica-photo-2027",
-    category: "Opportunity",
-    title: "Photography Now 2027",
-    subtitle: "CICA Museum · Gimpo, South Korea · 20 Aug 2026",
-    href: "/opportunities",
-  },
-  {
-    id: "opp-arrival-paris",
-    category: "Opportunity",
-    title: "Bring Your Art to Paris — September 2026",
-    subtitle: "Arrival Gallery · Paris, France · 20 Aug 2026",
-    href: "/opportunities",
-  },
-  {
-    id: "opp-za-koenji-pack-2026",
-    category: "Opportunity",
-    title: "Performing Arts Camp in Koenji 2026",
-    subtitle: "ZA-KOENJI Public Theatre · Tokyo, Japan · 24 Aug 2026",
-    href: "/opportunities",
-  },
-  {
-    id: "opp-hypha-sevenoaks",
-    category: "Opportunity",
-    title: "Sevenoaks Open Call — Studio & Project Spaces",
-    subtitle: "Hypha Studios · Sevenoaks, UK · 6 Sep 2026",
-    href: "/opportunities",
-  },
-  { id: "opp-unlimited-partner-awards", category: "Opportunity", title: "Partner Awards 2026/27", subtitle: "Unlimited · United Kingdom · 28 Sep 2026", href: "/opportunities" },
-  { id: "opp-espace-brownstone", category: "Opportunity", title: "Espace Brownstone Residency 2027", subtitle: "Espace Brownstone × Art in Latin America · Paris, France · 15 Oct 2026", href: "/opportunities" },
-  { id: "opp-tagli-mentorship", category: "Opportunity", title: "TAGLI 2026 Mentorship Award", subtitle: "THE TAGLI × Rosewood London · London, UK · 6 Sep 2026", href: "/opportunities" },
-  { id: "opp-shelter-bermondsey", category: "Opportunity", title: "Shelter — Group Exhibition", subtitle: "Monica Mardare · London, UK · 30 Sep 2026", href: "/opportunities" },
-  { id: "opp-arteles-neo-future", category: "Opportunity", title: "Neo Future — Shifting into New Realities", subtitle: "Arteles Creative Center · Hämeenkyrö, Finland · 3 Sep 2026", href: "/opportunities" },
-  { id: "opp-aspex-communal", category: "Opportunity", title: "Communal Autumn/Winter — 'Form'", subtitle: "Aspex Portsmouth · Portsmouth, UK · 6 Sep 2026", href: "/opportunities" },
-  { id: "opp-teatri-riflessi-2027", category: "Opportunity", title: "Teatri Riflessi 2027 — Short Performance Competition", subtitle: "IterCulture APS · Zafferana Etnea, Italy · 15 Oct 2026", href: "/opportunities" },
-  { id: "opp-hessische-kulturstiftung", category: "Opportunity", title: "Travel & Residency Grants 2027/2028", subtitle: "Hessische Kulturstiftung · Wiesbaden, Germany · 15 Oct 2026", href: "/opportunities" },
-  { id: "opp-perch-yale-mix", category: "Opportunity", title: "The Perch — 'The Mix' Open Call", subtitle: "Yale PRCH · New Haven, USA · 31 Oct 2026", href: "/opportunities" },
-  { id: "opp-tpg-cite-past-sight-stars", category: "Opportunity", title: "Cite the Past, Sight the Stars — Residency", subtitle: "The Photographers' Gallery · Derbyshire, UK · 6 Sep 2026", href: "/opportunities" },
-  { id: "opp-wrg-digital-callout", category: "Opportunity", title: "WRG Digital Call-Out — Generation Xi", subtitle: "White Rabbit Gallery · Sydney, Australia · 14 Sep 2026", href: "/opportunities" },
-  { id: "opp-ceramics-now-annual", category: "Opportunity", title: "Ceramics Now Annual 2026 — Featured Artist", subtitle: "Ceramics Now · International · 15 Sep 2026", href: "/opportunities" },
-  { id: "opp-roi-annual-2026", category: "Opportunity", title: "ROI Annual Exhibition 2026 — Open Submission", subtitle: "Royal Institute of Oil Painters · London, UK · 9 Oct 2026", href: "/opportunities" },
-];
 
 const DIRECTORY_INDEX: SearchItem[] = [
   { id: "dir-ruby", category: "Index", title: "Ruby Chen", subtitle: "rubyljchen.com", href: "https://www.rubyljchen.com/", external: true },
@@ -219,6 +137,21 @@ export function GlobalSearchOverlay() {
         .filter(Boolean)
         .join(" · "),
       href: `/exhibitions/${exhibition.slug}`,
+      haystack: [
+        exhibition.subtitle,
+        exhibition.gallery,
+        exhibition.venue,
+        exhibition.city,
+        exhibition.country,
+        exhibition.year,
+        exhibition.dates,
+        exhibition.curator,
+        exhibition.photographer,
+        exhibition.description,
+        (exhibition.artists ?? []).join(" "),
+      ]
+        .filter(Boolean)
+        .join(" "),
     }));
 
     const editorialItems: SearchItem[] = editorialArtists.map((artist) => ({
@@ -227,12 +160,32 @@ export function GlobalSearchOverlay() {
       title: artist.artistName,
       subtitle: artist.instagramHandle,
       href: `/editorial/${artist.slug}`,
+      haystack: [artist.excerpt, artist.body, artist.instagramHandle].filter(Boolean).join(" "),
     }));
 
     return [
       ...exhibitionItems,
       ...editorialItems,
-      ...OPPORTUNITIES_INDEX,
+      ...OPPORTUNITIES.map((opp) => ({
+        id: `opp-${opp.slug}`,
+        category: "Opportunity" as const,
+        title: opp.title,
+        subtitle: [opp.organizer, opp.location, opp.deadline].filter(Boolean).join(" · "),
+        href: `/opportunities?opp=${opp.slug}`,
+        haystack: [
+          opp.audience,
+          (opp.tags ?? []).join(" "),
+          (opp.type ?? []).join(" "),
+          (opp.fields ?? []).join(" "),
+          (opp.rewards ?? []).join(" "),
+          opp.rewardSummary,
+          opp.applicationFee,
+          ...(opp.intro ?? []),
+          ...((opp.sections ?? []).flatMap((s) => [s.title, ...s.items])),
+        ]
+          .filter(Boolean)
+          .join(" "),
+      })),
       ...DIRECTORY_INDEX,
     ];
   }, []);
@@ -240,10 +193,11 @@ export function GlobalSearchOverlay() {
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return null;
-    const matches = fullIndex.filter((item) =>
-      item.title.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q)
-    );
-    return matches.slice(0, 40);
+    const matches = fullIndex.filter((item) => {
+      const pool = `${item.title} ${item.subtitle} ${item.haystack ?? ""}`.toLowerCase();
+      return pool.includes(q);
+    });
+    return matches.slice(0, 60);
   }, [query, fullIndex]);
 
   const onNavigate = (item: SearchItem) => {

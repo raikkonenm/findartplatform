@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Header } from "./Header";
+import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 import { IndexImageCarousel } from "./IndexImageCarousel";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
 import { SearchBar } from "./SearchBar";
@@ -125,31 +126,34 @@ export function DirectoryArchiveView() {
 
   const gridColsClass =
     density === "dense"
-      ? "grid-cols-2 md:grid-cols-4 lg:grid-cols-5"
+      ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
       : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-white pt-[65px]">
       <Header />
-      <section className="px-5 pb-24 pt-8 md:px-8 md:pt-12 lg:px-12">
-        <p className="mb-3 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
-          Index
-        </p>
-        <h1 className="editorial-serif mb-12 max-w-3xl break-words text-[clamp(1.4rem,4.5vw,2.5rem)] leading-[1.15] tracking-[-0.02em] text-neutral-800">
-          Discover how artists, galleries and institutions present their work online.
-        </h1>
-
-        <div className="flex flex-col gap-3 border-t border-[var(--border)] pt-4 md:flex-row md:items-center md:justify-end md:gap-4 md:border-t-0 md:pt-0">
-          {/* Mobile: SearchBar + filter drawer trigger. Desktop uses the global
-              header search; page-level search is hidden. */}
-          <div className="md:hidden">
-            <SearchBar
-              value={query}
-              onChange={setQuery}
-              placeholder="Search websites"
-              onFilterClick={() => setMobileFiltersOpen(true)}
+      <section className="px-5 pb-24 pt-6 md:px-8 md:pt-6 lg:px-12">
+        <div className="mb-6 flex items-baseline justify-between gap-5 md:mb-8">
+          <h1 className="editorial-serif max-w-3xl break-words text-[clamp(1rem,2vw,1.4rem)] leading-[1.15] tracking-[-0.02em] text-neutral-800">
+            Discover how artists, galleries and institutions present their work online.
+          </h1>
+          <div className="hidden shrink-0 md:block">
+            <DensityToggle
+              density={density}
+              onCycle={() =>
+                setDensity((current) => (current === "normal" ? "dense" : "normal"))
+              }
             />
           </div>
+        </div>
+
+        <div className="flex flex-col gap-3 md:hidden">
+          <SearchBar
+            value={query}
+            onChange={setQuery}
+            placeholder="Search websites"
+            onFilterClick={() => setMobileFiltersOpen(true)}
+          />
         </div>
 
         {visible.length === 0 ? (
@@ -197,43 +201,63 @@ export function DirectoryArchiveView() {
 }
 
 function DirectoryCard({ entry }: { entry: IndexEntry }) {
+  const savedKey = `directory:${entry.href}`;
+  const { isSaved, toggleSaved } = useSavedExhibitions();
+  const saved = isSaved(savedKey);
   return (
-    <a
-      href={entry.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block min-w-0"
-    >
-      <div className="relative aspect-[2/1] overflow-hidden bg-neutral-100">
-        {entry.kind === "video" ? (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025]"
-          >
-            <source src={entry.media as string} type="video/mp4" />
-          </video>
-        ) : (
-          <IndexImageCarousel
-            images={entry.media as string[]}
-            alt={entry.name}
-            fit={entry.fit ?? "cover"}
-          />
-        )}
-      </div>
-      <div className="archive-card-copy pt-5">
-        <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]">
-          {entry.name}
-          <span className="ml-2 inline-block align-[0.15em] text-[0.6em]">&#8599;</span>
-        </h2>
-        <p className="mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888] md:text-[11px] md:tracking-[0.18em] md:text-neutral-500">
-          {entry.subtitle}
-        </p>
-      </div>
-    </a>
+    <article className="group relative min-w-0">
+      <a
+        href={entry.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block"
+      >
+        <div className="relative aspect-[2/1] overflow-hidden bg-neutral-100">
+          {entry.kind === "video" ? (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025]"
+            >
+              <source src={entry.media as string} type="video/mp4" />
+            </video>
+          ) : (
+            <IndexImageCarousel
+              images={entry.media as string[]}
+              alt={entry.name}
+              fit={entry.fit ?? "cover"}
+            />
+          )}
+        </div>
+        <div className="archive-card-copy pt-5">
+          <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]">
+            {entry.name}
+            <span className="ml-2 inline-block align-[0.15em] text-[0.6em]">&#8599;</span>
+          </h2>
+          <p className="mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888] md:text-[11px] md:tracking-[0.18em] md:text-neutral-500">
+            {entry.subtitle}
+          </p>
+        </div>
+      </a>
+      <button
+        type="button"
+        aria-label={saved ? `Remove ${entry.name} from saved` : `Save ${entry.name}`}
+        aria-pressed={saved}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          toggleSaved(savedKey);
+        }}
+        className={`absolute right-3 top-3 z-10 text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none ${
+          saved ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"
+        }`}
+      >
+        <HeartIcon filled={saved} className="h-4 w-4" />
+      </button>
+    </article>
   );
 }
 

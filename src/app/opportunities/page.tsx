@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { OpportunitiesArchiveView } from "@/components/OpportunitiesArchiveView";
 
 export const metadata: Metadata = {
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function OpportunitiesPage() {
-  return <OpportunitiesArchiveView />;
+  return (
+    <Suspense fallback={null}>
+      <OpportunitiesArchiveView />
+    </Suspense>
+  );
 }
