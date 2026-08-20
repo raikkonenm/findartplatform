@@ -7,7 +7,6 @@ import type { Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayVenueText } from "@/lib/displayVenueText";
 import { OnViewDot } from "./OnViewDot";
-import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
 type ExhibitionCardProps = {
   exhibition: Exhibition;
@@ -119,8 +118,6 @@ export function ExhibitionCard({
   hideMobileSubtitle = false,
 }: ExhibitionCardProps) {
   const aspect = aspectClassForSlug(exhibition.slug);
-  const { isSaved, toggleSaved } = useSavedExhibitions();
-  const saved = isSaved(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
   const desktopSlideshow = DESKTOP_SLIDESHOW_SLUGS.has(exhibition.slug);
 
@@ -170,19 +167,6 @@ export function ExhibitionCard({
           </p>
         </div>
       </Link>
-      <button
-        type="button"
-        aria-label={saved ? `Remove ${title} from saved exhibitions` : `Save ${title}`}
-        aria-pressed={saved}
-        onClick={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          toggleSaved(exhibition.slug);
-        }}
-        className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm backdrop-blur-sm transition-opacity duration-200 hover:opacity-70 focus-visible:opacity-100 focus-visible:outline-none"
-      >
-        <HeartIcon filled={saved} className="h-4 w-4" />
-      </button>
     </article>
   );
 }

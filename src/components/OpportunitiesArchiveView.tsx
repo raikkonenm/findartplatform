@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Header } from "./Header";
-import { HeartIcon } from "./SavedExhibitions";
 import { SearchBar } from "./SearchBar";
 
 const FILTERS = {
@@ -799,20 +798,6 @@ function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
 function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void }) {
   return (
     <article className="group/card relative flex min-h-[260px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[340px] md:p-5">
-      <button
-        type="button"
-        aria-label={isSaved ? `Remove ${opportunity.title} from saved` : `Save ${opportunity.title}`}
-        aria-pressed={isSaved}
-        onClick={(event) => {
-          event.stopPropagation();
-          onToggleSaved();
-        }}
-        className={`absolute right-3 top-3 z-10 text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none ${
-          isSaved ? "opacity-100" : "opacity-0 group-hover/card:opacity-100"
-        }`}
-      >
-        <HeartIcon filled={isSaved} className="h-4 w-4" />
-      </button>
       <div className="mb-4 flex items-start justify-between gap-2 pr-6 md:mb-8 md:gap-3">
         <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 md:text-[10px]">{opportunity.organizer}</p>
         <FeeTag fee={opportunity.applicationFee} />
@@ -860,7 +845,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       tabIndex={0}
       onClick={onOpen}
       onKeyDown={onKeyDown}
-      className={`group grid cursor-pointer grid-cols-[1fr_auto_28px] items-start gap-x-5 gap-y-2 border-b border-neutral-200 px-2 py-6 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6`}
+      className={`group grid cursor-pointer grid-cols-[1fr_auto] items-start gap-x-5 gap-y-2 border-b border-neutral-200 px-2 py-6 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6`}
     >
       {/* TYPE eyebrow — mobile only */}
       <span className="order-1 col-span-2 text-[10px] uppercase tracking-[0.22em] text-neutral-500 md:hidden">
@@ -918,19 +903,6 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
         <FeeTag fee={opportunity.applicationFee} compact />
       </span>
 
-      {/* SAVE — mobile only, desktop VIEW replaces it */}
-      <button
-        type="button"
-        aria-label={isSaved ? "Unsave opportunity" : "Save opportunity"}
-        aria-pressed={isSaved}
-        onClick={(event) => {
-          event.stopPropagation();
-          onToggleSaved();
-        }}
-        className={`order-3 justify-self-end self-start text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none md:hidden ${isSaved ? "opacity-100" : "opacity-40 group-hover:opacity-100"}`}
-      >
-        <HeartIcon filled={isSaved} className="h-4 w-4" />
-      </button>
     </div>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { Header } from "./Header";
-import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 import { IndexImageCarousel } from "./IndexImageCarousel";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
 
@@ -189,9 +188,6 @@ export function DirectoryArchiveView() {
 }
 
 function DirectoryCard({ entry }: { entry: IndexEntry }) {
-  const savedKey = `directory:${entry.href}`;
-  const { isSaved, toggleSaved } = useSavedExhibitions();
-  const saved = isSaved(savedKey);
   return (
     <article className="group relative min-w-0">
       <a
@@ -230,19 +226,6 @@ function DirectoryCard({ entry }: { entry: IndexEntry }) {
           </p>
         </div>
       </a>
-      <button
-        type="button"
-        aria-label={saved ? `Remove ${entry.name} from saved` : `Save ${entry.name}`}
-        aria-pressed={saved}
-        onClick={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          toggleSaved(savedKey);
-        }}
-        className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm backdrop-blur-sm transition-opacity duration-200 hover:opacity-70 focus-visible:opacity-100 focus-visible:outline-none"
-      >
-        <HeartIcon filled={saved} className="h-4 w-4" />
-      </button>
     </article>
   );
 }

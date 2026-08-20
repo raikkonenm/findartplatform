@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import type { CollectArtwork } from "@/lib/collectArtworks";
-import { artworkSavedKey } from "@/lib/collectArtworks";
-import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
 const WORK_TITLES = [
   "Untitled",
@@ -40,9 +38,6 @@ export function CollectArtworkCard({
   columns?: 2 | 3 | 4;
   className?: string;
 }) {
-  const { isSaved, toggleSaved } = useSavedExhibitions();
-  const savedKey = artworkSavedKey(artwork.src);
-  const saved = isSaved(savedKey);
 
   const title = workTitleFor(artwork.index);
   const year = workYearFor(artwork.index);
@@ -69,19 +64,6 @@ export function CollectArtworkCard({
           }
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
         />
-        <button
-          type="button"
-          aria-label={saved ? `Remove ${title} from saved artworks` : `Save ${title}`}
-          aria-pressed={saved}
-          onClick={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            toggleSaved(savedKey);
-          }}
-          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm backdrop-blur-sm transition-opacity duration-200 hover:opacity-70 focus-visible:opacity-100 focus-visible:outline-none"
-        >
-          <HeartIcon filled={saved} className="h-4 w-4" />
-        </button>
       </div>
       <div className="pt-2.5 md:pt-3">
         <p className="text-[12px] font-medium leading-tight text-neutral-900 md:text-[13px]">
