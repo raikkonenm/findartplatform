@@ -28,7 +28,7 @@ const OPPORTUNITIES_INDEX: SearchItem[] = [
   {
     id: "opp-minsk",
     category: "Opportunity",
-    title: "Open Call: Culinary Residency",
+    title: "Culinary Residency",
     subtitle: "DAS MINSK Kunsthaus · Potsdam, Germany · 5 Sep 2026",
     href: "/opportunities",
   },
@@ -37,6 +37,20 @@ const OPPORTUNITIES_INDEX: SearchItem[] = [
     category: "Opportunity",
     title: "In Listening 2027",
     subtitle: "CTM Festival · Berlin, Germany · 6 Sep 2026",
+    href: "/opportunities",
+  },
+  {
+    id: "opp-atmospheric",
+    category: "Opportunity",
+    title: "Atmospheric Waves",
+    subtitle: "ASTE · Liepāja, Latvia · 4 Sep 2026",
+    href: "/opportunities",
+  },
+  {
+    id: "opp-oasis-le-garage",
+    category: "Opportunity",
+    title: "OASIs 2026 — International Residency",
+    subtitle: "Le Garage Moderne · Bordeaux, France · 1 Sep 2026",
     href: "/opportunities",
   },
 ];
