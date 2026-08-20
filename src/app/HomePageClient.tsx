@@ -1486,7 +1486,7 @@ export default function HomePageClient({
       {/* Exhibition feed — CSS columns provides masonry without JS. Cards have
           their own `mb-[72px]` for row rhythm and `break-inside-avoid` to stay
           intact across column boundaries. */}
-      <section className="bg-white px-5 pb-10 pt-3 md:px-8 md:pb-16 md:pt-4 lg:px-12 lg:pb-20">
+      <section className="bg-white px-2 pb-10 pt-3 md:px-8 md:pb-16 md:pt-4 lg:px-12 lg:pb-20">
         {filtered.length === 0 ? (
           <p className="text-[11px] uppercase tracking-[0.25em] text-neutral-400">
             No exhibitions match your filters.

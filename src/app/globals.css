@@ -203,7 +203,7 @@ html.route-progress-loading.route-progress-complete::after {
    each column matches the previous per-card margin-bottom. */
 .masonry-rows {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: flex-start;
 }
 @media (min-width: 768px) {
@@ -217,8 +217,8 @@ html.route-progress-loading.route-progress-complete::after {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  /* Tight vertical rhythm on mobile — full 64px on tablet+ */
-  gap: 16px;
+  /* Tight Pinterest-style rhythm on mobile — full 64px on tablet+ */
+  gap: 8px;
 }
 @media (min-width: 768px) {
   .masonry-col {
