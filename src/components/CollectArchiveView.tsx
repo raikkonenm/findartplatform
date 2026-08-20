@@ -298,10 +298,10 @@ function ColumnsToggle({ columns, onClick }: { columns: CollectColumns; onClick:
       type="button"
       onClick={onClick}
       aria-label={`Show ${columns === 4 ? 2 : 4} columns`}
-      className={`shrink-0 border p-2 transition duration-200 ease-out ${
+      className={`shrink-0 p-2 transition-colors duration-200 ease-out ${
         dense
-          ? "border-neutral-900 text-neutral-900"
-          : "border-neutral-200 text-neutral-500 hover:border-neutral-400 hover:text-neutral-700"
+          ? "text-neutral-900"
+          : "text-neutral-500 hover:text-neutral-800"
       }`}
     >
       <svg
