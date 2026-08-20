@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Header } from "./Header";
 import { HeartIcon } from "./SavedExhibitions";
 import { SearchBar } from "./SearchBar";
@@ -639,7 +639,7 @@ function OpportunityDetail({ opportunity, onClose }: { opportunity: Opportunity;
             <p className="pt-2 text-[10px] uppercase tracking-[0.2em] text-neutral-500">{opportunity.organizer}</p>
             <button type="button" onClick={onClose} aria-label="Close opportunity" className="flex h-10 w-10 shrink-0 items-center justify-center text-3xl font-light leading-none transition-opacity hover:opacity-50">×</button>
           </div>
-          <h2 className="editorial-serif max-w-[760px] text-[clamp(2.2rem,5vw,4.8rem)] uppercase leading-[0.93] tracking-[-0.045em]">{opportunity.title}</h2>
+          <h2 className="editorial-serif max-w-[760px] break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]">{shortTitle(opportunity.title)}</h2>
           <dl className="my-10 grid gap-5 border-y border-[var(--border)] py-6 text-[13px] md:grid-cols-4">
             <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Deadline</dt><dd>{opportunity.deadline}</dd></div>
             <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Location</dt><dd>{opportunity.location}</dd></div>
@@ -866,7 +866,7 @@ export function OpportunitiesArchiveView() {
   const [selectedLocation, setSelectedLocation] = useState("All");
   const [selectedAudience, setSelectedAudience] = useState("All");
   const [selectedTag, setSelectedTag] = useState("All");
-  const [desktopMode, setDesktopMode] = useState<DesktopMode>("type");
+  const [desktopMode, setDesktopMode] = useState<DesktopMode>("tags");
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
@@ -874,10 +874,29 @@ export function OpportunitiesArchiveView() {
   const [selectedOpportunity, setSelectedOpportunity] = useState<Opportunity | null>(null);
   const [query, setQuery] = useState("");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const optionsRailRef = useRef<HTMLDivElement>(null);
+  const railPausedRef = useRef(false);
 
   useEffect(() => {
     setToday(new Date());
   }, []);
+
+  // Auto-scroll the options rail for the active mode (mirrors /exhibitions).
+  // Pauses on hover, respects prefers-reduced-motion, resets when mode flips.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const rail = optionsRailRef.current;
+    if (!rail) return;
+    rail.scrollLeft = 0;
+    const timer = window.setInterval(() => {
+      if (railPausedRef.current) return;
+      if (rail.scrollWidth <= rail.clientWidth) return;
+      const end = rail.scrollWidth - rail.clientWidth;
+      rail.scrollLeft = rail.scrollLeft >= end - 1 ? 0 : rail.scrollLeft + 1;
+    }, 30);
+    return () => window.clearInterval(timer);
+  }, [desktopMode]);
 
   const locationOptions = useMemo(
     () => ["All", ...Array.from(new Set(OPPORTUNITIES.map((o) => o.location))).sort()],
@@ -966,6 +985,10 @@ export function OpportunitiesArchiveView() {
             feeFilter === "all" ? "All Fees" : feeFilter === "free" ? "Free to apply" : "Paid application";
           const modes: Array<{ id: DesktopMode; label: string }> = [
             {
+              id: "tags",
+              label: selectedTag === "All" ? "ALL TAGS" : selectedTag.toUpperCase(),
+            },
+            {
               id: "type",
               label:
                 selectedFilters.type === FILTERS.type[0]
@@ -984,10 +1007,6 @@ export function OpportunitiesArchiveView() {
               id: "audience",
               label:
                 selectedAudience === "All" ? "ALL FOR" : selectedAudience.toUpperCase(),
-            },
-            {
-              id: "tags",
-              label: selectedTag === "All" ? "ALL TAGS" : selectedTag.toUpperCase(),
             },
           ];
           return (
@@ -1055,7 +1074,18 @@ export function OpportunitiesArchiveView() {
             };
             const active = config[desktopMode];
             return (
-              <div className="scrollbar-none overflow-x-auto pb-2">
+              <div
+                ref={optionsRailRef}
+                onPointerEnter={(event) => {
+                  if (event.pointerType !== "mouse") return;
+                  railPausedRef.current = true;
+                }}
+                onPointerLeave={(event) => {
+                  if (event.pointerType !== "mouse") return;
+                  railPausedRef.current = false;
+                }}
+                className="scrollbar-none overflow-x-auto pb-2"
+              >
                 <div className="flex min-w-max items-baseline gap-6">
                   {active.options.map((option) => {
                     const isActive = active.current === option;
