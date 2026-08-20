@@ -150,8 +150,9 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-white pt-[65px]">
+    <main className="min-h-screen overflow-x-hidden bg-white">
       <Header
+        overlay
         savedOnly={savedOnly}
         onToggleSavedOnly={toggleSavedOnly}
         savedHref="/editorial?saved=1"

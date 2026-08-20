@@ -91,28 +91,28 @@ export function Header({ overlay = false }: HeaderProps) {
         </div>
 
         <div className="flex items-center gap-3 justify-self-end md:gap-4">
-          {!overlay && (
-            <button
-              type="button"
-              onClick={() => setSearchOpen(true)}
-              aria-label="Open search"
-              className="flex h-8 w-8 items-center justify-center text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
-            >
-              <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
-                <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.35" />
-                <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
-              </svg>
-            </button>
-          )}
-          {!overlay && (
-            <Link
-              href="/saved"
-              aria-label="View saved items"
-              className="text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
-            >
-              <HeartIcon filled={pathname === "/saved"} className="h-4 w-4" />
-            </Link>
-          )}
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Open search"
+            className={`flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-55 focus-visible:outline-none ${
+              overlay ? "text-white" : "text-neutral-900"
+            }`}
+          >
+            <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
+              <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.35" />
+              <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+            </svg>
+          </button>
+          <Link
+            href="/saved"
+            aria-label="View saved items"
+            className={`transition-opacity hover:opacity-55 focus-visible:outline-none ${
+              overlay ? "text-white" : "text-neutral-900"
+            }`}
+          >
+            <HeartIcon filled={pathname === "/saved"} className="h-4 w-4" />
+          </Link>
           {!overlay && <ThemeToggleButton className="hidden md:flex" />}
         </div>
       </nav>
