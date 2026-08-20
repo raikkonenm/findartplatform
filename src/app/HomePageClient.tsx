@@ -263,10 +263,10 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`shrink-0 border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition duration-200 ease-out ${
+      className={`shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.18em] transition-colors duration-200 ${
         active
-          ? "border-neutral-900 text-neutral-900"
-          : "border-neutral-200 text-neutral-400 hover:border-neutral-400 hover:text-neutral-600"
+          ? "font-semibold text-neutral-900"
+          : "text-neutral-500 hover:text-neutral-800"
       }`}
     >
       {label}
@@ -293,10 +293,10 @@ function DensityToggleButton({
       type="button"
       onClick={onCycle}
       aria-label={`Feed density: ${density}. Tap to cycle.`}
-      className={`shrink-0 border p-2 transition duration-200 ease-out ${
+      className={`shrink-0 p-2 transition-colors duration-200 ease-out ${
         isActive
-          ? "border-neutral-900 text-neutral-900"
-          : "border-neutral-200 text-neutral-500 hover:border-neutral-400 hover:text-neutral-700"
+          ? "text-neutral-900"
+          : "text-neutral-500 hover:text-neutral-800"
       }`}
     >
       <DensityGlyph density={density} />
@@ -556,10 +556,10 @@ function DesktopFilterModeButton({
         if (event.pointerType === "mouse") onHover();
       }}
       onFocus={onHover}
-      className={`shrink-0 border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${
+      className={`shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.18em] transition-colors duration-200 ${
         active
-          ? "border-[var(--foreground)] text-[var(--foreground)]"
-          : "border-neutral-200 text-neutral-500 hover:border-neutral-400"
+          ? "font-semibold text-neutral-900"
+          : "text-neutral-500 hover:text-neutral-800"
       }`}
     >
       {label}
