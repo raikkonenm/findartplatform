@@ -177,7 +177,7 @@ function MobileFeaturedCarousel() {
         >
           {slides.map((slide) => {
             const inner = (
-              <div className="relative block aspect-[16/9] overflow-hidden rounded-md bg-neutral-100">
+              <div className="relative block aspect-[16/9] overflow-hidden rounded bg-neutral-100">
                 {slide.media}
                 {/* Bottom-anchored scrim so the caption is always legible. */}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
