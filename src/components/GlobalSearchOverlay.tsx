@@ -53,6 +53,41 @@ const OPPORTUNITIES_INDEX: SearchItem[] = [
     subtitle: "Le Garage Moderne · Bordeaux, France · 1 Sep 2026",
     href: "/opportunities",
   },
+  {
+    id: "opp-artists-in-the-library",
+    category: "Opportunity",
+    title: "Artists in the Library",
+    subtitle: "Toronto Arts Council · Toronto, Canada · 6 Oct 2026",
+    href: "/opportunities",
+  },
+  {
+    id: "opp-cica-photo-2027",
+    category: "Opportunity",
+    title: "Photography Now 2027",
+    subtitle: "CICA Museum · Gimpo, South Korea · 20 Aug 2026",
+    href: "/opportunities",
+  },
+  {
+    id: "opp-arrival-paris",
+    category: "Opportunity",
+    title: "Bring Your Art to Paris — September 2026",
+    subtitle: "Arrival Gallery · Paris, France · 20 Aug 2026",
+    href: "/opportunities",
+  },
+  {
+    id: "opp-za-koenji-pack-2026",
+    category: "Opportunity",
+    title: "Performing Arts Camp in Koenji 2026",
+    subtitle: "ZA-KOENJI Public Theatre · Tokyo, Japan · 24 Aug 2026",
+    href: "/opportunities",
+  },
+  {
+    id: "opp-hypha-sevenoaks",
+    category: "Opportunity",
+    title: "Sevenoaks Open Call — Studio & Project Spaces",
+    subtitle: "Hypha Studios · Sevenoaks, UK · 6 Sep 2026",
+    href: "/opportunities",
+  },
 ];
 
 const DIRECTORY_INDEX: SearchItem[] = [
