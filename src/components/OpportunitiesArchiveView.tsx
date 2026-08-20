@@ -25,6 +25,7 @@ type Opportunity = {
   deadlineDate: string;
   location: string;
   audience: string;
+  audiences: string[];
   type: string[];
   fields: string[];
   rewards: string[];
@@ -36,6 +37,19 @@ type Opportunity = {
   applyUrl: string;
 };
 
+const AUDIENCE_OPTIONS = [
+  "Individual artists",
+  "Collectives / groups",
+  "Curators",
+  "Organizations & non-profits",
+  "Emerging / young artists",
+  "Sound artists",
+  "Photographers",
+  "Performing artists",
+  "Food practitioners",
+  "Interdisciplinary practitioners",
+] as const;
+
 const OPPORTUNITIES: Opportunity[] = [
   {
     slug: "das-minsk-culinary-residency",
@@ -45,6 +59,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-09-05",
     location: "Potsdam, Germany",
     audience: "Chefs, artists, food designers and interdisciplinary practitioners",
+    audiences: ["Individual artists", "Food practitioners", "Interdisciplinary practitioners"],
     type: ["Residencies", "Open Calls"],
     fields: ["Applied Arts", "Interdisciplinary", "Research", "Social Practice"],
     rewards: ["Accommodation", "Funding", "Production", "Travel"],
@@ -71,6 +86,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-08-31",
     location: "Brno, Czech Republic",
     audience: "Czech and international artists, art collectives and curators",
+    audiences: ["Individual artists", "Collectives / groups", "Curators"],
     type: ["Open Calls", "Residencies"],
     fields: ["Curating", "Installation", "Interdisciplinary", "Visual Arts"],
     rewards: ["Accommodation", "Exhibition", "Funding", "Production", "Travel"],
@@ -96,6 +112,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-09-06",
     location: "Berlin, Germany",
     audience: "Artists working with experimental sound practices and audio art",
+    audiences: ["Individual artists", "Sound artists"],
     type: ["Commissions", "Open Calls"],
     fields: ["Digital", "Interdisciplinary", "Performance", "Sound Art"],
     rewards: ["Accommodation", "Funding", "Production", "Travel"],
@@ -121,6 +138,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-09-04",
     location: "Liepāja, Latvia",
     audience: "Sound artists, media artists, listening / sensory researchers and interdisciplinary practitioners",
+    audiences: ["Individual artists", "Sound artists", "Interdisciplinary practitioners"],
     type: ["Open Calls", "Residencies"],
     fields: ["Sound Art", "Installation", "Digital", "Interdisciplinary", "Public Art", "Research"],
     rewards: ["Accommodation", "Funding", "Production", "Travel"],
@@ -146,6 +164,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-09-01",
     location: "Bordeaux, France",
     audience: "International artists working across design, visual arts, performance, film, sound, craft and interdisciplinary practices",
+    audiences: ["Individual artists", "Interdisciplinary practitioners", "Performing artists", "Sound artists"],
     type: ["Residencies", "Open Calls"],
     fields: ["Design", "Visual Arts", "Performance", "Film", "Sound Art", "Interdisciplinary", "Social Practice"],
     rewards: ["Accommodation", "Funding", "Production", "Travel"],
@@ -171,6 +190,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-10-06",
     location: "Toronto, Canada",
     audience: "Toronto-based professional artists, not-for-profit arts organisations and collectives (Etobicoke, York, North York, East York, Scarborough)",
+    audiences: ["Individual artists", "Collectives / groups", "Organizations & non-profits"],
     type: ["Grants & Stipends", "Open Calls"],
     fields: ["Interdisciplinary", "Performance", "Visual Arts", "Education", "Social Practice", "Public Art"],
     rewards: ["Funding", "Studio Space"],
@@ -196,6 +216,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-08-20",
     location: "Gimpo, South Korea",
     audience: "International photographers working across traditional, digital, experimental and AI-generated photography",
+    audiences: ["Individual artists", "Photographers"],
     type: ["Open Calls"],
     fields: ["Photography", "Digital"],
     rewards: ["Exhibition"],
@@ -221,6 +242,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-08-20",
     location: "Paris, France",
     audience: "International artists across any discipline seeking a Paris exhibition slot",
+    audiences: ["Individual artists", "Interdisciplinary practitioners"],
     type: ["Open Calls"],
     fields: ["Visual Arts", "Painting", "Sculpture", "Photography", "Digital", "Installation", "Interdisciplinary"],
     rewards: ["Exhibition"],
@@ -246,6 +268,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-08-24",
     location: "Tokyo, Japan",
     audience: "Young performing artists based in Asia, aged 35 or younger",
+    audiences: ["Individual artists", "Performing artists", "Emerging / young artists"],
     type: ["Open Calls", "Residencies", "Education"],
     fields: ["Performance", "Interdisciplinary", "Research"],
     rewards: ["Accommodation", "Travel", "Funding"],
@@ -271,6 +294,7 @@ const OPPORTUNITIES: Opportunity[] = [
     deadlineDate: "2026-09-06",
     location: "Sevenoaks, United Kingdom",
     audience: "Groups and organisations seeking free studio or project space; priority to creatives who cannot afford exhibition or studio space",
+    audiences: ["Collectives / groups", "Organizations & non-profits"],
     type: ["Open Calls"],
     fields: ["Visual Arts", "Interdisciplinary", "Social Practice", "Public Art"],
     rewards: ["Studio Space"],
@@ -953,7 +977,7 @@ export function OpportunitiesArchiveView() {
   }, []);
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
   const audienceOptions = useMemo(
-    () => ["All", ...Array.from(new Set(OPPORTUNITIES.map((o) => o.audience))).sort()],
+    () => ["All", ...AUDIENCE_OPTIONS],
     [],
   );
   const tagOptions = useMemo(
@@ -975,7 +999,7 @@ export function OpportunitiesArchiveView() {
         // Country-only selection: match any opportunity in that country.
         return opportunity.location.endsWith(`, ${selectedLocation}`) || opportunity.location === selectedLocation;
       })();
-      const audienceMatches = selectedAudience === "All" || opportunity.audience === selectedAudience;
+      const audienceMatches = selectedAudience === "All" || opportunity.audiences.includes(selectedAudience);
       const tagMatches = selectedTag === "All" || opportunity.tags.includes(selectedTag);
       const queryMatches = !q || opportunity.title.toLowerCase().includes(q) || opportunity.organizer.toLowerCase().includes(q) || opportunity.location.toLowerCase().includes(q) || opportunity.tags.some((tag) => tag.toLowerCase().includes(q));
       return typeMatches && fieldMatches && rewardMatches && feeMatches && locationMatches && audienceMatches && tagMatches && queryMatches;
@@ -1063,8 +1087,7 @@ export function OpportunitiesArchiveView() {
             },
             {
               id: "audience",
-              label:
-                selectedAudience === "All" ? "ALL FOR" : selectedAudience.toUpperCase(),
+              label: selectedAudience === "All" ? "FOR" : selectedAudience.toUpperCase(),
             },
           ];
           return (
@@ -1125,7 +1148,7 @@ export function OpportunitiesArchiveView() {
                 options: audienceOptions,
                 current: selectedAudience,
                 onSelect: setSelectedAudience,
-                labelFor: (option) => (option === "All" ? "All audiences" : option),
+                labelFor: (option) => (option === "All" ? "Anyone" : option),
               },
               tags: {
                 options: tagOptions,
