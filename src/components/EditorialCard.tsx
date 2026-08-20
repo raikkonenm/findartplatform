@@ -74,11 +74,9 @@ export function EditorialCard({
           event.stopPropagation();
           toggleSaved(savedKey);
         }}
-        className={`absolute right-4 top-4 z-10 text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none ${
-          saved ? "opacity-100" : "opacity-100 md:opacity-0 md:group-hover:opacity-100"
-        }`}
+        className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm backdrop-blur-sm transition-opacity duration-200 hover:opacity-70 focus-visible:opacity-100 focus-visible:outline-none"
       >
-        <HeartIcon filled={saved} className="h-5 w-5" />
+        <HeartIcon filled={saved} className="h-4 w-4" />
       </button>
     </article>
   );

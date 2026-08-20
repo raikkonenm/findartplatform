@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
+import { editorialArtists } from "@/data/editorial";
 import { HeartIcon } from "@/components/SavedExhibitions";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "@/components/MobileFilterSheet";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
@@ -785,7 +786,7 @@ function LocationDropdown({
   }, [open]);
 
   const label = (() => {
-    if (value.kind === "all") return "All locations";
+    if (value.kind === "all") return "Locations";
     if (value.kind === "country") return value.country;
     return `${value.city}, ${value.country}`;
   })();
@@ -1217,7 +1218,7 @@ export default function HomePageClient({
   const tagOptions: SelectedTag[] = ["ALL", ...semanticTags];
   const desktopLocationLabel =
     location.kind === "all"
-      ? "All locations"
+      ? "Locations"
       : location.kind === "country"
         ? location.country
         : `${location.city}, ${location.country}`;
@@ -1341,7 +1342,7 @@ export default function HomePageClient({
               label="Tags"
               value={tag}
               allValue="ALL"
-              allLabel="All tags"
+              allLabel="Tags"
               options={tagOptions}
               onChange={selectTag}
             />
@@ -1350,7 +1351,7 @@ export default function HomePageClient({
               label="Year"
               value={year}
               allValue="All"
-              allLabel="All years"
+              allLabel="Years"
               options={YEARS}
               onChange={setYear}
             />
@@ -1368,7 +1369,7 @@ export default function HomePageClient({
           {/* Desktop filter labels switch the horizontal option rail on hover. */}
           <div className="hidden items-center gap-3 md:flex">
             <DesktopFilterModeButton
-              label={tag === "ALL" ? "All tags" : tag}
+              label={tag === "ALL" ? "Tags" : tag}
               active={desktopFilterPanel === "tags"}
               onHover={() => {
                 setDesktopFilterPanel("tags");
@@ -1384,7 +1385,7 @@ export default function HomePageClient({
               }}
             />
             <DesktopFilterModeButton
-              label={year === "All" ? "All years" : year}
+              label={year === "All" ? "Years" : year}
               active={desktopFilterPanel === "year"}
               onHover={() => {
                 setDesktopFilterPanel("year");
@@ -1408,7 +1409,7 @@ export default function HomePageClient({
                   {tagOptions.map((option) => (
                     <RailOption
                       key={option}
-                      label={option === "ALL" ? "All tags" : option}
+                      label={option === "ALL" ? "Tags" : option}
                       active={tag === option}
                       onClick={() => selectTag(option)}
                     />
@@ -1421,7 +1422,7 @@ export default function HomePageClient({
                   {YEARS.map((option) => (
                     <RailOption
                       key={option}
-                      label={option === "All" ? "All years" : option}
+                      label={option === "All" ? "Years" : option}
                       active={year === option}
                       onClick={() => setYear(option)}
                     />
@@ -1433,7 +1434,7 @@ export default function HomePageClient({
                 <div>
                   <HorizontalFilterRail resetKey="locations">
                     <RailOption
-                      label="All locations"
+                      label="Locations"
                       active={location.kind === "all"}
                       onHover={() => setHoveredLocationCountry(null)}
                       onClick={() => {
@@ -1499,6 +1500,7 @@ export default function HomePageClient({
             density={density}
             editorialPromo={showEditorialPromo}
             hideMobileSubtitles={showEditorialPromo}
+            interleavedArtists={showFeaturedBanners ? editorialArtists : undefined}
           />
         )}
       </section>
@@ -1530,7 +1532,7 @@ export default function HomePageClient({
                     onClick={() => selectTag(option)}
                     className={`whitespace-nowrap rounded-full border px-3.5 py-1.5 text-[12px] transition-colors ${active ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-neutral-300"}`}
                   >
-                    {option === "ALL" ? "All tags" : option}
+                    {option === "ALL" ? "Tags" : option}
                   </button>
                 );
               })}
@@ -1582,7 +1584,7 @@ export default function HomePageClient({
                       onClick={() => setYear(option)}
                       className={`flex w-full items-center justify-between px-3 py-3 text-[14px] transition-colors ${active ? "rounded-md bg-neutral-100 text-neutral-900" : "text-neutral-600 hover:text-neutral-900"}`}
                     >
-                      <span>{option === "All" ? "All years" : option}</span>
+                      <span>{option === "All" ? "Years" : option}</span>
                       {active && <span className="h-2 w-2 rounded-full bg-neutral-900" aria-hidden="true" />}
                     </button>
                   </li>

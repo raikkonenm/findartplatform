@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import type { Exhibition } from "@/data/exhibitions";
+import type { EditorialArtist } from "@/data/editorial";
+import { EditorialCard } from "./EditorialCard";
 import { EditorialPromoCard } from "./EditorialPromoCard";
 import { ExhibitionCard } from "./ExhibitionCard";
 
@@ -48,7 +50,41 @@ function useColumnCount(initialIsMobile: boolean, density: MasonryDensity): numb
 
 type BucketItem =
   | { kind: "exhibition"; exhibition: Exhibition; flatIdx: number }
-  | { kind: "editorial"; flatIdx: number };
+  | { kind: "editorial"; flatIdx: number }
+  | { kind: "artist"; artist: EditorialArtist; flatIdx: number };
+
+// Interleave editorial artist cards among exhibitions so no two artist
+// cards land adjacent. Gap = ceil(exhibitions / (artists + 1)) with a
+// floor of 2 to protect against tiny inputs.
+function interleaveArtists(
+  exhibitions: Exhibition[],
+  artists: EditorialArtist[],
+): BucketItem[] {
+  if (artists.length === 0) {
+    return exhibitions.map((exhibition, flatIdx) => ({
+      kind: "exhibition" as const,
+      exhibition,
+      flatIdx,
+    }));
+  }
+  const gap = Math.max(2, Math.ceil(exhibitions.length / (artists.length + 1)));
+  const out: BucketItem[] = [];
+  let artistIndex = 0;
+  let flatIdx = 0;
+  exhibitions.forEach((exhibition, exhibitionIndex) => {
+    out.push({ kind: "exhibition", exhibition, flatIdx: flatIdx++ });
+    if (
+      (exhibitionIndex + 1) % gap === 0 &&
+      artistIndex < artists.length
+    ) {
+      out.push({ kind: "artist", artist: artists[artistIndex++], flatIdx: flatIdx++ });
+    }
+  });
+  while (artistIndex < artists.length) {
+    out.push({ kind: "artist", artist: artists[artistIndex++], flatIdx: flatIdx++ });
+  }
+  return out;
+}
 
 /**
  * Row-major masonry grid.
@@ -71,6 +107,7 @@ export function MasonryGrid({
   density = "normal",
   editorialPromo = false,
   hideMobileSubtitles = false,
+  interleavedArtists,
 }: {
   exhibitions: Exhibition[];
   eagerCount?: number;
@@ -78,14 +115,17 @@ export function MasonryGrid({
   density?: MasonryDensity;
   editorialPromo?: boolean;
   hideMobileSubtitles?: boolean;
+  interleavedArtists?: EditorialArtist[];
 }) {
   const columnCount = useColumnCount(initialIsMobile, density);
 
-  const items: BucketItem[] = exhibitions.map((exhibition, flatIdx) => ({
-    kind: "exhibition",
-    exhibition,
-    flatIdx,
-  }));
+  const items: BucketItem[] = interleavedArtists && interleavedArtists.length > 0
+    ? interleaveArtists(exhibitions, interleavedArtists)
+    : exhibitions.map((exhibition, flatIdx) => ({
+        kind: "exhibition",
+        exhibition,
+        flatIdx,
+      }));
   if (editorialPromo) {
     const editorialPromoIndex = Math.min(5, items.length);
     items.splice(editorialPromoIndex, 0, {
@@ -103,18 +143,27 @@ export function MasonryGrid({
     <div className="archive-card-grid masonry-rows">
       {columns.map((column, colIdx) => (
         <div className="masonry-col" key={colIdx}>
-          {column.map((item) =>
-            item.kind === "editorial" ? (
-              <EditorialPromoCard key="editorial-promo" />
-            ) : (
+          {column.map((item) => {
+            if (item.kind === "editorial") {
+              return <EditorialPromoCard key="editorial-promo" />;
+            }
+            if (item.kind === "artist") {
+              return (
+                <EditorialCard
+                  key={`artist-${item.artist.slug}`}
+                  artist={item.artist}
+                />
+              );
+            }
+            return (
               <ExhibitionCard
                 key={item.exhibition.slug}
                 exhibition={item.exhibition}
                 eager={item.flatIdx < eagerCount}
                 hideMobileSubtitle={hideMobileSubtitles}
               />
-            ),
-          )}
+            );
+          })}
         </div>
       ))}
     </div>

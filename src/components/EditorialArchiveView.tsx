@@ -65,7 +65,7 @@ function FeaturesBanner() {
 
   const currentBanner = banners[active];
   const captionInner = currentBanner.caption ? (
-    <span className="editorial-serif text-[clamp(1.4rem,4.5vw,3.5rem)] uppercase tracking-[0.12em] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.5)]">
+    <span className="editorial-serif text-[clamp(0.9rem,2.2vw,1.15rem)] uppercase tracking-[0.24em] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.5)]">
       {currentBanner.caption}
     </span>
   ) : null;

@@ -8,7 +8,7 @@ import { HeartIcon } from "./SavedExhibitions";
 import { SearchBar } from "./SearchBar";
 
 const FILTERS = {
-  type: ["All types", "Residencies", "Awards & Prizes", "Calls for Curators", "Collaborations", "Commissions", "Education", "Grants & Stipends", "Jobs", "Open Calls"],
+  type: ["Types", "Residencies", "Awards & Prizes", "Calls for Curators", "Collaborations", "Commissions", "Education", "Grants & Stipends", "Jobs", "Open Calls"],
   field: ["All fields", "Applied Arts", "Architecture", "Curating", "Dance", "Design", "Digital", "Drawing", "Education", "Fashion", "Film", "Installation", "Interdisciplinary", "Painting", "Performance", "Photography", "Printmaking", "Public Art", "Research", "Sculpture", "Social Practice", "Sound Art", "Textiles", "Video", "Visual Arts", "Writing"],
   reward: ["All rewards", "Accommodation", "Cash Prize", "Exhibition", "Funding", "Production", "Publication", "Travel", "Studio Space", "Equipment", "Meals", "Education", "Other"],
 } as const;
@@ -838,9 +838,10 @@ function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { oppo
   );
 }
 
-// Desktop table grid: OPPORTUNITY (+ organizer under) · TYPE · DEADLINE · LOCATION · FOR · FEE · TAGS
+// Desktop table grid: OPPORTUNITY (+ organizer under) · TYPE · DEADLINE · LOCATION · FOR · FEE
+// (TAGS column is hidden per design; tag filter still active in the filter row above.)
 const LIST_ROW_COLS =
-  "md:grid-cols-[minmax(0,2.4fr)_110px_110px_minmax(0,1.1fr)_minmax(0,1.3fr)_120px_minmax(0,1.6fr)]";
+  "md:grid-cols-[minmax(0,2.4fr)_110px_110px_minmax(0,1.1fr)_minmax(0,1.3fr)_120px]";
 
 function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void; today: Date | null }) {
   const daysLeft = daysRemainingLabel(opportunity.deadlineDate, today);
@@ -910,19 +911,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
         <FeeTag fee={opportunity.applicationFee} compact />
       </span>
 
-      {/* TAGS row — plain uppercase text, no chip boxes */}
-      <div className="hidden flex-wrap items-center gap-x-3 gap-y-1 md:flex">
-        {opportunity.tags.slice(0, 3).map((tag) => (
-          <span key={tag} className="whitespace-nowrap text-[11px] uppercase tracking-[0.14em] text-neutral-700">
-            {tag}
-          </span>
-        ))}
-        {opportunity.tags.length > 3 && (
-          <span className="whitespace-nowrap text-[11px] uppercase tracking-[0.14em] text-neutral-400">
-            +{opportunity.tags.length - 3}
-          </span>
-        )}
-      </div>
+      {/* TAGS column intentionally omitted (filter still available above). */}
 
       {/* FEE — mobile bottom-left */}
       <span className="order-4 text-[11px] uppercase tracking-[0.18em] text-neutral-700 md:hidden">
@@ -978,7 +967,6 @@ function OpportunitiesListView({ opportunities, onOpen, savedSet, onToggleSaved,
         <span>Location</span>
         <span>For</span>
         <span>Application Fee</span>
-        <span>Tags</span>
       </div>
 
       <div>
@@ -1442,17 +1430,17 @@ export function OpportunitiesArchiveView() {
             Matches the /exhibitions filter pattern. */}
         {(() => {
           const feeLabel =
-            feeFilter === "all" ? "All Fees" : feeFilter === "free" ? "Free to apply" : "Paid application";
+            feeFilter === "all" ? "Fees" : feeFilter === "free" ? "Free to apply" : "Paid application";
           const modes: Array<{ id: DesktopMode; label: string }> = [
             {
               id: "tags",
-              label: selectedTag === "All" ? "ALL TAGS" : selectedTag.toUpperCase(),
+              label: selectedTag === "All" ? "TAGS" : selectedTag.toUpperCase(),
             },
             {
               id: "type",
               label:
                 selectedFilters.type === FILTERS.type[0]
-                  ? "ALL TYPES"
+                  ? "TYPES"
                   : selectedFilters.type.toUpperCase(),
             },
             {
@@ -1463,7 +1451,7 @@ export function OpportunitiesArchiveView() {
               id: "location",
               label:
                 selectedLocation === "All"
-                  ? "ALL LOCATIONS"
+                  ? "LOCATIONS"
                   : selectedLocation.toUpperCase(),
             },
             {
@@ -1506,14 +1494,14 @@ export function OpportunitiesArchiveView() {
                 current: selectedFilters.type,
                 onSelect: (option) =>
                   setSelectedFilters((current) => ({ ...current, type: option })),
-                labelFor: (option) => (option === FILTERS.type[0] ? "All types" : option),
+                labelFor: (option) => (option === FILTERS.type[0] ? "Types" : option),
               },
               fee: {
                 options: ["all", "free", "paid"],
                 current: feeFilter,
                 onSelect: (option) => setFeeFilter(option as FeeFilter),
                 labelFor: (option) =>
-                  option === "all" ? "All fees" : option === "free" ? "Free to apply" : "Paid application",
+                  option === "all" ? "Fees" : option === "free" ? "Free to apply" : "Paid application",
               },
               location: {
                 options: ["All", ...locationTree.map((entry) => entry.country)],
@@ -1523,7 +1511,7 @@ export function OpportunitiesArchiveView() {
                     : (locationTree.find((e) => e.country === selectedLocation) ? selectedLocation
                         : locationTree.find((e) => selectedLocation.endsWith(`, ${e.country}`))?.country ?? "All"),
                 onSelect: (option) => setSelectedLocation(option === "All" ? "All" : option),
-                labelFor: (option) => (option === "All" ? "All locations" : option),
+                labelFor: (option) => (option === "All" ? "Locations" : option),
               },
               audience: {
                 options: audienceOptions,
@@ -1535,7 +1523,7 @@ export function OpportunitiesArchiveView() {
                 options: tagOptions,
                 current: selectedTag,
                 onSelect: setSelectedTag,
-                labelFor: (option) => (option === "All" ? "All tags" : option),
+                labelFor: (option) => (option === "All" ? "Tags" : option),
               },
             };
             const active = config[desktopMode];

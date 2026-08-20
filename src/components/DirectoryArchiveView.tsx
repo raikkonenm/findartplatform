@@ -84,10 +84,8 @@ function DensityToggle({ density, onCycle }: { density: Density; onCycle: () => 
       type="button"
       onClick={onCycle}
       aria-label={`Feed density: ${density}. Tap to cycle.`}
-      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border transition duration-200 ease-out ${
-        isActive
-          ? "border-neutral-900 text-neutral-900"
-          : "border-neutral-200 text-neutral-500 hover:border-neutral-400 hover:text-neutral-700"
+      className={`flex h-11 w-11 shrink-0 items-center justify-center transition duration-200 ease-out ${
+        isActive ? "text-neutral-900" : "text-neutral-500 hover:text-neutral-700"
       }`}
     >
       <svg
@@ -125,7 +123,7 @@ export function DirectoryArchiveView() {
 
   const gridColsClass =
     density === "dense"
-      ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
+      ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
       : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
 
   return (
@@ -241,9 +239,7 @@ function DirectoryCard({ entry }: { entry: IndexEntry }) {
           event.stopPropagation();
           toggleSaved(savedKey);
         }}
-        className={`absolute right-3 top-3 z-10 text-neutral-900 transition-opacity duration-200 hover:opacity-60 focus-visible:opacity-100 focus-visible:outline-none ${
-          saved ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"
-        }`}
+        className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm backdrop-blur-sm transition-opacity duration-200 hover:opacity-70 focus-visible:opacity-100 focus-visible:outline-none"
       >
         <HeartIcon filled={saved} className="h-4 w-4" />
       </button>
