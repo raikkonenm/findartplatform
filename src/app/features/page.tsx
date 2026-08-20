@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { EditorialArchiveView } from "@/components/EditorialArchiveView";
 import { editorialArtists } from "@/data/editorial";
 
-const PAGE_URL = "https://www.findartplatform.com/editorial";
+const PAGE_URL = "https://www.findartplatform.com/features";
 
 export const metadata: Metadata = {
   title: { absolute: "Editorial — FindArt Platform" },

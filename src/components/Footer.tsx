@@ -36,7 +36,7 @@ export function Footer() {
             <Link href="/opportunities" className={footerLinkClass}>
               Opportunities
             </Link>
-            <Link href="/editorial" className={footerLinkClass}>
+            <Link href="/features" className={footerLinkClass}>
               Editorial
             </Link>
             <button type="button" className={footerLinkClass}>

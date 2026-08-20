@@ -159,7 +159,7 @@ export function GlobalSearchOverlay() {
       category: "Feature",
       title: artist.artistName,
       subtitle: artist.instagramHandle,
-      href: `/editorial/${artist.slug}`,
+      href: `/features/${artist.slug}`,
       haystack: [artist.excerpt, artist.body, artist.instagramHandle].filter(Boolean).join(" "),
     }));
 

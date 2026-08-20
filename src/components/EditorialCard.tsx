@@ -36,7 +36,7 @@ export function EditorialCard({
 
   return (
     <article className="group relative min-w-0">
-      <Link href={`/editorial/${artist.slug}`} className="block">
+      <Link href={`/features/${artist.slug}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden rounded bg-neutral-100 md:rounded-none">
           {(slideshow ? artist.images : [artist.coverImage]).map((image, index) => (
             <Image

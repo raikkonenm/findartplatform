@@ -21,7 +21,7 @@ export async function generateMetadata({
   const artist = getEditorialArtist(slug);
   if (!artist) return { title: "Editorial" };
 
-  const canonical = `${SITE_URL}/editorial/${artist.slug}`;
+  const canonical = `${SITE_URL}/features/${artist.slug}`;
   return {
     title: { absolute: `${artist.artistName} — FindArt Editorial` },
     description: artist.excerpt,
@@ -43,7 +43,7 @@ export default async function EditorialDetailPage({ params }: EditorialDetailPag
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-white pt-[65px]">
-      <Header savedHref="/editorial?saved=1" />
+      <Header savedHref="/features?saved=1" />
       <EditorialDetail artist={artist} />
     </main>
   );

@@ -1,25 +1,39 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { DensityToggleButton, type DensityValue } from "./DensityToggleButton";
 import { EditorialCard } from "./EditorialCard";
 import { Header } from "./Header";
-import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
 import { useSavedExhibitions } from "./SavedExhibitions";
 
-type Banner =
-  | { type: "video"; src: string; alt: string; duration: number }
-  | { type: "image"; src: string; alt: string; duration: number };
+type Banner = {
+  type: "video" | "image";
+  src: string;
+  alt: string;
+  duration: number;
+  caption?: string;
+  href?: string;
+};
 
-const MOBILE_BANNERS: Banner[] = [
-  { type: "video", src: "/editorial/banner/1.mp4", alt: "Features banner 1", duration: 7500 },
-  { type: "image", src: "/editorial/banner/3.webp", alt: "Features banner 2", duration: 5000 },
-];
-const DESKTOP_BANNERS: Banner[] = [
-  { type: "image", src: "/editorial/banner/3.webp", alt: "Features banner 1", duration: 5000 },
-  { type: "video", src: "/editorial/banner/1.mp4", alt: "Features banner 2", duration: 7500 },
-];
+const VIDEO_BANNER: Banner = {
+  type: "video",
+  src: "/editorial/banner/1.mp4",
+  alt: "Irene Molina",
+  duration: 7500,
+  caption: "IRENE MOLINA",
+};
+const IMAGE_BANNER: Banner = {
+  type: "image",
+  src: "/editorial/banner/3.webp",
+  alt: "Isabelle Albuquerque",
+  duration: 5000,
+  caption: "ISABELLE ALBUQUERQUE",
+  href: "/features/isabelle-albuquerque",
+};
+
+const MOBILE_BANNERS: Banner[] = [VIDEO_BANNER, IMAGE_BANNER];
+const DESKTOP_BANNERS: Banner[] = [IMAGE_BANNER, VIDEO_BANNER];
 
 function FeaturesBanner() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -48,6 +62,13 @@ function FeaturesBanner() {
     }, banners[active].duration);
     return () => window.clearTimeout(timer);
   }, [active, count, banners]);
+
+  const currentBanner = banners[active];
+  const captionInner = currentBanner.caption ? (
+    <span className="editorial-serif text-[clamp(1.4rem,4.5vw,3.5rem)] uppercase tracking-[0.12em] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.5)]">
+      {currentBanner.caption}
+    </span>
+  ) : null;
 
   return (
     <section aria-label="Features banners" className="relative">
@@ -81,6 +102,20 @@ function FeaturesBanner() {
               }`}
             />
           ),
+        )}
+        {captionInner && (
+          currentBanner.href ? (
+            <Link
+              href={currentBanner.href}
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-200 hover:opacity-90"
+            >
+              {captionInner}
+            </Link>
+          ) : (
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              {captionInner}
+            </div>
+          )
         )}
       </div>
       <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2">
@@ -148,35 +183,85 @@ function EditorialSearch({
   );
 }
 
+const SECTIONS: { title: string; slugs: string[] }[] = [
+  {
+    title: "BODY / MUTATION",
+    slugs: [
+      "yukino-yamanaka",
+      "isabelle-albuquerque",
+      "anna-uddenberg",
+      "sophia-gatzkan",
+      "emma-beatrez",
+      "que-fresca",
+    ],
+  },
+  {
+    title: "TECHNOLOGY / SYNTHETIC",
+    slugs: ["00-zhang", "kim-myungchan", "koesy", "taewon-ahn"],
+  },
+  {
+    title: "MYTH / RITUAL / SYMBOL",
+    slugs: ["dew-kim", "xolo-cuintle", "arghavan-khosravi", "jacopo-pagin"],
+  },
+];
+
+function FeaturesSection({
+  title,
+  artists,
+  eagerFirst,
+}: {
+  title: string;
+  artists: EditorialArtist[];
+  eagerFirst: boolean;
+}) {
+  if (artists.length === 0) return null;
+  return (
+    <section aria-label={title} className="mt-12 md:mt-16">
+      <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-900 md:mb-6">
+        {title}
+      </h2>
+      <div className="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-5 pb-2 md:mx-0 md:gap-6 md:px-0">
+        {artists.map((artist, index) => (
+          <div
+            key={artist.slug}
+            className="w-[70vw] shrink-0 snap-start md:w-[calc((100%-3*1.5rem)/4)] lg:w-[calc((100%-4*1.5rem)/5)]"
+          >
+            <EditorialCard artist={artist} eager={eagerFirst && index === 0} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }) {
   const { savedSlugs } = useSavedExhibitions();
   const [savedOnly, setSavedOnly] = useState(false);
-  // Mobile: dense = 2 cols (default), normal = 1 col.
-  // Desktop: dense = 5 cols, normal = 3 cols.
-  const [density, setDensity] = useState<DensityValue>("dense");
-  const [search, setSearch] = useState("");
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get("saved") === "1") {
-      // The query string is only available after hydration on this static page.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setSavedOnly(true);
     }
   }, []);
 
+  const bySlug = new Map(artists.map((artist) => [artist.slug, artist]));
+  const usedSlugs = new Set<string>();
+  const sectionData = SECTIONS.map((section) => {
+    const sectionArtists = section.slugs
+      .map((slug) => bySlug.get(slug))
+      .filter((artist): artist is EditorialArtist => Boolean(artist));
+    sectionArtists.forEach((artist) => usedSlugs.add(artist.slug));
+    return { title: section.title, artists: sectionArtists };
+  });
+  const leftover = artists.filter((artist) => !usedSlugs.has(artist.slug));
+  const finalSections = leftover.length > 0
+    ? [...sectionData, { title: "MORE FROM THE ARCHIVE", artists: leftover }]
+    : sectionData;
+
   const savedArtists = savedOnly
     ? artists.filter((artist) => savedSlugs.has(editorialSavedKey(artist.slug)))
-    : artists;
-  const normalizedSearch = search.trim().toLowerCase();
-  const displayedArtists = normalizedSearch
-    ? savedArtists.filter((artist) =>
-        [artist.artistName, artist.instagramHandle, artist.excerpt, artist.body]
-          .join(" ")
-          .toLowerCase()
-          .includes(normalizedSearch),
-      )
-    : savedArtists;
+    : null;
 
   const toggleSavedOnly = () => {
     const next = !savedOnly;
@@ -193,7 +278,7 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
         overlay
         savedOnly={savedOnly}
         onToggleSavedOnly={toggleSavedOnly}
-        savedHref="/editorial?saved=1"
+        savedHref="/features?saved=1"
       />
       <FeaturesBanner />
       <section className="px-5 py-8 md:px-8 md:py-10 lg:px-12 lg:py-12">
@@ -204,31 +289,28 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
           >
             By Art Curatorial Nomads &#8599;
           </a>
-          <div className="hidden items-center gap-3 md:flex">
-            <DensityToggleButton
-              density={density}
-              onCycle={() =>
-                setDensity((current) => (current === "normal" ? "dense" : "normal"))
-              }
-            />
-          </div>
         </div>
-        {displayedArtists.length === 0 ? (
-          <p className="py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400">
-            No saved editorial yet
-          </p>
+        {savedArtists !== null ? (
+          savedArtists.length === 0 ? (
+            <p className="py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400">
+              No saved editorial yet
+            </p>
+          ) : (
+            <div className="archive-card-grid grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-5 md:gap-y-16 lg:grid-cols-5">
+              {savedArtists.map((artist, index) => (
+                <EditorialCard key={artist.slug} artist={artist} eager={index === 0} />
+              ))}
+            </div>
+          )
         ) : (
-          <div
-            className={`archive-card-grid grid gap-y-10 md:gap-y-16 ${
-              density === "dense"
-                ? "grid-cols-2 gap-x-4 md:grid-cols-3 md:gap-x-5 lg:grid-cols-5"
-                : "grid-cols-1 gap-x-6 md:grid-cols-2 md:gap-x-12 lg:grid-cols-3"
-            }`}
-          >
-            {displayedArtists.map((artist, index) => (
-              <EditorialCard key={artist.slug} artist={artist} eager={index === 0} />
-            ))}
-          </div>
+          finalSections.map((section, index) => (
+            <FeaturesSection
+              key={section.title}
+              title={section.title}
+              artists={section.artists}
+              eagerFirst={index === 0}
+            />
+          ))
         )}
         <p className="mx-auto mt-16 text-center text-[clamp(1.2rem,2.2vw,2rem)] uppercase leading-tight tracking-[0.05em] md:mt-24">
           Read more on the{" "}
@@ -241,24 +323,6 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
           Instagram ↗
         </p>
       </section>
-      <MobileFilterSheet
-        open={mobileFiltersOpen}
-        onClose={() => setMobileFiltersOpen(false)}
-        searchValue={search}
-        onSearchChange={setSearch}
-        searchPlaceholder="Search articles"
-        onClearAll={() => setDensity("dense")}
-        resultCount={displayedArtists.length}
-      >
-        <LayoutSection<DensityValue>
-          value={density}
-          onChange={setDensity}
-          options={[
-            { id: "normal", label: "Comfortable grid", glyph: LayoutGlyphs.gridNormal },
-            { id: "dense", label: "Dense grid", glyph: LayoutGlyphs.gridDense },
-          ]}
-        />
-      </MobileFilterSheet>
     </main>
   );
 }

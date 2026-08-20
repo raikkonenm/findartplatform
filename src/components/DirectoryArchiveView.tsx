@@ -111,7 +111,7 @@ function DensityToggle({ density, onCycle }: { density: Density; onCycle: () => 
 
 export function DirectoryArchiveView() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
-  const [density, setDensity] = useState<Density>("normal");
+  const [density, setDensity] = useState<Density>("dense");
   const [query, setQuery] = useState("");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 

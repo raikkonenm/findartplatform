@@ -134,9 +134,9 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                   Exhibitions
                 </Link>
                 <Link
-                  href="/editorial"
+                  href="/features"
                   onClick={() => setOpen(false)}
-                  className={pathname.startsWith("/editorial") ? "font-semibold" : ""}
+                  className={pathname.startsWith("/features") ? "font-semibold" : ""}
                 >
                   Features
                 </Link>
@@ -148,9 +148,9 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                   Opportunities
                 </Link>
                 <Link
-                  href="/editorial"
+                  href="/features"
                   onClick={() => setOpen(false)}
-                  className={pathname.startsWith("/editorial") ? "font-semibold" : ""}
+                  className={pathname.startsWith("/features") ? "font-semibold" : ""}
                 >
                   Editorial
                 </Link>

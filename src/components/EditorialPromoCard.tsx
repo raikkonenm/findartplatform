@@ -26,7 +26,7 @@ export function EditorialPromoCard() {
   return (
     <article>
       <Link
-        href="/editorial"
+        href="/features"
         aria-label="Open Features"
         className="group relative block aspect-[3/4] overflow-hidden bg-neutral-100"
       >
