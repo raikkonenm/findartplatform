@@ -390,6 +390,21 @@ export function CollectArchiveView({ images }: { images: string[] }) {
       <div className="md:grid md:grid-cols-[280px_minmax(0,1fr)] md:gap-8 md:px-8 md:pb-20 md:pt-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-10 lg:px-12">
         <aside className="hidden md:block" aria-label="Collect filters">
           <div className="sticky top-[89px] max-h-[calc(100vh-110px)] overflow-y-auto pb-8 pr-2">
+            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Search artworks</p>
+            <label className="flex h-10 items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 text-neutral-500 focus-within:border-neutral-400">
+              <svg viewBox="0 0 20 20" className="h-4 w-4 text-neutral-400" fill="none" aria-hidden="true">
+                <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.35" />
+                <path d="m12.5 12.5 4 4" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" />
+              </svg>
+              <input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Search by title, artist, keyword..."
+                aria-label="Search artworks"
+                className="flex-1 bg-transparent text-[12px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
+              />
+            </label>
 
             <section className="mt-8">
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Category</p>

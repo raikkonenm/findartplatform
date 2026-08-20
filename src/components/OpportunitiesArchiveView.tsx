@@ -134,8 +134,30 @@ function primaryTypeLabel(types: string[]): string {
   return PRIMARY_TYPE_MAP[types[0]] ?? types[0].toUpperCase();
 }
 
+const TITLE_SMALL_WORDS = new Set([
+  "a", "an", "and", "as", "at", "but", "by", "for", "in", "nor", "of", "on", "or", "the", "to", "vs",
+]);
+
+function toTitleCase(input: string): string {
+  const words = input.trim().split(/\s+/);
+  return words
+    .map((word, index) => {
+      // Preserve mixed-case tokens the author wrote intentionally
+      // (e.g. 'CTM', 'iPhone') — only normalise all-caps or all-lower.
+      const upper = word.toUpperCase();
+      const lower = word.toLowerCase();
+      if (word !== upper && word !== lower) return word;
+      const isSmall = TITLE_SMALL_WORDS.has(lower);
+      // Keep short connectors lowercase mid-sentence.
+      if (index !== 0 && index !== words.length - 1 && isSmall) return lower;
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
+}
+
 function shortTitle(title: string): string {
-  return title.replace(/^open call:\s*/i, "");
+  const trimmed = title.replace(/^open call:\s*/i, "");
+  return toTitleCase(trimmed);
 }
 
 const SHORT_MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -227,11 +249,11 @@ function OpportunitiesViewToggle({ viewMode, onChange }: { viewMode: ViewMode; o
 
 function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
   const isFree = fee.toUpperCase() === "FREE";
-  const sizing = compact ? "text-[12px]" : "text-[13px]";
+  const sizing = compact ? "px-2.5 py-1 text-[10px]" : "px-3 py-1.5 text-[11px]";
   return (
     <span
-      className={`inline-flex items-center font-medium uppercase tracking-[0.14em] ${sizing} ${
-        isFree ? "free-tag-blink text-neutral-900" : "text-neutral-900"
+      className={`inline-flex items-center rounded-md border border-[var(--foreground)] font-medium uppercase tracking-[0.14em] text-[var(--foreground)] ${sizing} ${
+        isFree ? "free-tag-blink" : ""
       }`}
     >
       {isFree ? "Free to apply" : compact ? fee : `Application fee ${fee}`}
@@ -241,7 +263,7 @@ function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
 
 function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; onOpen: () => void }) {
   return (
-    <article className="group/card flex min-h-[280px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[430px] md:p-6">
+    <article className="group/card flex min-h-[260px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[340px] md:p-5">
       <div className="mb-4 flex items-start justify-between gap-2 md:mb-8 md:gap-3">
         <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 md:text-[10px]">{opportunity.organizer}</p>
         <FeeTag fee={opportunity.applicationFee} />
@@ -249,9 +271,9 @@ function OpportunityCard({ opportunity, onOpen }: { opportunity: Opportunity; on
       <button
         type="button"
         onClick={onOpen}
-        className="editorial-serif mb-6 block text-left text-[clamp(1rem,4vw,1.4rem)] uppercase leading-[1.02] tracking-[-0.03em] transition-opacity group-hover/card:opacity-75 md:mb-10 md:text-[clamp(1.65rem,2.4vw,2.5rem)] md:leading-[0.98] md:tracking-[-0.035em]"
+        className="editorial-serif mb-6 block text-left text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] transition-opacity group-hover/card:opacity-75 md:mb-8 md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]"
       >
-        {opportunity.title}
+        {shortTitle(opportunity.title)}
       </button>
       <dl className="space-y-2 border-t border-[var(--border)] pt-3 text-[11px] leading-relaxed md:space-y-4 md:pt-5 md:text-[12px]">
         <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Deadline</dt><dd>{opportunity.deadline}</dd></div>
@@ -302,7 +324,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
             event.stopPropagation();
             onOpen();
           }}
-          className="break-words font-normal text-[clamp(1rem,2.4vw,1.4rem)] leading-[1.15] tracking-tight text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[1.35rem] md:leading-[1.15]"
+          className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]"
         >
           {shortTitle(opportunity.title)}
         </h3>
@@ -735,16 +757,18 @@ export function OpportunitiesArchiveView() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-[var(--background)] pt-[65px] text-[var(--foreground)]">
       <Header />
-      <section className="px-5 pb-24 pt-8 md:px-8 md:pt-12 lg:px-12">
-        <div className="mb-8 flex items-baseline justify-between gap-5 md:mb-10">
-          <h1 className="editorial-serif text-[clamp(1.2rem,2vw,1.8rem)] uppercase leading-none tracking-[-0.02em]">
-            Opportunities
-          </h1>
+      <section className="px-5 pb-24 pt-8 md:px-8 md:pt-6 lg:px-12">
+        {/* On desktop the filter row is what leads the page; the H1 lives on
+            mobile only so screen readers still get a page title. */}
+        <h1 className="editorial-serif mb-6 text-[clamp(1.2rem,4vw,1.6rem)] uppercase leading-none tracking-[-0.02em] md:sr-only">
+          Opportunities
+        </h1>
+        <div className="hidden md:flex md:justify-end">
           <Link
             href="/submit"
-            className="shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.2em] text-neutral-700 transition-opacity hover:opacity-55"
+            className="whitespace-nowrap text-[11px] uppercase tracking-[0.2em] text-neutral-700 transition-opacity hover:opacity-55"
           >
-            Submit an opportunity <span aria-hidden="true">↗</span>
+            Submit Opportunities <span aria-hidden="true">↗</span>
           </Link>
         </div>
 
@@ -792,7 +816,7 @@ export function OpportunitiesArchiveView() {
             },
           ];
           return (
-            <div className="mt-6 hidden items-baseline gap-8 md:flex">
+            <div className="mt-3 hidden items-baseline gap-8 md:flex">
               {modes.map((m) => {
                 const active = desktopMode === m.id;
                 return (
