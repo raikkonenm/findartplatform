@@ -167,12 +167,6 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                 <a href="https://www.artcnomad.com/" onClick={() => setOpen(false)}>
                   By Artnomad Curators &#8599;
                 </a>
-                <a
-                  href="https://www.artcnomad.com/workflow-art"
-                  onClick={() => setOpen(false)}
-                >
-                  Workflow.Art &#8599;
-                </a>
                 {SHOW_PRACTICE_NAV && (
                   <a
                     href="https://www.artcnomad.com/practice"
@@ -194,7 +188,7 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                 </Link>
               </div>
 
-              <div className="mt-auto pt-8">
+              <div className="mt-auto flex justify-end pt-8">
                 <a
                   href="https://www.instagram.com/findart.platform/"
                   onClick={() => setOpen(false)}

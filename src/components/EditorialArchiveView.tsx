@@ -6,35 +6,53 @@ import { DensityToggleButton, type DensityValue } from "./DensityToggleButton";
 import { EditorialCard } from "./EditorialCard";
 import { Header } from "./Header";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
-import { SearchBar } from "./SearchBar";
 import { useSavedExhibitions } from "./SavedExhibitions";
 
 type Banner =
   | { type: "video"; src: string; alt: string; duration: number }
   | { type: "image"; src: string; alt: string; duration: number };
 
-const FEATURES_BANNERS: Banner[] = [
+const MOBILE_BANNERS: Banner[] = [
   { type: "video", src: "/editorial/banner/1.mp4", alt: "Features banner 1", duration: 7500 },
   { type: "image", src: "/editorial/banner/3.webp", alt: "Features banner 2", duration: 5000 },
 ];
+const DESKTOP_BANNERS: Banner[] = [
+  { type: "image", src: "/editorial/banner/3.webp", alt: "Features banner 1", duration: 5000 },
+  { type: "video", src: "/editorial/banner/1.mp4", alt: "Features banner 2", duration: 7500 },
+];
 
 function FeaturesBanner() {
+  const [isDesktop, setIsDesktop] = useState(false);
   const [active, setActive] = useState(0);
   const pausedRef = useRef(false);
-  const count = FEATURES_BANNERS.length;
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsDesktop(mq.matches);
+    const onChange = (event: MediaQueryListEvent) => {
+      setIsDesktop(event.matches);
+      setActive(0);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  const banners = isDesktop ? DESKTOP_BANNERS : MOBILE_BANNERS;
+  const count = banners.length;
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
       if (pausedRef.current) return;
       setActive((current) => (current + 1) % count);
-    }, FEATURES_BANNERS[active].duration);
+    }, banners[active].duration);
     return () => window.clearTimeout(timer);
-  }, [active, count]);
+  }, [active, count, banners]);
 
   return (
     <section aria-label="Features banners" className="relative">
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100 md:aspect-auto md:h-screen">
-        {FEATURES_BANNERS.map((banner, index) =>
+        {banners.map((banner, index) =>
           banner.type === "video" ? (
             <video
               key={banner.src}
@@ -66,7 +84,7 @@ function FeaturesBanner() {
         )}
       </div>
       <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2">
-        {FEATURES_BANNERS.map((_, index) => (
+        {banners.map((_, index) => (
           <button
             key={index}
             type="button"
@@ -194,14 +212,6 @@ export function EditorialArchiveView({ artists }: { artists: EditorialArtist[] }
               }
             />
           </div>
-        </div>
-        <div className="mb-8 md:hidden">
-          <SearchBar
-            value={search}
-            onChange={setSearch}
-            placeholder="Search articles"
-            onFilterClick={() => setMobileFiltersOpen(true)}
-          />
         </div>
         {displayedArtists.length === 0 ? (
           <p className="py-16 text-center text-[11px] uppercase tracking-[0.25em] text-neutral-400">

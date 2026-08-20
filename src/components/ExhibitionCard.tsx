@@ -131,7 +131,7 @@ export function ExhibitionCard({
     // stays markup-only — no wrapper margins here.
     <article className="group relative">
       <Link href={`/exhibitions/${exhibition.slug}`} className="block">
-        <div className={`relative ${aspect} overflow-hidden bg-neutral-100`}>
+        <div className={`relative ${aspect} overflow-hidden rounded-lg bg-neutral-100 md:rounded-none`}>
           <Image
             src={exhibition.coverImage ?? exhibition.previewImage}
             alt={`${title} exhibition view`}

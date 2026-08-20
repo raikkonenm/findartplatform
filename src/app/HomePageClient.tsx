@@ -152,7 +152,7 @@ function MobileFeaturedCarousel() {
   };
 
   return (
-    <section className="overflow-hidden bg-white pb-6 pt-4 md:hidden" aria-label="Featured exhibitions">
+    <section className="relative overflow-hidden bg-white pb-6 md:hidden" aria-label="Featured exhibitions">
       <div
         className="overflow-hidden"
         onTouchStart={(event) => {
@@ -191,7 +191,7 @@ function MobileFeaturedCarousel() {
               </div>
             );
             return (
-              <div key={slide.href} className="w-full shrink-0 px-4">
+              <div key={slide.href} className="w-full shrink-0">
                 {slide.external ? (
                   <a href={slide.href} aria-label={slide.ariaLabel} className="block">
                     {inner}
@@ -1232,16 +1232,16 @@ export default function HomePageClient({
       </Suspense>
       {/* Header — sticky + high z-index so it remains visible above the
           slide-over panel when an exhibition detail is open. */}
-      <header className="sticky top-0 z-50 h-[65px] bg-white px-4 md:px-8 lg:px-12">
+      <header className={`h-[65px] px-4 md:px-8 lg:px-12 md:sticky md:top-0 md:z-50 md:bg-white ${showFeaturedBanners ? "absolute inset-x-0 top-0 z-30 bg-transparent" : "sticky top-0 z-50 bg-white"}`}>
         <nav
           className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]"
           aria-label="Primary navigation"
         >
           <div className="flex items-center gap-3 md:gap-4 md:justify-self-start">
-            <MobileNavigationMenu />
+            <MobileNavigationMenu inverted={showFeaturedBanners} />
             <Link
               href="/"
-              className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium tracking-tight text-neutral-900 transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px]"
+              className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium normal-case tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px] md:text-neutral-900 ${showFeaturedBanners ? "text-white" : "text-neutral-900"}`}
               aria-label="FindArt Platform home"
             >
               FindArt Platform
@@ -1285,7 +1285,7 @@ export default function HomePageClient({
               type="button"
               onClick={() => setSearchOpen(true)}
               aria-label="Open search"
-              className="flex h-8 w-8 items-center justify-center text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
+              className={`flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-55 focus-visible:outline-none md:text-neutral-900 ${showFeaturedBanners ? "text-white" : "text-neutral-900"}`}
             >
               <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
                 <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.35" />
@@ -1295,7 +1295,7 @@ export default function HomePageClient({
             <Link
               href="/saved"
               aria-label="View saved items"
-              className="text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
+              className={`transition-opacity hover:opacity-55 focus-visible:outline-none md:text-neutral-900 ${showFeaturedBanners ? "text-white" : "text-neutral-900"}`}
             >
               <HeartIcon filled={false} className="h-4 w-4" />
             </Link>

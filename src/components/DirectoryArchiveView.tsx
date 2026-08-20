@@ -5,7 +5,6 @@ import { Header } from "./Header";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 import { IndexImageCarousel } from "./IndexImageCarousel";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
-import { SearchBar } from "./SearchBar";
 
 type ViewMode = "grid" | "list";
 type Density = "normal" | "dense";
@@ -147,15 +146,6 @@ export function DirectoryArchiveView() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 md:hidden">
-          <SearchBar
-            value={query}
-            onChange={setQuery}
-            placeholder="Search websites"
-            onFilterClick={() => setMobileFiltersOpen(true)}
-          />
-        </div>
-
         {visible.length === 0 ? (
           <p className="py-24 text-center text-[11px] uppercase tracking-[0.2em] text-neutral-500">
             Nothing matches this search
@@ -212,7 +202,7 @@ function DirectoryCard({ entry }: { entry: IndexEntry }) {
         rel="noopener noreferrer"
         className="block"
       >
-        <div className="relative aspect-[2/1] overflow-hidden bg-neutral-100">
+        <div className="relative aspect-[2/1] overflow-hidden rounded-lg bg-neutral-100 md:rounded-none">
           {entry.kind === "video" ? (
             <video
               autoPlay
