@@ -88,6 +88,19 @@ const OPPORTUNITIES_INDEX: SearchItem[] = [
     subtitle: "Hypha Studios · Sevenoaks, UK · 6 Sep 2026",
     href: "/opportunities",
   },
+  { id: "opp-unlimited-partner-awards", category: "Opportunity", title: "Partner Awards 2026/27", subtitle: "Unlimited · United Kingdom · 28 Sep 2026", href: "/opportunities" },
+  { id: "opp-espace-brownstone", category: "Opportunity", title: "Espace Brownstone Residency 2027", subtitle: "Espace Brownstone × Art in Latin America · Paris, France · 15 Oct 2026", href: "/opportunities" },
+  { id: "opp-tagli-mentorship", category: "Opportunity", title: "TAGLI 2026 Mentorship Award", subtitle: "THE TAGLI × Rosewood London · London, UK · 6 Sep 2026", href: "/opportunities" },
+  { id: "opp-shelter-bermondsey", category: "Opportunity", title: "Shelter — Group Exhibition", subtitle: "Monica Mardare · London, UK · 30 Sep 2026", href: "/opportunities" },
+  { id: "opp-arteles-neo-future", category: "Opportunity", title: "Neo Future — Shifting into New Realities", subtitle: "Arteles Creative Center · Hämeenkyrö, Finland · 3 Sep 2026", href: "/opportunities" },
+  { id: "opp-aspex-communal", category: "Opportunity", title: "Communal Autumn/Winter — 'Form'", subtitle: "Aspex Portsmouth · Portsmouth, UK · 6 Sep 2026", href: "/opportunities" },
+  { id: "opp-teatri-riflessi-2027", category: "Opportunity", title: "Teatri Riflessi 2027 — Short Performance Competition", subtitle: "IterCulture APS · Zafferana Etnea, Italy · 15 Oct 2026", href: "/opportunities" },
+  { id: "opp-hessische-kulturstiftung", category: "Opportunity", title: "Travel & Residency Grants 2027/2028", subtitle: "Hessische Kulturstiftung · Wiesbaden, Germany · 15 Oct 2026", href: "/opportunities" },
+  { id: "opp-perch-yale-mix", category: "Opportunity", title: "The Perch — 'The Mix' Open Call", subtitle: "Yale PRCH · New Haven, USA · 31 Oct 2026", href: "/opportunities" },
+  { id: "opp-tpg-cite-past-sight-stars", category: "Opportunity", title: "Cite the Past, Sight the Stars — Residency", subtitle: "The Photographers' Gallery · Derbyshire, UK · 6 Sep 2026", href: "/opportunities" },
+  { id: "opp-wrg-digital-callout", category: "Opportunity", title: "WRG Digital Call-Out — Generation Xi", subtitle: "White Rabbit Gallery · Sydney, Australia · 14 Sep 2026", href: "/opportunities" },
+  { id: "opp-ceramics-now-annual", category: "Opportunity", title: "Ceramics Now Annual 2026 — Featured Artist", subtitle: "Ceramics Now · International · 15 Sep 2026", href: "/opportunities" },
+  { id: "opp-roi-annual-2026", category: "Opportunity", title: "ROI Annual Exhibition 2026 — Open Submission", subtitle: "Royal Institute of Oil Painters · London, UK · 9 Oct 2026", href: "/opportunities" },
 ];
 
 const DIRECTORY_INDEX: SearchItem[] = [
