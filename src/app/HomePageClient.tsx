@@ -1321,31 +1321,16 @@ export default function HomePageClient({
           field is the row above. */}
       <div className="bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
         <div className="space-y-3">
-          {/* Exhibitions mobile: pill chips for the three most-common tags
-              + a Filters pill that opens the drawer with the full taxonomy. */}
+          {/* Exhibitions mobile: page title left, FILTERS text right. */}
           {!showFeaturedBanners && (
-            <div className="flex flex-wrap items-center gap-2 md:hidden">
-              {(["INSTALLATION", "POSTHUMAN", "ECOLOGY"] as const).map((chipTag) => {
-                const active = tag === chipTag;
-                return (
-                  <button
-                    key={chipTag}
-                    type="button"
-                    onClick={() => selectTag(active ? "ALL" : chipTag)}
-                    className={`rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] transition-colors ${
-                      active
-                        ? "bg-neutral-900 text-white"
-                        : "bg-neutral-100 text-neutral-900 hover:bg-neutral-200"
-                    }`}
-                  >
-                    {chipTag}
-                  </button>
-                );
-              })}
+            <div className="flex items-center justify-between md:hidden">
+              <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-900">
+                EXHIBITIONS
+              </span>
               <button
                 type="button"
                 onClick={() => setMobileExhibFiltersOpen(true)}
-                className="rounded-full border border-neutral-200 bg-white px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-700 transition-colors hover:border-neutral-400"
+                className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-700 transition-opacity hover:opacity-60"
               >
                 FILTERS
               </button>
