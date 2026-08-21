@@ -23,7 +23,7 @@ const VIDEO_BANNER: Banner = {
   alt: "Irene Molina",
   duration: 7500,
   caption: "IRENE MOLINA",
-  credit: { label: "Video: https://irenemolina.xyz/", href: "https://irenemolina.xyz/" },
+  credit: { label: "Video: irenemolina.xyz", href: "https://irenemolina.xyz/" },
 };
 const IMAGE_BANNER: Banner = {
   type: "image",
@@ -128,7 +128,7 @@ function FeaturesBanner() {
             href={currentBanner.credit.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute bottom-3 right-4 z-10 hidden text-[10px] text-white/85 drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] transition-opacity hover:text-white hover:opacity-90 md:block md:text-[11px]"
+            className="absolute bottom-3 right-4 z-10 hidden text-[10px] text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] transition-opacity hover:opacity-80 md:block md:text-[11px]"
           >
             {currentBanner.credit.label}
           </a>
