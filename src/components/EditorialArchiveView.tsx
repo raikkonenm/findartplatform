@@ -236,7 +236,7 @@ function FeaturesSection({
       <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-900 md:mb-6">
         {title}
       </h2>
-      <div className="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-5 pb-2 md:mx-0 md:gap-6 md:px-0">
+      <div className="features-scroller -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-5 pb-2 md:mx-0 md:gap-6 md:px-0">
         {artists.map((artist, index) => (
           <div
             key={artist.slug}

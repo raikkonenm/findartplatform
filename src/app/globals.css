@@ -118,6 +118,29 @@ a {
   display: none;
 }
 
+/* Features section horizontal-scroll rails — hairline track so the row
+   doesn't get overpowered by the default scrollbar. */
+.features-scroller {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
+}
+.features-scroller::-webkit-scrollbar {
+  height: 3px;
+}
+.features-scroller::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+}
+.features-scroller::-webkit-scrollbar-track {
+  background: transparent;
+}
+:root[data-theme="dark"] .features-scroller {
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+:root[data-theme="dark"] .features-scroller::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
 /* Thinner scrollbars across the site — 5px WebKit thumb, thin native
    fallback on Firefox/IE. Rounded caps so it reads editorial rather
    than SaaS. */
