@@ -144,6 +144,32 @@ export const SUBMISSION_FEES: Record<SubmissionType, string> = {
   contribute: "Free",
 };
 
+const GUIDELINES: Record<SubmissionType, string[]> = {
+  exhibition: [
+    "Please include installation views and images of individual works.",
+    "Images minimum 2000px.",
+    "Send via Dropbox or Google Drive (non-expiring link).",
+    "Include exhibition text or press release.",
+  ],
+  artist: [
+    "Send a portfolio link with 10–20 selected works.",
+    "Include an artist statement or short CV.",
+    "Images minimum 2000px, non-expiring link.",
+  ],
+  opportunity: [
+    "Opportunity listings are reviewed within a few days and published if a fit for the FindArt audience.",
+    "Please submit at least 2 weeks before the deadline.",
+  ],
+  index: [
+    "Independent artist / studio / project sites only — no group directories or aggregators.",
+    "Reviewed within a few days.",
+  ],
+  contribute: [
+    "We welcome proposals for essays, interviews, exhibition texts, research and other editorial formats.",
+    "Free to pitch. Reviewed by the editorial team; we'll reply either way.",
+  ],
+};
+
 type FieldProps = {
   label: ReactNode;
   placeholder: string;
@@ -375,19 +401,6 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
           <Field label="Website Link (optional)" placeholder="https://" type="url" value={exhibitionFields.websiteLink} onChange={(value) => updateExhibitionField("websiteLink", value)} />
           <TextAreaField label="Exhibition Text (press release or short description)" placeholder="Your text" rows={6} required value={exhibitionFields.exhibitionText} onChange={(value) => updateExhibitionField("exhibitionText", value)} />
           <TextAreaField label="Notes (optional)" placeholder="Additional notes" rows={3} value={exhibitionFields.notes} onChange={(value) => updateExhibitionField("notes", value)} />
-
-          <aside className="mt-8 border border-neutral-200 bg-neutral-50 px-5 py-5">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
-            <p className="mt-4 text-[13px] leading-6 text-neutral-600">
-              Please include installation views and images of individual works.
-              <br />
-              Images minimum 2000px.
-              <br />
-              Send via Dropbox or Google Drive (non-expiring link).
-              <br />
-              Include exhibition text or press release.
-            </p>
-          </aside>
         </>
       ) : submissionType === "artist" ? (
         <>
@@ -423,15 +436,6 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
           </div>
           <Field label="Website (optional)" placeholder="https://" type="url" value={opportunityFields.websiteLink} onChange={(value) => updateOpportunityField("websiteLink", value)} />
           <TextAreaField label="Short Description" placeholder="Brief description of the opportunity, eligibility, what's offered." rows={6} required value={opportunityFields.description} onChange={(value) => updateOpportunityField("description", value)} />
-
-          <aside className="mt-8 border border-neutral-200 bg-neutral-50 px-5 py-5">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
-            <p className="mt-4 text-[13px] leading-6 text-neutral-600">
-              Opportunity listings are free. Reviewed within a few days and published if a fit for the FindArt audience.
-              <br />
-              Please submit at least 2 weeks before the deadline.
-            </p>
-          </aside>
         </>
       ) : submissionType === "index" ? (
         <>
@@ -442,15 +446,6 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
           <Field label="Website URL" placeholder="https://" type="url" required value={indexFields.websiteUrl} onChange={(value) => updateIndexField("websiteUrl", value)} />
           <Field label="Instagram (optional)" placeholder="@username" value={indexFields.instagram} onChange={(value) => updateIndexField("instagram", value)} />
           <TextAreaField label="Short Description" placeholder="One or two sentences about your practice and what visitors will find on the site." rows={4} required value={indexFields.shortDescription} onChange={(value) => updateIndexField("shortDescription", value)} />
-
-          <aside className="mt-8 border border-neutral-200 bg-neutral-50 px-5 py-5">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
-            <p className="mt-4 text-[13px] leading-6 text-neutral-600">
-              Index listings are free. Independent artist / studio / project sites only — no group directories or aggregators.
-              <br />
-              Reviewed within a few days.
-            </p>
-          </aside>
         </>
       ) : (
         <>
@@ -464,15 +459,6 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
           <Field label="Sample / portfolio link" placeholder="https://" type="url" required value={contributeFields.sampleLink} onChange={(value) => updateContributeField("sampleLink", value)} />
           <TextAreaField label="Short bio" placeholder="A few sentences on your practice, publications, focus." rows={4} required value={contributeFields.shortBio} onChange={(value) => updateContributeField("shortBio", value)} />
           <TextAreaField label="Notes (optional)" placeholder="Anything else we should know — timeline, prior conversations, references." rows={3} value={contributeFields.notes} onChange={(value) => updateContributeField("notes", value)} />
-
-          <aside className="mt-8 border border-neutral-200 bg-neutral-50 px-5 py-5">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
-            <p className="mt-4 text-[13px] leading-6 text-neutral-600">
-              We welcome proposals for essays, interviews, exhibition texts, research and other editorial formats.
-              <br />
-              Free to pitch. Reviewed by the editorial team; we&rsquo;ll reply either way.
-            </p>
-          </aside>
         </>
       )}
 
@@ -483,6 +469,21 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
       >
         {status === "submitting" ? "Submitting..." : "Submit"}
       </button>
+
+      <p className="mt-5 text-[14px] font-semibold text-neutral-900">
+        {SUBMISSION_FEES[submissionType] === "Free"
+          ? "Free submission"
+          : `${SUBMISSION_FEES[submissionType]} submission fee`}
+      </p>
+
+      <aside className="mt-4 border border-neutral-200 bg-neutral-50 px-5 py-5">
+        <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
+        <ul className="mt-4 space-y-1.5 text-[13px] leading-6 text-neutral-600">
+          {GUIDELINES[submissionType].map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      </aside>
 
       {status === "success" && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">

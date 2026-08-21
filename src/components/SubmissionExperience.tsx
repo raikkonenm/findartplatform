@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SubmissionForm, SUBMISSION_FEES, type SubmissionType } from "./SubmissionForm";
+import { SubmissionForm, SUBMISSION_FEES } from "./SubmissionForm";
 
 type SubmitPageType = "exhibition" | "artist" | "index";
 
@@ -45,7 +45,6 @@ const CONTENT: Record<SubmitPageType, {
 export function SubmissionExperience() {
   const [submissionType, setSubmissionType] = useState<SubmitPageType>("exhibition");
   const content = CONTENT[submissionType];
-  const fee = SUBMISSION_FEES[submissionType as SubmissionType];
 
   useEffect(() => {
     const paramValue = new URLSearchParams(window.location.search).get("type");
@@ -59,8 +58,8 @@ export function SubmissionExperience() {
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
       <div>
         <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Open Submission</p>
-        <h1 className="editorial-serif mt-3 text-[clamp(1.4rem,3vw,2rem)] uppercase leading-[1.05] tracking-[-0.02em] text-neutral-900">
-          {content.optionLabel}
+        <h1 className="editorial-serif mt-3 text-[clamp(1.5rem,3.4vw,2.2rem)] font-semibold uppercase leading-[1.02] tracking-[-0.02em] text-neutral-900">
+          SUBMIT TO FINDART
         </h1>
       </div>
 
@@ -76,7 +75,7 @@ export function SubmissionExperience() {
           >
             {SUBMISSION_TYPES.map((option) => (
               <option key={option} value={option}>
-                {CONTENT[option].optionLabel} — {SUBMISSION_FEES[option as SubmissionType]}
+                {CONTENT[option].optionLabel} — {SUBMISSION_FEES[option]}
               </option>
             ))}
           </select>
@@ -96,18 +95,6 @@ export function SubmissionExperience() {
           <li key={benefit}>— {benefit}</li>
         ))}
       </ul>
-
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <p className="text-[15px] font-semibold text-neutral-900">
-          {fee === "Free" ? "Free submission" : `${fee} submission fee`}
-        </p>
-        <a
-          href="mailto:artcnomads@gmail.com"
-          className="text-[13px] text-neutral-600 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
-        >
-          Questions? artcnomads@gmail.com
-        </a>
-      </div>
 
       <SubmissionForm key={submissionType} submissionType={submissionType} />
     </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/Header";
-import { SubmissionForm, SUBMISSION_FEES } from "@/components/SubmissionForm";
+import { SubmissionForm } from "@/components/SubmissionForm";
 
 const PAGE_URL = "https://www.findartplatform.com/submit-opportunities";
 const PAGE_TITLE = "Submit an Opportunity — Open Calls, Residencies, Grants";
@@ -25,7 +25,6 @@ export const metadata: Metadata = {
 };
 
 export default function SubmitOpportunitiesPage() {
-  const fee = SUBMISSION_FEES.opportunity;
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-white pt-[95px] md:pt-[105px]">
       <Header />
@@ -33,8 +32,8 @@ export default function SubmitOpportunitiesPage() {
         <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
           <div>
             <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Open Submission</p>
-            <h1 className="editorial-serif mt-3 text-[clamp(1.4rem,3vw,2rem)] uppercase leading-[1.05] tracking-[-0.02em] text-neutral-900">
-              Submit an Opportunity
+            <h1 className="editorial-serif mt-3 text-[clamp(1.5rem,3.4vw,2.2rem)] font-semibold uppercase leading-[1.02] tracking-[-0.02em] text-neutral-900">
+              SUBMIT AN OPPORTUNITY
             </h1>
           </div>
 
@@ -50,16 +49,6 @@ export default function SubmitOpportunitiesPage() {
             <li>— Automatic removal once the deadline passes</li>
             <li>— Discoverable via tag / location / audience filters</li>
           </ul>
-
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <p className="text-[15px] font-semibold text-neutral-900">{fee} submission fee</p>
-            <a
-              href="mailto:artcnomads@gmail.com"
-              className="text-[13px] text-neutral-600 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
-            >
-              Questions? artcnomads@gmail.com
-            </a>
-          </div>
 
           <SubmissionForm submissionType="opportunity" />
         </div>

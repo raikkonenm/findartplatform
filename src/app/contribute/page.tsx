@@ -32,8 +32,8 @@ export default function ContributePage() {
         <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
           <div>
             <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Open Pitch</p>
-            <h1 className="editorial-serif mt-3 text-[clamp(1.4rem,3vw,2rem)] uppercase leading-[1.05] tracking-[-0.02em] text-neutral-900">
-              Contribute to FindArt
+            <h1 className="editorial-serif mt-3 text-[clamp(1.5rem,3.4vw,2.2rem)] font-semibold uppercase leading-[1.02] tracking-[-0.02em] text-neutral-900">
+              CONTRIBUTE TO FINDART
             </h1>
           </div>
 
@@ -49,16 +49,6 @@ export default function ContributePage() {
             <li>— Exhibition texts &amp; reviews</li>
             <li>— Research pieces</li>
           </ul>
-
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <p className="text-[15px] font-semibold text-neutral-900">Free to pitch</p>
-            <a
-              href="mailto:artcnomads@gmail.com"
-              className="text-[13px] text-neutral-600 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-55"
-            >
-              Questions? artcnomads@gmail.com
-            </a>
-          </div>
 
           <SubmissionForm submissionType="contribute" />
         </div>
