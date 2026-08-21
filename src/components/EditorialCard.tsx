@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { type EditorialArtist } from "@/data/editorial";
+import { editorialSavedKey, type EditorialArtist } from "@/data/editorial";
+import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
 const SLIDESHOW_ARTISTS = new Set([
   "isabelle-albuquerque",
@@ -21,6 +22,9 @@ export function EditorialCard({
 }) {
   const slideshow = SLIDESHOW_ARTISTS.has(artist.slug) && artist.images.length > 1;
   const [activeSlide, setActiveSlide] = useState(0);
+  const { isSaved, toggleSaved } = useSavedExhibitions();
+  const savedKey = editorialSavedKey(artist.slug);
+  const saved = isSaved(savedKey);
 
   useEffect(() => {
     if (!slideshow) return;
@@ -61,6 +65,21 @@ export function EditorialCard({
           </p>
         </div>
       </Link>
+      <button
+        type="button"
+        aria-label={saved ? `Remove ${artist.artistName} from saved` : `Save ${artist.artistName}`}
+        aria-pressed={saved}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          toggleSaved(savedKey);
+        }}
+        className={`absolute right-3 top-3 z-10 hidden h-9 w-9 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm backdrop-blur-sm transition-opacity duration-200 focus-visible:opacity-100 focus-visible:outline-none md:flex ${
+          saved ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        }`}
+      >
+        <HeartIcon filled={saved} className="h-4 w-4" />
+      </button>
     </article>
   );
 }

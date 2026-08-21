@@ -7,6 +7,7 @@ import type { Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayVenueText } from "@/lib/displayVenueText";
 import { OnViewDot } from "./OnViewDot";
+import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
 type ExhibitionCardProps = {
   exhibition: Exhibition;
@@ -122,6 +123,8 @@ export function ExhibitionCard({
   const aspect = aspectClassForSlug(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
   const desktopSlideshow = DESKTOP_SLIDESHOW_SLUGS.has(exhibition.slug);
+  const { isSaved, toggleSaved } = useSavedExhibitions();
+  const saved = isSaved(exhibition.slug);
 
   return (
     // The card is placed inside a `.masonry-col` flex column by
@@ -169,6 +172,22 @@ export function ExhibitionCard({
           </p>
         </div>
       </Link>
+      {/* Desktop-only save chip — top-right of the image, appears on hover. */}
+      <button
+        type="button"
+        aria-label={saved ? `Remove ${title} from saved exhibitions` : `Save ${title}`}
+        aria-pressed={saved}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          toggleSaved(exhibition.slug);
+        }}
+        className={`absolute right-3 top-3 z-10 hidden h-9 w-9 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm backdrop-blur-sm transition-opacity duration-200 focus-visible:opacity-100 focus-visible:outline-none md:flex ${
+          saved ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        }`}
+      >
+        <HeartIcon filled={saved} className="h-4 w-4" />
+      </button>
     </article>
   );
 }
