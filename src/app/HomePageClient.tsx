@@ -1321,15 +1321,34 @@ export default function HomePageClient({
           field is the row above. */}
       <div className="bg-white px-5 py-4 md:px-8 md:py-3 lg:px-12">
         <div className="space-y-3">
-          {/* Exhibitions mobile: SearchBar + filter button opens Layout drawer. */}
+          {/* Exhibitions mobile: pill chips for the three most-common tags
+              + a Filters pill that opens the drawer with the full taxonomy. */}
           {!showFeaturedBanners && (
-            <div className="md:hidden">
-              <SearchBar
-                value={search}
-                onChange={setSearch}
-                placeholder="Search exhibitions"
-                onFilterClick={() => setMobileExhibFiltersOpen(true)}
-              />
+            <div className="flex flex-wrap items-center gap-2 md:hidden">
+              {(["INSTALLATION", "POSTHUMAN", "ECOLOGY"] as const).map((chipTag) => {
+                const active = tag === chipTag;
+                return (
+                  <button
+                    key={chipTag}
+                    type="button"
+                    onClick={() => selectTag(active ? "ALL" : chipTag)}
+                    className={`rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] transition-colors ${
+                      active
+                        ? "bg-neutral-900 text-white"
+                        : "bg-neutral-100 text-neutral-900 hover:bg-neutral-200"
+                    }`}
+                  >
+                    {chipTag}
+                  </button>
+                );
+              })}
+              <button
+                type="button"
+                onClick={() => setMobileExhibFiltersOpen(true)}
+                className="rounded-full border border-neutral-200 bg-white px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-700 transition-colors hover:border-neutral-400"
+              >
+                Filters
+              </button>
             </div>
           )}
 

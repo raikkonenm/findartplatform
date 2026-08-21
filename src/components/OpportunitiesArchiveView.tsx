@@ -1392,12 +1392,35 @@ export function OpportunitiesArchiveView() {
           </Link>
         </div>
 
-        {/* Mobile-only FILTERS text button — opens the same drawer the icon used to. */}
-        <div className="flex justify-end md:hidden">
+        {/* Mobile-only pill row: the three most-common opportunity types
+            as quick filters + a Filters pill that opens the full drawer. */}
+        <div className="flex flex-wrap items-center gap-2 md:hidden">
+          {(["Open Calls", "Residencies", "Collaborations"] as const).map((chipType) => {
+            const active = selectedFilters.type === chipType;
+            return (
+              <button
+                key={chipType}
+                type="button"
+                onClick={() =>
+                  setSelectedFilters((current) => ({
+                    ...current,
+                    type: active ? FILTERS.type[0] : chipType,
+                  }))
+                }
+                className={`rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] transition-colors ${
+                  active
+                    ? "bg-neutral-900 text-white"
+                    : "bg-neutral-100 text-neutral-900 hover:bg-neutral-200"
+                }`}
+              >
+                {chipType}
+              </button>
+            );
+          })}
           <button
             type="button"
             onClick={() => setMobileFiltersOpen(true)}
-            className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] text-neutral-700 transition-opacity hover:opacity-60"
+            className="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-700 transition-colors hover:border-neutral-400"
           >
             Filters
             {activeFilterCount > 0 && (
