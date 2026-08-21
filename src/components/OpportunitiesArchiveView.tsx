@@ -864,41 +864,41 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       tabIndex={0}
       onClick={onOpen}
       onKeyDown={onKeyDown}
-      className={`group grid cursor-pointer grid-cols-[1fr_auto] items-start gap-x-5 gap-y-2 border-b border-neutral-200 px-2 py-6 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6`}
+      className={`group relative grid cursor-pointer grid-cols-[1fr_auto] items-start gap-x-5 gap-y-2 border-b border-neutral-200 px-2 py-6 pr-12 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6 md:pr-14`}
     >
+      {/* SAVE — floating heart in top-right of the row, inside the card */}
+      <button
+        type="button"
+        aria-label={isSaved ? "Unsave opportunity" : "Save opportunity"}
+        aria-pressed={isSaved}
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggleSaved();
+        }}
+        className="absolute right-2 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm transition-opacity hover:opacity-70 md:right-3 md:top-1/2 md:-translate-y-1/2"
+      >
+        <HeartIcon filled={isSaved} className="h-4 w-4" />
+      </button>
+
       {/* TYPE eyebrow — mobile only */}
       <span className="order-1 col-span-2 text-[10px] uppercase tracking-[0.22em] text-neutral-500 md:hidden">
         {primaryTypeLabel(opportunity.type)}
       </span>
 
       {/* OPPORTUNITY — headline + organizer underneath on desktop */}
-      <div className="order-2 col-span-2 flex items-start justify-between gap-3 md:order-none md:col-span-1">
-        <div className="min-w-0">
-          <h3
-            onClick={(event) => {
-              event.stopPropagation();
-              onOpen();
-            }}
-            className="editorial-serif break-words text-[clamp(1.05rem,4vw,1.4rem)] leading-[1.08] tracking-[-0.035em] text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[clamp(1.15rem,1.9vw,1.75rem)] md:leading-[1.02]"
-          >
-            {shortTitle(opportunity.title)}
-          </h3>
-          <p className="mt-1 hidden text-[10px] uppercase tracking-[0.16em] text-neutral-500 md:block">
-            {opportunity.organizer}
-          </p>
-        </div>
-        <button
-          type="button"
-          aria-label={isSaved ? "Unsave opportunity" : "Save opportunity"}
-          aria-pressed={isSaved}
+      <div className="order-2 col-span-2 md:order-none md:col-span-1">
+        <h3
           onClick={(event) => {
             event.stopPropagation();
-            onToggleSaved();
+            onOpen();
           }}
-          className="shrink-0 rounded-md border border-neutral-300 bg-white/85 p-2 text-neutral-900 shadow-sm transition-opacity hover:opacity-70"
+          className="editorial-serif break-words text-[clamp(1.05rem,4vw,1.4rem)] leading-[1.08] tracking-[-0.035em] text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[clamp(1.15rem,1.9vw,1.75rem)] md:leading-[1.02]"
         >
-          <HeartIcon filled={isSaved} className="h-4 w-4" />
-        </button>
+          {shortTitle(opportunity.title)}
+        </h3>
+        <p className="mt-1 hidden text-[10px] uppercase tracking-[0.16em] text-neutral-500 md:block">
+          {opportunity.organizer}
+        </p>
       </div>
 
       {/* TYPE — desktop */}
