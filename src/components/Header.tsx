@@ -27,9 +27,7 @@ export function Header({ overlay = false }: HeaderProps) {
 
   return (
     <header
-      className={`${overlay ? "absolute z-20" : "fixed z-50"} inset-x-0 top-0 h-[65px] px-4 md:px-8 lg:px-12 ${
-        overlay ? "" : "bg-white"
-      }`}
+      className={`${overlay ? "absolute z-20 text-white" : "fixed z-50 bg-white text-neutral-900"} inset-x-0 top-0 h-[65px] px-4 md:px-8 lg:px-12`}
     >
       <nav
         className="relative flex h-full items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8"
@@ -42,9 +40,7 @@ export function Header({ overlay = false }: HeaderProps) {
           <MobileNavigationMenu inverted={overlay} />
           <Link
             href="/"
-            className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium normal-case tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px] ${
-              overlay ? "text-white" : "text-neutral-900"
-            }`}
+            className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[16px] font-medium normal-case tracking-tight transition-opacity hover:opacity-55 md:static md:translate-x-0 md:text-[16px]`}
             aria-label="FindArt Platform home"
           >
             FindArt Platform
@@ -52,9 +48,7 @@ export function Header({ overlay = false }: HeaderProps) {
         </div>
 
         <div
-          className={`editorial-serif hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.08em] md:flex md:justify-self-center ${
-            overlay ? "text-white" : "text-neutral-900"
-          }`}
+          className={`editorial-serif hidden items-center gap-5 text-[11px] font-normal uppercase tracking-[0.08em] md:flex md:justify-self-center`}
         >
           <Link href="/" className={navLinkClass("/")}>
             Explore
@@ -91,9 +85,7 @@ export function Header({ overlay = false }: HeaderProps) {
             type="button"
             onClick={() => setSearchOpen(true)}
             aria-label="Open search"
-            className={`flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-55 focus-visible:outline-none ${
-              overlay ? "text-white" : "text-neutral-900"
-            }`}
+            className={`flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-55 focus-visible:outline-none`}
           >
             <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden="true">
               <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.35" />
@@ -103,9 +95,7 @@ export function Header({ overlay = false }: HeaderProps) {
           <Link
             href="/saved"
             aria-label="View saved items"
-            className={`transition-opacity hover:opacity-55 focus-visible:outline-none ${
-              overlay ? "text-white" : "text-neutral-900"
-            }`}
+            className={`transition-opacity hover:opacity-55 focus-visible:outline-none`}
           >
             <HeartIcon filled={pathname === "/saved"} className="h-4 w-4" />
           </Link>
