@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SHOW_COLLECT_NAV } from "@/lib/navFlags";
 import { HeartIcon } from "./SavedExhibitions";
 import { MobileNavigationMenu } from "./MobileNavigationMenu";
 import { NavigationProgress } from "./NavigationProgress";
@@ -53,9 +54,11 @@ export function Header({ overlay = false }: HeaderProps) {
           <Link href="/" className={navLinkClass("/")}>
             Explore
           </Link>
-          <Link href="/collect" className={navLinkClass("/collect")}>
-            COLLECT
-          </Link>
+          {SHOW_COLLECT_NAV && (
+            <Link href="/collect" className={navLinkClass("/collect")}>
+              COLLECT
+            </Link>
+          )}
           <Link href="/exhibitions" className={navLinkClass("/exhibitions")}>
             Exhibitions
           </Link>

@@ -13,6 +13,7 @@ import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
 import { useSearchPanel } from "@/components/SearchPanelContext";
 import { SearchBar } from "@/components/SearchBar";
 import { NavigationProgress } from "@/components/NavigationProgress";
+import { SHOW_COLLECT_NAV } from "@/lib/navFlags";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { isExhibitionOnView } from "@/lib/isOnView";
@@ -1255,9 +1256,11 @@ export default function HomePageClient({
             >
               Explore
             </Link>
-            <Link href="/collect" className={navLinkClass("/collect")}>
-              COLLECT
-            </Link>
+            {SHOW_COLLECT_NAV && (
+              <Link href="/collect" className={navLinkClass("/collect")}>
+                COLLECT
+              </Link>
+            )}
             <Link href="/exhibitions" className={navLinkClass("/exhibitions")}>
               Exhibitions
             </Link>

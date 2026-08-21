@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SHOW_COLLECT_NAV } from "@/lib/navFlags";
 
 const footerLinkClass =
   "text-[10px] uppercase tracking-[0.18em] transition-opacity hover:opacity-55";
@@ -27,9 +28,11 @@ export function Footer() {
             <Link href="/" className={footerLinkClass}>
               Explore
             </Link>
-            <Link href="/collect" className={footerLinkClass}>
-              Collect
-            </Link>
+            {SHOW_COLLECT_NAV && (
+              <Link href="/collect" className={footerLinkClass}>
+                Collect
+              </Link>
+            )}
             <Link href="/exhibitions" className={footerLinkClass}>
               Exhibitions
             </Link>

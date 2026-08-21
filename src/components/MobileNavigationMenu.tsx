@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { SHOW_PRACTICE_NAV } from "@/lib/navFlags";
+import { SHOW_COLLECT_NAV, SHOW_PRACTICE_NAV } from "@/lib/navFlags";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 
 export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean }) {
@@ -119,13 +119,15 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                 >
                   Explore
                 </Link>
-                <Link
-                  href="/collect"
-                  onClick={() => setOpen(false)}
-                  className={pathname.startsWith("/collect") ? "font-semibold" : ""}
-                >
-                  COLLECT
-                </Link>
+                {SHOW_COLLECT_NAV && (
+                  <Link
+                    href="/collect"
+                    onClick={() => setOpen(false)}
+                    className={pathname.startsWith("/collect") ? "font-semibold" : ""}
+                  >
+                    COLLECT
+                  </Link>
+                )}
                 <Link
                   href="/exhibitions"
                   onClick={() => setOpen(false)}
