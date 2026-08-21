@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SubmissionForm, SUBMISSION_FEES } from "./SubmissionForm";
+import { SubmissionForm } from "./SubmissionForm";
 
 type SubmitPageType = "exhibition" | "artist" | "index";
 
@@ -75,7 +75,7 @@ export function SubmissionExperience() {
           >
             {SUBMISSION_TYPES.map((option) => (
               <option key={option} value={option}>
-                {CONTENT[option].optionLabel} — {SUBMISSION_FEES[option]}
+                {CONTENT[option].optionLabel}
               </option>
             ))}
           </select>
