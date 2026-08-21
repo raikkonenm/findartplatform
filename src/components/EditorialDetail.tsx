@@ -53,10 +53,6 @@ export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
             <dd className="text-[14px] leading-relaxed">{artist.artistName}</dd>
           </div>
           <div className="grid grid-cols-[100px_1fr] gap-4 py-4 md:grid-cols-[120px_1fr] md:gap-6">
-            <dt className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Medium</dt>
-            <dd className="text-[14px] leading-relaxed">{meta.medium}</dd>
-          </div>
-          <div className="grid grid-cols-[100px_1fr] gap-4 py-4 md:grid-cols-[120px_1fr] md:gap-6">
             <dt className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Tags</dt>
             <dd className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.14em] text-neutral-800">
               {meta.tags.map((tag) => (
