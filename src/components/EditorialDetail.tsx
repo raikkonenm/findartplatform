@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   editorialSavedKey,
+  getEditorialArtistMeta,
   getRelatedEditorialArtists,
   type EditorialArtist,
 } from "@/data/editorial";
@@ -10,44 +11,78 @@ import { SaveExhibitionButton } from "./SavedExhibitions";
 export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
   const [heroImage, ...galleryImages] = artist.images;
   const relatedArtists = getRelatedEditorialArtists(artist.slug, 3);
+  const meta = getEditorialArtistMeta(artist.slug);
 
   return (
     <article className="bg-white px-5 pb-20 pt-10 text-neutral-900 md:px-8 md:pb-28 md:pt-14 lg:px-12">
-      <header className="flex items-start justify-between gap-6 border-b border-neutral-200 pb-8 md:pb-10">
-        <div className="min-w-0">
-          <h1 className="editorial-serif break-words text-[clamp(1.3rem,3vw,2.5rem)] uppercase leading-[1.04] tracking-[-0.035em]">
-            {artist.artistName}
-          </h1>
-          <a
-            href={artist.instagramUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 block text-[11px] uppercase tracking-[0.24em] text-neutral-600 transition-opacity hover:opacity-55"
-          >
-            {artist.instagramHandle}
-          </a>
+      {/* Top block: photo left / metadata right — mirrors the exhibition
+          detail layout (hero + info blocks side-by-side on desktop). */}
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-14 lg:gap-20">
+        <div className="relative w-full">
+          <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100">
+            <Image
+              src={heroImage.src}
+              alt={`${artist.artistName} editorial image 1`}
+              fill
+              priority
+              fetchPriority="high"
+              unoptimized
+              sizes="(min-width: 1024px) 50vw, (min-width: 768px) 55vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
-        <SaveExhibitionButton
-          slug={editorialSavedKey(artist.slug)}
-          title={artist.artistName}
-        />
-      </header>
 
-      <figure className="mx-auto mt-10 w-full max-w-[48rem] md:mt-14">
-        <Image
-          src={heroImage.src}
-          alt={`${artist.artistName} editorial image 1`}
-          width={heroImage.width}
-          height={heroImage.height}
-          className="mx-auto h-auto max-h-[82vh] w-auto max-w-full object-contain"
-          priority
-          fetchPriority="high"
-          unoptimized
-          sizes="(min-width: 1024px) 56vw, (min-width: 768px) 76vw, 100vw"
-        />
-      </figure>
+        <div className="flex flex-col gap-8 md:gap-10">
+          <div className="flex items-start justify-between gap-6">
+            <div className="min-w-0">
+              <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Feature</p>
+              <h1 className="editorial-serif mt-4 break-words text-[clamp(1.6rem,4vw,3rem)] uppercase leading-[1.02] tracking-[-0.035em]">
+                {artist.artistName}
+              </h1>
+            </div>
+            <SaveExhibitionButton
+              slug={editorialSavedKey(artist.slug)}
+              title={artist.artistName}
+            />
+          </div>
 
-      <section className="mx-auto mt-12 max-w-[40rem] border-t border-neutral-200 pt-10 md:mt-16 md:pt-12">
+          <dl className="divide-y divide-neutral-200 border-y border-neutral-200">
+            <div className="grid grid-cols-[100px_1fr] gap-4 py-4 md:grid-cols-[120px_1fr] md:gap-6">
+              <dt className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Artist</dt>
+              <dd className="text-[14px] leading-relaxed">{artist.artistName}</dd>
+            </div>
+            <div className="grid grid-cols-[100px_1fr] gap-4 py-4 md:grid-cols-[120px_1fr] md:gap-6">
+              <dt className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Medium</dt>
+              <dd className="text-[14px] leading-relaxed">{meta.medium}</dd>
+            </div>
+            <div className="grid grid-cols-[100px_1fr] gap-4 py-4 md:grid-cols-[120px_1fr] md:gap-6">
+              <dt className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Tags</dt>
+              <dd className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.14em] text-neutral-800">
+                {meta.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </dd>
+            </div>
+            <div className="grid grid-cols-[100px_1fr] gap-4 py-4 md:grid-cols-[120px_1fr] md:gap-6">
+              <dt className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Instagram</dt>
+              <dd>
+                <a
+                  href={artist.instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[14px] leading-relaxed text-neutral-900 underline decoration-neutral-300 underline-offset-4 transition-opacity hover:opacity-60"
+                >
+                  {artist.instagramHandle}
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      {/* Description */}
+      <section className="mx-auto mt-14 max-w-[42rem] border-t border-neutral-200 pt-10 md:mt-20 md:pt-12">
         {artist.body.split(/\n\n+/).map((paragraph) => (
           <p
             key={paragraph}
@@ -58,6 +93,7 @@ export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
         ))}
       </section>
 
+      {/* Gallery carousel — full-width figures stacked */}
       {galleryImages.length > 0 && (
         <section className="mt-14 space-y-14 border-t border-neutral-200 pt-12 md:mt-20 md:space-y-20 md:pt-16">
           {galleryImages.map((image, index) => (

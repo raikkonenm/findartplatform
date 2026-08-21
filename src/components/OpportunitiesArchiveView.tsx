@@ -872,19 +872,33 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       </span>
 
       {/* OPPORTUNITY — headline + organizer underneath on desktop */}
-      <div className="order-2 col-span-2 md:order-none md:col-span-1">
-        <h3
+      <div className="order-2 col-span-2 flex items-start justify-between gap-3 md:order-none md:col-span-1">
+        <div className="min-w-0">
+          <h3
+            onClick={(event) => {
+              event.stopPropagation();
+              onOpen();
+            }}
+            className="editorial-serif break-words text-[clamp(1.05rem,4vw,1.4rem)] leading-[1.08] tracking-[-0.035em] text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[clamp(1.15rem,1.9vw,1.75rem)] md:leading-[1.02]"
+          >
+            {shortTitle(opportunity.title)}
+          </h3>
+          <p className="mt-1 hidden text-[10px] uppercase tracking-[0.16em] text-neutral-500 md:block">
+            {opportunity.organizer}
+          </p>
+        </div>
+        <button
+          type="button"
+          aria-label={isSaved ? "Unsave opportunity" : "Save opportunity"}
+          aria-pressed={isSaved}
           onClick={(event) => {
             event.stopPropagation();
-            onOpen();
+            onToggleSaved();
           }}
-          className="editorial-serif break-words text-[clamp(1.05rem,4vw,1.4rem)] leading-[1.08] tracking-[-0.035em] text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[clamp(1.15rem,1.9vw,1.75rem)] md:leading-[1.02]"
+          className="shrink-0 rounded-md border border-neutral-300 bg-white/85 p-2 text-neutral-900 shadow-sm transition-opacity hover:opacity-70"
         >
-          {shortTitle(opportunity.title)}
-        </h3>
-        <p className="mt-1 hidden text-[10px] uppercase tracking-[0.16em] text-neutral-500 md:block">
-          {opportunity.organizer}
-        </p>
+          <HeartIcon filled={isSaved} className="h-4 w-4" />
+        </button>
       </div>
 
       {/* TYPE — desktop */}

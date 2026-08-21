@@ -347,6 +347,36 @@ export const EDITORIAL_SECTIONS: Array<{ title: string; slugs: string[] }> = [
   },
 ];
 
+// Per-artist medium + tag hints for the detail-page side rail. Kept as a
+// lookup table so we don't have to edit every artist entry above; if an
+// artist isn't listed we fall back to the section-level tags below.
+const ARTIST_META: Record<string, { medium: string; tags: string[] }> = {
+  "xolo-cuintle": { medium: "Sculpture, Installation", tags: ["MATERIALITY", "MYTH", "TRANSFORMATION"] },
+  "dew-kim": { medium: "Sculpture, Video, Installation", tags: ["RITUAL", "IDENTITY", "SPIRITUALITY"] },
+  "isabelle-albuquerque": { medium: "Sculpture, Performance", tags: ["BODY", "MUTATION", "SPECULATIVE BODY"] },
+  "koesy": { medium: "Painting", tags: ["DIGITAL MYTH", "IDENTITY", "TECHNOLOGY"] },
+  "kim-myungchan": { medium: "Painting", tags: ["TECHNOLOGY", "SYNTHETIC", "SPECULATIVE FICTION"] },
+  "yukino-yamanaka": { medium: "Digital painting, Video", tags: ["BODY", "HYBRID BODIES", "MUTATION"] },
+  "anna-uddenberg": { medium: "Sculpture, Installation", tags: ["BODY", "HYBRID BODIES", "OBJECTHOOD"] },
+  "00-zhang": { medium: "Digital, Mixed media", tags: ["TECHNOLOGY", "SYNTHETIC", "SIMULATION"] },
+  "yihan-pan": { medium: "Sculpture, Installation", tags: ["MATERIALITY", "TRANSFORMATION"] },
+  "emma-beatrez": { medium: "Painting", tags: ["BODY", "FEMININITY", "IDENTITY"] },
+  "sophia-gatzkan": { medium: "Sculpture", tags: ["BODY", "MATERIALITY", "MUTATION"] },
+  "jacopo-pagin": { medium: "Painting", tags: ["MYTH", "SYMBOL", "DREAM LOGIC"] },
+  "doris-salcedo": { medium: "Sculpture, Installation", tags: ["MEMORY", "ABSENCE", "MATERIALITY"] },
+  "yeon-gyeong-seok": { medium: "Sculpture, Installation", tags: ["MATERIALITY", "TRANSFORMATION"] },
+  "nathan-careme": { medium: "Sculpture, Installation", tags: ["OBJECTHOOD", "MATERIALITY"] },
+  "arghavan-khosravi": { medium: "Painting", tags: ["MYTH", "IDENTITY", "RITUAL"] },
+  "que-fresca": { medium: "Sculpture, Installation", tags: ["BODY", "HYBRID BODIES", "MUTATION"] },
+  "taewon-ahn": { medium: "Sculpture, Installation", tags: ["TECHNOLOGY", "SYNTHETIC", "SIMULATION"] },
+};
+
+export function getEditorialArtistMeta(slug: string): { medium: string; tags: string[] } {
+  if (ARTIST_META[slug]) return ARTIST_META[slug];
+  const section = EDITORIAL_SECTIONS.find((s) => s.slugs.includes(slug));
+  return { medium: "Mixed media", tags: section ? section.title.split(" / ") : [] };
+}
+
 // Return up to `count` artists that share a section with the given slug.
 // Falls back to filling from the flat artist list when the section has
 // fewer siblings than requested.

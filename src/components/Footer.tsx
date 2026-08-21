@@ -36,12 +36,9 @@ export function Footer() {
             <Link href="/opportunities" className={footerLinkClass}>
               Opportunities
             </Link>
-            <Link href="/features" className={footerLinkClass}>
+            <Link href="/editorial" className={footerLinkClass}>
               Editorial
             </Link>
-            <button type="button" className={footerLinkClass}>
-              Media
-            </button>
           </nav>
         </div>
 
@@ -50,40 +47,22 @@ export function Footer() {
             Submit
           </p>
           <div className="flex flex-col items-start gap-3">
-            <button type="button" className={footerLinkClass}>
+            <Link href="/submit?type=exhibition" className={footerLinkClass}>
               Submit exhibition
-            </button>
-            <button type="button" className={footerLinkClass}>
+            </Link>
+            <Link href="/submit?type=artist" className={footerLinkClass}>
               Submit as an Artist
-            </button>
-            <button type="button" className={footerLinkClass}>
+            </Link>
+            <Link href="/contribute" className={footerLinkClass}>
               Submit article
-            </button>
-            <button type="button" className={footerLinkClass}>
+            </Link>
+            <Link href="/submit-opportunities" className={footerLinkClass}>
               Submit Opportunities
-            </button>
+            </Link>
+            <Link href="/submit?type=index" className={footerLinkClass}>
+              Submit a Website
+            </Link>
           </div>
-        </div>
-
-        <div>
-          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
-            Sell
-          </p>
-          <button type="button" className={footerLinkClass}>
-            Sell your art
-          </button>
-        </div>
-
-        <div>
-          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
-            Collectors
-          </p>
-          <a
-            href="https://findartplatform-j31a400t3-maria-raikkonen-s-projects.vercel.app/collect"
-            className={footerLinkClass}
-          >
-            Start collect art
-          </a>
         </div>
 
         <div>
@@ -122,40 +101,21 @@ export function Footer() {
           <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
             Advertising
           </p>
-          <a
-            href="mailto:raikkonenmaria7@gmail.com?subject=Advertising%20inquiry"
-            className={footerLinkClass}
-          >
+          <Link href="/contact?topic=advertising" className={footerLinkClass}>
             Advertise with us
-          </a>
+          </Link>
         </div>
 
         <div>
           <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
             Inquiries
           </p>
-          <a
-            href="mailto:raikkonenmaria7@gmail.com"
-            className="text-[12px] transition-opacity hover:opacity-55"
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-neutral-900 transition-opacity hover:opacity-55"
           >
-            raikkonenmaria7@gmail.com
-          </a>
-        </div>
-
-        <div>
-          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
-            Submissions
-          </p>
-          <p className="text-[12px] leading-6">
-            For submissions{" "}
-            <Link
-              href="/submit"
-              className="font-semibold underline underline-offset-4 transition-opacity hover:opacity-55"
-            >
-              visit here
-            </Link>
-            .
-          </p>
+            Contact us <span aria-hidden="true">&#8599;</span>
+          </Link>
         </div>
       </div>
     </footer>
