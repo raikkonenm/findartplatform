@@ -126,11 +126,22 @@ const emptyContributeFields: ContributeFields = {
   notes: "",
 };
 
-// Only exhibition + artist go through Gumroad checkout (paid). Opportunity
-// and index submissions are free and short-circuit to a thank-you state.
+// Paid submissions redirect to Gumroad after the form. Article (contribute)
+// is free — no redirect. Fees: exhibition $10 / artist $15 / website $10 /
+// opportunity $20 / article free.
 const GUMROAD_URLS: Partial<Record<SubmissionType, string>> = {
   exhibition: "https://findartplatform.gumroad.com/l/exhibitionsubmission",
   artist: "https://findartplatform.gumroad.com/l/submitasanartist",
+  index: "https://findartplatform.gumroad.com/l/submitwebsite",
+  opportunity: "https://findartplatform.gumroad.com/l/submitopportunity",
+};
+
+export const SUBMISSION_FEES: Record<SubmissionType, string> = {
+  exhibition: "$10",
+  artist: "$15",
+  index: "$10",
+  opportunity: "$20",
+  contribute: "Free",
 };
 
 type FieldProps = {
