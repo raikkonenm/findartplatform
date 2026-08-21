@@ -178,7 +178,7 @@ function MobileFeaturedCarousel() {
         >
           {slides.map((slide) => {
             const inner = (
-              <div className="relative block aspect-[4/5] w-full overflow-hidden bg-neutral-100">
+              <div className="relative block aspect-[4/3] w-full overflow-hidden rounded bg-neutral-100">
                 {slide.media}
                 {/* Bottom-anchored scrim so the caption is always legible. */}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
@@ -192,7 +192,7 @@ function MobileFeaturedCarousel() {
               </div>
             );
             return (
-              <div key={slide.href} className="w-full shrink-0">
+              <div key={slide.href} className="w-full shrink-0 px-4">
                 {slide.external ? (
                   <a href={slide.href} aria-label={slide.ariaLabel} className="block">
                     {inner}
