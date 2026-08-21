@@ -14,7 +14,7 @@ const CONTENT: Record<SubmitPageType, {
   benefits: string[];
 }> = {
   exhibition: {
-    optionLabel: "Submit an Exhibition",
+    optionLabel: "Exhibition",
     heading: "SUBMIT TO FINDART",
     intro:
       "Submit your exhibition to FindArt Platform — an international contemporary art archive documenting exhibitions across galleries, institutions, and independent spaces worldwide.",
@@ -24,7 +24,7 @@ const CONTENT: Record<SubmitPageType, {
     ],
   },
   artist: {
-    optionLabel: "Submit as an Artist to Artcnomads",
+    optionLabel: "As an artist to Artcnomads",
     heading: "SUBMIT TO ARTCNOMADS",
     intro:
       "Submit your practice to ArtNomads for curatorial review and consideration for future publications, features, and projects across our platforms.",
@@ -35,7 +35,7 @@ const CONTENT: Record<SubmitPageType, {
     ],
   },
   index: {
-    optionLabel: "Submit a Website",
+    optionLabel: "Website",
     heading: "SUBMIT WEBSITE TO FINDART",
     intro:
       "Add your artist / studio / project website to the FindArt Index — a curated directory of independent contemporary-art web presences.",
@@ -78,7 +78,7 @@ export function SubmissionExperience() {
 
       <label className="block">
         <span className="mb-3 block text-[10px] uppercase tracking-[0.28em] text-neutral-500">
-          I want to
+          I want submit
         </span>
         <div className="relative">
           <select
