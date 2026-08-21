@@ -14,6 +14,7 @@ type Banner = {
   duration: number;
   caption?: string;
   href?: string;
+  credit?: { label: string; href: string };
 };
 
 const VIDEO_BANNER: Banner = {
@@ -22,6 +23,7 @@ const VIDEO_BANNER: Banner = {
   alt: "Irene Molina",
   duration: 7500,
   caption: "IRENE MOLINA",
+  credit: { label: "Video: https://irenemolina.xyz/", href: "https://irenemolina.xyz/" },
 };
 const IMAGE_BANNER: Banner = {
   type: "image",
@@ -30,10 +32,14 @@ const IMAGE_BANNER: Banner = {
   duration: 5000,
   caption: "ISABELLE ALBUQUERQUE",
   href: "/features/isabelle-albuquerque",
+  credit: {
+    label: "Photo: @isabellealbuquerque",
+    href: "https://www.instagram.com/isabellealbuquerque/",
+  },
 };
 
 const MOBILE_BANNERS: Banner[] = [VIDEO_BANNER, IMAGE_BANNER];
-const DESKTOP_BANNERS: Banner[] = [IMAGE_BANNER, VIDEO_BANNER];
+const DESKTOP_BANNERS: Banner[] = [VIDEO_BANNER, IMAGE_BANNER];
 
 function FeaturesBanner() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -116,6 +122,16 @@ function FeaturesBanner() {
               {captionInner}
             </div>
           )
+        )}
+        {currentBanner.credit && (
+          <a
+            href={currentBanner.credit.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-3 right-4 z-10 hidden text-[10px] text-white/85 drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] transition-opacity hover:text-white hover:opacity-90 md:block md:text-[11px]"
+          >
+            {currentBanner.credit.label}
+          </a>
         )}
       </div>
       <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2">

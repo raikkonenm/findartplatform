@@ -153,7 +153,7 @@ function MobileFeaturedCarousel() {
   };
 
   return (
-    <section className="overflow-hidden bg-white pb-6 pt-4 md:hidden" aria-label="Featured exhibitions">
+    <section className="overflow-hidden bg-white pb-6 md:hidden" aria-label="Featured exhibitions">
       <div
         className="overflow-hidden"
         onTouchStart={(event) => {
@@ -178,7 +178,7 @@ function MobileFeaturedCarousel() {
         >
           {slides.map((slide) => {
             const inner = (
-              <div className="relative block aspect-[16/9] overflow-hidden rounded bg-neutral-100">
+              <div className="relative block aspect-[4/5] w-full overflow-hidden bg-neutral-100">
                 {slide.media}
                 {/* Bottom-anchored scrim so the caption is always legible. */}
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
@@ -192,7 +192,7 @@ function MobileFeaturedCarousel() {
               </div>
             );
             return (
-              <div key={slide.href} className="w-full shrink-0 px-4">
+              <div key={slide.href} className="w-full shrink-0">
                 {slide.external ? (
                   <a href={slide.href} aria-label={slide.ariaLabel} className="block">
                     {inner}
@@ -1337,38 +1337,21 @@ export default function HomePageClient({
             </div>
           )}
 
-          {/* Homepage mobile: keep the existing tap-driven dropdown controls.
-              Exhibitions mobile uses the SearchBar drawer above and hides this. */}
-          <div
-            className={`${showFeaturedBanners ? "flex" : "hidden"} flex-wrap items-center gap-2 md:hidden`}
-          >
-            <SelectDropdown<SelectedTag>
-              label="Tags"
-              value={tag}
-              allValue="ALL"
-              allLabel="Tags"
-              options={tagOptions}
-              onChange={selectTag}
-            />
-            <LocationDropdown value={location} tree={locationTree} onChange={setLocation} />
-            <SelectDropdown<string>
-              label="Year"
-              value={year}
-              allValue="All"
-              allLabel="Years"
-              options={YEARS}
-              onChange={setYear}
-            />
-            <FilterChip
-              label="On view"
-              active={onViewOnly}
-              onClick={() => setOnViewOnly((v) => !v)}
-            />
-
-            <div className="ml-auto">
-              <DensityToggleButton density={density} onCycle={cycleDensity} />
+          {/* Homepage mobile: single EXPLORE / FILTERS row — same drawer as /exhibitions. */}
+          {showFeaturedBanners && (
+            <div className="flex items-center justify-between md:hidden">
+              <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-900">
+                EXPLORE
+              </span>
+              <button
+                type="button"
+                onClick={() => setMobileExhibFiltersOpen(true)}
+                className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-700 transition-opacity hover:opacity-60"
+              >
+                FILTERS
+              </button>
             </div>
-          </div>
+          )}
 
           {/* Desktop filter labels switch the horizontal option rail on hover. */}
           <div className="hidden items-center gap-3 md:flex">
@@ -1508,13 +1491,12 @@ export default function HomePageClient({
           />
         )}
       </section>
-      {!showFeaturedBanners && (
-        <MobileFilterSheet
+      <MobileFilterSheet
           open={mobileExhibFiltersOpen}
           onClose={() => setMobileExhibFiltersOpen(false)}
           searchValue={search}
           onSearchChange={setSearch}
-          searchPlaceholder="Search exhibitions"
+          searchPlaceholder={showFeaturedBanners ? "Search" : "Search exhibitions"}
           onClearAll={() => {
             selectTag("ALL");
             setLocation({ kind: "all" });
@@ -1620,7 +1602,6 @@ export default function HomePageClient({
             ]}
           />
         </MobileFilterSheet>
-      )}
     </main>
   );
 }

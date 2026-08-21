@@ -322,3 +322,55 @@ export function getEditorialArtist(slug: string): EditorialArtist | undefined {
 export function editorialSavedKey(slug: string): string {
   return `editorial:${slug}`;
 }
+
+// Group definitions mirror the section rail on /features. Related-artist
+// pickers use them as the tag-relevance signal.
+export const EDITORIAL_SECTIONS: Array<{ title: string; slugs: string[] }> = [
+  {
+    title: "BODY / MUTATION",
+    slugs: [
+      "yukino-yamanaka",
+      "isabelle-albuquerque",
+      "anna-uddenberg",
+      "sophia-gatzkan",
+      "emma-beatrez",
+      "que-fresca",
+    ],
+  },
+  {
+    title: "TECHNOLOGY / SYNTHETIC",
+    slugs: ["00-zhang", "kim-myungchan", "koesy", "taewon-ahn"],
+  },
+  {
+    title: "MYTH / RITUAL / SYMBOL",
+    slugs: ["dew-kim", "xolo-cuintle", "arghavan-khosravi", "jacopo-pagin"],
+  },
+];
+
+// Return up to `count` artists that share a section with the given slug.
+// Falls back to filling from the flat artist list when the section has
+// fewer siblings than requested.
+export function getRelatedEditorialArtists(slug: string, count = 3): EditorialArtist[] {
+  const section = EDITORIAL_SECTIONS.find((s) => s.slugs.includes(slug));
+  const sibling = section
+    ? section.slugs.filter((s) => s !== slug)
+    : [];
+  const seen = new Set<string>([slug]);
+  const picked: EditorialArtist[] = [];
+  for (const sib of sibling) {
+    const found = editorialArtists.find((entry) => entry.slug === sib);
+    if (found && !seen.has(found.slug)) {
+      picked.push(found);
+      seen.add(found.slug);
+      if (picked.length === count) return picked;
+    }
+  }
+  // Not enough siblings — pad with any other artist not yet picked.
+  for (const entry of editorialArtists) {
+    if (picked.length === count) break;
+    if (seen.has(entry.slug)) continue;
+    picked.push(entry);
+    seen.add(entry.slug);
+  }
+  return picked;
+}
