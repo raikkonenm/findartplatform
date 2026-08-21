@@ -31,6 +31,13 @@ export default function SubmitOpportunitiesPage() {
       <Header />
       <section className="px-5 pb-20 md:px-8 lg:px-12">
         <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Open Submission</p>
+            <h1 className="editorial-serif mt-3 text-[clamp(1.4rem,3vw,2rem)] uppercase leading-[1.05] tracking-[-0.02em] text-neutral-900">
+              Submit an Opportunity
+            </h1>
+          </div>
+
           <p className="text-[15px] leading-[1.65] text-neutral-700 md:text-[16px]">
             List an open call, residency, grant, award, commission, job or collaboration
             on FindArt Platform. Reviewed within a few days and published if a fit for
