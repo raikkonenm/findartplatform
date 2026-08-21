@@ -1386,7 +1386,7 @@ export function OpportunitiesArchiveView() {
         <div className="hidden md:flex md:justify-end">
           <Link
             href="/submit"
-            className="whitespace-nowrap text-[11px] uppercase tracking-[0.2em] text-neutral-700 transition-opacity hover:opacity-55"
+            className="whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.2em] text-neutral-900 transition-opacity hover:opacity-55"
           >
             Submit Opportunities <span aria-hidden="true">↗</span>
           </Link>
