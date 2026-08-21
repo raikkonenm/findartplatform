@@ -53,7 +53,6 @@ export function CollectArtworkCard({
           src={artwork.src}
           alt={`${title} by Chungkook Lee, ${year}`}
           fill
-          unoptimized
           loading="lazy"
           sizes={
             columns === 4

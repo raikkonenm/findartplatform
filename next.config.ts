@@ -5,18 +5,13 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
-    // Serve every source image straight from public/ instead of
-    // routing through /_next/image. Vercel Hobby's monthly image-
-    // optimization quota is exhausted; as previously-cached
-    // transformations age out of edge cache, uncached sizes start
-    // returning HTTP 402 and old exhibitions' covers break. Every
-    // exhibition source is already q=80/1600 WebP averaging
-    // ~50-100 KB, so shipping it as-is is the reliable path.
-    // The `minimumCacheTTL`, `deviceSizes`, `imageSizes`, and any
-    // per-exhibition `unoptimized: true` flags below become inert
-    // under this global switch — kept in place so we can flip back
-    // to optimized delivery in one line once quota is available.
-    unoptimized: true,
+    // Route through Vercel's image optimizer. Sources are already q80
+    // WebP averaging ~46 KB after the shrink pass, so per-variant
+    // transformation cost is minimal. Serving smaller variants per
+    // breakpoint is what actually drives LCP down on mobile — the
+    // masonry cards render at ~200–400 px CSS width and used to pull
+    // the full-size webp because unoptimized: true was set.
+    unoptimized: false,
     // Cache transformed images at Vercel edge for one year — image
     // URLs are content-addressed by (source, width, quality), so a
     // long TTL never serves stale content and eliminates the cold-

@@ -100,7 +100,6 @@ function FeaturesBanner() {
               src={banner.src}
               alt={index === 0 ? banner.alt : ""}
               fill
-              unoptimized
               sizes="100vw"
               priority={index === 0}
               className={`object-cover transition-opacity duration-700 ease-out ${

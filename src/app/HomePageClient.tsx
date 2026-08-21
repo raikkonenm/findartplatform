@@ -61,7 +61,6 @@ function FeaturedExhibitionSlideshow({
           {...(priority && index === 0
             ? { fetchPriority: "high" as const }
             : { loading: "lazy" as const })}
-          unoptimized
           sizes={sizes}
           className={`object-cover transition-opacity duration-300 ease-in-out ${
             index === activeSlide ? "opacity-100" : "opacity-0"

@@ -40,7 +40,6 @@ export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
               fill
               priority
               fetchPriority="high"
-              unoptimized
               sizes="(min-width: 1024px) 50vw, (min-width: 768px) 55vw, 100vw"
               className="object-cover"
             />
@@ -100,7 +99,6 @@ export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
                 height={image.height}
                 className="mx-auto h-auto max-h-[86vh] w-auto max-w-full object-contain"
                 loading="lazy"
-                unoptimized
                 sizes="(min-width: 1024px) 70vw, 92vw"
               />
             </figure>
@@ -125,7 +123,6 @@ export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
                     src={related.coverImage.src}
                     alt={`${related.artistName} portrait`}
                     fill
-                    unoptimized
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                     sizes="(min-width: 1024px) 20vw, (min-width: 768px) 30vw, 32vw"
                   />

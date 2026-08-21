@@ -51,7 +51,6 @@ export function EditorialCard({
               {...(eager && index === 0
                 ? { fetchPriority: "high" as const }
                 : { loading: "lazy" as const })}
-              unoptimized
               sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, 100vw"
             />
           ))}

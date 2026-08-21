@@ -37,7 +37,6 @@ export function EditorialPromoCard() {
             alt=""
             fill
             loading="lazy"
-            unoptimized
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
             className={`object-cover transition-opacity duration-300 ease-in-out ${
               index === activeSlide ? "opacity-100" : "opacity-0"

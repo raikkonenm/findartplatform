@@ -90,7 +90,6 @@ function CardSlideshow({ exhibition, title }: { exhibition: Exhibition; title: s
           className={`object-cover transition-[opacity,transform] duration-500 ease-out md:group-hover:scale-[1.025] ${
             index === activeSlide ? "opacity-100" : "opacity-0"
           }`}
-          {...(exhibition.unoptimized ? { unoptimized: true } : {})}
           sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 50vw"
         />
       ))}
@@ -145,7 +144,6 @@ export function ExhibitionCard({
             {...(eager
               ? { fetchPriority: "high" as const }
               : { loading: "lazy" as const })}
-            {...(exhibition.unoptimized ? { unoptimized: true } : {})}
             sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           />
           {desktopSlideshow && (

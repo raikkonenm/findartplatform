@@ -53,7 +53,6 @@ export default function EditorialPage() {
               src="/editorial1/1.webp"
               alt="Editorial"
               fill
-              unoptimized
               sizes="(min-width: 768px) 40vw, 100vw"
               className="object-cover"
               priority
