@@ -19,6 +19,34 @@ type IndexEntry = {
 
 const ENTRIES: IndexEntry[] = [
   {
+    name: "IRENE MOLINA",
+    href: "https://irenemolina.xyz/",
+    subtitle: "irenemolina.xyz",
+    kind: "video",
+    media: "/directory/irenemolina.web.mp4",
+  },
+  {
+    name: "STINE DEJA",
+    href: "https://stinedeja.com/",
+    subtitle: "stinedeja.com",
+    kind: "video",
+    media: "/directory/stinedeja.web.mp4",
+  },
+  {
+    name: "INSIDE JOB",
+    href: "https://ulalucinska.com/",
+    subtitle: "ulalucinska.com",
+    kind: "video",
+    media: "/directory/inside-job.web.mp4",
+  },
+  {
+    name: "NATHAN CARÊME",
+    href: "https://nathancareme.fr/",
+    subtitle: "nathancareme.fr",
+    kind: "video",
+    media: "/directory/nathancareme.web.mp4",
+  },
+  {
     name: "RUBY CHEN",
     href: "https://www.rubyljchen.com/",
     subtitle: "rubyljchen.com",
