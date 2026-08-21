@@ -1380,11 +1380,9 @@ export function OpportunitiesArchiveView() {
     <main className="min-h-screen overflow-x-hidden bg-[var(--background)] pt-[65px] text-[var(--foreground)]">
       <Header />
       <section className="px-5 pb-24 pt-8 md:px-8 md:pt-6 lg:px-12">
-        {/* On desktop the filter row is what leads the page; the H1 lives on
-            mobile only so screen readers still get a page title. */}
-        <h1 className="editorial-serif mb-6 text-[clamp(1.2rem,4vw,1.6rem)] uppercase leading-none tracking-[-0.02em] md:sr-only">
-          Opportunities
-        </h1>
+        {/* H1 is present but sr-only on every viewport — the page title is
+            handled by the mobile FILTERS row and by the filter chips on desktop. */}
+        <h1 className="sr-only">Opportunities</h1>
         <div className="hidden md:flex md:justify-end">
           <Link
             href="/submit"
@@ -1394,15 +1392,20 @@ export function OpportunitiesArchiveView() {
           </Link>
         </div>
 
-        {/* Mobile-only search + filter button. Desktop toolbar sits with the filter chips below. */}
-        <div className="md:hidden">
-          <SearchBar
-            value={query}
-            onChange={setQuery}
-            placeholder="Search opportunities"
-            onFilterClick={() => setMobileFiltersOpen(true)}
-            filterBadge={activeFilterCount}
-          />
+        {/* Mobile-only FILTERS text button — opens the same drawer the icon used to. */}
+        <div className="flex justify-end md:hidden">
+          <button
+            type="button"
+            onClick={() => setMobileFiltersOpen(true)}
+            className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] text-neutral-700 transition-opacity hover:opacity-60"
+          >
+            Filters
+            {activeFilterCount > 0 && (
+              <span className="inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-neutral-900 px-1 text-[9px] font-semibold text-white">
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
         </div>
 
         {/* Desktop: one row of filter categories (label + current value),
