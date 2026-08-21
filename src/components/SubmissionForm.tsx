@@ -470,7 +470,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
         {status === "submitting" ? "Submitting..." : "Submit"}
       </button>
 
-      <p className="mt-5 text-[14px] font-semibold text-neutral-900">
+      <p className="mt-5 text-[18px] font-semibold text-neutral-900 md:text-[20px]">
         {SUBMISSION_FEES[submissionType] === "Free"
           ? "Free submission"
           : `${SUBMISSION_FEES[submissionType]} submission fee`}
