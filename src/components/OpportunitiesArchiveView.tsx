@@ -864,9 +864,9 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       tabIndex={0}
       onClick={onOpen}
       onKeyDown={onKeyDown}
-      className={`group relative grid cursor-pointer grid-cols-[1fr_auto] items-start gap-x-5 gap-y-2 border-b border-neutral-200 px-2 py-6 pr-12 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6 md:pr-14`}
+      className={`group relative grid cursor-pointer grid-cols-[1fr_auto_auto] items-start gap-x-3 gap-y-2 border-b border-neutral-200 px-2 py-6 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6 md:pr-14`}
     >
-      {/* SAVE — floating heart in top-right of the row, inside the card */}
+      {/* Desktop: floating heart at right-inside of the row */}
       <button
         type="button"
         aria-label={isSaved ? "Unsave opportunity" : "Save opportunity"}
@@ -875,13 +875,13 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
           event.stopPropagation();
           onToggleSaved();
         }}
-        className="absolute right-2 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm transition-opacity hover:opacity-70 md:right-3 md:top-1/2 md:-translate-y-1/2"
+        className="absolute right-3 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm transition-opacity hover:opacity-70 md:flex"
       >
         <HeartIcon filled={isSaved} className="h-4 w-4" />
       </button>
 
       {/* TYPE eyebrow — mobile only */}
-      <span className="order-1 col-span-2 text-[10px] uppercase tracking-[0.22em] text-neutral-500 md:hidden">
+      <span className="order-1 col-span-3 text-[10px] uppercase tracking-[0.22em] text-neutral-500 md:hidden">
         {primaryTypeLabel(opportunity.type)}
       </span>
 
@@ -900,6 +900,20 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
           {opportunity.organizer}
         </p>
       </div>
+
+      {/* Mobile: heart as its own grid column at the right — outside the card content */}
+      <button
+        type="button"
+        aria-label={isSaved ? "Unsave opportunity" : "Save opportunity"}
+        aria-pressed={isSaved}
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggleSaved();
+        }}
+        className="order-3 flex h-9 w-9 shrink-0 items-center justify-center self-start rounded-md border border-neutral-300 bg-white text-neutral-900 shadow-sm transition-opacity hover:opacity-70 md:hidden"
+      >
+        <HeartIcon filled={isSaved} className="h-4 w-4" />
+      </button>
 
       {/* TYPE — desktop */}
       <span className="hidden text-[13px] text-neutral-700 md:block">
