@@ -1494,9 +1494,6 @@ export default function HomePageClient({
       <MobileFilterSheet
           open={mobileExhibFiltersOpen}
           onClose={() => setMobileExhibFiltersOpen(false)}
-          searchValue={search}
-          onSearchChange={setSearch}
-          searchPlaceholder={showFeaturedBanners ? "Search" : "Search exhibitions"}
           onClearAll={() => {
             selectTag("ALL");
             setLocation({ kind: "all" });

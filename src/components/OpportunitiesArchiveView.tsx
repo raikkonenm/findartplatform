@@ -1058,7 +1058,7 @@ const FEE_FILTERS: Array<{ id: FeeFilter; label: string }> = [
   { id: "paid", label: "Paid application" },
 ];
 
-function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilters, feeFilter, setFeeFilter, resultCount, onReset, viewMode, setViewMode, sortDirection, setSortDirection, drawerQuery, setDrawerQuery }: { open: boolean; onClose: () => void; selectedFilters: Record<FilterMode, string>; setSelectedFilters: (fn: (current: Record<FilterMode, string>) => Record<FilterMode, string>) => void; feeFilter: FeeFilter; setFeeFilter: (value: FeeFilter) => void; resultCount: number; onReset: () => void; viewMode: ViewMode; setViewMode: (value: ViewMode) => void; sortDirection: SortDirection; setSortDirection: (value: SortDirection) => void; drawerQuery: string; setDrawerQuery: (value: string) => void; }) {
+function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilters, feeFilter, setFeeFilter, resultCount, onReset, viewMode, setViewMode, sortDirection, setSortDirection }: { open: boolean; onClose: () => void; selectedFilters: Record<FilterMode, string>; setSelectedFilters: (fn: (current: Record<FilterMode, string>) => Record<FilterMode, string>) => void; feeFilter: FeeFilter; setFeeFilter: (value: FeeFilter) => void; resultCount: number; onReset: () => void; viewMode: ViewMode; setViewMode: (value: ViewMode) => void; sortDirection: SortDirection; setSortDirection: (value: SortDirection) => void; }) {
   useEffect(() => {
     if (!open) return;
     const previous = document.body.style.overflow;
@@ -1139,13 +1139,7 @@ function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilter
             </button>
           </div>
 
-          <SearchBar
-            value={drawerQuery}
-            onChange={setDrawerQuery}
-            placeholder="Search opportunities"
-          />
-
-          <div className="mt-6 space-y-6 pb-6">
+          <div className="mt-2 space-y-6 pb-6">
             {chipRow("type")}
             {chipRow("field")}
             {chipRow("reward")}
@@ -1699,8 +1693,6 @@ export function OpportunitiesArchiveView() {
         setViewMode={setViewMode}
         sortDirection={sortDirection}
         setSortDirection={setSortDirection}
-        drawerQuery={query}
-        setDrawerQuery={setQuery}
       />
     </main>
   );
