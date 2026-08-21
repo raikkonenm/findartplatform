@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 
 const ABOUT_TITLE = "About — FindArt Platform";
 const ABOUT_DESCRIPTION =
-  "FindArt Platform is a contemporary art exhibition archive by Art Curatorial Nomads, run by curators for artists, galleries and audiences worldwide.";
+  "FindArt Platform is an independent contemporary art platform founded by Maria Raikkonen and developed as part of Art Curatorial Nomads — exhibitions, opportunities, editorial features, and an expanding index of contemporary art.";
 const ABOUT_URL = "https://www.findartplatform.com/about";
 
 export const metadata: Metadata = {
@@ -46,7 +46,7 @@ export default function AboutPage() {
 
           <div className="mt-8 space-y-6 text-[1.05rem] leading-8 text-neutral-600">
             <p>
-              FindArt Platform is a contemporary art exhibition archive founded by{" "}
+              FindArt Platform is an independent contemporary art platform founded by{" "}
               <a
                 href="https://www.instagram.com/raikkonen_maria/"
                 target="_blank"
@@ -68,23 +68,22 @@ export default function AboutPage() {
               borders.
             </p>
             <p>
-              FindArt documents exhibitions from galleries, institutions, and independent
-              spaces worldwide, creating an evolving and searchable archive of contemporary
-              artistic and curatorial practices used by curators, collectors, artists,
-              galleries, and art professionals internationally.
+              Bringing together exhibitions, opportunities, editorial features, and an
+              expanding index, FindArt operates as both a living archive and a tool for
+              discovering contemporary art. The platform connects artistic and curatorial
+              practices across galleries, institutions, independent spaces, and emerging
+              contexts worldwide.
             </p>
             <p>
-              Through open submissions and ongoing editorial research, the archive maps both
-              emerging and established art scenes beyond geographic and institutional
-              centers.
+              Rather than focusing on a single geography or institutional network, FindArt
+              traces connections across different art scenes, making practices, projects,
+              and resources easier to find, navigate, and revisit.
             </p>
-          </div>
-        </div>
-
-        {/* Contact + social — kept left-aligned per spec. Width mirrors the
-            previous About-page column so the rhythm stays consistent. */}
-        <div className="mt-12 lg:max-w-[52%] xl:max-w-[46rem]">
-          <div className="space-y-2 text-[15px] leading-8 text-neutral-700">
+            <p>
+              Content is developed through ongoing editorial research and open submissions,
+              allowing the platform to document what has happened, follow what is happening
+              now, and make visible what is emerging next.
+            </p>
             <p>
               For submissions, visit{" "}
               <Link
@@ -95,16 +94,12 @@ export default function AboutPage() {
               </Link>
               .
             </p>
-            <p>
-              For inquiries, contact{" "}
-              <a
-                href="mailto:artcnomads@gmail.com"
-                className="underline decoration-1 decoration-neutral-400 underline-offset-4 transition-opacity hover:opacity-55"
-              >
-                artcnomads@gmail.com
-              </a>
-            </p>
           </div>
+        </div>
+
+        {/* Follow — kept left-aligned per spec. Width mirrors the previous
+            About-page column so the rhythm stays consistent. */}
+        <div className="mt-12 lg:max-w-[52%] xl:max-w-[46rem]">
 
           <div className="mt-14 border-t border-neutral-200 pt-8">
             <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">
