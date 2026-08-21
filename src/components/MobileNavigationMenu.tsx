@@ -148,9 +148,9 @@ export function MobileNavigationMenu({ inverted = false }: { inverted?: boolean 
                   Opportunities
                 </Link>
                 <Link
-                  href="/features"
+                  href="/editorial"
                   onClick={() => setOpen(false)}
-                  className={pathname.startsWith("/features") ? "font-semibold" : ""}
+                  className={pathname === "/editorial" ? "font-semibold" : ""}
                 >
                   Editorial
                 </Link>

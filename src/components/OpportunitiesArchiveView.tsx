@@ -1392,11 +1392,14 @@ export function OpportunitiesArchiveView() {
           </Link>
         </div>
 
-        {/* Mobile-only header row: page title left, FILTERS text right. */}
+        {/* Mobile-only header row: Submit Opportunities link left, FILTERS text right. */}
         <div className="flex items-center justify-between md:hidden">
-          <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-900">
-            OPPORTUNITIES
-          </span>
+          <Link
+            href="/submit"
+            className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-900 transition-opacity hover:opacity-60"
+          >
+            SUBMIT OPPORTUNITIES <span aria-hidden="true">↗</span>
+          </Link>
           <button
             type="button"
             onClick={() => setMobileFiltersOpen(true)}
