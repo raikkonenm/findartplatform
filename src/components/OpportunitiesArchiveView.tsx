@@ -1422,7 +1422,7 @@ export function OpportunitiesArchiveView() {
             onClick={() => setMobileFiltersOpen(true)}
             className="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-700 transition-colors hover:border-neutral-400"
           >
-            Filters
+            FILTERS
             {activeFilterCount > 0 && (
               <span className="inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-neutral-900 px-1 text-[9px] font-semibold text-white">
                 {activeFilterCount}
