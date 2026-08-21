@@ -15,6 +15,7 @@ type ExhibitionCardProps = {
 };
 
 const DESKTOP_SLIDESHOW_SLUGS = new Set([
+  "rot-summer",
   "make-me-yours",
   "who-composes-the-song-of-the-crickets",
   "everything-comes-together-while-pushing-all-apart",
@@ -57,6 +58,7 @@ const DESKTOP_SLIDESHOW_SLUGS = new Set([
 const ALL_IMAGE_SLIDESHOW_SLUGS = new Set([
   "after-the-offerings",
   "sweet-world-1",
+  "rot-summer",
 ]);
 
 function CardSlideshow({ exhibition, title }: { exhibition: Exhibition; title: string }) {

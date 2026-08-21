@@ -4,7 +4,14 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Header } from "./Header";
+import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 import { SearchBar } from "./SearchBar";
+
+// Key namespace so opportunity saves live alongside exhibition / editorial
+// saves in the same SavedExhibitionsProvider without slug collisions.
+export function opportunitySavedKey(slug: string): string {
+  return `opportunity:${slug}`;
+}
 
 const FILTERS = {
   type: ["Types", "Residencies", "Awards & Prizes", "Calls for Curators", "Collaborations", "Commissions", "Education", "Grants & Stipends", "Jobs", "Open Calls"],
@@ -17,7 +24,7 @@ type ViewMode = "grid" | "list";
 type FeeFilter = "all" | "free" | "paid";
 type SortDirection = "asc" | "desc";
 
-type Opportunity = {
+export type Opportunity = {
   slug: string;
   organizer: string;
   title: string;
@@ -798,7 +805,19 @@ function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
 function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void }) {
   return (
     <article className="group/card relative flex min-h-[260px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[340px] md:p-5">
-      <div className="mb-4 flex items-start justify-between gap-2 pr-6 md:mb-8 md:gap-3">
+      <button
+        type="button"
+        aria-label={isSaved ? `Remove ${opportunity.title} from saved` : `Save ${opportunity.title}`}
+        aria-pressed={isSaved}
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggleSaved();
+        }}
+        className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm backdrop-blur-sm transition-opacity duration-200 hover:opacity-70 focus-visible:opacity-100 focus-visible:outline-none"
+      >
+        <HeartIcon filled={isSaved} className="h-4 w-4" />
+      </button>
+      <div className="mb-4 flex items-start justify-between gap-2 pr-12 md:mb-8 md:gap-3">
         <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 md:text-[10px]">{opportunity.organizer}</p>
         <FeeTag fee={opportunity.applicationFee} />
       </div>
@@ -921,7 +940,7 @@ function primaryTypeCapitalised(types: string[]): string {
     .replace(/Calls for Curators/i, "Open Call");
 }
 
-function OpportunitiesListView({ opportunities, onOpen, savedSet, onToggleSaved, sortDirection, onToggleSort, today }: { opportunities: Opportunity[]; onOpen: (opp: Opportunity) => void; savedSet: Set<string>; onToggleSaved: (slug: string) => void; sortDirection: SortDirection; onToggleSort: () => void; today: Date | null }) {
+function OpportunitiesListView({ opportunities, onOpen, isSaved, onToggleSaved, sortDirection, onToggleSort, today }: { opportunities: Opportunity[]; onOpen: (opp: Opportunity) => void; isSaved: (slug: string) => boolean; onToggleSaved: (slug: string) => void; sortDirection: SortDirection; onToggleSort: () => void; today: Date | null }) {
   return (
     <div className="mt-8">
       {/* Column header — desktop only, matches OpportunityRow grid template. */}
@@ -947,7 +966,7 @@ function OpportunitiesListView({ opportunities, onOpen, savedSet, onToggleSaved,
             key={opp.slug}
             opportunity={opp}
             onOpen={() => onOpen(opp)}
-            isSaved={savedSet.has(opp.slug)}
+            isSaved={isSaved(opp.slug)}
             onToggleSaved={() => onToggleSaved(opp.slug)}
             today={today}
           />
@@ -1203,7 +1222,7 @@ export function OpportunitiesArchiveView() {
   const [desktopMode, setDesktopMode] = useState<DesktopMode>("tags");
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
-  const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
+  const { isSaved: isSavedGlobal, toggleSaved: toggleSavedGlobal } = useSavedExhibitions();
   const [today, setToday] = useState<Date | null>(null);
   const [selectedOpportunity, setSelectedOpportunityState] = useState<Opportunity | null>(null);
   const [query, setQuery] = useState("");
@@ -1369,12 +1388,9 @@ export function OpportunitiesArchiveView() {
   };
 
   const toggleSaved = (slug: string) => {
-    setSavedSet((current) => {
-      const next = new Set(current);
-      if (next.has(slug)) next.delete(slug); else next.add(slug);
-      return next;
-    });
+    toggleSavedGlobal(opportunitySavedKey(slug));
   };
+  const isOpportunitySaved = (slug: string) => isSavedGlobal(opportunitySavedKey(slug));
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[var(--background)] pt-[65px] text-[var(--foreground)]">
@@ -1385,7 +1401,7 @@ export function OpportunitiesArchiveView() {
         <h1 className="sr-only">Opportunities</h1>
         <div className="hidden md:flex md:justify-end">
           <Link
-            href="/submit?type=opportunity"
+            href="/submit-opportunities"
             className="whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.2em] text-neutral-900 transition-opacity hover:opacity-55"
           >
             Submit Opportunities <span aria-hidden="true">↗</span>
@@ -1395,7 +1411,7 @@ export function OpportunitiesArchiveView() {
         {/* Mobile-only header row: Submit Opportunities link left, FILTERS text right. */}
         <div className="flex items-center justify-between md:hidden">
           <Link
-            href="/submit?type=opportunity"
+            href="/submit-opportunities"
             className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-900 transition-opacity hover:opacity-60"
           >
             SUBMIT OPPORTUNITIES <span aria-hidden="true">↗</span>
@@ -1621,7 +1637,7 @@ export function OpportunitiesArchiveView() {
                   key={opportunity.slug}
                   opportunity={opportunity}
                   onOpen={() => openOpportunity(opportunity)}
-                  isSaved={savedSet.has(opportunity.slug)}
+                  isSaved={isOpportunitySaved(opportunity.slug)}
                   onToggleSaved={() => toggleSaved(opportunity.slug)}
                 />
               ))}
@@ -1630,7 +1646,7 @@ export function OpportunitiesArchiveView() {
             <OpportunitiesListView
               opportunities={visibleOpportunities}
               onOpen={(opp) => openOpportunity(opp)}
-              savedSet={savedSet}
+              isSaved={isOpportunitySaved}
               onToggleSaved={toggleSaved}
               sortDirection={sortDirection}
               onToggleSort={() => setSortDirection((current) => (current === "asc" ? "desc" : "asc"))}

@@ -2,7 +2,7 @@
 
 import { type FormEvent, type ReactNode, useState } from "react";
 
-export type SubmissionType = "exhibition" | "artist" | "opportunity" | "index";
+export type SubmissionType = "exhibition" | "artist" | "opportunity" | "index" | "contribute";
 
 type ExhibitionFields = {
   name: string;
@@ -54,6 +54,17 @@ type IndexFields = {
   shortDescription: string;
 };
 
+type ContributeFields = {
+  name: string;
+  email: string;
+  contributionType: string;
+  pitchTitle: string;
+  pitch: string;
+  sampleLink: string;
+  shortBio: string;
+  notes: string;
+};
+
 const emptyExhibitionFields: ExhibitionFields = {
   name: "",
   email: "",
@@ -102,6 +113,17 @@ const emptyIndexFields: IndexFields = {
   websiteUrl: "",
   instagram: "",
   shortDescription: "",
+};
+
+const emptyContributeFields: ContributeFields = {
+  name: "",
+  email: "",
+  contributionType: "",
+  pitchTitle: "",
+  pitch: "",
+  sampleLink: "",
+  shortBio: "",
+  notes: "",
 };
 
 // Only exhibition + artist go through Gumroad checkout (paid). Opportunity
@@ -178,6 +200,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
   const [artistFields, setArtistFields] = useState<ArtistFields>(emptyArtistFields);
   const [opportunityFields, setOpportunityFields] = useState<OpportunityFields>(emptyOpportunityFields);
   const [indexFields, setIndexFields] = useState<IndexFields>(emptyIndexFields);
+  const [contributeFields, setContributeFields] = useState<ContributeFields>(emptyContributeFields);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   function updateExhibitionField<Key extends keyof ExhibitionFields>(
@@ -197,6 +220,10 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
 
   function updateIndexField<Key extends keyof IndexFields>(key: Key, value: IndexFields[Key]) {
     setIndexFields((current) => ({ ...current, [key]: value }));
+  }
+
+  function updateContributeField<Key extends keyof ContributeFields>(key: Key, value: ContributeFields[Key]) {
+    setContributeFields((current) => ({ ...current, [key]: value }));
   }
 
   function buildPayload() {
@@ -255,6 +282,18 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
           Instagram: indexFields.instagram,
           "Short Description": indexFields.shortDescription,
         };
+      case "contribute":
+        return {
+          submissionType,
+          Name: contributeFields.name,
+          Email: contributeFields.email,
+          "Contribution Type": contributeFields.contributionType,
+          "Pitch Title": contributeFields.pitchTitle,
+          Pitch: contributeFields.pitch,
+          "Sample / Portfolio Link": contributeFields.sampleLink,
+          "Short Bio": contributeFields.shortBio,
+          "Notes (optional)": contributeFields.notes,
+        };
     }
   }
 
@@ -291,7 +330,9 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
         ? "Artist submission form"
         : submissionType === "opportunity"
           ? "Opportunity submission form"
-          : "Index website submission form";
+          : submissionType === "contribute"
+            ? "Editorial contribution form"
+            : "Index website submission form";
 
   return (
     <form
@@ -381,7 +422,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
             </p>
           </aside>
         </>
-      ) : (
+      ) : submissionType === "index" ? (
         <>
           <div className="grid md:grid-cols-2 md:gap-x-8">
             <Field label="Name" placeholder="Your name" required value={indexFields.name} onChange={(value) => updateIndexField("name", value)} />
@@ -397,6 +438,28 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
               Index listings are free. Independent artist / studio / project sites only — no group directories or aggregators.
               <br />
               Reviewed within a few days.
+            </p>
+          </aside>
+        </>
+      ) : (
+        <>
+          <div className="grid md:grid-cols-2 md:gap-x-8">
+            <Field label="Name" placeholder="Your name" required value={contributeFields.name} onChange={(value) => updateContributeField("name", value)} />
+            <Field label="Email" placeholder="Email address" type="email" required value={contributeFields.email} onChange={(value) => updateContributeField("email", value)} />
+          </div>
+          <Field label="Type of contribution" placeholder="Essay / Interview / Exhibition text / Research / Other" required value={contributeFields.contributionType} onChange={(value) => updateContributeField("contributionType", value)} />
+          <Field label="Working title of the pitch" placeholder="Title" required value={contributeFields.pitchTitle} onChange={(value) => updateContributeField("pitchTitle", value)} />
+          <TextAreaField label="Pitch / abstract" placeholder="A short paragraph describing the piece — argument, subject, form." rows={6} required value={contributeFields.pitch} onChange={(value) => updateContributeField("pitch", value)} />
+          <Field label="Sample / portfolio link" placeholder="https://" type="url" required value={contributeFields.sampleLink} onChange={(value) => updateContributeField("sampleLink", value)} />
+          <TextAreaField label="Short bio" placeholder="A few sentences on your practice, publications, focus." rows={4} required value={contributeFields.shortBio} onChange={(value) => updateContributeField("shortBio", value)} />
+          <TextAreaField label="Notes (optional)" placeholder="Anything else we should know — timeline, prior conversations, references." rows={3} value={contributeFields.notes} onChange={(value) => updateContributeField("notes", value)} />
+
+          <aside className="mt-8 border border-neutral-200 bg-neutral-50 px-5 py-5">
+            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
+            <p className="mt-4 text-[13px] leading-6 text-neutral-600">
+              We welcome proposals for essays, interviews, exhibition texts, research and other editorial formats.
+              <br />
+              Free to pitch. Reviewed by the editorial team; we&rsquo;ll reply either way.
             </p>
           </aside>
         </>

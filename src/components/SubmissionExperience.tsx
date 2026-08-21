@@ -122,10 +122,13 @@ function TabButton({
   );
 }
 
-const SUBMISSION_TYPES: SubmissionType[] = ["exhibition", "artist", "opportunity", "index"];
+// /submit page only handles these three; /submit-opportunities and
+// /contribute live at their own routes.
+type SubmitPageType = "exhibition" | "artist" | "index";
+const SUBMISSION_TYPES: SubmitPageType[] = ["exhibition", "artist", "index"];
 
 export function SubmissionExperience() {
-  const [submissionType, setSubmissionType] = useState<SubmissionType>("exhibition");
+  const [submissionType, setSubmissionType] = useState<SubmitPageType>("exhibition");
   const content = submitContent[submissionType];
 
   // ?type=opportunity | index | artist | exhibition pre-selects a tab so
@@ -134,18 +137,18 @@ export function SubmissionExperience() {
     const paramValue = new URLSearchParams(window.location.search).get("type");
     if (paramValue && (SUBMISSION_TYPES as string[]).includes(paramValue)) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSubmissionType(paramValue as SubmissionType);
+      setSubmissionType(paramValue as SubmitPageType);
     }
   }, []);
 
   return (
     <>
       <div
-        className="mb-8 grid grid-cols-1 gap-2 sm:grid-cols-2 md:mb-10 lg:grid-cols-4"
+        className="mb-8 grid grid-cols-1 gap-2 sm:grid-cols-3 md:mb-10"
         role="tablist"
         aria-label="Submission type"
       >
-        {(["exhibition", "artist", "opportunity", "index"] as const).map((key) => (
+        {(["exhibition", "artist", "index"] as const).map((key) => (
           <TabButton
             key={key}
             selected={submissionType === key}

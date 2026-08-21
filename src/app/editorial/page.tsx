@@ -35,7 +35,7 @@ export default function EditorialPage() {
 
           <div className="mt-10 border-t border-neutral-200 pt-8 md:mt-14 md:pt-10">
             <a
-              href="mailto:hello@findartplatform.com?subject=Editorial%20proposal"
+              href="/contribute"
               className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.22em] text-neutral-900 transition-opacity hover:opacity-60"
             >
               Contribute to FindArt <span aria-hidden="true">↗</span>

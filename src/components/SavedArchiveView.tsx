@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import type { Exhibition } from "@/data/exhibitions";
 import { editorialSavedKey, type EditorialArtist } from "@/data/editorial";
 import { artworkSavedKey, buildCollectArtworks } from "@/lib/collectArtworks";
@@ -8,9 +9,14 @@ import { CollectArtworkCard } from "./CollectArtworkCard";
 import { EditorialCard } from "./EditorialCard";
 import { ExhibitionCard } from "./ExhibitionCard";
 import { Header } from "./Header";
+import {
+  OPPORTUNITIES,
+  opportunitySavedKey,
+  type Opportunity,
+} from "./OpportunitiesArchiveView";
 import { useSavedExhibitions } from "./SavedExhibitions";
 
-type SavedCategory = "exhibitions" | "editorial" | "artworks";
+type SavedCategory = "exhibitions" | "editorial" | "artworks" | "opportunities";
 
 function wordsFromEditorial(artist: EditorialArtist): Set<string> {
   return new Set(
@@ -37,13 +43,18 @@ export function SavedArchiveView({
   const savedExhibitions = exhibitions.filter((exhibition) => savedSlugs.has(exhibition.slug));
   const savedEditorial = artists.filter((artist) => savedSlugs.has(editorialSavedKey(artist.slug)));
   const savedArtworks = artworks.filter((artwork) => savedSlugs.has(artworkSavedKey(artwork.src)));
+  const savedOpportunities: Opportunity[] = OPPORTUNITIES.filter((opportunity) =>
+    savedSlugs.has(opportunitySavedKey(opportunity.slug)),
+  );
   const defaultCategory: SavedCategory = savedExhibitions.length
     ? "exhibitions"
     : savedEditorial.length
       ? "editorial"
-      : savedArtworks.length
-        ? "artworks"
-        : "exhibitions";
+      : savedOpportunities.length
+        ? "opportunities"
+        : savedArtworks.length
+          ? "artworks"
+          : "exhibitions";
   const activeCategory = selectedCategory ?? defaultCategory;
 
   const recommendedExhibitions = useMemo(() => {
@@ -91,6 +102,7 @@ export function SavedArchiveView({
     exhibitions: savedExhibitions.length,
     editorial: savedEditorial.length,
     artworks: savedArtworks.length,
+    opportunities: savedOpportunities.length,
   };
   const recommendations =
     activeCategory === "exhibitions"
@@ -108,7 +120,7 @@ export function SavedArchiveView({
         </h1>
 
         <div className="mt-8 flex flex-wrap items-center gap-6 md:mt-10">
-          {(["exhibitions", "editorial", "artworks"] as const).map((category) => (
+          {(["exhibitions", "editorial", "opportunities", "artworks"] as const).map((category) => (
             <button
               key={category}
               type="button"
@@ -161,6 +173,41 @@ export function SavedArchiveView({
             ) : (
               <p className="py-16 text-center text-[11px] uppercase tracking-[0.2em] text-neutral-400">
                 No saved artworks yet
+              </p>
+            ))}
+
+          {activeCategory === "opportunities" &&
+            (savedOpportunities.length ? (
+              <ul className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+                {savedOpportunities.map((opportunity) => (
+                  <li key={opportunity.slug}>
+                    <Link
+                      href={`/opportunities?opp=${opportunity.slug}`}
+                      className="group flex h-full flex-col border border-[var(--border)] p-4 transition-colors hover:border-neutral-500 md:p-5"
+                    >
+                      <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 md:text-[10px]">
+                        {opportunity.organizer}
+                      </p>
+                      <h3 className="editorial-serif mt-4 break-words text-[clamp(1.15rem,4vw,1.5rem)] leading-[1.05] tracking-[-0.03em] text-neutral-900 transition-opacity group-hover:opacity-75 md:text-[clamp(1.2rem,2vw,1.6rem)]">
+                        {opportunity.title}
+                      </h3>
+                      <div className="mt-auto grid grid-cols-2 gap-3 pt-6 text-[11px] leading-relaxed text-neutral-700 md:text-[12px]">
+                        <div>
+                          <p className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Deadline</p>
+                          <p>{opportunity.deadline}</p>
+                        </div>
+                        <div>
+                          <p className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Location</p>
+                          <p>{opportunity.location}</p>
+                        </div>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="py-16 text-center text-[11px] uppercase tracking-[0.2em] text-neutral-400">
+                No saved opportunities yet
               </p>
             ))}
         </div>
