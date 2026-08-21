@@ -46,6 +46,26 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // Long-term immutable Cache-Control on every static image + video
+  // under public/. Vercel's default is max-age=0 must-revalidate, so
+  // every browser reload conditionally re-validates all 589 <img>
+  // referenced in the SSR HTML — that's what pushed LCP to 25s on
+  // repeat visits. Content is addressed by path; if we ever need to
+  // change a file we version its filename, we don't invalidate cache.
+  async headers() {
+    const immutable = [
+      { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+    ];
+    return [
+      { source: "/:path*.webp", headers: immutable },
+      { source: "/:path*.jpg", headers: immutable },
+      { source: "/:path*.jpeg", headers: immutable },
+      { source: "/:path*.png", headers: immutable },
+      { source: "/:path*.mp4", headers: immutable },
+      { source: "/:path*.svg", headers: immutable },
+      { source: "/:path*.woff2", headers: immutable },
+    ];
+  },
 };
 
 export default nextConfig;
