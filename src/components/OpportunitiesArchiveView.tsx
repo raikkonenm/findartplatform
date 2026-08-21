@@ -1328,7 +1328,15 @@ export function OpportunitiesArchiveView() {
 
   const visibleOpportunities = useMemo(() => {
     const q = query.trim().toLowerCase();
+    // Drop opportunities whose deadline has already passed. During SSR
+    // and the first render `today` is null so nothing is dropped —
+    // filtering kicks in after mount, avoiding a hydration mismatch.
+    const todayISO = today
+      ? `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
+      : null;
     const filtered = OPPORTUNITIES.filter((opportunity) => {
+      const notExpired = !todayISO || opportunity.deadlineDate >= todayISO;
+      if (!notExpired) return false;
       const typeMatches = selectedFilters.type === FILTERS.type[0] || opportunity.type.includes(selectedFilters.type);
       const fieldMatches = selectedFilters.field === FILTERS.field[0] || opportunity.fields.includes(selectedFilters.field);
       const rewardMatches = selectedFilters.reward === FILTERS.reward[0] || opportunity.rewards.includes(selectedFilters.reward);
@@ -1352,7 +1360,7 @@ export function OpportunitiesArchiveView() {
       });
     }
     return filtered;
-  }, [selectedFilters, feeFilter, selectedLocation, selectedAudience, selectedTag, viewMode, sortDirection, query]);
+  }, [selectedFilters, feeFilter, selectedLocation, selectedAudience, selectedTag, viewMode, sortDirection, query, today]);
 
   const activeFilterCount = (selectedFilters.type !== FILTERS.type[0] ? 1 : 0) + (selectedFilters.field !== FILTERS.field[0] ? 1 : 0) + (selectedFilters.reward !== FILTERS.reward[0] ? 1 : 0) + (feeFilter !== "all" ? 1 : 0) + (selectedLocation !== "All" ? 1 : 0) + (selectedAudience !== "All" ? 1 : 0) + (selectedTag !== "All" ? 1 : 0);
   const resetMobileFilters = () => {
