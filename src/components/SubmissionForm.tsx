@@ -2,7 +2,7 @@
 
 import { type FormEvent, type ReactNode, useState } from "react";
 
-export type SubmissionType = "exhibition" | "artist";
+export type SubmissionType = "exhibition" | "artist" | "opportunity" | "index";
 
 type ExhibitionFields = {
   name: string;
@@ -29,6 +29,29 @@ type ArtistFields = {
   portfolioLink: string;
   website: string;
   additionalNotes: string;
+};
+
+type OpportunityFields = {
+  name: string;
+  email: string;
+  organization: string;
+  opportunityTitle: string;
+  opportunityType: string;
+  deadline: string;
+  location: string;
+  audience: string;
+  applicationFee: string;
+  applicationLink: string;
+  websiteLink: string;
+  description: string;
+};
+
+type IndexFields = {
+  name: string;
+  email: string;
+  websiteUrl: string;
+  instagram: string;
+  shortDescription: string;
 };
 
 const emptyExhibitionFields: ExhibitionFields = {
@@ -58,7 +81,32 @@ const emptyArtistFields: ArtistFields = {
   additionalNotes: "",
 };
 
-const GUMROAD_URLS: Record<SubmissionType, string> = {
+const emptyOpportunityFields: OpportunityFields = {
+  name: "",
+  email: "",
+  organization: "",
+  opportunityTitle: "",
+  opportunityType: "",
+  deadline: "",
+  location: "",
+  audience: "",
+  applicationFee: "",
+  applicationLink: "",
+  websiteLink: "",
+  description: "",
+};
+
+const emptyIndexFields: IndexFields = {
+  name: "",
+  email: "",
+  websiteUrl: "",
+  instagram: "",
+  shortDescription: "",
+};
+
+// Only exhibition + artist go through Gumroad checkout (paid). Opportunity
+// and index submissions are free and short-circuit to a thank-you state.
+const GUMROAD_URLS: Partial<Record<SubmissionType, string>> = {
   exhibition: "https://findartplatform.gumroad.com/l/exhibitionsubmission",
   artist: "https://findartplatform.gumroad.com/l/submitasanartist",
 };
@@ -128,6 +176,8 @@ function TextAreaField({
 export function SubmissionForm({ submissionType }: { submissionType: SubmissionType }) {
   const [exhibitionFields, setExhibitionFields] = useState<ExhibitionFields>(emptyExhibitionFields);
   const [artistFields, setArtistFields] = useState<ArtistFields>(emptyArtistFields);
+  const [opportunityFields, setOpportunityFields] = useState<OpportunityFields>(emptyOpportunityFields);
+  const [indexFields, setIndexFields] = useState<IndexFields>(emptyIndexFields);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   function updateExhibitionField<Key extends keyof ExhibitionFields>(
@@ -141,6 +191,73 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
     setArtistFields((current) => ({ ...current, [key]: value }));
   }
 
+  function updateOpportunityField<Key extends keyof OpportunityFields>(key: Key, value: OpportunityFields[Key]) {
+    setOpportunityFields((current) => ({ ...current, [key]: value }));
+  }
+
+  function updateIndexField<Key extends keyof IndexFields>(key: Key, value: IndexFields[Key]) {
+    setIndexFields((current) => ({ ...current, [key]: value }));
+  }
+
+  function buildPayload() {
+    switch (submissionType) {
+      case "exhibition":
+        return {
+          submissionType,
+          Name: exhibitionFields.name,
+          Email: exhibitionFields.email,
+          "Exhibition Title": exhibitionFields.exhibitionTitle,
+          Artists: exhibitionFields.artists,
+          "Curator(s) (optional)": exhibitionFields.curators,
+          "Venue / City / Country": exhibitionFields.venueLocation,
+          "Opening Date": exhibitionFields.openingDate,
+          "Closing Date": exhibitionFields.closingDate,
+          "Instagram (artist or venue)": exhibitionFields.instagram,
+          "Photo Credit": exhibitionFields.photoCredit,
+          "Documentation Link": exhibitionFields.documentationLink,
+          "Website Link (optional)": exhibitionFields.websiteLink,
+          "Exhibition Text": exhibitionFields.exhibitionText,
+          "Notes (optional)": exhibitionFields.notes,
+        };
+      case "artist":
+        return {
+          submissionType,
+          Name: artistFields.name,
+          Email: artistFields.email,
+          Instagram: artistFields.instagram,
+          "Artist Statement / CV": artistFields.artistStatementCv,
+          "Portfolio / Documentation Link": artistFields.portfolioLink,
+          "Website (optional)": artistFields.website,
+          "Additional Notes (optional)": artistFields.additionalNotes,
+        };
+      case "opportunity":
+        return {
+          submissionType,
+          Name: opportunityFields.name,
+          Email: opportunityFields.email,
+          Organization: opportunityFields.organization,
+          "Opportunity Title": opportunityFields.opportunityTitle,
+          "Opportunity Type": opportunityFields.opportunityType,
+          Deadline: opportunityFields.deadline,
+          Location: opportunityFields.location,
+          "For (audience)": opportunityFields.audience,
+          "Application Fee": opportunityFields.applicationFee,
+          "Application Link": opportunityFields.applicationLink,
+          "Website (optional)": opportunityFields.websiteLink,
+          Description: opportunityFields.description,
+        };
+      case "index":
+        return {
+          submissionType,
+          Name: indexFields.name,
+          Email: indexFields.email,
+          "Website URL": indexFields.websiteUrl,
+          Instagram: indexFields.instagram,
+          "Short Description": indexFields.shortDescription,
+        };
+    }
+  }
+
   async function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -150,36 +267,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
       const response = await fetch("/api/submissions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-          submissionType === "exhibition"
-            ? {
-                submissionType,
-                Name: exhibitionFields.name,
-                Email: exhibitionFields.email,
-                "Exhibition Title": exhibitionFields.exhibitionTitle,
-                Artists: exhibitionFields.artists,
-                "Curator(s) (optional)": exhibitionFields.curators,
-                "Venue / City / Country": exhibitionFields.venueLocation,
-                "Opening Date": exhibitionFields.openingDate,
-                "Closing Date": exhibitionFields.closingDate,
-                "Instagram (artist or venue)": exhibitionFields.instagram,
-                "Photo Credit": exhibitionFields.photoCredit,
-                "Documentation Link": exhibitionFields.documentationLink,
-                "Website Link (optional)": exhibitionFields.websiteLink,
-                "Exhibition Text": exhibitionFields.exhibitionText,
-                "Notes (optional)": exhibitionFields.notes,
-              }
-            : {
-                submissionType,
-                Name: artistFields.name,
-                Email: artistFields.email,
-                Instagram: artistFields.instagram,
-                "Artist Statement / CV": artistFields.artistStatementCv,
-                "Portfolio / Documentation Link": artistFields.portfolioLink,
-                "Website (optional)": artistFields.website,
-                "Additional Notes (optional)": artistFields.additionalNotes,
-              },
-        ),
+        body: JSON.stringify(buildPayload()),
       });
 
       if (!response.ok) {
@@ -187,16 +275,28 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
       }
 
       setStatus("success");
-      window.location.href = GUMROAD_URLS[submissionType];
+      const gumroadUrl = GUMROAD_URLS[submissionType];
+      if (gumroadUrl) {
+        window.location.href = gumroadUrl;
+      }
     } catch {
       setStatus("error");
     }
   }
 
+  const ariaLabel =
+    submissionType === "exhibition"
+      ? "Exhibition submission form"
+      : submissionType === "artist"
+        ? "Artist submission form"
+        : submissionType === "opportunity"
+          ? "Opportunity submission form"
+          : "Index website submission form";
+
   return (
     <form
       className="border-t border-neutral-900 pt-1"
-      aria-label={submissionType === "exhibition" ? "Exhibition submission form" : "Artist submission form"}
+      aria-label={ariaLabel}
       onSubmit={submitForm}
     >
       {submissionType === "exhibition" ? (
@@ -237,7 +337,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
             </p>
           </aside>
         </>
-      ) : (
+      ) : submissionType === "artist" ? (
         <>
           <div className="grid md:grid-cols-2 md:gap-x-8">
             <Field label="Name" placeholder="Your name" required value={artistFields.name} onChange={(value) => updateArtistField("name", value)} />
@@ -248,6 +348,57 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
           <Field label="Portfolio / Documentation Link" placeholder="https://" type="url" required value={artistFields.portfolioLink} onChange={(value) => updateArtistField("portfolioLink", value)} />
           <Field label="Website (optional)" placeholder="https://" type="url" value={artistFields.website} onChange={(value) => updateArtistField("website", value)} />
           <TextAreaField label="Additional Notes (optional)" placeholder="Anything else you'd like us to know - your goals, interests, or what you're looking for." rows={4} value={artistFields.additionalNotes} onChange={(value) => updateArtistField("additionalNotes", value)} />
+        </>
+      ) : submissionType === "opportunity" ? (
+        <>
+          <div className="grid md:grid-cols-2 md:gap-x-8">
+            <Field label="Name" placeholder="Your name" required value={opportunityFields.name} onChange={(value) => updateOpportunityField("name", value)} />
+            <Field label="Email" placeholder="Email address" type="email" required value={opportunityFields.email} onChange={(value) => updateOpportunityField("email", value)} />
+          </div>
+          <Field label="Organization / Host" placeholder="Institution, gallery or organizer" required value={opportunityFields.organization} onChange={(value) => updateOpportunityField("organization", value)} />
+          <Field label="Opportunity Title" placeholder="Title of the open call, residency, grant…" required value={opportunityFields.opportunityTitle} onChange={(value) => updateOpportunityField("opportunityTitle", value)} />
+          <div className="grid md:grid-cols-2 md:gap-x-8">
+            <Field label="Type" placeholder="Open Call / Residency / Grant / Award / Job / Collaboration" required value={opportunityFields.opportunityType} onChange={(value) => updateOpportunityField("opportunityType", value)} />
+            <Field label="Deadline" placeholder="DD / MM / YYYY" required value={opportunityFields.deadline} onChange={(value) => updateOpportunityField("deadline", value)} />
+          </div>
+          <div className="grid md:grid-cols-2 md:gap-x-8">
+            <Field label="Location" placeholder="City, Country (or Worldwide)" required value={opportunityFields.location} onChange={(value) => updateOpportunityField("location", value)} />
+            <Field label="For (audience)" placeholder="Artists / Curators / Emerging / All" required value={opportunityFields.audience} onChange={(value) => updateOpportunityField("audience", value)} />
+          </div>
+          <div className="grid md:grid-cols-2 md:gap-x-8">
+            <Field label="Application Fee" placeholder="Free / $25 / etc." required value={opportunityFields.applicationFee} onChange={(value) => updateOpportunityField("applicationFee", value)} />
+            <Field label="Application Link" placeholder="https://" type="url" required value={opportunityFields.applicationLink} onChange={(value) => updateOpportunityField("applicationLink", value)} />
+          </div>
+          <Field label="Website (optional)" placeholder="https://" type="url" value={opportunityFields.websiteLink} onChange={(value) => updateOpportunityField("websiteLink", value)} />
+          <TextAreaField label="Short Description" placeholder="Brief description of the opportunity, eligibility, what's offered." rows={6} required value={opportunityFields.description} onChange={(value) => updateOpportunityField("description", value)} />
+
+          <aside className="mt-8 border border-neutral-200 bg-neutral-50 px-5 py-5">
+            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
+            <p className="mt-4 text-[13px] leading-6 text-neutral-600">
+              Opportunity listings are free. Reviewed within a few days and published if a fit for the FindArt audience.
+              <br />
+              Please submit at least 2 weeks before the deadline.
+            </p>
+          </aside>
+        </>
+      ) : (
+        <>
+          <div className="grid md:grid-cols-2 md:gap-x-8">
+            <Field label="Name" placeholder="Your name" required value={indexFields.name} onChange={(value) => updateIndexField("name", value)} />
+            <Field label="Email" placeholder="Email address" type="email" required value={indexFields.email} onChange={(value) => updateIndexField("email", value)} />
+          </div>
+          <Field label="Website URL" placeholder="https://" type="url" required value={indexFields.websiteUrl} onChange={(value) => updateIndexField("websiteUrl", value)} />
+          <Field label="Instagram (optional)" placeholder="@username" value={indexFields.instagram} onChange={(value) => updateIndexField("instagram", value)} />
+          <TextAreaField label="Short Description" placeholder="One or two sentences about your practice and what visitors will find on the site." rows={4} required value={indexFields.shortDescription} onChange={(value) => updateIndexField("shortDescription", value)} />
+
+          <aside className="mt-8 border border-neutral-200 bg-neutral-50 px-5 py-5">
+            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
+            <p className="mt-4 text-[13px] leading-6 text-neutral-600">
+              Index listings are free. Independent artist / studio / project sites only — no group directories or aggregators.
+              <br />
+              Reviewed within a few days.
+            </p>
+          </aside>
         </>
       )}
 
@@ -261,7 +412,9 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
 
       {status === "success" && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
-          Submission received. Redirecting to payment&hellip;
+          {GUMROAD_URLS[submissionType]
+            ? "Submission received. Redirecting to payment…"
+            : "Submission received — we'll be in touch shortly."}
         </p>
       )}
       {status === "error" && (

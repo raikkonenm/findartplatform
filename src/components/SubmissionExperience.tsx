@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmissionForm, type SubmissionType } from "./SubmissionForm";
 
 const submitContent = {
@@ -48,6 +48,49 @@ const submitContent = {
     ],
     processingFee: "$15 processing fee",
   },
+  opportunity: {
+    tabTitle: "Opportunities",
+    tabSubtitle: "Submit an Opportunity",
+    title: "Submit an Opportunity",
+    description: (
+      <>
+        List an open call, residency, grant, award, commission, job or collaboration on
+        FindArt Platform. Free to submit &mdash; reviewed within a few days and
+        published if a fit for the FindArt audience.
+        <br />
+        <br />
+        Please submit at least two weeks before the deadline so applicants have time to
+        prepare.
+      </>
+    ),
+    benefits: [
+      "Listing on the Opportunities archive",
+      "Automatic removal once the deadline passes",
+      "Discoverable via tag / location / audience filters",
+    ],
+    processingFee: "Free",
+  },
+  index: {
+    tabTitle: "Index",
+    tabSubtitle: "Submit a Website",
+    title: "Submit Your Website",
+    description: (
+      <>
+        Add your artist / studio / project website to the FindArt Index &mdash; a
+        curated directory of independent contemporary-art web presences.
+        <br />
+        <br />
+        Independent sites only. No group directories, aggregators or promo pages.
+        Reviewed within a few days.
+      </>
+    ),
+    benefits: [
+      "Listing on the Index directory",
+      "Discoverable in the site-wide search",
+      "Optional follow-up feature in the Features section",
+    ],
+    processingFee: "Free",
+  },
 } as const;
 
 function TabButton({
@@ -79,29 +122,38 @@ function TabButton({
   );
 }
 
+const SUBMISSION_TYPES: SubmissionType[] = ["exhibition", "artist", "opportunity", "index"];
+
 export function SubmissionExperience() {
   const [submissionType, setSubmissionType] = useState<SubmissionType>("exhibition");
   const content = submitContent[submissionType];
 
+  // ?type=opportunity | index | artist | exhibition pre-selects a tab so
+  // deep links from /opportunities or /directory land on the right form.
+  useEffect(() => {
+    const paramValue = new URLSearchParams(window.location.search).get("type");
+    if (paramValue && (SUBMISSION_TYPES as string[]).includes(paramValue)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSubmissionType(paramValue as SubmissionType);
+    }
+  }, []);
+
   return (
     <>
       <div
-        className="mb-8 flex flex-col gap-2 sm:flex-row md:mb-10"
+        className="mb-8 grid grid-cols-1 gap-2 sm:grid-cols-2 md:mb-10 lg:grid-cols-4"
         role="tablist"
         aria-label="Submission type"
       >
-        <TabButton
-          selected={submissionType === "exhibition"}
-          title={submitContent.exhibition.tabTitle}
-          subtitle={submitContent.exhibition.tabSubtitle}
-          onClick={() => setSubmissionType("exhibition")}
-        />
-        <TabButton
-          selected={submissionType === "artist"}
-          title={submitContent.artist.tabTitle}
-          subtitle={submitContent.artist.tabSubtitle}
-          onClick={() => setSubmissionType("artist")}
-        />
+        {(["exhibition", "artist", "opportunity", "index"] as const).map((key) => (
+          <TabButton
+            key={key}
+            selected={submissionType === key}
+            title={submitContent[key].tabTitle}
+            subtitle={submitContent[key].tabSubtitle}
+            onClick={() => setSubmissionType(key)}
+          />
+        ))}
       </div>
 
       <div className="grid items-start gap-14 lg:grid-cols-[minmax(19rem,0.78fr)_minmax(32rem,1fr)] lg:gap-20 xl:gap-28">
@@ -127,15 +179,19 @@ export function SubmissionExperience() {
               information lives in one place. */}
           <aside className="mt-12 border border-neutral-200 bg-white p-6 md:mt-14">
             <p className="text-[15px] font-medium leading-6 text-neutral-900">
-              {submissionType === "exhibition" ? "$10" : "$15"} Submission Fee
+              {content.processingFee === "Free"
+                ? "Free submission"
+                : `${submissionType === "exhibition" ? "$10" : "$15"} Submission Fee`}
             </p>
             <p className="mt-4 text-[13px] leading-6 text-neutral-600">
               Each submission is individually reviewed by our curatorial team.
             </p>
-            <p className="mt-3 text-[13px] leading-6 text-neutral-600">
-              The fee supports the review process and helps us maintain curatorial standards
-              across the platform.
-            </p>
+            {content.processingFee !== "Free" && (
+              <p className="mt-3 text-[13px] leading-6 text-neutral-600">
+                The fee supports the review process and helps us maintain curatorial standards
+                across the platform.
+              </p>
+            )}
             <p className="mt-4 text-[13px] leading-6 text-neutral-600">
               Questions? Write to us at{" "}
               <a

@@ -1385,7 +1385,7 @@ export function OpportunitiesArchiveView() {
         <h1 className="sr-only">Opportunities</h1>
         <div className="hidden md:flex md:justify-end">
           <Link
-            href="/submit"
+            href="/submit?type=opportunity"
             className="whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.2em] text-neutral-900 transition-opacity hover:opacity-55"
           >
             Submit Opportunities <span aria-hidden="true">↗</span>
@@ -1395,7 +1395,7 @@ export function OpportunitiesArchiveView() {
         {/* Mobile-only header row: Submit Opportunities link left, FILTERS text right. */}
         <div className="flex items-center justify-between md:hidden">
           <Link
-            href="/submit"
+            href="/submit?type=opportunity"
             className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-900 transition-opacity hover:opacity-60"
           >
             SUBMIT OPPORTUNITIES <span aria-hidden="true">↗</span>
