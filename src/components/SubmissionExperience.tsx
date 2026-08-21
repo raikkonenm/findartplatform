@@ -58,7 +58,7 @@ export function SubmissionExperience() {
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-8">
       <div>
         <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Open Submission</p>
-        <h1 className="editorial-serif mt-3 text-[clamp(1.5rem,3.4vw,2.2rem)] font-semibold uppercase leading-[1.02] tracking-[-0.02em] text-neutral-900">
+        <h1 className="editorial-serif mt-3 text-[clamp(1.5rem,3.4vw,2.2rem)] uppercase leading-[1.02] tracking-[-0.02em] text-neutral-900">
           SUBMIT TO FINDART
         </h1>
       </div>

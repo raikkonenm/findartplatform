@@ -1,59 +1,142 @@
 import { NextResponse } from "next/server";
 
-const exhibitionFields = [
-  "Name",
-  "Email",
-  "Exhibition Title",
-  "Artists",
-  "Curator(s) (optional)",
-  "Venue / City / Country",
-  "Opening Date",
-  "Closing Date",
-  "Instagram (artist or venue)",
-  "Photo Credit",
-  "Documentation Link",
-  "Website Link (optional)",
-  "Exhibition Text",
-  "Notes (optional)",
-] as const;
+// All submissions and inquiries route to a single mailbox.
+const SUBMISSION_RECIPIENT = "raikkonenmaria7@gmail.com";
 
-const requiredExhibitionFields = [
-  "Name",
-  "Email",
-  "Exhibition Title",
-  "Artists",
-  "Venue / City / Country",
-  "Opening Date",
-  "Closing Date",
-  "Documentation Link",
-  "Exhibition Text",
-] as const;
+const SUBMISSION_TYPES = new Set([
+  "exhibition",
+  "artist",
+  "opportunity",
+  "index",
+  "contribute",
+  "contact",
+] as const);
+type SubmissionType = typeof SUBMISSION_TYPES extends Set<infer T> ? T : never;
 
-const artistFields = [
-  "Name",
-  "Email",
-  "Instagram",
-  "Artist Statement / CV",
-  "Portfolio / Documentation Link",
-  "Website (optional)",
-  "Additional Notes (optional)",
-] as const;
+// Field lists per type — the API sanitises + validates against these,
+// so submissions can't smuggle arbitrary keys or skip required fields.
+const FIELDS: Record<SubmissionType, readonly string[]> = {
+  exhibition: [
+    "Name",
+    "Email",
+    "Exhibition Title",
+    "Artists",
+    "Curator(s) (optional)",
+    "Venue / City / Country",
+    "Opening Date",
+    "Closing Date",
+    "Instagram (artist or venue)",
+    "Photo Credit",
+    "Documentation Link",
+    "Website Link (optional)",
+    "Exhibition Text",
+    "Notes (optional)",
+  ],
+  artist: [
+    "Name",
+    "Email",
+    "Instagram",
+    "Artist Statement / CV",
+    "Portfolio / Documentation Link",
+    "Website (optional)",
+    "Additional Notes (optional)",
+  ],
+  opportunity: [
+    "Name",
+    "Email",
+    "Organization",
+    "Opportunity Title",
+    "Opportunity Type",
+    "Deadline",
+    "Location",
+    "For (audience)",
+    "Application Fee",
+    "Application Link",
+    "Website (optional)",
+    "Description",
+  ],
+  index: ["Name", "Email", "Website URL", "Instagram", "Short Description"],
+  contribute: [
+    "Name",
+    "Email",
+    "Contribution Type",
+    "Pitch Title",
+    "Pitch",
+    "Sample / Portfolio Link",
+    "Short Bio",
+    "Notes (optional)",
+  ],
+  contact: ["Name", "Email", "Topic", "Subject", "Message"],
+};
 
-const requiredArtistFields = [
-  "Name",
-  "Email",
-  "Instagram",
-  "Artist Statement / CV",
-  "Portfolio / Documentation Link",
-] as const;
+const REQUIRED: Record<SubmissionType, readonly string[]> = {
+  exhibition: [
+    "Name",
+    "Email",
+    "Exhibition Title",
+    "Artists",
+    "Venue / City / Country",
+    "Opening Date",
+    "Closing Date",
+    "Documentation Link",
+    "Exhibition Text",
+  ],
+  artist: [
+    "Name",
+    "Email",
+    "Instagram",
+    "Artist Statement / CV",
+    "Portfolio / Documentation Link",
+  ],
+  opportunity: [
+    "Name",
+    "Email",
+    "Organization",
+    "Opportunity Title",
+    "Opportunity Type",
+    "Deadline",
+    "Location",
+    "For (audience)",
+    "Application Fee",
+    "Application Link",
+    "Description",
+  ],
+  index: ["Name", "Email", "Website URL", "Short Description"],
+  contribute: [
+    "Name",
+    "Email",
+    "Contribution Type",
+    "Pitch Title",
+    "Pitch",
+    "Sample / Portfolio Link",
+    "Short Bio",
+  ],
+  contact: ["Name", "Email", "Topic", "Subject", "Message"],
+};
 
-const SUBMISSION_RECIPIENTS = {
-  exhibition: "raikkonenmaria7@gmail.com",
-  artist: "artcnomads@gmail.com",
-} as const;
+function subjectFor(type: SubmissionType, payload: Record<string, string>): string {
+  switch (type) {
+    case "exhibition":
+      return `New FindArt Exhibition Submission — ${payload["Exhibition Title"] || payload.Name}`;
+    case "artist":
+      return `New ArtNomads Artist Submission — ${payload.Name}`;
+    case "opportunity":
+      return `New Opportunity Submission — ${payload["Opportunity Title"] || payload.Name}`;
+    case "index":
+      return `New Index Website Submission — ${payload.Name}`;
+    case "contribute":
+      return `New Editorial Pitch — ${payload["Pitch Title"] || payload.Name}`;
+    case "contact":
+      return `FindArt Contact: ${payload.Subject || payload.Topic || payload.Name}`;
+  }
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isSubmissionType(value: unknown): value is SubmissionType {
+  return typeof value === "string" && (SUBMISSION_TYPES as Set<string>).has(value);
 }
 
 export async function POST(request: Request) {
@@ -65,16 +148,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid submission." }, { status: 400 });
   }
 
-  if (!isRecord(input)) {
+  if (!isRecord(input) || !isSubmissionType(input.submissionType)) {
     return NextResponse.json({ error: "Invalid submission." }, { status: 400 });
   }
 
-  const submissionType = input.submissionType === "artist" ? "artist" : "exhibition";
-  const fields = submissionType === "artist" ? artistFields : exhibitionFields;
-  const requiredFields =
-    submissionType === "artist" ? requiredArtistFields : requiredExhibitionFields;
+  const submissionType = input.submissionType;
+  const fields = FIELDS[submissionType];
+  const requiredFields = REQUIRED[submissionType];
+
   const payload = Object.fromEntries(
-    fields.map((field) => [field, typeof input[field] === "string" ? input[field].trim() : ""]),
+    fields.map((field) => [field, typeof input[field] === "string" ? (input[field] as string).trim() : ""]),
   ) as Record<string, string>;
 
   if (requiredFields.some((field) => payload[field].length === 0)) {
@@ -83,17 +166,13 @@ export async function POST(request: Request) {
 
   const apiKey = process.env.RESEND_API_KEY;
   const fromEmail = process.env.SUBMISSION_FROM_EMAIL;
-  const toEmail = SUBMISSION_RECIPIENTS[submissionType];
 
   if (!apiKey || !fromEmail) {
     return NextResponse.json({ error: "Email delivery is not configured." }, { status: 503 });
   }
 
   const text = fields.map((field) => `${field}:\n${payload[field]}`).join("\n\n");
-  const subject =
-    submissionType === "artist"
-      ? `New ArtNomads Artist Submission \u2014 ${payload.Name}`
-      : `New FindArt Exhibition Submission \u2014 ${payload["Exhibition Title"]}`;
+  const subject = subjectFor(submissionType, payload);
 
   try {
     const response = await fetch("https://api.resend.com/emails", {
@@ -104,7 +183,8 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         from: fromEmail,
-        to: [toEmail],
+        to: [SUBMISSION_RECIPIENT],
+        reply_to: payload.Email || undefined,
         subject,
         text,
       }),
