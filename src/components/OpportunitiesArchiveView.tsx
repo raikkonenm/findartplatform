@@ -3,9 +3,36 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  opportunityLocationHref,
+  splitLocationString,
+} from "@/lib/opportunityLocations";
 import { Header } from "./Header";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 import { SearchBar } from "./SearchBar";
+
+// Render a location string ("Tokyo, Japan") with each comma-separated
+// part linked to its per-location opportunities page. Opens in a new
+// tab so the current slide-over panel stays open.
+function renderLocationLinks(location: string) {
+  const parts = splitLocationString(location);
+  if (parts.length === 0) return location;
+  return parts.reduce<React.ReactNode[]>((acc, raw, index) => {
+    if (index > 0) acc.push(", ");
+    acc.push(
+      <Link
+        key={`${raw}-${index}`}
+        href={opportunityLocationHref(raw)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-55"
+      >
+        {raw}
+      </Link>,
+    );
+    return acc;
+  }, []);
+}
 
 // Key namespace so opportunity saves live alongside exhibition / editorial
 // saves in the same SavedExhibitionsProvider without slug collisions.
@@ -1023,7 +1050,7 @@ function OpportunityDetail({ opportunity, onClose }: { opportunity: Opportunity;
           <h2 className="editorial-serif max-w-[760px] break-words text-[clamp(1.6rem,5vw,2.2rem)] leading-[1.02] tracking-[-0.035em] md:text-[clamp(2rem,3vw,3rem)] md:leading-[1.02]">{shortTitle(opportunity.title)}</h2>
           <dl className="my-10 grid gap-5 border-y border-[var(--border)] py-6 text-[13px] md:grid-cols-4">
             <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Deadline</dt><dd>{opportunity.deadline}</dd></div>
-            <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Location</dt><dd>{opportunity.location}</dd></div>
+            <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Location</dt><dd>{renderLocationLinks(opportunity.location)}</dd></div>
             <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Application fee</dt><dd>{opportunity.applicationFee}</dd></div>
             <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">For</dt><dd>{opportunity.audience}</dd></div>
           </dl>
