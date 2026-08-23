@@ -26,7 +26,7 @@ export function opportunitySavedKey(slug: string): string {
   return `opportunity:${slug}`;
 }
 
-export const OPPORTUNITIES: Opportunity[] = [
+const CURATED_OPPORTUNITIES: Opportunity[] = [
   {
     slug: "das-minsk-culinary-residency",
     organizer: "DAS MINSK Kunsthaus",
@@ -625,3 +625,175 @@ export const OPPORTUNITIES: Opportunity[] = [
   },
 ];
 
+type ArtRabbitKind =
+  | "open-call"
+  | "residency"
+  | "grant"
+  | "prize"
+  | "commission"
+  | "job"
+  | "collaboration"
+  | "fellowship"
+  | "development";
+
+const ART_RABBIT_PROFILES: Record<
+  ArtRabbitKind,
+  Pick<Opportunity, "type" | "fields" | "rewards" | "tags">
+> = {
+  "open-call": {
+    type: ["Open Calls"],
+    fields: ["Visual Arts"],
+    rewards: ["Exhibition"],
+    tags: ["OPEN CALL"],
+  },
+  residency: {
+    type: ["Residencies", "Open Calls"],
+    fields: ["Interdisciplinary"],
+    rewards: ["Accommodation", "Production"],
+    tags: ["RESIDENCY"],
+  },
+  grant: {
+    type: ["Grants & Stipends", "Open Calls"],
+    fields: ["Visual Arts"],
+    rewards: ["Funding"],
+    tags: ["GRANT"],
+  },
+  prize: {
+    type: ["Awards & Prizes", "Open Calls"],
+    fields: ["Visual Arts"],
+    rewards: ["Cash Prize"],
+    tags: ["AWARD"],
+  },
+  commission: {
+    type: ["Commissions", "Open Calls"],
+    fields: ["Interdisciplinary"],
+    rewards: ["Funding", "Production"],
+    tags: ["COMMISSION"],
+  },
+  job: {
+    type: ["Jobs"],
+    fields: ["Visual Arts"],
+    rewards: ["Other"],
+    tags: ["JOB"],
+  },
+  collaboration: {
+    type: ["Collaborations", "Open Calls"],
+    fields: ["Interdisciplinary"],
+    rewards: ["Publication"],
+    tags: ["COLLABORATION"],
+  },
+  fellowship: {
+    type: ["Awards & Prizes", "Open Calls"],
+    fields: ["Research"],
+    rewards: ["Funding", "Mentorship"],
+    tags: ["FELLOWSHIP"],
+  },
+  development: {
+    type: ["Education", "Open Calls"],
+    fields: ["Interdisciplinary"],
+    rewards: ["Education", "Mentorship"],
+    tags: ["PROFESSIONAL DEVELOPMENT"],
+  },
+};
+
+function artRabbitOpportunity(
+  input: Pick<
+    Opportunity,
+    "slug" | "organizer" | "title" | "deadline" | "deadlineDate" | "location" | "audience" | "intro" | "applyUrl"
+  > & {
+    kind: ArtRabbitKind;
+    audiences?: string[];
+    applicationFee?: string;
+    rewardSummary?: string;
+    tags?: string[];
+    fields?: string[];
+  },
+): Opportunity {
+  const profile = ART_RABBIT_PROFILES[input.kind];
+  return {
+    slug: input.slug,
+    organizer: input.organizer,
+    title: input.title,
+    deadline: input.deadline,
+    deadlineDate: input.deadlineDate,
+    location: input.location,
+    audience: input.audience,
+    audiences: input.audiences ?? ["Individual artists"],
+    type: profile.type,
+    fields: input.fields ?? profile.fields,
+    rewards: profile.rewards,
+    rewardSummary: input.rewardSummary ?? "See application details",
+    applicationFee: input.applicationFee ?? "See website",
+    tags: [...profile.tags, ...(input.tags ?? [])],
+    intro: input.intro,
+    sections: [
+      { title: "Who can apply", items: [input.audience] },
+      {
+        title: "Application",
+        items: [
+          `Deadline: ${input.deadline}`,
+          "Read the application page for full eligibility and submission requirements.",
+        ],
+      },
+    ],
+    applyUrl: input.applyUrl,
+  };
+}
+
+// Public opportunities sourced from ArtRabbit's Artist Opportunities index on
+// 23 August 2026. Existing matching records above are intentionally excluded.
+const ART_RABBIT_OPPORTUNITIES: Opportunity[] = [
+  artRabbitOpportunity({ slug: "jracraft-chrysalis-award-2026", organizer: "James Renwick Alliance for Craft", title: "2026 JRACraft Chrysalis Award in CERAMICS", deadline: "23 August 2026", deadlineDate: "2026-08-23", location: "North America", audience: "US-based emerging craft artists working in ceramics", kind: "prize", tags: ["CERAMICS", "EMERGING ARTISTS"], fields: ["Sculpture", "Applied Arts"], rewardSummary: "$5,000 award", applicationFee: "FREE", intro: ["The Chrysalis Award supports an emerging craft artist in the United States working in ceramics with an unrestricted award and professional visibility."], applyUrl: "https://www.jracraft.org/chrysalis-award.html" }),
+  artRabbitOpportunity({ slug: "talents-contemporains-earth-2026", organizer: "François Schneider Foundation", title: "Talents Contemporains: Earth, Abbaye de Pontigny", deadline: "23 August 2026", deadlineDate: "2026-08-23", location: "Europe", audience: "Adult artists and collectives of any nationality with an established visual arts practice", audiences: ["Individual artists", "Collectives / groups"], kind: "prize", tags: ["SCULPTURE", "INSTALLATION", "ECOLOGY"], rewardSummary: "Up to €15,000", intro: ["An international competition for existing outdoor sculptures and installations responding to Earth, with permanent installation at the Domaine de l'Abbaye de Pontigny."], applyUrl: "https://www.fondationfrancoisschneider.org/en/contemporary-talents-competition/contemporary-talents-competition-the-earth/" }),
+  artRabbitOpportunity({ slug: "north-lincolnshire-photography-residency-commission", organizer: "Over the Bridge", title: "Photography Residency & Commission: North Lincolnshire", deadline: "24 August 2026", deadlineDate: "2026-08-24", location: "North Lincolnshire, United Kingdom", audience: "Emerging or re-emerging photographers with a connection to North Lincolnshire", kind: "residency", tags: ["PHOTOGRAPHY", "COMMUNITY"], fields: ["Photography", "Social Practice"], rewardSummary: "£2,000 commission", applicationFee: "FREE", intro: ["A paid residency and commission for an emerging photographer to develop a project about the histories, communities and changing landscapes of North Lincolnshire."], applyUrl: "https://www.overthebridge.photo/opportunities" }),
+  artRabbitOpportunity({ slug: "brown-hart-gardens-public-sculpture", organizer: "Royal Society of Sculptors", title: "Open Call for Public Sculpture at Brown Hart Gardens, Mayfair", deadline: "24 August 2026", deadlineDate: "2026-08-24", location: "London, United Kingdom", audience: "Sculptors with work available in the United Kingdom", kind: "open-call", tags: ["SCULPTURE", "PUBLIC ART"], fields: ["Sculpture", "Public Art"], rewardSummary: "£5,000 loan fee per sculpture", intro: ["The Beaumont Mayfair seeks sculpture for four plinths at Brown Hart Gardens, creating a public presentation in central London."], applyUrl: "https://www.curatorspace.com/opportunities/detail/stoneman-collins-ltd/10941" }),
+  artRabbitOpportunity({ slug: "100-asia-art-season-2026", organizer: "100plusart", title: "100+ Asia Art Season Open Call 2026", deadline: "24 August 2026", deadlineDate: "2026-08-24", location: "Shenzhen, China", audience: "Artists, artist collectives and creative groups from Asia and the Pacific", audiences: ["Individual artists", "Collectives / groups"], kind: "open-call", tags: ["ASIA", "EXHIBITION", "PERFORMANCE"], fields: ["Visual Arts", "Performance", "Interdisciplinary"], applicationFee: "RMB 2,500", intro: ["100+ Asia Art Season invites completed works and proposals for exhibitions, performances, workshops, talks and participatory projects in Shenzhen."], applyUrl: "https://forms.gle/qmXqSkY6i29htUW57" }),
+  artRabbitOpportunity({ slug: "discerning-eye-2026", organizer: "The Discerning Eye", title: "Discerning Eye 2026 – Prizes worth over £9,000", deadline: "27 August 2026", deadlineDate: "2026-08-27", location: "United Kingdom", audience: "UK-based artists working in visual art with small-scale work available for sale", kind: "open-call", tags: ["EXHIBITION", "PAINTING"], applicationFee: "£15", rewardSummary: "Exhibition and prizes", intro: ["The Discerning Eye Exhibition invites UK-based artists to submit small-scale work for a leading open exhibition selected by art-world figures."], applyUrl: "https://artopps.co.uk/opportunities/discerningeye-26" }),
+  artRabbitOpportunity({ slug: "everything-then-is-now-platform-0", organizer: "SPIRA9 ART & Casoria Contemporary Art Museum", title: "Open Call: London Design Festival 2026 | Everything Then Is Now II – PLATFORM 0", deadline: "27 August 2026", deadlineDate: "2026-08-27", location: "London, United Kingdom", audience: "Artists, designers, architects, performers and interdisciplinary practitioners worldwide", audiences: ["Individual artists", "Curators", "Interdisciplinary practitioners"], kind: "open-call", tags: ["EXHIBITION", "INSTALLATION", "PERFORMANCE", "DIGITAL"], fields: ["Installation", "Performance", "Digital", "Interdisciplinary"], applicationFee: "FREE", intro: ["A site-responsive exhibition opportunity at Peckham Rye Station during London Design Festival, focused on memory, belonging, space and transformation."], applyUrl: "https://forms.gle/mmmsnfixBtfz7tso9" }),
+  artRabbitOpportunity({ slug: "fine-line-tattoo-artists-job", organizer: "FINE", title: "Job opportunity for resident fine-line tattoo artists", deadline: "30 August 2026", deadlineDate: "2026-08-30", location: "Glasgow, United Kingdom", audience: "Experienced fine-line tattoo artists eligible to work in the UK", kind: "job", tags: ["DESIGN", "DRAWING"], fields: ["Design", "Drawing"], rewardSummary: "Resident artist role", intro: ["FINE is recruiting founding resident tattoo artists for a new design-led studio and speciality coffee bar in Glasgow."], applyUrl: "https://www.thisisfine.uk/artist-opportunities" }),
+  artRabbitOpportunity({ slug: "npa-2026-open-call", organizer: "newplatform.art", title: "NPA 2026 Open Call", deadline: "30 August 2026", deadlineDate: "2026-08-30", location: "United Kingdom", audience: "UK-based artists working in any medium, particularly underrepresented artists and those outside London", kind: "development", tags: ["EMERGING ARTISTS", "MENTORSHIP"], applicationFee: "FREE", intro: ["newplatform.art's professional development programme supports artists to build practical knowledge, confidence and sustainable careers."], applyUrl: "https://www.artrabbit.com/artist-opportunities/2026/august/npa-2026-open-call" }),
+  artRabbitOpportunity({ slug: "liu-shiming-artist-grants-2026", organizer: "Liu Shiming Art Foundation", title: "2026 Liu Shiming Artist Grants", deadline: "31 August 2026", deadlineDate: "2026-08-31", location: "International", audience: "Artists in the first decade of their practice who meet the foundation's eligibility criteria", kind: "grant", tags: ["EMERGING ARTISTS", "RESEARCH"], applicationFee: "FREE", intro: ["Liu Shiming Artist Grants support new projects that explore traditional, cultural or historical influences in contemporary artistic practice."], applyUrl: "https://www.lsmartfund.org/artistgrants2026" }),
+  artRabbitOpportunity({ slug: "jan-michalski-writers-residency-2027", organizer: "Jan Michalski Foundation", title: "Jan Michalski Foundation Writers Residency 2027", deadline: "31 August 2026", deadlineDate: "2026-08-31", location: "Switzerland", audience: "Writers, translators and literary practitioners of any nationality or career stage", kind: "residency", tags: ["WRITING", "LITERATURE"], fields: ["Writing", "Research"], rewardSummary: "Accommodation, travel and CHF 400 weekly allowance", applicationFee: "FREE", intro: ["An international residency in the Swiss Jura Mountains for writers and translators developing literary projects."], applyUrl: "https://www.artrabbit.com/artist-opportunities/2026/august/jan-michalski-foundation-writers-residency-2027" }),
+  artRabbitOpportunity({ slug: "syno-cypriot-diaspora-open-call", organizer: "Syno", title: "Open Call for Cypriot and Cypriot Diaspora Artists", deadline: "31 August 2026", deadlineDate: "2026-08-31", location: "International", audience: "Cypriot and Cypriot diaspora artists based anywhere in the world", kind: "prize", tags: ["DIASPORA", "PUBLICATION"], rewardSummary: "€3,500 awards and editorial features", applicationFee: "FREE", intro: ["SYNO seeks Cypriot and Cypriot diaspora artists for editorial profiles, a yearbook and unrestricted awards for finalists."], applyUrl: "https://syno.art/wp-content/uploads/2026/05/Syno_Landing_PDF.pdf" }),
+  artRabbitOpportunity({ slug: "inhabit-artist-residence-2026", organizer: "Max Planck Institute for Empirical Aesthetics", title: "INHABIT Artist-in-Residence (fully funded)", deadline: "1 September 2026", deadlineDate: "2026-09-01", location: "Frankfurt, Germany", audience: "Artists working with time-based arts, including performance, film and sound", kind: "residency", tags: ["PERFORMANCE", "FILM", "SOUND"], fields: ["Performance", "Film", "Sound Art"], rewardSummary: "Fully funded residency", applicationFee: "FREE", intro: ["A fully funded research residency at the Max Planck Institute for Empirical Aesthetics, combining art, science and public presentation."], applyUrl: "https://www.ae.mpg.de/en/research/inhabit-artist-in-residence.html" }),
+  artRabbitOpportunity({ slug: "aa2a-artist-residencies-2026-27", organizer: "AA2A", title: "AA2A Artist Residencies Across England", deadline: "1 September 2026", deadlineDate: "2026-09-01", location: "United Kingdom", audience: "UK-based practising artists who have been out of formal education for at least one year", kind: "residency", tags: ["EDUCATION", "STUDIO SPACE"], rewardSummary: "Access to specialist facilities", applicationFee: "FREE", intro: ["AA2A offers artists access to specialist university and college facilities, workshops and creative communities across England."], applyUrl: "https://aa2a.org/application-info-2026/" }),
+  artRabbitOpportunity({ slug: "barcelona-art-exhibition-september-2026", organizer: "HUGE Gallery", title: "Barcelona Art Exhibition - September 2026", deadline: "2 September 2026", deadlineDate: "2026-09-02", location: "Barcelona, Spain", audience: "Artists working in any discipline", kind: "open-call", tags: ["EXHIBITION", "EMERGING ARTISTS"], rewardSummary: "Exhibition, networking and sales support", intro: ["HUGE Gallery invites artists to join a September 2026 exhibition in Barcelona."], applyUrl: "https://www.huge.gallery/open-calls" }),
+  artRabbitOpportunity({ slug: "stomping-ground-call-out-2027", organizer: "The Place", title: "Stomping Ground Call Out", deadline: "3 September 2026", deadlineDate: "2026-09-03", location: "United Kingdom", audience: "UK-based dance and movement artists with experience making and touring work", kind: "commission", tags: ["DANCE", "PERFORMANCE", "CHILDREN"], fields: ["Dance", "Performance"], rewardSummary: "£20,000 commission", applicationFee: "FREE", intro: ["The Place is commissioning a short solo or duet for children that can tour schools, festivals and public spaces."], applyUrl: "https://theplace.org.uk/opportunities/stomping-ground-call-out-2027/" }),
+  artRabbitOpportunity({ slug: "aspex-portsmouth-curator-job", organizer: "Aspex Portsmouth", title: "Curator at Aspex Portsmouth", deadline: "7 September 2026", deadlineDate: "2026-09-07", location: "Portsmouth, United Kingdom", audience: "Curators with at least three years of professional visual arts experience", audiences: ["Curators"], kind: "job", tags: ["CURATING", "VISUAL ARTS"], fields: ["Curating"], rewardSummary: "Full-time role, £28,000", intro: ["Aspex Portsmouth is recruiting a curator to shape and deliver its contemporary visual arts programme."], applyUrl: "https://aspex.org.uk/about/opportunities/" }),
+  artRabbitOpportunity({ slug: "amadeus-design-competition-2026-27", organizer: "AMADEUS Festival Vienna", title: "AMADEUS Festival International Design Competition 2026/2027", deadline: "10 September 2026", deadlineDate: "2026-09-10", location: "Vienna, Austria", audience: "Visual artists and graphic designers of any nationality aged 16 or over", kind: "prize", tags: ["DESIGN", "GRAPHIC DESIGN"], fields: ["Design", "Applied Arts"], rewardSummary: "€450 prize and festival commission", intro: ["AMADEUS Festival seeks a visual artist or graphic designer to create the official poster for its 2027 edition."], applyUrl: "https://www.amadeusfestival.com/international-design-competition-2026" }),
+  artRabbitOpportunity({ slug: "what-if-exhibition-2026", organizer: "JustArt Collective", title: "What If … Exhibition", deadline: "10 September 2026", deadlineDate: "2026-09-10", location: "United Kingdom", audience: "Photographers and artists working with image-based practices", kind: "open-call", tags: ["PHOTOGRAPHY", "EXHIBITION"], fields: ["Photography", "Visual Arts"], intro: ["What If … is an exhibition open call for photographic and image-based works exploring imagination and possibility."], applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSe4_1dxYY3HGsWYV6jHRyEQj8R9P_LTFGERXSXzKrsWS9OujQ/viewform" }),
+  artRabbitOpportunity({ slug: "artevol-2026", organizer: "London Art Collective", title: "ArtEvol 2026: A View from Everywhere", deadline: "10 September 2026", deadlineDate: "2026-09-10", location: "London, United Kingdom", audience: "International artists working across contemporary visual art", kind: "open-call", tags: ["EXHIBITION", "VISUAL ARTS"], rewardSummary: "Group exhibition at Saatchi Gallery", intro: ["London Art Collective's international group exhibition at Saatchi Gallery considers perspective, connection and visibility."], applyUrl: "https://opencall.londonartcollective.com/artevol2026" }),
+  artRabbitOpportunity({ slug: "learning-through-making-fund-2026", organizer: "Freelands Foundation", title: "Learning Through Making Fund", deadline: "11 September 2026", deadlineDate: "2026-09-11", location: "United Kingdom", audience: "UK registered arts organisations, charities and CICs", audiences: ["Organizations & non-profits"], kind: "grant", tags: ["EDUCATION", "SOCIAL PRACTICE"], rewardSummary: "Grants up to £25,000", applicationFee: "FREE", intro: ["Freelands Foundation funds visual art education projects that engage audiences through making, materials and exploration."], applyUrl: "https://freelandsfoundation.co.uk/engage/apply/grants/learning-through-making-fund" }),
+  artRabbitOpportunity({ slug: "illumine-2-light-art-commission", organizer: "Light Up The North", title: "ILLUMINE 2 Light Art Commission Open Call", deadline: "11 September 2026", deadlineDate: "2026-09-11", location: "United Kingdom", audience: "Black and People of Colour artists working with light and public art", kind: "commission", tags: ["LIGHT ART", "PUBLIC ART"], fields: ["Installation", "Public Art"], applicationFee: "FREE", intro: ["ILLUMINE 2 is a light-art commissioning opportunity supporting Black and People of Colour artists."], applyUrl: "https://lightupthenorth.com/development/illumine/" }),
+  artRabbitOpportunity({ slug: "rose-choreographic-school-cohort-2027", organizer: "Rose Choreographic School", title: "Rose Choreographic School's Artistic Cohort 2027-2029", deadline: "20 September 2026", deadlineDate: "2026-09-20", location: "London, United Kingdom", audience: "International postgraduate-level artists and researchers exploring choreographic practice", kind: "residency", tags: ["DANCE", "PERFORMANCE", "RESEARCH"], fields: ["Dance", "Performance", "Research"], rewardSummary: "£15,000 research budget", applicationFee: "FREE", intro: ["An experimental research and pedagogic cohort at Sadler's Wells East for artists exploring the choreographic across disciplines."], applyUrl: "https://rosechoreographicschool.com/apply" }),
+  artRabbitOpportunity({ slug: "posters4peace-open-call", organizer: "Peace Museums", title: "INTERNATIONAL OPEN CALL FOR POSTERS", deadline: "21 September 2026", deadlineDate: "2026-09-21", location: "International, Online", audience: "Artists, graphic designers, illustrators, students and creative thinkers worldwide", kind: "open-call", tags: ["POSTER", "DESIGN", "SOCIAL PRACTICE"], fields: ["Design", "Illustration"], rewardSummary: "Exhibition opportunity", intro: ["Posters4Peace collects and presents posters imagining positive peace through justice, equality, inclusion and environmental sustainability."], applyUrl: "https://peacemuseums.org" }),
+  artRabbitOpportunity({ slug: "foundwork-artist-prize-2026", organizer: "Foundwork", title: "2026 Foundwork Artist Prize: 10,000 USD Grant with Studio Visits and Interview", deadline: "25 September 2026", deadlineDate: "2026-09-25", location: "International", audience: "Artists residing anywhere in the world, subject to the prize eligibility terms", kind: "prize", tags: ["GRANT", "MENTORSHIP"], rewardSummary: "$10,000 grant", applicationFee: "FREE", intro: ["Foundwork's annual juried prize recognises outstanding artistic practices with an unrestricted grant, studio visits and editorial support."], applyUrl: "https://foundwork.art/signup" }),
+  artRabbitOpportunity({ slug: "qm-jerome-emerging-artist-fellowship-2027", organizer: "Queens Museum and Jerome Foundation", title: "QM-Jerome Foundation Emerging Artist Fellowship 2027–2028", deadline: "28 September 2026", deadlineDate: "2026-09-28", location: "New York City, United States", audience: "Emerging visual artists living in New York City", kind: "fellowship", tags: ["EMERGING ARTISTS", "MENTORSHIP", "EXHIBITION"], rewardSummary: "US$20,000 fellowship", applicationFee: "FREE", intro: ["A year-long fellowship supporting two emerging New York City visual artists with funding, mentorship, professional development and a 2028 solo exhibition."], applyUrl: "https://queensmuseum.org/program/open-call-2027-28-qm-jerome-foundation-fellowship-for-emerging-artists/" }),
+  artRabbitOpportunity({ slug: "factory-berlin-creative-blueprint", organizer: "Factory Berlin Creative", title: "Factory Berlin Creative Blueprint", deadline: "30 September 2026", deadlineDate: "2026-09-30", location: "Berlin, Germany", audience: "Emerging visual and interdisciplinary artists developing a professional practice", kind: "development", tags: ["EMERGING ARTISTS", "MENTORSHIP"], rewardSummary: "12-month artist programme", intro: ["Factory Berlin's artist programme combines professional development, mentoring, networking and potential exhibition or sales support."], applyUrl: "https://factoryberlin.com/apply/" }),
+  artRabbitOpportunity({ slug: "ecf-artistic-research-fellowship", organizer: "European Cultural Foundation", title: "Artistic Research Fellowship", deadline: "30 September 2026", deadlineDate: "2026-09-30", location: "Florence, Italy", audience: "Professional creatives with research-based practices across art, performance, film, audio, documentary, journalism and literature", kind: "fellowship", tags: ["RESEARCH", "ARCHIVE"], fields: ["Research", "Interdisciplinary"], rewardSummary: "€10,000 grant", applicationFee: "FREE", intro: ["The ECF Fellowship supports new research and creative work engaging with the history of the European Cultural Foundation and culture's role in Europe."], applyUrl: "https://culturalfoundation.eu/open-calls/new-fellowship-programme-to-research-the-ecf-historical-archives/" }),
+  artRabbitOpportunity({ slug: "winsor-newton-art-mail-2026", organizer: "Winsor & Newton", title: "Winsor & Newton Art Mail: Join a Global Watercolour Gallery", deadline: "30 September 2026", deadlineDate: "2026-09-30", location: "International, Online", audience: "Artists and creatives worldwide of all experience levels", kind: "open-call", tags: ["PAINTING", "WATERCOLOUR", "EXHIBITION"], fields: ["Painting", "Illustration"], rewardSummary: "Global gallery and selected exhibitions", intro: ["Winsor & Newton Art Mail invites watercolour postcard submissions for a global online gallery and selected London and New York presentations."], applyUrl: "https://www.winsornewton.com/pages/artmail" }),
+  artRabbitOpportunity({ slug: "writers-india-residency-2026", organizer: "KIAR Art Residency India", title: "WRITER'S INDIA Residency", deadline: "30 September 2026", deadlineDate: "2026-09-30", location: "Bhubaneswar, India", audience: "Writers of all nationalities working across fiction, poetry, nonfiction, translation and research", kind: "residency", tags: ["WRITING", "ASIA"], fields: ["Writing", "Research"], rewardSummary: "Literary programme and cultural engagement", intro: ["The Writer's India Residency offers writers dedicated time, cultural immersion and access to India's literary ecosystem."], applyUrl: "https://kalanirvana.com/writers-india-residency" }),
+  artRabbitOpportunity({ slug: "be-open-artlimitless-2026", organizer: "BE OPEN Foundation", title: "BE OPEN ArtLimitless 2026 — Open Call for Sustainable Art", deadline: "1 October 2026", deadlineDate: "2026-10-01", location: "International, Online", audience: "Artists, designers, architects and creative practitioners worldwide", kind: "prize", tags: ["ECOLOGY", "SUSTAINABILITY", "DESIGN"], fields: ["Design", "Applied Arts"], intro: ["BE OPEN ArtLimitless invites sustainable art proposals using recycling, upcycling, repurposing and reused materials."], applyUrl: "https://art.beopenfuture.com/art-limitless/" }),
+  artRabbitOpportunity({ slug: "deck-the-mill-2026", organizer: "Farfield Mill", title: "Deck the Mill – A Handmade Christmas Tree Decorations Exhibition", deadline: "1 October 2026", deadlineDate: "2026-10-01", location: "United Kingdom", audience: "Artists and makers creating handmade decorations", kind: "open-call", tags: ["EXHIBITION", "CRAFT"], fields: ["Applied Arts", "Sculpture"], applicationFee: "FREE", intro: ["Farfield Mill invites handmade Christmas tree decorations for a festive exhibition and sale."], applyUrl: "https://www.farfieldmill.org/events/deck-the-mill-open-for-submissions/" }),
+  artRabbitOpportunity({ slug: "endurion-green-hydrogen-mural-competition", organizer: "Wasabi Innovations Ltd.", title: "European Green Hydrogen Mural & Calendar Art Competition 2027", deadline: "1 October 2026", deadlineDate: "2026-10-01", location: "Europe", audience: "EU resident illustrators, muralists, designers and visual storytellers", kind: "prize", tags: ["ECOLOGY", "PUBLIC ART", "DESIGN"], fields: ["Illustration", "Public Art", "Design"], intro: ["The ENDURION Project seeks art responding to green hydrogen, energy and sustainability for a mural and calendar competition."], applyUrl: "https://www.endurion.eu/media/" }),
+  artRabbitOpportunity({ slug: "vuv-noon-magazine-submissions", organizer: "VUV Magazine", title: "VŨV: NOON Art Magazine is calling for submissions", deadline: "1 October 2026", deadlineDate: "2026-10-01", location: "International", audience: "Student and emerging artists seeking publication", kind: "open-call", tags: ["PUBLICATION", "EMERGING ARTISTS"], fields: ["Writing", "Visual Arts"], applicationFee: "FREE", intro: ["VŨV: NOON Art Magazine seeks work from student and emerging artists for its first publication."], applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdixjjaXogMZBhxZgA3ilK97hZovkvkNr-ImlY0ncPd7ZNicQ/viewform" }),
+  artRabbitOpportunity({ slug: "gift-of-art-2026", organizer: "Hal Bromm Gallery", title: "OPEN CALL: The Gift of Art", deadline: "1 October 2026", deadlineDate: "2026-10-01", location: "New York, United States", audience: "Artists aged 18 or over making saleable ornaments or prints", kind: "open-call", tags: ["EXHIBITION", "PRINTMAKING"], fields: ["Printmaking", "Applied Arts"], rewardSummary: "Exhibition, networking and a share of sales", intro: ["Hal Bromm's annual holiday exhibition invites unique artist-made ornaments and prints for display and sale."], applyUrl: "https://halbromm.com/upcoming" }),
+  artRabbitOpportunity({ slug: "rotterdam-photo-vibrance-2027", organizer: "Rotterdam Photo", title: "Rotterdam Photo 2027 Open Call: Vibrance - The Pulse of a Living World", deadline: "4 October 2026", deadlineDate: "2026-10-04", location: "Rotterdam, Netherlands", audience: "Photographers worldwide, including a Netherlands-based talent grant category", kind: "grant", tags: ["PHOTOGRAPHY", "EXHIBITION"], fields: ["Photography"], rewardSummary: "Exhibitions and a €3,000 production grant", applicationFee: "From €19", intro: ["Rotterdam Photo invites photographers to submit work exploring energy, movement, connection and transformation for its 2027 festival."], applyUrl: "https://rotterdamphoto.eu/theme-2027/" }),
+  artRabbitOpportunity({ slug: "the-journey-3-open-call", organizer: "The Journey", title: "THE JOURNEY #3 — Open Call", deadline: "15 October 2026", deadlineDate: "2026-10-15", location: "International, Online", audience: "Artists with personal stories and experiences to share", kind: "open-call", tags: ["WRITING", "PUBLICATION"], fields: ["Writing"], applicationFee: "FREE", intro: ["THE JOURNEY is a printed and online zine inviting artists to share the lived experiences that shaped their paths."], applyUrl: "https://thejourneyzine.blogspot.com/p/open-call.html" }),
+  artRabbitOpportunity({ slug: "grac-gallery-season-2027", organizer: "Gateway Regional Arts Center", title: "2027 Gallery Season Open Call", deadline: "31 October 2026", deadlineDate: "2026-10-31", location: "Kentucky, United States", audience: "Visual artists of any age, residence or nationality", kind: "open-call", tags: ["EXHIBITION", "VISUAL ARTS"], rewardSummary: "2027 gallery exhibition", intro: ["Gateway Regional Arts Center welcomes exhibition proposals for its 2027 season, including a bicentennial theme around stained glass and community stories."], applyUrl: "https://www.grackentucky.org/2027call" }),
+  artRabbitOpportunity({ slug: "arrival-gallery-london-november-2026", organizer: "Arrival Gallery", title: "Show Your Art in London This November 2026", deadline: "1 November 2026", deadlineDate: "2026-11-01", location: "London, United Kingdom", audience: "Artists worldwide", kind: "open-call", tags: ["EXHIBITION", "LONDON"], intro: ["ARRIVAL Gallery invites artists to a November 2026 showcase in Fulham, London."], applyUrl: "https://www.arrivalgallery.com/london" }),
+  artRabbitOpportunity({ slug: "francois-daulte-research-grant-2026", organizer: "Fabre Museum", title: "François Daulte Research Grant 2026", deadline: "30 November 2026", deadlineDate: "2026-11-30", location: "Montpellier, France", audience: "Postdoctoral researchers working in art history and related fields", kind: "grant", tags: ["RESEARCH", "ART HISTORY"], fields: ["Research", "Writing"], rewardSummary: "€10,000 research grant", applicationFee: "FREE", intro: ["The Fabre Museum supports original postdoctoral art-historical research engaging its collections and archives."], applyUrl: "https://www.museefabre.fr/appel-candidature-bourse-francois-daulte" }),
+  artRabbitOpportunity({ slug: "saikoneon-artist-residence-2026", organizer: "SAIKONEON", title: "SAIKONEON Artist-in-Residence 2026", deadline: "1 December 2026", deadlineDate: "2026-12-01", location: "Yamanashi, Japan", audience: "Individuals and groups across visual art, design, literature, performance, music and manga", audiences: ["Individual artists", "Collectives / groups"], kind: "residency", tags: ["ASIA", "INTERDISCIPLINARY"], applicationFee: "See website", intro: ["A year-round residency near Lake Saiko and Mount Fuji supporting research, creation and exchange across disciplines."], applyUrl: "https://saikoneon.com/apply/" }),
+  artRabbitOpportunity({ slug: "global-open-call-season-4-belonging", organizer: "Art Coordinate", title: "Global open call- Season 4 Belonging", deadline: "1 December 2026", deadlineDate: "2026-12-01", location: "International", audience: "Teenagers aged 13–17 working across art, culture and innovation", kind: "prize", tags: ["YOUTH", "EDUCATION", "PERFORMANCE"], fields: ["Visual Arts", "Performance", "Digital"], intro: ["An international open call around belonging for young artists, with education, workshops, exhibitions, awards and public dialogue."], applyUrl: "https://teenartawards.com/" }),
+  artRabbitOpportunity({ slug: "future-focus-artist-call-out-2026", organizer: "Positive Life Workshops CIC", title: "Artist Call-Out: Future Focus", deadline: "20 December 2026", deadlineDate: "2026-12-20", location: "St Helens, United Kingdom", audience: "Artists and community groups able to lead inclusive creative workshops", audiences: ["Individual artists", "Collectives / groups"], kind: "collaboration", tags: ["COMMUNITY", "SOCIAL PRACTICE"], fields: ["Social Practice", "Interdisciplinary"], rewardSummary: "£750 for three sessions", intro: ["Positive Life Workshops seeks artists to lead creative workshops exploring wellbeing, resilience and community connection."], applyUrl: "https://forms.gle/StgcyHH92Ut2asxP9" }),
+  artRabbitOpportunity({ slug: "nars-international-residency-2026", organizer: "NARS Foundation", title: "NARS International Residency Program", deadline: "31 December 2026", deadlineDate: "2026-12-31", location: "Brooklyn, United States", audience: "Emerging and mid-career artists working in any discipline", kind: "residency", tags: ["STUDIO SPACE", "MENTORSHIP", "EXHIBITION"], rewardSummary: "Studio, curatorial support and public programming", applicationFee: "US$35", intro: ["NARS Foundation offers three-, six- and twelve-month residencies with studio access, studio visits and an international artistic community."], applyUrl: "https://www.narsfoundation.org/residencies" }),
+  artRabbitOpportunity({ slug: "nicola-arts-open-call-2026", organizer: "NICOLA Arts", title: "Open Call for Artists", deadline: "31 December 2026", deadlineDate: "2026-12-31", location: "United Kingdom", audience: "Artists and creatives proposing workshops, talks, performances, readings and participatory events", kind: "open-call", tags: ["COMMUNITY", "PERFORMANCE", "WORKSHOPS"], fields: ["Performance", "Social Practice"], intro: ["NICOLA Arts invites proposals for intimate creative and participatory events in its gallery space."], applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLScIAvU10bkVmU6kS3BBxELNpqLby-dbD_PwSxKE5dhiEi-mIw/viewform?usp=publish-editor" }),
+  artRabbitOpportunity({ slug: "pollock-krasner-artist-grants", organizer: "Pollock-Krasner Foundation", title: "Pollock-Krasner Foundation Artist Grants", deadline: "31 December 2026", deadlineDate: "2026-12-31", location: "International", audience: "Professional visual artists working in painting, sculpture or works on paper with an active exhibition record", kind: "grant", tags: ["PAINTING", "SCULPTURE", "FUNDING"], fields: ["Painting", "Sculpture"], rewardSummary: "Grants up to $50,000", applicationFee: "FREE", intro: ["Pollock-Krasner Foundation provides unrestricted grants for professional visual artists' materials, studios, exhibitions and living expenses."], applyUrl: "https://www.pkf.org/grants/grant-for-artists/" }),
+  artRabbitOpportunity({ slug: "revart-artist-interview-2026", organizer: "RevArt", title: "RevArt Artist Interview 2026", deadline: "31 December 2026", deadlineDate: "2026-12-31", location: "Online", audience: "Artists of all backgrounds and career stages", kind: "collaboration", tags: ["PUBLICATION", "EDITORIAL"], fields: ["Writing", "Visual Arts"], rewardSummary: "Featured interview and promotion", intro: ["RevArt invites artists to share their creative journeys through a featured interview on its website, newsletter and social channels."], applyUrl: "https://airtable.com/appVBqyF9L6JTM6EI/pagh1TfE1JhIXQEjV/form" }),
+  artRabbitOpportunity({ slug: "international-mute-photo-festival-2027", organizer: "Photonisos Arts & Culture NPO", title: "International Mute Photo Festival", deadline: "30 April 2027", deadlineDate: "2027-04-30", location: "Europe", audience: "Photographers worldwide working with children's thermal print cameras", kind: "open-call", tags: ["PHOTOGRAPHY", "EXHIBITION"], fields: ["Photography"], intro: ["The first International Mute Photo Festival invites photographic series made exclusively with children's thermal print cameras under the theme Nature ate the pixels."], applyUrl: "https://linktr.ee/mutephotofestival" }),
+];
+
+export const OPPORTUNITIES: Opportunity[] = [
+  ...CURATED_OPPORTUNITIES,
+  ...ART_RABBIT_OPPORTUNITIES,
+];

@@ -88,6 +88,24 @@ const TYPE_DEFINITIONS: TypeDefinition[] = [
     description:
       "Explore current art education, training and professional development opportunities.",
   },
+  {
+    slug: "job",
+    values: ["Jobs"],
+    label: "Job",
+    heading: "Art Jobs & Opportunities",
+    seoTitle: "Art Jobs & Opportunities | FindArt Platform",
+    description:
+      "Explore current jobs and professional opportunities in contemporary art.",
+  },
+  {
+    slug: "collaboration",
+    values: ["Collaborations"],
+    label: "Collaboration",
+    heading: "Art Collaborations & Opportunities",
+    seoTitle: "Art Collaborations & Opportunities | FindArt Platform",
+    description:
+      "Explore collaborations and participatory opportunities for artists and creative practitioners.",
+  },
 ];
 
 const TYPE_BY_VALUE = new Map(
