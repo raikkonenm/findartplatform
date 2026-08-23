@@ -3,8 +3,15 @@ import Link from "next/link";
 import { exhibitions, type Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayVenueText } from "@/lib/displayVenueText";
+import { entityHref, splitCuratorString } from "@/lib/entitySlugs";
 import { OnViewDot } from "./OnViewDot";
 import { SaveExhibitionButton } from "./SavedExhibitions";
+
+// Slugs whose venue/artists/curators render as clickable links to the
+// per-entity index pages (/gallery/[slug], /artist/[slug], /curator/[slug]).
+// Add a slug here to enable entity linking on that exhibition. Kept as an
+// allowlist so we can roll out one exhibition at a time.
+const ENTITY_LINKED_SLUGS = new Set<string>(["techno-worlds-final-sampling"]);
 
 const METADATA_ACRONYMS = new Set(["cac", "acud", "moco"]);
 
@@ -121,14 +128,63 @@ function aspectClassForSlug(slug: string): string {
 
 function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
   const dates = expandMonthAbbreviations(exhibition.dates);
-  const venue = displayMetadataText(exhibition.gallery ?? exhibition.venue);
-  const artistsJoined = joinArtists(exhibition.artists);
+  const linked = ENTITY_LINKED_SLUGS.has(exhibition.slug);
+  const rawVenue = exhibition.gallery ?? exhibition.venue;
+  const venue = displayMetadataText(rawVenue);
+  const venueNode = linked && rawVenue && venue
+    ? (
+      <Link href={entityHref("gallery", rawVenue)} className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-55">
+        {venue}
+      </Link>
+    )
+    : venue;
+
+  // Artists rendered either as plain joined text or as a list of
+  // Links → /artist/[slug]. Join style matches joinArtists (1, "X"; 2,
+  // "X and Y"; 3+, "X, Y, Z") so the visible copy is identical.
+  const artistsJoined = linked && exhibition.artists && exhibition.artists.length > 0
+    ? (() => {
+        const nodes = exhibition.artists!.map((raw) => (
+          <Link
+            key={raw}
+            href={entityHref("artist", raw)}
+            className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-55"
+          >
+            {displayPersonText(raw) ?? raw}
+          </Link>
+        ));
+        if (nodes.length === 1) return nodes[0];
+        if (nodes.length === 2) return (<>{nodes[0]} and {nodes[1]}</>);
+        return nodes.reduce<React.ReactNode[]>((acc, node, index) => {
+          if (index > 0) acc.push(", ");
+          acc.push(node);
+          return acc;
+        }, []);
+      })()
+    : joinArtists(exhibition.artists);
+
   const curatorJoined = (() => {
     if (!exhibition.curator) return undefined;
-    // Curator may be a comma-separated string with one or many names —
-    // run each through displayPersonText for consistent capitalisation.
-    const parts = exhibition.curator.split(",").map((part) => part.trim()).filter(Boolean);
+    const parts = splitCuratorString(exhibition.curator);
     if (parts.length === 0) return undefined;
+    if (linked) {
+      const nodes = parts.map((raw) => (
+        <Link
+          key={raw}
+          href={entityHref("curator", raw)}
+          className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-55"
+        >
+          {displayPersonText(raw) ?? raw}
+        </Link>
+      ));
+      if (nodes.length === 1) return nodes[0];
+      if (nodes.length === 2) return (<>{nodes[0]} and {nodes[1]}</>);
+      return nodes.reduce<React.ReactNode[]>((acc, node, index) => {
+        if (index > 0) acc.push(", ");
+        acc.push(node);
+        return acc;
+      }, []);
+    }
     const cleaned = parts.map((part) => displayPersonText(part) ?? part);
     if (cleaned.length === 1) return cleaned[0];
     if (cleaned.length === 2) return `${cleaned[0]} and ${cleaned[1]}`;
@@ -151,7 +207,7 @@ function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
   ) : undefined;
   const entries: Array<{ label: string; value?: React.ReactNode }> = [
     { label: "Dates", value: datesValue },
-    { label: "Venue", value: venue },
+    { label: "Venue", value: venueNode },
     { label: "Artists", value: artistsJoined },
     { label: "Curators", value: curatorJoined },
     { label: "Photo", value: photographer },
