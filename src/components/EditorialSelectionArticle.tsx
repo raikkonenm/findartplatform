@@ -107,6 +107,26 @@ function ContextualLinks({ exhibition }: { exhibition: Exhibition }) {
   );
 }
 
+// Drop a trailing ", <city>" or ", <city>, <country>" suffix from a
+// venue string when we already surface city + country in the Where row.
+// The dataset occasionally carries these in the venue field (e.g.
+// "Galerie Suzanne Tarasieve, Paris, France") — leaving them makes the
+// row read as duplicated location text.
+function stripLocationSuffix(
+  venue: string | undefined,
+  city: string | undefined,
+  country: string | undefined,
+): string | undefined {
+  if (!venue) return venue;
+  let cleaned = venue.trim();
+  const parts = [country, city].filter((v): v is string => Boolean(v));
+  for (const part of parts) {
+    const re = new RegExp(`,\\s*${part.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}\\s*$`, "i");
+    cleaned = cleaned.replace(re, "").trim();
+  }
+  return cleaned;
+}
+
 function ExhibitionSection({
   exhibition,
   index,
@@ -119,7 +139,11 @@ function ExhibitionSection({
   const displayTitle = displayExhibitionTitle(exhibition.title);
   const cover = exhibition.coverImage ?? exhibition.previewImage;
   const flip = index % 2 === 1;
-  const rawVenue = exhibition.gallery ?? exhibition.venue;
+  const rawVenue = stripLocationSuffix(
+    exhibition.gallery ?? exhibition.venue,
+    exhibition.city,
+    exhibition.country,
+  );
   const venueLabel = displayMetadataText(rawVenue) ?? rawVenue;
   const cityLabel = exhibition.city
     ? canonicalFacetValue("city", exhibition.city)
@@ -214,6 +238,11 @@ function ExhibitionSection({
           src={cover}
           alt={altText}
           fill
+          // First section image loads with priority for LCP; the rest
+          // use the default lazy strategy. Either way Next renders a
+          // real <img> with alt in SSR HTML, so text crawlers get the
+          // image tag and caption regardless of loading strategy.
+          {...(index === 0 ? { priority: true } : {})}
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           sizes="(min-width: 1024px) 26vw, (min-width: 768px) 32vw, 60vw"
         />
@@ -271,10 +300,14 @@ function ExploreMore({ exhibitions }: { exhibitions: Exhibition[] }) {
       </Link>,
     );
   }
-  // Top 3 topics by frequency across the selection.
+  // Top 3 topics by frequency across the selection. Skip structural /
+  // format tags ("GROUP SHOW") — they read as noise at the bottom of an
+  // editorial article; save the slots for real thematic topics.
+  const EXPLORE_TOPIC_DENYLIST = new Set(["GROUP SHOW"]);
   const topicCounts = new Map<string, number>();
   for (const ex of exhibitions) {
     for (const tag of ex.tags ?? []) {
+      if (EXPLORE_TOPIC_DENYLIST.has(tag)) continue;
       topicCounts.set(tag, (topicCounts.get(tag) ?? 0) + 1);
     }
   }
