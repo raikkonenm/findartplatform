@@ -44,6 +44,16 @@ const nextConfig: NextConfig = {
         destination: "https://www.findartplatform.com/:path*",
         permanent: true,
       },
+      // Legacy singular entity routes → new plural canonical routes.
+      // Google already indexed some `/artist/…`, `/gallery/…` etc. URLs
+      // before the taxonomy standardization; permanent (308) redirects
+      // consolidate ranking signals onto the new URLs and prevent 404s
+      // for external links. destination is a same-host path (Next.js
+      // preserves host/query), so no redirect chains.
+      { source: "/artist/:slug", destination: "/artists/:slug", permanent: true },
+      { source: "/curator/:slug", destination: "/curators/:slug", permanent: true },
+      { source: "/photographer/:slug", destination: "/photographers/:slug", permanent: true },
+      { source: "/gallery/:slug", destination: "/venues/:slug", permanent: true },
     ];
   },
   // Long-term immutable Cache-Control on every static image + video

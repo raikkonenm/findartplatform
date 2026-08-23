@@ -132,9 +132,22 @@ export function collectTagSlugs(): Map<
 
 // URL builders — kept in one place so the ExhibitionDetail renderer and
 // the routes agree on the URL shape.
+//
+// Route segment per entity kind. Plural everywhere (REST-ish), and
+// "gallery" maps to "venues" because FindArt lists museums, festivals,
+// institutions and independent spaces alongside galleries — VENUE is
+// the universal umbrella term.
+export const ENTITY_ROUTE_SEGMENT: Record<EntityKind, string> = {
+  gallery: "venues",
+  artist: "artists",
+  curator: "curators",
+  photographer: "photographers",
+  tag: "tag",
+};
+
 export function entityHref(kind: EntityKind, name: string): string {
   const slug = slugifyEntity(name);
-  return `/${kind}/${slug}`;
+  return `/${ENTITY_ROUTE_SEGMENT[kind]}/${slug}`;
 }
 
 // --- Exhibition-text author (Exhibition Text field on the detail card) ---

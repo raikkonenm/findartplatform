@@ -4,6 +4,7 @@ import { MasonryGrid } from "@/components/MasonryGrid";
 import { editorialArtists, type EditorialArtist } from "@/data/editorial";
 import type { Exhibition } from "@/data/exhibitions";
 import {
+  ENTITY_ROUTE_SEGMENT,
   collectEntitySlugs,
   collectTagSlugs,
   editorialArtistsForArtistSlug,
@@ -11,8 +12,12 @@ import {
   type EntityKind,
 } from "@/lib/entitySlugs";
 
+const SITE_URL = "https://www.findartplatform.com";
+
+// Small ALL-CAPS label above the H1. Universal — venues covers galleries
+// and any other kind of exhibition space.
 const EYEBROW: Record<EntityKind, string> = {
-  gallery: "Gallery / Venue",
+  gallery: "Venue",
   artist: "Artist",
   curator: "Curator",
   photographer: "Photographer",
@@ -67,6 +72,9 @@ export function renderEntityPage({
   if (!entry) return notFound();
 
   const totalCount = entry.exhibitions.length + entry.editorialArtists.length;
+  // Human-friendly "1 exhibition" / "2 exhibitions" label — same
+  // wording across every entity kind, per the taxonomy standardization.
+  const countLabel = `${totalCount} ${totalCount === 1 ? "exhibition" : "exhibitions"}`;
 
   return (
     <main className="min-h-screen bg-white pt-[65px] text-neutral-900">
@@ -80,8 +88,7 @@ export function renderEntityPage({
             {entry.name}
           </h1>
           <p className="mt-4 text-[13px] uppercase tracking-[0.24em] text-neutral-500">
-            {totalCount}{" "}
-            {totalCount === 1 ? "entry" : "entries"}
+            {countLabel}
           </p>
 
           <div className="mt-12 md:mt-16">
@@ -123,7 +130,7 @@ export function renderExhibitionListPage({
           </h1>
           <p className="mt-4 text-[13px] uppercase tracking-[0.24em] text-neutral-500">
             {exhibitions.length}{" "}
-            {exhibitions.length === 1 ? "entry" : "entries"}
+            {exhibitions.length === 1 ? "exhibition" : "exhibitions"}
           </p>
 
           <div className="mt-12 md:mt-16">
@@ -143,6 +150,43 @@ export function entityStaticParams(kind: EntityKind) {
   return collectSlugList(kind).map((slug) => ({ slug }));
 }
 
+// Role-specific SEO metadata. Titles and descriptions differ per kind
+// so search engines don't see near-duplicate pages for people who
+// appear in multiple roles (e.g. artist + photographer with the same
+// name). Canonical URLs always use the new plural routes.
+function metadataForKind(
+  kind: EntityKind,
+  name: string,
+): { title: string; description: string } {
+  switch (kind) {
+    case "artist":
+      return {
+        title: `${name} — Exhibitions | FindArt Platform`,
+        description: `Explore exhibitions featuring ${name} on FindArt Platform.`,
+      };
+    case "curator":
+      return {
+        title: `${name} — Curated Exhibitions | FindArt Platform`,
+        description: `Explore exhibitions curated by ${name} on FindArt Platform.`,
+      };
+    case "photographer":
+      return {
+        title: `${name} — Exhibition Photography | FindArt Platform`,
+        description: `Explore exhibitions photographed by ${name} on FindArt Platform.`,
+      };
+    case "gallery":
+      return {
+        title: `${name} — Exhibitions | FindArt Platform`,
+        description: `Explore exhibitions at ${name} on FindArt Platform.`,
+      };
+    case "tag":
+      return {
+        title: `${name} — Exhibitions | FindArt Platform`,
+        description: `Explore exhibitions tagged ${name} on FindArt Platform.`,
+      };
+  }
+}
+
 export function entityMetadata({
   kind,
   slug,
@@ -152,20 +196,8 @@ export function entityMetadata({
 }) {
   const entry = resolveEntry(kind, slug);
   if (!entry) return { title: "Not found" };
-  const kindLabel =
-    kind === "gallery"
-      ? "Gallery / venue"
-      : kind === "artist"
-        ? "Artist"
-        : kind === "curator"
-          ? "Curator"
-          : kind === "photographer"
-            ? "Photographer"
-            : "Tag";
-  const total = entry.exhibitions.length + entry.editorialArtists.length;
-  const title = `${entry.name} — ${kindLabel} on FindArt`;
-  const description = `${total} ${total === 1 ? "entry" : "entries"} on FindArt Platform associated with ${entry.name}.`;
-  const canonical = `https://www.findartplatform.com/${kind}/${slug}`;
+  const { title, description } = metadataForKind(kind, entry.name);
+  const canonical = `${SITE_URL}/${ENTITY_ROUTE_SEGMENT[kind]}/${slug}`;
   return {
     title: { absolute: title },
     description,
