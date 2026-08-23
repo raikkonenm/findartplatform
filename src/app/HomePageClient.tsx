@@ -17,6 +17,7 @@ import { SHOW_COLLECT_NAV } from "@/lib/navFlags";
 import { ThemeToggleButton } from "@/components/ThemeToggleButton";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { isExhibitionOnView } from "@/lib/isOnView";
+import { slugifyEntity } from "@/lib/entitySlugs";
 
 const YEARS = ["All", "2026", "2025", "2024", "2023"];
 type SelectedTag = "ALL" | SemanticTag;
@@ -1138,20 +1139,16 @@ export default function HomePageClient({
 
   const selectTag = useCallback(
     (nextTag: SelectedTag) => {
-      // Tag filtering is intentionally client-only: pushing ?tag=X to the URL
-      // used to create indexable filter combinations that competed with the
-      // canonical /topics/[slug] pages. Now the chip filters in-place; users
-      // who want a shareable URL for a single topic get the /topics/ page.
+      // Clicking a tag chip navigates to the canonical /topics/[slug]
+      // page — the same URL Google indexes — so each topic keeps a
+      // single authoritative address. ALL clears back to the current
+      // base path (/ or /exhibitions) with no filter param.
       setTag(nextTag);
-      // Strip any legacy ?tag= param that might still be in the URL from an
-      // old bookmark or an external link that landed before the middleware
-      // redirect kicked in.
-      const params = new URLSearchParams(window.location.search);
-      if (params.has("tag")) {
-        params.delete("tag");
-        const query = params.toString();
-        const basePath = pathname || "/";
-        router.replace(query ? `${basePath}?${query}` : basePath, { scroll: false });
+      const basePath = pathname || "/";
+      if (nextTag === "ALL") {
+        router.push(basePath);
+      } else {
+        router.push(`/topics/${slugifyEntity(nextTag)}`);
       }
     },
     [router, pathname],
