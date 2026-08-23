@@ -1178,6 +1178,13 @@ export default function HomePageClient({
   const filtered = useMemo(
     () => {
       return exhibitions.filter((ex) => {
+        // Art objects (single-work Instagram-style posts) belong only in
+        // the homepage feed. The /exhibitions archive index is the
+        // canonical list of actual exhibitions and must exclude them.
+        // The homepage sets showFeaturedBanners=true; /exhibitions sets it
+        // false, which is the same signal used to hide the featured
+        // banners row.
+        if (!showFeaturedBanners && ex.dateSource === "instagram-post") return false;
         const matchLocation = (() => {
           if (location.kind === "all") return true;
           if (location.kind === "country") return ex.country === location.country;
@@ -1212,7 +1219,7 @@ export default function HomePageClient({
         );
       });
     },
-    [location, year, tag, onViewOnly, nowMs, search],
+    [location, year, tag, onViewOnly, nowMs, search, showFeaturedBanners],
   );
 
   const tagOptions: SelectedTag[] = ["ALL", ...semanticTags];
