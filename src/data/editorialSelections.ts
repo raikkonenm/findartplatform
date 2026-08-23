@@ -125,9 +125,9 @@ export const editorialSelections: EditorialSelection[] = [
   {
     kind: "artists",
     slug: "artists-to-watch-2026",
-    title: "Artists to Watch: 2026",
-    subtitle: "Ten contemporary practices selected from the FindArt archive.",
-    seoTitle: "Emerging Artists & Artists to Watch in 2026 | FindArt Platform",
+    title: "10 Contemporary Artists to Watch in 2026",
+    subtitle: "Selected from the FindArt Features and exhibition archive.",
+    seoTitle: "10 Contemporary Artists to Watch in 2026 | FindArt Platform",
     seoDescription:
       "Discover ten emerging and rising contemporary artists to watch in 2026, selected from exhibitions and features documented by FindArt Platform.",
     intro: `This selection brings together ten contemporary artists to watch in 2026, drawn from FindArt Features and the exhibition archive. Rather than mapping a single generation or tendency, it follows practices shaped by unstable bodies, material experimentation, virtual worlds, mythology and ecological unease.
