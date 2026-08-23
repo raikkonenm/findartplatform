@@ -142,7 +142,7 @@ export const ENTITY_ROUTE_SEGMENT: Record<EntityKind, string> = {
   artist: "artists",
   curator: "curators",
   photographer: "photographers",
-  tag: "tag",
+  tag: "topics",
 };
 
 export function entityHref(kind: EntityKind, name: string): string {
@@ -224,8 +224,15 @@ export function getExhibitionFacet(facet: ExhibitionFacet, slug: string) {
   return collectExhibitionFacetSlugs(facet).get(slug);
 }
 
+// Facet URL path segments — plural, per the taxonomy standardization.
+export const EXHIBITION_FACET_SEGMENT: Record<ExhibitionFacet, string> = {
+  city: "cities",
+  country: "countries",
+  year: "years",
+};
+
 export function exhibitionFacetHref(facet: ExhibitionFacet, name: string): string {
-  return `/exhibitions/${facet}/${slugifyEntity(name)}`;
+  return `/exhibitions/${EXHIBITION_FACET_SEGMENT[facet]}/${slugifyEntity(name)}`;
 }
 
 // --- Exhibitions by month (year-month bucket) -------------------------
@@ -283,29 +290,39 @@ function monthBucketsFor(exhibition: Exhibition): Array<{ year: number; month: n
   return buckets;
 }
 
-export function monthSlug(monthIndex: number, year: number): string {
-  return `${MONTH_NAMES[monthIndex].toLowerCase()}-${year}`;
+export function monthSegment(monthIndex: number): string {
+  return MONTH_NAMES[monthIndex].toLowerCase();
 }
 
 export function monthDisplayName(monthIndex: number, year: number): string {
   return `${MONTH_NAMES[monthIndex]} ${year}`;
 }
 
-// Returns { monthIndex, year } if the slug is a well-formed month slug,
-// otherwise undefined. Called by the shared /exhibitions/[slug] route
-// to decide whether to render a month page or fall through to the
-// exhibition detail page.
-export function parseMonthSlug(slug: string): { monthIndex: number; year: number } | undefined {
-  const match = slug.match(/^([a-z]+)-(\d{4})$/);
-  if (!match) return undefined;
-  const monthIndex = MONTH_NAMES.findIndex((n) => n.toLowerCase() === match[1]);
+// Parse the ({year}, {month}) pair from the nested URL segments.
+export function parseMonthSegments(year: string, month: string):
+  | { monthIndex: number; year: number }
+  | undefined {
+  const monthIndex = MONTH_NAMES.findIndex((n) => n.toLowerCase() === month.toLowerCase());
   if (monthIndex === -1) return undefined;
-  const year = Number.parseInt(match[2], 10);
-  if (!Number.isFinite(year)) return undefined;
-  return { monthIndex, year };
+  const yearNumber = Number.parseInt(year, 10);
+  if (!Number.isFinite(yearNumber)) return undefined;
+  return { monthIndex, year: yearNumber };
 }
 
-export function collectExhibitionMonthSlugs(): Map<
+// Legacy flat month slug e.g. "april-2026" — used only by the redirect
+// path in /exhibitions/[slug]. New URLs are nested.
+export function parseFlatMonthSlug(slug: string):
+  | { monthIndex: number; year: number }
+  | undefined {
+  const match = slug.match(/^([a-z]+)-(\d{4})$/);
+  if (!match) return undefined;
+  return parseMonthSegments(match[2], match[1]);
+}
+
+// Key: `${year}/${monthName-lower}` — matches the nested URL structure
+// under /exhibitions/years/[year]/[month]. Only months with ≥ 1
+// exhibition on view are emitted; empty months are never pre-generated.
+export function collectExhibitionMonthBuckets(): Map<
   string,
   { name: string; exhibitions: Exhibition[]; year: number; monthIndex: number }
 > {
@@ -315,14 +332,14 @@ export function collectExhibitionMonthSlugs(): Map<
   >();
   for (const exhibition of exhibitions) {
     for (const { year, month } of monthBucketsFor(exhibition)) {
-      const slug = monthSlug(month, year);
-      const bucket = map.get(slug);
+      const key = `${year}/${monthSegment(month)}`;
+      const bucket = map.get(key);
       if (bucket) {
         if (!bucket.exhibitions.some((e) => e.slug === exhibition.slug)) {
           bucket.exhibitions.push(exhibition);
         }
       } else {
-        map.set(slug, {
+        map.set(key, {
           name: monthDisplayName(month, year),
           exhibitions: [exhibition],
           year,
@@ -334,10 +351,10 @@ export function collectExhibitionMonthSlugs(): Map<
   return map;
 }
 
-export function getExhibitionMonth(slug: string) {
-  return collectExhibitionMonthSlugs().get(slug);
+export function getExhibitionMonth(year: number, monthIndex: number) {
+  return collectExhibitionMonthBuckets().get(`${year}/${monthSegment(monthIndex)}`);
 }
 
 export function exhibitionMonthHref(monthIndex: number, year: number): string {
-  return `/exhibitions/${monthSlug(monthIndex, year)}`;
+  return `/exhibitions/years/${year}/${monthSegment(monthIndex)}`;
 }

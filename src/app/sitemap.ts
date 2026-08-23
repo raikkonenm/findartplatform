@@ -1,16 +1,20 @@
 import type { MetadataRoute } from "next";
 import { exhibitions } from "@/data/exhibitions";
 import { editorialArtists } from "@/data/editorial";
+import { OPPORTUNITIES } from "@/data/opportunities";
 import {
   ENTITY_ROUTE_SEGMENT,
   collectAuthorSlugs,
   collectEntitySlugs,
   collectExhibitionFacetSlugs,
-  collectExhibitionMonthSlugs,
+  collectExhibitionMonthBuckets,
   collectTagSlugs,
   slugifyEntity,
 } from "@/lib/entitySlugs";
-import { collectOpportunityLocationSlugs } from "@/lib/opportunityLocations";
+import {
+  allOpportunityTaxonomyEntries,
+  opportunityUrl,
+} from "@/lib/opportunityTaxonomy";
 
 // Canonical origin. The apex (findartplatform.com) 308-redirects to
 // www, so www is what we advertise to crawlers.
@@ -25,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/` },
     { url: `${SITE_URL}/exhibitions` },
+    { url: `${SITE_URL}/opportunities` },
     { url: `${SITE_URL}/about` },
     { url: `${SITE_URL}/submit` },
   ];
@@ -72,14 +77,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const yearPages = Array.from(collectExhibitionFacetSlugs("year").keys()).map(
     (slug) => ({ url: `${SITE_URL}/exhibitions/year/${slug}` }),
   );
-  const monthPages = Array.from(collectExhibitionMonthSlugs().keys()).map(
-    (slug) => ({ url: `${SITE_URL}/exhibitions/${slug}` }),
+  const monthPages = Array.from(collectExhibitionMonthBuckets().keys()).map(
+    (slug) => ({ url: `${SITE_URL}/exhibitions/years/${slug}` }),
   );
 
-  // Opportunities.
-  const oppLocationPages = Array.from(collectOpportunityLocationSlugs().keys()).map(
-    (slug) => ({ url: `${SITE_URL}/opportunities/location/${slug}` }),
-  );
+  // Opportunity detail pages and standalone canonical taxonomies. Legacy
+  // /opportunities/location/* URLs redirect and are intentionally omitted.
+  const opportunityPages = OPPORTUNITIES.map((opportunity) => ({
+    url: `${SITE_URL}${opportunityUrl(opportunity)}`,
+  }));
+  const opportunityTaxonomyPages = allOpportunityTaxonomyEntries().map((entry) => ({
+    url: `${SITE_URL}${entry.path}`,
+  }));
 
   // Exhibition-text authors.
   const authorPages = Array.from(collectAuthorSlugs().keys()).map((slug) => ({
@@ -99,7 +108,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...countryPages,
     ...yearPages,
     ...monthPages,
-    ...oppLocationPages,
+    ...opportunityPages,
+    ...opportunityTaxonomyPages,
     ...authorPages,
   ];
 }

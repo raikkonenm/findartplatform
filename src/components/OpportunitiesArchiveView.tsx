@@ -3,10 +3,15 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { OpportunityDetailContent } from "@/components/OpportunityDetailContent";
+import { ChevronIcon, CloseIcon, ExternalArrowIcon } from "@/components/OpportunityIcons";
 import {
-  opportunityLocationHref,
-  splitLocationString,
-} from "@/lib/opportunityLocations";
+  opportunityDisplayTitle,
+  opportunityLocationParts,
+  opportunityPrimaryType,
+  opportunityTypeUrl,
+  opportunityUrl,
+} from "@/lib/opportunityTaxonomy";
 import {
   OPPORTUNITIES,
   type Opportunity,
@@ -16,23 +21,19 @@ import { Header } from "./Header";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 import { SearchBar } from "./SearchBar";
 
-// Render a location string ("Tokyo, Japan") with each comma-separated
-// part linked to its per-location opportunities page. Opens in a new
-// tab so the current slide-over panel stays open.
-function renderLocationLinks(location: string) {
-  const parts = splitLocationString(location);
-  if (parts.length === 0) return location;
-  return parts.reduce<React.ReactNode[]>((acc, raw, index) => {
+function renderLocationLinks(opportunity: Opportunity, stopRowClick = false) {
+  const parts = opportunityLocationParts(opportunity);
+  if (parts.length === 0) return opportunity.location;
+  return parts.reduce<React.ReactNode[]>((acc, part, index) => {
     if (index > 0) acc.push(", ");
     acc.push(
       <Link
-        key={`${raw}-${index}`}
-        href={opportunityLocationHref(raw)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-55"
+        key={`${part.kind}-${part.name}`}
+        href={part.href}
+        onClick={stopRowClick ? (event) => event.stopPropagation() : undefined}
+        className="transition-opacity hover:opacity-55"
       >
-        {raw}
+        {part.name}
       </Link>,
     );
     return acc;
@@ -65,48 +66,6 @@ const AUDIENCE_OPTIONS = [
 
 const FILTER_LABELS: Record<FilterMode, string> = { type: "Type", field: "Artistic field", reward: "Reward" };
 
-
-const PRIMARY_TYPE_MAP: Record<string, string> = {
-  "Residencies": "RESIDENCY",
-  "Open Calls": "OPEN CALL",
-  "Awards & Prizes": "AWARD",
-  "Calls for Curators": "OPEN CALL",
-  "Collaborations": "COLLABORATION",
-  "Commissions": "COMMISSION",
-  "Education": "EDUCATION",
-  "Grants & Stipends": "GRANT",
-  "Jobs": "JOB",
-};
-
-function primaryTypeLabel(types: string[]): string {
-  return PRIMARY_TYPE_MAP[types[0]] ?? types[0].toUpperCase();
-}
-
-const TITLE_SMALL_WORDS = new Set([
-  "a", "an", "and", "as", "at", "but", "by", "for", "in", "nor", "of", "on", "or", "the", "to", "vs",
-]);
-
-function toTitleCase(input: string): string {
-  const words = input.trim().split(/\s+/);
-  return words
-    .map((word, index) => {
-      // Preserve mixed-case tokens the author wrote intentionally
-      // (e.g. 'CTM', 'iPhone') вЂ” only normalise all-caps or all-lower.
-      const upper = word.toUpperCase();
-      const lower = word.toLowerCase();
-      if (word !== upper && word !== lower) return word;
-      const isSmall = TITLE_SMALL_WORDS.has(lower);
-      // Keep short connectors lowercase mid-sentence.
-      if (index !== 0 && index !== words.length - 1 && isSmall) return lower;
-      return lower.charAt(0).toUpperCase() + lower.slice(1);
-    })
-    .join(" ");
-}
-
-function shortTitle(title: string): string {
-  const trimmed = title.replace(/^open call:\s*/i, "");
-  return toTitleCase(trimmed);
-}
 
 const SHORT_MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -228,13 +187,16 @@ function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { oppo
         <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 md:text-[10px]">{opportunity.organizer}</p>
         <FeeTag fee={opportunity.applicationFee} />
       </div>
-      <button
-        type="button"
-        onClick={onOpen}
+      <Link
+        href={opportunityUrl(opportunity)}
+        onClick={(event) => {
+          event.preventDefault();
+          onOpen();
+        }}
         className="editorial-serif mb-6 block text-left text-[clamp(1.15rem,4.5vw,1.6rem)] leading-[1.05] tracking-[-0.035em] transition-opacity group-hover/card:opacity-75 md:mb-8 md:text-[clamp(1.35rem,2.2vw,2rem)] md:leading-[1.02]"
       >
-        {shortTitle(opportunity.title)}
-      </button>
+        {opportunityDisplayTitle(opportunity.title)}
+      </Link>
       <dl className="space-y-2 border-t border-[var(--border)] pt-3 text-[11px] leading-relaxed md:space-y-4 md:pt-5 md:text-[12px]">
         <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Deadline</dt><dd>{opportunity.deadline}</dd></div>
         <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Location</dt><dd>{opportunity.location}</dd></div>
@@ -249,13 +211,14 @@ function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { oppo
   );
 }
 
-// Desktop table grid: OPPORTUNITY (+ organizer under) В· TYPE В· DEADLINE В· LOCATION В· FOR В· FEE
+// Desktop table grid: OPPORTUNITY (+ organizer under) · TYPE · DEADLINE · LOCATION · FOR · FEE
 // (TAGS column is hidden per design; tag filter still active in the filter row above.)
 const LIST_ROW_COLS =
   "md:grid-cols-[minmax(0,2.4fr)_110px_110px_minmax(0,1.1fr)_minmax(0,1.3fr)_120px]";
 
 function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void; today: Date | null }) {
   const daysLeft = daysRemainingLabel(opportunity.deadlineDate, today);
+  const primaryType = opportunityPrimaryType(opportunity);
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.target !== event.currentTarget) return;
@@ -287,28 +250,36 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
         <HeartIcon filled={isSaved} className="h-4 w-4" />
       </button>
 
-      {/* TYPE eyebrow вЂ” mobile only */}
-      <span className="order-1 col-span-3 text-[10px] uppercase tracking-[0.22em] text-neutral-500 md:hidden">
-        {primaryTypeLabel(opportunity.type)}
-      </span>
+      {/* TYPE eyebrow — mobile only */}
+      {primaryType ? (
+        <Link
+          href={opportunityTypeUrl(primaryType.slug)}
+          onClick={(event) => event.stopPropagation()}
+          className="order-1 col-span-3 text-[10px] uppercase tracking-[0.22em] text-neutral-500 md:hidden"
+        >
+          {primaryType.label}
+        </Link>
+      ) : null}
 
-      {/* OPPORTUNITY вЂ” headline + organizer underneath on desktop */}
+      {/* OPPORTUNITY — headline + organizer underneath on desktop */}
       <div className="order-2 col-span-2 md:order-none md:col-span-1">
-        <h3
+        <Link
+          href={opportunityUrl(opportunity)}
           onClick={(event) => {
             event.stopPropagation();
+            event.preventDefault();
             onOpen();
           }}
           className="editorial-serif break-words text-[clamp(1.05rem,4vw,1.4rem)] leading-[1.08] tracking-[-0.035em] text-neutral-900 transition-opacity group-hover:opacity-70 md:text-[clamp(1.15rem,1.9vw,1.75rem)] md:leading-[1.02]"
         >
-          {shortTitle(opportunity.title)}
-        </h3>
+          {opportunityDisplayTitle(opportunity.title)}
+        </Link>
         <p className="mt-1 hidden text-[10px] uppercase tracking-[0.16em] text-neutral-500 md:block">
           {opportunity.organizer}
         </p>
       </div>
 
-      {/* Mobile: heart as its own grid column at the right вЂ” outside the card content */}
+      {/* Mobile: heart as its own grid column at the right — outside the card content */}
       <button
         type="button"
         aria-label={isSaved ? "Unsave opportunity" : "Save opportunity"}
@@ -322,10 +293,16 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
         <HeartIcon filled={isSaved} className="h-4 w-4" />
       </button>
 
-      {/* TYPE вЂ” desktop */}
-      <span className="hidden text-[13px] text-neutral-700 md:block">
-        {primaryTypeCapitalised(opportunity.type)}
-      </span>
+      {/* TYPE — desktop */}
+      {primaryType ? (
+        <Link
+          href={opportunityTypeUrl(primaryType.slug)}
+          onClick={(event) => event.stopPropagation()}
+          className="hidden text-[13px] text-neutral-700 transition-opacity hover:opacity-55 md:block"
+        >
+          {primaryType.label}
+        </Link>
+      ) : null}
 
       {/* DEADLINE */}
       <div className="order-5 justify-self-end text-right md:order-none md:justify-self-start md:text-left">
@@ -337,7 +314,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
 
       {/* LOCATION */}
       <span className="hidden text-[13px] leading-snug text-neutral-700 md:block">
-        {opportunity.location}
+        {renderLocationLinks(opportunity, true)}
       </span>
 
       {/* FOR (audience) */}
@@ -345,14 +322,14 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
         {opportunity.audience}
       </span>
 
-      {/* APPLICATION FEE вЂ” desktop */}
+      {/* APPLICATION FEE — desktop */}
       <span className="hidden md:block">
         <FeeTag fee={opportunity.applicationFee} compact />
       </span>
 
       {/* TAGS column intentionally omitted (filter still available above). */}
 
-      {/* FEE вЂ” mobile bottom-left */}
+      {/* FEE — mobile bottom-left */}
       <span className="order-4 text-[11px] uppercase tracking-[0.18em] text-neutral-700 md:hidden">
         <FeeTag fee={opportunity.applicationFee} compact />
       </span>
@@ -361,26 +338,12 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
   );
 }
 
-function primaryTypeCapitalised(types: string[]): string {
-  const primary = types[0] ?? "";
-  // "Residencies" -> "Residency", "Open Calls" -> "Open Call", "Commissions" -> "Commission"
-  return primary
-    .replace(/Residencies/i, "Residency")
-    .replace(/Open Calls/i, "Open Call")
-    .replace(/Commissions/i, "Commission")
-    .replace(/Collaborations/i, "Collaboration")
-    .replace(/Grants & Stipends/i, "Grant")
-    .replace(/Awards & Prizes/i, "Award")
-    .replace(/Jobs/i, "Job")
-    .replace(/Calls for Curators/i, "Open Call");
-}
-
 function OpportunitiesListView({ opportunities, onOpen, isSaved, onToggleSaved, sortDirection, onToggleSort, today }: { opportunities: Opportunity[]; onOpen: (opp: Opportunity) => void; isSaved: (slug: string) => boolean; onToggleSaved: (slug: string) => void; sortDirection: SortDirection; onToggleSort: () => void; today: Date | null }) {
   return (
     <div className="mt-8">
-      {/* Column header вЂ” desktop only, matches OpportunityRow grid template. */}
+      {/* Column header — desktop only, matches OpportunityRow grid template. */}
       <div className={`hidden border-y border-neutral-200 bg-neutral-100 px-4 py-3.5 text-[10px] uppercase tracking-[0.18em] text-neutral-500 md:grid ${LIST_ROW_COLS} md:items-center md:gap-x-6`}>
-        <span className="flex items-center gap-1">Opportunity <span aria-hidden="true" className="text-[10px]">в–ѕ</span></span>
+        <span className="flex items-center gap-1">Opportunity <ChevronIcon direction="down" className="h-2.5 w-2.5" /></span>
         <span>Type</span>
         <button
           type="button"
@@ -388,7 +351,7 @@ function OpportunitiesListView({ opportunities, onOpen, isSaved, onToggleSaved, 
           className="flex items-center gap-1 text-left uppercase tracking-[0.18em] text-neutral-500 transition-opacity hover:opacity-70"
           aria-label={`Sort by deadline ${sortDirection === "asc" ? "descending" : "ascending"}`}
         >
-          Deadline <span aria-hidden="true" className="text-[10px]">{sortDirection === "asc" ? "в–ѕ" : "в–ґ"}</span>
+          Deadline <ChevronIcon direction={sortDirection === "asc" ? "down" : "up"} className="h-2.5 w-2.5" />
         </button>
         <span>Location</span>
         <span>For</span>
@@ -422,38 +385,12 @@ function OpportunityDetail({ opportunity, onClose }: { opportunity: Opportunity;
     <div className="fixed inset-x-0 bottom-0 top-[65px] z-[70]" role="dialog" aria-modal="true">
       <button type="button" aria-label="Close opportunity" onClick={onClose} className="absolute inset-0 bg-black/25" />
       <aside className="absolute inset-x-0 top-0 max-h-[92vh] w-full overflow-y-auto bg-[var(--background)] shadow-[0_16px_35px_rgba(0,0,0,0.15)] md:inset-y-0 md:right-0 md:left-auto md:top-0 md:max-h-none md:w-[72vw] md:shadow-[-12px_0_35px_rgba(0,0,0,0.12)] lg:w-[62vw] lg:max-w-[1050px]">
-        <div className="mx-auto max-w-[880px] px-5 pb-20 pt-6 md:px-10 md:pt-10 lg:px-14">
-          <div className="mb-6 flex items-start justify-between gap-6">
-            <p className="pt-2 text-[10px] uppercase tracking-[0.2em] text-neutral-500">{opportunity.organizer}</p>
-            <button type="button" onClick={onClose} aria-label="Close opportunity" className="flex h-10 w-10 shrink-0 items-center justify-center text-3xl font-light leading-none transition-opacity hover:opacity-50">Г—</button>
-          </div>
-          <h2 className="editorial-serif max-w-[760px] break-words text-[clamp(1.6rem,5vw,2.2rem)] leading-[1.02] tracking-[-0.035em] md:text-[clamp(2rem,3vw,3rem)] md:leading-[1.02]">{shortTitle(opportunity.title)}</h2>
-          <dl className="my-10 grid gap-5 border-y border-[var(--border)] py-6 text-[13px] md:grid-cols-4">
-            <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Deadline</dt><dd>{opportunity.deadline}</dd></div>
-            <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Location</dt><dd>{renderLocationLinks(opportunity.location)}</dd></div>
-            <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">Application fee</dt><dd>{opportunity.applicationFee}</dd></div>
-            <div><dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">For</dt><dd>{opportunity.audience}</dd></div>
-          </dl>
-          <div className="max-w-[720px] space-y-5 text-[15px] leading-[1.7]">
-            {opportunity.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          </div>
-          <div className="mt-12 grid gap-x-10 gap-y-10 md:grid-cols-2">
-            {opportunity.sections.map((section) => (
-              <section key={section.title} className="border-t border-[var(--border)] pt-5">
-                <h3 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.2em]">{section.title}</h3>
-                <ul className="space-y-3 text-[13px] leading-[1.55]">
-                  {section.items.map((item) => <li key={item} className="flex gap-3"><span aria-hidden="true">в†’</span><span>{item}</span></li>)}
-                </ul>
-              </section>
-            ))}
-          </div>
-          <div className="mt-14 flex flex-wrap items-center justify-between gap-5 border-t border-[var(--border)] pt-7">
-            <div className="flex flex-wrap gap-2">
-              {opportunity.tags.map((tag) => <span key={tag} className="border border-[var(--border)] px-2.5 py-1.5 text-[8px] uppercase tracking-[0.18em]">{tag}</span>)}
-            </div>
-            <a href={opportunity.applyUrl} target="_blank" rel="noopener noreferrer" className="border border-[var(--foreground)] bg-transparent px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--foreground)] transition-opacity hover:opacity-55">Apply в†—</a>
-          </div>
-        </div>
+        <OpportunityDetailContent
+          opportunity={opportunity}
+          closeButton={
+            <button type="button" onClick={onClose} aria-label="Close opportunity" className="flex h-10 w-10 shrink-0 items-center justify-center font-light leading-none transition-opacity hover:opacity-50"><CloseIcon className="h-5 w-5" /></button>
+          }
+        />
       </aside>
     </div>
   );
@@ -551,7 +488,7 @@ function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilter
             {chipRow("field")}
             {chipRow("reward")}
 
-            {/* LAYOUT вЂ” icons for grid/list */}
+            {/* LAYOUT — icons for grid/list */}
             <section className="border-t border-neutral-200 pt-6">
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
                 Layout
@@ -577,7 +514,7 @@ function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilter
               </div>
             </section>
 
-            {/* VIEW вЂ” application fee list */}
+            {/* VIEW — application fee list */}
             <section className="border-t border-neutral-200 pt-6">
               <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">
                 Application fee
@@ -608,8 +545,8 @@ function MobileFiltersDrawer({ open, onClose, selectedFilters, setSelectedFilter
               </p>
               <ul>
                 {[
-                  { id: "asc" as SortDirection, label: "Deadline В· Soonest first" },
-                  { id: "desc" as SortDirection, label: "Deadline В· Latest first" },
+                  { id: "asc" as SortDirection, label: "Deadline · Soonest first" },
+                  { id: "desc" as SortDirection, label: "Deadline · Latest first" },
                 ].map((option) => {
                   const active = sortDirection === option.id;
                   return (
@@ -679,6 +616,7 @@ export function OpportunitiesArchiveView() {
   useEffect(() => {
     const slug = searchParams.get("opp");
     if (!slug) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (selectedOpportunity) setSelectedOpportunityState(null);
       return;
     }
@@ -694,6 +632,7 @@ export function OpportunitiesArchiveView() {
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setToday(new Date());
   }, []);
 
@@ -747,7 +686,7 @@ export function OpportunitiesArchiveView() {
 
   useEffect(() => stopManualScroll, [stopManualScroll]);
 
-  // Structured country в†’ cities tree, derived from opportunity.location
+  // Structured country → cities tree, derived from opportunity.location
   // strings which use "City, Country" (or a single token like "Global" /
   // "Remote").
   const locationTree = useMemo(() => {
@@ -777,7 +716,7 @@ export function OpportunitiesArchiveView() {
   const visibleOpportunities = useMemo(() => {
     const q = query.trim().toLowerCase();
     // Drop opportunities whose deadline has already passed. During SSR
-    // and the first render `today` is null so nothing is dropped вЂ”
+    // and the first render `today` is null so nothing is dropped —
     // filtering kicks in after mount, avoiding a hydration mismatch.
     const todayISO = today
       ? `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
@@ -825,7 +764,7 @@ export function OpportunitiesArchiveView() {
     <main className="min-h-screen overflow-x-hidden bg-[var(--background)] pt-[65px] text-[var(--foreground)]">
       <Header />
       <section className="px-5 pb-24 pt-8 md:px-8 md:pt-6 lg:px-12">
-        {/* H1 is present but sr-only on every viewport вЂ” the page title is
+        {/* H1 is present but sr-only on every viewport — the page title is
             handled by the mobile FILTERS row and by the filter chips on desktop. */}
         <h1 className="sr-only">Opportunities</h1>
         <div className="hidden md:flex md:justify-end">
@@ -833,7 +772,7 @@ export function OpportunitiesArchiveView() {
             href="/submit-opportunities"
             className="whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.2em] text-neutral-900 underline decoration-1 underline-offset-[6px] transition-opacity hover:opacity-55"
           >
-            Submit Opportunities <span aria-hidden="true">в†—</span>
+            Submit Opportunities <ExternalArrowIcon />
           </Link>
         </div>
 
@@ -843,7 +782,7 @@ export function OpportunitiesArchiveView() {
             href="/submit-opportunities"
             className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-900 transition-opacity hover:opacity-60"
           >
-            SUBMIT OPPORTUNITIES <span aria-hidden="true">в†—</span>
+            SUBMIT OPPORTUNITIES <ExternalArrowIcon />
           </Link>
           <button
             type="button"
@@ -916,7 +855,7 @@ export function OpportunitiesArchiveView() {
         {/* Divider under the filter category row (desktop only). */}
         <hr className="mt-4 hidden border-neutral-200 md:block" />
 
-        {/* Options rail for the current desktop mode вЂ” horizontal scroll, click to filter. */}
+        {/* Options rail for the current desktop mode — horizontal scroll, click to filter. */}
         <div className="mt-4 hidden md:block">
           {(() => {
             const config: Record<

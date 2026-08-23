@@ -3,18 +3,12 @@ import { notFound } from "next/navigation";
 import HomePageClient from "../../HomePageClient";
 import { SlideOver } from "@/components/SlideOver";
 import { ExhibitionDetail } from "@/components/ExhibitionDetail";
-import { renderExhibitionListPage } from "@/components/EntityPage";
 import {
   exhibitions,
   getExhibition,
   type Exhibition,
 } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
-import {
-  collectExhibitionMonthSlugs,
-  getExhibitionMonth,
-  parseMonthSlug,
-} from "@/lib/entitySlugs";
 
 const SITE_URL = "https://www.findartplatform.com";
 
@@ -23,9 +17,7 @@ type DetailPageProps = {
 };
 
 export function generateStaticParams() {
-  const exhibitionSlugs = exhibitions.map((exhibition) => ({ slug: exhibition.slug }));
-  const monthSlugs = Array.from(collectExhibitionMonthSlugs().keys()).map((slug) => ({ slug }));
-  return [...exhibitionSlugs, ...monthSlugs];
+  return exhibitions.map((exhibition) => ({ slug: exhibition.slug }));
 }
 
 /**
@@ -95,24 +87,6 @@ export async function generateMetadata({
   params,
 }: DetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-
-  // Month bucket page — e.g. /exhibitions/april-2026.
-  if (parseMonthSlug(slug)) {
-    const monthEntry = getExhibitionMonth(slug);
-    if (monthEntry) {
-      const title = `Contemporary Art Exhibitions — ${monthEntry.name} | FindArt Platform`;
-      const description = `${monthEntry.exhibitions.length} contemporary art ${monthEntry.exhibitions.length === 1 ? "exhibition" : "exhibitions"} on view in ${monthEntry.name}. Browse openings, closings and current shows on FindArt Platform.`;
-      const canonical = `${SITE_URL}/exhibitions/${slug}`;
-      return {
-        title: { absolute: title },
-        description,
-        alternates: { canonical },
-        openGraph: { type: "website", url: canonical, title, description },
-        twitter: { card: "summary_large_image", title, description },
-      };
-    }
-  }
-
   const exhibition = getExhibition(slug);
   if (!exhibition) {
     return { title: "Exhibition" };
@@ -192,20 +166,6 @@ export default async function ExhibitionDetailPage({
   params,
 }: DetailPageProps) {
   const { slug } = await params;
-
-  // Month bucket — e.g. /exhibitions/april-2026 — render an archive
-  // page listing every exhibition on view during that month, rather
-  // than the exhibition-detail slide-over.
-  if (parseMonthSlug(slug)) {
-    const monthEntry = getExhibitionMonth(slug);
-    if (!monthEntry) notFound();
-    return renderExhibitionListPage({
-      eyebrow: "Month",
-      name: `Exhibitions in ${monthEntry.name}`,
-      exhibitions: monthEntry.exhibitions,
-    });
-  }
-
   const exhibition = getExhibition(slug);
 
   if (!exhibition) {

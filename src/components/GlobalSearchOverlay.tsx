@@ -107,6 +107,7 @@ export function GlobalSearchOverlay() {
 
   useEffect(() => {
     if (!open) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRecent(loadRecent());
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";

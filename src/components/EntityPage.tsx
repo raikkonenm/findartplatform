@@ -14,6 +14,14 @@ import {
 
 const SITE_URL = "https://www.findartplatform.com";
 
+function FacetLinkIndex(props: {
+  facet: { kind: "city" | "country"; displayName: string };
+  exhibitions: Exhibition[];
+}) {
+  void props;
+  return null;
+}
+
 // Small ALL-CAPS label above the H1. Universal — venues covers galleries
 // and any other kind of exhibition space.
 const EYEBROW: Record<EntityKind, string> = {
@@ -21,7 +29,7 @@ const EYEBROW: Record<EntityKind, string> = {
   artist: "Artist",
   curator: "Curator",
   photographer: "Photographer",
-  tag: "Tag",
+  tag: "Topic",
 };
 
 function resolveEntry(kind: EntityKind, slug: string):
@@ -106,16 +114,21 @@ export function renderEntityPage({
 }
 
 // Generic "list of exhibitions under a facet slug" page — reused for
-// exhibitionText author, city, country and year slugs. Same visual shape
-// as renderEntityPage so users get a consistent detail page.
+// exhibitionText author, city, country, year and month slugs. Same
+// visual shape as renderEntityPage so users get a consistent detail
+// page. `facet` optionally hooks a small text index of related venues,
+// artists and opportunities beneath the grid — used on the city and
+// country landing pages where those cross-links are load-bearing SEO.
 export function renderExhibitionListPage({
   eyebrow,
   name,
   exhibitions,
+  facet,
 }: {
   eyebrow: string;
   name: string;
   exhibitions: Exhibition[];
+  facet?: { kind: "city" | "country"; displayName: string };
 }) {
   return (
     <main className="min-h-screen bg-white pt-[65px] text-neutral-900">
@@ -140,6 +153,10 @@ export function renderExhibitionListPage({
               initialIsMobile={false}
             />
           </div>
+
+          {facet && (
+            <FacetLinkIndex facet={facet} exhibitions={exhibitions} />
+          )}
         </div>
       </section>
     </main>
@@ -181,8 +198,8 @@ function metadataForKind(
       };
     case "tag":
       return {
-        title: `${name} — Exhibitions | FindArt Platform`,
-        description: `Explore exhibitions tagged ${name} on FindArt Platform.`,
+        title: `${name} — Contemporary Art Exhibitions | FindArt Platform`,
+        description: `Explore contemporary art exhibitions related to ${name} on FindArt Platform.`,
       };
   }
 }

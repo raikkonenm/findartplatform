@@ -7,21 +7,20 @@ import {
 } from "@/lib/entitySlugs";
 
 export function generateStaticParams() {
-  return Array.from(collectExhibitionFacetSlugs("city").keys()).map((slug) => ({ slug }));
+  return Array.from(collectExhibitionFacetSlugs("year").keys()).map((year) => ({ year }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ year: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const entry = getExhibitionFacet("city", slug);
+  const { year } = await params;
+  const entry = getExhibitionFacet("year", year);
   if (!entry) return { title: "Not found" };
-  const count = entry.exhibitions.length;
-  const title = `Exhibitions in ${entry.name} — FindArt`;
-  const description = `${count} ${count === 1 ? "exhibition" : "exhibitions"} in ${entry.name} on FindArt Platform.`;
-  const canonical = `https://www.findartplatform.com/exhibitions/city/${slug}`;
+  const title = `Contemporary Art Exhibitions ${entry.name} | FindArt Platform`;
+  const description = `Explore contemporary art exhibitions from ${entry.name} on FindArt Platform.`;
+  const canonical = `https://www.findartplatform.com/exhibitions/years/${year}`;
   return {
     title: { absolute: title },
     description,
@@ -31,17 +30,17 @@ export async function generateMetadata({
   };
 }
 
-export default async function ExhibitionsCityPage({
+export default async function ExhibitionsYearPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ year: string }>;
 }) {
-  const { slug } = await params;
-  const entry = getExhibitionFacet("city", slug);
+  const { year } = await params;
+  const entry = getExhibitionFacet("year", year);
   if (!entry) return notFound();
   return renderExhibitionListPage({
-    eyebrow: "City",
-    name: entry.name,
+    eyebrow: "Year",
+    name: `Contemporary Art Exhibitions in ${entry.name}`,
     exhibitions: entry.exhibitions,
   });
 }
