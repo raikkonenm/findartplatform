@@ -13,7 +13,7 @@ import {
   OPPORTUNITIES,
   opportunitySavedKey,
   type Opportunity,
-} from "./OpportunitiesArchiveView";
+} from "@/data/opportunities";
 import { useSavedExhibitions } from "./SavedExhibitions";
 
 type SavedCategory = "exhibitions" | "editorial" | "artworks" | "opportunities";

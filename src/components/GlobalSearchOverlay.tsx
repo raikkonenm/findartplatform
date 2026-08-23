@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { exhibitions } from "@/data/exhibitions";
 import { editorialArtists } from "@/data/editorial";
-import { OPPORTUNITIES } from "./OpportunitiesArchiveView";
+import { OPPORTUNITIES } from "@/data/opportunities";
 import { useSearchPanel } from "./SearchPanelContext";
 
 type SearchCategory = "Exhibition" | "Feature" | "Opportunity" | "Index" | "Collect";

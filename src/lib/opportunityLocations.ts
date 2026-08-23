@@ -1,7 +1,4 @@
-import {
-  OPPORTUNITIES,
-  type Opportunity,
-} from "@/components/OpportunitiesArchiveView";
+import { OPPORTUNITIES, type Opportunity } from "@/data/opportunities";
 import { slugifyEntity } from "./entitySlugs";
 
 // Split an opportunity's `location` string ("City, Country" or "Worldwide"
