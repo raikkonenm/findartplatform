@@ -8,6 +8,7 @@ import {
   isIndexableEntityValue,
 } from "@/lib/entitySlugs";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
+import { displayPersonText, displayMetadataText } from "@/lib/displayPersonName";
 import type { EditorialSelection } from "@/data/editorialSelections";
 
 const LINK_CLASS =
@@ -35,7 +36,7 @@ function joinArtistLinks(exhibition: Exhibition) {
   if (artists.length === 0) return null;
   const nodes = artists.map((artist) => (
     <Link key={artist} href={entityHref("artist", artist)} className={LINK_CLASS}>
-      {artist}
+      {displayPersonText(artist) ?? artist}
     </Link>
   ));
   return nodes.reduce<React.ReactNode[]>((acc, node, i) => {
@@ -45,73 +46,90 @@ function joinArtistLinks(exhibition: Exhibition) {
   }, []);
 }
 
-// Small text-link index rendered under each exhibition section — 4–6
-// contextual crawlable links to existing taxonomy pages, filtered to
-// the metadata the exhibition actually has.
+// Small text-link index rendered under each exhibition section. Split
+// into two visual rows: a quiet uppercase chip row of SEOUL →,
+// SOUTH KOREA →, INSTALLATION →, ECOLOGY →, 2026 →; then a single
+// more emphatic "More exhibitions in <city> →" CTA below.
 function ContextualLinks({ exhibition }: { exhibition: Exhibition }) {
-  const items: React.ReactNode[] = [];
+  const chips: React.ReactNode[] = [];
+  const arrow = <span className="ml-0.5 text-neutral-400" aria-hidden="true">→</span>;
+
   if (exhibition.city) {
-    items.push(
-      <Link
-        key="city"
-        href={exhibitionFacetHref("city", exhibition.city)}
-        className={LINK_CLASS}
-      >
-        More exhibitions in {canonicalFacetValue("city", exhibition.city)}
+    const cityName = canonicalFacetValue("city", exhibition.city);
+    chips.push(
+      <Link key="city" href={exhibitionFacetHref("city", exhibition.city)} className={LINK_CLASS}>
+        {cityName.toUpperCase()}{arrow}
       </Link>,
     );
   }
   if (exhibition.country) {
-    items.push(
-      <Link
-        key="country"
-        href={exhibitionFacetHref("country", exhibition.country)}
-        className={LINK_CLASS}
-      >
-        {canonicalFacetValue("country", exhibition.country)}
+    const countryName = canonicalFacetValue("country", exhibition.country);
+    chips.push(
+      <Link key="country" href={exhibitionFacetHref("country", exhibition.country)} className={LINK_CLASS}>
+        {countryName.toUpperCase()}{arrow}
       </Link>,
     );
   }
   const tags = (exhibition.tags ?? []).slice(0, 3);
   for (const tag of tags) {
-    items.push(
+    chips.push(
       <Link key={`t-${tag}`} href={entityHref("tag", tag)} className={LINK_CLASS}>
-        {tag}
+        {tag}{arrow}
       </Link>,
     );
   }
   if (exhibition.year) {
-    items.push(
-      <Link
-        key="year"
-        href={exhibitionFacetHref("year", exhibition.year)}
-        className={LINK_CLASS}
-      >
-        {exhibition.year}
+    chips.push(
+      <Link key="year" href={exhibitionFacetHref("year", exhibition.year)} className={LINK_CLASS}>
+        {exhibition.year}{arrow}
       </Link>,
     );
   }
-  if (items.length === 0) return null;
+  if (chips.length === 0 && !exhibition.city) return null;
   return (
-    <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[12px] uppercase tracking-[0.16em] text-neutral-700">
-      {items.map((node, i) => (
-        <li key={i}>{node}</li>
-      ))}
-    </ul>
+    <div className="mt-6">
+      <ul className="flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-neutral-700">
+        {chips.map((node, i) => (
+          <li key={i}>{node}</li>
+        ))}
+      </ul>
+      {exhibition.city && (
+        <p className="mt-3 text-[13px] font-semibold uppercase tracking-[0.18em] text-neutral-900">
+          <Link
+            href={exhibitionFacetHref("city", exhibition.city)}
+            className="transition-opacity hover:opacity-60"
+          >
+            More exhibitions in {canonicalFacetValue("city", exhibition.city)} →
+          </Link>
+        </p>
+      )}
+    </div>
   );
 }
 
 function ExhibitionSection({
   exhibition,
   index,
+  editorialText,
 }: {
   exhibition: Exhibition;
   index: number;
+  editorialText?: string;
 }) {
   const displayTitle = displayExhibitionTitle(exhibition.title);
   const cover = exhibition.coverImage ?? exhibition.previewImage;
   const flip = index % 2 === 1;
   const rawVenue = exhibition.gallery ?? exhibition.venue;
+  const venueLabel = displayMetadataText(rawVenue) ?? rawVenue;
+  const cityLabel = exhibition.city
+    ? canonicalFacetValue("city", exhibition.city)
+    : undefined;
+  const altParts = [venueLabel, cityLabel, exhibition.year]
+    .filter(Boolean)
+    .join(", ");
+  const altText = altParts
+    ? `${displayTitle} installation view at ${altParts}`
+    : `${displayTitle} — installation view`;
 
   const text = (
     <div className="min-w-0">
@@ -140,7 +158,7 @@ function ExhibitionSection({
             </dt>
             <dd className="min-w-0 flex-1">
               <Link href={entityHref("gallery", rawVenue)} className={LINK_CLASS}>
-                {rawVenue}
+                {venueLabel}
               </Link>
             </dd>
           </div>
@@ -177,9 +195,13 @@ function ExhibitionSection({
         )}
       </dl>
 
-      <p className="mt-5 text-[14px] leading-[1.65] text-neutral-800">
-        {editorialExcerpt(exhibition)}
-      </p>
+      <div className="mt-5 space-y-4 text-[14px] leading-[1.65] text-neutral-800">
+        {(editorialText ?? editorialExcerpt(exhibition))
+          .split(/\n\n+/)
+          .map((paragraph, i) => (
+            <p key={i}>{paragraph}</p>
+          ))}
+      </div>
 
       <ContextualLinks exhibition={exhibition} />
     </div>
@@ -190,7 +212,7 @@ function ExhibitionSection({
       <div className="relative aspect-[4/5] w-full max-w-[300px] overflow-hidden bg-neutral-100 md:max-w-none">
         <Image
           src={cover}
-          alt={`${displayTitle} — installation view`}
+          alt={altText}
           fill
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           sizes="(min-width: 1024px) 26vw, (min-width: 768px) 32vw, 60vw"
@@ -312,6 +334,7 @@ export function EditorialSelectionArticle({
             key={exhibition.slug}
             exhibition={exhibition}
             index={index}
+            editorialText={selection.perExhibitionText?.[exhibition.slug]}
           />
         ))}
 
