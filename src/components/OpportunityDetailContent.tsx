@@ -51,12 +51,16 @@ export function OpportunityDetailContent({
               ? locationParts.map((part, index) => (
                   <span key={`${part.kind}-${part.name}`}>
                     {index > 0 ? ", " : null}
-                    <Link
-                      href={part.href}
-                      className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-55"
-                    >
-                      {part.name}
-                    </Link>
+                    {part.href ? (
+                      <Link
+                        href={part.href}
+                        className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-55"
+                      >
+                        {part.name}
+                      </Link>
+                    ) : (
+                      part.name
+                    )}
                   </span>
                 ))
               : opportunity.location}

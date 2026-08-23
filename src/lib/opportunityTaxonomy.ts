@@ -130,6 +130,7 @@ const REGION_TAG_NAMES = new Map([
   ["LATIN AMERICA", "Latin America"],
   ["MIDDLE EAST", "Middle East"],
   ["NORTH AMERICA", "North America"],
+  ["SOUTH AMERICA", "South America"],
   ["AFRICA", "Africa"],
   ["OCEANIA", "Oceania"],
 ]);
@@ -160,7 +161,14 @@ const NON_GEOGRAPHIC_LOCATIONS = new Set([
   "international",
   "online",
   "remote",
+  "virtual",
   "worldwide",
+]);
+
+const NON_CITY_LOCALITIES = new Set([
+  "derbyshire",
+  "kentucky",
+  "north lincolnshire",
 ]);
 
 const NON_TOPIC_TAGS = new Set([
@@ -348,6 +356,7 @@ export function opportunityPrimaryTypeLabel(opportunity: Opportunity): string {
 export function parseOpportunityLocation(location: string): {
   city?: string;
   country?: string;
+  locality?: string;
   region?: string;
 } {
   const normalized = location.trim();
@@ -370,17 +379,21 @@ export function parseOpportunityLocation(location: string): {
 
   const country = geographicParts[geographicParts.length - 1];
   const city = geographicParts.slice(0, -1).join(", ");
+  if (NON_CITY_LOCALITIES.has(city.toLowerCase())) {
+    return { locality: city, country };
+  }
   return { city: city || undefined, country };
 }
 
 export function opportunityLocationParts(opportunity: Opportunity): Array<{
-  kind: "city" | "country" | "region";
+  kind: "city" | "country" | "locality" | "region";
   name: string;
-  href: string;
+  href?: string;
 }> {
-  const { city, country, region } = parseOpportunityLocation(opportunity.location);
+  const { city, country, locality, region } = parseOpportunityLocation(opportunity.location);
   return [
     ...(city ? [{ kind: "city" as const, name: city, href: opportunityCityUrl(city) }] : []),
+    ...(locality ? [{ kind: "locality" as const, name: locality }] : []),
     ...(country
       ? [{ kind: "country" as const, name: country, href: opportunityCountryUrl(country) }]
       : []),

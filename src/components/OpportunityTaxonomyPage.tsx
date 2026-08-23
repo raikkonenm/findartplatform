@@ -91,9 +91,13 @@ export function OpportunityTaxonomyPage({ entry }: { entry: OpportunityTaxonomyE
                       ? locationParts.map((part, index) => (
                           <span key={`${part.kind}-${part.name}`}>
                             {index > 0 ? ", " : null}
-                            <Link href={part.href} className="transition-opacity hover:opacity-55">
-                              {part.name}
-                            </Link>
+                            {part.href ? (
+                              <Link href={part.href} className="transition-opacity hover:opacity-55">
+                                {part.name}
+                              </Link>
+                            ) : (
+                              part.name
+                            )}
                           </span>
                         ))
                       : opportunity.location}

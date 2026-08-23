@@ -27,14 +27,18 @@ function renderLocationLinks(opportunity: Opportunity, stopRowClick = false) {
   return parts.reduce<React.ReactNode[]>((acc, part, index) => {
     if (index > 0) acc.push(", ");
     acc.push(
-      <Link
-        key={`${part.kind}-${part.name}`}
-        href={part.href}
-        onClick={stopRowClick ? (event) => event.stopPropagation() : undefined}
-        className="transition-opacity hover:opacity-55"
-      >
-        {part.name}
-      </Link>,
+      part.href ? (
+        <Link
+          key={`${part.kind}-${part.name}`}
+          href={part.href}
+          onClick={stopRowClick ? (event) => event.stopPropagation() : undefined}
+          className="transition-opacity hover:opacity-55"
+        >
+          {part.name}
+        </Link>
+      ) : (
+        <span key={`${part.kind}-${part.name}`}>{part.name}</span>
+      ),
     );
     return acc;
   }, []);
