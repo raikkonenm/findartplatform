@@ -1138,18 +1138,21 @@ export default function HomePageClient({
 
   const selectTag = useCallback(
     (nextTag: SelectedTag) => {
+      // Tag filtering is intentionally client-only: pushing ?tag=X to the URL
+      // used to create indexable filter combinations that competed with the
+      // canonical /topics/[slug] pages. Now the chip filters in-place; users
+      // who want a shareable URL for a single topic get the /topics/ page.
       setTag(nextTag);
+      // Strip any legacy ?tag= param that might still be in the URL from an
+      // old bookmark or an external link that landed before the middleware
+      // redirect kicked in.
       const params = new URLSearchParams(window.location.search);
-
-      if (nextTag === "ALL") {
+      if (params.has("tag")) {
         params.delete("tag");
-      } else {
-        params.set("tag", nextTag);
+        const query = params.toString();
+        const basePath = pathname || "/";
+        router.replace(query ? `${basePath}?${query}` : basePath, { scroll: false });
       }
-
-      const query = params.toString();
-      const basePath = pathname || "/";
-      router.replace(query ? `${basePath}?${query}` : basePath, { scroll: false });
     },
     [router, pathname],
   );

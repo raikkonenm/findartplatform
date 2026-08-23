@@ -8,6 +8,7 @@ import {
   entityHref,
   exhibitionFacetHref,
   exhibitionMonthHref,
+  isIndexableEntityValue,
   splitCuratorString,
 } from "@/lib/entitySlugs";
 import { OnViewDot } from "./OnViewDot";
@@ -400,6 +401,108 @@ function RelatedExhibitions({
   );
 }
 
+// Minimal "keep browsing" text-link block under Related Exhibitions.
+// Every link points to an existing canonical taxonomy page — no new
+// data, just cross-links that turn the archive into a graph. Empty
+// sections are dropped rather than rendered with zero items.
+function MoreCrosslinks({ exhibition }: { exhibition: Exhibition }) {
+  const groups: Array<{ label: string; items: React.ReactNode[] }> = [];
+
+  const artistLinks = (exhibition.artists ?? [])
+    .filter((raw) => isIndexableEntityValue("artist", raw))
+    .map((raw) => (
+      <Link
+        key={`artist-${raw}`}
+        href={entityHref("artist", raw)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={ENTITY_LINK_CLASS}
+      >
+        {displayPersonText(raw) ?? raw}
+      </Link>
+    ));
+  if (artistLinks.length > 0) {
+    groups.push({ label: "Artists in this exhibition", items: artistLinks });
+  }
+
+  const rawVenue = exhibition.gallery ?? exhibition.venue;
+  if (rawVenue && isIndexableEntityValue("gallery", rawVenue)) {
+    groups.push({
+      label: `More at ${displayMetadataText(rawVenue) ?? rawVenue}`,
+      items: [
+        <Link
+          key="venue"
+          href={entityHref("gallery", rawVenue)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={ENTITY_LINK_CLASS}
+        >
+          Browse the archive →
+        </Link>,
+      ],
+    });
+  }
+
+  if (exhibition.city) {
+    groups.push({
+      label: `More in ${exhibition.city}`,
+      items: [
+        <Link
+          key="city"
+          href={exhibitionFacetHref("city", exhibition.city)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={ENTITY_LINK_CLASS}
+        >
+          Contemporary art exhibitions in {exhibition.city} →
+        </Link>,
+      ],
+    });
+  }
+
+  const topics = (exhibition.tags ?? []).slice(0, 4);
+  if (topics.length > 0) {
+    groups.push({
+      label: "Related topics",
+      items: topics.map((tag) => (
+        <Link
+          key={`topic-${tag}`}
+          href={entityHref("tag", tag)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={ENTITY_LINK_CLASS}
+        >
+          {tag}
+        </Link>
+      )),
+    });
+  }
+
+  if (groups.length === 0) return null;
+
+  return (
+    <section className="mt-14 border-t border-neutral-200 pt-10 md:mt-20 md:pt-12">
+      <h2 className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">
+        Keep browsing
+      </h2>
+      <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        {groups.map((group) => (
+          <div key={group.label}>
+            <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
+              {group.label}
+            </p>
+            <ul className="mt-3 space-y-2 text-[13px] leading-6 text-neutral-800">
+              {group.items.map((node, i) => (
+                <li key={i}>{node}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 type ExhibitionDetailProps = {
   exhibition: Exhibition;
   preservePanelNavigation?: boolean;
@@ -548,6 +651,7 @@ export function ExhibitionDetail({
           exhibition={exhibition}
           preservePanelNavigation={preservePanelNavigation}
         />
+        <MoreCrosslinks exhibition={exhibition} />
       </article>
   );
 }

@@ -20,6 +20,14 @@ export function slugifyEntity(name: string): string {
 
 export type EntityKind = "gallery" | "artist" | "curator" | "photographer" | "tag";
 
+// Courtesy / copyright statements identify the source of an image, not a
+// photographer entity. They remain visible in exhibition metadata but must
+// never create low-quality /photographers/* taxonomy pages.
+export function isIndexableEntityValue(kind: EntityKind, value: string): boolean {
+  if (kind !== "photographer") return true;
+  return !/^(?:all images copyright and courtesy|courtesy of the artist\b)/i.test(value.trim());
+}
+
 // Split a curator string ("A, B and C" / "A, B, C") into individual names.
 export function splitCuratorString(value: string): string[] {
   return value
@@ -187,6 +195,41 @@ export function authorHref(name: string): string {
 
 export type ExhibitionFacet = "city" | "country" | "year";
 
+// Aliases → single canonical name per facet. Prevents authority-splitting
+// duplicates (`/cities/seoul` vs `/cities/jung-gu-seoul`, `Ciudad de México`
+// vs `Mexico City`, etc.). The exhibition data can keep its more specific
+// display value; taxonomy always sees the canonical.
+const FACET_CANONICAL_VALUES: Record<ExhibitionFacet, Record<string, string>> = {
+  city: {
+    "Jung-gu, Seoul": "Seoul",
+    "Ciudad de México": "Mexico City",
+    "Lisboa": "Lisbon",
+    "Berlin-Schöneberg": "Berlin",
+    "New York City": "New York",
+    "Vilnius District Municipality": "Vilnius",
+    "Klaus in Vorarlberg": "Vorarlberg",
+    "Cergy / Paris": "Paris",
+    "Nurnberg": "Nuremberg",
+    "Wroclaw": "Wrocław",
+  },
+  country: {
+    "USA": "United States",
+    "US": "United States",
+    "U.S.": "United States",
+    "U.S.A.": "United States",
+    "UK": "United Kingdom",
+    "U.K.": "United Kingdom",
+    "Great Britain": "United Kingdom",
+    "Czechia": "Czech Republic",
+    "The Netherlands": "Netherlands",
+  },
+  year: {},
+};
+
+export function canonicalFacetValue(facet: ExhibitionFacet, value: string): string {
+  return FACET_CANONICAL_VALUES[facet][value.trim()] ?? value.trim();
+}
+
 function facetRaw(facet: ExhibitionFacet, exhibition: Exhibition): string | undefined {
   switch (facet) {
     case "city":
@@ -203,8 +246,9 @@ export function collectExhibitionFacetSlugs(
 ): Map<string, { name: string; exhibitions: Exhibition[] }> {
   const map = new Map<string, { name: string; exhibitions: Exhibition[] }>();
   for (const exhibition of exhibitions) {
-    const raw = facetRaw(facet, exhibition)?.trim();
-    if (!raw) continue;
+    const rawSource = facetRaw(facet, exhibition)?.trim();
+    if (!rawSource) continue;
+    const raw = canonicalFacetValue(facet, rawSource);
     const slug = slugifyEntity(raw);
     if (!slug) continue;
     const bucket = map.get(slug);
@@ -232,7 +276,7 @@ export const EXHIBITION_FACET_SEGMENT: Record<ExhibitionFacet, string> = {
 };
 
 export function exhibitionFacetHref(facet: ExhibitionFacet, name: string): string {
-  return `/exhibitions/${EXHIBITION_FACET_SEGMENT[facet]}/${slugifyEntity(name)}`;
+  return `/exhibitions/${EXHIBITION_FACET_SEGMENT[facet]}/${slugifyEntity(canonicalFacetValue(facet, name))}`;
 }
 
 // --- Exhibitions by month (year-month bucket) -------------------------
