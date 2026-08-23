@@ -11,6 +11,11 @@ export type EditorialSelection = {
   title: string;
   // Short subtitle displayed under the H1.
   subtitle: string;
+  // Optional overrides for the browser tab / meta description when the
+  // editorial-facing title reads differently from the SEO title Google
+  // should rank against.
+  seoTitle?: string;
+  seoDescription?: string;
   // 100–150 word editorial introduction. Handwritten so we can speak
   // to real cross-cutting ideas rather than glue tags together.
   intro: string;
@@ -32,6 +37,41 @@ export type EditorialSelection = {
 };
 
 export const editorialSelections: EditorialSelection[] = [
+  {
+    slug: "contemporary-art-exhibitions-paris-2026",
+    title: "Paris, 2026: Selected Exhibitions",
+    subtitle:
+      "A curated selection of contemporary art exhibitions presented across Paris in 2026.",
+    seoTitle: "Contemporary Art Exhibitions in Paris 2026 | FindArt Platform",
+    seoDescription:
+      "Explore a curated selection of contemporary art exhibitions presented across Paris in 2026, featuring artists, galleries and independent spaces documented by FindArt Platform.",
+    intro: `Paris in 2026 spreads across a wider set of rooms than the ones that usually get named. This selection deliberately looks past the biggest institutional openings and follows six exhibitions across smaller galleries, artist-run spaces and residency workshops — La Volonte 93, Espace Nonono, Association NOEMI, Emergency Space, the Cité internationale des arts and Galerie Suzanne Tarasieve. The work being shown moves between glitched digital environments, hydraulic and mineral materials drawn from Paris itself, sculptures that watch back, chimeric bodies, and sound-adjacent objects in states of active transformation. Digital myth, materiality, ecology, surveillance and mythological bodies recur without becoming a single argument. Read together, the exhibitions register a Paris that is at once historical and post-digital, and paying attention to both at once.`,
+    coverExhibitionSlug: "nymphenbrunnen",
+    coverImageIndex: 0,
+    exhibitionSlugs: [
+      "nymphenbrunnen",
+      "chewing-gum-in-the-motherboard-group-exhibition",
+      "who-composes-the-song-of-the-crickets",
+      "what-we-see-what-looks-back-at-us",
+      "main-de-fer-gant-de-velours",
+      "nexus-open-studio-anais-gauthier",
+    ],
+    perExhibitionText: {
+      "nymphenbrunnen": `Adele Vivet's Nymphenbrunnen at Espace Nonono presents the Chimerea series — five totemic sculptures that fuse the architectural language of caryatids with the layered narrative logic of bas-relief. Read as hydro-chimeras and self-portraits at once, the figures stage a young woman caught between desire and guilt, joy and disappointment. The material register is dense: mineral surfaces, water motifs, decorative fragments that pull between sacred sculpture and ornament. Espace Nonono, one of the smaller independent rooms in Paris' current landscape, gives the work the intimate scale it needs. In the arc of this selection, Nymphenbrunnen is the entry into mythology and the body: the figures are the ones you meet first.`,
+
+      "chewing-gum-in-the-motherboard-group-exhibition": `A group show at La Volonte 93 that treats the contemporary tech-mediated everyday as its subject and its material. Artists respond to fragmentation through glitched aesthetics, speculative environments and a mixture of nostalgia and invention: a piece of chewing gum placed under continuous surveillance; biometric data captured from an intimate encounter and looped as signal; a lost hard drive drifting between landfill and digital myth; generated images populated by residual presences. The overall effect is a room in which the border between object and data has already dissolved. In this selection, Chewing Gum is the anchor for the surveillance / digital-myth thread — the strand the other Paris shows keep brushing against.`,
+
+      "who-composes-the-song-of-the-crickets": `Yugo Guerin's solo exhibition at Galerie Suzanne Tarasieve begins from a sound almost everyone recognises before they can locate it: the song of the crickets. Guerin treats that near-universal acoustic memory as raw material, unpacking how landscape, summer nights and an imagined countryside get compressed into a single audio fragment. The show works with sculpture and installation that behave almost sonically — objects that hold, transmit or interrupt the atmosphere of a remembered place. In this selection it opens the ecological / sound-and-memory register: an argument that even Paris' most familiar image of "nature" is a composed, mediated thing, closer to a recording than to a landscape.`,
+
+      "what-we-see-what-looks-back-at-us": `A group show at Emergency Space that flips the standard exhibition contract: instead of the visitor doing the looking, the works do. The pieces gathered here are more interested in watching those who move around them than in being seen, returning the gaze in ways that range from optical to almost surveilling. The result reads as a room full of subjects, not objects. It sits inside this selection as the counterweight to Chewing Gum — where that show lets surveillance feel ambient and cool, What We See makes the same asymmetry deliberate and physical. Emergency Space, a Paris independent room, gives it the tight, close-quarters format the work needs to actually feel returned.`,
+
+      "main-de-fer-gant-de-velours": `Katherinne Fiedler and Marinés Agurto's duo show at Association NOEMI — Espace Brownstone extends research developed during their residencies at the Cité internationale des arts. The title borrows a French idiom ("iron fist in a velvet glove") and applies it to material: Agurto works with reclaimed plaster blocks and pigments made from Paris tomettes, exposing assemblages of metal brackets, threaded rods, hinges, screws; Fiedler treats water — specifically the Bièvre River and its history of tanneries and hydraulics — as material, symbol and political condition. Leather, mesh, chain, velvet. In this selection, it is the show that most explicitly reads Paris as a material archive.`,
+
+      "nexus-open-studio-anais-gauthier": `Anais Gauthier's open studio at the Cité internationale des arts is the shortest exhibition in the selection — three days in June — and one of the most stripped-down. The sculptures exist in a state of induced rotation: movement is not performance but a mechanism that gradually transforms the forms and their relationships. Breath, displacement, vibration; a shifting equilibrium between the mechanical and the organic. It fits into the arc as the technical / kinetic register — a room where the work is doing the process of change out loud. And, appropriately, it comes from the same residency programme that runs through several other exhibitions in this list.`,
+    },
+    publishedAt: "2026-08-23",
+    publishedAtDisplay: "23 August 2026",
+  },
   {
     slug: "contemporary-art-exhibitions-seoul-2026",
     title: "Contemporary Art Exhibitions in Seoul: 2026 Selection",

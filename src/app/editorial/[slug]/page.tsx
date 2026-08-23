@@ -31,8 +31,10 @@ export async function generateMetadata({
     cover?.previewImage;
   const absoluteImage = image?.startsWith("http") ? image : image ? `${SITE_URL}${image}` : undefined;
 
-  const seoTitle = `${selection.title} | FindArt Platform`;
-  const description = selection.subtitle;
+  // The visible H1 stays selection.title; the browser tab / meta title
+  // can differ so the SEO string targets the actual search query.
+  const seoTitle = selection.seoTitle ?? `${selection.title} | FindArt Platform`;
+  const description = selection.seoDescription ?? selection.subtitle;
 
   return {
     title: { absolute: seoTitle },
@@ -72,7 +74,7 @@ function jsonLd(slug: string) {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: selection.title,
-    description: selection.subtitle,
+    description: selection.seoDescription ?? selection.subtitle,
     url: canonical,
     datePublished: selection.publishedAt,
     author: { "@type": "Organization", name: "FindArt Platform" },
