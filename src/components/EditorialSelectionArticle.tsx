@@ -118,13 +118,13 @@ function ExhibitionSection({
       <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
         {String(index + 1).padStart(2, "0")}
       </p>
-      <h2 className="editorial-serif mt-3 break-words text-[clamp(1.4rem,3.5vw,2.4rem)] leading-[1.05] tracking-[-0.02em]">
+      <h2 className="editorial-serif mt-3 break-words text-[clamp(1.15rem,2.4vw,1.6rem)] leading-[1.1] tracking-[-0.02em]">
         <Link href={`/exhibitions/${exhibition.slug}`} className="hover:opacity-70 transition-opacity">
           {displayTitle}
         </Link>
       </h2>
 
-      <dl className="mt-6 space-y-3 text-[13px] leading-6 text-neutral-800">
+      <dl className="mt-5 space-y-2 text-[12.5px] leading-6 text-neutral-800">
         {(exhibition.artists?.length ?? 0) > 0 && (
           <div className="flex flex-wrap gap-x-3">
             <dt className="w-24 shrink-0 text-[10px] uppercase tracking-[0.22em] text-neutral-500">
@@ -177,7 +177,7 @@ function ExhibitionSection({
         )}
       </dl>
 
-      <p className="mt-6 text-[15px] leading-[1.7] text-neutral-800 md:text-[16px]">
+      <p className="mt-5 text-[14px] leading-[1.65] text-neutral-800">
         {editorialExcerpt(exhibition)}
       </p>
 
@@ -187,13 +187,13 @@ function ExhibitionSection({
 
   const visual = (
     <Link href={`/exhibitions/${exhibition.slug}`} className="group block min-w-0">
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100">
+      <div className="relative aspect-[4/5] w-full max-w-[300px] overflow-hidden bg-neutral-100 md:max-w-none">
         <Image
           src={cover}
           alt={`${displayTitle} — installation view`}
           fill
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-          sizes="(min-width: 1024px) 42vw, (min-width: 768px) 50vw, 100vw"
+          sizes="(min-width: 1024px) 26vw, (min-width: 768px) 32vw, 60vw"
         />
       </div>
       <p className="mt-3 text-[10px] uppercase tracking-[0.24em] text-neutral-500">
@@ -203,7 +203,7 @@ function ExhibitionSection({
   );
 
   return (
-    <section className="mt-20 grid grid-cols-1 items-start gap-10 border-t border-neutral-200 pt-14 md:mt-24 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-16 md:pt-16 lg:gap-24">
+    <section className="mt-16 grid grid-cols-1 items-start gap-8 border-t border-neutral-200 pt-10 md:mt-20 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] md:gap-12 md:pt-12">
       {flip ? (
         <>
           {visual}
@@ -284,50 +284,29 @@ export function EditorialSelectionArticle({
 }: {
   selection: EditorialSelection;
 }) {
-  // Cover image resolved from the referenced exhibition's own assets.
-  const coverExhibition = getExhibition(selection.coverExhibitionSlug);
-  if (!coverExhibition) return null;
-  const coverImage =
-    coverExhibition.images[selection.coverImageIndex ?? 0]?.src ??
-    coverExhibition.coverImage ??
-    coverExhibition.previewImage;
-
   const exhibitions = selection.exhibitionSlugs
     .map((slug) => getExhibition(slug))
     .filter((ex): ex is Exhibition => Boolean(ex));
 
   return (
     <article className="bg-white px-5 pb-24 pt-14 text-neutral-900 md:px-8 md:pb-32 md:pt-20 lg:px-12">
-      <div className="mx-auto max-w-[1400px]">
-        {/* Header */}
-        <header className="grid grid-cols-1 items-start gap-10 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] md:gap-16">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
-              Editorial · {selection.publishedAtDisplay}
-            </p>
-            <h1 className="editorial-serif mt-4 break-words text-[clamp(1.8rem,5vw,3.4rem)] leading-[1.05] tracking-[-0.025em]">
-              {selection.title}
-            </h1>
-            <p className="mt-6 max-w-2xl text-[16px] leading-[1.55] text-neutral-700 md:text-[18px]">
-              {selection.subtitle}
-            </p>
-            <p className="mt-10 max-w-2xl text-[15px] leading-[1.75] text-neutral-800 md:text-[16px]">
-              {selection.intro}
-            </p>
-          </div>
-          <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100">
-            <Image
-              src={coverImage}
-              alt={`${selection.title} — cover image`}
-              fill
-              priority
-              sizes="(min-width: 1024px) 40vw, (min-width: 768px) 45vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+      <div className="mx-auto max-w-[860px]">
+        {/* Header — centered, no hero image */}
+        <header className="text-left">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
+            Editorial · {selection.publishedAtDisplay}
+          </p>
+          <h1 className="editorial-serif mt-4 break-words text-[clamp(1.6rem,4vw,2.6rem)] leading-[1.08] tracking-[-0.02em]">
+            {selection.title}
+          </h1>
+          <p className="mt-4 text-[15px] leading-[1.55] text-neutral-700 md:text-[16px]">
+            {selection.subtitle}
+          </p>
+          <p className="mt-8 text-[14.5px] leading-[1.75] text-neutral-800 md:text-[15.5px]">
+            {selection.intro}
+          </p>
         </header>
 
-        {/* Exhibition sections */}
         {exhibitions.map((exhibition, index) => (
           <ExhibitionSection
             key={exhibition.slug}

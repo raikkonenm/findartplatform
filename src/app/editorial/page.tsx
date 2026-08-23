@@ -58,7 +58,7 @@ export default function EditorialPage() {
               <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">
                 Curated selections
               </p>
-              <ul className="mt-8 grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2 md:gap-x-16">
+              <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-6 md:gap-x-8 md:gap-y-14 lg:grid-cols-4">
                 {selections.map((selection) => {
                   const cover = getExhibition(selection.coverExhibitionSlug);
                   const image =
@@ -77,17 +77,17 @@ export default function EditorialPage() {
                             src={image}
                             alt={`${selection.title} — cover image`}
                             fill
-                            sizes="(min-width: 1024px) 40vw, (min-width: 768px) 50vw, 100vw"
+                            sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 48vw"
                             className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                           />
                         </div>
-                        <p className="mt-5 text-[10px] uppercase tracking-[0.24em] text-neutral-500">
+                        <p className="mt-3 text-[10px] uppercase tracking-[0.22em] text-neutral-500">
                           Selection · {selection.publishedAtDisplay}
                         </p>
-                        <h2 className="editorial-serif mt-3 break-words text-[clamp(1.3rem,3vw,2rem)] leading-[1.05] tracking-[-0.02em]">
+                        <h2 className="editorial-serif mt-2 break-words text-[clamp(0.95rem,1.7vw,1.2rem)] leading-[1.15] tracking-[-0.02em]">
                           {selection.title}
                         </h2>
-                        <p className="mt-3 text-[14px] leading-[1.6] text-neutral-700 md:text-[15px]">
+                        <p className="mt-2 text-[12.5px] leading-[1.5] text-neutral-600">
                           {selection.subtitle}
                         </p>
                       </Link>

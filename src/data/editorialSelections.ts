@@ -33,7 +33,7 @@ export const editorialSelections: EditorialSelection[] = [
     title: "Contemporary Art Exhibitions in Seoul: 2026 Selection",
     subtitle:
       "A selection of exhibitions shaping Seoul's contemporary art landscape in 2026.",
-    intro: `Seoul in 2026 reads less like a single scene and more like a set of overlapping currents. A short walk moves you from an institutional post-human survey at Aod Museum to a tight artist-run show at Bangdo, from Adrián Villar Rojas' months-long installation at Art Sonje Center to a duo of sculptors turning a small gallery into a resonance chamber. What links these exhibitions is not a shared aesthetic but a common set of pressures — ecological, digital, historical, embodied — and the sense that the objects and images being made in the city are trying to think through them rather than illustrate them. This selection follows six exhibitions where those pressures surface most clearly: as sound, as decay, as ritual, as the porous edge between the physical and the virtual body.`,
+    intro: `Seoul in 2026 reads less like a single scene and more like a set of overlapping currents. A short walk moves you from an institutional post-human survey at Aod Museum to a tight artist-run show at Bangdo, from Adrián Villar Rojas' months-long installation at Art Sonje Center to a duo of sculptors turning a small gallery into a resonance chamber. What links these exhibitions is not a shared aesthetic but a common set of pressures — ecological, digital, historical, embodied — and the sense that the objects and images being made in the city are trying to think through them rather than illustrate them. This selection follows four exhibitions where those pressures surface most clearly: as sound, as decay, as ritual, as bodies made and unmade in space.`,
     coverExhibitionSlug: "tangerine-reverie",
     coverImageIndex: 0,
     exhibitionSlugs: [
@@ -41,7 +41,6 @@ export const editorialSelections: EditorialSelection[] = [
       "the-language-of-the-enemy",
       "the-collapse-manual-the-post-human-field",
       "24-preludes-op-34-no-22-in-g-minor-adagio",
-      "koesy-between-reality-and-virtual",
     ],
     publishedAt: "2026-08-23",
     publishedAtDisplay: "23 August 2026",
