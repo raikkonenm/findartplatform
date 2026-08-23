@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { exhibitions } from "@/data/exhibitions";
 import { editorialArtists } from "@/data/editorial";
+import { editorialSelections } from "@/data/editorialSelections";
 import { OPPORTUNITIES } from "@/data/opportunities";
 import {
   ENTITY_ROUTE_SEGMENT,
@@ -95,6 +96,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${SITE_URL}/author/${slug}`,
   }));
 
+  // Editorial selections — /editorial + each /editorial/[slug].
+  const editorialIndex: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/editorial` },
+  ];
+  const editorialSelectionPages = editorialSelections.map((selection) => ({
+    url: `${SITE_URL}/editorial/${selection.slug}`,
+  }));
+
   return [
     ...staticPages,
     ...exhibitionPages,
@@ -111,5 +120,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...opportunityPages,
     ...opportunityTaxonomyPages,
     ...authorPages,
+    ...editorialIndex,
+    ...editorialSelectionPages,
   ];
 }

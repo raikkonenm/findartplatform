@@ -222,6 +222,8 @@ const FACET_CANONICAL_VALUES: Record<ExhibitionFacet, Record<string, string>> = 
     "Great Britain": "United Kingdom",
     "Czechia": "Czech Republic",
     "The Netherlands": "Netherlands",
+    "Republic of Korea": "South Korea",
+    "Korea": "South Korea",
   },
   year: {},
 };
