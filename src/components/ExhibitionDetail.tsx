@@ -7,6 +7,7 @@ import {
   authorHref,
   entityHref,
   exhibitionFacetHref,
+  exhibitionMonthHref,
   splitCuratorString,
 } from "@/lib/entitySlugs";
 import { OnViewDot } from "./OnViewDot";
@@ -145,6 +146,60 @@ function joinEntityLinks(kind: "gallery" | "artist" | "curator" | "photographer"
   }, []);
 }
 
+const MONTH_INDEX: Record<string, number> = {
+  january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
+  july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
+};
+
+// Walk the dates string ("25 April — 28 June 2026") and wrap each month
+// name in a link to /exhibitions/<month>-<year>. The year is inferred
+// from the next 4-digit number in the string; if none follows the month
+// token (cross-year ranges never appear in the current dataset but the
+// fallback keeps the render safe), we skip linking that month.
+function linkifyDates(dates: string): React.ReactNode {
+  const parts: React.ReactNode[] = [];
+  const regex = /([A-Za-z]+)|(\d{4})|([^A-Za-z\d]+)|(\d+)/g;
+  const tokens: Array<{ type: "word" | "year" | "punct" | "num"; value: string; index: number }> = [];
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(dates)) !== null) {
+    if (match[1] !== undefined) tokens.push({ type: "word", value: match[1], index: match.index });
+    else if (match[2] !== undefined) tokens.push({ type: "year", value: match[2], index: match.index });
+    else if (match[3] !== undefined) tokens.push({ type: "punct", value: match[3], index: match.index });
+    else if (match[4] !== undefined) tokens.push({ type: "num", value: match[4], index: match.index });
+  }
+  tokens.forEach((token, i) => {
+    if (token.type === "word") {
+      const monthIndex = MONTH_INDEX[token.value.toLowerCase()];
+      if (monthIndex !== undefined) {
+        // Find the next year token after this one.
+        let year: number | undefined;
+        for (let j = i + 1; j < tokens.length; j++) {
+          if (tokens[j].type === "year") {
+            year = Number.parseInt(tokens[j].value, 10);
+            break;
+          }
+        }
+        if (year !== undefined) {
+          parts.push(
+            <Link
+              key={`m-${i}`}
+              href={exhibitionMonthHref(monthIndex, year)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-55"
+            >
+              {token.value}
+            </Link>,
+          );
+          return;
+        }
+      }
+    }
+    parts.push(token.value);
+  });
+  return <>{parts}</>;
+}
+
 function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
   const dates = expandMonthAbbreviations(exhibition.dates);
   const rawVenue = exhibition.gallery ?? exhibition.venue;
@@ -190,7 +245,7 @@ function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
         startDate={exhibition.startDate}
         endDate={exhibition.endDate}
       />
-      {dates}
+      {linkifyDates(dates)}
     </>
   ) : undefined;
   const entries: Array<{ label: string; value?: React.ReactNode }> = [

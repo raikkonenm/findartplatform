@@ -214,3 +214,117 @@ export function getExhibitionFacet(facet: ExhibitionFacet, slug: string) {
 export function exhibitionFacetHref(facet: ExhibitionFacet, name: string): string {
   return `/exhibitions/${facet}/${slugifyEntity(name)}`;
 }
+
+// --- Exhibitions by month (year-month bucket) -------------------------
+//
+// A month page lives at `/exhibitions/<month>-<year>` (e.g. april-2026).
+// Slug format is intentionally distinct from any real exhibition slug
+// so it can coexist inside the same `/exhibitions/[slug]` route without
+// collisions.
+
+const MONTH_NAMES = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+] as const;
+
+// Parse a human date string. `fallbackYear` fills in the year when the
+// string omits one — the dataset sometimes stores start/end as "17 April"
+// and "17 May 2026" (year only on the second half), and Date.parse of
+// "17 April" without a year defaults to 2001, which would produce
+// hundreds of bogus month buckets.
+function parseHumanDate(value: string | undefined, fallbackYear?: number): Date | undefined {
+  if (!value) return undefined;
+  const hasYear = /\b\d{4}\b/.test(value);
+  const stamped = hasYear
+    ? value
+    : fallbackYear !== undefined
+      ? `${value} ${fallbackYear}`
+      : undefined;
+  if (!stamped) return undefined;
+  const timestamp = Date.parse(`${stamped} 12:00:00 UTC`);
+  return Number.isNaN(timestamp) ? undefined : new Date(timestamp);
+}
+
+// The set of {year, monthIndex} buckets an exhibition falls into.
+// - startDate + endDate: every month in the inclusive range.
+// - startDate only: the start month.
+// - neither: nothing (skipped from month index).
+function monthBucketsFor(exhibition: Exhibition): Array<{ year: number; month: number }> {
+  // Parse endDate first — usually the one with the year in the dataset.
+  const end = parseHumanDate(exhibition.endDate);
+  const start = parseHumanDate(exhibition.startDate, end?.getUTCFullYear())
+    ?? end;
+  const finalEnd = end ?? start;
+  if (!start || !finalEnd) return [];
+  const buckets: Array<{ year: number; month: number }> = [];
+  const cursor = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), 1));
+  const stop = new Date(Date.UTC(finalEnd.getUTCFullYear(), finalEnd.getUTCMonth(), 1));
+  // Safety cap — a well-formed exhibition should never span > 36 months.
+  // If parsing produced a runaway range, bail rather than emit hundreds
+  // of stale month pages.
+  let guard = 48;
+  while (cursor.getTime() <= stop.getTime() && guard-- > 0) {
+    buckets.push({ year: cursor.getUTCFullYear(), month: cursor.getUTCMonth() });
+    cursor.setUTCMonth(cursor.getUTCMonth() + 1);
+  }
+  return buckets;
+}
+
+export function monthSlug(monthIndex: number, year: number): string {
+  return `${MONTH_NAMES[monthIndex].toLowerCase()}-${year}`;
+}
+
+export function monthDisplayName(monthIndex: number, year: number): string {
+  return `${MONTH_NAMES[monthIndex]} ${year}`;
+}
+
+// Returns { monthIndex, year } if the slug is a well-formed month slug,
+// otherwise undefined. Called by the shared /exhibitions/[slug] route
+// to decide whether to render a month page or fall through to the
+// exhibition detail page.
+export function parseMonthSlug(slug: string): { monthIndex: number; year: number } | undefined {
+  const match = slug.match(/^([a-z]+)-(\d{4})$/);
+  if (!match) return undefined;
+  const monthIndex = MONTH_NAMES.findIndex((n) => n.toLowerCase() === match[1]);
+  if (monthIndex === -1) return undefined;
+  const year = Number.parseInt(match[2], 10);
+  if (!Number.isFinite(year)) return undefined;
+  return { monthIndex, year };
+}
+
+export function collectExhibitionMonthSlugs(): Map<
+  string,
+  { name: string; exhibitions: Exhibition[]; year: number; monthIndex: number }
+> {
+  const map = new Map<
+    string,
+    { name: string; exhibitions: Exhibition[]; year: number; monthIndex: number }
+  >();
+  for (const exhibition of exhibitions) {
+    for (const { year, month } of monthBucketsFor(exhibition)) {
+      const slug = monthSlug(month, year);
+      const bucket = map.get(slug);
+      if (bucket) {
+        if (!bucket.exhibitions.some((e) => e.slug === exhibition.slug)) {
+          bucket.exhibitions.push(exhibition);
+        }
+      } else {
+        map.set(slug, {
+          name: monthDisplayName(month, year),
+          exhibitions: [exhibition],
+          year,
+          monthIndex: month,
+        });
+      }
+    }
+  }
+  return map;
+}
+
+export function getExhibitionMonth(slug: string) {
+  return collectExhibitionMonthSlugs().get(slug);
+}
+
+export function exhibitionMonthHref(monthIndex: number, year: number): string {
+  return `/exhibitions/${monthSlug(monthIndex, year)}`;
+}
