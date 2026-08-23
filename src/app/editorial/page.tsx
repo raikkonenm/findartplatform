@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { editorialSelections } from "@/data/editorialSelections";
-import { getExhibition } from "@/data/exhibitions";
+import { editorialSelections, getEditorialSelectionCoverImage } from "@/data/editorialSelections";
 
 const PAGE_URL = "https://www.findartplatform.com/editorial";
 const PAGE_TITLE = "Editorial — Contemporary Art Writing, Criticism & Curatorial Perspectives";
@@ -60,11 +59,7 @@ export default function EditorialPage() {
               </p>
               <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-6 md:gap-x-8 md:gap-y-14 lg:grid-cols-4">
                 {selections.map((selection) => {
-                  const cover = getExhibition(selection.coverExhibitionSlug);
-                  const image =
-                    cover?.images[selection.coverImageIndex ?? 0]?.src ??
-                    cover?.coverImage ??
-                    cover?.previewImage;
+                  const image = getEditorialSelectionCoverImage(selection);
                   if (!image) return null;
                   return (
                     <li key={selection.slug} className="min-w-0">

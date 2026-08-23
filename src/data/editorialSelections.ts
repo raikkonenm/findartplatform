@@ -1,11 +1,12 @@
 import { getExhibition } from "@/data/exhibitions";
+import { getEditorialArtist } from "@/data/editorial";
 
 // A curated Editorial article that groups existing exhibitions from the
 // FindArt database under a shared theme. Everything except the intro
 // (title, subtitle, cover image and per-exhibition data) is derived from
 // the exhibition entries at render time, so publishing another article
 // only requires adding an entry to `editorialSelections` below.
-export type EditorialSelection = {
+type EditorialSelectionBase = {
   slug: string;
   // The article H1. Kept editorial rather than SEO-title flavored.
   title: string;
@@ -19,6 +20,12 @@ export type EditorialSelection = {
   // 100–150 word editorial introduction. Handwritten so we can speak
   // to real cross-cutting ideas rather than glue tags together.
   intro: string;
+  publishedAt: string;         // ISO date, used in Article JSON-LD
+  publishedAtDisplay: string;  // Human date shown in the byline row
+};
+
+export type ExhibitionEditorialSelection = EditorialSelectionBase & {
+  kind: "exhibitions";
   // Cover image: pull the visual straight from one of the article's
   // exhibitions so we don't duplicate assets. imageIndex defaults to 0
   // (== the exhibition's previewImage).
@@ -32,12 +39,25 @@ export type EditorialSelection = {
   // When present it replaces the auto-excerpt so the article can carry
   // unique editorial text rather than reprinting the source description.
   perExhibitionText?: Record<string, string>;
-  publishedAt: string;         // ISO date, used in Article JSON-LD
-  publishedAtDisplay: string;  // Human date shown in the byline row
 };
+
+export type ArtistEditorialSelection = EditorialSelectionBase & {
+  kind: "artists";
+  // The cover and the section visuals remain existing FindArt assets.
+  coverArtistSlug: string;
+  selectedArtists: Array<{
+    artistName: string;
+    editorialArtistSlug?: string;
+    featuredExhibitionSlug?: string;
+  }>;
+  perArtistText: Record<string, string>;
+};
+
+export type EditorialSelection = ExhibitionEditorialSelection | ArtistEditorialSelection;
 
 export const editorialSelections: EditorialSelection[] = [
   {
+    kind: "exhibitions",
     slug: "contemporary-art-exhibitions-paris-2026",
     title: "Paris, 2026: Selected Exhibitions",
     subtitle:
@@ -73,6 +93,7 @@ export const editorialSelections: EditorialSelection[] = [
     publishedAtDisplay: "23 August 2026",
   },
   {
+    kind: "exhibitions",
     slug: "contemporary-art-exhibitions-seoul-2026",
     title: "Contemporary Art Exhibitions in Seoul: 2026 Selection",
     subtitle:
@@ -101,24 +122,116 @@ export const editorialSelections: EditorialSelection[] = [
     publishedAt: "2026-08-23",
     publishedAtDisplay: "23 August 2026",
   },
+  {
+    kind: "artists",
+    slug: "artists-to-watch-2026",
+    title: "Artists to Watch: 2026",
+    subtitle: "Ten contemporary practices selected from the FindArt archive.",
+    seoTitle: "Emerging Artists & Artists to Watch in 2026 | FindArt Platform",
+    seoDescription:
+      "Discover ten emerging and rising contemporary artists to watch in 2026, selected from exhibitions and features documented by FindArt Platform.",
+    intro: `This selection draws together ten artists appearing across FindArt Features and the exhibition archive. Rather than mapping a single generation or tendency, it follows practices that make their concerns legible through materials, images and exhibition situations: painted bodies that slip out of fixed identity, sculptural forms shaped by disability discourse and industrial residue, virtual worlds that enter physical space, and installations where mythology, memory and ecological unease meet. Several of these artists work across sculpture and installation; others use painting, animation, video or performance to test how images circulate between the body and its surroundings. What connects the selection is not a promise of arrival, but the particular clarity with which each practice opens a field of questions. The exhibitions and Features below offer an entry point into work worth returning to in 2026.`,
+    coverArtistSlug: "00-zhang",
+    selectedArtists: [
+      { artistName: "00 Zhang", editorialArtistSlug: "00-zhang" },
+      { artistName: "Yukino Yamanaka", editorialArtistSlug: "yukino-yamanaka" },
+      {
+        artistName: "Sophia Gatzkan",
+        editorialArtistSlug: "sophia-gatzkan",
+        featuredExhibitionSlug: "metal-memory",
+      },
+      { artistName: "Emma Beatrez", editorialArtistSlug: "emma-beatrez" },
+      {
+        artistName: "Taewon Ahn",
+        editorialArtistSlug: "taewon-ahn",
+        featuredExhibitionSlug: "deep-sea-fish",
+      },
+      {
+        artistName: "Xolo Cuintle",
+        editorialArtistSlug: "xolo-cuintle",
+        featuredExhibitionSlug: "pulses-within",
+      },
+      {
+        artistName: "Koesy",
+        editorialArtistSlug: "koesy",
+        featuredExhibitionSlug: "koesy-between-reality-and-virtual",
+      },
+      {
+        artistName: "Jan Baszak",
+        featuredExhibitionSlug: "a-gentle-kiss-on-a-double-forehead",
+      },
+      { artistName: "Ad\u00e8le Vivet", featuredExhibitionSlug: "nymphenbrunnen" },
+      {
+        artistName: "Nils Alix-Tabeling",
+        featuredExhibitionSlug: "a-flower-is-growing-inside-me-nils-alix-tabeling",
+      },
+    ],
+    perArtistText: {
+      "00 Zhang": `00 Zhang works across sculpture, installation, CGI animation and interactive digital environments. The Feature documents a practice where embodiment meets cybernetic ideas: imagined worlds are not kept behind a screen, but are staged as spaces in which physical presence and virtual reality keep exchanging roles. Collaboration and layered narrative structures give the work a sense of systems in motion rather than a fixed image. In this selection, Zhang offers one route into the question of how contemporary artists make digital culture spatial and bodily. The result is not an illustration of technology, but a proposition about the environments, agents and narratives through which a body now moves.`,
+      "Yukino Yamanaka": `Yukino Yamanaka approaches painting and video through the unstable boundary between the body and identity. In the FindArt Feature, figurative forms move toward abstraction through fluid marks, empty spaces and distorted gestures. The canvas becomes less a place for describing a person than a site where form is continually remade. Bodies, emotions and perception remain in a condition of becoming, at once recognizable and estranged. This makes Yamanaka's work a focused point in the selection's attention to hybrid and uncertain embodiment. The practice does not settle identity into an image; it lets the image register the pressure of a self that will not stay fixed.`,
+      "Sophia Gatzkan": `Sophia Gatzkan's sculptural practice addresses the body through disability discourse, treating non-normative morphology as an alternative mode of being rather than a deviation to be corrected. The works documented by FindArt destabilize bodily integrity through forms that remain corporeal but refuse a single, stable outline. In Metal Memory, this concern enters a larger field of technology, adaptation and material transformation, where metal, plastic and digital forms expose the codes that shape contemporary bodies. Gatzkan's work is distinctive for the way it holds ethics, power and physical ambiguity together without reducing one to the other. It brings the selection's questions about posthuman form into a sharply material register.`,
+      "Emma Beatrez": `Emma Beatrez uses painting to examine the visual and ritual dimensions of American mass culture. Cheerleaders, pep-rally bonfires and athletic gestures appear in the FindArt Feature as scenes charged with threat as much as celebration. Synthetic fabrics, fire and frozen poses turn familiar social choreography into an unsettled spectacle, where collective enthusiasm can resemble trance. The work does not treat these images as nostalgic documentation; it recodes them as strange cultural symbols, close to myth while remaining attached to everyday American ritual. Within this selection, Beatrez shows how painting can make identity visible through the tensions already held inside a public image: celebration and violence, belonging and performance, body and spectacle.`,
+      "Taewon Ahn": `Taewon Ahn moves between painting and sculpture while testing the overlap of digital culture and physical reality. The FindArt Feature describes an intuitive process shaped by chance, improvisation and material experimentation, with recurring figures such as the artist's cat Hiro becoming prompts for thinking about image, memory and perception. Deep Sea Fish extends this inquiry through the figure of an animal adapted to a world beyond ordinary sight, asking viewers to move between the real and the virtual without treating either as stable ground. Ahn's work gives the selection a wry, tactile approach to simulation: screens and imagined worlds are not separate from matter, but are experienced through objects, stories and perceptual drift.`,
+      "Xolo Cuintle": `Xolo Cuintle treat matter as a form of memory and as a meeting point between human and non-human systems. Their Feature traces a practice in which the artificial and the natural become a shared body, while ornament, surface and structure hold traces of time, tension and loss. In Pulses Within, concrete and petrified forms develop into hybrid organisms that bring soil, entomological systems and organo-industrial relations into the exhibition space. The resulting sculptural language is at once mythological and technological, organic and industrial. For this selection, Xolo Cuintle make material transformation feel less like a metaphor than a condition: an environment where construction and decay remain inseparable.`,
+      Koesy: `Koesy works across animation, sculpture and character design, building fictional worlds that move between reality and the virtual. The FindArt Feature describes recurring characters and image systems shaped by inner anxiety and the process of overcoming it. Between Reality and the Virtual carries that language into an exhibition context, where the distinction between an imagined character and a physical object is deliberately loosened. Koesy's work gives digital myth a particular emotional scale: virtuality is not presented as abstract technology, but as a space where personal anxieties can be staged, transformed and shared. The practice belongs here for the directness with which it connects character, narrative and contemporary image culture.`,
+      "Jan Baszak": `Jan Baszak's exhibition at BGSW / Baszta builds sculptural situations around attention, opacity and the material traces of a vanished whole. Leather, upholstery, animal forms, masks and furniture-like structures shape a setting that feels both domestic and ceremonial. The exhibition text describes objects that resist being fully translated into meaning, keeping the viewer in relation to surfaces, fragments and the architecture that holds them. Artificial leather and textile coverings carry associations of touch, animality and memory while remaining visibly constructed. Baszak's work gives this selection a concentrated study of materiality: sculpture becomes a way to organise looking, bodily proximity and uncertainty rather than a route toward a final reading.`,
+      "Ad\u00e8le Vivet": `In Nymphenbrunnen, Ad\u00e8le Vivet develops the Chimerea series through sculpture, 3D printing and ceramics. The exhibition at Espace Nonono brings caryatids, bas-relief, mythology and contemporary visual culture into a set of hydro-chimeric forms that also operate as self-portraits. Mineral and water-bound surfaces move between ornament and figure, giving the work an unstable relationship to identity. Vivet's contribution to this selection lies in that layered use of image and material: the sculptures look back to historical forms without reconstructing them, using hybrid bodies to hold desire, guilt, joy and disappointment in the same space. Myth here is not a distant reference, but an active structure for thinking through the present.`,
+      "Nils Alix-Tabeling": `Nils Alix-Tabeling works across sculpture, performance and painting, drawing on ancient myth, pagan ritual and science fiction while addressing queer and ecological concerns. A Flower Is Growing Inside Me unfolds an imaginary world populated by monsters, marvellous creatures and marginal historical figures, where reality and fiction are deliberately entangled. The exhibition moves through melancholy, loss and rebirth, culminating in an installation of video, sculpture, song and performance. Alix-Tabeling's work closes this selection with a symbolic, hybrid language that does not separate spiritual imagery from contemporary experience. Its creatures and ceremonies offer another way to approach transformation: not as a resolved state, but as an unfolding relation between body, fiction, ritual and time.`,
+    },
+    publishedAt: "2026-08-23",
+    publishedAtDisplay: "23 August 2026",
+  },
 ];
 
 export function getEditorialSelection(slug: string): EditorialSelection | undefined {
   return editorialSelections.find((selection) => selection.slug === slug);
 }
 
+export function getEditorialSelectionCoverImage(selection: EditorialSelection): string | undefined {
+  if (selection.kind === "artists") {
+    return getEditorialArtist(selection.coverArtistSlug)?.coverImage.src;
+  }
+  const cover = getExhibition(selection.coverExhibitionSlug);
+  return (
+    cover?.images[selection.coverImageIndex ?? 0]?.src ??
+    cover?.coverImage ??
+    cover?.previewImage
+  );
+}
+
 // Validate at build time — a missing exhibition slug should fail loudly
 // rather than render a broken article.
 for (const selection of editorialSelections) {
-  const missing = selection.exhibitionSlugs.filter((slug) => !getExhibition(slug));
-  if (missing.length > 0) {
+  if (selection.kind === "exhibitions") {
+    const missing = selection.exhibitionSlugs.filter((slug) => !getExhibition(slug));
+    if (missing.length > 0) {
+      throw new Error(
+        `Editorial selection "${selection.slug}" references missing exhibitions: ${missing.join(", ")}`,
+      );
+    }
+    if (!getExhibition(selection.coverExhibitionSlug)) {
+      throw new Error(
+        `Editorial selection "${selection.slug}" has cover exhibition "${selection.coverExhibitionSlug}" which does not exist.`,
+      );
+    }
+    continue;
+  }
+
+  if (!getEditorialArtist(selection.coverArtistSlug)) {
     throw new Error(
-      `Editorial selection "${selection.slug}" references missing exhibitions: ${missing.join(", ")}`,
+      `Artist editorial selection "${selection.slug}" has cover artist "${selection.coverArtistSlug}" which does not exist.`,
     );
   }
-  if (!getExhibition(selection.coverExhibitionSlug)) {
-    throw new Error(
-      `Editorial selection "${selection.slug}" has cover exhibition "${selection.coverExhibitionSlug}" which does not exist.`,
-    );
+  for (const artist of selection.selectedArtists) {
+    if (artist.editorialArtistSlug && !getEditorialArtist(artist.editorialArtistSlug)) {
+      throw new Error(
+        `Artist editorial selection "${selection.slug}" references missing artist "${artist.editorialArtistSlug}".`,
+      );
+    }
+    if (artist.featuredExhibitionSlug && !getExhibition(artist.featuredExhibitionSlug)) {
+      throw new Error(
+        `Artist editorial selection "${selection.slug}" references missing exhibition "${artist.featuredExhibitionSlug}".`,
+      );
+    }
   }
 }

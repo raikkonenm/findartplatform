@@ -9,7 +9,7 @@ import {
 } from "@/lib/entitySlugs";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayPersonText, displayMetadataText } from "@/lib/displayPersonName";
-import type { EditorialSelection } from "@/data/editorialSelections";
+import type { ExhibitionEditorialSelection } from "@/data/editorialSelections";
 
 const LINK_CLASS =
   "underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-60";
@@ -337,7 +337,7 @@ function ExploreMore({ exhibitions }: { exhibitions: Exhibition[] }) {
 export function EditorialSelectionArticle({
   selection,
 }: {
-  selection: EditorialSelection;
+  selection: ExhibitionEditorialSelection;
 }) {
   const exhibitions = selection.exhibitionSlugs
     .map((slug) => getExhibition(slug))

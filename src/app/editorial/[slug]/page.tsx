@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { EditorialSelectionArticle } from "@/components/EditorialSelectionArticle";
+import { ArtistEditorialSelectionArticle } from "@/components/ArtistEditorialSelectionArticle";
 import {
   editorialSelections,
+  getEditorialSelectionCoverImage,
   getEditorialSelection,
 } from "@/data/editorialSelections";
-import { getExhibition } from "@/data/exhibitions";
+import { entityHref } from "@/lib/entitySlugs";
 
 const SITE_URL = "https://www.findartplatform.com";
 
@@ -24,11 +26,7 @@ export async function generateMetadata({
   if (!selection) return { title: "Editorial" };
 
   const canonical = `${SITE_URL}/editorial/${slug}`;
-  const cover = getExhibition(selection.coverExhibitionSlug);
-  const image =
-    cover?.images[selection.coverImageIndex ?? 0]?.src ??
-    cover?.coverImage ??
-    cover?.previewImage;
+  const image = getEditorialSelectionCoverImage(selection);
   const absoluteImage = image?.startsWith("http") ? image : image ? `${SITE_URL}${image}` : undefined;
 
   // The visible H1 stays selection.title; the browser tab / meta title
@@ -63,11 +61,7 @@ export async function generateMetadata({
 function jsonLd(slug: string) {
   const selection = getEditorialSelection(slug)!;
   const canonical = `${SITE_URL}/editorial/${slug}`;
-  const cover = getExhibition(selection.coverExhibitionSlug);
-  const image =
-    cover?.images[selection.coverImageIndex ?? 0]?.src ??
-    cover?.coverImage ??
-    cover?.previewImage;
+  const image = getEditorialSelectionCoverImage(selection);
   const absoluteImage = image?.startsWith("http") ? image : image ? `${SITE_URL}${image}` : undefined;
 
   const article = {
@@ -85,6 +79,13 @@ function jsonLd(slug: string) {
     },
     image: absoluteImage ? [absoluteImage] : undefined,
     mainEntityOfPage: canonical,
+    about: selection.kind === "artists"
+      ? selection.selectedArtists.map((artist) => ({
+          "@type": "Person",
+          name: artist.artistName,
+          url: `${SITE_URL}${entityHref("artist", artist.artistName)}`,
+        }))
+      : undefined,
   };
 
   const breadcrumbs = {
@@ -119,7 +120,11 @@ export default async function EditorialArticlePage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
-      <EditorialSelectionArticle selection={selection} />
+      {selection.kind === "artists" ? (
+        <ArtistEditorialSelectionArticle selection={selection} />
+      ) : (
+        <EditorialSelectionArticle selection={selection} />
+      )}
     </main>
   );
 }
