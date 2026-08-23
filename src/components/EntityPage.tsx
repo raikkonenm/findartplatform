@@ -30,7 +30,7 @@ export function renderEntityPage({
           <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
             {EYEBROW[kind]}
           </p>
-          <h1 className="editorial-serif mt-4 break-words text-[clamp(2rem,6vw,4rem)] uppercase leading-[0.98] tracking-[-0.03em]">
+          <h1 className="editorial-serif mt-3 break-words text-[clamp(1.3rem,3vw,2rem)] uppercase leading-[1.05] tracking-[-0.02em]">
             {entry.name}
           </h1>
           <p className="mt-4 text-[13px] uppercase tracking-[0.24em] text-neutral-500">
