@@ -3,7 +3,12 @@ import Link from "next/link";
 import { exhibitions, type Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayVenueText } from "@/lib/displayVenueText";
-import { entityHref, splitCuratorString } from "@/lib/entitySlugs";
+import {
+  authorHref,
+  entityHref,
+  exhibitionFacetHref,
+  splitCuratorString,
+} from "@/lib/entitySlugs";
 import { OnViewDot } from "./OnViewDot";
 import { SaveExhibitionButton } from "./SavedExhibitions";
 
@@ -217,8 +222,9 @@ function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
             {exhibition.tags.map((tag) => (
               <Link
                 key={tag}
-                href={{ pathname: "/", query: { tag } }}
-                scroll={false}
+                href={entityHref("tag", tag)}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="border border-neutral-200 bg-white px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-neutral-600 transition-colors hover:border-neutral-900 hover:text-neutral-900"
               >
                 {tag}
@@ -227,7 +233,19 @@ function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
           </div>
         ) : undefined,
     },
-    { label: "Exhibition Text", value: exhibition.exhibitionText },
+    {
+      label: "Exhibition Text",
+      value: exhibition.exhibitionText ? (
+        <Link
+          href={authorHref(exhibition.exhibitionText)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-55"
+        >
+          {exhibition.exhibitionText}
+        </Link>
+      ) : undefined,
+    },
   ];
 
   return (
@@ -337,7 +355,48 @@ export function ExhibitionDetail({
   preservePanelNavigation = false,
 }: ExhibitionDetailProps) {
   const title = displayExhibitionTitle(exhibition.title);
-  const location = [exhibition.city, exhibition.country].filter(Boolean).join(", ");
+  const eyebrowParts: React.ReactNode[] = [];
+  if (exhibition.city) {
+    eyebrowParts.push(
+      <Link
+        key="city"
+        href={exhibitionFacetHref("city", exhibition.city)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="transition-opacity hover:opacity-55"
+      >
+        {exhibition.city.toUpperCase()}
+      </Link>,
+    );
+  }
+  if (exhibition.country) {
+    if (eyebrowParts.length > 0) eyebrowParts.push(", ");
+    eyebrowParts.push(
+      <Link
+        key="country"
+        href={exhibitionFacetHref("country", exhibition.country)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="transition-opacity hover:opacity-55"
+      >
+        {exhibition.country.toUpperCase()}
+      </Link>,
+    );
+  }
+  if (exhibition.year) {
+    if (eyebrowParts.length > 0) eyebrowParts.push(" / ");
+    eyebrowParts.push(
+      <Link
+        key="year"
+        href={exhibitionFacetHref("year", exhibition.year)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="transition-opacity hover:opacity-55"
+      >
+        {exhibition.year}
+      </Link>,
+    );
+  }
 
   // Subtitle line under the title: "Venue / Artist(s)" — built from the
   // venue field and the artists array (joined with "and" / commas).
@@ -357,7 +416,7 @@ export function ExhibitionDetail({
             <SaveExhibitionButton slug={exhibition.slug} title={title} />
           </div>
           <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
-            {[location, exhibition.year].filter(Boolean).join(" / ")}
+            {eyebrowParts}
           </p>
           <h1 className="mt-5 max-w-4xl break-words text-[clamp(1.75rem,9vw,3.5rem)] font-medium leading-[1.08] tracking-[-0.04em] md:text-[clamp(2rem,4vw,3.5rem)]">
             {title.toUpperCase()}

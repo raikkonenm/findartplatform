@@ -98,6 +98,47 @@ export function renderEntityPage({
   );
 }
 
+// Generic "list of exhibitions under a facet slug" page — reused for
+// exhibitionText author, city, country and year slugs. Same visual shape
+// as renderEntityPage so users get a consistent detail page.
+export function renderExhibitionListPage({
+  eyebrow,
+  name,
+  exhibitions,
+}: {
+  eyebrow: string;
+  name: string;
+  exhibitions: Exhibition[];
+}) {
+  return (
+    <main className="min-h-screen bg-white pt-[65px] text-neutral-900">
+      <Header />
+      <section className="px-5 pb-24 pt-14 md:px-8 md:pb-32 md:pt-20 lg:px-12">
+        <div className="mx-auto max-w-[1400px]">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
+            {eyebrow}
+          </p>
+          <h1 className="editorial-serif mt-3 break-words text-[clamp(1.3rem,3vw,2rem)] uppercase leading-[1.05] tracking-[-0.02em]">
+            {name}
+          </h1>
+          <p className="mt-4 text-[13px] uppercase tracking-[0.24em] text-neutral-500">
+            {exhibitions.length}{" "}
+            {exhibitions.length === 1 ? "entry" : "entries"}
+          </p>
+
+          <div className="mt-12 md:mt-16">
+            <MasonryGrid
+              exhibitions={exhibitions}
+              eagerCount={1}
+              initialIsMobile={false}
+            />
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 export function entityStaticParams(kind: EntityKind) {
   return collectSlugList(kind).map((slug) => ({ slug }));
 }

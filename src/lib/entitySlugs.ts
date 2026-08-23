@@ -136,3 +136,81 @@ export function entityHref(kind: EntityKind, name: string): string {
   const slug = slugifyEntity(name);
   return `/${kind}/${slug}`;
 }
+
+// --- Exhibition-text author (Exhibition Text field on the detail card) ---
+
+export function collectAuthorSlugs(): Map<
+  string,
+  { name: string; exhibitions: Exhibition[] }
+> {
+  const map = new Map<string, { name: string; exhibitions: Exhibition[] }>();
+  for (const exhibition of exhibitions) {
+    const raw = exhibition.exhibitionText?.trim();
+    if (!raw) continue;
+    const slug = slugifyEntity(raw);
+    if (!slug) continue;
+    const bucket = map.get(slug);
+    if (bucket) {
+      if (raw.length > bucket.name.length) bucket.name = raw;
+      if (!bucket.exhibitions.some((e) => e.slug === exhibition.slug)) {
+        bucket.exhibitions.push(exhibition);
+      }
+    } else {
+      map.set(slug, { name: raw, exhibitions: [exhibition] });
+    }
+  }
+  return map;
+}
+
+export function getAuthorEntry(slug: string) {
+  return collectAuthorSlugs().get(slug);
+}
+
+export function authorHref(name: string): string {
+  return `/author/${slugifyEntity(name)}`;
+}
+
+// --- Exhibitions by city / country / year ---
+
+export type ExhibitionFacet = "city" | "country" | "year";
+
+function facetRaw(facet: ExhibitionFacet, exhibition: Exhibition): string | undefined {
+  switch (facet) {
+    case "city":
+      return exhibition.city;
+    case "country":
+      return exhibition.country;
+    case "year":
+      return exhibition.year;
+  }
+}
+
+export function collectExhibitionFacetSlugs(
+  facet: ExhibitionFacet,
+): Map<string, { name: string; exhibitions: Exhibition[] }> {
+  const map = new Map<string, { name: string; exhibitions: Exhibition[] }>();
+  for (const exhibition of exhibitions) {
+    const raw = facetRaw(facet, exhibition)?.trim();
+    if (!raw) continue;
+    const slug = slugifyEntity(raw);
+    if (!slug) continue;
+    const bucket = map.get(slug);
+    if (bucket) {
+      if (raw.length > bucket.name.length) bucket.name = raw;
+      if (!bucket.exhibitions.some((e) => e.slug === exhibition.slug)) {
+        bucket.exhibitions.push(exhibition);
+      }
+    } else {
+      map.set(slug, { name: raw, exhibitions: [exhibition] });
+    }
+  }
+  return map;
+}
+
+export function getExhibitionFacet(facet: ExhibitionFacet, slug: string) {
+  return collectExhibitionFacetSlugs(facet).get(slug);
+}
+
+export function exhibitionFacetHref(facet: ExhibitionFacet, name: string): string {
+  return `/exhibitions/${facet}/${slugifyEntity(name)}`;
+}
