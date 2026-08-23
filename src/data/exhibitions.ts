@@ -253,6 +253,23 @@ const semanticTagAssignments: Record<string, SemanticTag[]> = {
   "tangerine-reverie": ["INSTALLATION", "ECOLOGY", "RITUAL", "POST-INDUSTRIAL", "LIMINALITY", "MATERIALITY"],
   "after-the-offerings": ["INSTALLATION", "SURVEILLANCE", "RITUAL", "IDENTITY", "DIGITAL MYTH", "BODY"],
   "axial-core": ["INSTALLATION", "SOUND", "POSTHUMAN", "MACHINE", "TECHNOLOGY"],
+  // --- 2026-08-23 additions ---
+  "rama-torcida-paulina-mellado": ["INSTALLATION", "ECOLOGY", "MATERIALITY", "ORGANIC SYSTEMS", "SPECULATIVE FICTION"],
+  "subsurface-povilanskaite-schweers": ["INSTALLATION", "HYBRID BODIES", "MATERIALITY", "TECHNOLOGY", "SPECULATIVE FICTION"],
+  "mouth-sarah-friend": ["INSTALLATION", "TECHNOLOGY", "MACHINE", "POSTHUMAN", "OBJECTHOOD"],
+  "the-jewel-box-nanna-starck": ["INSTALLATION", "BODY", "FEMININITY", "MYTH", "MATERIALITY", "RITUAL"],
+  "nexus-open-studio-anais-gauthier": ["INSTALLATION", "TRANSFORMATION", "MATERIALITY", "MACHINE", "ORGANIC SYSTEMS"],
+  "ancient-girl-starter-pack-mikulas-zimula": ["INSTALLATION", "IDENTITY", "ARCHIVE", "ARCHAEOLOGY", "SPECULATIVE FICTION", "MYTH"],
+  "a-flower-is-growing-inside-me-nils-alix-tabeling": ["INSTALLATION", "HYBRID BODIES", "MYTH", "RITUAL", "SPIRITUALITY", "TRANSFORMATION"],
+  "alex-upcoming-series": ["BODY", "MATERIALITY", "TEXTILE"],
+  "bunny-bunker-no-1-lizzy": ["OBJECTHOOD", "MATERIALITY", "MACHINE"],
+  "flood-hannah-rowan": ["INSTALLATION", "ECOLOGY", "MATERIALITY", "ORGANIC SYSTEMS", "BODY"],
+  "i-see-you-falling-in-my-den-andrea-ferrero": ["INSTALLATION", "MYTH", "HYBRID BODIES", "RITUAL", "ANIMALITY"],
+  "koesy-between-reality-and-virtual": ["DIGITAL MYTH", "SIMULATION", "IDENTITY"],
+  "signal-v-runtak-collection": ["INSTALLATION", "GROUP SHOW", "ARCHIVE", "OBJECTHOOD", "POST-INDUSTRIAL"],
+  "fight-or-flight-sex-bethanien": ["GROUP SHOW", "BODY", "IDENTITY", "DIGITAL MYTH"],
+  "the-room-is-empty-but-pregnant-xue-ying": ["INSTALLATION", "DOMESTICITY", "FEMININITY", "MATERIALITY", "MEMORY", "RITUAL"],
+  "call-me-gravity-wiels": ["INSTALLATION", "GROUP SHOW", "LABOR", "BODY", "POST-INDUSTRIAL"],
 };
 
 function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "subtitle">): SemanticTag[] {
