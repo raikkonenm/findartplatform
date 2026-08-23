@@ -231,7 +231,7 @@ export function ArtistEditorialSelectionArticle({
       <div className="mx-auto max-w-[860px]">
         <header className="text-left">
           <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-500">
-            Editorial · {selection.publishedAtDisplay}
+            Editorial
           </p>
           <h1 className="editorial-serif mt-4 break-words text-[clamp(1.6rem,4vw,2.6rem)] leading-[1.08] tracking-[-0.02em]">
             {selection.title}

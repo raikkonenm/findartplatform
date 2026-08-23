@@ -71,6 +71,7 @@ function jsonLd(slug: string) {
     description: selection.seoDescription ?? selection.subtitle,
     url: canonical,
     datePublished: selection.publishedAt,
+    dateModified: selection.modifiedAt ?? selection.publishedAt,
     author: { "@type": "Organization", name: "FindArt Platform" },
     publisher: {
       "@type": "Organization",

@@ -21,7 +21,8 @@ type EditorialSelectionBase = {
   // to real cross-cutting ideas rather than glue tags together.
   intro: string;
   publishedAt: string;         // ISO date, used in Article JSON-LD
-  publishedAtDisplay: string;  // Human date shown in the byline row
+  modifiedAt?: string;         // SEO-only; not shown in the Editorial UI
+  publishedAtDisplay: string;  // Kept for existing data compatibility
 };
 
 export type ExhibitionEditorialSelection = EditorialSelectionBase & {
@@ -59,9 +60,8 @@ export const editorialSelections: EditorialSelection[] = [
   {
     kind: "exhibitions",
     slug: "contemporary-art-exhibitions-paris-2026",
-    title: "Paris, 2026: Selected Exhibitions",
-    subtitle:
-      "A curated selection of contemporary art exhibitions presented across Paris in 2026.",
+    title: "6 Contemporary Art Exhibitions in Paris in 2026",
+    subtitle: "Six exhibitions across galleries, artist-run spaces and independent venues in Paris.",
     seoTitle: "Contemporary Art Exhibitions in Paris 2026 | FindArt Platform",
     seoDescription:
       "Explore a curated selection of contemporary art exhibitions presented across Paris in 2026, featuring artists, galleries and independent spaces documented by FindArt Platform.",
@@ -181,6 +181,7 @@ Several of these artists move between sculpture and installation; others work th
       "Nils Alix-Tabeling": `Nils Alix-Tabeling works across sculpture, performance and painting, drawing on ancient myth, pagan ritual and science fiction while addressing queer and ecological concerns. A Flower Is Growing Inside Me unfolds an imaginary world populated by monsters, marvellous creatures and marginal historical figures, where reality and fiction are deliberately entangled. The exhibition moves through melancholy, loss and rebirth, culminating in an installation of video, sculpture, song and performance. Alix-Tabeling's work closes this selection with a symbolic, hybrid language that does not separate spiritual imagery from contemporary experience. Its creatures and ceremonies offer another way to approach transformation: not as a resolved state, but as an unfolding relation between body, fiction, ritual and time.`,
     },
     publishedAt: "2026-08-23",
+    modifiedAt: "2026-08-23",
     publishedAtDisplay: "23 August 2026",
   },
 ];

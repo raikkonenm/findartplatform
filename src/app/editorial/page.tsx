@@ -77,7 +77,7 @@ export default function EditorialPage() {
                           />
                         </div>
                         <p className="mt-3 text-[10px] uppercase tracking-[0.22em] text-neutral-500">
-                          Selection · {selection.publishedAtDisplay}
+                          Editorial
                         </p>
                         <h2 className="editorial-serif mt-2 break-words text-[clamp(0.95rem,1.7vw,1.2rem)] leading-[1.15] tracking-[-0.02em]">
                           {selection.title}
