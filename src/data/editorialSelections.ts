@@ -130,7 +130,9 @@ export const editorialSelections: EditorialSelection[] = [
     seoTitle: "Emerging Artists & Artists to Watch in 2026 | FindArt Platform",
     seoDescription:
       "Discover ten emerging and rising contemporary artists to watch in 2026, selected from exhibitions and features documented by FindArt Platform.",
-    intro: `This selection draws together ten artists appearing across FindArt Features and the exhibition archive. Rather than mapping a single generation or tendency, it follows practices that make their concerns legible through materials, images and exhibition situations: painted bodies that slip out of fixed identity, sculptural forms shaped by disability discourse and industrial residue, virtual worlds that enter physical space, and installations where mythology, memory and ecological unease meet. Several of these artists work across sculpture and installation; others use painting, animation, video or performance to test how images circulate between the body and its surroundings. What connects the selection is not a promise of arrival, but the particular clarity with which each practice opens a field of questions. The exhibitions and Features below offer an entry point into work worth returning to in 2026.`,
+    intro: `This selection brings together ten contemporary artists to watch in 2026, drawn from FindArt Features and the exhibition archive. Rather than mapping a single generation or tendency, it follows practices shaped by unstable bodies, material experimentation, virtual worlds, mythology and ecological unease.
+
+Several of these artists move between sculpture and installation; others work through painting, animation, video and performance. What connects them is not a promise of arrival, but the clarity with which each practice opens a distinct field of questions.`,
     coverArtistSlug: "00-zhang",
     selectedArtists: [
       { artistName: "00 Zhang", editorialArtistSlug: "00-zhang" },
