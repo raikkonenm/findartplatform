@@ -136,15 +136,21 @@ const REGION_TAG_NAMES = new Map([
 
 const COUNTRY_REGIONS: Record<string, string> = {
   Australia: "Oceania",
+  Austria: "Europe",
   Canada: "North America",
+  China: "Asia",
   "Czech Republic": "Europe",
   Finland: "Europe",
   France: "Europe",
   Germany: "Europe",
+  India: "Asia",
   Italy: "Europe",
   Japan: "Asia",
   Latvia: "Europe",
+  Netherlands: "Europe",
   "South Korea": "Asia",
+  Spain: "Europe",
+  Switzerland: "Europe",
   "United Kingdom": "Europe",
   "United States": "North America",
 };
@@ -303,6 +309,12 @@ export function opportunityRegionUrl(valueOrSlug: string): string {
   return `/opportunities/regions/${slugifyEntity(valueOrSlug)}`;
 }
 
+export function opportunityRegionNameBySlug(slug: string): string | undefined {
+  return Array.from(new Set(REGION_TAG_NAMES.values())).find(
+    (region) => slugifyEntity(region) === slug,
+  );
+}
+
 export function opportunityCountryUrl(valueOrSlug: string): string {
   return `/opportunities/countries/${slugifyEntity(valueOrSlug)}`;
 }
@@ -336,33 +348,52 @@ export function opportunityPrimaryTypeLabel(opportunity: Opportunity): string {
 export function parseOpportunityLocation(location: string): {
   city?: string;
   country?: string;
+  region?: string;
 } {
   const normalized = location.trim();
-  if (!normalized || NON_GEOGRAPHIC_LOCATIONS.has(normalized.toLowerCase())) return {};
-  const commaIndex = normalized.lastIndexOf(",");
-  if (commaIndex < 0) return { country: normalized };
-  const city = normalized.slice(0, commaIndex).trim();
-  const country = normalized.slice(commaIndex + 1).trim();
-  return { city: city || undefined, country: country || undefined };
+  if (!normalized) return {};
+
+  const parts = normalized
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const region = parts
+    .map((part) => REGION_TAG_NAMES.get(part.toUpperCase()))
+    .find(Boolean);
+  if (region) return { region };
+
+  const geographicParts = parts.filter(
+    (part) => !NON_GEOGRAPHIC_LOCATIONS.has(part.toLowerCase()),
+  );
+  if (geographicParts.length === 0) return {};
+  if (geographicParts.length === 1) return { country: geographicParts[0] };
+
+  const country = geographicParts[geographicParts.length - 1];
+  const city = geographicParts.slice(0, -1).join(", ");
+  return { city: city || undefined, country };
 }
 
 export function opportunityLocationParts(opportunity: Opportunity): Array<{
-  kind: "city" | "country";
+  kind: "city" | "country" | "region";
   name: string;
   href: string;
 }> {
-  const { city, country } = parseOpportunityLocation(opportunity.location);
+  const { city, country, region } = parseOpportunityLocation(opportunity.location);
   return [
     ...(city ? [{ kind: "city" as const, name: city, href: opportunityCityUrl(city) }] : []),
     ...(country
       ? [{ kind: "country" as const, name: country, href: opportunityCountryUrl(country) }]
+      : []),
+    ...(region
+      ? [{ kind: "region" as const, name: region, href: opportunityRegionUrl(region) }]
       : []),
   ];
 }
 
 export function opportunityRegionNames(opportunity: Opportunity): string[] {
   const names = new Set<string>();
-  const { country } = parseOpportunityLocation(opportunity.location);
+  const { country, region } = parseOpportunityLocation(opportunity.location);
+  if (region) names.add(region);
   if (country && COUNTRY_REGIONS[country]) names.add(COUNTRY_REGIONS[country]);
   for (const tag of opportunity.tags) {
     const region = REGION_TAG_NAMES.get(tag.toUpperCase());
@@ -374,7 +405,9 @@ export function opportunityRegionNames(opportunity: Opportunity): string[] {
 function opportunityTopicNames(opportunity: Opportunity): string[] {
   const geography = parseOpportunityLocation(opportunity.location);
   const geographySlugs = new Set(
-    [geography.city, geography.country].filter(Boolean).map((value) => slugifyEntity(value!)),
+    [geography.city, geography.country, geography.region]
+      .filter(Boolean)
+      .map((value) => slugifyEntity(value!)),
   );
   return opportunity.tags.filter((tag) => {
     const upper = tag.toUpperCase();
