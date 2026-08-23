@@ -1,8 +1,13 @@
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { MasonryGrid } from "@/components/MasonryGrid";
+import { editorialArtists, type EditorialArtist } from "@/data/editorial";
+import type { Exhibition } from "@/data/exhibitions";
 import {
   collectEntitySlugs,
+  collectTagSlugs,
+  editorialArtistsForArtistSlug,
+  slugifyEntity,
   type EntityKind,
 } from "@/lib/entitySlugs";
 
@@ -11,7 +16,45 @@ const EYEBROW: Record<EntityKind, string> = {
   artist: "Artist",
   curator: "Curator",
   photographer: "Photographer",
+  tag: "Tag",
 };
+
+function resolveEntry(kind: EntityKind, slug: string):
+  | { name: string; exhibitions: Exhibition[]; editorialArtists: EditorialArtist[] }
+  | undefined {
+  if (kind === "tag") {
+    return collectTagSlugs().get(slug);
+  }
+  const base = collectEntitySlugs(kind).get(slug);
+  if (!base) {
+    // For "artist" the slug may only exist in editorial (no matching
+    // exhibition). Fall through and construct a synthetic entry.
+    if (kind === "artist") {
+      const eds = editorialArtistsForArtistSlug(slug);
+      if (eds.length > 0) {
+        return { name: eds[0].artistName, exhibitions: [], editorialArtists: eds };
+      }
+    }
+    return undefined;
+  }
+  // tag is handled by the early return above; here kind ∈ artist/gallery/curator/photographer.
+  const eds = kind === "artist" ? editorialArtistsForArtistSlug(slug) : [];
+  return { ...base, editorialArtists: eds };
+}
+
+function collectSlugList(kind: EntityKind): string[] {
+  if (kind === "tag") return Array.from(collectTagSlugs().keys());
+  const slugs = new Set(collectEntitySlugs(kind).keys());
+  if (kind === "artist") {
+    // Include editorial artists whose name has no matching exhibition —
+    // they still deserve a page.
+    for (const a of editorialArtists) {
+      const s = slugifyEntity(a.artistName);
+      if (s) slugs.add(s);
+    }
+  }
+  return Array.from(slugs);
+}
 
 export function renderEntityPage({
   kind,
@@ -20,8 +63,10 @@ export function renderEntityPage({
   kind: EntityKind;
   slug: string;
 }) {
-  const entry = collectEntitySlugs(kind).get(slug);
+  const entry = resolveEntry(kind, slug);
   if (!entry) return notFound();
+
+  const totalCount = entry.exhibitions.length + entry.editorialArtists.length;
 
   return (
     <main className="min-h-screen bg-white pt-[65px] text-neutral-900">
@@ -35,8 +80,8 @@ export function renderEntityPage({
             {entry.name}
           </h1>
           <p className="mt-4 text-[13px] uppercase tracking-[0.24em] text-neutral-500">
-            {entry.exhibitions.length}{" "}
-            {entry.exhibitions.length === 1 ? "exhibition" : "exhibitions"}
+            {totalCount}{" "}
+            {totalCount === 1 ? "entry" : "entries"}
           </p>
 
           <div className="mt-12 md:mt-16">
@@ -44,6 +89,7 @@ export function renderEntityPage({
               exhibitions={entry.exhibitions}
               eagerCount={1}
               initialIsMobile={false}
+              interleavedArtists={entry.editorialArtists.length > 0 ? entry.editorialArtists : undefined}
             />
           </div>
         </div>
@@ -53,7 +99,7 @@ export function renderEntityPage({
 }
 
 export function entityStaticParams(kind: EntityKind) {
-  return Array.from(collectEntitySlugs(kind).keys()).map((slug) => ({ slug }));
+  return collectSlugList(kind).map((slug) => ({ slug }));
 }
 
 export function entityMetadata({
@@ -63,7 +109,7 @@ export function entityMetadata({
   kind: EntityKind;
   slug: string;
 }) {
-  const entry = collectEntitySlugs(kind).get(slug);
+  const entry = resolveEntry(kind, slug);
   if (!entry) return { title: "Not found" };
   const kindLabel =
     kind === "gallery"
@@ -72,10 +118,12 @@ export function entityMetadata({
         ? "Artist"
         : kind === "curator"
           ? "Curator"
-          : "Photographer";
-  const count = entry.exhibitions.length;
+          : kind === "photographer"
+            ? "Photographer"
+            : "Tag";
+  const total = entry.exhibitions.length + entry.editorialArtists.length;
   const title = `${entry.name} — ${kindLabel} on FindArt`;
-  const description = `${count} exhibition${count === 1 ? "" : "s"} on FindArt Platform associated with ${entry.name}.`;
+  const description = `${total} ${total === 1 ? "entry" : "entries"} on FindArt Platform associated with ${entry.name}.`;
   const canonical = `https://www.findartplatform.com/${kind}/${slug}`;
   return {
     title: { absolute: title },

@@ -1,4 +1,9 @@
 import { exhibitions, type Exhibition } from "@/data/exhibitions";
+import {
+  editorialArtists,
+  getEditorialArtistMeta,
+  type EditorialArtist,
+} from "@/data/editorial";
 
 // Slugify a name/title into a URL-safe segment. Handles diacritics,
 // non-ASCII letters and punctuation. Deterministic — two calls with the
@@ -13,7 +18,7 @@ export function slugifyEntity(name: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-export type EntityKind = "gallery" | "artist" | "curator" | "photographer";
+export type EntityKind = "gallery" | "artist" | "curator" | "photographer" | "tag";
 
 // Split a curator string ("A, B and C" / "A, B, C") into individual names.
 export function splitCuratorString(value: string): string[] {
@@ -33,6 +38,8 @@ function collectRaw(kind: EntityKind, exhibition: Exhibition): string[] {
       return exhibition.curator ? splitCuratorString(exhibition.curator) : [];
     case "photographer":
       return exhibition.photographer ? splitCuratorString(exhibition.photographer) : [];
+    case "tag":
+      return exhibition.tags ?? [];
   }
 }
 
@@ -68,6 +75,59 @@ export function collectEntitySlugs(kind: EntityKind): Map<
 
 export function getEntity(kind: EntityKind, slug: string) {
   return collectEntitySlugs(kind).get(slug);
+}
+
+// For "artist" and "tag" pages we also cross-reference editorial content.
+// Kept in one place so the routes and the entity component stay in sync.
+
+// Editorial artists whose artistName slugifies to `slug`.
+export function editorialArtistsForArtistSlug(slug: string): EditorialArtist[] {
+  return editorialArtists.filter((artist) => slugifyEntity(artist.artistName) === slug);
+}
+
+// Editorial artists tagged with a semantic tag whose slug matches `slug`.
+export function editorialArtistsForTagSlug(slug: string): EditorialArtist[] {
+  return editorialArtists.filter((artist) => {
+    const meta = getEditorialArtistMeta(artist.slug);
+    return meta.tags.some((tag) => slugifyEntity(tag) === slug);
+  });
+}
+
+// The full slug list for /tag/[slug] merges every exhibition tag AND every
+// editorial-artist tag, so tag URLs that only feature editorial content
+// still get pre-generated.
+export function collectTagSlugs(): Map<
+  string,
+  { name: string; exhibitions: Exhibition[]; editorialArtists: EditorialArtist[] }
+> {
+  const base = collectEntitySlugs("tag");
+  const merged = new Map<
+    string,
+    { name: string; exhibitions: Exhibition[]; editorialArtists: EditorialArtist[] }
+  >();
+  for (const [slug, entry] of base.entries()) {
+    merged.set(slug, {
+      name: entry.name,
+      exhibitions: entry.exhibitions,
+      editorialArtists: editorialArtistsForTagSlug(slug),
+    });
+  }
+  // Add tag slugs that only exist in editorial artist metadata.
+  for (const artist of editorialArtists) {
+    const meta = getEditorialArtistMeta(artist.slug);
+    for (const rawTag of meta.tags) {
+      const slug = slugifyEntity(rawTag);
+      if (!slug) continue;
+      if (!merged.has(slug)) {
+        merged.set(slug, {
+          name: rawTag,
+          exhibitions: [],
+          editorialArtists: editorialArtistsForTagSlug(slug),
+        });
+      }
+    }
+  }
+  return merged;
 }
 
 // URL builders — kept in one place so the ExhibitionDetail renderer and

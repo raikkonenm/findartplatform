@@ -127,7 +127,7 @@ const ENTITY_LINK_CLASS =
 // style: 1→"X"; 2→"X and Y"; 3+→comma-separated.
 function joinEntityLinks(kind: "gallery" | "artist" | "curator" | "photographer", raws: string[]): React.ReactNode {
   const nodes = raws.map((raw) => (
-    <Link key={raw} href={entityHref(kind, raw)} className={ENTITY_LINK_CLASS}>
+    <Link key={raw} href={entityHref(kind, raw)} target="_blank" rel="noopener noreferrer" className={ENTITY_LINK_CLASS}>
       {displayPersonText(raw) ?? raw}
     </Link>
   ));
@@ -146,7 +146,12 @@ function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
   const venue = displayMetadataText(rawVenue);
   const venueNode = rawVenue && venue
     ? (
-      <Link href={entityHref("gallery", rawVenue)} className={ENTITY_LINK_CLASS}>
+      <Link
+        href={entityHref("gallery", rawVenue)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={ENTITY_LINK_CLASS}
+      >
         {venue}
       </Link>
     )
