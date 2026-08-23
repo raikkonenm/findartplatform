@@ -10,6 +10,7 @@ const EYEBROW: Record<EntityKind, string> = {
   gallery: "Gallery / Venue",
   artist: "Artist",
   curator: "Curator",
+  photographer: "Photographer",
 };
 
 export function renderEntityPage({
@@ -69,7 +70,9 @@ export function entityMetadata({
       ? "Gallery / venue"
       : kind === "artist"
         ? "Artist"
-        : "Curator";
+        : kind === "curator"
+          ? "Curator"
+          : "Photographer";
   const count = entry.exhibitions.length;
   const title = `${entry.name} — ${kindLabel} on FindArt`;
   const description = `${count} exhibition${count === 1 ? "" : "s"} on FindArt Platform associated with ${entry.name}.`;

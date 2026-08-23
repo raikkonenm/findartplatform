@@ -13,7 +13,7 @@ export function slugifyEntity(name: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-export type EntityKind = "gallery" | "artist" | "curator";
+export type EntityKind = "gallery" | "artist" | "curator" | "photographer";
 
 // Split a curator string ("A, B and C" / "A, B, C") into individual names.
 export function splitCuratorString(value: string): string[] {
@@ -31,6 +31,8 @@ function collectRaw(kind: EntityKind, exhibition: Exhibition): string[] {
       return exhibition.artists ?? [];
     case "curator":
       return exhibition.curator ? splitCuratorString(exhibition.curator) : [];
+    case "photographer":
+      return exhibition.photographer ? splitCuratorString(exhibition.photographer) : [];
   }
 }
 
