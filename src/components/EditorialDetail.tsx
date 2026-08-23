@@ -6,6 +6,7 @@ import {
   getRelatedEditorialArtists,
   type EditorialArtist,
 } from "@/data/editorial";
+import { entityHref } from "@/lib/entitySlugs";
 import { SaveExhibitionButton } from "./SavedExhibitions";
 
 export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
@@ -49,13 +50,26 @@ export function EditorialDetail({ artist }: { artist: EditorialArtist }) {
         <dl className="divide-y divide-neutral-200 border-y border-neutral-200 self-start">
           <div className="grid grid-cols-[100px_1fr] gap-4 py-4 md:grid-cols-[120px_1fr] md:gap-6">
             <dt className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Artist</dt>
-            <dd className="text-[14px] leading-relaxed">{artist.artistName}</dd>
+            <dd className="text-[14px] leading-relaxed">
+              <Link
+                href={entityHref("artist", artist.artistName)}
+                className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-60"
+              >
+                {artist.artistName}
+              </Link>
+            </dd>
           </div>
           <div className="grid grid-cols-[100px_1fr] gap-4 py-4 md:grid-cols-[120px_1fr] md:gap-6">
             <dt className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Tags</dt>
             <dd className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.14em] text-neutral-800">
               {meta.tags.map((tag) => (
-                <span key={tag}>{tag}</span>
+                <Link
+                  key={tag}
+                  href={entityHref("tag", tag)}
+                  className="underline decoration-neutral-300 decoration-1 underline-offset-[3px] transition-opacity hover:opacity-60"
+                >
+                  {tag}
+                </Link>
               ))}
             </dd>
           </div>
