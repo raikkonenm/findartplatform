@@ -266,6 +266,80 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // --- New additions 2026-08-23 (batch 2) ---
+  {
+    slug: "rama-torcida-paulina-mellado",
+    title: "Rama torcida",
+    subtitle: "Paulina Mellado",
+    venue: "MAC — Museo de Arte Contemporáneo",
+    gallery: "MAC — Museo de Arte Contemporáneo",
+    city: "Santiago",
+    country: "Chile",
+    year: "2026",
+    dates: "24 April — 23 August 2026",
+    startDate: "24 April 2026",
+    endDate: "23 August 2026",
+    dateSource: "exhibition",
+    artists: ["Paulina Mellado"],
+    photographer: "Courtesy of the artist and MAC, Santiago",
+    source: "Artviewer",
+    sourceUrl: "https://artviewer.org/paulina-mellado-at-mac-santiago/",
+    description: `Paulina Mellado creates immersive installations that engage with landscape and environmental crisis. Her practice evolved from delicate sculptural constructions using natural materials — branches, fibres and wires — into expansive, spatial environments that envelop viewers rather than remaining distant artworks.
+
+The exhibition proposes an overflowing, aqueous material future addressing climate catastrophe through fountains, aquariums, sculptures and panels. Rather than observing nature from a distance, Mellado's work positions viewers within accelerated, unstable environments, reflecting our immersion in environmental upheaval.
+
+As critic Javier González Pesce notes, "the landscape of the future is an infinite storm." The installation functions as an integrated system — a place, an environment, much like a forest or the interior of a cloud — inviting sensory experience within a speculative vision of future nature shaped by scientific and environmental concerns.`,
+    previewImage: localExhibitionImage("RAMA TORCIDA", "1.webp"),
+    heroImage: localExhibitionImage("RAMA TORCIDA", "1.webp"),
+    images: localExhibitionGallery(
+      "RAMA TORCIDA",
+      Array.from({ length: 18 }, (_, i) => `${i + 1}.webp`),
+      "vertical",
+    ),
+  },
+  {
+    slug: "subsurface-povilanskaite-schweers",
+    title: "Subsurface",
+    subtitle: "Emilija Povilanskaitė and Clara Schweers",
+    venue: "MO Museum",
+    gallery: "MO Museum",
+    city: "Vilnius",
+    country: "Lithuania",
+    year: "2026",
+    dateSource: "exhibition",
+    artists: ["Emilija Povilanskaitė", "Clara Schweers"],
+    description: `Subsurface (2025) — borosilicate glass, neon, argon, xenon gas.
+
+A collaborative installation by Emilija Povilanskaitė and Clara Schweers exploring tensions between technological, geological and biological fields. At the heart of the work is an embryo suspended within a three-layered glass structure that houses it, glowing with neon gas that evokes the heat of magma, the radiance of the sun and the spark of new life.`,
+    previewImage: localExhibitionImage("красное", "1.webp"),
+    heroImage: localExhibitionImage("красное", "1.webp"),
+    images: localExhibitionGallery(
+      "красное",
+      Array.from({ length: 4 }, (_, i) => `${i + 1}.webp`),
+      "vertical",
+    ),
+  },
+  {
+    slug: "mouth-sarah-friend",
+    title: "Mouth",
+    subtitle: "Sarah Friend",
+    year: "2026",
+    dateSource: "exhibition",
+    artists: ["Sarah Friend"],
+    photographer: "Jerzy Goliszewski",
+    description: `Mouth presents a new sculpture by Sarah Friend, woven from data-centre materials: internet cables, patch panels, aluminium and hundreds of zip ties.
+
+Working between contemporary art and software development, Friend transforms the hidden infrastructure of the digital world into a dense, bodily form. What once transmitted information is stripped of its function and reassembled into something that hovers between machine and organism.`,
+    previewImage: localExhibitionImage("зеленое", "1.webp"),
+    heroImage: localExhibitionImage("зеленое", "1.webp"),
+    images: localExhibitionGallery(
+      "зеленое",
+      Array.from({ length: 9 }, (_, i) => `${i + 1}.webp`),
+      "vertical",
+      "Jerzy Goliszewski",
+    ),
+  },
+  // --- end batch 2 ---
   // --- New additions 2026-08-23 ---
   {
     slug: "the-jewel-box-nanna-starck",
