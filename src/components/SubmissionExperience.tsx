@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GUIDELINES, SubmissionForm } from "./SubmissionForm";
+import { SubmissionForm } from "./SubmissionForm";
 import { RelatedExhibitionsRow, trackSubmissionEvent } from "./SubmissionInfoPanel";
 
 type SubmitPageType = "exhibition" | "artist" | "index";
@@ -67,59 +67,56 @@ export function SubmissionExperience() {
   // Single centered reading column. Related exhibitions strip lives at
   // the bottom rather than as a sidebar so nothing competes with the
   // form for horizontal attention.
+  // Two sections:
+  //   - Centered narrow reading column for the form + copy.
+  //   - Full-width Related Exhibitions strip below, aligned to the
+  //     page's outer padding so it starts at the left edge.
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
-      <div>
-        <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Open Submission</p>
-        <h1 className="editorial-serif mt-3 text-[clamp(1.5rem,3.4vw,2.2rem)] uppercase leading-[1.02] tracking-[-0.02em] text-neutral-900">
-          {content.heading}
-        </h1>
-      </div>
-
-      <label className="block">
-        <span className="mb-2 block text-[10px] uppercase tracking-[0.28em] text-neutral-500">
-          I want submit
-        </span>
-        <div className="relative">
-          <select
-            value={submissionType}
-            onChange={(event) => handleTypeChange(event.target.value as SubmitPageType)}
-            className="w-full cursor-pointer appearance-none border border-neutral-300 bg-white px-5 py-4 pr-12 text-[15px] text-neutral-900 outline-none transition-colors hover:border-neutral-500 focus:border-neutral-900"
-          >
-            {SUBMISSION_TYPES.map((option) => (
-              <option key={option} value={option}>
-                {CONTENT[option].optionLabel}
-              </option>
-            ))}
-          </select>
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[10px] text-neutral-500"
-          >
-            ▼
-          </span>
+    <>
+      <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
+        <div>
+          <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Open Submission</p>
+          <h1 className="editorial-serif mt-3 text-[clamp(1.5rem,3.4vw,2.2rem)] uppercase leading-[1.02] tracking-[-0.02em] text-neutral-900">
+            {content.heading}
+          </h1>
         </div>
-      </label>
 
-      <aside className="border border-neutral-200 bg-neutral-50 px-5 py-5">
-        <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
-        <ul className="mt-4 space-y-1.5 text-[13px] leading-6 text-neutral-600">
-          {GUIDELINES[submissionType].map((line) => (
-            <li key={line}>{line}</li>
-          ))}
-        </ul>
-      </aside>
+        <label className="block">
+          <span className="mb-2 block text-[10px] uppercase tracking-[0.28em] text-neutral-500">
+            I want submit
+          </span>
+          <div className="relative">
+            <select
+              value={submissionType}
+              onChange={(event) => handleTypeChange(event.target.value as SubmitPageType)}
+              className="w-full cursor-pointer appearance-none border border-neutral-300 bg-white px-5 py-4 pr-12 text-[15px] text-neutral-900 outline-none transition-colors hover:border-neutral-500 focus:border-neutral-900"
+            >
+              {SUBMISSION_TYPES.map((option) => (
+                <option key={option} value={option}>
+                  {CONTENT[option].optionLabel}
+                </option>
+              ))}
+            </select>
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[10px] text-neutral-500"
+            >
+              ▼
+            </span>
+          </div>
+        </label>
 
-      <div className="space-y-2 text-[15px] leading-[1.6] text-neutral-700 md:text-[16px]">
-        <p>{content.intro}</p>
-        {content.secondaryIntro && (
-          <p className="text-neutral-600">{content.secondaryIntro}</p>
-        )}
+        <div className="space-y-2 text-[15px] leading-[1.6] text-neutral-700 md:text-[16px]">
+          <p>{content.intro}</p>
+          {content.secondaryIntro && (
+            <p className="text-neutral-600">{content.secondaryIntro}</p>
+          )}
+        </div>
+
+        <SubmissionForm key={submissionType} submissionType={submissionType} />
       </div>
-
-      <SubmissionForm key={submissionType} submissionType={submissionType} />
 
       <RelatedExhibitionsRow submissionType={submissionType} />
-    </div>
+    </>
   );
 }

@@ -482,6 +482,15 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
           : `${SUBMISSION_FEES[submissionType]} submission fee`}
       </p>
 
+      <aside className="mt-4 border border-neutral-200 bg-neutral-50 px-5 py-5">
+        <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
+        <ul className="mt-4 space-y-1.5 text-[13px] leading-6 text-neutral-600">
+          {GUIDELINES[submissionType].map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      </aside>
+
       {status === "success" && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
           {GUMROAD_URLS[submissionType]

@@ -26,23 +26,29 @@ function track(event: string, params: Record<string, unknown> = {}) {
   }
 }
 
-// Three real slugs per submission type, pulled from the archive.
-// Displayed as a small horizontal row under the form.
+// Real slugs from the archive, shown as a full-width strip beneath the
+// form. Up to five fit in a row on desktop.
 const RELATED_SLUGS: Record<SubmitPageType, string[]> = {
   exhibition: [
     "tangerine-reverie",
     "rot-summer",
     "techno-worlds-final-sampling",
+    "the-jewel-box-nanna-starck",
+    "call-me-gravity-wiels",
   ],
   artist: [
     "nymphenbrunnen",
     "a-flower-is-growing-inside-me-nils-alix-tabeling",
     "the-jewel-box-nanna-starck",
+    "ancient-girl-starter-pack-mikulas-zimula",
+    "flood-hannah-rowan",
   ],
   index: [
     "tangerine-reverie",
     "rot-summer",
     "techno-worlds-final-sampling",
+    "the-jewel-box-nanna-starck",
+    "call-me-gravity-wiels",
   ],
 };
 
@@ -58,11 +64,11 @@ export function RelatedExhibitionsRow({
   if (exhibitions.length === 0) return null;
 
   return (
-    <section className="mt-10 border-t border-neutral-200 pt-8">
+    <section className="mt-14 border-t border-neutral-200 pt-8">
       <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">
         Related exhibitions
       </p>
-      <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-5">
+      <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 md:gap-5 lg:grid-cols-5">
         {exhibitions.map((exhibition) => {
           const displayTitle = displayExhibitionTitle(exhibition.title);
           const image = exhibition.coverImage ?? exhibition.previewImage;
