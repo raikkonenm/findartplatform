@@ -17,6 +17,7 @@ import {
   type TreeItem,
 } from "./github";
 import { assertProductionPublishAllowed, githubConfig } from "./env";
+import { readPrivateDraftBlob } from "./drafts";
 import { endMarker, renderExhibitionSeed, startMarker } from "./seedTemplate";
 import type { Draft, DraftImage } from "./types";
 
@@ -88,11 +89,7 @@ async function buildTreeItems(
 
   // Image blobs — each downloaded from the private Blob draft.
   for (const image of selectedImages) {
-    const response = await fetch(image.blobUrl, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`Draft image ${image.filename} unavailable (HTTP ${response.status})`);
-    }
-    const buffer = Buffer.from(await response.arrayBuffer());
+    const buffer = await readPrivateDraftBlob(image.blobUrl);
     const blob = await createBlob(buffer);
     items.push({
       path: `public/exhibitions/${draft.normalized.slug}/${image.filename}`,

@@ -1,11 +1,9 @@
 // Draft storage backed by Vercel Blob.
 //
 // All draft data — JSON metadata and downloaded WebP images — lives in
-// the ingest bot's private Blob store. `access: "public"` is what the
-// Vercel Blob SDK exposes; the bucket itself is scoped by
-// BLOB_READ_WRITE_TOKEN, and Blob URLs are unguessable UUID paths.
-// We still use `random-suffix` names to prevent enumeration and never
-// share Blob URLs with anyone except the operator's own Telegram chat.
+// the ingest bot's private Blob store. Server reads use the Blob token;
+// Telegram previews receive a short-lived signed URL rather than a raw
+// private object URL.
 //
 // Layout:
 //   drafts/<uuid>.json                — Draft metadata
@@ -14,7 +12,7 @@
 // The publisher promotes selected images from Blob to git under
 // public/exhibitions/<slug>/ on publish.
 
-import { del, list, put } from "@vercel/blob";
+import { del, get, issueSignedToken, list, presignUrl, put } from "@vercel/blob";
 import { blobReadWriteToken } from "./env";
 import type { Draft } from "./types";
 
@@ -26,10 +24,14 @@ function metadataKey(id: string): string {
   return `drafts/${id}.json`;
 }
 
+function pathnameFromBlobUrl(blobUrl: string): string {
+  return new URL(blobUrl).pathname.replace(/^\//, "");
+}
+
 export async function saveDraft(draft: Draft): Promise<Draft> {
   const next: Draft = { ...draft, updatedAt: new Date().toISOString() };
   await put(metadataKey(draft.id), JSON.stringify(next, null, 2), {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,   // deterministic key so we can update in place
     contentType: "application/json",
     allowOverwrite: true,
@@ -39,15 +41,19 @@ export async function saveDraft(draft: Draft): Promise<Draft> {
 }
 
 export async function getDraft(id: string): Promise<Draft | undefined> {
-  // Blob doesn't expose a direct fetch-by-key without listing; we look
-  // it up via list() then fetch the resolved URL over HTTPS.
+  // Blob doesn't expose a direct fetch-by-key without listing; resolve the
+  // Blob first, then read it with server-side private access.
   const key = metadataKey(id);
   const entries = await list({ prefix: key, ...token() });
   const match = entries.blobs.find((b) => b.pathname === key);
   if (!match) return undefined;
-  const response = await fetch(match.url, { cache: "no-store" });
-  if (!response.ok) return undefined;
-  return (await response.json()) as Draft;
+  const result = await get(match.url, {
+    access: "private",
+    useCache: false,
+    ...token(),
+  });
+  if (!result || result.statusCode !== 200 || !result.stream) return undefined;
+  return JSON.parse(await new Response(result.stream).text()) as Draft;
 }
 
 export async function uploadDraftImage(
@@ -56,13 +62,43 @@ export async function uploadDraftImage(
   data: Buffer,
 ): Promise<{ url: string; size: number }> {
   const result = await put(`drafts/${draftId}/images/${filename}`, data, {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
     contentType: "image/webp",
     allowOverwrite: true,
     ...token(),
   });
   return { url: result.url, size: data.byteLength };
+}
+
+export async function readPrivateDraftBlob(blobUrl: string): Promise<Buffer> {
+  const result = await get(blobUrl, {
+    access: "private",
+    useCache: false,
+    ...token(),
+  });
+  if (!result || result.statusCode !== 200 || !result.stream) {
+    throw new Error("Private draft asset is unavailable");
+  }
+  return Buffer.from(await new Response(result.stream).arrayBuffer());
+}
+
+export async function draftPreviewUrl(blobUrl: string): Promise<string> {
+  const pathname = pathnameFromBlobUrl(blobUrl);
+  const validUntil = Date.now() + 15 * 60 * 1000;
+  const signedToken = await issueSignedToken({
+    pathname,
+    operations: ["get"],
+    validUntil,
+    ...token(),
+  });
+  const { presignedUrl } = await presignUrl(signedToken, {
+    access: "private",
+    operation: "get",
+    pathname,
+    validUntil,
+  });
+  return presignedUrl;
 }
 
 // Called by REJECT and by successful PUBLISH to clean up. Best-effort;

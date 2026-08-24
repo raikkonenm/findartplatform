@@ -32,7 +32,7 @@ import { fetchPage, ManualReviewRequiredError } from "@/lib/ingest/fetchPage";
 import { normalizeScrape } from "@/lib/ingest/normalize";
 import { downloadImages } from "@/lib/ingest/images";
 import { detectDuplicate } from "@/lib/ingest/duplicate";
-import { deleteDraftAssets, getDraft, saveDraft } from "@/lib/ingest/drafts";
+import { deleteDraftAssets, draftPreviewUrl, getDraft, saveDraft } from "@/lib/ingest/drafts";
 import { publishDraft } from "@/lib/ingest/publish";
 import type { Draft, ScrapeResult, ScrapedImage } from "@/lib/ingest/types";
 
@@ -167,7 +167,7 @@ async function handleMessage(message: TgMessage): Promise<void> {
   const coverPreview = cover
     ? await sendPhoto({
         chat_id: chatId,
-        photo: cover.blobUrl,
+        photo: await draftPreviewUrl(cover.blobUrl),
         caption: draftReviewCaption(draft),
         parse_mode: "HTML",
       })
@@ -242,7 +242,7 @@ async function handleCallback(callback: TgCallback): Promise<void> {
         message_id: updated.telegramCoverMessageId,
         media: {
           type: "photo",
-          media: cover.blobUrl,
+          media: await draftPreviewUrl(cover.blobUrl),
           caption: draftReviewCaption(updated),
           parse_mode: "HTML",
         },
@@ -256,7 +256,7 @@ async function handleCallback(callback: TgCallback): Promise<void> {
         message_id: callback.message.message_id,
         media: {
           type: "photo",
-          media: cover.blobUrl,
+          media: await draftPreviewUrl(cover.blobUrl),
           caption: draftReviewCaption(updated),
           parse_mode: "HTML",
         },
