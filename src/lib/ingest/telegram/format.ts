@@ -47,7 +47,9 @@ export function draftPreviewText(draft: Draft): string {
   lines.push("");
 
   lines.push("Description:");
-  lines.push(escapeHtml(n.description));
+  // Telegram messages are capped at 4096 characters. The complete source
+  // text remains in the draft for publishing; preview shows a concise slice.
+  lines.push(escapeHtml(shortDescription(n.description, 1200)));
 
   if (draft.warnings.length > 0) {
     lines.push("");
