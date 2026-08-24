@@ -4,6 +4,16 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  // The ingest webhook processes source images with Sharp. Keep the native
+  // module external and explicitly trace its platform packages into the
+  // Vercel serverless function instead of trying to bundle the binary.
+  serverExternalPackages: ["sharp"],
+  outputFileTracingIncludes: {
+    "/api/telegram/webhook": [
+      "./node_modules/sharp/**/*",
+      "./node_modules/@img/**/*",
+    ],
+  },
   images: {
     // Route through Vercel's image optimizer. Sources are already q80
     // WebP averaging ~46 KB after the shrink pass, so per-variant
