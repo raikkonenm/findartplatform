@@ -404,7 +404,6 @@ export function normalizeDeterministically(scrape: ScrapeResult): NormalizationR
     artists: artists.length > 0 ? artists : undefined,
     curator,
     photographer,
-    exhibitionText: description,
     description,
     tags,
     source: scrape.source,
