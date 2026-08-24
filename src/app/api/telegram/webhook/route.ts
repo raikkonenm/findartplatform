@@ -27,7 +27,7 @@ import {
   reviewKeyboard,
   statusText,
 } from "@/lib/ingest/telegram/format";
-import { fetchPage } from "@/lib/ingest/fetchPage";
+import { fetchPage, ManualReviewRequiredError } from "@/lib/ingest/fetchPage";
 import { normalizeScrape } from "@/lib/ingest/normalize";
 import { downloadImages } from "@/lib/ingest/images";
 import { detectDuplicate } from "@/lib/ingest/duplicate";
@@ -128,6 +128,15 @@ async function handleMessage(message: TgMessage): Promise<void> {
   try {
     draft = await ingest(url, chatId);
   } catch (error) {
+    if (error instanceof ManualReviewRequiredError) {
+      await editMessageText({
+        chat_id: chatId,
+        message_id: ack.message_id,
+        text: `⚠️ ${escapeUser(error.message)}`,
+        disable_web_page_preview: true,
+      });
+      return;
+    }
     await editMessageText({
       chat_id: chatId,
       message_id: ack.message_id,
