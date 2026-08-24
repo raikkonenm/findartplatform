@@ -1,6 +1,7 @@
 "use client";
 
-import { type FormEvent, type ReactNode, useState } from "react";
+import { type FormEvent, type ReactNode, useRef, useState } from "react";
+import { trackSubmissionEvent } from "./SubmissionInfoPanel";
 
 export type SubmissionType = "exhibition" | "artist" | "opportunity" | "index" | "contribute";
 
@@ -239,27 +240,41 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
   const [indexFields, setIndexFields] = useState<IndexFields>(emptyIndexFields);
   const [contributeFields, setContributeFields] = useState<ContributeFields>(emptyContributeFields);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  // Fire submit_form_started once per submission-type mount, when the
+  // user touches any field. Kept behind a ref so a single field change
+  // doesn't emit a repeat event.
+  const formStartedRef = useRef(false);
+  function noteFormStarted() {
+    if (formStartedRef.current) return;
+    formStartedRef.current = true;
+    trackSubmissionEvent("submit_form_started", { submission_type: submissionType });
+  }
 
   function updateExhibitionField<Key extends keyof ExhibitionFields>(
     key: Key,
     value: ExhibitionFields[Key],
   ) {
+    noteFormStarted();
     setExhibitionFields((current) => ({ ...current, [key]: value }));
   }
 
   function updateArtistField<Key extends keyof ArtistFields>(key: Key, value: ArtistFields[Key]) {
+    noteFormStarted();
     setArtistFields((current) => ({ ...current, [key]: value }));
   }
 
   function updateOpportunityField<Key extends keyof OpportunityFields>(key: Key, value: OpportunityFields[Key]) {
+    noteFormStarted();
     setOpportunityFields((current) => ({ ...current, [key]: value }));
   }
 
   function updateIndexField<Key extends keyof IndexFields>(key: Key, value: IndexFields[Key]) {
+    noteFormStarted();
     setIndexFields((current) => ({ ...current, [key]: value }));
   }
 
   function updateContributeField<Key extends keyof ContributeFields>(key: Key, value: ContributeFields[Key]) {
+    noteFormStarted();
     setContributeFields((current) => ({ ...current, [key]: value }));
   }
 
@@ -351,12 +366,18 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
       }
 
       setStatus("success");
+      trackSubmissionEvent("submit_form_completed", { submission_type: submissionType });
       const gumroadUrl = GUMROAD_URLS[submissionType];
       if (gumroadUrl) {
+        trackSubmissionEvent("submit_payment_started", {
+          submission_type: submissionType,
+          provider: "gumroad",
+        });
         window.location.href = gumroadUrl;
       }
     } catch {
       setStatus("error");
+      trackSubmissionEvent("submit_form_error", { submission_type: submissionType });
     }
   }
 
