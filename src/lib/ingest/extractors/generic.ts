@@ -73,6 +73,18 @@ export function extractGeneric({
   // --- Image candidates ---
   const candidates: ScrapedImage[] = [];
   const seenSrcs = new Set<string>();
+
+  // The source's Open Graph image is usually the editorially selected
+  // representation of the exhibition. Put it first so the downstream media
+  // pipeline can make it the default cover when it passes validation.
+  if (og.image) {
+    const abs = absoluteUrl(url, og.image);
+    if (abs) {
+      seenSrcs.add(abs);
+      candidates.push({ url: abs, reason: "og:image" });
+    }
+  }
+
   container.find("img").each((_, el) => {
     const src =
       $(el).attr("data-lazy-src") ||
@@ -86,11 +98,6 @@ export function extractGeneric({
     const height = Number.parseInt($(el).attr("height") ?? "", 10) || undefined;
     candidates.push({ url: abs, width, height, alt: $(el).attr("alt") ?? undefined });
   });
-  // Also treat og:image as a candidate — often the cover.
-  if (og.image) {
-    const abs = absoluteUrl(url, og.image);
-    if (abs && !seenSrcs.has(abs)) candidates.push({ url: abs, reason: "og:image" });
-  }
 
   return {
     sourceUrl: url,

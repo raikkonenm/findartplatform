@@ -15,10 +15,18 @@ import { randomUUID } from "node:crypto";
 import { isAllowedUser, verifySecretHeader } from "@/lib/ingest/telegram/auth";
 import {
   answerCallbackQuery,
+  editMessageCaption,
+  editMessageMedia,
   editMessageText,
+  sendPhoto,
   sendMessage,
 } from "@/lib/ingest/telegram/api";
-import { draftPreviewText, reviewKeyboard, statusText } from "@/lib/ingest/telegram/format";
+import {
+  draftReviewCaption,
+  draftPreviewText,
+  reviewKeyboard,
+  statusText,
+} from "@/lib/ingest/telegram/format";
 import { fetchPage } from "@/lib/ingest/fetchPage";
 import { normalizeScrape } from "@/lib/ingest/normalize";
 import { downloadImages } from "@/lib/ingest/images";
@@ -129,19 +137,31 @@ async function handleMessage(message: TgMessage): Promise<void> {
     return;
   }
 
-  // Send the preview as a fresh message so the ack stays as history.
-  const preview = await sendMessage({
-    chat_id: chatId,
-    text: draftPreviewText(draft),
-    parse_mode: "HTML",
-    disable_web_page_preview: true,
-    reply_markup: reviewKeyboard(draft.id),
-  });
+  // Send the selected cover as the review message when possible. The
+  // callback keyboard stays attached to this message so the operator can see
+  // and replace the cover without leaving Telegram.
+  const cover = selectedCover(draft);
+  const preview = cover
+    ? await sendPhoto({
+        chat_id: chatId,
+        photo: cover.blobUrl,
+        caption: draftReviewCaption(draft),
+        parse_mode: "HTML",
+        reply_markup: reviewKeyboard(draft),
+      })
+    : await sendMessage({
+        chat_id: chatId,
+        text: draftPreviewText(draft),
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+        reply_markup: reviewKeyboard(draft),
+      });
 
   await saveDraft({
     ...draft,
     telegramChatId: chatId,
     telegramMessageId: preview.message_id,
+    telegramPreviewKind: cover ? "photo" : "text",
   });
 }
 
@@ -171,6 +191,50 @@ async function handleCallback(callback: TgCallback): Promise<void> {
       text: "Draft not found",
       show_alert: true,
     });
+    return;
+  }
+
+  if (action === "cover-prev" || action === "cover-next") {
+    if (draft.state !== "pending_review") {
+      await answerCallbackQuery({
+        callback_query_id: callback.id,
+        text: "Cover can only be changed before publishing",
+        show_alert: true,
+      });
+      return;
+    }
+
+    const updated = moveCover(draft, action === "cover-next" ? 1 : -1);
+    if (!updated) {
+      await answerCallbackQuery({ callback_query_id: callback.id, text: "No alternate cover" });
+      return;
+    }
+
+    await saveDraft(updated);
+    const cover = selectedCover(updated);
+    if (cover && updated.telegramPreviewKind === "photo") {
+      await editMessageMedia({
+        chat_id: callback.message.chat.id,
+        message_id: callback.message.message_id,
+        media: {
+          type: "photo",
+          media: cover.blobUrl,
+          caption: draftReviewCaption(updated),
+          parse_mode: "HTML",
+        },
+        reply_markup: reviewKeyboard(updated),
+      });
+    } else {
+      await editMessageText({
+        chat_id: callback.message.chat.id,
+        message_id: callback.message.message_id,
+        text: draftPreviewText(updated),
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+        reply_markup: reviewKeyboard(updated),
+      });
+    }
+    await answerCallbackQuery({ callback_query_id: callback.id, text: "Cover updated" });
     return;
   }
 
@@ -205,13 +269,12 @@ async function handleCallback(callback: TgCallback): Promise<void> {
 
     const publishing: Draft = { ...draft, state: "publishing" };
     await saveDraft(publishing);
-    await editMessageText({
-      chat_id: callback.message.chat.id,
-      message_id: callback.message.message_id,
-      text: statusText("⏳ Publishing", publishing),
-      parse_mode: "HTML",
-      disable_web_page_preview: true,
-    });
+    await updateReviewMessage(
+      publishing,
+      callback.message.chat.id,
+      callback.message.message_id,
+      statusText("⏳ Publishing", publishing),
+    );
 
     try {
       const result = await publishDraft(publishing);
@@ -224,15 +287,13 @@ async function handleCallback(callback: TgCallback): Promise<void> {
       await saveDraft(published);
       // Best-effort blob cleanup.
       await deleteDraftAssets(published.id);
-      await editMessageText({
-        chat_id: callback.message.chat.id,
-        message_id: callback.message.message_id,
-        text:
-          `${statusText("✅ Published", published)}\n` +
+      await updateReviewMessage(
+        published,
+        callback.message.chat.id,
+        callback.message.message_id,
+        `${statusText("✅ Published", published)}\n` +
           `<code>${escapeUser(result.commitSha.slice(0, 7))}</code> · attempts ${result.attempts}`,
-        parse_mode: "HTML",
-        disable_web_page_preview: true,
-      });
+      );
     } catch (error) {
       const failed: Draft = {
         ...publishing,
@@ -240,12 +301,12 @@ async function handleCallback(callback: TgCallback): Promise<void> {
         failureReason: (error as Error).message,
       };
       await saveDraft(failed);
-      await editMessageText({
-        chat_id: callback.message.chat.id,
-        message_id: callback.message.message_id,
-        text: `❌ Publish failed: ${escapeUser((error as Error).message)}`,
-        disable_web_page_preview: true,
-      });
+      await updateReviewMessage(
+        failed,
+        callback.message.chat.id,
+        callback.message.message_id,
+        `❌ Publish failed: ${escapeUser((error as Error).message)}`,
+      );
     }
     return;
   }
@@ -263,13 +324,12 @@ async function handleCallback(callback: TgCallback): Promise<void> {
     const rejected: Draft = { ...draft, state: "rejected" };
     await saveDraft(rejected);
     await deleteDraftAssets(draft.id);
-    await editMessageText({
-      chat_id: callback.message.chat.id,
-      message_id: callback.message.message_id,
-      text: statusText("🗑 Rejected", rejected),
-      parse_mode: "HTML",
-      disable_web_page_preview: true,
-    });
+    await updateReviewMessage(
+      rejected,
+      callback.message.chat.id,
+      callback.message.message_id,
+      statusText("🗑 Rejected", rejected),
+    );
     return;
   }
 
@@ -327,4 +387,54 @@ function escapeUser(value: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .slice(0, 500);
+}
+
+function selectedCover(draft: Draft) {
+  const selected = draft.images.filter((image) => image.selected);
+  return selected.find((image) => image.cover) ?? selected[0];
+}
+
+function moveCover(draft: Draft, direction: 1 | -1): Draft | undefined {
+  const selected = draft.images.filter((image) => image.selected);
+  if (selected.length < 2) return undefined;
+
+  const currentIndex = Math.max(0, selected.findIndex((image) => image.cover));
+  const nextIndex = (currentIndex + direction + selected.length) % selected.length;
+  const nextFilename = selected[nextIndex].filename;
+
+  return {
+    ...draft,
+    images: draft.images.map((image) => ({
+      ...image,
+      cover: image.selected && image.filename === nextFilename,
+    })),
+  };
+}
+
+async function updateReviewMessage(
+  draft: Draft,
+  chatId: number,
+  messageId: number,
+  text: string,
+): Promise<void> {
+  const emptyKeyboard = { inline_keyboard: [] };
+  if (draft.telegramPreviewKind === "photo") {
+    await editMessageCaption({
+      chat_id: chatId,
+      message_id: messageId,
+      caption: text,
+      parse_mode: "HTML",
+      reply_markup: emptyKeyboard,
+    });
+    return;
+  }
+
+  await editMessageText({
+    chat_id: chatId,
+    message_id: messageId,
+    text,
+    parse_mode: "HTML",
+    disable_web_page_preview: true,
+    reply_markup: emptyKeyboard,
+  });
 }

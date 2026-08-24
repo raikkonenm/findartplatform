@@ -73,6 +73,30 @@ export function editMessageText(params: {
   return call("editMessageText", params);
 }
 
+export function editMessageCaption(params: {
+  chat_id: number;
+  message_id: number;
+  caption: string;
+  parse_mode?: "HTML" | "MarkdownV2";
+  reply_markup?: InlineKeyboard;
+}): Promise<unknown> {
+  return call("editMessageCaption", params);
+}
+
+export function editMessageMedia(params: {
+  chat_id: number;
+  message_id: number;
+  media: {
+    type: "photo";
+    media: string;
+    caption?: string;
+    parse_mode?: "HTML" | "MarkdownV2";
+  };
+  reply_markup?: InlineKeyboard;
+}): Promise<unknown> {
+  return call("editMessageMedia", params);
+}
+
 export function answerCallbackQuery(params: {
   callback_query_id: string;
   text?: string;

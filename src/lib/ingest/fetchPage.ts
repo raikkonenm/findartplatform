@@ -59,16 +59,15 @@ export function filterImageCandidates(candidates: ScrapedImage[]): ScrapedImage[
     if (seen.has(image.url)) continue;
     if (!/^https?:\/\//i.test(image.url)) continue;
     const lower = image.url.toLowerCase();
+    const alt = image.alt?.toLowerCase() ?? "";
+    const imageLabel = `${lower} ${alt}`;
     if (
-      lower.includes("/logo") ||
-      lower.includes("/favicon") ||
-      lower.includes("/avatar") ||
-      lower.includes("/gravatar") ||
+      /(?:^|[\/_\-.])(logo|favicon|icon|avatar|profile|author|header|footer|menu|navigation)(?:[\/_\-.]|$)/.test(imageLabel) ||
       lower.endsWith(".svg") ||
       lower.includes("/wp-includes/") ||
       lower.includes("/wp-content/plugins/") ||
       lower.includes("/emoji/") ||
-      /\bnav(igation)?\b/.test(lower)
+      /\bnav(igation)?\b/.test(imageLabel)
     ) {
       continue;
     }

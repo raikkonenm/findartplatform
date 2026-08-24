@@ -25,6 +25,7 @@ async function downloadImage(url: string): Promise<Buffer> {
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const contentType = response.headers.get("content-type") ?? "";
   if (!contentType.startsWith("image/")) throw new Error(`Not an image (${contentType})`);
+  if (contentType.includes("svg")) throw new Error("SVG is not a publishable raster image");
   const arrayBuffer = await response.arrayBuffer();
   return Buffer.from(arrayBuffer);
 }

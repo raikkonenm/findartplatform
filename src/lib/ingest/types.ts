@@ -65,6 +65,7 @@ export type Draft = {
   confidence?: number;            // 0..1 rough Claude self-report
   telegramChatId?: number;
   telegramMessageId?: number;
+  telegramPreviewKind?: "photo" | "text";
   publishedCommitSha?: string;
   publishedAt?: string;
   failureReason?: string;
