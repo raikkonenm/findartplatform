@@ -137,31 +137,32 @@ async function handleMessage(message: TgMessage): Promise<void> {
     return;
   }
 
-  // Send the selected cover as the review message when possible. The
-  // callback keyboard stays attached to this message so the operator can see
-  // and replace the cover without leaving Telegram.
+  // Send the selected cover first, then attach the callback keyboard to a
+  // normal text message. Telegram supports inline keyboards on media, but a
+  // dedicated review message makes the controls reliable across clients.
   const cover = selectedCover(draft);
-  const preview = cover
+  const coverPreview = cover
     ? await sendPhoto({
         chat_id: chatId,
         photo: cover.blobUrl,
         caption: draftReviewCaption(draft),
         parse_mode: "HTML",
-        reply_markup: reviewKeyboard(draft),
       })
-    : await sendMessage({
-        chat_id: chatId,
-        text: draftPreviewText(draft),
-        parse_mode: "HTML",
-        disable_web_page_preview: true,
-        reply_markup: reviewKeyboard(draft),
-      });
+    : undefined;
+  const preview = await sendMessage({
+    chat_id: chatId,
+    text: draftPreviewText(draft),
+    parse_mode: "HTML",
+    disable_web_page_preview: true,
+    reply_markup: reviewKeyboard(draft),
+  });
 
   await saveDraft({
     ...draft,
     telegramChatId: chatId,
     telegramMessageId: preview.message_id,
-    telegramPreviewKind: cover ? "photo" : "text",
+    telegramPreviewKind: "text",
+    telegramCoverMessageId: coverPreview?.message_id,
   });
 }
 
@@ -212,7 +213,21 @@ async function handleCallback(callback: TgCallback): Promise<void> {
 
     await saveDraft(updated);
     const cover = selectedCover(updated);
-    if (cover && updated.telegramPreviewKind === "photo") {
+    if (cover && updated.telegramCoverMessageId) {
+      await editMessageMedia({
+        chat_id: callback.message.chat.id,
+        message_id: updated.telegramCoverMessageId,
+        media: {
+          type: "photo",
+          media: cover.blobUrl,
+          caption: draftReviewCaption(updated),
+          parse_mode: "HTML",
+        },
+      });
+    }
+
+    if (updated.telegramPreviewKind === "photo" && cover) {
+      // Supports review messages created by the earlier media-only preview.
       await editMessageMedia({
         chat_id: callback.message.chat.id,
         message_id: callback.message.message_id,

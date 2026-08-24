@@ -66,6 +66,7 @@ export type Draft = {
   telegramChatId?: number;
   telegramMessageId?: number;
   telegramPreviewKind?: "photo" | "text";
+  telegramCoverMessageId?: number;
   publishedCommitSha?: string;
   publishedAt?: string;
   failureReason?: string;
