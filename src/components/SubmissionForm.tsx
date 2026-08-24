@@ -5,21 +5,16 @@ import { trackSubmissionEvent } from "./SubmissionInfoPanel";
 
 export type SubmissionType = "exhibition" | "artist" | "opportunity" | "index" | "contribute";
 
+// Simplified exhibition submission — Name / Email / Download Link /
+// Message. Everything the archive used to collect via many fields
+// (artists, venue, dates, photo credit, exhibition text …) is expected
+// to live inside the linked Dropbox / Drive / WeTransfer folder and
+// the optional Message body.
 type ExhibitionFields = {
   name: string;
   email: string;
-  exhibitionTitle: string;
-  artists: string;
-  curators: string;
-  venueLocation: string;
-  openingDate: string;
-  closingDate: string;
-  instagram: string;
-  photoCredit: string;
-  documentationLink: string;
-  websiteLink: string;
-  exhibitionText: string;
-  notes: string;
+  downloadLink: string;
+  message: string;
 };
 
 type ArtistFields = {
@@ -69,18 +64,8 @@ type ContributeFields = {
 const emptyExhibitionFields: ExhibitionFields = {
   name: "",
   email: "",
-  exhibitionTitle: "",
-  artists: "",
-  curators: "",
-  venueLocation: "",
-  openingDate: "",
-  closingDate: "",
-  instagram: "",
-  photoCredit: "",
-  documentationLink: "",
-  websiteLink: "",
-  exhibitionText: "",
-  notes: "",
+  downloadLink: "",
+  message: "",
 };
 
 const emptyArtistFields: ArtistFields = {
@@ -233,6 +218,68 @@ function TextAreaField({
   );
 }
 
+// Bold-label + heavy black-bordered field. Used only for the
+// simplified exhibition submission; every other type keeps the
+// standard underline Field style.
+function BoxedField({
+  label,
+  placeholder,
+  type = "text",
+  required = false,
+  value,
+  onChange,
+}: FieldProps) {
+  return (
+    <label className="block">
+      <span className="block text-[15px] font-bold text-neutral-900">
+        {label}
+        {required && <span aria-hidden="true"> *</span>}
+      </span>
+      <input
+        type={type}
+        placeholder={placeholder}
+        required={required}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className="mt-3 block w-full border-[1.5px] border-neutral-900 bg-white px-4 py-3.5 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
+      />
+    </label>
+  );
+}
+
+function BoxedTextArea({
+  label,
+  placeholder,
+  rows,
+  required = false,
+  value,
+  onChange,
+}: {
+  label: string;
+  placeholder: string;
+  rows: number;
+  required?: boolean;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className="block">
+      <span className="block text-[15px] font-bold text-neutral-900">
+        {label}
+        {required && <span aria-hidden="true"> *</span>}
+      </span>
+      <textarea
+        placeholder={placeholder}
+        rows={rows}
+        required={required}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className="mt-3 block w-full resize-y border-[1.5px] border-neutral-900 bg-white px-4 py-3 text-[15px] leading-6 text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
+      />
+    </label>
+  );
+}
+
 export function SubmissionForm({ submissionType }: { submissionType: SubmissionType }) {
   const [exhibitionFields, setExhibitionFields] = useState<ExhibitionFields>(emptyExhibitionFields);
   const [artistFields, setArtistFields] = useState<ArtistFields>(emptyArtistFields);
@@ -285,18 +332,8 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
           submissionType,
           Name: exhibitionFields.name,
           Email: exhibitionFields.email,
-          "Exhibition Title": exhibitionFields.exhibitionTitle,
-          Artists: exhibitionFields.artists,
-          "Curator(s) (optional)": exhibitionFields.curators,
-          "Venue / City / Country": exhibitionFields.venueLocation,
-          "Opening Date": exhibitionFields.openingDate,
-          "Closing Date": exhibitionFields.closingDate,
-          "Instagram (artist or venue)": exhibitionFields.instagram,
-          "Photo Credit": exhibitionFields.photoCredit,
-          "Documentation Link": exhibitionFields.documentationLink,
-          "Website Link (optional)": exhibitionFields.websiteLink,
-          "Exhibition Text": exhibitionFields.exhibitionText,
-          "Notes (optional)": exhibitionFields.notes,
+          "Download Link": exhibitionFields.downloadLink,
+          Message: exhibitionFields.message,
         };
       case "artist":
         return {
@@ -399,28 +436,38 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
       onSubmit={submitForm}
     >
       {submissionType === "exhibition" ? (
-        <>
-          <div className="grid md:grid-cols-2 md:gap-x-8">
-            <Field label="Name" placeholder="Your name" required value={exhibitionFields.name} onChange={(value) => updateExhibitionField("name", value)} />
-            <Field label="Email" placeholder="Email address" type="email" required value={exhibitionFields.email} onChange={(value) => updateExhibitionField("email", value)} />
-          </div>
-          <Field label="Exhibition Title" placeholder="Title" required value={exhibitionFields.exhibitionTitle} onChange={(value) => updateExhibitionField("exhibitionTitle", value)} />
-          <div className="grid md:grid-cols-2 md:gap-x-8">
-            <Field label="Artists" placeholder="Artist name(s)" required value={exhibitionFields.artists} onChange={(value) => updateExhibitionField("artists", value)} />
-            <Field label="Curator(s) (optional)" placeholder="Curator name(s)" value={exhibitionFields.curators} onChange={(value) => updateExhibitionField("curators", value)} />
-          </div>
-          <Field label="Venue / City / Country" placeholder="Venue / City / Country" required value={exhibitionFields.venueLocation} onChange={(value) => updateExhibitionField("venueLocation", value)} />
-          <div className="grid md:grid-cols-2 md:gap-x-8">
-            <Field label="Opening Date" placeholder="DD / MM / YYYY" required value={exhibitionFields.openingDate} onChange={(value) => updateExhibitionField("openingDate", value)} />
-            <Field label="Closing Date" placeholder="DD / MM / YYYY" required value={exhibitionFields.closingDate} onChange={(value) => updateExhibitionField("closingDate", value)} />
-          </div>
-          <div className="grid md:grid-cols-2 md:gap-x-8">
-            <Field label="Instagram (artist or venue)" placeholder="@username" value={exhibitionFields.instagram} onChange={(value) => updateExhibitionField("instagram", value)} />
-            <Field label="Photo Credit" placeholder="Photo credit" value={exhibitionFields.photoCredit} onChange={(value) => updateExhibitionField("photoCredit", value)} />
-          </div>
-          <Field label={<>Documentation Link (Dropbox / Google Drive &mdash; non-expiring link)</>} placeholder="https://" type="url" required value={exhibitionFields.documentationLink} onChange={(value) => updateExhibitionField("documentationLink", value)} />
-          <TextAreaField label="Exhibition Text (press release or short description)" placeholder="Your text" rows={5} required value={exhibitionFields.exhibitionText} onChange={(value) => updateExhibitionField("exhibitionText", value)} />
-        </>
+        <div className="space-y-6">
+          <BoxedField
+            label="Name"
+            placeholder=""
+            required
+            value={exhibitionFields.name}
+            onChange={(value) => updateExhibitionField("name", value)}
+          />
+          <BoxedField
+            label="Email"
+            placeholder=""
+            type="email"
+            required
+            value={exhibitionFields.email}
+            onChange={(value) => updateExhibitionField("email", value)}
+          />
+          <BoxedField
+            label="Download Link (Dropbox, Drive, We Transfer Link, etc)"
+            placeholder=""
+            type="url"
+            required
+            value={exhibitionFields.downloadLink}
+            onChange={(value) => updateExhibitionField("downloadLink", value)}
+          />
+          <BoxedTextArea
+            label="Message (Optional)"
+            placeholder=""
+            rows={5}
+            value={exhibitionFields.message}
+            onChange={(value) => updateExhibitionField("message", value)}
+          />
+        </div>
       ) : submissionType === "artist" ? (
         <>
           <div className="grid md:grid-cols-2 md:gap-x-8">

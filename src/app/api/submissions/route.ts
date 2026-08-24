@@ -16,21 +16,13 @@ type SubmissionType = typeof SUBMISSION_TYPES extends Set<infer T> ? T : never;
 // Field lists per type — the API sanitises + validates against these,
 // so submissions can't smuggle arbitrary keys or skip required fields.
 const FIELDS: Record<SubmissionType, readonly string[]> = {
+  // Simplified exhibition submission: everything else lives inside the
+  // Download Link and Message fields.
   exhibition: [
     "Name",
     "Email",
-    "Exhibition Title",
-    "Artists",
-    "Curator(s) (optional)",
-    "Venue / City / Country",
-    "Opening Date",
-    "Closing Date",
-    "Instagram (artist or venue)",
-    "Photo Credit",
-    "Documentation Link",
-    "Website Link (optional)",
-    "Exhibition Text",
-    "Notes (optional)",
+    "Download Link",
+    "Message",
   ],
   artist: [
     "Name",
@@ -73,13 +65,7 @@ const REQUIRED: Record<SubmissionType, readonly string[]> = {
   exhibition: [
     "Name",
     "Email",
-    "Exhibition Title",
-    "Artists",
-    "Venue / City / Country",
-    "Opening Date",
-    "Closing Date",
-    "Documentation Link",
-    "Exhibition Text",
+    "Download Link",
   ],
   artist: [
     "Name",
@@ -117,7 +103,7 @@ const REQUIRED: Record<SubmissionType, readonly string[]> = {
 function subjectFor(type: SubmissionType, payload: Record<string, string>): string {
   switch (type) {
     case "exhibition":
-      return `New FindArt Exhibition Submission — ${payload["Exhibition Title"] || payload.Name}`;
+      return `New FindArt Exhibition Submission — ${payload.Name}`;
     case "artist":
       return `New ArtNomads Artist Submission — ${payload.Name}`;
     case "opportunity":
