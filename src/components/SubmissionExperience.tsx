@@ -19,7 +19,7 @@ const CONTENT: Record<SubmitPageType, {
 }> = {
   exhibition: {
     optionLabel: "Exhibition",
-    heading: "SUBMIT TO FINDART",
+    heading: "SUBMIT EXHIBITION TO FINDART",
     intro:
       "Submit your exhibition to FindArt Platform — an international contemporary art archive documenting exhibitions across galleries, institutions and independent spaces worldwide.",
     secondaryIntro:

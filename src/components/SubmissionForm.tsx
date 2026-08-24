@@ -189,7 +189,7 @@ function Field({
   onChange,
 }: FieldProps) {
   return (
-    <label className="block border-b border-neutral-200 pb-5 pt-6 text-[10px] uppercase tracking-[0.26em] text-neutral-700">
+    <label className="block border-b border-neutral-200 pb-2.5 pt-3 text-[10px] uppercase tracking-[0.24em] text-neutral-700">
       {label}
       <input
         type={type}
@@ -197,7 +197,7 @@ function Field({
         required={required}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="mt-4 block w-full border-0 bg-transparent p-0 text-[15px] normal-case tracking-normal text-neutral-900 outline-none placeholder:text-neutral-400"
+        className="mt-1.5 block w-full border-0 bg-transparent p-0 text-[14px] normal-case tracking-normal text-neutral-900 outline-none placeholder:text-neutral-400"
       />
     </label>
   );
@@ -219,7 +219,7 @@ function TextAreaField({
   onChange: (value: string) => void;
 }) {
   return (
-    <label className="block border-b border-neutral-200 pb-5 pt-6 text-[10px] uppercase tracking-[0.26em] text-neutral-700">
+    <label className="block border-b border-neutral-200 pb-2.5 pt-3 text-[10px] uppercase tracking-[0.24em] text-neutral-700">
       {label}
       <textarea
         placeholder={placeholder}
@@ -227,7 +227,7 @@ function TextAreaField({
         required={required}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="mt-4 block w-full resize-none border-0 bg-transparent p-0 text-[15px] normal-case leading-7 tracking-normal text-neutral-900 outline-none placeholder:text-neutral-400"
+        className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-[14px] normal-case leading-6 tracking-normal text-neutral-900 outline-none placeholder:text-neutral-400"
       />
     </label>
   );
@@ -419,9 +419,7 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
             <Field label="Photo Credit" placeholder="Photo credit" value={exhibitionFields.photoCredit} onChange={(value) => updateExhibitionField("photoCredit", value)} />
           </div>
           <Field label={<>Documentation Link (Dropbox / Google Drive &mdash; non-expiring link)</>} placeholder="https://" type="url" required value={exhibitionFields.documentationLink} onChange={(value) => updateExhibitionField("documentationLink", value)} />
-          <Field label="Website Link (optional)" placeholder="https://" type="url" value={exhibitionFields.websiteLink} onChange={(value) => updateExhibitionField("websiteLink", value)} />
-          <TextAreaField label="Exhibition Text (press release or short description)" placeholder="Your text" rows={6} required value={exhibitionFields.exhibitionText} onChange={(value) => updateExhibitionField("exhibitionText", value)} />
-          <TextAreaField label="Notes (optional)" placeholder="Additional notes" rows={3} value={exhibitionFields.notes} onChange={(value) => updateExhibitionField("notes", value)} />
+          <TextAreaField label="Exhibition Text (press release or short description)" placeholder="Your text" rows={5} required value={exhibitionFields.exhibitionText} onChange={(value) => updateExhibitionField("exhibitionText", value)} />
         </>
       ) : submissionType === "artist" ? (
         <>
