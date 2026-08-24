@@ -34,6 +34,28 @@ async function call<T = unknown>(method: string, body: Record<string, unknown>):
 
 export type SentMessage = { message_id: number; chat: { id: number } };
 
+export type WebhookInfo = {
+  url: string;
+  pending_update_count?: number;
+  last_error_date?: number;
+  last_error_message?: string;
+  max_connections?: number;
+  allowed_updates?: string[];
+};
+
+export function setWebhook(params: {
+  url: string;
+  secret_token: string;
+  allowed_updates: string[];
+  drop_pending_updates?: boolean;
+}): Promise<unknown> {
+  return call("setWebhook", params);
+}
+
+export function getWebhookInfo(): Promise<WebhookInfo> {
+  return call<WebhookInfo>("getWebhookInfo", {});
+}
+
 export function sendMessage(params: {
   chat_id: number;
   text: string;
