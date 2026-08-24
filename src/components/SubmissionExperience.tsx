@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SubmissionForm } from "./SubmissionForm";
+import { GUIDELINES, SubmissionForm } from "./SubmissionForm";
 import { RelatedExhibitionsRow, trackSubmissionEvent } from "./SubmissionInfoPanel";
 
 type SubmitPageType = "exhibition" | "artist" | "index";
@@ -100,6 +100,15 @@ export function SubmissionExperience() {
           </span>
         </div>
       </label>
+
+      <aside className="border border-neutral-200 bg-neutral-50 px-5 py-5">
+        <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
+        <ul className="mt-4 space-y-1.5 text-[13px] leading-6 text-neutral-600">
+          {GUIDELINES[submissionType].map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      </aside>
 
       <div className="space-y-2 text-[15px] leading-[1.6] text-neutral-700 md:text-[16px]">
         <p>{content.intro}</p>

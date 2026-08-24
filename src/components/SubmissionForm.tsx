@@ -130,7 +130,7 @@ export const SUBMISSION_FEES: Record<SubmissionType, string> = {
   contribute: "Free",
 };
 
-const GUIDELINES: Record<SubmissionType, string[]> = {
+export const GUIDELINES: Record<SubmissionType, string[]> = {
   exhibition: [
     "Please include installation views and images of individual works.",
     "Images minimum 2000px.",
@@ -213,68 +213,6 @@ function TextAreaField({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-[14px] normal-case leading-6 tracking-normal text-neutral-900 outline-none placeholder:text-neutral-400"
-      />
-    </label>
-  );
-}
-
-// Bold-label + heavy black-bordered field. Used only for the
-// simplified exhibition submission; every other type keeps the
-// standard underline Field style.
-function BoxedField({
-  label,
-  placeholder,
-  type = "text",
-  required = false,
-  value,
-  onChange,
-}: FieldProps) {
-  return (
-    <label className="block">
-      <span className="block text-[15px] font-bold text-neutral-900">
-        {label}
-        {required && <span aria-hidden="true"> *</span>}
-      </span>
-      <input
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="mt-3 block w-full border-[1.5px] border-neutral-900 bg-white px-4 py-3.5 text-[15px] text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
-      />
-    </label>
-  );
-}
-
-function BoxedTextArea({
-  label,
-  placeholder,
-  rows,
-  required = false,
-  value,
-  onChange,
-}: {
-  label: string;
-  placeholder: string;
-  rows: number;
-  required?: boolean;
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  return (
-    <label className="block">
-      <span className="block text-[15px] font-bold text-neutral-900">
-        {label}
-        {required && <span aria-hidden="true"> *</span>}
-      </span>
-      <textarea
-        placeholder={placeholder}
-        rows={rows}
-        required={required}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="mt-3 block w-full resize-y border-[1.5px] border-neutral-900 bg-white px-4 py-3 text-[15px] leading-6 text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-900"
       />
     </label>
   );
@@ -436,38 +374,40 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
       onSubmit={submitForm}
     >
       {submissionType === "exhibition" ? (
-        <div className="space-y-6">
-          <BoxedField
-            label="Name"
-            placeholder=""
-            required
-            value={exhibitionFields.name}
-            onChange={(value) => updateExhibitionField("name", value)}
-          />
-          <BoxedField
-            label="Email"
-            placeholder=""
-            type="email"
-            required
-            value={exhibitionFields.email}
-            onChange={(value) => updateExhibitionField("email", value)}
-          />
-          <BoxedField
-            label="Download Link (Dropbox, Drive, We Transfer Link, etc)"
-            placeholder=""
+        <>
+          <div className="grid md:grid-cols-2 md:gap-x-8">
+            <Field
+              label="Name"
+              placeholder="Your name"
+              required
+              value={exhibitionFields.name}
+              onChange={(value) => updateExhibitionField("name", value)}
+            />
+            <Field
+              label="Email"
+              placeholder="Email address"
+              type="email"
+              required
+              value={exhibitionFields.email}
+              onChange={(value) => updateExhibitionField("email", value)}
+            />
+          </div>
+          <Field
+            label="Download Link (Dropbox, Drive, We Transfer, etc.)"
+            placeholder="https://"
             type="url"
             required
             value={exhibitionFields.downloadLink}
             onChange={(value) => updateExhibitionField("downloadLink", value)}
           />
-          <BoxedTextArea
-            label="Message (Optional)"
-            placeholder=""
+          <TextAreaField
+            label="Message (optional)"
+            placeholder="Anything else you'd like us to know."
             rows={5}
             value={exhibitionFields.message}
             onChange={(value) => updateExhibitionField("message", value)}
           />
-        </div>
+        </>
       ) : submissionType === "artist" ? (
         <>
           <div className="grid md:grid-cols-2 md:gap-x-8">
@@ -541,15 +481,6 @@ export function SubmissionForm({ submissionType }: { submissionType: SubmissionT
           ? "Free submission"
           : `${SUBMISSION_FEES[submissionType]} submission fee`}
       </p>
-
-      <aside className="mt-4 border border-neutral-200 bg-neutral-50 px-5 py-5">
-        <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-700">Guidelines</p>
-        <ul className="mt-4 space-y-1.5 text-[13px] leading-6 text-neutral-600">
-          {GUIDELINES[submissionType].map((line) => (
-            <li key={line}>{line}</li>
-          ))}
-        </ul>
-      </aside>
 
       {status === "success" && (
         <p aria-live="polite" className="mt-6 text-[13px] leading-6 text-neutral-700">
