@@ -276,33 +276,67 @@ async function handleCallback(callback: TgCallback): Promise<void> {
     return;
   }
 
-  // Idempotency guard — a double-tap on PUBLISH never creates two
-  // entries. `publishing` is the transitional state we set BEFORE
-  // touching GitHub, so a concurrent callback sees it and stops.
+  // The first PUBLISH tap only asks for confirmation. It never touches
+  // GitHub, so draft creation cannot turn into an accidental publication.
   if (action === "publish") {
-    if (draft.state === "published") {
+    if (draft.state !== "pending_review") {
       await answerCallbackQuery({
         callback_query_id: callback.id,
-        text: "Already published",
-      });
-      return;
-    }
-    if (draft.state === "publishing") {
-      await answerCallbackQuery({
-        callback_query_id: callback.id,
-        text: "Publish already in progress",
-      });
-      return;
-    }
-    if (draft.state === "rejected") {
-      await answerCallbackQuery({
-        callback_query_id: callback.id,
-        text: "Already rejected",
+        text: "This draft is no longer ready to publish",
+        show_alert: true,
       });
       return;
     }
 
-    // Ack fast, then do the atomic commit.
+    const confirmation: Draft = {
+      ...draft,
+      state: "awaiting_publish_confirmation",
+    };
+    await saveDraft(confirmation);
+    await editMessageText({
+      chat_id: callback.message.chat.id,
+      message_id: callback.message.message_id,
+      text: `${draftPreviewText(confirmation)}\n\n<b>Confirm publication?</b>`,
+      parse_mode: "HTML",
+      disable_web_page_preview: true,
+      reply_markup: reviewKeyboard(confirmation),
+    });
+    await answerCallbackQuery({ callback_query_id: callback.id, text: "Confirm publication" });
+    return;
+  }
+
+  if (action === "cancel-publish") {
+    if (draft.state !== "awaiting_publish_confirmation") {
+      await answerCallbackQuery({ callback_query_id: callback.id });
+      return;
+    }
+    const pending: Draft = { ...draft, state: "pending_review" };
+    await saveDraft(pending);
+    await editMessageText({
+      chat_id: callback.message.chat.id,
+      message_id: callback.message.message_id,
+      text: draftPreviewText(pending),
+      parse_mode: "HTML",
+      disable_web_page_preview: true,
+      reply_markup: reviewKeyboard(pending),
+    });
+    await answerCallbackQuery({ callback_query_id: callback.id, text: "Publication cancelled" });
+    return;
+  }
+
+  // Idempotency guard — a double-tap on CONFIRM PUBLISH never creates two
+  // entries. `publishing` is the transitional state we set BEFORE touching
+  // GitHub, so a concurrent callback sees it and stops.
+  if (action === "confirm-publish") {
+    if (draft.state !== "awaiting_publish_confirmation") {
+      await answerCallbackQuery({
+        callback_query_id: callback.id,
+        text: "Confirm publication from the current review message",
+        show_alert: true,
+      });
+      return;
+    }
+    // Ack fast, then do the atomic commit after explicit confirmation.
     await answerCallbackQuery({ callback_query_id: callback.id, text: "Publishing…" });
 
     const publishing: Draft = { ...draft, state: "publishing" };

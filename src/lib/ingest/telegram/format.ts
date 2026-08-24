@@ -113,6 +113,15 @@ export function reviewKeyboard(draft: Draft): InlineKeyboard {
       ]]
     : [];
 
+  if (draft.state === "awaiting_publish_confirmation") {
+    return {
+      inline_keyboard: [[
+        { text: "✅ CONFIRM PUBLISH", callback_data: `confirm-publish:${draft.id}` },
+        { text: "CANCEL", callback_data: `cancel-publish:${draft.id}` },
+      ]],
+    };
+  }
+
   return {
     inline_keyboard: [
       ...coverControls,

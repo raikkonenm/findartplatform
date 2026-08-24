@@ -6,6 +6,7 @@ import type { SemanticTag } from "@/data/exhibitions";
 
 export type DraftState =
   | "pending_review"
+  | "awaiting_publish_confirmation"
   | "rejected"
   | "publishing"
   | "published"
