@@ -20,7 +20,7 @@ import type { NormalizedExhibition, ScrapeResult } from "./types";
 import type { NormalizationResult } from "./normalizeResult";
 
 const RawExhibitionSchema = z.object({
-  title: z.string().min(1),
+  title: z.string().min(1).optional(),
   subtitle: z.string().optional(),
   venue: z.string().optional(),
   gallery: z.string().optional(),
@@ -34,7 +34,7 @@ const RawExhibitionSchema = z.object({
   curator: z.string().optional(),
   photographer: z.string().optional(),
   exhibitionText: z.string().optional(),
-  description: z.string().min(1),
+  description: z.string().min(1).optional(),
   summary: z.string().optional(),
   tags: z.array(z.string()).default([]),
   confidence: z.number().min(0).max(1).optional(),
@@ -53,7 +53,7 @@ Hard rules:
 - Return raw JSON only — no prose, no markdown fences.
 
 Fields:
-title (string, required)
+title (string, omit if the raw source does not clearly identify it)
 subtitle (short, optional — e.g. artist name or "Group show")
 venue, gallery (both should hold the same clean venue/institution name; leave empty if unclear)
 city, country (single names — no combined "City, Country")
@@ -63,7 +63,7 @@ startDate, endDate (human-readable date strings, e.g. "24 April 2026")
 artists (array of clean personal names — no @handles, expand ALL-CAPS)
 curator, photographer (comma-separated clean names when multiple)
 exhibitionText (name of the person who wrote the exhibition text, if credited)
-description (ORIGINAL 60–90 word paragraph in FindArt voice)
+description (ORIGINAL 60–90 word paragraph in FindArt voice; omit if there is not enough source material)
 summary (one sentence, ≤ 25 words)
 tags (subset of allowed list)
 confidence (0..1 self-report — how sure you are about the required fields)
@@ -132,25 +132,34 @@ export async function normalizeWithClaude(scrape: ScrapeResult): Promise<Normali
     warnings.push(`${droppedTagCount} tag(s) dropped — not in the allowed vocabulary.`);
   }
 
+  const title = raw.title?.trim();
   const city = normalizeCity(raw.city);
   const country = normalizeCountry(raw.country);
 
   const venue = raw.venue?.trim() || raw.gallery?.trim() || undefined;
   const gallery = venue;
 
-  const slug = slugifyEntity(raw.title.trim());
-  if (!slug) throw new Error("Could not derive a slug from the title.");
+  const fallbackSlug = slugifyEntity(new URL(scrape.sourceUrl).pathname) || "source";
+  const slug = slugifyEntity(title ?? `draft-${fallbackSlug}`) || `draft-${fallbackSlug}`;
 
   const artists = (raw.artists ?? [])
     .map((a) => a.trim())
     .filter((a) => a.length > 0);
+  if (!title) {
+    missingFields.push("title");
+    warnings.push("Claude could not confirm a title — manual review required before publishing.");
+  }
   if (artists.length === 0) missingFields.push("artists");
   if (!venue) missingFields.push("venue");
   if (!city) missingFields.push("city");
   if (!country) missingFields.push("country");
   if (!raw.year) missingFields.push("year");
 
-  const description = raw.description.trim();
+  const description = raw.description?.trim() || "No verified description was extracted. Manual review required before publication.";
+  if (!raw.description?.trim()) {
+    missingFields.push("description");
+    warnings.push("Claude could not confirm a description — manual review required before publishing.");
+  }
   if (description.length < 40) {
     warnings.push("Description looks unusually short — verify before publish.");
   }
@@ -163,7 +172,7 @@ export async function normalizeWithClaude(scrape: ScrapeResult): Promise<Normali
 
   const normalized: NormalizedExhibition = {
     slug,
-    title: raw.title.trim(),
+    title: title || "Untitled draft",
     subtitle: raw.subtitle?.trim() || undefined,
     venue,
     gallery,

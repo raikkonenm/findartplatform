@@ -6,6 +6,7 @@ import * as cheerio from "cheerio";
 import type { ScrapeResult, ScrapedImage } from "./types";
 import { extractArtViewer } from "./extractors/artviewer";
 import { extractGeneric } from "./extractors/generic";
+import { extractSaliva } from "./extractors/saliva";
 
 // Use the same request shape as a normal desktop document navigation. Several
 // publishers reject obvious bot user agents before serving their public HTML.
@@ -212,11 +213,49 @@ async function fetchBlockedPageMetadata(sourceUrl: string): Promise<ScrapeResult
   return (await fetchWordPressMetadata(sourceUrl)) ?? (await fetchRssMetadata(sourceUrl));
 }
 
+function salivaExhibitionId(url: URL): string | undefined {
+  if (url.hostname.replace(/^www\./, "") !== "saliva.live") return undefined;
+  const match = url.pathname.match(/^\/exhibitions\/([^/?#]+)\/?$/i);
+  return match?.[1];
+}
+
+async function fetchSalivaExhibition(url: string, id: string): Promise<ScrapeResult | undefined> {
+  try {
+    const response = await fetch("https://saliva.live/api/v1", {
+      method: "POST",
+      headers: {
+        ...BROWSER_HEADERS,
+        accept: "application/json, */*;q=0.8",
+        "content-type": "application/json",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+      },
+      body: JSON.stringify({ action: "get", payload: { id, type: "exhibition" } }),
+      cache: "no-store",
+      signal: AbortSignal.timeout(12_000),
+    });
+    if (!response.ok) return undefined;
+    const payload = (await response.json()) as { result?: { data?: unknown } };
+    if (!payload.result?.data || typeof payload.result.data !== "object") return undefined;
+    return extractSaliva({ url, data: payload.result.data });
+  } catch {
+    // The source's dedicated API is an optimization, not a single point of
+    // failure. Fall through to the normal HTML extractor below.
+    return undefined;
+  }
+}
+
 export async function fetchPage(url: string): Promise<ScrapeResult> {
   // Basic URL guard — bail early on non-http(s).
   const parsed = new URL(url);
   if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
     throw new Error(`Unsupported protocol: ${parsed.protocol}`);
+  }
+
+  const salivaId = salivaExhibitionId(parsed);
+  if (salivaId) {
+    const saliva = await fetchSalivaExhibition(url, salivaId);
+    if (saliva) return saliva;
   }
 
   const response = await fetch(url, {

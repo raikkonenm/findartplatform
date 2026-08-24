@@ -178,16 +178,15 @@ export function normalizeDeterministically(scrape: ScrapeResult): NormalizationR
   const ldEvent = findEventEntity(hints.jsonLd);
   const ldLocation = ldEvent ? readEventLocation(ldEvent) : {};
 
-  const title = firstString(
+  const extractedTitle = firstString(
     ldEvent?.name,
     hints.og?.title,
     hints.twitter?.title,
     scrape.title,
   );
-  if (!title) throw new Error("Deterministic ingest: no title on the page.");
-
-  const slug = slugifyEntity(title);
-  if (!slug) throw new Error("Deterministic ingest: could not derive a slug from the title.");
+  const title = extractedTitle ?? "Untitled draft";
+  const fallbackSlug = slugifyEntity(new URL(scrape.sourceUrl).pathname) || "source";
+  const slug = slugifyEntity(extractedTitle ?? `draft-${fallbackSlug}`) || `draft-${fallbackSlug}`;
 
   const artists = coerceStringArray(
     ldEvent?.performer ?? ldEvent?.performers ?? ldEvent?.artist,
@@ -210,6 +209,10 @@ export function normalizeDeterministically(scrape: ScrapeResult): NormalizationR
   // tags before publish, or re-run with mode=claude.
   const tags: NormalizedExhibition["tags"] = [];
 
+  if (!extractedTitle) {
+    missingFields.push("title");
+    warnings.push("Deterministic mode: no title found — manual review required before publishing.");
+  }
   if (artists.length === 0) missingFields.push("artists");
   if (!venue) missingFields.push("venue");
   if (!city) missingFields.push("city");

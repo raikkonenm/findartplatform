@@ -76,7 +76,7 @@ export type Draft = {
 export type ScrapeResult = {
   sourceUrl: string;
   source: string;              // e.g. "artviewer.org"
-  extractor: "artviewer" | "generic";
+  extractor: "artviewer" | "generic" | "saliva";
   title?: string;
   rawText: string;             // page's main textual content
   structuredHints: Record<string, unknown>;  // JSON-LD / OG / __NEXT_DATA__ blobs
