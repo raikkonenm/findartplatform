@@ -1,0 +1,82 @@
+// Tiny typed fetch wrapper around the Telegram Bot API. We deliberately
+// avoid an SDK — the four calls we use are small, and staying on
+// `fetch` keeps the edge/node compatibility unambiguous.
+
+import { telegramBotToken } from "../env";
+
+const BASE = "https://api.telegram.org";
+
+// InlineKeyboardMarkup with a single row of callback buttons, which
+// is all the ingest bot ever renders.
+export type InlineKeyboard = {
+  inline_keyboard: Array<Array<{
+    text: string;
+    callback_data: string;
+  }>>;
+};
+
+async function call<T = unknown>(method: string, body: Record<string, unknown>): Promise<T> {
+  const token = telegramBotToken();
+  const response = await fetch(`${BASE}/bot${token}/${method}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    cache: "no-store",
+  });
+  const json = (await response.json()) as { ok: boolean; result?: T; description?: string };
+  if (!response.ok || !json.ok) {
+    // Never surface the raw token in error text — the URL contains it.
+    // Description from Telegram is safe to include.
+    throw new Error(`Telegram ${method} failed: ${json.description ?? response.status}`);
+  }
+  return json.result as T;
+}
+
+export type SentMessage = { message_id: number; chat: { id: number } };
+
+export function sendMessage(params: {
+  chat_id: number;
+  text: string;
+  parse_mode?: "HTML" | "MarkdownV2";
+  disable_web_page_preview?: boolean;
+  reply_markup?: InlineKeyboard;
+}): Promise<SentMessage> {
+  return call<SentMessage>("sendMessage", params);
+}
+
+export function sendPhoto(params: {
+  chat_id: number;
+  photo: string;              // URL
+  caption?: string;
+  parse_mode?: "HTML" | "MarkdownV2";
+  reply_markup?: InlineKeyboard;
+}): Promise<SentMessage> {
+  return call<SentMessage>("sendPhoto", params);
+}
+
+export function editMessageReplyMarkup(params: {
+  chat_id: number;
+  message_id: number;
+  reply_markup?: InlineKeyboard;
+}): Promise<unknown> {
+  return call("editMessageReplyMarkup", params);
+}
+
+export function editMessageText(params: {
+  chat_id: number;
+  message_id: number;
+  text: string;
+  parse_mode?: "HTML" | "MarkdownV2";
+  disable_web_page_preview?: boolean;
+  reply_markup?: InlineKeyboard;
+}): Promise<unknown> {
+  return call("editMessageText", params);
+}
+
+export function answerCallbackQuery(params: {
+  callback_query_id: string;
+  text?: string;
+  show_alert?: boolean;
+}): Promise<unknown> {
+  return call("answerCallbackQuery", params);
+}
