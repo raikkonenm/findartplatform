@@ -6,6 +6,7 @@
 
 import {
   canonicalFacetValue,
+  exhibitionSlug,
   slugifyEntity,
 } from "@/lib/entitySlugs";
 import { semanticTags, type SemanticTag } from "@/data/exhibitions";
@@ -42,4 +43,4 @@ export function normalizeCountry(value: string | undefined): string | undefined 
   return canonicalFacetValue("country", trimmed);
 }
 
-export { slugifyEntity };
+export { exhibitionSlug, slugifyEntity };

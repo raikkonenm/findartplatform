@@ -18,6 +18,41 @@ export function slugifyEntity(name: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
+const MAX_PUBLISHED_SLUG_LENGTH = 80;
+
+function slugHash(value: string): string {
+  let hash = 5381;
+  for (const character of value) {
+    hash = (hash * 33) ^ character.charCodeAt(0);
+  }
+  return (hash >>> 0).toString(36);
+}
+
+// Published exhibition and author URLs need a hard upper bound. The hash
+// suffix keeps long, otherwise-identical titles from colliding after truncation.
+function boundedEntitySlug(value: string | undefined, fallback: string): string {
+  const base = slugifyEntity(value ?? "");
+  const deduplicated = Array.from(new Set(base.split("-").filter(Boolean))).join("-");
+  const candidate = deduplicated || slugifyEntity(fallback) || "untitled";
+
+  if (candidate.length <= MAX_PUBLISHED_SLUG_LENGTH) return candidate;
+
+  const suffix = slugHash(candidate);
+  const prefixLength = MAX_PUBLISHED_SLUG_LENGTH - suffix.length - 1;
+  return `${candidate.slice(0, prefixLength).replace(/-+$/g, "")}-${suffix}`;
+}
+
+// These are intentionally separate from the general taxonomy slug helper.
+// Exhibition routes are derived only from exhibition titles; author routes
+// only from a credited person's name.
+export function exhibitionSlug(title: string | undefined, fallback = "untitled-exhibition"): string {
+  return boundedEntitySlug(title, fallback);
+}
+
+export function authorSlug(name: string | undefined): string {
+  return boundedEntitySlug(name, "unknown-author");
+}
+
 export type EntityKind = "gallery" | "artist" | "curator" | "photographer" | "tag";
 
 // Courtesy / copyright statements identify the source of an image, not a
@@ -167,8 +202,11 @@ export function collectAuthorSlugs(): Map<
   const map = new Map<string, { name: string; exhibitions: Exhibition[] }>();
   for (const exhibition of exhibitions) {
     const raw = exhibition.exhibitionText?.trim();
-    if (!raw) continue;
-    const slug = slugifyEntity(raw);
+    // `exhibitionText` is a credited writer's name in this schema, never the
+    // exhibition description. Ignore malformed legacy data rather than
+    // generating author pages from arbitrary long-form copy.
+    if (!raw || raw.length > 160 || /[\r\n]/.test(raw) || raw.split(/\s+/).length > 16) continue;
+    const slug = authorSlug(raw);
     if (!slug) continue;
     const bucket = map.get(slug);
     if (bucket) {
@@ -188,7 +226,7 @@ export function getAuthorEntry(slug: string) {
 }
 
 export function authorHref(name: string): string {
-  return `/author/${slugifyEntity(name)}`;
+  return `/author/${authorSlug(name)}`;
 }
 
 // --- Exhibitions by city / country / year ---

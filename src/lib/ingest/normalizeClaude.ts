@@ -12,9 +12,9 @@ import { anthropicApiKey } from "./env";
 import { semanticTags } from "@/data/exhibitions";
 import {
   coerceTag,
+  exhibitionSlug,
   normalizeCity,
   normalizeCountry,
-  slugifyEntity,
 } from "./taxonomy";
 import type { NormalizedExhibition, ScrapeResult } from "./types";
 import type { NormalizationResult } from "./normalizeResult";
@@ -139,8 +139,8 @@ export async function normalizeWithClaude(scrape: ScrapeResult): Promise<Normali
   const venue = raw.venue?.trim() || raw.gallery?.trim() || undefined;
   const gallery = venue;
 
-  const fallbackSlug = slugifyEntity(new URL(scrape.sourceUrl).pathname) || "source";
-  const slug = slugifyEntity(title ?? `draft-${fallbackSlug}`) || `draft-${fallbackSlug}`;
+  const fallbackSlug = exhibitionSlug(new URL(scrape.sourceUrl).pathname, "source");
+  const slug = exhibitionSlug(title, `draft-${fallbackSlug}`);
 
   const artists = (raw.artists ?? [])
     .map((a) => a.trim())

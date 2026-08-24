@@ -15,7 +15,7 @@
 //     is available. This makes text-first Telegram drafts reviewable without
 //     requiring an AI rewrite.
 
-import { normalizeCity, normalizeCountry, slugifyEntity } from "./taxonomy";
+import { exhibitionSlug, normalizeCity, normalizeCountry } from "./taxonomy";
 import { semanticTags } from "@/data/exhibitions";
 import type { NormalizedExhibition, ScrapeResult } from "./types";
 import type { NormalizationResult } from "./normalizeResult";
@@ -332,8 +332,8 @@ export function normalizeDeterministically(scrape: ScrapeResult): NormalizationR
     firstHeading(scrape.rawText),
   );
   const title = extractedTitle ?? "Untitled draft";
-  const fallbackSlug = slugifyEntity(new URL(scrape.sourceUrl).pathname) || "source";
-  const slug = slugifyEntity(extractedTitle ?? `draft-${fallbackSlug}`) || `draft-${fallbackSlug}`;
+  const fallbackSlug = exhibitionSlug(new URL(scrape.sourceUrl).pathname, "source");
+  const slug = exhibitionSlug(extractedTitle, `draft-${fallbackSlug}`);
 
   const artists = [
     ...splitNames(fields.artists),
