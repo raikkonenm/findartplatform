@@ -79,11 +79,12 @@ export async function downloadImages(
     if (seenUrls.has(candidate.url)) continue;
     seenUrls.add(candidate.url);
 
+    const originalUrl = candidate.originalUrl ?? candidate.url;
     let raw: Buffer;
     try {
-      raw = await downloadImage(candidate.url);
+      raw = candidate.data ?? (await downloadImage(candidate.url));
     } catch (error) {
-      warnings.push(`Skipped ${candidate.url}: ${(error as Error).message}`);
+      warnings.push(`Skipped ${originalUrl}: ${(error as Error).message}`);
       continue;
     }
     const key = contentKey(raw);
@@ -94,13 +95,13 @@ export async function downloadImages(
     try {
       processed = await processToWebp(raw);
     } catch (error) {
-      warnings.push(`Skipped ${candidate.url}: ${(error as Error).message}`);
+      warnings.push(`Skipped ${originalUrl}: ${(error as Error).message}`);
       continue;
     }
 
     // Reject tiny images that only revealed their real size post-decode.
     if (processed.width < MIN_DIMENSION || processed.height < MIN_DIMENSION) {
-      warnings.push(`Skipped ${candidate.url}: below ${MIN_DIMENSION}px minimum`);
+      warnings.push(`Skipped ${originalUrl}: below ${MIN_DIMENSION}px minimum`);
       continue;
     }
 
@@ -108,7 +109,7 @@ export async function downloadImages(
     const filename = `${picked}.webp`;
     const uploaded = await uploadDraftImage(draftId, filename, processed.data);
     images.push({
-      originalUrl: candidate.url,
+      originalUrl,
       blobUrl: uploaded.url,
       filename,
       width: processed.width,

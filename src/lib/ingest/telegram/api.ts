@@ -56,6 +56,17 @@ export function getWebhookInfo(): Promise<WebhookInfo> {
   return call<WebhookInfo>("getWebhookInfo", {});
 }
 
+export async function downloadTelegramPhoto(fileId: string): Promise<Buffer> {
+  const file = await call<{ file_path?: string }>("getFile", { file_id: fileId });
+  if (!file.file_path) throw new Error("Telegram did not return an image file path");
+
+  const response = await fetch(`${BASE}/file/bot${telegramBotToken()}/${file.file_path}`, {
+    cache: "no-store",
+  });
+  if (!response.ok) throw new Error(`Telegram image download failed: HTTP ${response.status}`);
+  return Buffer.from(await response.arrayBuffer());
+}
+
 export function sendMessage(params: {
   chat_id: number;
   text: string;

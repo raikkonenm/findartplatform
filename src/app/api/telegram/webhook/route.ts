@@ -6,7 +6,7 @@
 //   - Never surface tokens or Blob URLs to the sender.
 //
 // Flow:
-//   message with a URL  → ingest pipeline → preview + [PUBLISH] [REJECT]
+//   message text + optional URL/photos → ingest pipeline → preview + controls
 //   callback publish    → atomic GitHub commit → success message
 //   callback reject     → mark rejected, best-effort clean Blob assets
 
@@ -18,6 +18,7 @@ import {
   editMessageCaption,
   editMessageMedia,
   editMessageText,
+  downloadTelegramPhoto,
   sendPhoto,
   sendMessage,
 } from "@/lib/ingest/telegram/api";
@@ -33,17 +34,30 @@ import { downloadImages } from "@/lib/ingest/images";
 import { detectDuplicate } from "@/lib/ingest/duplicate";
 import { deleteDraftAssets, getDraft, saveDraft } from "@/lib/ingest/drafts";
 import { publishDraft } from "@/lib/ingest/publish";
-import type { Draft } from "@/lib/ingest/types";
+import type { Draft, ScrapeResult, ScrapedImage } from "@/lib/ingest/types";
 
 export const runtime = "nodejs";
-// Give ourselves headroom for a fetch → Claude → image downloads pass.
+// Give ourselves headroom for a fetch → normalization → image downloads pass.
 // Vercel Hobby caps this at 60s regardless; the constant keeps intent clear.
 export const maxDuration = 300;
 
 // ---------- Telegram update shape (only the fields we read) ----------
 type TgUser = { id?: number };
 type TgChat = { id: number };
-type TgMessage = { message_id: number; from?: TgUser; chat: TgChat; text?: string };
+type TgPhoto = {
+  file_id: string;
+  width?: number;
+  height?: number;
+  file_size?: number;
+};
+type TgMessage = {
+  message_id: number;
+  from?: TgUser;
+  chat: TgChat;
+  text?: string;
+  caption?: string;
+  photo?: TgPhoto[];
+};
 type TgCallback = {
   id: string;
   from: TgUser;
@@ -96,37 +110,37 @@ async function handleMessage(message: TgMessage): Promise<void> {
   if (!isAllowedUser(userId)) return;
   const chatId = message.chat.id;
 
-  const text = message.text?.trim();
-  if (!text) return;
+  const text = (message.text ?? message.caption)?.trim() ?? "";
+  const hasPhoto = Boolean(message.photo?.length);
+  if (!text && !hasPhoto) return;
 
   // /start / /help hint so a fresh bot has an obvious entrypoint.
   if (text.startsWith("/start") || text.startsWith("/help")) {
     await sendMessage({
       chat_id: chatId,
       text:
-        "Send me an exhibition or artist URL. I'll scrape it, ask Claude to normalize it, and reply with a preview + PUBLISH / REJECT.",
+        "Send exhibition text, optionally with a source URL and photos. I'll create a deterministic draft and reply with a cover preview + PUBLISH / REJECT.",
       disable_web_page_preview: true,
     });
     return;
   }
 
   const url = firstUrl(text);
-  if (!url) {
-    await sendMessage({ chat_id: chatId, text: "No URL found in that message." });
-    return;
-  }
+  const telegramImages = await telegramPhotoCandidates(message.photo);
 
   // Acknowledge fast so the user sees the pipeline started.
   const ack = await sendMessage({
     chat_id: chatId,
-    text: `⏳ Ingesting ${url}\nFetching → Claude → images…`,
+    text: url
+      ? `⏳ Ingesting ${url}\nFetching → deterministic draft → images…`
+      : "⏳ Creating a draft from your text and images…",
     disable_web_page_preview: true,
   });
 
   // Ingest.
   let draft: Draft;
   try {
-    draft = await ingest(url, chatId);
+    draft = await ingest({ url, rawText: text, imageCandidates: telegramImages, chatId });
   } catch (error) {
     if (error instanceof ManualReviewRequiredError) {
       await editMessageText({
@@ -361,8 +375,30 @@ async function handleCallback(callback: TgCallback): Promise<void> {
 }
 
 // ---------- Ingest pipeline ----------
-async function ingest(url: string, chatId: number): Promise<Draft> {
-  const scrape = await fetchPage(url);
+async function ingest(input: {
+  url?: string;
+  rawText: string;
+  imageCandidates: ScrapedImage[];
+  chatId: number;
+}): Promise<Draft> {
+  const extracted = input.url ? await fetchPage(input.url) : undefined;
+  const pastedText = input.url
+    ? input.rawText.replace(input.url, "").trim()
+    : input.rawText;
+  const scrape: ScrapeResult = extracted
+    ? {
+        ...extracted,
+        rawText: [pastedText, extracted.rawText].filter(Boolean).join("\n\n"),
+        imageCandidates: [...input.imageCandidates, ...extracted.imageCandidates],
+      }
+    : {
+        sourceUrl: "https://t.me",
+        source: "telegram",
+        extractor: "telegram",
+        rawText: pastedText,
+        structuredHints: { telegram: { messageText: pastedText } },
+        imageCandidates: input.imageCandidates,
+      };
   const normalization = await normalizeScrape(scrape);
 
   const dupe = detectDuplicate(normalization.normalized);
@@ -389,7 +425,7 @@ async function ingest(url: string, chatId: number): Promise<Draft> {
   const draft: Draft = {
     id: draftId,
     state: "pending_review",
-    sourceUrl: url,
+    sourceUrl: input.url ?? "https://t.me",
     source: scrape.source,
     createdAt: now,
     updatedAt: now,
@@ -398,7 +434,7 @@ async function ingest(url: string, chatId: number): Promise<Draft> {
     warnings,
     missingFields: normalization.missingFields,
     confidence: normalization.confidence,
-    telegramChatId: chatId,
+    telegramChatId: input.chatId,
   };
   await saveDraft(draft);
   return draft;
@@ -411,6 +447,21 @@ function escapeUser(value: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .slice(0, 500);
+}
+
+async function telegramPhotoCandidates(photos: TgPhoto[] | undefined): Promise<ScrapedImage[]> {
+  const largest = photos?.at(-1);
+  if (!largest) return [];
+
+  const data = await downloadTelegramPhoto(largest.file_id);
+  return [{
+    url: `telegram:file:${largest.file_id}`,
+    originalUrl: `telegram:file:${largest.file_id}`,
+    data,
+    width: largest.width,
+    height: largest.height,
+    reason: "Telegram upload",
+  }];
 }
 
 function selectedCover(draft: Draft) {

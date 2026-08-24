@@ -1,9 +1,11 @@
-// Raw extractors collect page signals only. Claude is the single
-// normalization layer that decides which signals are title, dates, artists,
-// venue and other review-card fields.
+// Deterministic normalization is the ingest default. Claude is opt-in
+// enrichment only, so a missing key or exhausted account can never block
+// drafting from Telegram text, images, or a source URL.
 
-export type NormalizationMode = "claude";
+export type NormalizationMode = "deterministic" | "claude";
 
 export function normalizationMode(): NormalizationMode {
-  return "claude";
+  return process.env.INGEST_ENABLE_CLAUDE === "true" && Boolean(process.env.ANTHROPIC_API_KEY)
+    ? "claude"
+    : "deterministic";
 }

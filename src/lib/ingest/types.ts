@@ -76,7 +76,7 @@ export type Draft = {
 export type ScrapeResult = {
   sourceUrl: string;
   source: string;              // e.g. "artviewer.org"
-  extractor: "artviewer" | "generic" | "saliva";
+  extractor: "artviewer" | "generic" | "saliva" | "telegram";
   title?: string;
   rawText: string;             // page's main textual content
   structuredHints: Record<string, unknown>;  // JSON-LD / OG / __NEXT_DATA__ blobs
@@ -85,6 +85,11 @@ export type ScrapeResult = {
 
 export type ScrapedImage = {
   url: string;
+  // Telegram uploads are downloaded server-side before they reach the shared
+  // image pipeline. `originalUrl` is deliberately token-free and is what the
+  // draft keeps for traceability after publish.
+  originalUrl?: string;
+  data?: Buffer;
   width?: number;
   height?: number;
   alt?: string;

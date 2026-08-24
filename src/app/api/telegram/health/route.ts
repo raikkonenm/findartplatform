@@ -1,7 +1,7 @@
 // Health check for the ingest bot.
 //
 // Returns:
-//   - normalizationMode: "claude"
+//   - normalizationMode: "deterministic" or "claude"
 //   - githubTargetBranch: the actual target branch value (non-secret)
 //   - allowProductionPublish: boolean form of ALLOW_PRODUCTION_PUBLISH
 //   - env: presence booleans for every required env var (never the values)
@@ -28,7 +28,9 @@ const ALWAYS_REQUIRED = [
 
 export async function GET(request: Request) {
   const mode = normalizationMode();
-  const required = [...ALWAYS_REQUIRED, "ANTHROPIC_API_KEY"];
+  const required = mode === "claude"
+    ? [...ALWAYS_REQUIRED, "ANTHROPIC_API_KEY"]
+    : ALWAYS_REQUIRED;
   const env = Object.fromEntries(
     required.map((name) => [name, Boolean(process.env[name])]),
   );

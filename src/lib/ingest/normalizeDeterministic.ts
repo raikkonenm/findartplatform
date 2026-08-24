@@ -9,14 +9,14 @@
 // Rules:
 //   - NEVER invent a value. Missing fields stay missing and land in
 //     the missingFields report.
-//   - Tags default to empty. Deterministic tag inference is unreliable
-//     for FindArt's editorial vocabulary, so we don't guess. The
-//     operator can add tags manually before publish, or re-ingest in
-//     claude mode later.
-//   - Description falls back to a plain factual template built from
-//     what we did extract — never copies whole paragraphs from source.
+//   - Tags are inferred only when an approved term appears verbatim in the
+//     source. Anything uncertain stays empty for manual review.
+//   - The original source copy is preserved as the description whenever it
+//     is available. This makes text-first Telegram drafts reviewable without
+//     requiring an AI rewrite.
 
 import { normalizeCity, normalizeCountry, slugifyEntity } from "./taxonomy";
+import { semanticTags } from "@/data/exhibitions";
 import type { NormalizedExhibition, ScrapeResult } from "./types";
 import type { NormalizationResult } from "./normalizeResult";
 
@@ -117,6 +117,136 @@ function yearFromIso(value: string | undefined): string | undefined {
   return match?.[1];
 }
 
+type LabeledFields = Record<string, string | undefined>;
+
+const LABEL_ALIASES: Record<string, string> = {
+  title: "title",
+  "exhibition title": "title",
+  artist: "artists",
+  artists: "artists",
+  "artist(s)": "artists",
+  venue: "venue",
+  gallery: "venue",
+  city: "city",
+  country: "country",
+  location: "location",
+  date: "dates",
+  dates: "dates",
+  "opening date": "startDate",
+  "closing date": "endDate",
+  curator: "curator",
+  curators: "curator",
+  photo: "photographer",
+  photographer: "photographer",
+  "photo credit": "photographer",
+  tags: "tags",
+  description: "description",
+  "exhibition text": "description",
+  "press release": "description",
+};
+
+function readLabeledFields(rawText: string): LabeledFields {
+  const fields: LabeledFields = {};
+  const lines = rawText.split(/\r?\n/);
+  for (let index = 0; index < lines.length; index += 1) {
+    const match = lines[index].match(/^\s*([^:]{2,40}):\s*(.*?)\s*$/);
+    if (!match) continue;
+    const key = LABEL_ALIASES[match[1].trim().toLowerCase()];
+    if (!key || fields[key]) continue;
+
+    if (match[2]) {
+      fields[key] = match[2].trim();
+      continue;
+    }
+
+    const following: string[] = [];
+    for (let next = index + 1; next < lines.length; next += 1) {
+      const possibleLabel = lines[next].match(/^\s*([^:]{2,40}):\s*/)?.[1]?.trim().toLowerCase();
+      if (possibleLabel && LABEL_ALIASES[possibleLabel]) break;
+      if (lines[next].trim()) following.push(lines[next].trim());
+    }
+    if (following.length === 0) continue;
+    fields[key] = key === "description"
+      ? following.join("\n\n")
+      : key === "artists"
+        ? following.join(", ")
+        : following[0];
+  }
+  return fields;
+}
+
+function splitNames(value: string | undefined): string[] {
+  if (!value) return [];
+  return value
+    .split(/\s*(?:\n|\/|;|,|\band\b)\s*/i)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function firstHeading(rawText: string): string | undefined {
+  for (const line of rawText.split(/\r?\n/)) {
+    const candidate = line.trim();
+    if (!candidate || candidate.includes(":") || candidate.length > 110) continue;
+    if (/^[A-Z0-9À-ÖØ-Ý][A-Z0-9À-ÖØ-Ý\s'’!?.,()\-–—]+$/u.test(candidate)) {
+      return candidate;
+    }
+  }
+  return undefined;
+}
+
+function readLocation(value: string | undefined): { city?: string; country?: string } {
+  if (!value) return {};
+  const parts = value.split(",").map((part) => part.trim()).filter(Boolean);
+  if (parts.length < 2) return { city: parts[0] };
+  return { city: parts[0], country: parts[parts.length - 1] };
+}
+
+function dateSignals(rawText: string): {
+  dates?: string;
+  startDate?: string;
+  endDate?: string;
+  year?: string;
+} {
+  const normalized = rawText.replace(/\s+/g, " ");
+  const month = "(?:January|February|March|April|May|June|July|August|September|October|November|December)";
+  const date = `(?:\\d{1,2}\\s+${month}|${month}\\s+\\d{1,2})(?:,?\\s+\\d{4})?`;
+  const range = normalized.match(
+    new RegExp(`${date}\\s*(?:—|–|-|to|until)\\s*${date}`, "i"),
+  );
+  const dates = range?.[0]?.trim();
+  const tokens = (dates ?? normalized).match(new RegExp(date, "gi")) ?? [];
+  const fallbackDate = tokens[0];
+  const year = dates?.match(/\b(20\d{2})\b/)?.[1] ?? normalized.match(/\b(20\d{2})\b/)?.[1];
+  return {
+    dates: dates ?? fallbackDate,
+    startDate: tokens[0],
+    endDate: dates ? tokens[1] : undefined,
+    year,
+  };
+}
+
+function stripFieldLines(rawText: string): string {
+  return rawText
+    .split(/\r?\n/)
+    .filter((line) => {
+      const key = line.match(/^\s*([^:]{2,40}):/)?.[1]?.trim().toLowerCase();
+      return !key || !LABEL_ALIASES[key];
+    })
+    .join("\n")
+    .trim();
+}
+
+function inferTags(rawText: string, explicitTags?: string): NormalizedExhibition["tags"] {
+  const source = `${explicitTags ?? ""}\n${rawText}`;
+  const tags: NormalizedExhibition["tags"] = [];
+  for (const tag of semanticTags) {
+    const pattern = new RegExp(`(^|[^A-Z])${tag.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/ /g, "\\s+")}($|[^A-Z])`, "i");
+    if (pattern.test(source)) tags.push(tag);
+    if (tags.length === 5) break;
+  }
+  return tags;
+}
+
 // Build a factual, template-style description from whatever we have.
 // This is intentionally plain — the goal in deterministic mode is to
 // ship SOMETHING valid, not to produce editorial copy.
@@ -170,6 +300,17 @@ export function normalizeDeterministically(scrape: ScrapeResult): NormalizationR
     twitter?: Record<string, string>;
     jsonLd?: unknown[];
     firstParagraphs?: string[];
+    saliva?: {
+      title?: string;
+      dates?: { start?: unknown; end?: unknown };
+      artists?: string[];
+      curators?: string[];
+      photographers?: string[];
+      venue?: string;
+      city?: string;
+      country?: string;
+      keywords?: string[];
+    };
   };
 
   const warnings: string[] = [];
@@ -177,37 +318,51 @@ export function normalizeDeterministically(scrape: ScrapeResult): NormalizationR
 
   const ldEvent = findEventEntity(hints.jsonLd);
   const ldLocation = ldEvent ? readEventLocation(ldEvent) : {};
+  const fields = readLabeledFields(scrape.rawText);
+  const rawLocation = readLocation(fields.location);
+  const rawDates = dateSignals(fields.dates ?? scrape.rawText);
 
   const extractedTitle = firstString(
+    fields.title,
+    hints.saliva?.title,
     ldEvent?.name,
     hints.og?.title,
     hints.twitter?.title,
     scrape.title,
+    firstHeading(scrape.rawText),
   );
   const title = extractedTitle ?? "Untitled draft";
   const fallbackSlug = slugifyEntity(new URL(scrape.sourceUrl).pathname) || "source";
   const slug = slugifyEntity(extractedTitle ?? `draft-${fallbackSlug}`) || `draft-${fallbackSlug}`;
 
-  const artists = coerceStringArray(
-    ldEvent?.performer ?? ldEvent?.performers ?? ldEvent?.artist,
+  const artists = [
+    ...splitNames(fields.artists),
+    ...coerceStringArray(hints.saliva?.artists),
+    ...coerceStringArray(ldEvent?.performer ?? ldEvent?.performers ?? ldEvent?.artist),
+  ].filter((artist, index, all) => artist && all.indexOf(artist) === index);
+  const curator = firstString(
+    fields.curator,
+    hints.saliva?.curators?.join(", "),
+    ldEvent?.organizer && (ldEvent.organizer as LdEntity).name,
   );
-  const curator = firstString(ldEvent?.organizer && (ldEvent.organizer as LdEntity).name);
+  const photographer = firstString(fields.photographer, hints.saliva?.photographers?.join(", "));
 
-  const startIso = firstString(ldEvent?.startDate);
-  const endIso = firstString(ldEvent?.endDate);
-  const startDate = isoToDisplay(startIso);
-  const endDate = isoToDisplay(endIso);
-  const year = yearFromIso(startIso) ?? yearFromIso(endIso);
-  const dates = startDate && endDate ? `${startDate} — ${endDate}` : undefined;
+  const startIso = firstString(hints.saliva?.dates?.start, ldEvent?.startDate);
+  const endIso = firstString(hints.saliva?.dates?.end, ldEvent?.endDate);
+  const startDate = firstString(fields.startDate, isoToDisplay(startIso), rawDates.startDate);
+  const endDate = firstString(fields.endDate, isoToDisplay(endIso), rawDates.endDate);
+  const year = yearFromIso(startIso) ?? yearFromIso(endIso) ?? rawDates.year;
+  const dates = firstString(
+    fields.dates,
+    startDate && endDate ? `${startDate} — ${endDate}` : undefined,
+    rawDates.dates,
+  );
 
-  const venue = firstString(ldLocation.venue);
-  const city = normalizeCity(firstString(ldLocation.city));
-  const country = normalizeCountry(firstString(ldLocation.country));
+  const venue = firstString(fields.venue, hints.saliva?.venue, ldLocation.venue);
+  const city = normalizeCity(firstString(fields.city, hints.saliva?.city, ldLocation.city, rawLocation.city));
+  const country = normalizeCountry(firstString(fields.country, hints.saliva?.country, ldLocation.country, rawLocation.country));
 
-  // Deterministic tag inference is intentionally minimal — start empty
-  // so we never publish a wrong / hallucinated tag. Operator can add
-  // tags before publish, or re-run with mode=claude.
-  const tags: NormalizedExhibition["tags"] = [];
+  const tags = inferTags(scrape.rawText, fields.tags ?? hints.saliva?.keywords?.join(" "));
 
   if (!extractedTitle) {
     missingFields.push("title");
@@ -219,16 +374,16 @@ export function normalizeDeterministically(scrape: ScrapeResult): NormalizationR
   if (!country) missingFields.push("country");
   if (!year) missingFields.push("year");
 
-  // Description strategy — no LLM, no verbatim copy:
-  //   1. og:description if it exists and is short enough
-  //   2. otherwise a factual template built from what we extracted
+  // Preserve source copy for a text-first review draft. A compact metadata
+  // description or factual template is only used when there is no usable body.
   const ogDesc = firstString(hints.og?.description, hints.twitter?.description);
-  const description = ogDesc && ogDesc.length <= 320
-    ? ogDesc
-    : buildTemplateDescription({ title, artists, venue, city, country, dates, year });
+  const preservedDescription = firstString(fields.description, stripFieldLines(scrape.rawText));
+  const description = preservedDescription && preservedDescription.length >= 40
+    ? preservedDescription
+    : ogDesc ?? buildTemplateDescription({ title, artists, venue, city, country, dates, year });
 
   if (tags.length === 0) {
-    warnings.push("Deterministic mode: tags left empty — add manually or re-ingest with claude mode.");
+    warnings.push("No approved tags were found verbatim — add tags during manual review if needed.");
   }
   if (missingFields.length > 0) {
     warnings.push(`Deterministic mode: ${missingFields.length} field(s) missing (${missingFields.join(", ")}).`);
@@ -248,6 +403,8 @@ export function normalizeDeterministically(scrape: ScrapeResult): NormalizationR
     endDate,
     artists: artists.length > 0 ? artists : undefined,
     curator,
+    photographer,
+    exhibitionText: description,
     description,
     tags,
     source: scrape.source,
