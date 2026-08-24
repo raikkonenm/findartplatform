@@ -83,7 +83,7 @@ export function SubmissionExperience() {
   //   Desktop merges (1) + (3) into the left column and pins the panel
   //   sticky in the right column.
   return (
-    <div className="mx-auto w-full max-w-6xl md:grid md:grid-cols-[minmax(0,60fr)_minmax(0,40fr)] md:gap-16">
+    <div className="mx-auto w-full max-w-6xl md:grid md:grid-cols-[minmax(0,52fr)_minmax(0,48fr)] md:gap-16 lg:gap-20">
       {/* Slot 1 — heading + selector + intro. Left column on desktop. */}
       <div className="order-1 flex flex-col gap-8 md:col-start-1 md:row-start-1">
         <div>

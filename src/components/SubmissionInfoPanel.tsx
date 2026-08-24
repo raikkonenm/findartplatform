@@ -196,29 +196,7 @@ export function SubmissionInfoPanel({
 
   return (
     <aside className="border border-neutral-200 bg-white p-6 md:p-8">
-      {/* Tabs — minimal underlined text. Manual switch only, no rotation. */}
-      <div className="flex items-center gap-6 border-b border-neutral-200 pb-4">
-        {TABS.map(({ key, label }) => {
-          const active = tab === key;
-          return (
-            <button
-              key={key}
-              type="button"
-              onClick={() => setTab(key)}
-              className={`text-[10px] uppercase tracking-[0.24em] transition-colors ${
-                active
-                  ? "font-semibold text-neutral-900 underline decoration-neutral-900 underline-offset-[6px]"
-                  : "text-neutral-500 hover:text-neutral-900"
-              }`}
-              aria-pressed={active}
-            >
-              {label}
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="mt-6 min-h-[280px]">
+      <div className="min-h-[380px]">
         {tab === "benefits" && (
           <div>
             <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">
@@ -266,6 +244,40 @@ export function SubmissionInfoPanel({
             </div>
           </div>
         )}
+      </div>
+
+      {/* Bottom strip — three short horizontal bars. Hover a bar to
+          switch the visible card. Tap on touch (no hover) also works.
+          No auto-rotation. */}
+      <div className="mt-8 flex items-center justify-center gap-3">
+        {TABS.map(({ key, label }) => {
+          const active = tab === key;
+          return (
+            <button
+              key={key}
+              type="button"
+              onMouseEnter={() => setTab(key)}
+              onFocus={() => setTab(key)}
+              onClick={() => setTab(key)}
+              aria-label={`Show ${label}`}
+              aria-pressed={active}
+              className="group flex flex-col items-center gap-1.5 py-2"
+            >
+              <span
+                className={`block h-[2px] w-9 transition-colors ${
+                  active ? "bg-neutral-900" : "bg-neutral-300 group-hover:bg-neutral-500"
+                }`}
+              />
+              <span
+                className={`text-[9px] uppercase tracking-[0.22em] transition-colors ${
+                  active ? "text-neutral-900" : "text-neutral-400 group-hover:text-neutral-700"
+                }`}
+              >
+                {label}
+              </span>
+            </button>
+          );
+        })}
       </div>
     </aside>
   );
