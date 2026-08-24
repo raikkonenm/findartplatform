@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "the-creeper-in-the-dusk": ["INSTALLATION", "BODY", "MEMORY"],
   "rot-summer": ["INSTALLATION", "DIGITAL MYTH", "TECHNOLOGY", "IDENTITY", "OBJECTHOOD"],
   "techno-worlds-final-sampling": ["INSTALLATION", "SOUND", "TECHNOLOGY", "DIGITAL MYTH", "MACHINE"],
   "parachute-group-exhibition": ["TRANSFORMATION"],
@@ -283,6 +284,42 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: the-creeper-in-the-dusk
+  {
+    slug: "the-creeper-in-the-dusk",
+    title: "The Creeper in the Dusk",
+    subtitle: "Seonjong Kim",
+    venue: "Gosaek Newseum",
+    gallery: "Gosaek Newseum",
+    city: "Suwon",
+    country: "KR",
+    year: "2026",
+    dates: "8 August 2026 — 22 August 2026",
+    startDate: "8 August 2026",
+    endDate: "22 August 2026",
+    dateSource: "exhibition",
+    artists: ["Seonjong Kim"],
+    photographer: "Gwangchan Song",
+    exhibitionText: "The installations imagine new life forms emerging beyond human influence. Inspired by marine organisms, the exhibition explores transition, memory, and evolution, envisioning a future where human remnants foster novel, interconnected existences.\n\nBringing together installation, painting, lighting, and objects, The Creeper in the Dusk imagines a landscape beyond humanity and explores the possibility of new forms of life emerging from the material traces we leave behind.\n\nDusk marks a threshold between day and night, a moment of transition before a new era begins. In this exhibition, Kim Seonjong transforms this liminal moment into an imagined world where industrial materials, memories, and remnants of human culture become the conditions for new forms of existence.\n\nAt the center of the exhibition is the new installation series Superorganism, comprising two large-scale works made from industrial waste, discarded fishing nets, ropes, hoses, silicone, synthetic fibers, and light. Inspired by the marine phenomenon known as the Plastisphere and by siphonophores, colonial organisms whose specialized individuals function together as a single entity, the works envision a form of life in which multiple elements become interdependent, like organs within a single body.\n\nFor Kim Seonjong, industrial waste and manufactured materials are not merely discarded objects but traces that carry human memory, sensation, and culture. Reconfigured into unfamiliar, organic forms, these materials appear to take on a life of their own, suggesting forms of existence that may emerge beyond human control.\n\nDrawing on the cycles of extinction and evolution, The Creeper in the Dusk uses speculative imagination to envision a future landscape where what humanity leaves behind may become the material for something yet to come.",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/22e83461",
+    description: `The installations imagine new life forms emerging beyond human influence. Inspired by marine organisms, the exhibition explores transition, memory, and evolution, envisioning a future where human remnants foster novel, interconnected existences.
+
+Bringing together installation, painting, lighting, and objects, The Creeper in the Dusk imagines a landscape beyond humanity and explores the possibility of new forms of life emerging from the material traces we leave behind.
+
+Dusk marks a threshold between day and night, a moment of transition before a new era begins. In this exhibition, Kim Seonjong transforms this liminal moment into an imagined world where industrial materials, memories, and remnants of human culture become the conditions for new forms of existence.
+
+At the center of the exhibition is the new installation series Superorganism, comprising two large-scale works made from industrial waste, discarded fishing nets, ropes, hoses, silicone, synthetic fibers, and light. Inspired by the marine phenomenon known as the Plastisphere and by siphonophores, colonial organisms whose specialized individuals function together as a single entity, the works envision a form of life in which multiple elements become interdependent, like organs within a single body.
+
+For Kim Seonjong, industrial waste and manufactured materials are not merely discarded objects but traces that carry human memory, sensation, and culture. Reconfigured into unfamiliar, organic forms, these materials appear to take on a life of their own, suggesting forms of existence that may emerge beyond human control.
+
+Drawing on the cycles of extinction and evolution, The Creeper in the Dusk uses speculative imagination to envision a future landscape where what humanity leaves behind may become the material for something yet to come.`,
+    previewImage: localExhibitionImage("the-creeper-in-the-dusk", "1.webp"),
+    heroImage: localExhibitionImage("the-creeper-in-the-dusk", "1.webp"),
+    images: localExhibitionGallery("the-creeper-in-the-dusk", ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp"], "vertical", "Gwangchan Song"),
+  },
+  // AI_INGEST_END: the-creeper-in-the-dusk
+
   // --- New additions 2026-08-23 (batch 2) ---
   {
     slug: "rama-torcida-paulina-mellado",
