@@ -7,8 +7,43 @@ import type { ScrapeResult, ScrapedImage } from "./types";
 import { extractArtViewer } from "./extractors/artviewer";
 import { extractGeneric } from "./extractors/generic";
 
-const USER_AGENT =
-  "Mozilla/5.0 (compatible; FindArtIngest/1.0; +https://www.findartplatform.com)";
+// Use the same request shape as a normal desktop document navigation. Several
+// publishers reject obvious bot user agents before serving their public HTML.
+const BROWSER_HEADERS = {
+  "user-agent":
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+  accept:
+    "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+  "accept-language": "en-US,en;q=0.9",
+  "accept-encoding": "gzip, deflate, br",
+  "cache-control": "no-cache",
+  "upgrade-insecure-requests": "1",
+  "sec-ch-ua": '"Google Chrome";v="139", "Chromium";v="139", "Not=A?Brand";v="24"',
+  "sec-ch-ua-mobile": "?0",
+  "sec-ch-ua-platform": '"Windows"',
+  "sec-fetch-dest": "document",
+  "sec-fetch-mode": "navigate",
+  "sec-fetch-site": "none",
+};
+
+function fetchError(url: string, response: Response): Error {
+  if (response.status !== 403) {
+    return new Error(`Fetch failed: HTTP ${response.status}`);
+  }
+
+  const isCloudflareChallenge =
+    response.headers.get("cf-mitigated") === "challenge" ||
+    response.headers.get("server")?.toLowerCase().includes("cloudflare");
+
+  if (isCloudflareChallenge) {
+    return new Error(
+      `Fetch blocked by a Cloudflare browser challenge (HTTP 403) for ${new URL(url).hostname}. ` +
+        "This source requires JavaScript/browser verification and cannot be fetched by the server-side ingest worker.",
+    );
+  }
+
+  return new Error(`Fetch blocked by source: HTTP 403 (${new URL(url).hostname})`);
+}
 
 export async function fetchPage(url: string): Promise<ScrapeResult> {
   // Basic URL guard — bail early on non-http(s).
@@ -18,16 +53,12 @@ export async function fetchPage(url: string): Promise<ScrapeResult> {
   }
 
   const response = await fetch(url, {
-    headers: {
-      "user-agent": USER_AGENT,
-      accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      "accept-language": "en-US,en;q=0.9",
-    },
+    headers: BROWSER_HEADERS,
     redirect: "follow",
     cache: "no-store",
   });
   if (!response.ok) {
-    throw new Error(`Fetch failed: HTTP ${response.status}`);
+    throw fetchError(url, response);
   }
   const html = await response.text();
   const $ = cheerio.load(html);
