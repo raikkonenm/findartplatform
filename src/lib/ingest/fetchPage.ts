@@ -254,6 +254,10 @@ export async function fetchPage(url: string): Promise<ScrapeResult> {
 
   const salivaId = salivaExhibitionId(parsed);
   if (salivaId) {
+    console.info("[ingest] Saliva extractor triggered", {
+      sourceUrl: url,
+      exhibitionId: salivaId,
+    });
     const saliva = await fetchSalivaExhibition(url, salivaId);
     if (saliva) return saliva;
   }
