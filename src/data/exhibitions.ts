@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "dog-and-angel": ["INSTALLATION", "SOUND", "MACHINE", "MATERIALITY", "TRANSFORMATION"],
   "the-creeper-in-the-dusk": ["INSTALLATION", "BODY", "MEMORY"],
   "rot-summer": ["INSTALLATION", "DIGITAL MYTH", "TECHNOLOGY", "IDENTITY", "OBJECTHOOD"],
   "techno-worlds-final-sampling": ["INSTALLATION", "SOUND", "TECHNOLOGY", "DIGITAL MYTH", "MACHINE"],
@@ -284,6 +285,62 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "dog-and-angel",
+    title: "Dog and Angel",
+    subtitle: "Kristin Wiking",
+    venue: "SIC",
+    gallery: "SIC",
+    city: "Helsinki",
+    country: "Finland",
+    year: "2026",
+    dates: "14 August — 30 August 2026",
+    startDate: "14 August 2026",
+    endDate: "30 August 2026",
+    dateSource: "exhibition",
+    artists: ["Kristin Wiking"],
+    photographer: "sicspace",
+    source: "Saliva",
+    sourceUrl: "https://saliva.live/exhibitions/1672cfde",
+    instagramUrl: "https://www.instagram.com/sicspace/",
+    summary: "The show reflects the interplay between industrial activity and subtle environmental effects.",
+    description: `Somewhere in the building, a computer works around the clock, controlling the railway switches and signals. The trains it lets through carry people across the city. Along the way, they also set the installation in motion. It is unclear which of these functions is more important.
+
+Kristin Wiking has been artist-in-residence at SIC since the beginning of July, working in the gallery for six weeks. The exhibition has grown out of this time and out of what is already happening in and around the building.
+
+SIC is located in a former railway station, where trains still pass close by and beneath the building. Several of the gallery’s windows have been opened or removed from their frames. Air moving between the open windows makes the installation rise, fall and form waves. How it moves depends on the wind—its direction and strength, whether it blows steadily or arrives in sudden gusts. When a train passes, another force breaks in. The roar comes through the windows, one of them bangs hard against its latch, everything jolts. It feels as if something is about to break. One force is translated into another. A signal becomes a passing train; its movement becomes sound and displaced air; the air becomes movement in the foil. What is merely a side effect in one system can become the main event in another.
+
+On the other side of the wall, a dog made from the same material lies on the ground. Air comes through a hole in the wall and its body moves slightly, as if breathing.
+
+Dog and Angel takes its title from Jon Fosse’s poetry collection Hund og engel (1992). Wiking is drawn to the way the title brings together two words that seem to belong to different worlds, without explaining the relationship between them.
+
+Kristin Wiking is an artist based in Helsinki and Vilnius. She creates installations in which simple materials borrow movement from invisible forces, often following an absurd logic.
+
+The exhibition is supported by Taike and Svenska Litteratursällskapet.`,
+    coverImage: localExhibitionImage("dog-and-angel", "01.webp"),
+    previewImage: localExhibitionImage("dog-and-angel", "01.webp"),
+    heroImage: localExhibitionImage("dog-and-angel", "01.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "dog-and-angel",
+      [
+        { filename: "01.webp", orientation: "horizontal" },
+        { filename: "02.webp", orientation: "horizontal" },
+        { filename: "03.webp", orientation: "horizontal" },
+        { filename: "04.webp", orientation: "horizontal" },
+        { filename: "05.webp", orientation: "horizontal" },
+        { filename: "06.webp", orientation: "horizontal" },
+        { filename: "07.webp", orientation: "horizontal" },
+        { filename: "08.webp", orientation: "horizontal" },
+        { filename: "09.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+      ],
+      "sicspace",
+    ),
+    unoptimized: true,
+  },
+
   // AI_INGEST_START: the-creeper-in-the-dusk
   {
     slug: "the-creeper-in-the-dusk",
