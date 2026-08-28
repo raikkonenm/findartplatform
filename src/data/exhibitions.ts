@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "the-solemnity-of-the-repulsive": ["INSTALLATION", "MATERIALITY", "RITUAL", "ANIMALITY", "SOUND", "SPIRITUALITY"],
   "rot-summer": ["INSTALLATION", "DIGITAL MYTH", "TECHNOLOGY", "IDENTITY", "OBJECTHOOD"],
   "techno-worlds-final-sampling": ["INSTALLATION", "SOUND", "TECHNOLOGY", "DIGITAL MYTH", "MACHINE"],
   "parachute-group-exhibition": ["TRANSFORMATION"],
@@ -283,6 +284,56 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "the-solemnity-of-the-repulsive",
+    title: "The Solemnity of the Repulsive",
+    subtitle: "Sofiia Yesakova, Daria Maiier",
+    venue: "roam projects e.V.",
+    gallery: "roam projects e.V.",
+    city: "Berlin",
+    country: "Germany",
+    year: "2026",
+    dates: "13 August — 27 August 2026",
+    startDate: "13 August 2026",
+    endDate: "27 August 2026",
+    dateSource: "exhibition",
+    artists: ["Sofiia Yesakova", "Daria Maiier"],
+    photographer: "Andreas Baudisch, Sofiia Yesakova",
+    description: `The exhibition brings together artists Daria Maiier and Sofiia Yesakova, creating a space where distinct aesthetic languages encounter shared sensibilities and experiences. Both currently based in Germany, Dariia and Sofiia studied in Mykola Storozhenko’s studio at the National Academy of Visual Arts and Architecture in Kyiv, which focused on monumental art, religious postmodernism, and an aesthetic rooted in the Northern Renaissance and Ukrainian Baroque. Although both artists have moved beyond academicism, this background continues to echo in their attentiveness to detail and laborious production processes. The exalted character of this artistic legacy is also reflected in the theme the artists explore in the present exhibition: the solemnity of the repulsive.
+
+In Yesakova’s works from the series Ugly Scenes. Nuances., the objects, in their minimalist forms, black colour, and compositions, are reminiscent of ceremonial elements, exuding dignity and even a sense of the sacred. This sombre appearance, however, is layered upon the pulsating materiality of wood, hinting at the underlying reality of extreme and repulsive violence. The artist finds inspiration in Hans Schwarz’s Death and the Maiden (1520), where the viewer encounters a similar juxtaposition on a natural wooden panel. Likewise, the image is difficult to discern, requiring the viewer to move around the object in search of the right distance and angle.
+
+Maiier presents two works connected by the figure of the horse as a subject of discipline and status. In Double Bridle. Weymouth Bit, she depicts a tool for controlling a horse, designed through pain to force the animal into unnatural poses and movements. The many depictions intended to showcase the beauty and elegance of dressage often serve as evidence of the animal’s stress. As in Yesakova’s work, animality pulsates beneath the animal parts that have come to be perceived as symbols of status. In Zadorny, Maiier explores the pedigree of the racehorse and the rider, a relationship that never seems to overcome its ties to militarism, both in symbolism and in practice.
+
+In The Solemnity of the Repulsive, the artists explore the process of symbolic exaltation—in war, religion, sport, and status—through the dignified, heroic, and solemn imaginary of primitive and repulsive violence, otherwise unbearable to witness. Here, the pain, torture, or even death of an animal, a soldier, or a martyr becomes a resource of power, generating ideological references and integrating what would otherwise remain too abject to speak of into the cultural sphere and its heritage.`,
+    coverImage: localExhibitionImage("the-solemnity-of-the-repulsive", "01.webp"),
+    previewImage: localExhibitionImage("the-solemnity-of-the-repulsive", "01.webp"),
+    heroImage: localExhibitionImage("the-solemnity-of-the-repulsive", "01.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "the-solemnity-of-the-repulsive",
+      [
+        { filename: "01.webp", orientation: "vertical" },
+        { filename: "02.webp", orientation: "vertical" },
+        { filename: "03.webp", orientation: "horizontal" },
+        { filename: "04.webp", orientation: "horizontal" },
+        { filename: "05.webp", orientation: "horizontal" },
+        { filename: "06.webp", orientation: "horizontal" },
+        { filename: "07.webp", orientation: "horizontal" },
+        { filename: "08.webp", orientation: "vertical" },
+        { filename: "09.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "horizontal" },
+        { filename: "16.webp", orientation: "horizontal" },
+      ],
+      "Andreas Baudisch, Sofiia Yesakova",
+    ),
+    unoptimized: true,
+  },
+
   // --- New additions 2026-08-23 (batch 2) ---
   {
     slug: "rama-torcida-paulina-mellado",
