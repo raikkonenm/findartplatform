@@ -47,7 +47,7 @@ export function renderExhibitionSeed(draft: Draft): string {
   if (n.dates) lines.push(`    dates: ${str(n.dates)},`);
   if (n.startDate) lines.push(`    startDate: ${str(n.startDate)},`);
   if (n.endDate) lines.push(`    endDate: ${str(n.endDate)},`);
-  lines.push(`    dateSource: "exhibition",`);
+  lines.push(`    dateSource: ${str(draft.contentType === "art-object" ? "instagram-post" : "exhibition")},`);
   if (n.artists && n.artists.length > 0) {
     lines.push(`    artists: ${stringArray(n.artists)},`);
   }

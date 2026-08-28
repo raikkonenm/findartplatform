@@ -123,6 +123,10 @@ export async function publishDraft(draft: Draft): Promise<PublishResult> {
   // during testing on a preview branch.
   assertProductionPublishAllowed(cfg.branch);
 
+  if (!draft.contentType) {
+    throw new Error("Choose EXHIBITION or ART OBJECT before publishing");
+  }
+
   const selectedImages = draft.images.filter((image) => image.selected);
   if (selectedImages.length === 0) {
     throw new Error("No selected images — refusing to publish");

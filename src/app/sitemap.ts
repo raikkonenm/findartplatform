@@ -35,9 +35,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/submit` },
   ];
 
-  const exhibitionPages: MetadataRoute.Sitemap = exhibitions.map(
-    (exhibition) => ({ url: `${SITE_URL}/exhibitions/${exhibition.slug}` }),
-  );
+  // `instagram-post` is the persisted shape for homepage-only art objects.
+  // They intentionally have no canonical exhibition URL.
+  const exhibitionPages: MetadataRoute.Sitemap = exhibitions
+    .filter((exhibition) => exhibition.dateSource !== "instagram-post")
+    .map(
+      (exhibition) => ({ url: `${SITE_URL}/exhibitions/${exhibition.slug}` }),
+    );
 
   // Entity taxonomy pages — plural canonical routes only.
   const galleryPages = Array.from(collectEntitySlugs("gallery").keys()).map(

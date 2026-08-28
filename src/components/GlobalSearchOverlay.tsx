@@ -126,34 +126,36 @@ export function GlobalSearchOverlay() {
   // Build a unified index at first open. Rebuilt when this component
   // remounts, which is rare.
   const fullIndex = useMemo<SearchItem[]>(() => {
-    const exhibitionItems: SearchItem[] = exhibitions.map((exhibition) => ({
-      id: `exh-${exhibition.slug}`,
-      category: "Exhibition",
-      title: exhibition.title,
-      subtitle: [
-        exhibition.gallery ?? exhibition.venue,
-        [exhibition.city, exhibition.country].filter(Boolean).join(", "),
-        exhibition.year,
-      ]
-        .filter(Boolean)
-        .join(" · "),
-      href: `/exhibitions/${exhibition.slug}`,
-      haystack: [
-        exhibition.subtitle,
-        exhibition.gallery,
-        exhibition.venue,
-        exhibition.city,
-        exhibition.country,
-        exhibition.year,
-        exhibition.dates,
-        exhibition.curator,
-        exhibition.photographer,
-        exhibition.description,
-        (exhibition.artists ?? []).join(" "),
-      ]
-        .filter(Boolean)
-        .join(" "),
-    }));
+    const exhibitionItems: SearchItem[] = exhibitions
+      .filter((exhibition) => exhibition.dateSource !== "instagram-post")
+      .map((exhibition) => ({
+        id: `exh-${exhibition.slug}`,
+        category: "Exhibition",
+        title: exhibition.title,
+        subtitle: [
+          exhibition.gallery ?? exhibition.venue,
+          [exhibition.city, exhibition.country].filter(Boolean).join(", "),
+          exhibition.year,
+        ]
+          .filter(Boolean)
+          .join(" · "),
+        href: `/exhibitions/${exhibition.slug}`,
+        haystack: [
+          exhibition.subtitle,
+          exhibition.gallery,
+          exhibition.venue,
+          exhibition.city,
+          exhibition.country,
+          exhibition.year,
+          exhibition.dates,
+          exhibition.curator,
+          exhibition.photographer,
+          exhibition.description,
+          (exhibition.artists ?? []).join(" "),
+        ]
+          .filter(Boolean)
+          .join(" "),
+      }));
 
     const editorialItems: SearchItem[] = editorialArtists.map((artist) => ({
       id: `edi-${artist.slug}`,

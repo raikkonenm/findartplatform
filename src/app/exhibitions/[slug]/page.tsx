@@ -17,7 +17,9 @@ type DetailPageProps = {
 };
 
 export function generateStaticParams() {
-  return exhibitions.map((exhibition) => ({ slug: exhibition.slug }));
+  return exhibitions
+    .filter((exhibition) => exhibition.dateSource !== "instagram-post")
+    .map((exhibition) => ({ slug: exhibition.slug }));
 }
 
 /**
@@ -88,7 +90,7 @@ export async function generateMetadata({
 }: DetailPageProps): Promise<Metadata> {
   const { slug } = await params;
   const exhibition = getExhibition(slug);
-  if (!exhibition) {
+  if (!exhibition || exhibition.dateSource === "instagram-post") {
     return { title: "Exhibition" };
   }
 
@@ -168,7 +170,7 @@ export default async function ExhibitionDetailPage({
   const { slug } = await params;
   const exhibition = getExhibition(slug);
 
-  if (!exhibition) {
+  if (!exhibition || exhibition.dateSource === "instagram-post") {
     notFound();
   }
 

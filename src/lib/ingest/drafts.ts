@@ -56,6 +56,35 @@ export async function getDraft(id: string): Promise<Draft | undefined> {
   return JSON.parse(await new Response(result.stream).text()) as Draft;
 }
 
+// The next plain-text message after an EDIT button belongs to the most
+// recently updated pending draft for that chat. Draft metadata is private,
+// so this lookup remains server-side and does not expose Blob URLs.
+export async function getDraftAwaitingEdit(chatId: number): Promise<Draft | undefined> {
+  const entries = await list({ prefix: "drafts/", ...token() });
+  const metadata = entries.blobs.filter((entry) => /^drafts\/[^/]+\.json$/.test(entry.pathname));
+  const drafts = await Promise.all(
+    metadata.map(async (entry) => {
+      const result = await get(entry.url, {
+        access: "private",
+        useCache: false,
+        ...token(),
+      });
+      if (!result || result.statusCode !== 200 || !result.stream) return undefined;
+      return JSON.parse(await new Response(result.stream).text()) as Draft;
+    }),
+  );
+
+  return drafts
+    .filter((draft): draft is Draft => Boolean(draft))
+    .filter(
+      (draft) =>
+        draft.telegramChatId === chatId &&
+        draft.state === "pending_review" &&
+        draft.editingField !== undefined,
+    )
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0];
+}
+
 export async function uploadDraftImage(
   draftId: string,
   filename: string,

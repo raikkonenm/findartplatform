@@ -122,8 +122,52 @@ export function ExhibitionCard({
   const aspect = aspectClassForSlug(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
   const desktopSlideshow = DESKTOP_SLIDESHOW_SLUGS.has(exhibition.slug);
+  const homepageOnlyArtObject = exhibition.dateSource === "instagram-post";
+  const imageSubject = homepageOnlyArtObject ? "artwork" : "exhibition view";
   const { isSaved, toggleSaved } = useSavedExhibitions();
   const saved = isSaved(exhibition.slug);
+
+  const cardContent = (
+    <>
+      <div className={`relative ${aspect} overflow-hidden rounded bg-neutral-100 md:rounded-none`}>
+        <Image
+          src={exhibition.coverImage ?? exhibition.previewImage}
+          alt={`${title} ${imageSubject}`}
+          fill
+          className={`object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025] ${
+            desktopSlideshow ? "hidden" : ""
+          }`}
+          priority={eager}
+          {...(eager
+            ? { fetchPriority: "high" as const }
+            : { loading: "lazy" as const })}
+          sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
+        />
+        {desktopSlideshow && (
+          <CardSlideshow exhibition={exhibition} title={title} />
+        )}
+      </div>
+      <div className="archive-card-copy pt-5">
+        <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
+          <OnViewDot
+            startDate={exhibition.startDate}
+            endDate={exhibition.endDate}
+          />
+          {exhibition.city} / {exhibition.year}
+        </p>
+        <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]">
+          {title.toUpperCase()}
+        </h2>
+        <p
+          className={`mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888] md:text-[11px] md:tracking-[0.18em] md:text-neutral-500 ${
+            hideMobileSubtitle ? "hidden md:block" : ""
+          }`}
+        >
+          {displayVenueText(exhibition.venue)}
+        </p>
+      </div>
+    </>
+  );
 
   return (
     // The card is placed inside a `.masonry-col` flex column by
@@ -131,45 +175,13 @@ export function ExhibitionCard({
     // flex layout (48px column gap, 64px row gap), so the card itself
     // stays markup-only — no wrapper margins here.
     <article className="group relative">
-      <Link href={`/exhibitions/${exhibition.slug}`} className="block">
-        <div className={`relative ${aspect} overflow-hidden rounded bg-neutral-100 md:rounded-none`}>
-          <Image
-            src={exhibition.coverImage ?? exhibition.previewImage}
-            alt={`${title} exhibition view`}
-            fill
-            className={`object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025] ${
-              desktopSlideshow ? "hidden" : ""
-            }`}
-            priority={eager}
-            {...(eager
-              ? { fetchPriority: "high" as const }
-              : { loading: "lazy" as const })}
-            sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
-          />
-          {desktopSlideshow && (
-            <CardSlideshow exhibition={exhibition} title={title} />
-          )}
-        </div>
-        <div className="archive-card-copy pt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-neutral-500">
-            <OnViewDot
-              startDate={exhibition.startDate}
-              endDate={exhibition.endDate}
-            />
-            {exhibition.city} / {exhibition.year}
-          </p>
-          <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]">
-            {title.toUpperCase()}
-          </h2>
-          <p
-            className={`mt-2 text-[0.85em] uppercase tracking-[0.2em] text-[#888] md:text-[11px] md:tracking-[0.18em] md:text-neutral-500 ${
-              hideMobileSubtitle ? "hidden md:block" : ""
-            }`}
-          >
-            {displayVenueText(exhibition.venue)}
-          </p>
-        </div>
-      </Link>
+      {homepageOnlyArtObject ? (
+        <div className="block">{cardContent}</div>
+      ) : (
+        <Link href={`/exhibitions/${exhibition.slug}`} className="block">
+          {cardContent}
+        </Link>
+      )}
       {/* Desktop-only save chip — top-right of the image, appears on hover. */}
       <button
         type="button"

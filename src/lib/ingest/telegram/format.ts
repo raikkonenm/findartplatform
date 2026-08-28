@@ -13,7 +13,7 @@ function escapeHtml(value: string): string {
 
 export function draftPreviewText(draft: Draft): string {
   const n = draft.normalized;
-  const lines: string[] = ["<b>NEW EXHIBITION</b>", "", `<b>${escapeHtml(n.title)}</b>`];
+  const lines: string[] = [`<b>NEW ${draftKindLabel(draft)}</b>`, "", `<b>${escapeHtml(n.title)}</b>`];
 
   if (n.subtitle) lines.push(`<i>${escapeHtml(n.subtitle)}</i>`);
   lines.push("");
@@ -83,7 +83,7 @@ function shortDescription(value: string, maxLength = 360): string {
 // description in the source page and draft record.
 export function draftReviewCaption(draft: Draft): string {
   const n = draft.normalized;
-  const lines = ["<b>NEW EXHIBITION</b>", "", `<b>${escapeHtml(n.title)}</b>`];
+  const lines = [`<b>NEW ${draftKindLabel(draft)}</b>`, "", `<b>${escapeHtml(n.title)}</b>`];
 
   if (n.subtitle) lines.push(`<i>${escapeHtml(n.subtitle)}</i>`);
   const venue = n.gallery ?? n.venue;
@@ -122,15 +122,40 @@ export function reviewKeyboard(draft: Draft): InlineKeyboard {
     };
   }
 
+  const typeControls = [[
+    {
+      text: `${draft.contentType === "exhibition" ? "✓ " : ""}EXHIBITION`,
+      callback_data: `type-exhibition:${draft.id}`,
+    },
+    {
+      text: `${draft.contentType === "art-object" ? "✓ " : ""}ART OBJECT`,
+      callback_data: `type-art-object:${draft.id}`,
+    },
+  ]];
+  const editControls = [[
+    { text: "EDIT TITLE", callback_data: `edit-title:${draft.id}` },
+    { text: "EDIT DESCRIPTION", callback_data: `edit-description:${draft.id}` },
+  ]];
+
   return {
     inline_keyboard: [
+      ...typeControls,
+      ...editControls,
       ...coverControls,
-      [
-        { text: "✅ PUBLISH", callback_data: `publish:${draft.id}` },
-        { text: "🗑 REJECT", callback_data: `reject:${draft.id}` },
-      ],
+      ...(draft.contentType
+        ? [[
+            { text: "✅ PUBLISH", callback_data: `publish:${draft.id}` },
+            { text: "🗑 REJECT", callback_data: `reject:${draft.id}` },
+          ]]
+        : [[{ text: "🗑 REJECT", callback_data: `reject:${draft.id}` }]]),
     ],
   };
+}
+
+function draftKindLabel(draft: Draft): string {
+  if (draft.contentType === "art-object") return "ART OBJECT";
+  if (draft.contentType === "exhibition") return "EXHIBITION";
+  return "DRAFT";
 }
 
 export function statusText(prefix: string, draft: Draft): string {

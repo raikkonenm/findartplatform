@@ -96,6 +96,7 @@ export function collectEntitySlugs(kind: EntityKind): Map<
 > {
   const map = new Map<string, { name: string; exhibitions: Exhibition[] }>();
   for (const exhibition of exhibitions) {
+    if (exhibition.dateSource === "instagram-post") continue;
     for (const raw of collectRaw(kind, exhibition)) {
       const slug = slugifyEntity(raw);
       if (!slug) continue;
@@ -201,6 +202,7 @@ export function collectAuthorSlugs(): Map<
 > {
   const map = new Map<string, { name: string; exhibitions: Exhibition[] }>();
   for (const exhibition of exhibitions) {
+    if (exhibition.dateSource === "instagram-post") continue;
     const raw = exhibition.exhibitionText?.trim();
     // `exhibitionText` is a credited writer's name in this schema, never the
     // exhibition description. Ignore malformed legacy data rather than
@@ -286,6 +288,7 @@ export function collectExhibitionFacetSlugs(
 ): Map<string, { name: string; exhibitions: Exhibition[] }> {
   const map = new Map<string, { name: string; exhibitions: Exhibition[] }>();
   for (const exhibition of exhibitions) {
+    if (exhibition.dateSource === "instagram-post") continue;
     const rawSource = facetRaw(facet, exhibition)?.trim();
     if (!rawSource) continue;
     const raw = canonicalFacetValue(facet, rawSource);
@@ -415,6 +418,7 @@ export function collectExhibitionMonthBuckets(): Map<
     { name: string; exhibitions: Exhibition[]; year: number; monthIndex: number }
   >();
   for (const exhibition of exhibitions) {
+    if (exhibition.dateSource === "instagram-post") continue;
     for (const { year, month } of monthBucketsFor(exhibition)) {
       const key = `${year}/${monthSegment(month)}`;
       const bucket = map.get(key);

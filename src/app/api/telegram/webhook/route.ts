@@ -32,9 +32,16 @@ import { fetchPage, ManualReviewRequiredError } from "@/lib/ingest/fetchPage";
 import { normalizeScrape } from "@/lib/ingest/normalize";
 import { downloadImages } from "@/lib/ingest/images";
 import { detectDuplicate } from "@/lib/ingest/duplicate";
-import { deleteDraftAssets, draftPreviewUrl, getDraft, saveDraft } from "@/lib/ingest/drafts";
+import {
+  deleteDraftAssets,
+  draftPreviewUrl,
+  getDraft,
+  getDraftAwaitingEdit,
+  saveDraft,
+} from "@/lib/ingest/drafts";
 import { publishDraft } from "@/lib/ingest/publish";
 import type { Draft, ScrapeResult, ScrapedImage } from "@/lib/ingest/types";
+import { exhibitionSlug } from "@/lib/ingest/taxonomy";
 
 export const runtime = "nodejs";
 // Give ourselves headroom for a fetch → normalization → image downloads pass.
@@ -113,6 +120,16 @@ async function handleMessage(message: TgMessage): Promise<void> {
   const text = (message.text ?? message.caption)?.trim() ?? "";
   const hasPhoto = Boolean(message.photo?.length);
   if (!text && !hasPhoto) return;
+
+  // An EDIT action turns the next text message from this chat into a focused
+  // patch for the pending draft instead of creating a second draft.
+  if (text) {
+    const draftAwaitingEdit = await getDraftAwaitingEdit(chatId);
+    if (draftAwaitingEdit) {
+      await applyDraftEdit(draftAwaitingEdit, text);
+      return;
+    }
+  }
 
   // /start / /help hint so a fresh bot has an obvious entrypoint.
   if (text.startsWith("/start") || text.startsWith("/help")) {
@@ -214,6 +231,67 @@ async function handleCallback(callback: TgCallback): Promise<void> {
       callback_query_id: callback.id,
       text: "Draft not found",
       show_alert: true,
+    });
+    return;
+  }
+
+  if (action === "type-exhibition" || action === "type-art-object") {
+    if (draft.state !== "pending_review") {
+      await answerCallbackQuery({
+        callback_query_id: callback.id,
+        text: "Type can only be changed before publishing",
+        show_alert: true,
+      });
+      return;
+    }
+
+    const contentType = action === "type-art-object" ? "art-object" : "exhibition";
+    const sourceTitle = draft.sourceTitle ?? draft.normalized.title;
+    const artistName = draft.normalized.artists?.[0]?.trim() || draft.normalized.title;
+    const title = contentType === "art-object" ? artistName : sourceTitle;
+    const updated: Draft = {
+      ...draft,
+      contentType,
+      sourceTitle,
+      normalized: {
+        ...draft.normalized,
+        title,
+        slug: exhibitionSlug(title, `draft-${draft.id}`),
+        // An artwork card is indexed in the home feed by its artist name,
+        // not by the source exhibition title.
+        ...(contentType === "art-object" ? { artists: [artistName], subtitle: undefined } : {}),
+      },
+    };
+    await saveDraft(updated);
+    await refreshReviewPreview(updated);
+    await answerCallbackQuery({
+      callback_query_id: callback.id,
+      text: contentType === "art-object" ? "Art object selected" : "Exhibition selected",
+    });
+    return;
+  }
+
+  if (action === "edit-title" || action === "edit-description") {
+    if (draft.state !== "pending_review") {
+      await answerCallbackQuery({
+        callback_query_id: callback.id,
+        text: "Fields can only be edited before publishing",
+        show_alert: true,
+      });
+      return;
+    }
+
+    const editingField = action === "edit-title" ? "title" : "description";
+    const pending: Draft = { ...draft, editingField };
+    await saveDraft(pending);
+    await answerCallbackQuery({ callback_query_id: callback.id });
+    await sendMessage({
+      chat_id: callback.message.chat.id,
+      text:
+        editingField === "title"
+          ? "Send the replacement title. For ART OBJECT, send the artist's first and last name."
+          : "Send the replacement description.",
+      disable_web_page_preview: true,
     });
     return;
   }
@@ -468,10 +546,73 @@ async function ingest(input: {
     warnings,
     missingFields: normalization.missingFields,
     confidence: normalization.confidence,
+    sourceTitle: normalization.normalized.title,
     telegramChatId: input.chatId,
   };
   await saveDraft(draft);
   return draft;
+}
+
+async function applyDraftEdit(draft: Draft, rawValue: string): Promise<void> {
+  const value = rawValue.trim();
+  if (!value) return;
+
+  const editingField = draft.editingField;
+  if (!editingField) return;
+
+  const normalized = { ...draft.normalized };
+  let sourceTitle = draft.sourceTitle;
+  if (editingField === "title") {
+    const title = value.slice(0, 180);
+    normalized.title = title;
+    normalized.slug = exhibitionSlug(title, `draft-${draft.id}`);
+    if (draft.contentType === "art-object") {
+      normalized.artists = [title];
+    } else {
+      sourceTitle = title;
+    }
+  } else {
+    normalized.description = value.slice(0, 12000);
+  }
+
+  const updated: Draft = {
+    ...draft,
+    normalized,
+    sourceTitle,
+    editingField: undefined,
+  };
+  await saveDraft(updated);
+  await refreshReviewPreview(updated);
+  await sendMessage({
+    chat_id: draft.telegramChatId!,
+    text: `${editingField === "title" ? "Title" : "Description"} updated. Review the draft and publish when ready.`,
+    disable_web_page_preview: true,
+  });
+}
+
+async function refreshReviewPreview(draft: Draft): Promise<void> {
+  if (!draft.telegramChatId || !draft.telegramMessageId) return;
+  const cover = selectedCover(draft);
+  if (cover && draft.telegramCoverMessageId) {
+    await editMessageMedia({
+      chat_id: draft.telegramChatId,
+      message_id: draft.telegramCoverMessageId,
+      media: {
+        type: "photo",
+        media: await draftPreviewUrl(cover.blobUrl),
+        caption: draftReviewCaption(draft),
+        parse_mode: "HTML",
+      },
+    });
+  }
+  await editMessageText({
+    chat_id: draft.telegramChatId,
+    message_id: draft.telegramMessageId,
+    text: draftPreviewText(draft),
+    parse_mode: "HTML",
+    disable_web_page_preview: true,
+    reply_markup: reviewKeyboard(draft),
+  });
 }
 
 // User-safe escaping for text that goes into Telegram HTML mode.

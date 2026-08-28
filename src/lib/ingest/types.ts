@@ -12,6 +12,12 @@ export type DraftState =
   | "published"
   | "failed";
 
+// A draft starts without a public destination. The Telegram reviewer must
+// choose one before publishing so a single artwork never lands in the
+// exhibitions archive by accident.
+export type DraftContentType = "exhibition" | "art-object";
+export type DraftEditableField = "title" | "description";
+
 // The normalized exhibition payload — subset of the Exhibition type
 // that the ingest pipeline can safely fill from a page. Unknown fields
 // are left `undefined`; the seed generator drops undefined keys.
@@ -64,6 +70,11 @@ export type Draft = {
   warnings: string[];
   missingFields: string[];
   confidence?: number;            // 0..1 rough Claude self-report
+  contentType?: DraftContentType;
+  // Keeps the extracted exhibition title while an ART OBJECT draft displays
+  // the artist name as its public card title. Switching back is lossless.
+  sourceTitle?: string;
+  editingField?: DraftEditableField;
   telegramChatId?: number;
   telegramMessageId?: number;
   telegramPreviewKind?: "photo" | "text";
