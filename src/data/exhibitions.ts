@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "as-the-sap-rises": ["TRANSFORMATION", "BODY", "MEMORY", "LABOR"],
   "the-spirit-is-willing-but-the-flesh-is-weak": ["INSTALLATION", "MACHINE", "SOUND", "MATERIALITY", "TRANSFORMATION"],
   "dog-and-angel": ["INSTALLATION", "SOUND", "MACHINE", "MATERIALITY", "TRANSFORMATION"],
   "the-creeper-in-the-dusk": ["INSTALLATION", "BODY", "MEMORY"],
@@ -286,6 +287,101 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: as-the-sap-rises
+  {
+    slug: "as-the-sap-rises",
+    title: "As The Sap Rises",
+    subtitle: "Maija Fox",
+    venue: "OUTPOST",
+    gallery: "OUTPOST",
+    city: "Norwich",
+    country: "GB",
+    year: "2026",
+    dates: "1 August 2026 — 31 August 2026",
+    startDate: "1 August 2026",
+    endDate: "31 August 2026",
+    dateSource: "exhibition",
+    artists: ["Maija Fox"],
+    curator: "Ellery Child",
+    photographer: "studio adamson",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/44de3dae",
+    description: `The narrator reflects on returning East to a decaying Baltic workshop now colonized by bees. They recall past work, the beauty in labor's persistence, and shared moments by the lake. Despite abandonment and change, craft endures, shaping memory and place amidst transformation and fading purpose.
+
+I finally managed to head East again after so many years. The Baltic is still what it’s always
+been. That big meadow, a swamp. The old house in __________ is barely standing. Maybe you
+don’t remember, but the walls of the workshop were made of clay. Now bees have fully
+colonised it. They have found a way through the pores, and have slowly built hives inside
+the walls. You can hear their serene, careful grinders stinging the stone from a distance, as
+they dig their castle through the old house. At this point, the roof is almost floating, the
+facade nearly gone—hard edges patiently turning into molasses, the shield turning into a
+stream. Big chunks of metal - almost like carved stones - hang from the ceiling. Not quite
+like the days we spent there as the gates were being built.
+
+We always knew what we had to do. It was all about precision, persistence, repetition. The
+goal was very clear. We talked a lot about our working conditions, how much we worked,
+how our bodies couldn’t bear it. We’d always agree, although we went quite differently about
+it. You would always keep calm. I can still see you pulling your hair scrunchies and wrapping
+them around your wrist, how your long hair fell smoothly on your shoulders. You always
+spoke as if we were planting the seeds of a blissful forest, even if all we did was to extract
+as much as we could. Back then, I didn’t understand it. Now, I think I do.
+
+I remember your fascination with the mix of linseed oil and wax we burnt to get that black
+patina, as it came out of the can, and how you watched that thick, viscous body slowly being
+brushed onto hot torched metal as though it were the first time: blue to black, then reddish
+ginger, then fully black. Do you see how it melts, how lazy and warm it is? That’s how the
+world moves at the core, you said once. That capacity to supersede harshness and
+exhaustion through wonder is something I could never forget. Still, we were tired, on the
+brink of collapse. We didn’t want to work anymore, and that’s what brought us closer. We
+wanted to pause, flee. We tried to hold stillness long enough. We couldn’t.
+
+It’s too bad we only came here because of the project. I mean, we did turn it into a home,
+but what else did we have? We had our hidden places, sure, our discrete architecture. That
+lookout on the slope behind the pavilions where we used to spend hours smoking and
+drinking, for instance. That slope was whimsical. We’d stay there for hours, gazing at that
+endless, placid lake without horizon, sometimes green, sometimes blue, sometimes grey, in
+absolute silence. I once asked you how long you could look at the sea for. I guess you didn’t
+like it. Waves have been breaking in the same melody for millions of years, you said. Do you
+think it is impossible to stop because the vision is endless?, I once asked. You just kept
+looking out the bay. You had that funny way of speaking as though you were heralding
+something eternal.
+
+Everything is still here; it’s just different. I think work has that weird ambiguity of being both
+a catalyst and a sweeper. Workers will work anywhere they’re needed, mostly because of
+somebody else’s accord. Then they’ll work, change, transform. Big cities will be drafted and
+built through repetition—and it will all hold until what was there before is replaced by
+something else (the workers, too). That is just how it all comes about, I guess. Labour edifies
+the will of those who decree its execution. It’s an old history, a stubborn endeavour. And yet
+we build our hidden cities, our secret shelters, we seize the harshness of our routines (as
+workers do). That’s what I learnt from the way you talked about the wax: no task can
+overcome a gesture.
+
+You truly believed that grids and fences could be seized, didn’t you? That walls could
+become invisible. In a way, I guess you were right. ________ holds the debris of that
+tenderness: cast aluminium, Baltic Green granite, linen, sewing pins, steel, PVC, aluminium
+welding wire, pulleys, steel rope, fixtures. The shore has changed. I didn’t find much walking
+around. I guess some people left and returned several times, but ultimately everyone
+abandoned it because there was not much to do. Not much has been left behind, either—a
+few tables and chairs, some vessels, some frozen flowers, a pair of boots. Your old granite
+table was still there, too. I found many more walking around. Funnily enough, a table seems
+to be the first thing people bring into a new house and the last one to be taken.
+
+I wonder what could have been if we had met under different circumstances. Do you
+remember the beehives in Agamemnon’s tomb I told you about? I recalled that as I heard
+the bees buzzing from inside the walls. It really took me back to Mycenae. There was a
+smooth, echoing, incessant noise coming closer. That buzz is unforgettable—a warm, fresh
+echo, an iridescent shade. Marble is hard to break through, I guess. Surely Mycenaeans
+knew something about permanence. They certainly knew about bronze masks and
+adornments, how to make the thinnest foil out of a hard material. In the end, what is the
+difference between a slope and a house? Once the purpose is gone, it’s all matter. Only craft
+gives it a shape. I can see that now in the way the wind shivers on the shacks’ antennas,
+dancing in a chain of steel, coated in metal. It’s all melting.`,
+    previewImage: localExhibitionImage("as-the-sap-rises", "15.webp"),
+    heroImage: localExhibitionImage("as-the-sap-rises", "15.webp"),
+    images: localExhibitionGallery("as-the-sap-rises", ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp"], "vertical", "studio adamson"),
+  },
+  // AI_INGEST_END: as-the-sap-rises
+
   {
     slug: "the-spirit-is-willing-but-the-flesh-is-weak",
     title: "THE SPIRIT IS WILLING BUT THE FLESH IS WEAK",
