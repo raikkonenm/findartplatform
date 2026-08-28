@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "kin-too": ["INSTALLATION", "IDENTITY", "MATERIALITY", "BODY"],
   "as-the-sap-rises": ["TRANSFORMATION", "BODY", "MEMORY", "LABOR"],
   "the-spirit-is-willing-but-the-flesh-is-weak": ["INSTALLATION", "MACHINE", "SOUND", "MATERIALITY", "TRANSFORMATION"],
   "dog-and-angel": ["INSTALLATION", "SOUND", "MACHINE", "MATERIALITY", "TRANSFORMATION"],
@@ -287,6 +288,41 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: kin-too
+  {
+    slug: "kin-too",
+    title: "Kin Too",
+    venue: "Spiritvessel",
+    gallery: "Spiritvessel",
+    city: "Lladó",
+    country: "ES",
+    year: "2026",
+    dates: "1 August 2026 — 8 August 2026",
+    startDate: "1 August 2026",
+    endDate: "8 August 2026",
+    dateSource: "exhibition",
+    artists: ["Jordi Mitjà", "Sahatsa Jauregi", "Michele Gabriele", "Andrew Birk", "Monia Ben Hamouda"],
+    curator: "Sira Pizà",
+    photographer: "Roberto Ruiz",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/b937710c",
+    description: `The exhibition explores kinship, affinity, and belonging. It reflects on shared identities and connections while bringing together different practices, materials, and perspectives.
+
+Kin (family or kinship) is a term that defines the relationships that group a series of people, beings or things. Beyond the ties of blood, origin or ancestry, it also describes the close connection between entities that share the same nature, that are similar or that are aligned. The formation of this relationship can generate a group similar to that of a clan - a movement of belonging to a community, whether strictly self-defined as a mechanism of protection and identification, or a more elastic formation, with diluted or porous margins. In all cases, this relationship shapes one’s own identity in the recognition of common traits among the members of the group, and in front of the world.
+
+Through a series of coincidences, the trajectory of each artist as a separate entity intersects with that of others at vital points, and with these encounters a network is woven, a conversation made of a language shared between its speakers. It is not a secret language but it is an understood language, which does not need explanations to reach the other in the precisely intended way. It is said that over time, couples end up resembling each other, like dogs and their owners. Although the paths of research and materiality of each artist are very different, an affinity arises from mirroring themselves in others with each gesture.
+
+The first version of KIN, an exhibition at Spiritvessel, Espinavessa, in 2024, brought together Monia Ben Hamouda, Michele Gabriele and Andrew Birk. In this second iteration, Sahatsa Jauregi and Jordi Mitjà, who were already part of this intimate circle, join KIN TOO (meaning both also, and two). The exhibition brings together a new, singular and experimental gesture from each artist, which explores ways of generating a previously non-existent image through negative space, discarding, manipulating or imprinting things that were already in the landscape or in the collective imagination.
+
+Monia Ben Hamouda begins a new series with Ghost (Espinavessa) and Ghost (Lladó) which further her research into rituals and forms of mortuary spaces, and objects and ideas linked to the return to the earth. Andrew Birk moves one architecture within another with Floating House, a direct impression of the object on the canvas, generating a pictorial image of the original in a phantasmagorical trace. July 2nd, by Michele Gabriele, continues his eponymous series with a new figure, using fiction to create a hypothetical scenario that transforms the entire environment in which it is placed, into its habitat. Pájaros by Sahatsa Jauregi composes a sequence of the process of fragmentation and disfigurement that starts from the idea of the scarecrow as a figure imagined by humans of themselves to be seen through the eyes of animals. Jordi Mitjà plays with the element of scale in his series Negatiu Reconsiderat, Clau Partida i Clau Doblegada, to once again convert discarded industrial materials combined with everyday objects and found discoveries into a sculptural body.
+
+- Sira Pizà`,
+    previewImage: localExhibitionImage("kin-too", "7.webp"),
+    heroImage: localExhibitionImage("kin-too", "7.webp"),
+    images: localExhibitionGallery("kin-too", ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp"], "vertical", "Roberto Ruiz"),
+  },
+  // AI_INGEST_END: kin-too
+
   // AI_INGEST_START: as-the-sap-rises
   {
     slug: "as-the-sap-rises",
