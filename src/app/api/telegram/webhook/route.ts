@@ -521,6 +521,11 @@ async function ingest(input: {
   }
 
   const warnings = [...normalization.warnings];
+  const instagramReviewMessage = (scrape.structuredHints.instagram as { reviewMessage?: unknown } | undefined)
+    ?.reviewMessage;
+  if (typeof instagramReviewMessage === "string") {
+    warnings.push(instagramReviewMessage);
+  }
   if (dupe.softMatches.length > 0) {
     for (const m of dupe.softMatches) {
       warnings.push(

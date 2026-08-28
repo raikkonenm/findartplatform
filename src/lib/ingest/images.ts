@@ -1,4 +1,4 @@
-// Download → EXIF-rotate → resize (max 1600px) → WebP q80 → upload to
+// Download → EXIF-rotate → resize (max 2000px) → WebP q85 → upload to
 // private Vercel Blob. Mirrors the on-disk `compress-new-cards.js`
 // pipeline exactly so ingested images match the archive's existing
 // visual quality and compression ratio.
@@ -9,8 +9,8 @@ import type { DraftImage, ScrapedImage } from "./types";
 
 const USER_AGENT =
   "Mozilla/5.0 (compatible; FindArtIngest/1.0; +https://www.findartplatform.com)";
-const MAX_DIMENSION = 1600;
-const WEBP_QUALITY = 80;
+const MAX_DIMENSION = 2000;
+const WEBP_QUALITY = 85;
 const MAX_IMAGES = 20;
 const MIN_DIMENSION = 400;  // filter tiny thumbnails found only after fetch
 
@@ -36,6 +36,7 @@ async function processToWebp(input: Buffer): Promise<{ data: Buffer; width: numb
     .resize({
       width: MAX_DIMENSION,
       height: MAX_DIMENSION,
+      // `inside` resizes only when necessary and never crops either axis.
       fit: "inside",
       withoutEnlargement: true,
     })

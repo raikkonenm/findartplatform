@@ -6,6 +6,7 @@ import * as cheerio from "cheerio";
 import type { ScrapeResult, ScrapedImage } from "./types";
 import { extractArtViewer } from "./extractors/artviewer";
 import { extractGeneric } from "./extractors/generic";
+import { extractInstagram, instagramEmbedUrl, isInstagramPostUrl } from "./extractors/instagram";
 import { extractSaliva } from "./extractors/saliva";
 
 // Use the same request shape as a normal desktop document navigation. Several
@@ -245,6 +246,44 @@ async function fetchSalivaExhibition(url: string, id: string): Promise<ScrapeRes
   }
 }
 
+async function fetchInstagramPost(url: string, parsed: URL): Promise<ScrapeResult> {
+  // The normal permalink often resolves to a login wall. The embed endpoint is
+  // public when Instagram chooses to expose a post and is the only safe
+  // server-side fallback we use — no browser automation or private API.
+  for (const candidate of [instagramEmbedUrl(parsed), url]) {
+    try {
+      const response = await fetch(candidate, {
+        headers: BROWSER_HEADERS,
+        redirect: "follow",
+        cache: "no-store",
+        signal: AbortSignal.timeout(12_000),
+      });
+      if (!response.ok) continue;
+      const html = await response.text();
+      const extracted = extractInstagram({ url, html, $: cheerio.load(html) });
+      if (extracted.imageCandidates.length > 0) return extracted;
+    } catch {
+      // Try the next public representation. A no-media draft is safer than
+      // accidentally treating the Instagram mark as the artwork image.
+    }
+  }
+
+  return {
+    sourceUrl: url,
+    source: "instagram.com",
+    extractor: "generic",
+    rawText: "",
+    structuredHints: {
+      instagram: {
+        permalink: url,
+        mediaAvailable: false,
+        reviewMessage: "Instagram did not expose post media. Attach the original photo(s) to this Telegram message.",
+      },
+    },
+    imageCandidates: [],
+  };
+}
+
 export async function fetchPage(url: string): Promise<ScrapeResult> {
   // Basic URL guard — bail early on non-http(s).
   const parsed = new URL(url);
@@ -260,6 +299,10 @@ export async function fetchPage(url: string): Promise<ScrapeResult> {
     });
     const saliva = await fetchSalivaExhibition(url, salivaId);
     if (saliva) return saliva;
+  }
+
+  if (isInstagramPostUrl(parsed)) {
+    return fetchInstagramPost(url, parsed);
   }
 
   const response = await fetch(url, {
