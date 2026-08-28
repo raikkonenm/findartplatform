@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "the-spirit-is-willing-but-the-flesh-is-weak": ["INSTALLATION", "MACHINE", "SOUND", "MATERIALITY", "TRANSFORMATION"],
   "dog-and-angel": ["INSTALLATION", "SOUND", "MACHINE", "MATERIALITY", "TRANSFORMATION"],
   "rot-summer": ["INSTALLATION", "DIGITAL MYTH", "TECHNOLOGY", "IDENTITY", "OBJECTHOOD"],
   "techno-worlds-final-sampling": ["INSTALLATION", "SOUND", "TECHNOLOGY", "DIGITAL MYTH", "MACHINE"],
@@ -284,6 +285,43 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "the-spirit-is-willing-but-the-flesh-is-weak",
+    title: "THE SPIRIT IS WILLING BUT THE FLESH IS WEAK",
+    subtitle: "Finn Köhntop",
+    venue: "Leonardo-Campus Münster",
+    gallery: "Leonardo-Campus Münster",
+    city: "Münster",
+    country: "Germany",
+    year: "2026",
+    dates: "18 May — 21 May 2026",
+    startDate: "18 May 2026",
+    endDate: "21 May 2026",
+    dateSource: "exhibition",
+    artists: ["Finn Köhntop"],
+    photographer: "Maurice Fey, Hyesung Ryu",
+    exhibitionText: "Lisa Mayer",
+    description: `The installation “THE SPIRIT IS WILLING BUT THE FLESH IS WEAK” explores the human drive for constant improvement. Since the Industrial Revolution, our society has been shaped by the ideals of “higher, faster, further.” The ultimate goals are to optimize performance, push boundaries, and overcome stagnation.
+
+At the center of the installation stands a BMW Compact E46, which was previously used in the drifting scene and pushed to the limits of its roadworthiness. The resulting engine damage symbolizes the principle: The desire for more power and speed is so great that the material eventually can no longer keep up—a fundamental idea reflected in the exhibition’s title.
+
+The exhibition’s title was cut directly into the car’s body and illuminated from the inside with purple light. In addition, tribal designs were cut into the body, and other elements from the tuning and drifting scenes were added, which interfere with the car’s structural integrity and roadworthiness. The deliberately exaggerated aesthetic is further enhanced by light, fast electronic music, and rhinestones.
+
+The vehicle is jacked up, creating a sense of dynamism in the space. The hood on the opposite side, together with the BMW, creates an imaginary movement; it appears as though the two vehicles are racing toward each other. Stillness and motion are thus symbolized.
+
+The installation thus questions a notion of progress that seems to know no bounds. What at first appears to be growth, however, ultimately ends in total destruction and stagnation. The spirit wants to go further. The material cannot.`,
+    coverImage: localExhibitionImage("the-spirit-is-willing-but-the-flesh-is-weak", "01.webp"),
+    previewImage: localExhibitionImage("the-spirit-is-willing-but-the-flesh-is-weak", "01.webp"),
+    heroImage: localExhibitionImage("the-spirit-is-willing-but-the-flesh-is-weak", "01.webp"),
+    images: localExhibitionGallery(
+      "the-spirit-is-willing-but-the-flesh-is-weak",
+      Array.from({ length: 10 }, (_, index) => `${String(index + 1).padStart(2, "0")}.webp`),
+      "horizontal",
+      "Maurice Fey, Hyesung Ryu",
+    ),
+    unoptimized: true,
+  },
+
   {
     slug: "dog-and-angel",
     title: "Dog and Angel",
