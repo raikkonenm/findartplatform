@@ -34,9 +34,9 @@ import { downloadImages } from "@/lib/ingest/images";
 import { detectDuplicate } from "@/lib/ingest/duplicate";
 import {
   deleteDraftAssets,
-  draftPreviewUrl,
   getDraft,
   getDraftAwaitingEdit,
+  readPrivateDraftBlob,
   saveDraft,
 } from "@/lib/ingest/drafts";
 import { publishDraft } from "@/lib/ingest/publish";
@@ -184,7 +184,7 @@ async function handleMessage(message: TgMessage): Promise<void> {
   const coverPreview = cover
     ? await sendPhoto({
         chat_id: chatId,
-        photo: await draftPreviewUrl(cover.blobUrl),
+        photo: { buffer: await readPrivateDraftBlob(cover.blobUrl), filename: cover.filename },
         caption: draftReviewCaption(draft),
         parse_mode: "HTML",
       })
@@ -320,7 +320,7 @@ async function handleCallback(callback: TgCallback): Promise<void> {
         message_id: updated.telegramCoverMessageId,
         media: {
           type: "photo",
-          media: await draftPreviewUrl(cover.blobUrl),
+          media: { buffer: await readPrivateDraftBlob(cover.blobUrl), filename: cover.filename },
           caption: draftReviewCaption(updated),
           parse_mode: "HTML",
         },
@@ -334,7 +334,7 @@ async function handleCallback(callback: TgCallback): Promise<void> {
         message_id: callback.message.message_id,
         media: {
           type: "photo",
-          media: await draftPreviewUrl(cover.blobUrl),
+          media: { buffer: await readPrivateDraftBlob(cover.blobUrl), filename: cover.filename },
           caption: draftReviewCaption(updated),
           parse_mode: "HTML",
         },
@@ -604,7 +604,7 @@ async function refreshReviewPreview(draft: Draft): Promise<void> {
       message_id: draft.telegramCoverMessageId,
       media: {
         type: "photo",
-        media: await draftPreviewUrl(cover.blobUrl),
+        media: { buffer: await readPrivateDraftBlob(cover.blobUrl), filename: cover.filename },
         caption: draftReviewCaption(draft),
         parse_mode: "HTML",
       },

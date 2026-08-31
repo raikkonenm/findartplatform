@@ -1,9 +1,9 @@
 // Draft storage backed by Vercel Blob.
 //
 // All draft data — JSON metadata and downloaded WebP images — lives in
-// the ingest bot's private Blob store. Server reads use the Blob token;
-// Telegram previews receive a short-lived signed URL rather than a raw
-// private object URL.
+// the ingest bot's private Blob store. Server-side reads use the Blob
+// token; Telegram previews receive the actual image bytes via the
+// multipart sendPhoto / editMessageMedia calls (see telegram/api.ts).
 //
 // Layout:
 //   drafts/<uuid>.json                — Draft metadata
@@ -12,7 +12,7 @@
 // The publisher promotes selected images from Blob to git under
 // public/exhibitions/<slug>/ on publish.
 
-import { del, get, issueSignedToken, list, presignUrl, put } from "@vercel/blob";
+import { del, get, list, put } from "@vercel/blob";
 import { blobReadWriteToken } from "./env";
 import type { Draft } from "./types";
 
@@ -22,10 +22,6 @@ function token(): { token: string } {
 
 function metadataKey(id: string): string {
   return `drafts/${id}.json`;
-}
-
-function pathnameFromBlobUrl(blobUrl: string): string {
-  return new URL(blobUrl).pathname.replace(/^\//, "");
 }
 
 export async function saveDraft(draft: Draft): Promise<Draft> {
@@ -110,24 +106,6 @@ export async function readPrivateDraftBlob(blobUrl: string): Promise<Buffer> {
     throw new Error("Private draft asset is unavailable");
   }
   return Buffer.from(await new Response(result.stream).arrayBuffer());
-}
-
-export async function draftPreviewUrl(blobUrl: string): Promise<string> {
-  const pathname = pathnameFromBlobUrl(blobUrl);
-  const validUntil = Date.now() + 15 * 60 * 1000;
-  const signedToken = await issueSignedToken({
-    pathname,
-    operations: ["get"],
-    validUntil,
-    ...token(),
-  });
-  const { presignedUrl } = await presignUrl(signedToken, {
-    access: "private",
-    operation: "get",
-    pathname,
-    validUntil,
-  });
-  return presignedUrl;
 }
 
 // Called by REJECT and by successful PUBLISH to clean up. Best-effort;
