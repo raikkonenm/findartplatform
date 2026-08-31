@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "sorry-i-m-late-missed-my-makeover": ["POSTHUMAN", "BODY", "MACHINE", "SPIRITUALITY"],
   "excusing-immoral-behavior-in-favour-of-a-wristband": ["MEMORY", "ABSENCE"],
   "kin-too": ["INSTALLATION", "IDENTITY", "MATERIALITY", "BODY"],
   "as-the-sap-rises": ["TRANSFORMATION", "BODY", "MEMORY", "LABOR"],
@@ -289,6 +290,188 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: sorry-i-m-late-missed-my-makeover
+  {
+    slug: "sorry-i-m-late-missed-my-makeover",
+    title: "Sorry I’m Late, I Missed My Makeover",
+    subtitle: "Pomadka Teresa",
+    venue: "Jak Zapomnieć Gallery",
+    gallery: "Jak Zapomnieć Gallery",
+    city: "Kraków",
+    country: "PL",
+    year: "2026",
+    dates: "31 July 2026 — 30 August 2026",
+    startDate: "31 July 2026",
+    endDate: "30 August 2026",
+    dateSource: "exhibition",
+    artists: ["Pomadka Teresa"],
+    curator: "Arek Dec",
+    photographer: "Michał Maliński",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/0c4e3d4e",
+    description: `The project explores pop culture as a grotesque and camp-infused space where reality and fiction blur, reflecting late capitalism and the dissolution of distinctions between bodies, machines, and contemporary visual culture.
+
+“A moment of relief. You thought the gore show was over and the monster had met its
+
+end in one of those anatomically explicit scenes of ketchup-splattered carnage when
+
+—suddenly—it comes back to life, still fixated on your death. If you were ever going to
+
+scream, now is the time.”1 — Nick Land, Fanged Noumena
+
+Pomadka Teresa is a black hole in Polish art—a singularity in which the trajectories of
+
+pop culture become subject to extreme coupling. Works produced through
+
+assemblage and compression bend their source forms, suspending them in a state of
+
+persistent endurance and drawing them into a peculiar topology. The plastics and
+
+silicones of The Real Housewives of Beverly Hills melt into a single mass. Their faces,
+
+left too long beneath the desert sun of Los Angeles, disintegrate like Glenn Close in
+
+The Stepford Wives. Because death suits Pomadka.
+
+Fisher wrote that weirdness de-realizes the real and makes the fictional real. It is the
+
+intrusion of something that should not be present in a given place and yet stubbornly
+
+remains there, producing a disturbance in which the boundary between the real and
+
+the fictional begins to dissolve.2 Something similar happens in Pomadka’s work: the
+
+image that simulates reality is cartoon-like and appears to have been generated. The
+
+cartoon-like does not remain merely an aesthetic of representation; it becomes an
+
+intrusion that destabilizes the status of the real. Pomadka’s masks produce a new,
+
+weird spirituality, while a plastic toy is transformed into a relic of Mother Teresa.
+
+If, following Susan Sontag, camp is “a love of the unnatural: of artifice, stylization, and
+
+exaggeration,”3 then Pomadka Teresa is its exemplary figure. Yet this would be a
+
+naïve way of thinking. Under late capitalism, culture operates as a machine for the
+
+continuous production of camp, which ceases to be a minority aesthetic and becomes
+
+a generic environment: one composed of filters, generative images, and faces
+
+modelled by AI and cosmetic surgery. Camp does not ask what something means or
+
+whether it is right, and in this sense it resembles the logic of an algorithm, which does
+
+not evaluate content but processes formal patterns. Where tragedy presupposes
+
+depth, camp prefers surface; where morality requires judgement, camp chooses
+
+aesthetic modulation. Networked structural camp is no longer merely an aesthetic
+
+experience but an epistemological one as well: as the dominant perceptual and
+
+generative pattern, it constitutes the infrastructure of the contemporary world.
+
+“But the most important part of the face for the grotesque is the mouth. It dominates.
+
+The grotesque face is essentially reduced to a gaping mouth; everything else is
+
+merely a frame around that mouth, around this gaping and devouring bodily abyss.”4
+
+— Mikhail Bakhtin, Rabelais and His World: A New Translation
+
+It is precisely these grotesquely enlarged, unnaturally swollen, and permanently open
+
+mouths that condense into a singularity in Pomadka’s work. For Bakhtin, the
+
+exaggeration of the mouth is the primary means of shaping the grotesque
+
+countenance, the centre of the face’s deformation and disintegration. Pomadka’s
+
+masks resemble grotesques torn from the façades of Gothic cathedrals and thrown
+
+into algorithmic circulation.5 Medieval representations were fuelled by Christian
+
+mythology and folk culture; Pomadka is driven by the memosphere, B movies,
+
+science fiction, Terminator, the xenomorph from the Alien franchise, and reality-
+
+television databases. The grotesques return as inhabitants of social-media platforms,
+
+while the medieval carnival is coupled with a bot farm.
+
+Nick Land defined compression as a process through which capitalist-technological
+
+systems reduce time, complexity, and qualitative differences to increasingly dense
+
+intensities ready for further circulation.6 Similarly, in Pomadka’s work, images of
+
+popular culture are neither quoted nor represented but subjected to vacuum
+
+compression. American Beauty, but with the face of late-period Nicole Kidman; The
+
+Urbz: Sims in the City, but played from the interface level, where you are constantly
+
+keeping the indicators in the red; GTA: San Andreas as a nocturnal open world,
+
+except that you mostly play it like Crazy Taxi and run over male hookers; Desperate
+
+Housewives, but styled like Vinted, where the clothes have more history than the
+
+people; or Quake III Arena, but with an FPS so high that your eyeballs explode.
+
+Pomadka sucks all of this into her vortex and compresses it into a single intensity—
+
+posthuman pulp.
+
+The algorithm rewards not truth but intensity, difference, and speed. Condensed
+
+images circulate, replicate, and mutate, while the face ceases to be a face in the
+
+traditional sense. The greater the excess, the greater the chance of dissemination.
+
+Instagram and Pomadka jointly produce a machinic process that drives, accelerates,
+
+and disperses itself. In this sense, Pomadka’s grotesques become the platform’s
+
+inter(faces): grotesque heads with gaping maws, devouring pop culture, multiplying
+
+on algorithmic slides, and returning once again to circulation. Pomadka has failed the
+
+Turing test because the distinction between human and machine has ceased to
+
+matter.
+
+1 Land, N., Fanged Noumena, trans. Patrick Leftwich (Warsaw: Kronos, 2026), essay
+
+“Cybergothic.”
+
+2 Fisher, M., The Weird and the Eerie, trans. Anna Karalus and Tomasz
+
+Adamczewski (Gdańsk: słowo/obraz terytoria, 2023), essay “Out of This World, Out of
+
+Time: Lovecraft and the Weird.”
+
+3 Sontag, S., Against Interpretation and Other Essays (London: Penguin Books,
+
+2009), essay “Notes on ‘Camp’.”
+
+4,5 Bakhtin, M., Rabelais and His World: A New Translation, trans. S. Sandler (MIT
+
+Press, 2025), chapter “The Grotesque Image of the Body in Rabelais and Its
+
+Sources.”
+
+6 Patrick Leftwich, “Afterword,” in Nick Land, Fanged Noumena, trans. Patrick
+
+Leftwich (Warsaw: Kronos, 2026).`,
+    previewImage: localExhibitionImage("sorry-i-m-late-missed-my-makeover", "13.webp"),
+    heroImage: localExhibitionImage("sorry-i-m-late-missed-my-makeover", "13.webp"),
+    images: localExhibitionGallery("sorry-i-m-late-missed-my-makeover", ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp"], "vertical", "Michał Maliński"),
+  },
+  // AI_INGEST_END: sorry-i-m-late-missed-my-makeover
+
   // AI_INGEST_START: excusing-immoral-behavior-in-favour-of-a-wristband
   {
     slug: "excusing-immoral-behavior-in-favour-of-a-wristband",
