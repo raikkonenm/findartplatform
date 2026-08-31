@@ -8,6 +8,7 @@ import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions"
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { editorialArtists } from "@/data/editorial";
 import { HeartIcon } from "@/components/SavedExhibitions";
+import { LazyBannerVideo } from "@/components/LazyBannerVideo";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "@/components/MobileFilterSheet";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
 import { useSearchPanel } from "@/components/SearchPanelContext";
@@ -126,17 +127,12 @@ function MobileFeaturedCarousel() {
       title: "ART CURATORIAL NOMADS ↗",
       subtitle: "Curate your exhibition",
       media: (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-label="Artcnomads curatorial projects"
-          className="absolute inset-0 h-full w-full object-cover"
-        >
-          <source src="/banner/AC.web.mp4" type="video/mp4" />
-        </video>
+        <LazyBannerVideo
+          src="/banner/AC.web.mp4"
+          poster="/banner/AC-poster.webp"
+          alt="Artcnomads curatorial projects"
+          sizes="100vw"
+        />
       ),
     },
   ];
@@ -456,17 +452,13 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
           <article className="min-w-0">
             <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
               {!initialIsMobile && (
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  aria-label="Artcnomads curatorial projects"
-                  className="absolute inset-0 h-full w-full object-cover"
-                >
-                  <source src="/banner/AC.web.mp4" type="video/mp4" />
-                </video>
+                <LazyBannerVideo
+                  src="/banner/AC.web.mp4"
+                  poster="/banner/AC-poster.webp"
+                  alt="Artcnomads curatorial projects"
+                  sizes="33vw"
+                  onlyDesktop
+                />
               )}
             </div>
             <div className="pt-4">
@@ -489,17 +481,14 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
               aria-label="Open Workflow.Art"
               className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Workflow.Art platform preview"
+              <LazyBannerVideo
+                src="/banner/workflow.web.mp4"
+                poster="/banner/workflow.webp"
+                alt="Workflow.Art platform preview"
                 className="absolute inset-0 h-full w-full scale-[1.04] object-cover"
-              >
-                <source src="/banner/workflow.web.mp4" type="video/mp4" />
-              </video>
+                sizes="33vw"
+                onlyDesktop
+              />
             </a>
             <div className="pt-4">
               <a

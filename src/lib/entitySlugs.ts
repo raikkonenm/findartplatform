@@ -160,6 +160,14 @@ export function entityHref(kind: EntityKind, name: string): string {
 
 // --- Exhibition-text author (Exhibition Text field on the detail card) ---
 
+// A person name — even a compound one — never exceeds this length.
+// AI ingest has occasionally dumped the entire prose description into
+// exhibitionText; without this guard, slugify produces a 2000-character
+// slug and the /author/[slug] prerender crashes on Windows MAX_PATH.
+// Anything longer is skipped from the taxonomy — the field still shows
+// on the exhibition detail page.
+const MAX_AUTHOR_NAME_LENGTH = 120;
+
 export function collectAuthorSlugs(): Map<
   string,
   { name: string; exhibitions: Exhibition[] }
@@ -167,7 +175,7 @@ export function collectAuthorSlugs(): Map<
   const map = new Map<string, { name: string; exhibitions: Exhibition[] }>();
   for (const exhibition of exhibitions) {
     const raw = exhibition.exhibitionText?.trim();
-    if (!raw) continue;
+    if (!raw || raw.length > MAX_AUTHOR_NAME_LENGTH) continue;
     const slug = slugifyEntity(raw);
     if (!slug) continue;
     const bucket = map.get(slug);
