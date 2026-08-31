@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "excusing-immoral-behavior-in-favour-of-a-wristband": ["MEMORY", "ABSENCE"],
   "kin-too": ["INSTALLATION", "IDENTITY", "MATERIALITY", "BODY"],
   "as-the-sap-rises": ["TRANSFORMATION", "BODY", "MEMORY", "LABOR"],
   "the-spirit-is-willing-but-the-flesh-is-weak": ["INSTALLATION", "MACHINE", "SOUND", "MATERIALITY", "TRANSFORMATION"],
@@ -288,6 +289,42 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: excusing-immoral-behavior-in-favour-of-a-wristband
+  {
+    slug: "excusing-immoral-behavior-in-favour-of-a-wristband",
+    title: "Excusing Immoral Behavior in Favour of a Wristband",
+    subtitle: "Janine Weger",
+    venue: "Heerz Tooya",
+    gallery: "Heerz Tooya",
+    city: "Veliko Tŭrnovo",
+    country: "BG",
+    year: "2026",
+    dates: "31 July 2026 — 31 July 2026",
+    startDate: "31 July 2026",
+    endDate: "31 July 2026",
+    dateSource: "exhibition",
+    artists: ["Janine Weger"],
+    curator: "Lars Nordby",
+    photographer: "Lars Nordby",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/d90b727f",
+    description: `The exhibition explores the fading meanings of political monuments and personal keepsakes. It questions how architecture and objects retain value after belief fades, highlighting the fragile relationship between collective history and intimate memory.
+
+What does it mean to inherit something whose meaning we no longer share? Are we preserving ghosts or fermenting narratives we want to live with? In Excusing Immoral Behavior in Favour of a Wristband, Janine Weger brings together video, sculpture, and painting to explore the uncertain afterlife of political symbols and personal attachments.
+
+In the video In the Interest Of, free-roaming horses graze, rest, and move around the abandoned Buzludzha monument in Bulgaria—a place once built to embody collective belief and a vision of the future. We see horses leave their traces of manure across the monumental staircase, without acknowledging the history beneath their hooves. They are indifferent to the symbolic value of the place. Abjection comes full circle. The monument is no longer encountered as ideology, but as landscape. It shares the same ground as weather, grass, bodies, and time.
+
+In the exhibition, silhouettes of monuments reappear as cut-outs in industrial plastic and as fragmented paintings on wood. Architecture returns not as certainty, but as outline—as something remembered through its absence. These works ask what remains after monuments lose the futures they once promised, and whether architecture can continue to carry meaning long after belief has withdrawn. One conclusion can be made: architectural sites are fertile.
+
+A central work in the exhibition, Self-Erasure, consists of a gilded leaf holding a bracelet, beads, and other simmed keepsakes. Here, nature, ornament, and personal memory enter into an uneasy conversation. If monuments attempt to preserve collective histories, these smaller objects operate with another vibe—one shaped by intimacy, attachment, and exchange. Yet the personal is not necessarily more permanent than the monumental. A bracelet may carry a lifetime of meaning, while a monument may outlive the belief that created it. Both depend on the fragile agreements through which objects and surroundings are given value.
+
+Janine Weger’s Excusing Immoral Behavior in Favour of a Wristband lingers on the fragile relationship between the things we preserve and the things that preserve us. Between monument and keepsake, public history and private attachment. The exhibition asks the propellerheads of tomorrow and the worms of yesterday, what remains when the meanings we inherit no longer fully belong to us.`,
+    previewImage: localExhibitionImage("excusing-immoral-behavior-in-favour-of-a-wristband", "3.webp"),
+    heroImage: localExhibitionImage("excusing-immoral-behavior-in-favour-of-a-wristband", "3.webp"),
+    images: localExhibitionGallery("excusing-immoral-behavior-in-favour-of-a-wristband", ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp"], "vertical", "Lars Nordby"),
+  },
+  // AI_INGEST_END: excusing-immoral-behavior-in-favour-of-a-wristband
+
   // AI_INGEST_START: kin-too
   {
     slug: "kin-too",
