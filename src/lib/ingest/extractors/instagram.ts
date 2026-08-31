@@ -1,22 +1,51 @@
 // Instagram serves a login page to many server-side requests. Its Open Graph
-// image is the Instagram glyph, not the post, so never hand that fallback to
-// the media pipeline. The public embed page occasionally exposes the actual
-// post CDN assets without authentication.
+// image is often the Instagram glyph, not the post, so never hand that
+// fallback to the media pipeline. When the public embed page happens to
+// expose the actual post CDN assets without authentication we take them.
+// Even when Instagram gates everything we still emit a usable stub —
+// title + shortcode — so the ingest pipeline never throws just because
+// scraping was blocked. The operator can then EDIT TITLE / EDIT
+// DESCRIPTION and attach photos in the same Telegram message.
 
 import type { CheerioAPI } from "cheerio";
 import { absoluteUrl, filterImageCandidates } from "../fetchPage";
 import type { ScrapeResult, ScrapedImage } from "../types";
 
-const POST_PATH = /^\/(?:p|reel|tv)\/([^/?#]+)\/?$/i;
+// Instagram URL shapes we accept:
+//   /p/SHORTCODE/                    single post
+//   /reel/SHORTCODE/                 reel
+//   /reels/SHORTCODE/                mobile share variant (plural)
+//   /tv/SHORTCODE/                   IGTV
+//   /USERNAME/p/SHORTCODE/           scoped permalink (newer share URLs)
+//   /USERNAME/reel/SHORTCODE/        scoped reel
+// Trailing tails (embed, additional slashes, query strings) are tolerated.
+const POST_PATH = /(?:^|\/)(?:p|reel|reels|tv)\/([^/?#]+)/i;
+
+type ParsedPost = { shortcode: string; kind: "p" | "reel" | "reels" | "tv"; handle?: string };
+
+export function parseInstagramPost(url: URL): ParsedPost | undefined {
+  const host = url.hostname.replace(/^www\./, "").toLowerCase();
+  if (host !== "instagram.com" && host !== "instagr.am") return undefined;
+  const match = url.pathname.match(POST_PATH);
+  if (!match) return undefined;
+  const shortcode = match[1];
+  // Recover the media kind and — if present — the leading /USERNAME/ segment.
+  const parts = url.pathname.split("/").filter(Boolean);
+  const kindIndex = parts.findIndex((p) => /^(p|reel|reels|tv)$/i.test(p));
+  const kindRaw = kindIndex >= 0 ? parts[kindIndex].toLowerCase() : "p";
+  const kind = (kindRaw === "reels" ? "reel" : kindRaw) as ParsedPost["kind"];
+  const handle = kindIndex > 0 ? parts[0] : undefined;
+  return { shortcode, kind, handle };
+}
 
 export function isInstagramPostUrl(url: URL): boolean {
-  const host = url.hostname.replace(/^www\./, "").toLowerCase();
-  return host === "instagram.com" && POST_PATH.test(url.pathname);
+  return parseInstagramPost(url) !== undefined;
 }
 
 export function instagramEmbedUrl(url: URL): string {
-  const [, shortcode] = url.pathname.match(POST_PATH) ?? [];
-  const kind = url.pathname.split("/").filter(Boolean)[0] ?? "p";
+  const parsed = parseInstagramPost(url);
+  const shortcode = parsed?.shortcode ?? "";
+  const kind = parsed?.kind ?? "p";
   return `https://www.instagram.com/${kind}/${shortcode}/embed/captioned/`;
 }
 
@@ -59,6 +88,29 @@ function isLoginWall($: CheerioAPI): boolean {
   );
 }
 
+// Cover the "@handle on Instagram" pattern in OG titles.
+function extractHandleFromOgTitle(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  const match = value.match(/(?:^|[\s])@?([\w.]+)\s+on\s+Instagram/i);
+  return match?.[1];
+}
+
+function fallbackTitle(parsed: ParsedPost | undefined, handleFromOg: string | undefined): string {
+  const handle = handleFromOg ?? parsed?.handle;
+  if (handle && parsed?.shortcode) return `@${handle} — Instagram ${parsed.kind}`;
+  if (parsed?.shortcode) return `Instagram ${parsed.kind} — ${parsed.shortcode}`;
+  return "Instagram post";
+}
+
+// Take the caption's first line as a candidate title. Keeps it short so
+// it fits the FindArt seed pattern.
+function firstCaptionLine(description: string | undefined): string | undefined {
+  if (!description) return undefined;
+  const line = description.split(/[\r\n]+/).map((s) => s.trim()).find(Boolean);
+  if (!line) return undefined;
+  return line.length > 120 ? `${line.slice(0, 117)}…` : line;
+}
+
 export function extractInstagram({
   url,
   html,
@@ -89,21 +141,36 @@ export function extractInstagram({
     add(normaliseEscapedUrl(match[0]), "Instagram post media");
   }
 
-  const description =
+  const rawDescription =
     $("meta[property='og:description']").attr("content") ||
     $("meta[name='description']").attr("content") ||
     "";
+  const ogTitle = $("meta[property='og:title']").attr("content") || undefined;
+  const handleFromOg = extractHandleFromOgTitle(ogTitle);
   const loginWall = isLoginWall($);
+
+  const parsed = parseInstagramPost(new URL(url));
+  // Prefer the caption's first line when Instagram exposes it; fall back
+  // to a shortcode/handle-derived label so the normalizer always has a
+  // title to work with, even if scraping was blocked.
+  const captionTitle = loginWall ? undefined : firstCaptionLine(rawDescription);
+  const title = captionTitle ?? fallbackTitle(parsed, handleFromOg);
+
+  const description = loginWall ? "" : rawDescription.trim();
 
   return {
     sourceUrl: url,
     source: "instagram.com",
     extractor: "generic",
-    // Do not use the generic page title — it is normally just "Instagram".
-    rawText: loginWall ? "" : description.trim(),
+    title,
+    rawText: description,
     structuredHints: {
+      og: ogTitle || description ? { title: ogTitle ?? "", description } : undefined,
       instagram: {
         permalink: url,
+        shortcode: parsed?.shortcode,
+        kind: parsed?.kind,
+        handle: handleFromOg ?? parsed?.handle,
         loginWall,
         mediaAvailable: candidates.length > 0,
       },

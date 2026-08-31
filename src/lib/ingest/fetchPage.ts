@@ -250,6 +250,12 @@ async function fetchInstagramPost(url: string, parsed: URL): Promise<ScrapeResul
   // The normal permalink often resolves to a login wall. The embed endpoint is
   // public when Instagram chooses to expose a post and is the only safe
   // server-side fallback we use — no browser automation or private API.
+  //
+  // We keep track of the best-quality scrape as we go so we can return a
+  // draft even when the media pipeline came up empty: a title + shortcode
+  // is enough for the operator to hit EDIT TITLE / EDIT DESCRIPTION and
+  // attach photos manually.
+  let bestScrape: ScrapeResult | undefined;
   for (const candidate of [instagramEmbedUrl(parsed), url]) {
     try {
       const response = await fetch(candidate, {
@@ -262,26 +268,35 @@ async function fetchInstagramPost(url: string, parsed: URL): Promise<ScrapeResul
       const html = await response.text();
       const extracted = extractInstagram({ url, html, $: cheerio.load(html) });
       if (extracted.imageCandidates.length > 0) return extracted;
+      // Keep whichever variant carried the richer text so the fallback
+      // draft has real caption content in it.
+      if (!bestScrape || extracted.rawText.length > bestScrape.rawText.length) {
+        bestScrape = extracted;
+      }
     } catch {
       // Try the next public representation. A no-media draft is safer than
       // accidentally treating the Instagram mark as the artwork image.
     }
   }
 
-  return {
-    sourceUrl: url,
-    source: "instagram.com",
-    extractor: "generic",
-    rawText: "",
-    structuredHints: {
-      instagram: {
-        permalink: url,
-        mediaAvailable: false,
-        reviewMessage: "Instagram did not expose post media. Attach the original photo(s) to this Telegram message.",
-      },
-    },
-    imageCandidates: [],
-  };
+  if (bestScrape) {
+    const hints = bestScrape.structuredHints as {
+      instagram?: { mediaAvailable?: boolean; reviewMessage?: string };
+    };
+    if (hints.instagram) {
+      hints.instagram.reviewMessage =
+        "Instagram did not expose post media. Attach the original photo(s) to this Telegram message and use EDIT TITLE / EDIT DESCRIPTION to complete the draft.";
+    }
+    return bestScrape;
+  }
+
+  // Both fetches failed hard. Emit a stub with as much as we can derive
+  // from the URL itself so the normalizer still produces a draft.
+  return extractInstagram({
+    url,
+    html: "",
+    $: cheerio.load("<html></html>"),
+  });
 }
 
 export async function fetchPage(url: string): Promise<ScrapeResult> {
