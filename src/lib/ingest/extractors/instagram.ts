@@ -65,7 +65,11 @@ function normaliseEscapedUrl(value: string): string {
   return value
     .replace(/\\u0026/gi, "&")
     .replaceAll("\\/", "/")
-    .replace(/&amp;/gi, "&");
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#039;/gi, "'")
+    .replace(/&#39;/gi, "'")
+    .replace(/&#x2F;/gi, "/");
 }
 
 function isInstagramMediaUrl(url: string): boolean {
@@ -129,10 +133,21 @@ export function extractInstagram({
     candidates.push({ url: absolute, reason });
   };
 
-  // The embed's OG/Twitter image is the preferred cover whenever it is an
-  // actual post asset. Login-wall values are explicitly rejected above.
-  add($("meta[property='og:image']").attr("content"), "Instagram post metadata");
-  add($("meta[name='twitter:image']").attr("content"), "Instagram post metadata");
+  // Redundant, high-signal sources first — the embed's own <img> and
+  // <meta> tags. `EmbeddedMediaImage` is Instagram's own class for the
+  // rendered post image and it's the single most reliable field when
+  // the embed page is served without a JavaScript runtime.
+  $("img.EmbeddedMediaImage").each((_, el) => {
+    add($(el).attr("src"), "Instagram embed <img class=EmbeddedMediaImage>");
+    add($(el).attr("data-src"), "Instagram embed <img> data-src");
+  });
+  $("img").each((_, el) => {
+    add($(el).attr("src"), "Instagram embed <img>");
+    add($(el).attr("data-src"), "Instagram embed <img> data-src");
+  });
+  add($("meta[property='og:image']").attr("content"), "Instagram og:image");
+  add($("meta[name='twitter:image']").attr("content"), "Instagram twitter:image");
+  add($("link[rel='image_src']").attr("href"), "Instagram link image_src");
 
   // Instagram serializes carousel images into script payloads. Normalise JSON
   // escaping first, then pull only CDN image URLs in source order.
@@ -157,6 +172,17 @@ export function extractInstagram({
   const title = captionTitle ?? fallbackTitle(parsed, handleFromOg);
 
   const description = loginWall ? "" : rawDescription.trim();
+
+  // Log the outcome so Vercel logs make it obvious whether Instagram
+  // is gating this specific post (0 candidates) vs. an extractor bug.
+  console.info("[ingest:instagram]", {
+    url,
+    handle: handleFromOg ?? parsed?.handle,
+    shortcode: parsed?.shortcode,
+    loginWall,
+    mediaCandidates: candidates.length,
+    filteredCount: filterImageCandidates(candidates).length,
+  });
 
   return {
     sourceUrl: url,

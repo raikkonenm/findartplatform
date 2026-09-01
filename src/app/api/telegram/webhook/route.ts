@@ -189,6 +189,19 @@ async function handleMessage(message: TgMessage): Promise<void> {
         parse_mode: "HTML",
       })
     : undefined;
+
+  // Instagram gates most anonymous server-side image fetches now — if the
+  // extractor came back with 0 images from an Instagram source, tell the
+  // user explicitly instead of silently sending a text-only preview.
+  if (!cover && draft.source === "instagram.com") {
+    await sendMessage({
+      chat_id: chatId,
+      text:
+        "⚠️ Instagram did not expose photos for that post to server-side scraping.\n" +
+        "Send the actual photos and the URL together in one Telegram message and I'll merge them into the same draft.",
+      disable_web_page_preview: true,
+    });
+  }
   const preview = await sendMessage({
     chat_id: chatId,
     text: draftPreviewText(draft),
