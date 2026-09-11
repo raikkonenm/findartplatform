@@ -9,13 +9,24 @@ import {
 // non-ASCII letters and punctuation. Deterministic — two calls with the
 // same input always produce the same slug, so URLs stay stable when the
 // exhibitions dataset changes.
+// Filesystem-safe cap. The SSG output writes one directory per slug under
+// .next/server/app/<kind>/<slug>/; ext4 and NTFS both cap filenames at 255
+// bytes, and a slug longer than that crashes `mkdir` during static export.
+// 100 chars leaves comfortable headroom for path prefixes and file-suffix
+// segments (.segments, page.js, etc.). No existing valid entity name comes
+// close — the only field that hits this limit is a bug where an entire
+// paragraph got pasted into `exhibitionText`.
+const MAX_SLUG_LENGTH = 100;
+
 export function slugifyEntity(name: string): string {
   return name
     .toLowerCase()
     .normalize("NFKD")
     .replace(/[̀-ͯ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/^-+|-+$/g, "")
+    .slice(0, MAX_SLUG_LENGTH)
+    .replace(/-+$/g, "");
 }
 
 export type EntityKind = "gallery" | "artist" | "curator" | "photographer" | "tag";
