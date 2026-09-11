@@ -137,11 +137,16 @@ export function MasonryGrid({
       flatIdx: editorialPromoIndex,
     });
   }
-  // Submit-promo goes to the very first position so it becomes the top-left
-  // card of the feed and pushes every exhibition one slot back. Applied AFTER
-  // editorialPromo so the two don't collide at index 0 in edge cases.
+  // Submit-promo lands at index 4 so it takes the 5th slot in the feed —
+  // last column of the top row at dense/5-col desktop, and second column of
+  // the second row at normal/3-col. Applied AFTER editorialPromo so the two
+  // don't collide.
   if (submitPromo) {
-    items.unshift({ kind: "submit", flatIdx: 0 });
+    const submitPromoIndex = Math.min(4, items.length);
+    items.splice(submitPromoIndex, 0, {
+      kind: "submit",
+      flatIdx: submitPromoIndex,
+    });
   }
 
   const columns: BucketItem[][] = Array.from({ length: columnCount }, () => []);

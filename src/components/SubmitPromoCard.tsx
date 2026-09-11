@@ -22,6 +22,7 @@ export function SubmitPromoCard() {
           alt=""
           fill
           loading="lazy"
+          unoptimized
           sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
           className="object-cover"
         />

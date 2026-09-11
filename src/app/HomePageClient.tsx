@@ -99,6 +99,7 @@ function MobileFeaturedCarousel() {
           alt=""
           fill
           priority
+          unoptimized
           sizes="100vw"
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -409,6 +410,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
                 alt=""
                 fill
                 priority
+                unoptimized
                 sizes="33vw"
                 className="absolute inset-0 h-full w-full object-cover"
               />
