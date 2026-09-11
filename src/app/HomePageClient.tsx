@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
+import { OpportunitiesBannerCarousel } from "@/components/OpportunitiesBannerCarousel";
 import { editorialArtists } from "@/data/editorial";
 import { HeartIcon } from "@/components/SavedExhibitions";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "@/components/MobileFilterSheet";
@@ -94,14 +95,9 @@ function MobileFeaturedCarousel() {
       title: "Opportunities for artists",
       subtitle: "Open calls, residencies, grants",
       media: (
-        <Image
-          src="/banner/submitopp.webp"
-          alt=""
-          fill
+        <OpportunitiesBannerCarousel
           priority
-          unoptimized
           sizes="100vw"
-          className="absolute inset-0 h-full w-full object-cover"
         />
       ),
     },
@@ -405,14 +401,9 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
               aria-label="Browse artist opportunities"
               className="group relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
-              <Image
-                src="/banner/submitopp.webp"
-                alt=""
-                fill
+              <OpportunitiesBannerCarousel
                 priority
-                unoptimized
                 sizes="33vw"
-                className="absolute inset-0 h-full w-full object-cover"
               />
               <span className="absolute inset-0 bg-black/25 transition-colors duration-300 group-hover:bg-black/40" />
               <span className="absolute inset-0 flex items-center justify-center px-4 text-center text-[clamp(1rem,1.9vw,1.6rem)] font-bold uppercase tracking-[0.2em] text-white">
