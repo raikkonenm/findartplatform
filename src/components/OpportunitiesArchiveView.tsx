@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { DaysLeftBadge } from "@/components/DaysLeftBadge";
 import { OpportunityDetailContent } from "@/components/OpportunityDetailContent";
 import { ChevronIcon, CloseIcon, ExternalArrowIcon } from "@/components/OpportunityIcons";
 import {
@@ -73,6 +74,13 @@ const FILTER_LABELS: Record<FilterMode, string> = { type: "Type", field: "Artist
 
 const SHORT_MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// Opportunities that always appear first in both grid and list views,
+// in this exact order. Everything else keeps the view's default ordering.
+const PINNED_TOP_SLUGS: readonly string[] = [
+  "hessische-kulturstiftung-travel-residency-2027-2028",
+  "apexart-curatorial-proposals-2027-2028",
+];
 
 function shortDeadline(isoDate: string): string {
   const [, month, day] = isoDate.split("-").map(Number);
@@ -161,11 +169,18 @@ function OpportunitiesViewToggle({ viewMode, onChange }: { viewMode: ViewMode; o
 function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
   const isFree = fee.toUpperCase() === "FREE";
   const sizing = compact ? "px-2.5 py-1 text-[10px]" : "px-3 py-1.5 text-[11px]";
+  // Free-to-apply badge borrows the "VERIFIED" green-outline style —
+  // green text, green border, white background. Paid stays neutral so it
+  // doesn't compete visually.
+  // Theme-aware: transparent fill lets the tag sit on any page background
+  // (teal in light, dark neutral in dark). Green tokens use a lighter shade
+  // for dark mode so text stays readable.
+  const palette = isFree
+    ? "border-emerald-500 bg-[var(--background)] text-emerald-600 dark:text-emerald-400"
+    : "border-[var(--foreground)] text-[var(--foreground)]";
   return (
     <span
-      className={`inline-flex items-center rounded-md border border-[var(--foreground)] font-medium uppercase tracking-[0.14em] text-[var(--foreground)] ${sizing} ${
-        isFree ? "free-tag-blink" : ""
-      }`}
+      className={`inline-flex items-center rounded-md border font-medium uppercase tracking-[0.14em] ${palette} ${sizing}`}
     >
       {isFree ? "Free to apply" : compact ? fee : `Application fee ${fee}`}
     </span>
@@ -174,7 +189,7 @@ function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
 
 function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void }) {
   return (
-    <article className="group/card relative flex min-h-[260px] flex-col border border-[var(--border)] p-3 transition-colors duration-300 hover:border-neutral-500 md:min-h-[340px] md:p-5">
+    <article className="group/card relative flex min-h-[260px] flex-col border border-[var(--border)] bg-[var(--background)] p-3 text-[var(--foreground)] transition-colors duration-300 hover:border-neutral-500 md:min-h-[340px] md:p-5">
       <button
         type="button"
         aria-label={isSaved ? `Remove ${opportunity.title} from saved` : `Save ${opportunity.title}`}
@@ -183,7 +198,7 @@ function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { oppo
           event.stopPropagation();
           onToggleSaved();
         }}
-        className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm backdrop-blur-sm transition-opacity duration-200 hover:opacity-70 focus-visible:opacity-100 focus-visible:outline-none"
+        className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] shadow-sm backdrop-blur-sm transition-opacity duration-200 hover:opacity-70 focus-visible:opacity-100 focus-visible:outline-none"
       >
         <HeartIcon filled={isSaved} className="h-4 w-4" />
       </button>
@@ -202,7 +217,13 @@ function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { oppo
         {opportunityDisplayTitle(opportunity.title)}
       </Link>
       <dl className="space-y-2 border-t border-[var(--border)] pt-3 text-[11px] leading-relaxed md:space-y-4 md:pt-5 md:text-[12px]">
-        <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Deadline</dt><dd>{opportunity.deadline}</dd></div>
+        <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3">
+          <dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Deadline</dt>
+          <dd>
+            <div>{opportunity.deadline}</div>
+            <DaysLeftBadge deadlineDate={opportunity.deadlineDate} className="mt-0.5 block text-[10px] md:text-[11px]" />
+          </dd>
+        </div>
         <div className="grid grid-cols-[70px_1fr] gap-2 md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[8px] uppercase tracking-[0.2em] text-neutral-500 md:text-[9px]">Location</dt><dd>{opportunity.location}</dd></div>
         <div className="hidden md:grid md:grid-cols-[88px_1fr] md:gap-3"><dt className="text-[9px] uppercase tracking-[0.2em] text-neutral-500">For</dt><dd>{opportunity.audience}</dd></div>
       </dl>
@@ -220,8 +241,7 @@ function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { oppo
 const LIST_ROW_COLS =
   "md:grid-cols-[minmax(0,2.4fr)_110px_110px_minmax(0,1.1fr)_minmax(0,1.3fr)_120px]";
 
-function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void; today: Date | null }) {
-  const daysLeft = daysRemainingLabel(opportunity.deadlineDate, today);
+function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved }: { opportunity: Opportunity; onOpen: () => void; isSaved: boolean; onToggleSaved: () => void }) {
   const primaryType = opportunityPrimaryType(opportunity);
 
   const onKeyDown = (event: React.KeyboardEvent) => {
@@ -238,7 +258,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       tabIndex={0}
       onClick={onOpen}
       onKeyDown={onKeyDown}
-      className={`group relative grid cursor-pointer grid-cols-[1fr_auto_auto] items-start gap-x-3 gap-y-2 border-b border-neutral-200 px-2 py-6 transition-colors duration-200 hover:bg-neutral-50 ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6 md:pr-14`}
+      className={`group relative grid cursor-pointer grid-cols-[1fr_auto_auto] items-start gap-x-3 gap-y-2 border-b border-neutral-200 px-2 py-6 transition-colors duration-200 hover:bg-black/[0.04] dark:border-neutral-800 dark:hover:bg-white/[0.05] ${LIST_ROW_COLS} md:items-center md:gap-x-6 md:px-4 md:py-6 md:pr-14`}
     >
       {/* Desktop: floating heart at right-inside of the row */}
       <button
@@ -249,7 +269,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
           event.stopPropagation();
           onToggleSaved();
         }}
-        className="absolute right-3 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md border border-neutral-300 bg-white/85 text-neutral-900 shadow-sm transition-opacity hover:opacity-70 md:flex"
+        className="absolute right-3 top-1/2 z-10 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] shadow-sm transition-opacity hover:opacity-70 md:flex"
       >
         <HeartIcon filled={isSaved} className="h-4 w-4" />
       </button>
@@ -292,7 +312,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
           event.stopPropagation();
           onToggleSaved();
         }}
-        className="order-3 flex h-9 w-9 shrink-0 items-center justify-center self-start rounded-md border border-neutral-300 bg-white text-neutral-900 shadow-sm transition-opacity hover:opacity-70 md:hidden"
+        className="order-3 flex h-9 w-9 shrink-0 items-center justify-center self-start rounded-md border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] shadow-sm transition-opacity hover:opacity-70 md:hidden"
       >
         <HeartIcon filled={isSaved} className="h-4 w-4" />
       </button>
@@ -311,9 +331,10 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
       {/* DEADLINE */}
       <div className="order-5 justify-self-end text-right md:order-none md:justify-self-start md:text-left">
         <div className="text-[13px] text-neutral-900 md:text-neutral-800">{longDeadline(opportunity.deadlineDate)}</div>
-        {daysLeft && (
-          <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-neutral-400 md:hidden">{daysLeft}</div>
-        )}
+        <DaysLeftBadge
+          deadlineDate={opportunity.deadlineDate}
+          className="mt-0.5 block text-[10px] md:text-[11px]"
+        />
       </div>
 
       {/* LOCATION */}
@@ -342,11 +363,11 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
   );
 }
 
-function OpportunitiesListView({ opportunities, onOpen, isSaved, onToggleSaved, sortDirection, onToggleSort, today }: { opportunities: Opportunity[]; onOpen: (opp: Opportunity) => void; isSaved: (slug: string) => boolean; onToggleSaved: (slug: string) => void; sortDirection: SortDirection; onToggleSort: () => void; today: Date | null }) {
+function OpportunitiesListView({ opportunities, onOpen, isSaved, onToggleSaved, sortDirection, onToggleSort }: { opportunities: Opportunity[]; onOpen: (opp: Opportunity) => void; isSaved: (slug: string) => boolean; onToggleSaved: (slug: string) => void; sortDirection: SortDirection; onToggleSort: () => void; today: Date | null }) {
   return (
     <div className="mt-8">
       {/* Column header — desktop only, matches OpportunityRow grid template. */}
-      <div className={`hidden border-y border-neutral-200 bg-neutral-100 px-4 py-3.5 text-[10px] uppercase tracking-[0.18em] text-neutral-500 md:grid ${LIST_ROW_COLS} md:items-center md:gap-x-6`}>
+      <div className={`hidden border-y border-neutral-200 bg-black/[0.04] px-4 py-3.5 text-[10px] uppercase tracking-[0.18em] text-neutral-500 dark:border-neutral-800 dark:bg-white/[0.05] md:grid ${LIST_ROW_COLS} md:items-center md:gap-x-6`}>
         <span className="flex items-center gap-1">Opportunity <ChevronIcon direction="down" className="h-2.5 w-2.5" /></span>
         <span>Type</span>
         <button
@@ -370,7 +391,6 @@ function OpportunitiesListView({ opportunities, onOpen, isSaved, onToggleSaved, 
             onOpen={() => onOpen(opp)}
             isSaved={isSaved(opp.slug)}
             onToggleSaved={() => onToggleSaved(opp.slug)}
-            today={today}
           />
         ))}
       </div>
@@ -744,13 +764,20 @@ export function OpportunitiesArchiveView() {
       const queryMatches = !q || opportunity.title.toLowerCase().includes(q) || opportunity.organizer.toLowerCase().includes(q) || opportunity.location.toLowerCase().includes(q) || opportunity.tags.some((tag) => tag.toLowerCase().includes(q));
       return typeMatches && fieldMatches && rewardMatches && feeMatches && locationMatches && audienceMatches && tagMatches && queryMatches;
     });
+    // Pin two opportunities to the top of the archive (both views), in the
+    // declared order. Everything else keeps whatever ordering the view uses.
+    const pinnedSet = new Set(PINNED_TOP_SLUGS);
+    const pinned = PINNED_TOP_SLUGS
+      .map((slug) => filtered.find((o) => o.slug === slug))
+      .filter((o): o is Opportunity => Boolean(o));
+    const rest = filtered.filter((o) => !pinnedSet.has(o.slug));
     if (viewMode === "list") {
-      return [...filtered].sort((a, b) => {
+      rest.sort((a, b) => {
         const cmp = a.deadlineDate.localeCompare(b.deadlineDate);
         return sortDirection === "asc" ? cmp : -cmp;
       });
     }
-    return filtered;
+    return [...pinned, ...rest];
   }, [selectedFilters, feeFilter, selectedLocation, selectedAudience, selectedTag, viewMode, sortDirection, query, today]);
 
   const activeFilterCount = (selectedFilters.type !== FILTERS.type[0] ? 1 : 0) + (selectedFilters.field !== FILTERS.field[0] ? 1 : 0) + (selectedFilters.reward !== FILTERS.reward[0] ? 1 : 0) + (feeFilter !== "all" ? 1 : 0) + (selectedLocation !== "All" ? 1 : 0) + (selectedAudience !== "All" ? 1 : 0) + (selectedTag !== "All" ? 1 : 0);
@@ -765,7 +792,7 @@ export function OpportunitiesArchiveView() {
   const isOpportunitySaved = (slug: string) => isSavedGlobal(opportunitySavedKey(slug));
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[var(--background)] pt-[65px] text-[var(--foreground)]">
+    <main className="min-h-screen overflow-x-hidden bg-[#3fbfb2] pt-[65px] text-[var(--foreground)] dark:bg-[var(--background)]">
       <Header />
       <section className="px-5 pb-24 pt-8 md:px-8 md:pt-6 lg:px-12">
         {/* H1 is present but sr-only on every viewport — the page title is
@@ -774,7 +801,7 @@ export function OpportunitiesArchiveView() {
         <div className="hidden md:flex md:justify-end">
           <Link
             href="/submit-opportunities"
-            className="whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.2em] text-neutral-900 underline decoration-1 underline-offset-[6px] transition-opacity hover:opacity-55"
+            className="inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-blue-600 px-4 py-2 text-[13px] font-semibold uppercase tracking-[0.15em] text-white shadow-sm ring-1 ring-blue-700/40 transition-colors hover:bg-blue-700"
           >
             Submit Opportunities <ExternalArrowIcon />
           </Link>
@@ -784,7 +811,7 @@ export function OpportunitiesArchiveView() {
         <div className="flex items-center justify-between md:hidden">
           <Link
             href="/submit-opportunities"
-            className="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-900 transition-opacity hover:opacity-60"
+            className="inline-flex items-center gap-1.5 rounded-md bg-blue-600 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-white shadow-sm ring-1 ring-blue-700/40 transition-colors hover:bg-blue-700"
           >
             SUBMIT OPPORTUNITIES <ExternalArrowIcon />
           </Link>

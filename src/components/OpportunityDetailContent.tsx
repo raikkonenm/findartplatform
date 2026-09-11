@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Opportunity } from "@/data/opportunities";
+import { DaysLeftBadge } from "@/components/DaysLeftBadge";
 import { ArrowRightIcon, ExternalArrowIcon } from "@/components/OpportunityIcons";
 import {
   opportunityDisplayTitle,
@@ -40,7 +41,13 @@ export function OpportunityDetailContent({
           <dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">
             Deadline
           </dt>
-          <dd>{opportunity.deadline}</dd>
+          <dd>
+            <div>{opportunity.deadline}</div>
+            <DaysLeftBadge
+              deadlineDate={opportunity.deadlineDate}
+              className="mt-1 block text-[11px]"
+            />
+          </dd>
         </div>
         <div>
           <dt className="mb-2 text-[9px] uppercase tracking-[0.2em] text-neutral-500">
@@ -74,9 +81,9 @@ export function OpportunityDetailContent({
             {isFree ? (
               <Link
                 href={opportunityFreeUrl()}
-                className="transition-opacity hover:opacity-55"
+                className="inline-flex items-center rounded-md border border-emerald-500 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-emerald-600 transition-opacity hover:opacity-75 dark:text-emerald-400"
               >
-                {opportunity.applicationFee}
+                Free to apply
               </Link>
             ) : (
               opportunity.applicationFee
