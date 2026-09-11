@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "express": ["LABOR"],
   "sorry-i-m-late-missed-my-makeover": ["POSTHUMAN", "BODY", "MACHINE", "SPIRITUALITY"],
   "excusing-immoral-behavior-in-favour-of-a-wristband": ["MEMORY", "ABSENCE"],
   "kin-too": ["INSTALLATION", "IDENTITY", "MATERIALITY", "BODY"],
@@ -290,6 +291,52 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: express
+  {
+    slug: "express",
+    title: "Express",
+    venue: "Deltainst",
+    gallery: "Deltainst",
+    city: "Hangzhou",
+    country: "CN",
+    year: "2026",
+    dates: "15 August 2026 — 20 September 2026",
+    startDate: "15 August 2026",
+    endDate: "20 September 2026",
+    dateSource: "exhibition",
+    artists: ["Dane Mitchell", "Karin Sander", "Lou Hubbard", "Ry Haskings", "Stuart Ringholt", "Yan Dafu"],
+    curator: "Jincheng Deng",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/e485618e",
+    description: `The exhibition explores misalignments between location and electronic presence, highlighting how everyday delivery elements embody complex systems, exposing the unseen atmosphere, residue, and unease behind parcel journeys.
+
+Express
+
+Deltainst was
+formerly a courier depot, the last stop before delivery. The logistics system is a
+hyperobject that attaches itself viscously to concrete things. Freight trucks,
+delivery routes, cardboard boxes, shipping notifications, barcodes and tape are
+our daily encounters with this hyperobject. It traverses through roads,
+warehouses, and last-mile delivery, while also stacking through satellites and
+databases - a planetary spectre (Gespenst). The AIS coordinates of Iran’s oil
+ghost fleet sometimes locate them on land. This phenomenon makes this
+exhibition reflect on the misalignment between geographical location and
+electronic presence. It gathers moments when logistic infrastructure, like a
+broken tool, flashes into view as tracked bodies and tracking signals drift apart.
+A “sorry we missed you” card left by this system not only directs our routine
+but also the postman's labour and rewrites the package's route. The discarded
+parcel box is not merely a container, but part of the parcel’s former mode of
+existence, like a shed skin, leaving behind the remains of an object that has
+passed through scanning, sorting, and delivery. This exhibition engages the
+system through its sensible qualities, making its atmosphere, residue, and
+unease accessible. Or, in simpler terms, to show that what arrives in your hands
+had been being-in there.`,
+    previewImage: localExhibitionImage("express", "5.webp"),
+    heroImage: localExhibitionImage("express", "5.webp"),
+    images: localExhibitionGallery("express", ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp", "16.webp", "17.webp", "18.webp", "19.webp", "20.webp"], "vertical"),
+  },
+  // AI_INGEST_END: express
+
   // AI_INGEST_START: sorry-i-m-late-missed-my-makeover
   {
     slug: "sorry-i-m-late-missed-my-makeover",
