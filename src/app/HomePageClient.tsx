@@ -88,18 +88,19 @@ function MobileFeaturedCarousel() {
 
   const slides: MobileSlide[] = [
     {
-      href: "/exhibitions/der-kopf-ist-rund",
-      ariaLabel: "View Der Kopf ist rund exhibition",
-      eyebrow: "Klaus in Vorarlberg / 2026",
-      title: "Der Kopf ist rund, damit das Denken die Richtung wechseln kann",
-      subtitle: "Galerie Brugger",
+      href: "/opportunities",
+      ariaLabel: "Browse artist opportunities",
+      eyebrow: "For artists",
+      title: "Opportunities for artists",
+      subtitle: "Open calls, residencies, grants",
       media: (
-        <FeaturedExhibitionSlideshow
-          slug="der-kopf-ist-rund"
-          initialSrc="/banner/banner1.webp"
-          alt="Der Kopf ist rund exhibition installation view"
+        <Image
+          src="/banner/submitopp.webp"
+          alt=""
+          fill
           priority
           sizes="100vw"
+          className="absolute inset-0 h-full w-full object-cover"
         />
       ),
     },
@@ -399,30 +400,35 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
         >
           <article className="min-w-0">
             <Link
-              href="/exhibitions/der-kopf-ist-rund"
-              aria-label="View Der Kopf ist rund exhibition"
-              className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
+              href="/opportunities"
+              aria-label="Browse artist opportunities"
+              className="group relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
-              <FeaturedExhibitionSlideshow
-                slug="der-kopf-ist-rund"
-                initialSrc="/banner/banner1.webp"
-                alt="Der Kopf ist rund exhibition installation view"
+              <Image
+                src="/banner/submitopp.webp"
+                alt=""
+                fill
                 priority
                 sizes="33vw"
+                className="absolute inset-0 h-full w-full object-cover"
               />
+              <span className="absolute inset-0 bg-black/25 transition-colors duration-300 group-hover:bg-black/40" />
+              <span className="absolute inset-0 flex items-center justify-center px-4 text-center text-[clamp(1rem,1.9vw,1.6rem)] font-bold uppercase tracking-[0.2em] text-white">
+                Opportunities for artists
+              </span>
             </Link>
             <div className="pt-4">
               <p className="text-[10px] uppercase tracking-[0.26em] text-neutral-500">
-                Klaus in Vorarlberg / 2026
+                For artists
               </p>
               <Link
-                href="/exhibitions/der-kopf-ist-rund"
+                href="/opportunities"
                 className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] text-neutral-900 transition-opacity hover:opacity-60"
               >
-                Der Kopf ist rund, damit das Denken die Richtung wechseln kann
+                Opportunities for artists
               </Link>
               <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-neutral-500">
-                Galerie Brugger
+                Open calls, residencies, grants
               </p>
             </div>
           </article>
@@ -1495,6 +1501,7 @@ export default function HomePageClient({
             initialIsMobile={initialIsMobile}
             density={density}
             editorialPromo={showEditorialPromo}
+            submitPromo={showFeaturedBanners}
             hideMobileSubtitles={showEditorialPromo}
             interleavedArtists={showFeaturedBanners ? editorialArtists : undefined}
           />

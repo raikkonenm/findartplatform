@@ -6,6 +6,7 @@ import type { EditorialArtist } from "@/data/editorial";
 import { EditorialCard } from "./EditorialCard";
 import { EditorialPromoCard } from "./EditorialPromoCard";
 import { ExhibitionCard } from "./ExhibitionCard";
+import { SubmitPromoCard } from "./SubmitPromoCard";
 
 export type MasonryDensity = "normal" | "dense";
 
@@ -51,6 +52,7 @@ function useColumnCount(initialIsMobile: boolean, density: MasonryDensity): numb
 type BucketItem =
   | { kind: "exhibition"; exhibition: Exhibition; flatIdx: number }
   | { kind: "editorial"; flatIdx: number }
+  | { kind: "submit"; flatIdx: number }
   | { kind: "artist"; artist: EditorialArtist; flatIdx: number };
 
 // Interleave editorial artist cards among exhibitions so no two artist
@@ -106,6 +108,7 @@ export function MasonryGrid({
   initialIsMobile = false,
   density = "normal",
   editorialPromo = false,
+  submitPromo = false,
   hideMobileSubtitles = false,
   interleavedArtists,
 }: {
@@ -114,6 +117,7 @@ export function MasonryGrid({
   initialIsMobile?: boolean;
   density?: MasonryDensity;
   editorialPromo?: boolean;
+  submitPromo?: boolean;
   hideMobileSubtitles?: boolean;
   interleavedArtists?: EditorialArtist[];
 }) {
@@ -133,6 +137,12 @@ export function MasonryGrid({
       flatIdx: editorialPromoIndex,
     });
   }
+  // Submit-promo goes to the very first position so it becomes the top-left
+  // card of the feed and pushes every exhibition one slot back. Applied AFTER
+  // editorialPromo so the two don't collide at index 0 in edge cases.
+  if (submitPromo) {
+    items.unshift({ kind: "submit", flatIdx: 0 });
+  }
 
   const columns: BucketItem[][] = Array.from({ length: columnCount }, () => []);
   items.forEach((item, itemIndex) => {
@@ -146,6 +156,9 @@ export function MasonryGrid({
           {column.map((item) => {
             if (item.kind === "editorial") {
               return <EditorialPromoCard key="editorial-promo" />;
+            }
+            if (item.kind === "submit") {
+              return <SubmitPromoCard key="submit-promo" />;
             }
             if (item.kind === "artist") {
               return (
