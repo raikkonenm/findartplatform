@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "eureka-by-koesy": ["BODY", "RITUAL", "IDENTITY", "TRANSFORMATION", "MYTH"],
   "the-solemnity-of-the-repulsive": ["INSTALLATION", "MATERIALITY", "RITUAL", "ANIMALITY", "SOUND", "SPIRITUALITY"],
   "kin-too": ["INSTALLATION", "IDENTITY", "MATERIALITY", "BODY"],
   "as-the-sap-rises": ["TRANSFORMATION", "BODY", "MEMORY", "LABOR"],
@@ -289,6 +290,34 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "eureka-by-koesy",
+    title: "EUREKA BY KOESY",
+    subtitle: "Koesy",
+    venue: "MO Gallery Seoul",
+    gallery: "MO Gallery Seoul",
+    city: "Seoul",
+    country: "South Korea",
+    year: "2026",
+    dates: "19 September — 11 October 2026",
+    startDate: "19 September 2026",
+    endDate: "11 October 2026",
+    dateSource: "exhibition",
+    artists: ["Koesy"],
+    curator: "MO Gallery Seoul",
+    description: `In the manga he loved as a child, heroes often awakened not when they gained something, but only after losing or giving up a part of themselves. Within this paradox, Koesy finds another kind of Eureka.
+
+He has lost, along with his head, the face and name that once proved who he was, and the ego that placed him at the center of the world. Yet his body, marked by defeat and sacrifice, suggests less a scene of loss than a ritual of passage — an attempt to become something other through the very act of losing.`,
+    previewImage: localExhibitionImage("eureka", "1.webp"),
+    heroImage: localExhibitionImage("eureka", "1.webp"),
+    images: localExhibitionGallery(
+      "eureka",
+      ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp"],
+      "vertical",
+    ),
+    unoptimized: true,
+  },
+
   {
     slug: "the-solemnity-of-the-repulsive",
     title: "The Solemnity of the Repulsive",
