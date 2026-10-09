@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "acacia-bloom": ["BODY", "DECAY", "MUTATION", "HYBRID BODIES", "INSTALLATION", "POSTHUMAN"],
   "cosmologies-at-play": ["INSTALLATION", "MEMORY", "RITUAL", "ARCHIVE", "MATERIAL MEMORY", "IDENTITY"],
   "eureka-by-koesy": ["BODY", "RITUAL", "IDENTITY", "TRANSFORMATION", "MYTH"],
   "the-solemnity-of-the-repulsive": ["INSTALLATION", "MATERIALITY", "RITUAL", "ANIMALITY", "SOUND", "SPIRITUALITY"],
@@ -291,6 +292,38 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "acacia-bloom",
+    title: "ACACIA BLOOM BY NIKA KUTATELADZE",
+    subtitle: "Nika Kutateladze",
+    venue: "Galerie Molitor",
+    gallery: "Galerie Molitor",
+    city: "Berlin",
+    country: "Germany",
+    year: "2026",
+    dates: "10 September — 14 November 2026",
+    startDate: "10 September 2026",
+    endDate: "14 November 2026",
+    dateSource: "exhibition",
+    artists: ["Nika Kutateladze"],
+    description: `His interest in body horror transforms the archetypal portrait, a human figure, into a scene and a symbol. The skin, orifices, and anatomy become sites of horror, where mutation, decay, and the blurred boundary between human and non-human register larger, abrupt, and devastating societal dynamics.
+
+By merging existing architectural elements into a new space, Kutateladze blends the two realities and creates a new, impossible one.
+
+— Text: Sasha Bogojev`,
+    previewImage: localExhibitionImage("acacia", "1.webp"),
+    heroImage: localExhibitionImage("acacia", "1.webp"),
+    images: localExhibitionGallery(
+      "acacia",
+      [
+        "1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp",
+        "9.webp", "10.webp", "11.webp", "12.webp", "13.webp", "14.webp", "15.webp",
+        "16.webp", "17.webp",
+      ],
+      "vertical",
+    ),
+  },
+
   {
     slug: "cosmologies-at-play",
     title: "COSMOLOGIES AT PLAY BY POLINA OSIPOVA",
