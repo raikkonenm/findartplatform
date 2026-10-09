@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "cosmologies-at-play": ["INSTALLATION", "MEMORY", "RITUAL", "ARCHIVE", "MATERIAL MEMORY", "IDENTITY"],
   "eureka-by-koesy": ["BODY", "RITUAL", "IDENTITY", "TRANSFORMATION", "MYTH"],
   "the-solemnity-of-the-repulsive": ["INSTALLATION", "MATERIALITY", "RITUAL", "ANIMALITY", "SOUND", "SPIRITUALITY"],
   "kin-too": ["INSTALLATION", "IDENTITY", "MATERIALITY", "BODY"],
@@ -290,6 +291,48 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "cosmologies-at-play",
+    title: "COSMOLOGIES AT PLAY BY POLINA OSIPOVA",
+    subtitle: "Polina Osipova",
+    venue: "Neun Kelche",
+    gallery: "Neun Kelche",
+    city: "Berlin",
+    country: "Germany",
+    year: "2026",
+    dates: "19 September — 25 October 2026",
+    startDate: "19 September 2026",
+    endDate: "25 October 2026",
+    dateSource: "exhibition",
+    artists: ["Polina Osipova"],
+    photographer: "Dorothea Dittrich / VG Bildkunst 2026, Helia Jafarzadeh",
+    description: `Currently on view at Neun Kelche in Berlin, Polina Osipova's first solo exhibition in Germany transforms the project space into a walk-in playground where Chuvash cosmology meets the visual language of Soviet space-age playgrounds.
+
+Slides, seesaws and play structures become carriers of layered memory. Osipova combines metalwork, textiles and photographs from her family archive, shifting the cosmos away from a narrative of technological conquest toward a living, relational space in which ancestors are conceived as stars.
+
+The playground emerges as an ambivalent site — at once a space of play, hope and imagination, and one shaped by systems of control, normalization and inherited ideology. Through these altered structures, personal and collective memory remain in motion rather than settling into a single historical narrative.
+
+Performance: Cosmology at Play: Sliding towards the Ancient.
+
+Installation photography: Dorothea Dittrich / VG Bildkunst 2026. Additional images courtesy of the artist. Performance photography: Helia Jafarzadeh.`,
+    previewImage: localExhibitionImage("cosmologies", "1.webp"),
+    heroImage: localExhibitionImage("cosmologies", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "cosmologies",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "horizontal" },
+      ],
+      "Dorothea Dittrich / VG Bildkunst 2026, Helia Jafarzadeh",
+    ),
+  },
+
   {
     slug: "eureka-by-koesy",
     title: "EUREKA BY KOESY",
