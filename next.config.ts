@@ -5,13 +5,12 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
-    // Route through Vercel's image optimizer. Sources are already q80
-    // WebP averaging ~46 KB after the shrink pass, so per-variant
-    // transformation cost is minimal. Serving smaller variants per
-    // breakpoint is what actually drives LCP down on mobile — the
-    // masonry cards render at ~200–400 px CSS width and used to pull
-    // the full-size webp because unoptimized: true was set.
-    unoptimized: false,
+    // Vercel's per-project Image Optimization quota is exhausted —
+    // /_next/image returns 402 OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED
+    // for every uncached variant, breaking all images for new content.
+    // Serve WebPs directly from public/ (already q80, 10-100 KB each)
+    // until the Vercel plan is upgraded.
+    unoptimized: true,
     // Cache transformed images at Vercel edge for one year — image
     // URLs are content-addressed by (source, width, quality), so a
     // long TTL never serves stale content and eliminates the cold-
