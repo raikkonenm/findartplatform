@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "inner-licht-iacolare": ["MATERIALITY", "ANIMALITY", "LIMINALITY", "BODY", "MATERIAL MEMORY", "TRANSFORMATION"],
   "ghosts-and-gods-stoklosa-alix-tabeling": ["MYTH", "RITUAL", "HYBRID BODIES", "ANIMALITY", "SPIRITUALITY", "INSTALLATION"],
   "ritual-for-happiness-gudwin": ["RITUAL", "OBJECTHOOD", "SPIRITUALITY", "INSTALLATION", "MATERIALITY"],
   "acacia-bloom": ["BODY", "DECAY", "MUTATION", "HYBRID BODIES", "INSTALLATION", "POSTHUMAN"],
@@ -294,6 +295,36 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "inner-licht-iacolare",
+    title: "INNER:LICHT BY CARMINE ANTONIO IACOLARE",
+    subtitle: "Carmine Antonio Iacolare",
+    venue: "SAMSA G. TUCHWAREN",
+    gallery: "SAMSA G. TUCHWAREN",
+    city: "Munich",
+    country: "Germany",
+    year: "2026",
+    dates: "6 September — 11 October 2026",
+    startDate: "6 September 2026",
+    endDate: "11 October 2026",
+    dateSource: "exhibition",
+    artists: ["Carmine Antonio Iacolare"],
+    description: `Iacolare's works explore what lies between clearly defined states: transitions, in-between spaces, and the traces left behind.
+
+He primarily works with animal-derived materials and found materials that have often already fulfilled their original purpose and are regarded as remains or waste. Their history remains visible and, through the artist's handwork, is placed within a new context.
+
+The material lives on, changes, and ages alongside the human being. New meaning emerges through the interplay of body, skin, and their surfaces — as well as through the light that lies beyond them.
+
+— Text: Ben Neder`,
+    previewImage: localExhibitionImage("inner", "1.webp"),
+    heroImage: localExhibitionImage("inner", "1.webp"),
+    images: localExhibitionGallery(
+      "inner",
+      ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp"],
+      "vertical",
+    ),
+  },
+
   {
     slug: "ghosts-and-gods-stoklosa-alix-tabeling",
     title: "GHOSTS & GODS BY ŁUKASZ STOKŁOSA AND NILS ALIX-TABELING",
