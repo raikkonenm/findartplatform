@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "ritual-for-happiness-gudwin": ["RITUAL", "OBJECTHOOD", "SPIRITUALITY", "INSTALLATION", "MATERIALITY"],
   "acacia-bloom": ["BODY", "DECAY", "MUTATION", "HYBRID BODIES", "INSTALLATION", "POSTHUMAN"],
   "cosmologies-at-play": ["INSTALLATION", "MEMORY", "RITUAL", "ARCHIVE", "MATERIAL MEMORY", "IDENTITY"],
   "eureka-by-koesy": ["BODY", "RITUAL", "IDENTITY", "TRANSFORMATION", "MYTH"],
@@ -292,6 +293,31 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "ritual-for-happiness-gudwin",
+    title: "RITUAL FOR HAPPINESS BY MISHA GUDWIN",
+    year: "2026",
+    postDate: "06 October 2026",
+    sortDate: "06 October 2026",
+    dateSource: "instagram-post",
+    artists: ["Misha Gudwin"],
+    photographer: "Misha Gudwin",
+    summary: "At @automat_space, Saarbrücken, Germany · 26 September – 18 October 2026. Exhibition assistance: @skromnaya.i.",
+    description: `Ritual for Happiness is a system of magical attributes in which everyday objects, architectural elements, and design objects are transformed into artworks and become part of a kind of contemporary ritual.
+
+Within the exhibition space, these objects become attributes of a magical ritual — a kind of rite aimed at achieving eternal happiness, lightness, and freedom. In a contemporary world filled with crises, anxiety, and a sense of instability, magical thinking becomes a protective mechanism that allows us, at least temporarily, to believe in the possibility of controlling the uncontrollable.
+
+At @automat_space, Saarbrücken, Germany · 26 September – 18 October 2026. Exhibition assistance: @skromnaya.i.`,
+    previewImage: localExhibitionImage("gudwin", "1.webp"),
+    heroImage: localExhibitionImage("gudwin", "1.webp"),
+    images: localExhibitionGallery(
+      "gudwin",
+      ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp"],
+      "vertical",
+      "Misha Gudwin",
+    ),
+  },
+
   {
     slug: "acacia-bloom",
     title: "ACACIA BLOOM BY NIKA KUTATELADZE",
