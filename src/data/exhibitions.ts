@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "dead-letter-office-benta": ["GROUP SHOW", "ARCHIVE", "ABSENCE", "MEMORY", "FRAGMENT", "INSTALLATION"],
   "common-skin-fantasy-bilbao-moros": ["BODY", "HYBRID BODIES", "MATERIALITY", "ANIMALITY", "SPECULATIVE BODY", "INSTALLATION"],
   "inner-licht-iacolare": ["MATERIALITY", "ANIMALITY", "LIMINALITY", "BODY", "MATERIAL MEMORY", "TRANSFORMATION"],
   "ghosts-and-gods-stoklosa-alix-tabeling": ["MYTH", "RITUAL", "HYBRID BODIES", "ANIMALITY", "SPIRITUALITY", "INSTALLATION"],
@@ -296,6 +297,47 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "dead-letter-office-benta",
+    title: "DEAD LETTER OFFICE (GROUP EXHIBITION)",
+    subtitle: "Ece Cangüden, Günbike Erdemir, Lalin Mercan, Maral Taşkırıcı, Metehan Törer",
+    venue: "Benta",
+    gallery: "Benta",
+    city: "Istanbul",
+    country: "Turkey",
+    year: "2026",
+    dates: "4 September — 19 September 2026",
+    startDate: "4 September 2026",
+    endDate: "19 September 2026",
+    dateSource: "exhibition",
+    artists: ["Ece Cangüden", "Günbike Erdemir", "Lalin Mercan", "Maral Taşkırıcı", "Metehan Törer"],
+    curator: "Eda Urfalıoğlu, Naz Balkaya, Barış Çavuşoğlu",
+    photographer: "Baris Ozcetin",
+    description: `Dead Letter Office unfolds as a shared inquiry into messages that could never arrive. The exhibition draws inspiration from the dead letter office, a postal archive for undeliverable letters and packages: messages sent to wrong addresses, recipients who had moved or passed away, or packages that waited too long.
+
+Every artwork functions as a materialised message, intimate yet inaccessible, present yet structurally delayed. Rather than resolving messages, the exhibition holds them in transit.`,
+    previewImage: localExhibitionImage("dead", "1.webp"),
+    heroImage: localExhibitionImage("dead", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "dead",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+      ],
+      "Baris Ozcetin",
+    ),
+  },
+
   {
     slug: "common-skin-fantasy-bilbao-moros",
     title: "COMMON SKIN FANTASY BY ALICIA BILBAO AND ALEJANDRA MOROS",
