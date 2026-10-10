@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "ghosts-and-gods-stoklosa-alix-tabeling": ["MYTH", "RITUAL", "HYBRID BODIES", "ANIMALITY", "SPIRITUALITY", "INSTALLATION"],
   "ritual-for-happiness-gudwin": ["RITUAL", "OBJECTHOOD", "SPIRITUALITY", "INSTALLATION", "MATERIALITY"],
   "acacia-bloom": ["BODY", "DECAY", "MUTATION", "HYBRID BODIES", "INSTALLATION", "POSTHUMAN"],
   "cosmologies-at-play": ["INSTALLATION", "MEMORY", "RITUAL", "ARCHIVE", "MATERIAL MEMORY", "IDENTITY"],
@@ -293,6 +294,34 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "ghosts-and-gods-stoklosa-alix-tabeling",
+    title: "GHOSTS & GODS BY ŁUKASZ STOKŁOSA AND NILS ALIX-TABELING",
+    subtitle: "Łukasz Stokłosa, Nils Alix-Tabeling",
+    venue: "Coulisse Gallery",
+    gallery: "Coulisse Gallery",
+    city: "Stockholm",
+    country: "Sweden",
+    year: "2026",
+    dates: "1 October — 31 October 2026",
+    startDate: "1 October 2026",
+    endDate: "31 October 2026",
+    dateSource: "exhibition",
+    artists: ["Łukasz Stokłosa", "Nils Alix-Tabeling"],
+    photographer: "@lmexo",
+    description: `Ghosts and Gods brings together Łukasz Stokłosa and Nils Alix-Tabeling around a shared interest in what happens to myths, images and forms of belief when they move beyond the worlds that first gave them meaning.
+
+Alix-Tabeling's sculptures and installations bring together pagan figures, folklore, ritual, queer histories, animals and the body. Myth here is not an illustration of an old story. It is a way of giving form to histories and forms of knowledge that have been marginalised or erased.`,
+    previewImage: localExhibitionImage("nils", "1.webp"),
+    heroImage: localExhibitionImage("nils", "1.webp"),
+    images: localExhibitionGallery(
+      "nils",
+      ["1.webp", "2.webp", "3.webp", "4.webp"],
+      "vertical",
+      "@lmexo",
+    ),
+  },
+
   {
     slug: "ritual-for-happiness-gudwin",
     title: "RITUAL FOR HAPPINESS BY MISHA GUDWIN",
