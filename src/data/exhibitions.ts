@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "common-skin-fantasy-bilbao-moros": ["BODY", "HYBRID BODIES", "MATERIALITY", "ANIMALITY", "SPECULATIVE BODY", "INSTALLATION"],
   "inner-licht-iacolare": ["MATERIALITY", "ANIMALITY", "LIMINALITY", "BODY", "MATERIAL MEMORY", "TRANSFORMATION"],
   "ghosts-and-gods-stoklosa-alix-tabeling": ["MYTH", "RITUAL", "HYBRID BODIES", "ANIMALITY", "SPIRITUALITY", "INSTALLATION"],
   "ritual-for-happiness-gudwin": ["RITUAL", "OBJECTHOOD", "SPIRITUALITY", "INSTALLATION", "MATERIALITY"],
@@ -295,6 +296,34 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "common-skin-fantasy-bilbao-moros",
+    title: "COMMON SKIN FANTASY BY ALICIA BILBAO AND ALEJANDRA MOROS",
+    subtitle: "Alicia Bilbao, Alejandra Moros",
+    venue: "KDR Gallery",
+    gallery: "KDR Gallery",
+    city: "Miami",
+    country: "United States",
+    year: "2026",
+    dates: "5 September — 10 October 2026",
+    startDate: "5 September 2026",
+    endDate: "10 October 2026",
+    dateSource: "exhibition",
+    artists: ["Alicia Bilbao", "Alejandra Moros"],
+    description: `Common Skin Fantasy marks the first time the two artists' works have existed in dialogue, creating an environment where materials, conceptual references, and audience projections expand in uncanny ways.
+
+Drawing on Didier Anzieu's psychoanalytic concept of the 'common skin fantasy', the exhibition considers a state in which physical and psychological boundaries between self and other have not yet fully formed. Across sculpture and painting, fragmented bodies, artificial and organic materials, prosthetics, animal skins and spectral forms become part of tender, fictional environments where those boundaries remain unstable.
+
+— Text: Catherine Mary Camargo`,
+    previewImage: localExhibitionImage("common", "1.webp"),
+    heroImage: localExhibitionImage("common", "1.webp"),
+    images: localExhibitionGallery(
+      "common",
+      ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp", "6.webp", "7.webp", "8.webp", "9.webp", "10.webp"],
+      "vertical",
+    ),
+  },
+
   {
     slug: "inner-licht-iacolare",
     title: "INNER:LICHT BY CARMINE ANTONIO IACOLARE",
