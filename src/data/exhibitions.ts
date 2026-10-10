@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "chronic-inflammation-adler": ["BODY", "FEMININITY", "SURVEILLANCE", "INSTALLATION", "IDENTITY", "MYTH"],
   "dead-letter-office-benta": ["GROUP SHOW", "ARCHIVE", "ABSENCE", "MEMORY", "FRAGMENT", "INSTALLATION"],
   "common-skin-fantasy-bilbao-moros": ["BODY", "HYBRID BODIES", "MATERIALITY", "ANIMALITY", "SPECULATIVE BODY", "INSTALLATION"],
   "inner-licht-iacolare": ["MATERIALITY", "ANIMALITY", "LIMINALITY", "BODY", "MATERIAL MEMORY", "TRANSFORMATION"],
@@ -297,6 +298,48 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "chronic-inflammation-adler",
+    title: "CHRONIC INFLAMMATION BY EMMA ADLER",
+    subtitle: "Emma Adler",
+    venue: "Martinetz",
+    gallery: "Martinetz",
+    city: "Cologne",
+    country: "Germany",
+    year: "2026",
+    dates: "4 September — 17 October 2026",
+    startDate: "4 September 2026",
+    endDate: "17 October 2026",
+    dateSource: "exhibition",
+    artists: ["Emma Adler"],
+    photographer: "Simon Vogel, Tamara Lorenz",
+    description: `What does truth mean in a time when images and narratives no longer serve as proof of what has happened, but instead determine what is regarded as reality?
+
+Emma Adler's exhibition CHRONIC INFLAMMATION depicts a society in a state of chronic inflammation. What starts as a protective response eventually turns against the body. Polarisation, media sensationalism, and competing truths become self-perpetuating.
+
+Adler's latest series of works explores how societal truths about female bodies are constructed, inscribed in them and legitimised through them. For Adler, fire represents both persecution and resistance.
+
+— Text: Teresa Retzer`,
+    previewImage: localExhibitionImage("chronic", "1.webp"),
+    heroImage: localExhibitionImage("chronic", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "chronic",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+      ],
+      "Simon Vogel, Tamara Lorenz",
+    ),
+  },
+
   {
     slug: "dead-letter-office-benta",
     title: "DEAD LETTER OFFICE (GROUP EXHIBITION)",
