@@ -54,6 +54,18 @@ const DESKTOP_SLIDESHOW_SLUGS = new Set([
   "ausserkoerperliche-erfahrung-wandering-spirit",
   "presence-by-proxy",
   "sweet-world-1",
+  "fight-or-flight-sex-bethanien",
+  "a-flower-is-growing-inside-me-nils-alix-tabeling",
+  "flood-hannah-rowan",
+  "mouth-sarah-friend",
+  "nexus-open-studio-anais-gauthier",
+  "dog-and-angel",
+  "pulses-within",
+  "kin-too",
+  "eureka-by-koesy",
+  "ritual-for-happiness-gudwin",
+  "inner-licht-iacolare",
+  "acacia-bloom",
 ]);
 
 const ALL_IMAGE_SLIDESHOW_SLUGS = new Set([
