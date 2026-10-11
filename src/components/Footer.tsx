@@ -104,7 +104,7 @@ export function Footer() {
           <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em]">
             Advertising
           </p>
-          <Link href="/contact?topic=advertising" className={footerLinkClass}>
+          <Link href="/advertising" className={footerLinkClass}>
             Advertise with us
           </Link>
         </div>

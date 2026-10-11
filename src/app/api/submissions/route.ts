@@ -10,6 +10,7 @@ const SUBMISSION_TYPES = new Set([
   "index",
   "contribute",
   "contact",
+  "advertising",
 ] as const);
 type SubmissionType = typeof SUBMISSION_TYPES extends Set<infer T> ? T : never;
 
@@ -59,6 +60,17 @@ const FIELDS: Record<SubmissionType, readonly string[]> = {
     "Notes (optional)",
   ],
   contact: ["Name", "Email", "Topic", "Subject", "Message"],
+  advertising: [
+    "Name",
+    "Email",
+    "Project / Organization",
+    "Advertising Format",
+    "Duration",
+    "Total Placement Price",
+    "Project Link",
+    "Preferred Start Date",
+    "Message",
+  ],
 };
 
 const REQUIRED: Record<SubmissionType, readonly string[]> = {
@@ -98,6 +110,14 @@ const REQUIRED: Record<SubmissionType, readonly string[]> = {
     "Short Bio",
   ],
   contact: ["Name", "Email", "Topic", "Subject", "Message"],
+  advertising: [
+    "Name",
+    "Email",
+    "Project / Organization",
+    "Advertising Format",
+    "Duration",
+    "Total Placement Price",
+  ],
 };
 
 function subjectFor(type: SubmissionType, payload: Record<string, string>): string {
@@ -114,6 +134,8 @@ function subjectFor(type: SubmissionType, payload: Record<string, string>): stri
       return `New Editorial Pitch — ${payload["Pitch Title"] || payload.Name}`;
     case "contact":
       return `FindArt Contact: ${payload.Subject || payload.Topic || payload.Name}`;
+    case "advertising":
+      return `New Advertising Placement Request — ${payload["Advertising Format"]} (${payload.Duration}) — ${payload["Project / Organization"] || payload.Name}`;
   }
 }
 

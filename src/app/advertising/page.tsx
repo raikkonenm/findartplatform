@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Header } from "@/components/Header";
+import { AdvertisingRequestForm, ADVERTISING_FORM_ANCHOR } from "@/components/AdvertisingRequestForm";
 
 const AD_TITLE = "Advertising — FindArt Platform";
 const AD_DESCRIPTION =
@@ -22,6 +23,17 @@ export const metadata: Metadata = {
     title: AD_TITLE,
     description: AD_DESCRIPTION,
   },
+};
+
+type PlacementCardProps = {
+  label: string;
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+  lead: string;
+  specs: string[];
+  pricing: Array<{ term: string; price: string }>;
+  requestFormat: "billboard" | "pinned-feed";
 };
 
 export default function AdvertisingPage() {
@@ -55,9 +67,12 @@ export default function AdvertisingPage() {
             imageWidth={1889}
             imageHeight={732}
             lead="A featured advertising placement at the top of the FindArt Platform homepage. Promote your exhibition, gallery, art fair, open call, or creative project with a direct link to your website."
+            // Specs match the live homepage featured-banner slot, which
+            // uses source images at ~1200×549 (≈ 2.2:1). We don't
+            // enforce a strict 16:9 because the real slot is wider.
             specs={[
               "File format: JPG or PNG",
-              "Recommended dimensions: 1600 × 900 px (16:9)",
+              "Recommended dimensions: 1200 × 549 px (≈ 2.2:1)",
               "Max file size: 2 MB",
               "URL linking to your website or project",
               "Placement: Homepage, featured section",
@@ -68,6 +83,7 @@ export default function AdvertisingPage() {
               { term: "6 months", price: "€899" },
               { term: "1 year", price: "€1,590" },
             ]}
+            requestFormat="billboard"
           />
           <PlacementCard
             label="Pinned Feed Ad"
@@ -75,12 +91,15 @@ export default function AdvertisingPage() {
             imageWidth={1889}
             imageHeight={738}
             lead="Position your project at the top of the FindArt Platform Explore feed. Your advertisement stays in the first position throughout the selected period, connecting your project with visitors exploring contemporary art."
+            // Specs match the pinned feed-card slot, which is a 3:4
+            // portrait tile (same aspect as the Submit-Exhibition card
+            // that currently occupies the pinned slot).
             specs={[
               "File format: JPG or PNG",
-              "Recommended dimensions: 1200 × 1200 px (1:1)",
+              "Recommended dimensions: 900 × 1200 px (3:4 portrait)",
               "Max file size: 2 MB",
               "URL linking to your website or project",
-              "Placement: First position in Explore feed",
+              "Placement: Pinned position in Explore feed",
             ]}
             pricing={[
               { term: "1 month", price: "€99" },
@@ -88,8 +107,11 @@ export default function AdvertisingPage() {
               { term: "6 months", price: "€499" },
               { term: "1 year", price: "€890" },
             ]}
+            requestFormat="pinned-feed"
           />
         </div>
+
+        <AdvertisingRequestForm />
       </section>
     </main>
   );
@@ -103,15 +125,8 @@ function PlacementCard({
   lead,
   specs,
   pricing,
-}: {
-  label: string;
-  image: string;
-  imageWidth: number;
-  imageHeight: number;
-  lead: string;
-  specs: string[];
-  pricing: Array<{ term: string; price: string }>;
-}) {
+  requestFormat,
+}: PlacementCardProps) {
   return (
     <article className="flex flex-col gap-6">
       {/* Mockup displayed at its intrinsic aspect ratio, scaled only to
@@ -152,6 +167,15 @@ function PlacementCard({
             ))}
           </ul>
         </div>
+
+        {/* Deep-link to the form below. The hash carries the format so
+            the form can preselect it on hashchange. */}
+        <a
+          href={`#${ADVERTISING_FORM_ANCHOR}?format=${requestFormat}`}
+          className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-900 transition-opacity hover:opacity-55"
+        >
+          Request this placement <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </article>
   );
