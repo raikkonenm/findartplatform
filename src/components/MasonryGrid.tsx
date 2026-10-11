@@ -135,24 +135,26 @@ export function MasonryGrid({
         exhibition,
         flatIdx,
       }));
-  // Splice pinned cards into the flat items list. We splice from the
-  // HIGHEST index downward so earlier splices don't shift the slots
-  // we're about to target. Dense desktop grid = 5 columns, round-robin,
-  // so flat index N lands at column (N % 5), row floor(N / 5).
-  //   - Features (editorialPromo) → index 16 = col 1 row 4 (row 4 pos 2)
+  // Splice pinned cards into the flat items list. Each pinned index is
+  // the FINAL slot that card should occupy, so we splice from the
+  // LOWEST final index upward — then each subsequent splice targets a
+  // slot that's already stable because earlier (lower) splices have
+  // been applied. Dense desktop grid = 5 columns, round-robin, so flat
+  // index N lands at column (N % 5), row floor(N / 5).
   //   - Submit ad                 → index 8  = col 3 row 2 (row 2 pos 4)
-  if (editorialPromo) {
-    const editorialPromoIndex = Math.min(16, items.length);
-    items.splice(editorialPromoIndex, 0, {
-      kind: "editorial",
-      flatIdx: editorialPromoIndex,
-    });
-  }
+  //   - Features (editorialPromo) → index 16 = col 1 row 4 (row 4 pos 2)
   if (pinSubmitAd) {
     const submitAdIndex = Math.min(8, items.length);
     items.splice(submitAdIndex, 0, {
       kind: "submit-ad",
       flatIdx: submitAdIndex,
+    });
+  }
+  if (editorialPromo) {
+    const editorialPromoIndex = Math.min(16, items.length);
+    items.splice(editorialPromoIndex, 0, {
+      kind: "editorial",
+      flatIdx: editorialPromoIndex,
     });
   }
 
