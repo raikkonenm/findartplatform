@@ -114,18 +114,6 @@ export function SubmissionExperience() {
           )}
         </div>
 
-        {submissionType === "exhibition" && (
-          <div className="space-y-3 text-[14px] leading-[1.65] text-neutral-700 md:text-[15px]">
-            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Guidelines</p>
-            <ul className="list-disc space-y-1.5 pl-5 marker:text-neutral-400">
-              <li>Please include installation views and images of individual works.</li>
-              <li>Images minimum 2000 px.</li>
-              <li>Send via Dropbox or Google Drive (non-expiring link).</li>
-              <li>Include exhibition text or press release.</li>
-            </ul>
-          </div>
-        )}
-
         <SubmissionForm key={submissionType} submissionType={submissionType} />
 
         <p className="text-[13px] leading-[1.6] text-neutral-500 md:text-[14px]">

@@ -50,7 +50,8 @@ export default function AdvertisingPage() {
           <PlacementCard
             label="Billboard Ad"
             image="/advertising/billboard-ad.webp"
-            imageAspect="aspect-[16/9]"
+            imageWidth={1889}
+            imageHeight={732}
             lead="A featured advertising placement at the top of the FindArt Platform homepage. Promote your exhibition, gallery, art fair, open call, or creative project with a direct link to your website."
             specs={[
               "File format: JPG or PNG",
@@ -69,7 +70,8 @@ export default function AdvertisingPage() {
           <PlacementCard
             label="Pinned Feed Ad"
             image="/advertising/pinned-feed-ad.webp"
-            imageAspect="aspect-[1/1]"
+            imageWidth={1889}
+            imageHeight={738}
             lead="Position your project at the top of the FindArt Platform Explore feed. Your advertisement stays in the first position throughout the selected period, connecting your project with visitors exploring contemporary art."
             specs={[
               "File format: JPG or PNG",
@@ -94,29 +96,34 @@ export default function AdvertisingPage() {
 function PlacementCard({
   label,
   image,
-  imageAspect,
+  imageWidth,
+  imageHeight,
   lead,
   specs,
   pricing,
 }: {
   label: string;
   image: string;
-  imageAspect: string;
+  imageWidth: number;
+  imageHeight: number;
   lead: string;
   specs: string[];
   pricing: Array<{ term: string; price: string }>;
 }) {
   return (
     <article className="flex flex-col gap-6">
-      <div className={`relative w-full overflow-hidden bg-neutral-100 ${imageAspect}`}>
-        <Image
-          src={image}
-          alt={`${label} example`}
-          fill
-          sizes="(min-width: 768px) 45vw, 100vw"
-          className="object-cover"
-        />
-      </div>
+      {/* Mockup displayed at its intrinsic aspect ratio, scaled only to
+          column width — never cropped. `h-auto` lets the image honour
+          its real proportions instead of being forced into a container
+          aspect ratio. */}
+      <Image
+        src={image}
+        alt={`${label} example`}
+        width={imageWidth}
+        height={imageHeight}
+        sizes="(min-width: 768px) 45vw, 100vw"
+        className="h-auto w-full"
+      />
       <div className="space-y-4">
         <h2 className="editorial-serif text-[clamp(1.1rem,2vw,1.5rem)] uppercase leading-[1.1] tracking-[-0.01em] text-neutral-900">
           {label}
