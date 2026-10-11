@@ -69,13 +69,14 @@ export function AdvertisingRequestForm() {
 
   // Listen for the "Request this placement" buttons above. They fire
   // a window CustomEvent carrying the chosen format; we preselect it,
-  // reset duration to the shortest term, and smooth-scroll the form
-  // into view. We compute the target Y ourselves and call
-  // `window.scrollTo({behavior: 'smooth'})` because `scrollIntoView`
-  // with smooth behaviour was observed to no-op on this layout — the
-  // page's `html { overflow: clip visible }` interacts badly with it.
-  // The sticky header sits ~105 px tall, so we subtract that so the
-  // form heading isn't tucked behind the nav.
+  // reset duration to the shortest term, and scroll the form into
+  // view. We query the form section with getElementById rather than
+  // relying on the React ref so the scroll works even if the ref
+  // hasn't attached yet (hydration race). We also fall back to an
+  // instant scroll if the smooth call hasn't moved the viewport by
+  // 200 ms — some engines (headless Chrome, Safari with reduced
+  // motion) silently drop `behavior: 'smooth'` and we care about the
+  // scroll landing more than the animation.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const applyFromEvent = (ev: Event) => {
@@ -86,11 +87,17 @@ export function AdvertisingRequestForm() {
         setDuration("1 month");
       }
       requestAnimationFrame(() => {
-        const el = sectionRef.current;
+        const el = document.getElementById(ADVERTISING_FORM_ANCHOR);
         if (!el) return;
         const headerOffset = 100;
-        const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
-        window.scrollTo({ top: y, behavior: "smooth" });
+        const targetY = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+        const startY = window.scrollY;
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+        window.setTimeout(() => {
+          if (Math.abs(window.scrollY - startY) < 20) {
+            window.scrollTo({ top: targetY, behavior: "auto" });
+          }
+        }, 220);
       });
     };
     window.addEventListener(ADVERTISING_REQUEST_EVENT, applyFromEvent as EventListener);
