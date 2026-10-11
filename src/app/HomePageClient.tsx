@@ -1222,13 +1222,13 @@ export default function HomePageClient({
     [location, year, tag, onViewOnly, nowMs, search, showFeaturedBanners],
   );
 
-  // Homepage-only pin: Preserved, Unfixed sits in the 5th slot of the
+  // Homepage-only pin: Preserved, Unfixed sits in the 3rd slot of the
   // first row (dense grid). On /exhibitions it stays wherever the
   // natural sort put it, per the user's request.
   const feedExhibitions = useMemo(() => {
     if (!showFeaturedBanners) return filtered;
     const PIN_SLUG = "preserved-unfixed-bachurina";
-    const PIN_INDEX = 4;
+    const PIN_INDEX = 2;
     const pinIdx = filtered.findIndex((ex) => ex.slug === PIN_SLUG);
     if (pinIdx === -1 || pinIdx === PIN_INDEX) return filtered;
     const next = filtered.slice();
