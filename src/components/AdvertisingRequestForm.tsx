@@ -70,9 +70,12 @@ export function AdvertisingRequestForm() {
   // Listen for the "Request this placement" buttons above. They fire
   // a window CustomEvent carrying the chosen format; we preselect it,
   // reset duration to the shortest term, and smooth-scroll the form
-  // into view. Using a custom event (not a hash fragment) sidesteps
-  // the problem that `#anchor?query=…` isn't a valid element id for
-  // the browser's native hash-based scrolling to find.
+  // into view. We compute the target Y ourselves and call
+  // `window.scrollTo({behavior: 'smooth'})` because `scrollIntoView`
+  // with smooth behaviour was observed to no-op on this layout — the
+  // page's `html { overflow: clip visible }` interacts badly with it.
+  // The sticky header sits ~105 px tall, so we subtract that so the
+  // form heading isn't tucked behind the nav.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const applyFromEvent = (ev: Event) => {
@@ -83,7 +86,11 @@ export function AdvertisingRequestForm() {
         setDuration("1 month");
       }
       requestAnimationFrame(() => {
-        sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        const el = sectionRef.current;
+        if (!el) return;
+        const headerOffset = 100;
+        const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
       });
     };
     window.addEventListener(ADVERTISING_REQUEST_EVENT, applyFromEvent as EventListener);
