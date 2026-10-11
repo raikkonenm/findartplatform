@@ -122,7 +122,8 @@ export function SubmissionExperience() {
           our{" "}
           <Link
             href="/advertising"
-            className="font-semibold text-neutral-900 underline underline-offset-2 hover:no-underline"
+            className="font-semibold text-neutral-900"
+            style={{ textDecoration: "underline", textUnderlineOffset: "2px" }}
           >
             advertising page
           </Link>
