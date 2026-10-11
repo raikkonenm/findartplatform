@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { SubmissionForm } from "./SubmissionForm";
 import { RelatedExhibitionsRow, trackSubmissionEvent } from "./SubmissionInfoPanel";
 
@@ -113,7 +114,29 @@ export function SubmissionExperience() {
           )}
         </div>
 
+        {submissionType === "exhibition" && (
+          <div className="space-y-3 text-[14px] leading-[1.65] text-neutral-700 md:text-[15px]">
+            <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Guidelines</p>
+            <ul className="list-disc space-y-1.5 pl-5 marker:text-neutral-400">
+              <li>Please include installation views and images of individual works.</li>
+              <li>Images minimum 2000 px.</li>
+              <li>Send via Dropbox or Google Drive (non-expiring link).</li>
+              <li>Include exhibition text or press release.</li>
+            </ul>
+          </div>
+        )}
+
         <SubmissionForm key={submissionType} submissionType={submissionType} />
+
+        <p className="text-[13px] leading-[1.6] text-neutral-500 md:text-[14px]">
+          Please note, this form can not be used for advertising enquiries. If you&rsquo;re a gallery,
+          organisation or an individual and you want more information about advertising, please check
+          our{" "}
+          <Link href="/advertising" className="text-neutral-900 underline underline-offset-2 hover:no-underline">
+            advertising page
+          </Link>
+          .
+        </p>
       </div>
 
       <RelatedExhibitionsRow submissionType={submissionType} />

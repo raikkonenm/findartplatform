@@ -1,0 +1,149 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import { Header } from "@/components/Header";
+
+const AD_TITLE = "Advertising — FindArt Platform";
+const AD_DESCRIPTION =
+  "Promote your exhibition, gallery, art fair, open call or creative project on FindArt Platform. Available placements and pricing.";
+const AD_URL = "https://www.findartplatform.com/advertising";
+
+export const metadata: Metadata = {
+  title: { absolute: AD_TITLE },
+  description: AD_DESCRIPTION,
+  alternates: { canonical: AD_URL },
+  openGraph: {
+    type: "website",
+    url: AD_URL,
+    title: AD_TITLE,
+    description: AD_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: AD_TITLE,
+    description: AD_DESCRIPTION,
+  },
+};
+
+export default function AdvertisingPage() {
+  return (
+    <main className="relative min-h-screen overflow-x-hidden bg-white pt-[95px] md:pt-[105px]">
+      <Header />
+      <section className="px-5 pb-24 md:px-8 lg:px-12">
+        {/* Centred intro */}
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center">
+          <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Advertising</p>
+          <h1 className="editorial-serif text-[clamp(1.6rem,3.8vw,2.4rem)] uppercase leading-[1.02] tracking-[-0.02em] text-neutral-900">
+            Advertise on FindArt Platform
+          </h1>
+          <div className="space-y-3 text-[15px] leading-[1.65] text-neutral-700 md:text-[16px]">
+            <p>
+              Connect your project with an international audience engaged in contemporary art. Our
+              advertising placements offer dedicated visibility for exhibitions, galleries, art
+              fairs, open calls, and independent artistic initiatives.
+            </p>
+            <p>Explore the available formats below and find the right placement for your project.</p>
+          </div>
+        </div>
+
+        {/* Two placement cards */}
+        <div className="mx-auto mt-16 grid w-full max-w-6xl grid-cols-1 gap-10 md:mt-20 md:grid-cols-2 md:gap-12">
+          <PlacementCard
+            label="Billboard Ad"
+            image="/advertising/billboard-ad.webp"
+            imageAspect="aspect-[16/9]"
+            lead="A featured advertising placement at the top of the FindArt Platform homepage. Promote your exhibition, gallery, art fair, open call, or creative project with a direct link to your website."
+            specs={[
+              "File format: JPG or PNG",
+              "Recommended dimensions: 1600 × 900 px (16:9)",
+              "Max file size: 2 MB",
+              "URL linking to your website or project",
+              "Placement: Homepage, featured section",
+            ]}
+            pricing={[
+              { term: "1 month", price: "€179" },
+              { term: "3 months", price: "€489" },
+              { term: "6 months", price: "€899" },
+              { term: "1 year", price: "€1,590" },
+            ]}
+          />
+          <PlacementCard
+            label="Pinned Feed Ad"
+            image="/advertising/pinned-feed-ad.webp"
+            imageAspect="aspect-[1/1]"
+            lead="Position your project at the top of the FindArt Platform Explore feed. Your advertisement stays in the first position throughout the selected period, connecting your project with visitors exploring contemporary art."
+            specs={[
+              "File format: JPG or PNG",
+              "Recommended dimensions: 1200 × 1200 px (1:1)",
+              "Max file size: 2 MB",
+              "URL linking to your website or project",
+              "Placement: First position in Explore feed",
+            ]}
+            pricing={[
+              { term: "1 month", price: "€99" },
+              { term: "3 months", price: "€269" },
+              { term: "6 months", price: "€499" },
+              { term: "1 year", price: "€890" },
+            ]}
+          />
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function PlacementCard({
+  label,
+  image,
+  imageAspect,
+  lead,
+  specs,
+  pricing,
+}: {
+  label: string;
+  image: string;
+  imageAspect: string;
+  lead: string;
+  specs: string[];
+  pricing: Array<{ term: string; price: string }>;
+}) {
+  return (
+    <article className="flex flex-col gap-6">
+      <div className={`relative w-full overflow-hidden bg-neutral-100 ${imageAspect}`}>
+        <Image
+          src={image}
+          alt={`${label} example`}
+          fill
+          sizes="(min-width: 768px) 45vw, 100vw"
+          className="object-cover"
+        />
+      </div>
+      <div className="space-y-4">
+        <h2 className="editorial-serif text-[clamp(1.1rem,2vw,1.5rem)] uppercase leading-[1.1] tracking-[-0.01em] text-neutral-900">
+          {label}
+        </h2>
+        <p className="text-[14px] leading-[1.65] text-neutral-700 md:text-[15px]">{lead}</p>
+
+        <div>
+          <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-neutral-500">Specs</p>
+          <ul className="list-disc space-y-1 pl-5 text-[14px] leading-[1.6] text-neutral-700 marker:text-neutral-400">
+            {specs.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-neutral-500">Pricing</p>
+          <ul className="divide-y divide-neutral-200 border-y border-neutral-200">
+            {pricing.map(({ term, price }) => (
+              <li key={term} className="flex items-baseline justify-between py-2.5 text-[14px] text-neutral-800">
+                <span>{term}</span>
+                <span className="font-semibold">{price}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </article>
+  );
+}

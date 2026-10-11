@@ -6,6 +6,7 @@ import type { EditorialArtist } from "@/data/editorial";
 import { EditorialCard } from "./EditorialCard";
 import { EditorialPromoCard } from "./EditorialPromoCard";
 import { ExhibitionCard } from "./ExhibitionCard";
+import { SubmitAdCard } from "./SubmitAdCard";
 
 export type MasonryDensity = "normal" | "dense";
 
@@ -51,6 +52,7 @@ function useColumnCount(initialIsMobile: boolean, density: MasonryDensity): numb
 type BucketItem =
   | { kind: "exhibition"; exhibition: Exhibition; flatIdx: number }
   | { kind: "editorial"; flatIdx: number }
+  | { kind: "submit-ad"; flatIdx: number }
   | { kind: "artist"; artist: EditorialArtist; flatIdx: number };
 
 // Interleave editorial artist cards among exhibitions so no two artist
@@ -108,6 +110,7 @@ export function MasonryGrid({
   editorialPromo = false,
   hideMobileSubtitles = false,
   interleavedArtists,
+  pinSubmitAd = false,
 }: {
   exhibitions: Exhibition[];
   eagerCount?: number;
@@ -116,6 +119,12 @@ export function MasonryGrid({
   editorialPromo?: boolean;
   hideMobileSubtitles?: boolean;
   interleavedArtists?: EditorialArtist[];
+  /**
+   * When true, splice a static Submit-Exhibition ad card into the feed at
+   * flat index 6 — the second slot of the second row in the dense
+   * 5-column desktop grid. See `SubmitAdCard`.
+   */
+  pinSubmitAd?: boolean;
 }) {
   const columnCount = useColumnCount(initialIsMobile, density);
 
@@ -133,6 +142,17 @@ export function MasonryGrid({
       flatIdx: editorialPromoIndex,
     });
   }
+  if (pinSubmitAd) {
+    // Row 2 position 2 in the dense desktop (5-col) grid = flat index 6.
+    // On narrower viewports the card simply lands wherever that index
+    // falls in the current column count, which is still a legible
+    // top-of-feed position without needing per-breakpoint overrides.
+    const submitAdIndex = Math.min(6, items.length);
+    items.splice(submitAdIndex, 0, {
+      kind: "submit-ad",
+      flatIdx: submitAdIndex,
+    });
+  }
 
   const columns: BucketItem[][] = Array.from({ length: columnCount }, () => []);
   items.forEach((item, itemIndex) => {
@@ -146,6 +166,9 @@ export function MasonryGrid({
           {column.map((item) => {
             if (item.kind === "editorial") {
               return <EditorialPromoCard key="editorial-promo" />;
+            }
+            if (item.kind === "submit-ad") {
+              return <SubmitAdCard key="submit-ad" />;
             }
             if (item.kind === "artist") {
               return (

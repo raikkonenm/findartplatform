@@ -1222,6 +1222,22 @@ export default function HomePageClient({
     [location, year, tag, onViewOnly, nowMs, search, showFeaturedBanners],
   );
 
+  // Homepage-only pin: Preserved, Unfixed sits in the 5th slot of the
+  // first row (dense grid). On /exhibitions it stays wherever the
+  // natural sort put it, per the user's request.
+  const feedExhibitions = useMemo(() => {
+    if (!showFeaturedBanners) return filtered;
+    const PIN_SLUG = "preserved-unfixed-bachurina";
+    const PIN_INDEX = 4;
+    const pinIdx = filtered.findIndex((ex) => ex.slug === PIN_SLUG);
+    if (pinIdx === -1 || pinIdx === PIN_INDEX) return filtered;
+    const next = filtered.slice();
+    const [pinned] = next.splice(pinIdx, 1);
+    const insertAt = Math.min(PIN_INDEX, next.length);
+    next.splice(insertAt, 0, pinned);
+    return next;
+  }, [filtered, showFeaturedBanners]);
+
   const tagOptions: SelectedTag[] = ["ALL", ...semanticTags];
   const desktopLocationLabel =
     location.kind === "all"
@@ -1490,13 +1506,14 @@ export default function HomePageClient({
           </p>
         ) : (
           <MasonryGrid
-            exhibitions={filtered}
+            exhibitions={feedExhibitions}
             eagerCount={1}
             initialIsMobile={initialIsMobile}
             density={density}
             editorialPromo={showEditorialPromo}
             hideMobileSubtitles={showEditorialPromo}
             interleavedArtists={showFeaturedBanners ? editorialArtists : undefined}
+            pinSubmitAd={showFeaturedBanners}
           />
         )}
       </section>

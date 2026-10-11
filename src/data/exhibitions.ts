@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "preserved-unfixed-bachurina": ["ARCHIVE", "OBJECTHOOD", "MATERIAL MEMORY", "MEMORY", "FRAGMENT"],
   "chronic-inflammation-adler": ["BODY", "FEMININITY", "SURVEILLANCE", "INSTALLATION", "IDENTITY", "MYTH"],
   "dead-letter-office-benta": ["GROUP SHOW", "ARCHIVE", "ABSENCE", "MEMORY", "FRAGMENT", "INSTALLATION"],
   "common-skin-fantasy-bilbao-moros": ["BODY", "HYBRID BODIES", "MATERIALITY", "ANIMALITY", "SPECULATIVE BODY", "INSTALLATION"],
@@ -298,6 +299,33 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "preserved-unfixed-bachurina",
+    title: "Preserved, Unfixed",
+    subtitle: "Yasy Bachurina",
+    venue: "studiya.",
+    gallery: "studiya.",
+    city: "Seoul",
+    country: "South Korea",
+    year: "2026",
+    dates: "17 October — 29 October 2026",
+    startDate: "17 October 2026",
+    endDate: "29 October 2026",
+    dateSource: "exhibition",
+    artists: ["Yasy Bachurina"],
+    curator: "ArtCuratorialNomads",
+    description: `Objects are collected, named, and preserved, allowing us to return to what has not entirely disappeared. This possibility of return is part of what draws Yasy Bachurina to museums.
+
+Yet even when an object remains unchanged, the way we encounter and understand it may shift over time. To preserve something is not to fix a single interpretation, and even familiar forms may hold possibilities yet to be discovered.
+
+In this exhibition, paintings and objects coexist without reconstructing a particular period or resolving into a single narrative. Recognition does not bring our relationship with a thing to an end.
+
+Solo exhibition / 02. Opening: 17 October (Sat), 18:00 — 20:00. Open 13:00 — 19:00, closed every Sunday & Monday. Location: 2, 443 Cheongpa-ro, Jung-gu, Seoul.`,
+    previewImage: localExhibitionImage("preserved-unfixed", "1.webp"),
+    heroImage: localExhibitionImage("preserved-unfixed", "1.webp"),
+    images: localExhibitionGallery("preserved-unfixed", ["1.webp"], "vertical"),
+  },
+
   {
     slug: "chronic-inflammation-adler",
     title: "CHRONIC INFLAMMATION BY EMMA ADLER",
