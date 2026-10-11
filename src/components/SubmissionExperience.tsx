@@ -120,7 +120,10 @@ export function SubmissionExperience() {
           Please note, this form can not be used for advertising enquiries. If you&rsquo;re a gallery,
           organisation or an individual and you want more information about advertising, please check
           our{" "}
-          <Link href="/advertising" className="text-neutral-900 underline underline-offset-2 hover:no-underline">
+          <Link
+            href="/advertising"
+            className="font-semibold text-neutral-900 underline underline-offset-2 hover:no-underline"
+          >
             advertising page
           </Link>
           .
