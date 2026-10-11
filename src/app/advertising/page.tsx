@@ -45,8 +45,10 @@ export default function AdvertisingPage() {
           </div>
         </div>
 
-        {/* Two placement cards */}
-        <div className="mx-auto mt-16 grid w-full max-w-6xl grid-cols-1 gap-10 md:mt-20 md:grid-cols-2 md:gap-12">
+        {/* Two placement cards — full page width (minus the page's own
+            horizontal padding) so each mockup renders large enough to
+            read as a realistic site preview, not a thumbnail. */}
+        <div className="mt-16 grid w-full grid-cols-1 gap-10 md:mt-20 md:grid-cols-2 md:gap-14">
           <PlacementCard
             label="Billboard Ad"
             image="/advertising/billboard-ad.webp"
