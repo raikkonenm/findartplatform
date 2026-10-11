@@ -36,6 +36,24 @@ type Status = "idle" | "sending" | "ok" | "error";
 
 export const ADVERTISING_FORM_ANCHOR = "request-placement";
 
+export const ADVERTISING_REQUEST_EVENT = "findart:ad-request-placement";
+
+export type AdvertisingRequestEventDetail = { format: Format };
+
+/**
+ * Dispatch helper for the "Request this placement" buttons that live
+ * on the server-rendered PlacementCard — client-only, so the card can
+ * remain a static server component and just call this on click.
+ */
+export function requestAdvertisingPlacement(format: Format) {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(
+    new CustomEvent<AdvertisingRequestEventDetail>(ADVERTISING_REQUEST_EVENT, {
+      detail: { format },
+    }),
+  );
+}
+
 export function AdvertisingRequestForm() {
   const [format, setFormat] = useState<Format>("billboard");
   const [duration, setDuration] = useState<Duration>("1 month");
@@ -49,32 +67,28 @@ export function AdvertisingRequestForm() {
 
   const total = AD_PRICING[format][duration];
 
-  // Honour deep-link hash set by the "Request this placement" buttons
-  // above. Format is stored in the hash: `#request-placement?format=…`.
-  // We intentionally keep this logic local to the form so the two
-  // placement cards don't need to know about internal state keys.
+  // Listen for the "Request this placement" buttons above. They fire
+  // a window CustomEvent carrying the chosen format; we preselect it,
+  // reset duration to the shortest term, and smooth-scroll the form
+  // into view. Using a custom event (not a hash fragment) sidesteps
+  // the problem that `#anchor?query=…` isn't a valid element id for
+  // the browser's native hash-based scrolling to find.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const applyHash = () => {
-      const hash = window.location.hash;
-      if (!hash.startsWith(`#${ADVERTISING_FORM_ANCHOR}`)) return;
-      const q = hash.includes("?") ? hash.split("?")[1] : "";
-      const params = new URLSearchParams(q);
-      const requested = params.get("format");
-      if (requested === "billboard" || requested === "pinned-feed") {
-        setFormat(requested);
+    const applyFromEvent = (ev: Event) => {
+      const detail = (ev as CustomEvent<AdvertisingRequestEventDetail>).detail;
+      if (!detail) return;
+      if (detail.format === "billboard" || detail.format === "pinned-feed") {
+        setFormat(detail.format);
         setDuration("1 month");
       }
-      // Smooth scroll into view; the section's native hash target has
-      // the same anchor so standard behaviour works too, but we
-      // explicitly request `behavior: "smooth"` to match the design.
       requestAnimationFrame(() => {
         sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     };
-    applyHash();
-    window.addEventListener("hashchange", applyHash);
-    return () => window.removeEventListener("hashchange", applyHash);
+    window.addEventListener(ADVERTISING_REQUEST_EVENT, applyFromEvent as EventListener);
+    return () =>
+      window.removeEventListener(ADVERTISING_REQUEST_EVENT, applyFromEvent as EventListener);
   }, []);
 
   const handleSubmit = useCallback(

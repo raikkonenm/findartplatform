@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Header } from "@/components/Header";
-import { AdvertisingRequestForm, ADVERTISING_FORM_ANCHOR } from "@/components/AdvertisingRequestForm";
+import { AdvertisingRequestForm } from "@/components/AdvertisingRequestForm";
+import { RequestPlacementButton } from "@/components/RequestPlacementButton";
 
 const AD_TITLE = "Advertising — FindArt Platform";
 const AD_DESCRIPTION =
@@ -168,14 +169,8 @@ function PlacementCard({
           </ul>
         </div>
 
-        {/* Deep-link to the form below. The hash carries the format so
-            the form can preselect it on hashchange. */}
-        <a
-          href={`#${ADVERTISING_FORM_ANCHOR}?format=${requestFormat}`}
-          className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-neutral-900 transition-opacity hover:opacity-55"
-        >
-          Request this placement <span aria-hidden="true">↗</span>
-        </a>
+        {/* Client-side link to the form below. See RequestPlacementButton. */}
+        <RequestPlacementButton format={requestFormat} />
       </div>
     </article>
   );
