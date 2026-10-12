@@ -27,7 +27,7 @@ const COLLECT_LATEST: SearchItem[] = [
 const OPPORTUNITIES_LATEST: SearchItem[] = [
   { id: "opp-industra", section: "opportunities", title: "Industra Art Open Call 2027", subtitle: "31 AUG · Brno", href: "/opportunities", thumb: "/banner/blue.webp" },
   { id: "opp-minsk", section: "opportunities", title: "Culinary Residency", subtitle: "05 SEP · Potsdam", href: "/opportunities", thumb: "/banner/banner1.webp" },
-  { id: "opp-ctm", section: "opportunities", title: "In Listening 2027", subtitle: "06 SEP · Berlin", href: "/opportunities", thumb: "/banner/banner3.png" },
+  { id: "opp-ctm", section: "opportunities", title: "In Listening 2027", subtitle: "06 SEP · Berlin", href: "/opportunities", thumb: "/banner/banner3.webp" },
 ];
 
 const INDEX_LATEST: SearchItem[] = [
