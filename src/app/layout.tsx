@@ -7,12 +7,10 @@ import { SavedExhibitionsProvider } from "@/components/SavedExhibitions";
 import { SearchPanelProvider } from "@/components/SearchPanelContext";
 import "./globals.css";
 
-// Google Analytics 4. We inject gtag.js manually via next/script with
-// strategy="lazyOnload" instead of @next/third-parties/GoogleAnalytics
-// (which is hard-coded to strategy="afterInteractive"). Loading GA
-// after window.onload frees ~90 KB of bandwidth during the LCP window
-// on mobile, at the cost of dropping analytics events for users who
-// leave before onload fires.
+// Google Analytics 4 + Google Tag Manager. Loaded via next/script
+// with strategy="afterInteractive" — runs right after hydration, so
+// pageview events fire reliably but the ~90 KB gtm.js payload no
+// longer competes with the LCP image fetch during initial parse.
 const GA_MEASUREMENT_ID = "G-258Q2XJMXP";
 const GTM_CONTAINER_ID = "GTM-TXNSKZMT";
 
@@ -91,20 +89,17 @@ export default function RootLayout({
             __html: `(function(){try{var theme=localStorage.getItem('findart-theme');document.documentElement.dataset.theme=theme==='dark'?'dark':'light';}catch(e){document.documentElement.dataset.theme='light';}})();`,
           }}
         />
-        {/* Google Tag Manager — head snippet, per Google's official
-            install instructions. Emitted as a raw inline <script> in
-            the SSR HTML (not next/script) so it fires during initial
-            parse instead of waiting for React hydration. */}
+        {/* GTM dataLayer bootstrap — tiny inline so events pushed by
+            React before the GTM script lands don't get dropped. The
+            actual gtm.js load now happens via <Script
+            strategy="afterInteractive"> below, which lets the LCP
+            image win the bandwidth race on mobile but still runs
+            analytics within the first ~500 ms after hydration. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`,
+            __html: `window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});`,
           }}
         />
-        {/* End Google Tag Manager */}
       </head>
       <body className={sfPro.variable}>
         {/* Google Tag Manager (noscript) — placed immediately after the
@@ -127,9 +122,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </SearchPanelProvider>
         </SavedExhibitionsProvider>
       </body>
+      {/* GTM container — loaded after hydration so the LCP image
+          window isn't competing with ~90 KB of analytics bytes. */}
+      <Script
+        id="_gtm-src"
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtm.js?id=${GTM_CONTAINER_ID}`}
+      />
       <Script
         id="_ga-init"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -139,7 +141,7 @@ gtag('config', '${GA_MEASUREMENT_ID}');`,
       />
       <Script
         id="_ga-src"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
       />
     </html>

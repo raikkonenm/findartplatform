@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
+import { LazyBannerVideo } from "@/components/LazyBannerVideo";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { editorialArtists } from "@/data/editorial";
 import { HeartIcon } from "@/components/SavedExhibitions";
@@ -50,24 +51,37 @@ function FeaturedExhibitionSlideshow({
     return () => window.clearInterval(interval);
   }, [slides.length]);
 
+  // Only mount the current slide and the next one in the cycle so the
+  // browser never prefetches 10 full-resolution banners on first load.
+  // Previously every slide was in the DOM with opacity 0/1 — mobile
+  // Chrome still started early fetches for every "lazy" <Image>
+  // that lived inside the viewport, so hero LCP was tanked by ~10
+  // parallel 100-150 KB WebP downloads per card.
+  const nextSlide = slides.length > 1 ? (activeSlide + 1) % slides.length : -1;
+
   return (
     <div className="relative h-full w-full">
-      {slides.map((src, index) => (
-        <Image
-          key={src}
-          src={src}
-          alt={index === 0 ? alt : ""}
-          fill
-          priority={priority && index === 0}
-          {...(priority && index === 0
-            ? { fetchPriority: "high" as const }
-            : { loading: "lazy" as const })}
-          sizes={sizes}
-          className={`object-cover transition-opacity duration-300 ease-in-out ${
-            index === activeSlide ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ))}
+      {slides.map((src, index) => {
+        const isActive = index === activeSlide;
+        const isNext = index === nextSlide;
+        if (!isActive && !isNext) return null;
+        return (
+          <Image
+            key={src}
+            src={src}
+            alt={isActive ? alt : ""}
+            fill
+            priority={priority && isActive}
+            {...(priority && isActive
+              ? { fetchPriority: "high" as const }
+              : { loading: "lazy" as const })}
+            sizes={sizes}
+            className={`object-cover transition-opacity duration-300 ease-in-out ${
+              isActive ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -126,17 +140,11 @@ function MobileFeaturedCarousel() {
       title: "ART CURATORIAL NOMADS ↗",
       subtitle: "Curate your exhibition",
       media: (
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-label="Artcnomads curatorial projects"
-          className="absolute inset-0 h-full w-full object-cover"
-        >
-          <source src="/banner/AC.web.mp4" type="video/mp4" />
-        </video>
+        <LazyBannerVideo
+          src="/banner/AC.web.mp4"
+          poster="/banner/AC.poster.webp"
+          alt="Artcnomads curatorial projects"
+        />
       ),
     },
   ];
@@ -456,17 +464,12 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
           <article className="min-w-0">
             <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
               {!initialIsMobile && (
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  aria-label="Artcnomads curatorial projects"
-                  className="absolute inset-0 h-full w-full object-cover"
-                >
-                  <source src="/banner/AC.web.mp4" type="video/mp4" />
-                </video>
+                <LazyBannerVideo
+                  src="/banner/AC.web.mp4"
+                  poster="/banner/AC.poster.webp"
+                  alt="Artcnomads curatorial projects"
+                  onlyDesktop
+                />
               )}
             </div>
             <div className="pt-4">
@@ -489,17 +492,13 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
               aria-label="Open Workflow.Art"
               className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Workflow.Art platform preview"
-                className="absolute inset-0 h-full w-full scale-[1.04] object-cover"
-              >
-                <source src="/banner/workflow.web.mp4" type="video/mp4" />
-              </video>
+              <LazyBannerVideo
+                src="/banner/workflow.web.mp4"
+                poster="/banner/workflow.poster.webp"
+                alt="Workflow.Art platform preview"
+                onlyDesktop
+                className="scale-[1.04]"
+              />
             </a>
             <div className="pt-4">
               <a
