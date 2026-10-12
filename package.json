@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-image-variants.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "import:instagram": "node scripts/import-instagram-post.ts"
+    "import:instagram": "node scripts/import-instagram-post.ts",
+    "images:variants": "node scripts/generate-image-variants.js",
+    "images:manifest": "node scripts/generate-image-variants.js --manifest-only"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.6",

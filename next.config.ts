@@ -5,12 +5,15 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
-    // Vercel's per-project Image Optimization quota is exhausted —
-    // /_next/image returns 402 OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED
-    // for every uncached variant, breaking all images for new content.
-    // Serve WebPs directly from public/ (already q80, 10-100 KB each)
-    // until the Vercel plan is upgraded.
-    unoptimized: true,
+    // Vercel's per-project Image Optimization quota is exhausted. We
+    // route around it with a custom loader (`src/lib/imageLoader.ts`)
+    // that selects a build-time generated -640 / -1080 width variant
+    // if one exists on disk, else falls back to the original. This
+    // keeps responsive srcsets alive without hitting /_next/image.
+    // See `scripts/generate-image-variants.js` for how variants are
+    // produced and manifested.
+    loader: "custom",
+    loaderFile: "./src/lib/imageLoader.ts",
     // Cache transformed images at Vercel edge for one year — image
     // URLs are content-addressed by (source, width, quality), so a
     // long TTL never serves stale content and eliminates the cold-
