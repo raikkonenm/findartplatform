@@ -313,7 +313,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     endDate: "29 October 2026",
     dateSource: "exhibition",
     artists: ["Yasy Bachurina"],
-    curator: "ArtCuratorialNomads",
+    curator: "Art Curatorial Nomads",
     description: `Objects are collected, named, and preserved, allowing us to return to what has not entirely disappeared. This possibility of return is part of what draws Yasy Bachurina to museums.
 
 Yet even when an object remains unchanged, the way we encounter and understand it may shift over time. To preserve something is not to fix a single interpretation, and even familiar forms may hold possibilities yet to be discovered.
