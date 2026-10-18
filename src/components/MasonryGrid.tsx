@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { Exhibition } from "@/data/exhibitions";
 import type { EditorialArtist } from "@/data/editorial";
 import { EditorialCard } from "./EditorialCard";
@@ -27,13 +27,15 @@ const COLUMNS_BY_DENSITY: Record<MasonryDensity, { small: number; medium: number
 // hint (`initialIsMobile` prop) so SSR HTML matches what the client
 // hydrates to — no masonry CLS jump on mobile. After hydration,
 // matchMedia takes over for genuine viewport changes (resize, orientation).
-function useColumnCount(initialIsMobile: boolean, density: MasonryDensity): number {
+function useColumnCount(initialIsMobile: boolean, density: MasonryDensity): [number, boolean] {
   const cols = COLUMNS_BY_DENSITY[density];
   const [count, setCount] = useState(initialIsMobile ? cols.small : cols.large);
+  const [isMobile, setIsMobile] = useState(initialIsMobile);
   useEffect(() => {
     const single = window.matchMedia("(max-width: 767px)");
     const double = window.matchMedia("(max-width: 1023px)");
     const update = () => {
+      setIsMobile(single.matches);
       if (single.matches) setCount(cols.small);
       else if (double.matches) setCount(cols.medium);
       else setCount(cols.large);
@@ -46,7 +48,7 @@ function useColumnCount(initialIsMobile: boolean, density: MasonryDensity): numb
       double.removeEventListener("change", update);
     };
   }, [cols.small, cols.medium, cols.large]);
-  return count;
+  return [count, isMobile];
 }
 
 type BucketItem =
@@ -111,6 +113,7 @@ export function MasonryGrid({
   hideMobileSubtitles = false,
   interleavedArtists,
   pinSubmitAd = false,
+  latestOpportunities,
 }: {
   exhibitions: Exhibition[];
   eagerCount?: number;
@@ -125,8 +128,10 @@ export function MasonryGrid({
    * 5-column desktop grid. See `SubmitAdCard`.
    */
   pinSubmitAd?: boolean;
+  /** Desktop: top of last column. Mobile: in the last column after four feed cards. */
+  latestOpportunities?: (isMobile: boolean) => ReactNode;
 }) {
-  const columnCount = useColumnCount(initialIsMobile, density);
+  const [columnCount, isMobile] = useColumnCount(initialIsMobile, density);
 
   const items: BucketItem[] = interleavedArtists && interleavedArtists.length > 0
     ? interleaveArtists(exhibitions, interleavedArtists)
@@ -163,34 +168,42 @@ export function MasonryGrid({
     columns[itemIndex % columnCount].push(item);
   });
 
+  const opportunityModule = latestOpportunities?.(isMobile);
+
+  const renderItem = (item: BucketItem) => {
+    if (item.kind === "editorial") {
+      return <EditorialPromoCard key="editorial-promo" />;
+    }
+    if (item.kind === "submit-ad") {
+      return <SubmitAdCard key="submit-ad" />;
+    }
+    if (item.kind === "artist") {
+      return <EditorialCard key={`artist-${item.artist.slug}`} artist={item.artist} />;
+    }
+    return (
+      <ExhibitionCard
+        key={item.exhibition.slug}
+        exhibition={item.exhibition}
+        eager={item.flatIdx < eagerCount}
+        hideMobileSubtitle={hideMobileSubtitles}
+      />
+    );
+  };
+
+  // Insert after bucketing: exhibitions keep their existing column and order,
+  // and each column keeps its natural heights and gaps around the module.
+  const moduleIndex = isMobile ? Math.ceil(4 / columnCount) : 0;
   return (
     <div className="archive-card-grid masonry-rows">
       {columns.map((column, colIdx) => (
         <div className="masonry-col" key={colIdx}>
-          {column.map((item) => {
-            if (item.kind === "editorial") {
-              return <EditorialPromoCard key="editorial-promo" />;
-            }
-            if (item.kind === "submit-ad") {
-              return <SubmitAdCard key="submit-ad" />;
-            }
-            if (item.kind === "artist") {
-              return (
-                <EditorialCard
-                  key={`artist-${item.artist.slug}`}
-                  artist={item.artist}
-                />
-              );
-            }
-            return (
-              <ExhibitionCard
-                key={item.exhibition.slug}
-                exhibition={item.exhibition}
-                eager={item.flatIdx < eagerCount}
-                hideMobileSubtitle={hideMobileSubtitles}
-              />
-            );
-          })}
+          {colIdx === columnCount - 1 ? (
+            <>
+              {column.slice(0, moduleIndex).map(renderItem)}
+              {opportunityModule}
+              {column.slice(moduleIndex).map(renderItem)}
+            </>
+          ) : column.map(renderItem)}
         </div>
       ))}
     </div>

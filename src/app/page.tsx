@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import HomePageClient from "./HomePageClient";
+import { opportunityToday } from "@/lib/latestOpportunities";
 
 // Coarse UA-based viewport hint. Used only to seed the initial
 // masonry column count so SSR and hydration agree — after hydration,
@@ -15,5 +16,5 @@ function isMobileUserAgent(ua: string): boolean {
 export default async function HomePage() {
   const userAgent = (await headers()).get("user-agent") ?? "";
   const initialIsMobile = isMobileUserAgent(userAgent);
-  return <HomePageClient initialIsMobile={initialIsMobile} />;
+  return <HomePageClient initialIsMobile={initialIsMobile} opportunitiesToday={opportunityToday()} />;
 }
