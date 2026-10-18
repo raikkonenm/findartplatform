@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "preserved-unfixed-poster": ["ARCHIVE", "OBJECTHOOD", "MATERIAL MEMORY"],
   "preserved-unfixed-bachurina": ["ARCHIVE", "OBJECTHOOD", "MATERIAL MEMORY", "MEMORY", "FRAGMENT"],
   "chronic-inflammation-adler": ["BODY", "FEMININITY", "SURVEILLANCE", "INSTALLATION", "IDENTITY", "MYTH"],
   "dead-letter-office-benta": ["GROUP SHOW", "ARCHIVE", "ABSENCE", "MEMORY", "FRAGMENT", "INSTALLATION"],
@@ -300,8 +301,27 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 
 const exhibitionSeeds: ExhibitionSeed[] = [
   {
+    slug: "preserved-unfixed-poster",
+    title: "Preserved, Unfixed — Poster",
+    subtitle: "Yasy Bachurina",
+    year: "2026",
+    postDate: "18 October 2026",
+    sortDate: "18 October 2026",
+    dateSource: "instagram-post",
+    artists: ["Yasy Bachurina"],
+    curator: "Art Curatorial Nomads",
+    summary: "Exhibition poster. Studiya Gallery, Seoul · 17 — 29 October 2026.",
+    description: `Exhibition poster for Preserved, Unfixed by Yasy Bachurina — solo exhibition / 02 at Studiya Gallery, Seoul, 17 — 29 October 2026. Curated by Art Curatorial Nomads.
+
+Opening: 17 October (Sat), 18:00 — 20:00. Open 13:00 — 19:00, closed every Sunday & Monday. Location: 2, 443 Cheongpa-ro, Jung-gu, Seoul.`,
+    previewImage: localExhibitionImage("preserved-unfixed", "1.webp"),
+    heroImage: localExhibitionImage("preserved-unfixed", "1.webp"),
+    images: localExhibitionGallery("preserved-unfixed", ["1.webp"], "vertical"),
+  },
+
+  {
     slug: "preserved-unfixed-bachurina",
-    title: "PRESERVED, UNFIXED BY YASY BACHURINA",
+    title: "Preserved, Unfixed",
     subtitle: "Yasy Bachurina",
     venue: "Studiya Gallery",
     gallery: "Studiya Gallery",
@@ -356,7 +376,7 @@ To preserve something is not to fix a single interpretation, and even familiar f
 
   {
     slug: "chronic-inflammation-adler",
-    title: "CHRONIC INFLAMMATION BY EMMA ADLER",
+    title: "Chronic Inflammation",
     subtitle: "Emma Adler",
     venue: "Martinetz",
     gallery: "Martinetz",
@@ -439,7 +459,7 @@ Every artwork functions as a materialised message, intimate yet inaccessible, pr
 
   {
     slug: "common-skin-fantasy-bilbao-moros",
-    title: "COMMON SKIN FANTASY BY ALICIA BILBAO AND ALEJANDRA MOROS",
+    title: "Common Skin Fantasy",
     subtitle: "Alicia Bilbao, Alejandra Moros",
     venue: "KDR Gallery",
     gallery: "KDR Gallery",
@@ -467,7 +487,7 @@ Drawing on Didier Anzieu's psychoanalytic concept of the 'common skin fantasy', 
 
   {
     slug: "inner-licht-iacolare",
-    title: "INNER:LICHT BY CARMINE ANTONIO IACOLARE",
+    title: "Inner:Licht",
     subtitle: "Carmine Antonio Iacolare",
     venue: "SAMSA G. TUCHWAREN",
     gallery: "SAMSA G. TUCHWAREN",
@@ -497,7 +517,7 @@ The material lives on, changes, and ages alongside the human being. New meaning 
 
   {
     slug: "ghosts-and-gods-stoklosa-alix-tabeling",
-    title: "GHOSTS & GODS BY ŁUKASZ STOKŁOSA AND NILS ALIX-TABELING",
+    title: "Ghosts & Gods",
     subtitle: "Łukasz Stokłosa, Nils Alix-Tabeling",
     venue: "Coulisse Gallery",
     gallery: "Coulisse Gallery",
@@ -525,7 +545,7 @@ Alix-Tabeling's sculptures and installations bring together pagan figures, folkl
 
   {
     slug: "ritual-for-happiness-gudwin",
-    title: "RITUAL FOR HAPPINESS BY MISHA GUDWIN",
+    title: "Ritual for Happiness",
     year: "2026",
     postDate: "06 October 2026",
     sortDate: "06 October 2026",
@@ -550,7 +570,7 @@ At @automat_space, Saarbrücken, Germany · 26 September – 18 October 2026. Ex
 
   {
     slug: "acacia-bloom",
-    title: "ACACIA BLOOM BY NIKA KUTATELADZE",
+    title: "Acacia Bloom",
     subtitle: "Nika Kutateladze",
     venue: "Galerie Molitor",
     gallery: "Galerie Molitor",
@@ -582,7 +602,7 @@ By merging existing architectural elements into a new space, Kutateladze blends 
 
   {
     slug: "cosmologies-at-play",
-    title: "COSMOLOGIES AT PLAY BY POLINA OSIPOVA",
+    title: "Cosmologies at Play",
     subtitle: "Polina Osipova",
     venue: "Neun Kelche",
     gallery: "Neun Kelche",
@@ -624,7 +644,7 @@ Installation photography: Dorothea Dittrich / VG Bildkunst 2026. Additional imag
 
   {
     slug: "eureka-by-koesy",
-    title: "EUREKA BY KOESY",
+    title: "Eureka",
     subtitle: "Koesy",
     venue: "MO Gallery Seoul",
     gallery: "MO Gallery Seoul",

@@ -7,6 +7,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { LazyBannerVideo } from "@/components/LazyBannerVideo";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
+import { LatestOpportunities } from "@/components/LatestOpportunities";
 import { editorialArtists } from "@/data/editorial";
 import { HeartIcon } from "@/components/SavedExhibitions";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "@/components/MobileFilterSheet";
@@ -1089,11 +1090,13 @@ export default function HomePageClient({
   showFeaturedBanners = true,
   showEditorialPromo = true,
   initialDensity,
+  opportunitiesToday,
 }: {
   initialIsMobile: boolean;
   showFeaturedBanners?: boolean;
   showEditorialPromo?: boolean;
   initialDensity?: MasonryDensity;
+  opportunitiesToday?: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -1221,19 +1224,28 @@ export default function HomePageClient({
     [location, year, tag, onViewOnly, nowMs, search, showFeaturedBanners],
   );
 
-  // Homepage-only pin: Preserved, Unfixed sits in the 3rd slot of the
-  // first row (dense grid). On /exhibitions it stays wherever the
-  // natural sort put it, per the user's request.
+  // Homepage-only pins (dense grid, 5-col desktop → flat index →
+  //   col = idx % 5, row = floor(idx / 5)):
+  //   0  →  row 1 pos 1  →  Preserved, Unfixed (full install card)
+  //   6  →  row 2 pos 2  →  Preserved, Unfixed poster-announcement
+  // On /exhibitions these pins don't apply — natural sort wins.
   const feedExhibitions = useMemo(() => {
     if (!showFeaturedBanners) return filtered;
-    const PIN_SLUG = "preserved-unfixed-bachurina";
-    const PIN_INDEX = 2;
-    const pinIdx = filtered.findIndex((ex) => ex.slug === PIN_SLUG);
-    if (pinIdx === -1 || pinIdx === PIN_INDEX) return filtered;
+    const PINS: Array<{ slug: string; index: number }> = [
+      { slug: "preserved-unfixed-bachurina", index: 0 },
+      { slug: "preserved-unfixed-poster", index: 6 },
+    ];
     const next = filtered.slice();
-    const [pinned] = next.splice(pinIdx, 1);
-    const insertAt = Math.min(PIN_INDEX, next.length);
-    next.splice(insertAt, 0, pinned);
+    // Splice from the lowest final index upward so later splices
+    // target slots that are already stable after prior insertions.
+    const sorted = [...PINS].sort((a, b) => a.index - b.index);
+    for (const pin of sorted) {
+      const currentIdx = next.findIndex((ex) => ex.slug === pin.slug);
+      if (currentIdx === -1) continue;
+      const [item] = next.splice(currentIdx, 1);
+      const insertAt = Math.min(pin.index, next.length);
+      next.splice(insertAt, 0, item);
+    }
     return next;
   }, [filtered, showFeaturedBanners]);
 
@@ -1513,6 +1525,11 @@ export default function HomePageClient({
             hideMobileSubtitles={showEditorialPromo}
             interleavedArtists={showFeaturedBanners ? editorialArtists : undefined}
             pinSubmitAd={showFeaturedBanners}
+            latestOpportunities={opportunitiesToday ? (isMobile) => (
+              <Suspense fallback={null}>
+                <LatestOpportunities initialToday={opportunitiesToday} mobilePreview={isMobile} />
+              </Suspense>
+            ) : undefined}
           />
         )}
       </section>
