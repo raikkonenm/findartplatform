@@ -302,7 +302,7 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 const exhibitionSeeds: ExhibitionSeed[] = [
   {
     slug: "preserved-unfixed-poster",
-    title: "Preserved, Unfixed — Poster",
+    title: "PRESERVED, UNFIXED BY YASY BACHURINA",
     subtitle: "Yasy Bachurina",
     year: "2026",
     postDate: "18 October 2026",
