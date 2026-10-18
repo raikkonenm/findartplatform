@@ -301,10 +301,10 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 const exhibitionSeeds: ExhibitionSeed[] = [
   {
     slug: "preserved-unfixed-bachurina",
-    title: "Preserved, Unfixed",
+    title: "PRESERVED, UNFIXED BY YASY BACHURINA",
     subtitle: "Yasy Bachurina",
-    venue: "studiya.",
-    gallery: "studiya.",
+    venue: "Studiya Gallery",
+    gallery: "Studiya Gallery",
     city: "Seoul",
     country: "South Korea",
     year: "2026",
@@ -314,16 +314,44 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     dateSource: "exhibition",
     artists: ["Yasy Bachurina"],
     curator: "Art Curatorial Nomads",
-    description: `Objects are collected, named, and preserved, allowing us to return to what has not entirely disappeared. This possibility of return is part of what draws Yasy Bachurina to museums.
+    description: `Objects are collected, named, and preserved, allowing us to return to what has not entirely disappeared. This possibility of return is part of what draws Yasy Bachurina to museums. Yet even when an object remains unchanged, the way we encounter and understand it may shift over time.
 
-Yet even when an object remains unchanged, the way we encounter and understand it may shift over time. To preserve something is not to fix a single interpretation, and even familiar forms may hold possibilities yet to be discovered.
-
-In this exhibition, paintings and objects coexist without reconstructing a particular period or resolving into a single narrative. Recognition does not bring our relationship with a thing to an end.
-
-Solo exhibition / 02. Opening: 17 October (Sat), 18:00 — 20:00. Open 13:00 — 19:00, closed every Sunday & Monday. Location: 2, 443 Cheongpa-ro, Jung-gu, Seoul.`,
-    previewImage: localExhibitionImage("preserved-unfixed", "1.webp"),
-    heroImage: localExhibitionImage("preserved-unfixed", "1.webp"),
-    images: localExhibitionGallery("preserved-unfixed", ["1.webp"], "vertical"),
+To preserve something is not to fix a single interpretation, and even familiar forms may hold possibilities yet to be discovered. In this exhibition, paintings and objects coexist without reconstructing a particular period or resolving into a single narrative. Recognition does not bring our relationship with a thing to an end.`,
+    previewImage: localExhibitionImage("yasy-bachurina-preserved", "1.webp"),
+    heroImage: localExhibitionImage("yasy-bachurina-preserved", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "yasy-bachurina-preserved",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "horizontal" },
+        { filename: "17.webp", orientation: "horizontal" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "vertical" },
+        { filename: "20.webp", orientation: "vertical" },
+        { filename: "21.webp", orientation: "vertical" },
+        { filename: "22.webp", orientation: "horizontal" },
+        { filename: "23.webp", orientation: "vertical" },
+        { filename: "24.webp", orientation: "vertical" },
+        { filename: "25.webp", orientation: "vertical" },
+        { filename: "26.webp", orientation: "vertical" },
+        { filename: "27.webp", orientation: "vertical" },
+        { filename: "28.webp", orientation: "horizontal" },
+      ],
+    ),
   },
 
   {
