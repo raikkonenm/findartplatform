@@ -144,6 +144,22 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "clearview": ["MACHINE", "TECHNOLOGY", "INSTALLATION", "MATERIALITY", "TEXTILE", "ECOLOGY"],
+  "ausgeweidet-gutted": ["GROUP SHOW", "RITUAL", "MATERIALITY", "DECAY", "ANIMALITY", "ORGANIC SYSTEMS"],
+  "hat-happens-on-earth-stays-on-earth": ["BODY", "RITUAL", "SPIRITUALITY", "MEMORY", "TECHNOLOGY", "INSTALLATION"],
+  "living-collapse": ["GROUP SHOW", "RITUAL", "INSTALLATION", "MATERIALITY", "DECAY", "NON-HUMAN"],
+  "i-am-just-a-dog": ["GROUP SHOW", "INSTALLATION", "FRAGMENT", "PHOTOGRAPHY"],
+  "besides-bodies": ["GROUP SHOW", "BODY", "MEMORY", "DIGITAL MYTH", "INSTALLATION", "MATERIALITY"],
+  "keeping-the-peels": ["BODY", "DECAY", "TEXTILE", "OBJECTHOOD"],
+  "what-holds": ["INSTALLATION", "MATERIALITY", "DECAY", "TRANSFORMATION", "OBJECTHOOD", "PHOTOGRAPHY"],
+  "within-and-for-each-other": ["BODY", "RITUAL", "SPIRITUALITY", "MACHINE", "MATERIALITY", "DECAY"],
+  "intolerance": ["BODY", "DECAY", "TRANSFORMATION", "IDENTITY", "OBJECTHOOD", "PHOTOGRAPHY"],
+  "larval-tears": ["BODY", "MEMORY", "ARCHIVE", "TECHNOLOGY", "DIGITAL MYTH", "INSTALLATION"],
+  "glimmer": ["BODY", "MATERIALITY", "NON-HUMAN", "ANIMALITY", "ECOLOGY"],
+  "unzucht-kiss-the-devil-s-arse": ["RITUAL", "INSTALLATION", "ANIMALITY", "MYTH", "ECOLOGY", "HYBRID BODIES"],
+  "suculenta-arana": ["MEMORY", "INSTALLATION", "MATERIALITY", "TEXTILE", "ECOLOGY", "TRANSFORMATION"],
+  "p-r-i-m-o-r-d-i-a": ["BODY", "RITUAL", "INSTALLATION", "ORGANIC SYSTEMS", "TRANSFORMATION", "MUTATION"],
+  "the-word-for-world-is-poem": ["BODY", "INSTALLATION", "MATERIALITY", "DECAY", "NON-HUMAN", "ECOLOGY"],
   "companions-act-i": ["GROUP SHOW", "HYBRID BODIES", "ANIMALITY", "MYTH", "INSTALLATION", "RITUAL"],
   "preserved-unfixed-poster": ["ARCHIVE", "OBJECTHOOD", "MATERIAL MEMORY"],
   "preserved-unfixed-bachurina": ["ARCHIVE", "OBJECTHOOD", "MATERIAL MEMORY", "MEMORY", "FRAGMENT"],
@@ -301,6 +317,1297 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "clearview",
+    title: "CLEARVIEW",
+    subtitle: "Pakui Hardware",
+    venue: "Arsenal Power Station Gallery",
+    gallery: "Arsenal Power Station Gallery",
+    city: "Białystok",
+    country: "Poland",
+    year: "2026",
+    dates: "25 September 2026 — 7 February 2027",
+    startDate: "25 September 2026",
+    endDate: "7 February 2027",
+    dateSource: "exhibition",
+    artists: ["Pakui Hardware"],
+    curator: "Eliza Urwanowicz-Rojecka,  Jakub Wróblewski",
+    photographer: "Ugnius Gelguda",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/4b507a44",
+    description: `The exhibition PAKUI HARDWARE. CLEARVIEW traces the material infrastructure, transformations, and footprint of the development of AI and machine vision. With the speed of data transmission crucial to smooth machine learning processes, fibre-optic cables wiggle at gargantuan data centers like an invisible nervous system. Those same cables cover war-torn landscapes with shimmering fiberglass webs spun by tirelessly buzzing drones. Weaving together natural, artificial and virtual elements, this fine thread creates new hybrid landscapes, or datascapes, inviting reflection on imminent implications of technological expansion.
+
+The architecture of the installation consists of fibre-optic threads, creating fragile, shimmering, yet very tactile surroundings. These flickering surfaces will be animated by a specially designed choreography of light. Piercing the surfaces formed by the fiber-optic threads, several sculptures made of textile, resin, aluminum, and stainless steel will be distributed throughout the space. A new video sculpture will light up the second room with pulsating images of nature as seen by  machinic gaze.
+
+Architecture: Sigita Simona Paplauskaitė
+
+Light design: Julius Kuršys
+
+The exhibition is Co-financed by the Lithuanian Council for Culture.`,
+    previewImage: localExhibitionImage("clearview", "1.webp"),
+    heroImage: localExhibitionImage("clearview", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "clearview",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "vertical" },
+        { filename: "20.webp", orientation: "vertical" },
+        { filename: "21.webp", orientation: "vertical" },
+        { filename: "22.webp", orientation: "vertical" },
+        { filename: "23.webp", orientation: "vertical" },
+        { filename: "24.webp", orientation: "vertical" },
+        { filename: "25.webp", orientation: "vertical" },
+        { filename: "26.webp", orientation: "vertical" },
+        { filename: "27.webp", orientation: "vertical" },
+        { filename: "28.webp", orientation: "vertical" },
+        { filename: "29.webp", orientation: "vertical" },
+        { filename: "30.webp", orientation: "vertical" },
+        { filename: "31.webp", orientation: "vertical" },
+        { filename: "32.webp", orientation: "vertical" },
+        { filename: "33.webp", orientation: "horizontal" },
+      ],
+      "Ugnius Gelguda",
+    ),
+  },
+
+  {
+    slug: "ausgeweidet-gutted",
+    title: "Ausgeweidet / Gutted",
+    subtitle: "Nicole Brandstaetter, Margo Dubovska, Josepha Edbauer, Leonie Holtkamp, Darryl Oswald, Marlene Stahl, Daniel Wendt",
+    venue: "WAF Galerie",
+    gallery: "WAF Galerie",
+    city: "Vienna",
+    country: "Austria",
+    year: "2026",
+    dates: "24 September 2026 — 22 October 2026",
+    startDate: "24 September 2026",
+    endDate: "22 October 2026",
+    dateSource: "exhibition",
+    artists: ["Nicole Brandstaetter", "Margo Dubovska", "Josepha Edbauer", "Leonie Holtkamp", "Darryl Oswald", "Marlene Stahl", "Daniel Wendt"],
+    curator: "Leonie Holtkamp",
+    photographer: "WAF Galerie",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/deafd8f4",
+    description: `To gut something - ausweiden - is an act of visceral extraction. It implies removing the interior contents, stripping away protective shells, disemboweling structures of meaning, and laying bare the raw mechanics beneath.
+
+„ausgeweidet / gutted“ brings together seven artistic positions that interrogate the unearthing of hidden mechanisms, cultural dogmas, and intimate memories. Carried by a somber aesthetic, the show unfolds a continuous gothic undertone that manifests in a reduced and sharpened material language. The collision of charred wood, cold metals, and animal remains transforms the exhibition space into a kind of modern reliquary in which destruction and preservation seamlessly merge. The use of burned and CNC-milled timber points both to historical rituals of purification and to the fascination of the ruin, while steel components, aluminum rails and car fragments bring a harsh rigidity into the space. In between, organic materials such as cowhide, horsehair, animal teeth, and rabbit fur form a raw, post-mortem counterweight that questions the interfaces between human, animal, corporeality, and sacrificial ritual. Within this material field of tension, the works subvert religious symbolism and societal architectures of control.
+
+In doing so, "ausgeweidet / gutted" strips away the protective shell of objects and belief systems, questioning what new meanings emerge from the hollowed-out remains.
+
+— Text: Leonie Holtkamp`,
+    previewImage: localExhibitionImage("ausgeweidet-gutted", "1.webp"),
+    heroImage: localExhibitionImage("ausgeweidet-gutted", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "ausgeweidet-gutted",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+      ],
+      "WAF Galerie",
+    ),
+  },
+
+  {
+    slug: "hat-happens-on-earth-stays-on-earth",
+    title: "hat Happens on Earth Stays on Earth",
+    subtitle: "Magdalena Lazar",
+    venue: "bliss",
+    gallery: "bliss",
+    city: "Warsaw",
+    country: "Poland",
+    year: "2026",
+    dates: "18 September 2026 — 24 October 2026",
+    startDate: "18 September 2026",
+    endDate: "24 October 2026",
+    dateSource: "exhibition",
+    artists: ["Magdalena Lazar"],
+    curator: "Eva Slabá",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/0b59a3c9",
+    description: `In 2015, it was proposed that the Anthropocene (the current era in which human activity has become the dominant force on Earth) be referred to by an alternative term – the Carbocene. (1) This term emphasizes the dependence on burning black (hydro)carbons – that is, coal and oil, solar energy "canned goods." The fact that this is a dependency demonstrates that burning fossil fuels is not evidence of human power, but rather evidence of how deeply humanity has been influenced by the very matter and energy from the Earth’s depths. And today, humanity struggles to break free from these patterns of behaviour. The extent to which excavation and mining have impacted the environment goes without saying. It is within this fraught, carbon-heavy legacy that Magdalena Lazar situates her latest body of work.
+
+Lazar is an artist who comes from Upper Silesia, a region characterized by its mining history and her works in this solo exhibition are profoundly influenced not only by her personal experience, but also by family memory. When we began working together on this project early in the year, she shared with me the idea of a so-called "second sun." “Imagine a huge lump of coal on which we are now standing: several tens by several tens of kilometres wide and over a kilometre deep. We live on a vast seam stretching from Mysłowice to Ostropa. If a meteor were to strike Silesia, or if we ourselves were to throw a spark onto this coal, it would catch fire. … The sun burns constantly, exploding ceaselessly, and Silesia could be a second sun; it possesses the same energy. … this energy constantly affects us, that walking upon pure energy transforms us.” (2)
+
+This idea is a quote from Erwin Sówka, a member of the Janowska Group – a collective of self-taught, non-professional, “naive” artists consisting mainly of underground miners from Upper Silesia. Another prominent member of this group was Teofil Ociepka, who was often credited with providing the group’s spiritual guidance. However, this guidance cannot be attributed solely to him. As Agata Stronciwilk shows, spirituality is equally rooted in the metaphysics and symbolism of subterranean exploration and extraction. Coal, as an organic matter, possesses its own metaphysics of life (of former life forms) that is unearthed and burned by fire. The underground space of the mine was thus historically regarded sacred, and the awe and dread of venturing into the earth’s depths were clearly reflected in the miners' beliefs, customs, and artistic expressions (e.g. Gwarek ’58’s graphics or Ludwik Holesz’s carboniferous paintings). (3) When Zbigniew Rokita opens his book Banką po Śląsku with the words, “I also want to find out who this man is – the one who fascinates some and fills others with fear: Homo silesius,” Lazar, too, sets out on a similar quest. (4)
+
+As is typical for Lazar, she integrates various media (photography, objects, installation) and works with a wide range of materials in this series as well – from those she processes herself (metal, textile, cast glass) to found elements that she incorporates into her works (blown glass, scrap metal, or horse bits). In the central piece "What Happens on Earth Stays on Earth", the artist pairs metal remnants from a scrapyard and found 1980s decorative glassware (“durnostojki”) with alchemical iconography and almost apocalyptic symbolism. These peculiar horn-shaped glass forms echoe the look of the mushroom Craterellus cornucopioides ("trumpet of the dead") and at the same time resemble an illustration from the 15th-century French alchemical manuscript, where decay is depicted in a vessel filled with black water (this process is also known as “nigredo”). Inside lies a couple in a loving embrace, marking not an end, but the origin of a new life. The installation is complemented by sand, a raw material for glass, and a charcoal drawing on the wall depicting organic remains found in the soil, drawing attention to the subterranean environment and its organic life, brought to the surface by mining.
+
+The theme of mined coal and its transformation manifests vividly in the work "Second Sun". Photography of extracted coal is woven directly into fabric using the jacquard technique and illuminated by the orange light of a vintage lamp, evoking a living Silesian sun emerging from darkness. The entire piece is bound by steel arches – a direct reference to the structural anchors, which prevent homes from collapsing due to mining tremors. Hand-welded quotes from internet culture, "It's so over" and "We're so back", serve not only as a commentary on rapid emotional swings, but also as a critique of industrial exploitation: a rhetoric that constantly oscillates between historical decline and utopian visions about former mines transformed into centres of advanced technologies, logistics or AI infrastructure.
+
+Social context and the gradual erosion of local identity come to the fore in "Tongues in Decline". Two large cast-glass sculptures of tongues, featuring horse bits and melting, icicle-like stalagmites, rest on lace-trimmed oilcloth (a nostalgic staple of households of that time) to address the fading Silesian dialect. The language, which was once the melody of the artist’s childhood and a social marker of the working class, is turning into a fading trace of memory due to disuse. This loss extends beyond mere vocabulary; it represents a dwindling access to a specific world – its relationships, memories, experiences and its way of interpreting reality.
+
+The personal trauma associated with unstable ground is captured in "My Nightmares Are Transparent, Opening onto Prehistory". An etched architectural drawing of Lazar’s family home in Zabrze (built by her great-grandfather, who later died in a workplace accident at the Bielszowice mine) is overlaid with metal eyes gazing into the earth like an X-ray. The work captures the anxiety of a family living above active mine shafts, while the ground sank and shook beneath them. The title is inspired by Adrienne Rich’s poem "Diving into the Wreck", in which Rich also dives under the surface. This sense of displacement continues in "At My Most Nostalgic", where a swarm of steel keys emerges from discarded door handles, symbolizing frequent moves, the loss of a family home and the shifting dwellings that define our lives. At the same time, Lazar draws attention to what often escapes our everyday perception and notions of time and space: "The Vegetative Season" depicts metal plants bearing pods, one of which contains an ominous black glass seed. The black seed could refer to the "Black Marble" satellite project, which maps Earth at night against the backdrop of the dark void of space: the planet does not glow on its own, but thanks to human activity that essentially consists of burning energy.
+
+And it is precisely here, from the depths, that Lazar ascends back to the surface. Her explorations do not portray “homo silesius” as someone who fills others with fear, nor a figure who fascinates others with quirkiness or eccentricity. Instead, she confronts history with great respect while challenging the illusion of human control. Through her craftsmanship and thought, she is revealing a world in constant transformation. The exhibition project urges a deeper humility toward the planet’s creative and destructive forces and reminds us of the cyclical processes in which nothing truly disappears. What is extracted, transformed, or discarded persists – circulating as matter, memory, or energy – and this perspective extends to the social context as well, shaping shared narratives, culture, and language. She reminds us that whatever happens on Earth continues to resonate deeply within it. Let me conclude this text with the final passage of Rich’s poem. (5)
+
+We are, I am, you are
+
+by cowardice or courage
+
+the one who find our way
+
+back to this scene
+
+carrying a knife, a camera
+
+a book of myths
+
+in which
+
+our names do not appear.
+
+(1) LeCain, T. J. (2015). Against the Anthropocene: A neo-materialist perspective on history. International Journal for History, Culture and Modernity, 3(1), 1–28.
+
+(2) “Wyobraź sobie ogromną bryłę węgla, na której teraz jesteśmy: kilkadziesiąt na kilkadziesiąt kilometrów szeroką i na ponad kilometr głęboką. Żyjemy na ogromnej żyle ciągnącej się od Mysłowic do Ostropy. Gdyby w Śląsk uderzył meteor albo gdybyśmy sami rzucili jakąś iskrę na ten węgiel, on zapłonie. Erwin powtarzał, że musimy być w gotowości. Słońce pali się cały czas, nieustannie eks­ploduje, a Śląsk mógłby być drugim słońcem, ma taką samą energię. Był przekonany, że ta energia nieustannie na nas działa, że stąpanie po czystej energii nas przemienia. Nie twierdził, że Ślązacy są nadludźmi, ale że przez tę niewyobrażalną podziemną moc wszystko na Śląsku jest bardziej kolorowe, żywsze, ciekawsze, a historia intensywniejsza.”
+Rokita, Z. (2025). Aglo. Banką po Śląsku. Znak Literanova. Pp. 11–12.
+
+(3) Stronciwilk, A. (2025). The spirituality of the Carbocene: On coal and art in Upper Silesia. In J. Balisz-Schmelz & K. Dworniczak Brill (Eds.), Enchanted socialist modernity: Art of Central and Eastern Europe (1945–1989) in the face of alternative spirituality (pp. 88–108), Leiden–Boston 2025, Pp.  88–108.
+
+(4) “Chcę też przekonać się, kim jest człowiek, który jednych fascynuje, a innych napawa lękiem: Homo Silesius.”
+Rokita, 2025, p. 9.
+
+(5) Rich, A. (1973). Diving into the wreck. In Diving into the Wreck: Poems 1971–1972. W. W. Norton & Company, Inc., pp. 22–24.
+
+— Text: Eva Slabá`,
+    previewImage: localExhibitionImage("hat-happens-on-earth-stays-on-earth", "1.webp"),
+    heroImage: localExhibitionImage("hat-happens-on-earth-stays-on-earth", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "hat-happens-on-earth-stays-on-earth",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "vertical" },
+      ],
+    ),
+  },
+
+  {
+    slug: "living-collapse",
+    title: "Living Collapse",
+    subtitle: "Raffaela Naldi Rossano, Effe Minelli, Andrea Bolognino, Jimmie Durham",
+    venue: "Madre Museum",
+    gallery: "Madre Museum",
+    city: "Napoli",
+    country: "Italy",
+    year: "2026",
+    dates: "25 June 2026 — 16 November 2026",
+    startDate: "25 June 2026",
+    endDate: "16 November 2026",
+    dateSource: "exhibition",
+    artists: ["Raffaela Naldi Rossano", "Effe Minelli", "Andrea Bolognino", "Jimmie Durham"],
+    curator: "Samuele Piazza ",
+    photographer: "maurizio esposito, Amedeo Benestante",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/629ab738",
+    description: `Living Collapse looks at the Neapolitan nativity scene (presepe) as an art form capable of speaking to a contemporary sensibility. Moving beyond antiquarian, iconographic, or folkloric readings, the exhibition focuses on the critical potential of this sculptural practice.
+
+An entry point for this reinterpretation is provided by a work from the museo Madre collection: Presepio by Jimmie Durham. The heterogeneity of the world is reflected in the polymateriality of the sculpture, where diverse, often discarded materials become the expression of a reality inhabited by multiple presences, in which human and non-human, natural and artificial, sacred and profane coexist.
+
+As in the Baroque presepe, where the nativity scene is absorbed into an abundant world that dissolves any stable perspective, it appears as a fragment of the world in which the hierarchies of the living are reconfigured. Human and non-human animals, plants, and rocks converge; the boundaries between destruction and regeneration, erosion and accumulation, become uncertain. Moss turns into rock and then cork; the ruin of a temple becomes a grotto; and the poor shepherd and his flock share the scene with the highest manifestation of the sacred. The divine does not emerge from the center but disperses within the teeming density of things, in a totality that denies any singular or hierarchical perspective, any class distinction. The resulting optical anarchy reflects a proto-ecological sensitivity and a profound openness to difference, rooted in a pre-Enlightenment and cosmopolitan world such as Baroque Naples.
+
+The exhibition invites three artists to expand this conceptual horizon, avoiding direct references to the form of the nativity scene while activating some of its deeper components: the redefinition of cohabitation within a collapsing world; the indeterminacy between construction and ruin; and an anti-hierarchical approach to alterity. Works by Andrea Bolognino, Effe Minelli, and Raffaela Naldi Rossano shape a landscape in which different practices resonate with one another and with a fragment of a traditional nativity scene created in the museum galleries by master artisan Giuseppe Ercolano.
+
+Living Collapse is part of the second edition of Premio Meridiana, curated by Mario Francesco Simeone and promoted by the Fondazione Donnaregina per le arti contemporanee – museo Madre and the association Amici del Madre, dedicated to supporting curatorial research and the emerging artistic scene of Southern Italy. The exhibition engages with the theme of the first edition of the Prize, Everything is in All Things, inspired by the novel Conversation in Sicily by Elio Vittorini.
+
+— Text: Samuele Piazza`,
+    previewImage: localExhibitionImage("living-collapse", "1.webp"),
+    heroImage: localExhibitionImage("living-collapse", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "living-collapse",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "horizontal" },
+      ],
+      "maurizio esposito, Amedeo Benestante",
+    ),
+  },
+
+  {
+    slug: "i-am-just-a-dog",
+    title: "I am just a dog ",
+    subtitle: "Kiyomi + Tetsuhiro Uozumi, Coco Schütte, Esther Hunziker, Jesse Siegel , Trystan Williams",
+    venue: "temp",
+    gallery: "temp",
+    city: "Antwerpen",
+    country: "Belgium",
+    year: "2026",
+    dates: "26 September 2026 — 18 October 2026",
+    startDate: "26 September 2026",
+    endDate: "18 October 2026",
+    dateSource: "exhibition",
+    artists: ["Kiyomi + Tetsuhiro Uozumi", "Coco Schütte", "Esther Hunziker", "Jesse Siegel ", "Trystan Williams"],
+    curator: "Wumen Ghua",
+    photographer: "Dimitris Siokis",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/252d80f4",
+    description: `A group exhibition about purity, hesitation, the conversation we imagine and the connections we want to make.
+
+On the title. I borrowed it from Kiyomi and Tetsuhiro Uozumi, who made a piece by that name during a residency in Berlin: ten black dog sculptures, each with a speaker and a bulb, built from interviews in which the only rule was that people could answer only in barks. "The barking has no vocabulary and no grammar," they write, "yet tone, rhythm, breath, pauses, and hesitation carry traces of the person behind it. The original stories remain inaccessible; what is left are fragments of voice, character, and presence, from which each viewer may imagine what was said." I read that and thought: this is the whole exhibition, already written.I keep thinking of Diogenes too, who answered men throwing bones at him by pissing on them like a dog — unashamed, entirely on his own terms. Coco Schütte found the same fragment of history and pasted it into her own collage, next to a photograph from 1910 captioned, with a bluntness history rarely allows itself, Parisian Pisser. Old shame, set beside what it was always aimed at.Elsewhere in the room, Trystan Williams engraves an overheard exchange into stone — a dog, answering not with a bark but a verdict, wiser than whoever asked. Esther Hunziker's Electrical Friend watches from the wall, a face that looks like companionship but is, visibly, just a current. Jesse Siegel prints the vents that hotel corridors are built to make you forget, rendered closely enough that forgetting becomes impossible.None of these five agree with each other, exactly. They circle the same question from different distances: how much of what we call connection do we supply ourselves. I don't have an answer. I don't think the exhibition wants one either.
+
+— Text: wumen ghua`,
+    previewImage: localExhibitionImage("i-am-just-a-dog", "1.webp"),
+    heroImage: localExhibitionImage("i-am-just-a-dog", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "i-am-just-a-dog",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+      ],
+      "Dimitris Siokis",
+    ),
+  },
+
+  {
+    slug: "besides-bodies",
+    title: "Besides Bodies",
+    subtitle: "Lenka Klodová , Ondřej Kubeš , Virtue Village, Anchan/Anna Daučíková",
+    venue: "Berlinskej model",
+    gallery: "Berlinskej model",
+    city: "Prague",
+    country: "Czech Republic",
+    year: "2026",
+    dates: "24 September 2026 — 27 September 2026",
+    startDate: "24 September 2026",
+    endDate: "27 September 2026",
+    dateSource: "exhibition",
+    artists: ["Lenka Klodová ", "Ondřej Kubeš ", "Virtue Village", "Anchan/Anna Daučíková"],
+    curator: "Agáta Young Hošnová , Karolína Voleská",
+    photographer: "Tomáš Souček ",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/13ab081a",
+    description: `In Beside Bodies, curators Agáta Young Hošnová and Karolína Voleská trace emancipatory and queer approaches from the late 20th century to the present day, through gender performativity, critique of normative masculinity, and unstable ideals of beauty. The exhibition focuses on the changing of thought toward the body and bodily autonomy, systems of control and expectations connected to gender and sexuality, including family roles. Works by Virtual Village, Anchan/Anny Daučíková, Lenka Klodová, and Ondřej Kubeš explore corporeality as a space for personal and social experience to be inscribed as gestures and fragments of clothing: surfaces, reflecting performativity.
+
+Feminist thought has historically focused primarily on the experiences and unequal status of women, gradually broadening to encompass analysis of gender as whole order of categorisation. Contemporary feminist and queer theory turns attention to structures of normativity and their role in the social expression of masculinity. For example, the expectancy-discrepancy-threat model developed by Stanaland, Gaither and Gassman-Pines (2023) situates these fragile structures in a paradigm of masculinity as emerging from the individual‘s relation to themselves and the socialisation of their self-recognition. Masculinity, as such, is the comparison of one‘s own behaviour with a conventionalised cultural ideal, the authority of which maintains the possibility of discord, and one‘s failure to cohere. This, then, is the fragility that opens space for other forms of male corporeality: the sensitive, the queer, the melancholic, the open to doubt.
+
+Clothing functions as a second skin, understood as a fluid boundary where the body encounters its surroundings at the same time as it is set apart from them. In close proximity to the skin, clothing assumes whatever shape it extends over the surface of, translating bodily presence further into the realm of signs. The fabric thus preserves the physical traces of contact as well as the implicit imprinting of roles and relationships and memory that accumulates around the body over time. Textiles and clothing are signs; our familiarity with them establishes a position in society, and their absence too is a sign, gendered and historically used to reinforce a hierarchy that has precipitated novel modes of interaction.
+
+In “Home Exercise” (1997), Anchan/Anna Daučíková sews a pair of gloves together. The lens is uncomfortably close to the scene captured, focusing on the artist‘s hands working, the needle piercing fabric, the gradual joining of two items. The gloves follow the shape of hands, mediating contact with the surroundings and representing touch. Sewing them together renders a new whole, in which a practical act is imbued with the suggestion of intimate sexual union. Daučíková uses the act of traditionally female domestic labour to articulate a language of gender neutral gestures. Sewing is repeated touch, merging, and penetration. “Home Exercise” thus establishes the situation of the exhibition: the body enters the frame through the hands, while the fabric develops their gestures, patient and intimate and material.
+
+“David černý” (2009; literal translation “David black”) by the Czech performance and multimedia artist Lenka Klodová is a direct representation of the male body. Michelangelo‘s David is reconstituted in polystyrene, an ironic paraphrase connecting the canon of the male nude with the name of provocative corporate artist David Černý, responding to his sculptural installation Enropa (2009), a satirical piece on the stereotypes of European Union members. Use of lightweight, affordable polystyrene gives the typology a transient form, altering its monumental character, playing with questions of value. The simple gesture of painting David black is a mischievous subversion of, and deliberate failure to fulfil, rigid notions of European beauty. A digital print in the gallery window introduces the fabulated image of a woman as a distorted advertising product, subject to desires and stereotyping, tying into the artist‘s longstanding interest in caricaturing the tone of magazines aimed at specifically male or female audiences.
+
+The familial dimension of clothing is the subject of “Homme Fatale” (2025) by the Hong Kong duo Virtue Village. Six wall-mounted objects draw on the history of the artists‘ paternal families, manufacturers of silk ties. The tie is an archetype of male formal wear, a symbol of formality, professional status and self-control, all expectations of the wearer. This work recontextualises the tie as a “tie” to family business and patrilineage. The silk accessories exhibited feature portraits of the performer Waha, a long-time collaborator of Virtue Village. Waha‘s expressions shift from tenderness to tension, defiance and anger, and through his photogenicity he draws on the multigeneric cinema of Hong Kong. The face on the tie incorporate a number of emotional states in the conventional representation of the male form. The absence of the patriarch raises the question of how ideals of masculinity transgress generational division.
+
+Ondřej Kubeš focuses on rendering visible the emotions subdued in a macho heteronormative society. His work is framed by nostalgia, melancholy, and radical openness which, in purest form, is expressed through photographic self-portraiture. The central installation combines a metal structure with leather and printed fabric, resembling an empty wardrobe, a ‘silent servant’. The valet suggests subservient service, constituents of power silencing and exploiting those beneath them. The second prominent element of Ondřej’s work is the motif of freshwater pearl mussels. The pearl is an appropriated jewel, a symbol of wealth, and in biological reality a foreign object, a chance parasite, a grand of sand washed into the mussel by the current. Ondřej’s work plays with this internal tension, balancing bodily states while digesting scars and dysmorphia. Like the other artists exhibited in Besides Bodies, the artist seeks to gently challenge entrenched stereotypes of gender, performativity, and deviations that have led to emancipation.
+
+— Text: Agáta Young Hošnová, Karolína Voleská`,
+    previewImage: localExhibitionImage("besides-bodies", "1.webp"),
+    heroImage: localExhibitionImage("besides-bodies", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "besides-bodies",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "horizontal" },
+        { filename: "18.webp", orientation: "horizontal" },
+        { filename: "19.webp", orientation: "horizontal" },
+      ],
+      "Tomáš Souček ",
+    ),
+  },
+
+  {
+    slug: "keeping-the-peels",
+    title: "Keeping the Peels",
+    subtitle: "Katrīna Biksone",
+    venue: "427",
+    gallery: "427",
+    city: "Riga",
+    country: "Latvia",
+    year: "2026",
+    dates: "25 September 2026 — 24 October 2026",
+    startDate: "25 September 2026",
+    endDate: "24 October 2026",
+    dateSource: "exhibition",
+    artists: ["Katrīna Biksone"],
+    photographer: "Līva Priedīte",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/709b83b4",
+    description: `I’m working for something larger than me. Gloved sharp fingers raking at the rough, cold dirt. Plucking, peeling, peeking through. I cannot stop the waterfalls; they are flooding my soil. This garden has outgrown me; I cannot tame it. The sense of fear calls for trust… no, rather – forces it upon.
+
+​The deeply affective quality in Biksone’s painting accumulates in each and every layer of her works. In this series under “Keeping the Peels”, she confronts the heaviness of duty and submission, sorrow and disgust.
+
+Through the symbolic position of the gardener, we encounter a complex structure of desire. This position necessarily entails submission to caretaking; one has to labour for her fruits and persevere with enthusiasm despite the whims of the weather. What happens when this desire overfloods, enriches her soil, and sprouts an abundance that outgrows her own capacities? Paradoxically, this overgrowth is not the effect of a neglectful attitude, but rather it is precisely due to a strict and tainted devotion to her object, which flips and produces untamable wilderness. The smothering excess of her desire rots on fertile lands.
+
+Loss of satisfaction and the emergence of surplus enjoyment are cut from the same primordial fabric, according to Lacanian theory. Thus, excesses of pleasure/pain lurk after the quieting of insufficient words. Meaning is subdued, revealing a traumatic Real core. The gardener mourns a plucked flower; it melts through her fingers. A dusty shadow laments the view into a haze. Heavy-heartedness can quickly slip into dissociation. Once knocked out, sleepwalking employs a game of hide-and-seek. In these fantasies, she can pick and peel, lift the veil and take a peek. Still, it is not advisable to shine a flashlight and expose each dark corner of the unconscious. The piles of pieces scatter, and all that surfaces is a parallel reflection.
+
+These experiences of embracing a signifier, accepting a role in a play, importantly, also reflect a dual attitude. Confrontation is pointed both from the subject towards its object of desire, and these overgrowths confront her back. The skins that form a protective barrier between outside and inside become dissected and withered. When these lines between self and other are blurred, the result is a reversed pathological mutualism. The worried surface is defecated; the relationship appears self-destructive, yet the roots keep expanding and thriving. But just like in the case of hoarding, the more expansive it gets, the more fragile are the pegs upholding such a structure.
+
+​The birds hatch and break free from their cage, just to flutter back and peck at its wires.
+
+— Text: Katrīna Jauģiete`,
+    previewImage: localExhibitionImage("keeping-the-peels", "1.webp"),
+    heroImage: localExhibitionImage("keeping-the-peels", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "keeping-the-peels",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "vertical" },
+      ],
+      "Līva Priedīte",
+    ),
+  },
+
+  {
+    slug: "what-holds",
+    title: "What Holds",
+    subtitle: "Billie Clarken, Yoel Pytowski",
+    venue: "Motkerei Werkstatt",
+    gallery: "Motkerei Werkstatt",
+    city: "Köln",
+    country: "Germany",
+    year: "2026",
+    dates: "5 September 2026 — 17 October 2026",
+    startDate: "5 September 2026",
+    endDate: "17 October 2026",
+    dateSource: "exhibition",
+    artists: ["Billie Clarken", "Yoel Pytowski"],
+    curator: "Alexander Pütz, Undine Rietz",
+    photographer: "Juri Löchte",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/1b551fea",
+    description: `What is part of an artwork and what merely surrounds, supports or protects it? A frame can become part of the meaning of an image; a wall can become part of an installation. What Holds shows works by the artists Billie Clarken and Yoel Pytowski in a site-specific constellation. Both practices foreground structures that would ordinarily remain in the background. These include supports and casing, architectural elements and construction materials.
+
+In Aesthetics of Installation Art, theorist Juliane Rebentisch describes the boundary between an artwork and its material and/or spatial surroundings as fundamentally open. A frame, an enclosure or an architectural detail can shift from seemingly incidental condition to a meaningful part of the work itself. In What Holds, this relationship becomes tangible. Whatever supports, protects or confines an image or a space is never neutral; it contributes to how that image or space is perceived.
+
+Yoel Pytowski has developed an installation that responds to the existing architecture of the Moltkerei Werkstatt. Added structural elements and spatial layers divide and connect the space, altering sightlines and guiding visitors’ movements. The exhibition space itself becomes material for a work that necessarily takes shape in relation to its architectural conditions. Some of the elements used originate from earlier installations and carry traces of those previous contexts into their new arrangement. However, Pytowski does not reconstruct these earlier states. Rather, he transforms the material into a new, albeit temporary, architectural form. Construction, transformation and dismantling appear as different states within an ongoing process.
+
+Billie Clarken’s series Chewing Tongue likewise begins with material that is already in circulation. The artist uses ‘found footage’ whose histories of production and original contexts are no longer accessible. The images follow the logic of so-called ‘cursed images’ (a term coined in internet culture to describe images that appear simultaneously familiar and yet almost impossible to explain). Precisely because their origins are and remain unclear, they evoke a feeling that sits somewhere between recognition, irritation and unease. Clarken prints the photographs on pink foam and encloses them in DVD security cases. In doing so, the photographic image gains volume and becomes an object. At the same time, the cases’ original function and associations of preservation and consumption stay recognisable.
+
+Both artistic practices work with materials and images that have already passed through other uses and contexts. Their earlier functions do not disappear entirely but remain present as traces and associations. At the same time, their original contexts cannot simply be reconstructed. With each relocation and reconfiguration, new relationships emerge between material, space and perception. Clarken’s encased image-objects and Pytowski’s walk-in architecture mutually alter the conditions under which they are perceived.
+
+— Text: Alexander Pütz, Undine Rietz`,
+    previewImage: localExhibitionImage("what-holds", "1.webp"),
+    heroImage: localExhibitionImage("what-holds", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "what-holds",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "horizontal" },
+        { filename: "16.webp", orientation: "horizontal" },
+        { filename: "17.webp", orientation: "horizontal" },
+        { filename: "18.webp", orientation: "horizontal" },
+        { filename: "19.webp", orientation: "horizontal" },
+        { filename: "20.webp", orientation: "vertical" },
+        { filename: "21.webp", orientation: "vertical" },
+        { filename: "22.webp", orientation: "vertical" },
+        { filename: "23.webp", orientation: "vertical" },
+        { filename: "24.webp", orientation: "vertical" },
+        { filename: "25.webp", orientation: "horizontal" },
+        { filename: "26.webp", orientation: "vertical" },
+      ],
+      "Juri Löchte",
+    ),
+  },
+
+  {
+    slug: "within-and-for-each-other",
+    title: "Within And For Each Other",
+    subtitle: "Jan Baszak",
+    venue: "WHOISPOLA",
+    gallery: "WHOISPOLA",
+    city: "Warsaw",
+    country: "Poland",
+    year: "2026",
+    dates: "18 September 2026 — 24 October 2026",
+    startDate: "18 September 2026",
+    endDate: "24 October 2026",
+    dateSource: "exhibition",
+    artists: ["Jan Baszak"],
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/bf1dd511",
+    description: `Where does one body end and another begin? How much of us is truly ourselves, and how much of us is made up of other beings? How, in the fervor of evolution, can we discern the contours of species, reason, and feeling? And finally: what is (really) alive?
+
+Jan Baszak’s art engages with unmediated forms - forms undergoing metamorphosis, inhabiting a shadow zone where contours blur and presence remains ambiguous. The artist creates hybrid forms from materials stitched into the guise of other bodies, using prostheses and organic fragments - hair, ground fingernails, saliva, and so on. This art draws on the idea of the “obscene,” if we return to the Latin root obscēnus, which on the one hand referred to something ominous, an ill omen, while on the other carried connotations of shamelessness and indecency.
+
+Animals inhabit this world; it is an entire menagerie. Rabbit, dog, rat, cow, horse, swan, hare - and this time, roe deer. For centuries, these creatures have spoken for us, cast in carefully assigned roles - often as villains and messengers from the Beyond, or at least as servants of dark forces. This is a kind of cryptozoology, populated by figures who inspire in us a sense of remorse and guilt, and by others who take the initiative and haunt our dreams. They rarely arrive in peace.
+
+This is a story of permeability, moving in many directions at once. The boundaries between bodies are indistinct. According to the theory of endosymbiosis, proposed by Lynn Margulis and once regarded in the scientific community as almost heretical, our bodies are also composed of other beings. Not only are our insides inhabited by bacteria, fungi, viruses, and archaea; we can also treat other species as building material, growing parts of our own bodies from them. Our mitochondria, after all, evolved from once free-living bacteria. We absorbed them, and they transformed into us, into our organelles. Usually, however, we reject foreign bodies, and in anaphylactic shock we recognize their presence as foreign. As obscene. The nature of our bodies is porous, but so too are the boundaries of scientific taxonomies, of knowledge and what remains unknown.
+
+The protagonists of this story are roe deer. Two roe deer are joined in a peculiar ritual - an exchange, or perhaps an offering, of saliva. What is more, they are albinos, and therefore doubly peculiar. On the one hand, they are joined by an unknown ritual (of love, care, excess, or perhaps a psychoactive journey); on the other, they are marked, rare exceptions, apparitions. From a scientific point of view, this is quite an anomaly: an albino roe deer occurs once in every hundred thousand births. It is amiracle, but a frail one. A white creature in the forest is an easy target. Among hunters, however, there is a taboo against killing albino animals. One does not raise a hand against a messenger from the Beyond (and what else could a white creature with red eyes be?). The killer faces severe punishment; blindness may befall them. It is a paradox - the white animal is more visible to others against the dark background of the forest (while the albino itself has poor eyesight), yet one may pay for its death with the loss of sight. What is too insistently on display may become the final thing one sees.
+
+Let us look more closely at the relationship between the two roe deer. They cling to one another. Saliva takes on the role of ectoplasm here, in its occult and spiritual sense: a sticky, gelatinous substance emitted by mediums during séances. We are dealing with a “medium.” This substance was most often faked using pieces of gauze, egg white, starch, or paper, which vividly recalls Jan Baszak’s sculptural method - they are manifestations of organic forms and bodies. During séances at the turn of the nineteenth and twentieth centuries, ectoplasm served as an esoteric lubricant: it facilitated contact between beings from two worlds. The substance emerged through openings in the medium’s body: the eyes, nose, and ears. Gates to the unknown opened. Communication took place - here, Earth; there, the Beyond. A séance, however, had to be based on an attempt to translate what was nonverbal. Communication found an outlet in thought and action, but not in speech. This act (this esoteric masquerade) can be compared to an animal leaving its scent for its own kind. And in this respect, the roe deer is unparalleled. It has scent glands all over its body: on its forehead, at the corners of its eyes, on its legs, and beneath its hooves. Its entire body is a machine for nonverbal communication. It can leave behind, for example, a distillation of fear mixed with urine, press it into the earth with its hoof. It is like ectoplasm flowing from the ear of a medium - a message from another world that we can finally decipher: we live in fear!
+
+The roe deer is a fitting protagonist for this story. It is skittish, alert in an almost supernatural way. It inhabits that strange territory between what has been domesticated, edited, and what repeatedly becomes wild. The peculiarity of the roe deer lies in its apparent domestication. It exists alongside us, like urban foxes, but does not become familiar with us; it has never trusted us and probably never will. It has therefore been symbolically domesticated, or rather infantilized from a distance, through the spells of popular culture - inhabiting the imaginary worlds of fairy tales, cartoons, and toy stores. The phenomenon is so widespread that it has acquired a name: bambification, the tendency to create a naive, idealized image of the world we once called (in the past) nature. The roe deer is the queen of this strange impulse. But when we look into the pupils of an animal that has finally lost its vigilance, frozen in rigor mortis and allowing us to approach, we feel that the stories of messengers from the Beyond are not simply inventions.
+
+In the Grimm brothers’ fairy tale Brother and Sister, a story that reads like a cruel lesson in dark ecology for the youngest readers, there is a motif of a roe deer (or perhaps a stag - in children’s literature there is a certain casualness toward zoological taxonomies), into which a young boy is transformed. It is a spell cast by a witch, but the boy finds solace in nature. He hides in the forest fromthe cruelties of the world. “Since our mother died, we have not known a moment of happiness. Our stepmother beats and kicks us whenever we come near her, and our only food is the hard crusts of bread,”- the boy laments to his sister, already in the opening lines of the tale. And so he escapes into the dark forest, finding happiness in moving between worlds. Yet he is accompanied by a death drive, a peculiar attraction to hunting - to being seduced by the lamenting sound of the hunter’s horn.
+
+The objects in the exhibition are accompanied by sound as well. From the head of the third roe deer emerges John Dowland’s sixteenth-century song Flow My Tears, known previously in its instrumental form as the heartbreaking lute piece Lachrimae Pavane. The composer (“Semper Dowland, semper dolens” - always Dowland, always grieving - introduced himself in the title of one of his compositions) immersed himself in a melancholic sea of desperate sounds. The final stanza of this lament has an almost haughty, arrogant tone. It is a true celebration of wilding, of hiding among the shadows, of being overwhelmed by the incomprehensible whispers of the night:
+
+Hark! you shadows that in darkness dwell,Learn to contemn light.
+
+In Jan Baszak’s art, the motif of wilding, or becoming feral, returns insistently. It is a dark impulse. This is not about a gentle renaturalization, guided by a caring human hand, so that fluffy, big-eyed creatures can delight our eyes in an idyllic setting. Rather, what emerges here is an image of ugly, furious wilding. Of feral beings. In Polish, feralny means unlucky, unfortunate. But the word derives from the Latin fērālis (mortal or funereal), which, like obscēnus, suggests an ill omen. In English, feral means wild, as in “feral child” - a child who grew up „in the wild”, among animals, and does not communicate in human language. In this sense, we can think about systems, institutions, and social organization. About wilding that may not be particularly beautiful, but is nevertheless a promise of some form of salvation. For us and for the planet. Not a gentle return to nature, but a “feral” reckoning with the practices of domestication. This is precisely what art does at its best: it is a tool that helps us escape, evacuate ourselves from a world on fire.
+
+It is the feeling that accompanies us when we see a pack of stray dogs hunting their prey by the roadside of a highway. We are witnessing a ritual of calling the wolf out of the forest. Except that instead of a predator, what appears is a gentle, saliva-covered roe deer, flickering, being here and there. It inhabits our world and the other one, blurred, feverish, hallucinating, decaying. Will everything become wild and find solace in that wildness? After all this, in contempt for the world, will we dream the dream of the roe deer, among shadows and covered in mud, emitting the scent of hope?
+
+And feare, and griefe, and paine for my deserts, for my deserts,Are my hopes since hope is gone.
+
+— Text: Sebastian Cichocki`,
+    previewImage: localExhibitionImage("within-and-for-each-other", "1.webp"),
+    heroImage: localExhibitionImage("within-and-for-each-other", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "within-and-for-each-other",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "horizontal" },
+      ],
+    ),
+  },
+
+  {
+    slug: "intolerance",
+    title: "Intolerance",
+    subtitle: "Youki Hirakawa",
+    venue: "Standing Pine",
+    gallery: "Standing Pine",
+    city: "Tokyo",
+    country: "Japan",
+    year: "2026",
+    dates: "19 September 2026 — 17 October 2026",
+    startDate: "19 September 2026",
+    endDate: "17 October 2026",
+    dateSource: "exhibition",
+    artists: ["Youki Hirakawa"],
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/14ee41ee",
+    description: `STANDING PINE is pleased to present Intolerance, a solo exhibition by Youki Hirakawa, opening on Saturday, 19 September 2026. Hirakawa creates works that read the information embedded within everyday objects, excavating the histories and political dimensions that emerge from them. In this exhibition, he examines the process by which institutions, values, and ways of life—brought to Japan primarily from the United States after World War II—were accepted and became established within Japanese society, linking this process to his own memories and physical experiences, and framing it as an issue that continues to the present day. 
+
+ntolerance / 2025, from which the exhibition takes its title, is constructed from two old milk churns combined to resemble an unexploded bomb. In post-war Japan, powdered skimmed milk supplied as aid, together with the widespread introduction of school lunches centred on bread and milk, brought significant changes to the Japanese diet. Hirakawa examines this Westernisation of food not only in relation to the policies of the Occupation, but also through the lens of biopolitics, considering state-led nutritional management and intervention in the body. From there, his enquiry extends to what he describes as a form of “food colonialism”. The work was prompted by the discovery, in 2023, of an unexploded bomb near Hirakawa’s home in Nagoya. This incident brought together two memories from his childhood on the Atsumi Peninsula: the unexploded ordnance he had seen there, and the rusted milk churns that remained in cowsheds. Out of this convergence emerged Intolerance / 2025. The term “Intolerance” not only refers to lactose intolerance as a physiological condition but also prompts us to question what we have taken for granted through the changing landscape of our eating habits. Taking the transformation of dietary habits as its point of departure, the work asks what we have come to accept as self-evident. 
+
+In Souvenir / 2025, Hirakawa enlarges a postcard depicting a Japanese squat toilet photographed during the Occupation and reorients the image horizontally, transforming the toilet into an image resembling a urinal. Recalling Marcel Duchamp’s Fountain, the work brings into view the external gaze directed towards Japanese everyday culture at the time, while also drawing attention to forms of life and cultural identity that are gradually disappearing through processes of social transformation. At the same time, it proposes a rereading, from an Asian perspective, of the frameworks through which contemporary art has largely been shaped in the West. The work embodies a critical sensibility that Hirakawa describes as “self-deprecating dark humour”. 
+
+For Intended Accidental Ingestion / 2026, Hirakawa ingested the tip of a projectile fired from a 9mm round that he acquired at a flea market. After passing through his body, 69 hours and 44 minutes later, it was incorporated into the work. Confronted with the situation surrounding US military bases in Okinawa, and Japan’s deeply entangled relationship with the US military from the post-war period to the present, Hirakawa attempts to take in—through the physical act of literally “swallowing”—a reality for which no simple answer can be found. Blackened by gastric acid after passing through his body, the projectile is presented together with an upturned piece of US military surplus furniture, a glass tumbler, and a tin ashtray stamped “Made in Occupied Japan”. Through these works, Intolerance approaches from different angles the ways in which the past remains inseparable from the present, continuing to act upon our everyday lives. We invite you to encounter Youki Hirakawa’s practice, which brings to the surface the histories embedded in ordinary life and the political structures that lie beneath them.`,
+    previewImage: localExhibitionImage("intolerance", "1.webp"),
+    heroImage: localExhibitionImage("intolerance", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "intolerance",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "horizontal" },
+      ],
+    ),
+  },
+
+  {
+    slug: "larval-tears",
+    title: "Larval Tears",
+    subtitle: "Julie De Kezel",
+    venue: "Veranda",
+    gallery: "Veranda",
+    city: "Brussels",
+    country: "Belgium",
+    year: "2026",
+    dates: "24 September 2026 — 11 October 2026",
+    startDate: "24 September 2026",
+    endDate: "11 October 2026",
+    dateSource: "exhibition",
+    artists: ["Julie De Kezel"],
+    curator: "Anna Laganovska",
+    photographer: "Milena Wojhan",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/a9205c3c",
+    description: `Julie De Kezel’s practice begins with a simple, almost compulsive gesture: collecting. A shed
+
+animal skin, a piece of moss, a mineral, an unknown organism, an image captured under a
+
+microscope. Things encountered are picked up and taken home, as if the world were
+
+constantly leaving behind traces that ask to be kept. What first appears as a natural object
+
+becomes a token of attention, a way of holding onto an encounter and giving form to
+
+something that might otherwise disappear.
+
+Collecting, here, is less an attempt to archive nature than a way of remembering through
+
+matter. Found objects become an external memory system, as well as entrances into further
+
+research: an organism can lead to a piece of folklore, an image to a scientific experiment or
+
+a new technique, a memory to a fictional world. Knowledge enriches the experience of
+
+finding, while the found object sends the artist back into research. Her practice moves
+
+continuously between these directions, growing like a rhizome, without a fixed centre or
+
+predetermined destination.
+
+Along the way, the sense of scale in her work shifts continually. A patch of moss can grow
+
+into an endless forest; a city can shrink into a miniature world. Enlargement, reduction and
+
+digital reconstruction allow De Kezel to move between recognition and estrangement,
+
+testing how an object might change when its familiar proportions no longer hold. The
+
+miniature paintings placed across the walls of Larval Tears operate according to this logic.
+
+Enclosed in tear-shaped silver frames, caves sit beside microorganisms, plants and
+
+landscapes. A stove, or a pot suspended over a fire, appears among them too – a quiet
+
+reference to the French crémaillère, the iron hook once used to hang a cooking pot over the
+
+hearth, and whose installation came to mark the moment a house was ready to be inhabited.
+
+This merging of the domestic with the foraged recalls Ursula K. Le Guin’s The Carrier Bag
+
+Theory of Fiction, in which she proposes the container, rather than the weapon, as another
+
+possible origin for both human technology and storytelling: something made to gather, carry
+
+and hold what has been found. Against the heroic narrative of conquest, singular action and
+
+linear progress, Le Guin imagines a narrative form built through accumulation, relation and
+
+return. De Kezel brings a similarly feminine mode of attention to the aesthetics of video
+
+games and fantasy fiction. Rather than following the hero’s quest towards its conclusion, she
+
+gravitates towards what surrounds it – wandering through landscapes, lingering at their
+
+edges, gathering fragments and traces to carry home and fold into her own practice.
+
+The miniature paintings are covered with chandelier crystals. Elsewhere in the exhibition,
+
+crystals reappear, catching and refracting the light. A crystal does not simply show what is in
+
+front of it: it splits a single view into several, bending light and revealing colours otherwise
+
+hidden. In this sense, it becomes an apt figure for De Kezel’s movement between realities –
+
+the collected world passes through a prism and emerges altered on the other side.
+
+De Kezel traces her fascination with video game fantasy worlds back to watching her sister
+
+play Forestia in 2005, a point-and-click game in which a forest could be explored through
+
+small quests, encounters and acts of collection: endless picking without putting a biotope at
+
+risk, endless walking and looking without disturbing the landscape. What interests her in
+
+games is not only their imagery or narrative, but the particular way in which a world becomes
+
+available through possible actions. Nature can be looked at, but also entered, traversed,
+
+catalogued and collected.
+
+Her relationship to these worlds nevertheless remains ambivalent. Uninterested in much of
+
+the stress and violence demanded by gameplay, De Kezel describes herself instead as a kind
+
+of professional spectator. She is drawn to recordings in which players wander for hours
+
+through fictional landscapes, sometimes using modifications that prevent hostile entities
+
+from attacking. Removed from the imperative to fight or progress, worlds such as Dark Souls,
+
+Kingdom Come: Deliverance or Elden Ring become strange landscape films: places to walk
+
+through, observe and gather from with the eyes.
+
+Larval Tears takes its title from an object found in Elden Ring. Consuming a Larval Tear
+
+allows a player to undergo “rebirth,” a redistribution of a character’s attributes, allowing an
+
+already established identity to be reconstructed. De Kezel borrows this gesture for her own
+
+practice: not to discard the archive she has accumulated, but to subject the collecting
+
+impulse itself to another metamorphosis – to learn how to read what has been gathered
+
+differently.
+
+At the centre of the exhibition, a folding screen, or paravent, holds larger landscape
+
+paintings. On its central panel, a dark, cave-like opening echoes the contours of the small
+
+tear-shaped works surrounding it. Nearby, a bucket gathers another kind of holographic
+
+objects, fragments and trinkets of imagination collected from the world De Kezel has been
+
+constructing. Across Larval Tears, forms reiterate and return at shifting scales or
+
+materialities, as if remembered imperfectly. A crystal refracts a landscape, a tear becomes a
+
+cave, and an insect-sized girl reaches towards a glimmer hidden in the moss.
+
+— Text: Anna Laganovska, Julie De Kezel`,
+    previewImage: localExhibitionImage("larval-tears", "1.webp"),
+    heroImage: localExhibitionImage("larval-tears", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "larval-tears",
+      [
+        { filename: "1.webp", orientation: "vertical" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "vertical" },
+        { filename: "20.webp", orientation: "vertical" },
+        { filename: "21.webp", orientation: "vertical" },
+        { filename: "22.webp", orientation: "vertical" },
+        { filename: "23.webp", orientation: "vertical" },
+        { filename: "24.webp", orientation: "vertical" },
+        { filename: "25.webp", orientation: "vertical" },
+        { filename: "26.webp", orientation: "vertical" },
+        { filename: "27.webp", orientation: "vertical" },
+        { filename: "28.webp", orientation: "vertical" },
+        { filename: "29.webp", orientation: "vertical" },
+        { filename: "30.webp", orientation: "vertical" },
+      ],
+      "Milena Wojhan",
+    ),
+  },
+
+  {
+    slug: "glimmer",
+    title: "Glimmer",
+    subtitle: "Kornel Leśniak",
+    venue: "Jak Zapomnieć Gallery",
+    gallery: "Jak Zapomnieć Gallery",
+    city: "Kraków",
+    country: "Poland",
+    year: "2026",
+    dates: "5 September 2026 — 10 October 2026",
+    startDate: "5 September 2026",
+    endDate: "10 October 2026",
+    dateSource: "exhibition",
+    artists: ["Kornel Leśniak"],
+    curator: "Tomek Nowak",
+    photographer: "Michał Maliński",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/446b4354",
+    description: `To kiss the mountains on the cheek
+
+Kornel Leśniak’s latest exhibition is devoted to examining the relationships between human and
+
+non-human beings, as well as the non-living elements of nature. Speaking about his new works,
+
+Kornel says: !We no longer live in nature,” stating what may seem obvious. We separate ourselves
+
+from nature; moreover, in our boundless arrogance, we seem to believe that we are capable of
+
+managing without it.
+
+Neither the seasons nor the climate play much of a role in shaping our way of life—unless we are
+
+being afflicted by natural disasters. We no longer recognise the scents of individual plants or the
+
+smell of the earth.
+
+As humanity, we generally perceive nature as a threat, because we approach the entire natural world
+
+according to a deeply ingrained conviction that it should be subordinate to us, to humans. Today,
+
+however, we can see the devastating effects of this anthropocentric attitude—echoing the biblical
+
+injunction to !subdue the earth.” What remains truly wild now constitutes only a small fraction of
+
+life on Earth: a mere 23% of the planet’s land and 13% of its oceans, while wild animals account for
+
+only 4% of global biomass. We relentlessly destroy flora and fauna because we treat them as
+
+inexhaustible sources of materials. For human beings, only that which can be exploited and put to
+
+use seems to matter.
+
+Yet Kornel does not stop at these bleak observations. He finds hope in the fact that the current crisis
+
+has made us more aware of the mutual connections and entanglements between different forms of
+
+life. He sees no clear divisions between them. Rocks, plants, animals and humans are connected by
+
+invisible yet extraordinarily powerful bonds. Nothing lives independently, even if it is unaware of
+
+this. Kornel sees beauty in these connections. He uses aesthetics to tell stories about a world that is
+
+disappearing, yet still continues to exist.
+
+At the same time, he remains aware that nature can still be immensely powerful. His narratives are
+
+built around examples drawn from one place in Poland where alpine nature reigns supreme: the
+
+Tatra Mountains. Kornel sees both their terror and their fragility. Their towering peaks can enchant
+
+us with spectacular views and wild nature, only moments later to disappear into the clouds,
+
+vanishing before the hiker’s eyes and leaving them lost among the rocks.
+
+Kornel follows the paths travelled by both animals and humans. He wonders what will become of
+
+them, what will happen to the old trails if they disappear as a result of climate change, erosion and
+
+the passage of time. New ones will certainly emerge—but who will trace them? Animals making
+
+their way to a watering place? Climbers establishing new routes? Tourists searching for ever more
+
+views and attractions amid a natural world barely clinging to life?
+
+Kornel also turns his attention to plants whose habitats lie in the high mountains. One example is
+
+rosebay willowherb, which has recently enjoyed its fifteen minutes of fame thanks to Instagram. It
+
+is a striking yet common perennial, forming vast swathes across mountain meadows. Interestingly,
+
+willowherb is a pioneer species, among the first to colonise damaged land. It grows near human
+
+settlements, on abandoned pastures and on burnt ground, enriching the soil before eventually giving
+
+way to other, more demanding species. We can therefore be fairly certain that willowherb will not
+
+disappear so quickly in this era of mass extinction. A meagre consolation? Perhaps the only one we
+
+have.
+
+The tiny primrose, which grows abundantly in the Tatras, will probably survive for similar reasons:
+
+its inconspicuousness. It is easy to overlook, even though its flowers are enormous in proportion to
+
+the rest of the plant.
+
+Kornel’s attention has also been drawn to the ominous phenomenon known as the Brocken spectre.
+
+A person standing on a mountain summit may see their own greatly enlarged silhouette projected
+
+onto the clouds. According to superstition, this optical phenomenon foretells inevitable death—
+
+unless the omen is reversed in time.
+
+The beauty that nature continues to bestow upon us without asking anything in return reigns
+
+supreme in Kornel’s paintings. The subtle sheen of their backgrounds recalls the shimmer of a
+
+frozen surface of snow, while the colour gradients in his paintings take on the pale tones of a
+
+bitterly cold day—or, conversely, an intensely hot one. Views of mountains, paths, flowers and sky
+
+seem to vanish from the surfaces of his canvases, their outlines and colours gradually losing their
+
+clarity. As though, in the very process of fading, life itself were disappearing from the surface of the
+
+Earth.
+
+One thing is certain: the world will survive. We do not know in what form, but beauty will remain
+
+with it.
+
+— Text: Magda Ujma`,
+    previewImage: localExhibitionImage("glimmer", "1.webp"),
+    heroImage: localExhibitionImage("glimmer", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "glimmer",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "vertical" },
+      ],
+      "Michał Maliński",
+    ),
+  },
+
+  {
+    slug: "unzucht-kiss-the-devil-s-arse",
+    title: "Unzucht - Kiss the Devil's Arse",
+    subtitle: "Itchi Fleischer",
+    venue: "Kunstbrücke am Wildenbruch",
+    gallery: "Kunstbrücke am Wildenbruch",
+    city: "Berlin",
+    country: "Germany",
+    year: "2026",
+    dates: "29 August 2026 — 31 October 2026",
+    startDate: "29 August 2026",
+    endDate: "31 October 2026",
+    dateSource: "exhibition",
+    artists: ["Itchi Fleischer"],
+    curator: "Johanna Engemann",
+    photographer: "Itchi Fleischer",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/d43852ed",
+    description: `DE
+
+From today’s perspective, that the term “Unzucht” or its common English translation sodomy may seem
+out of step with the times when, in fact, it appeared as late as the 1960s in Section 175 of the West German
+Criminal Code (StGB). This provision criminalized sexual acts between men only and was not repealed
+until 1994. Itchi Fleischer’s first solo exhibition takes the antiquated expression of Unzucht to highlight
+parts of the extensive history of state violence against queer and femme people. However, Fleischer does
+not focus solely on criminal, but also moral persecution, Christian church writings and imagery serve thus
+as an equally important reference for the exhibition as the subtitle Kiss the Devil’s Arse suggests. Derived
+from the Latin osculum infame (kiss of shame), it refers to the ritual kiss given by a witch on the devil's
+anus, thereby creating a connection between male homosexuality and the female figure of the witch.
+
+The show is populated by mythical hybrid creatures, allusions to witchcraft, the bestial nature within
+humans, and the negative and positive connotations associated with it. It explores these notions through
+the blurred distinction between the good lamb and the satanic goat—what the state and the church have
+classified as “pure” and what as “impure”—and offers a strategy for breaking through this dichotomy.
+
+While the themes and terms at hand are serious, Fleischer encounters them with ornamental flourish,
+poeticism and a certain amount of cheekiness and irony, which are often part of queer aesthetic strategies.
+In their work, Fleischer often finds beauty in that which is marked as “outside of”, as leprous, abject or
+simply ugly and turns it into sculptures and performances which carry their own stories, resistance and
+liveliness. For Unzucht they bring references to famous ecclesiastical motifs, like the sacrificial lamb,
+together with queer subculture and some wicked witchery.
+
+The lamb takes inspiration from Jan van Eycks agnus dei, which is part of the Ghent Altarpiece. The
+template carries its own irony as the lamb spouts blood in a perfect, unnatural-looking arch straight into a
+chalice. Queering this absurd detail in The Shepherd’s Goods (2026), the sacrificed, a hybrid creature of
+man and animal, bleeds down into their own groin, further bringing into focus what is already alluded to
+in the title.
+
+On the other side of this biblically inspired parable is the satanic goat, referenced in the form of a satyr, a
+witch, and a drag persona embodied by Fleischer themselves in the photograph The Parable of the Blessed
+and Cursed, displayed in the entrance area.
+
+Through their work, Itchi Fleischer invites us to rethink what we perceive as Widernatürliche Unzucht
+(2026), as perverse evil, deviant, or guilt-ridden, and what ‘salvation’ we stand to gain in exchange for a
+completely sinless, pure act of self-sacrifice.
+
+— Text: Johanna Engemann`,
+    previewImage: localExhibitionImage("unzucht-kiss-the-devil-s-arse", "1.webp"),
+    heroImage: localExhibitionImage("unzucht-kiss-the-devil-s-arse", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "unzucht-kiss-the-devil-s-arse",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "horizontal" },
+        { filename: "16.webp", orientation: "horizontal" },
+        { filename: "17.webp", orientation: "horizontal" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "horizontal" },
+      ],
+      "Itchi Fleischer",
+    ),
+  },
+
+  {
+    slug: "suculenta-arana",
+    title: "Suculenta Araña",
+    subtitle: "Elisa Pardo Puch",
+    venue: "Galería Picnic",
+    gallery: "Galería Picnic",
+    city: "Madrid",
+    country: "Spain",
+    year: "2026",
+    dates: "8 September 2026 — 24 October 2026",
+    startDate: "8 September 2026",
+    endDate: "24 October 2026",
+    dateSource: "exhibition",
+    artists: ["Elisa Pardo Puch"],
+    curator: "Picnic Team",
+    photographer: "Antonio Lozano",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/8e6f3d93",
+    description: `Elisa Pardo’s practice is multidisciplinary and combines drawing, textile techniques and installation, amongst other media. Her work explores processes of transformation, the unconscious, desire, memory and pleasure, bringing to the fore narratives that have been marginalised by dominant historical discourses. Repetition is a central principle of her practice, both in form and process, and generates a poetics of insistence and duration. Through an intuitive and repetitive practice, the creative process becomes a space for reflection and channelling. Drawing and textiles also function as conceptual tools, linked to the so-called ‘minor arts’, women’s labour and the reuse of materials. Through these languages, Pardo champions collective forms of knowledge, alternative economies and sustainable practices. Her research engages with the Arts and Crafts movement, the Bauhaus, vernacular crafts and feminist DIY (do-it-yourself) cultures, proposing a practice in which art, craft, thought and everyday life are interwoven from a perspective of care, agency and resistance.
+
+Suculenta Araña is a textile sculpture that follows the growth pattern and weave of a patchwork module –almazuela. This two-dimensional geometric pattern is scaled up to an architectural scale by increasing its size and projecting the centre of the model onto a third spatial axis. The piece grows radially: it starts from a centre, and the same shapes – made from transparent PVC plastic and grey waterproof acrylic fabric – are repeated and sewn onto an unbleached cotton base, following the same pattern and forming four walls. This technique of using a base onto which textiles are attached, creating a front and a back to the piece, is characteristic of patchwork, a textile upcycling technique still practised in La Rioja, which follows geometric patterns that, when combined across several modules, generate designs. The word almazuela derives from musalla, which in Arabic means place of prayer. There is a profound link between the everyday tasks carried out by women and the creation of spaces. The piece transcends its intimate relationship with textiles and becomes an architectural element. It takes over the space, showcasing the knowledge and techniques that have accompanied humankind since its earliest days – practices, knowledge and ways of working that have been part of popular culture, particularly amongst women, and have therefore been silenced and disparaged.
+
+This piece is accompanied by two others, which are closer to two-dimensionality and follow the same pattern of growth as the patchwork, where stitching begins at a centre and continues in a spiral: Nido incorporates various salvaged objects, collected by the artist, and scraps of fabric onto a found transparent plastic base. The piece is conceived as a whirlpool that absorbs whatever it encounters, like a magpie’s nest. Mariposa, the final piece, also lies at the intersection between the sculptural and the two-dimensional. It is based on a classic patchwork design, whose characteristic pattern emerges when the different modules –in which light and darkness are separated– are joined together. The four pieces are made from waterproof acrylic fabrics and transparent PVC plastic on a base of unbleached cotton, with the sections joined together using metal clothes pegs. The geometric growth pattern found in the pieces is present in succulent plants, the webs spun by spiders, the architecture of Mesoamerican pyramids and in the patchwork quilts of La Rioja.
+
+— Text: Picnic, Elisa Pardo Puch`,
+    previewImage: localExhibitionImage("suculenta-arana", "1.webp"),
+    heroImage: localExhibitionImage("suculenta-arana", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "suculenta-arana",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "horizontal" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "vertical" },
+        { filename: "20.webp", orientation: "vertical" },
+        { filename: "21.webp", orientation: "vertical" },
+        { filename: "22.webp", orientation: "vertical" },
+        { filename: "23.webp", orientation: "vertical" },
+        { filename: "24.webp", orientation: "vertical" },
+      ],
+      "Antonio Lozano",
+    ),
+  },
+
+  {
+    slug: "p-r-i-m-o-r-d-i-a",
+    title: "P R I M O R D I A ",
+    subtitle: "Ohii Katya, Izzy Waller",
+    venue: "Culterim Spaces Backshop",
+    gallery: "Culterim Spaces Backshop",
+    city: "Berlin",
+    country: "Germany",
+    year: "2026",
+    dates: "20 June 2026 — 27 June 2026",
+    startDate: "20 June 2026",
+    endDate: "27 June 2026",
+    dateSource: "exhibition",
+    artists: ["Ohii Katya", "Izzy Waller"],
+    photographer: "Greta Windfuhr, Shuto Kitagawa",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/6e4d35b4",
+    description: `PRIMORDIA REFERS TO AN ORGAN, TISSUE, OR CELL STRUCTURE IN ITS EARLIEST, MOST RUDIMENTARY STAGE OF DEVELOPMENT. IT SERVES AS THE INITIAL FOUNDATION FROM WHICH A FULLY DEVELOPED ANATOMICAL FEATURE WILL GROW.
+
+BRINGING TOGETHER SCULPTURE, INSTALLATION, SOUNDSCAPE AND LIVE PERFORMANCE, PRIMORDIA PRESENTS AN IMMERSIVE ENVIRONMENT WHERE CREATION IS NOT A DELIBERATE ACT, BUT A CONSEQUENCE OF CHANCE: MESSY, UNSTABLE, AND ENDLESSLY GENERATIVE.
+
+THE EXHIBITION EXPLORES TRANSFORMATION, MUTATION, AND THE UNPREDICTABLE FORCES THAT SHAPE LIFE.
+
+DURING PRIMORDIA A LIVE PERFORMANCE TITLED META MENARDI TOOK PLACE. META MENARDI IS A BUTOH-INSPIRED MOVEMENT IMPROVISATION WHERE CHOREOGRAPHY IS NEVER FIXED. THE PERFORMERS SEEK NOT BEAUTY, BUT A STATE OF TRANCE, ALLOWING INSTINCT AND RAW PRESENCE TO GUIDE THE BODY.
+
+THE TITLE REFERS TO META MENARDI, THE CAVE SPIDER. ADULTS ARE PHOTOPHOBIC, LIVING IN CAVES AND DARKNESS, WHILE THE YOUNG ARE DRAWN TO LIGHT BEFORE RETREATING UNDERGROUND. THIS CYCLE ECHOES THE PERFORMANCE AS A PASSAGE BETWEEN INSTINCT AND CONSCIOUSNESS, DARKNESS AND EMERGENCE. LIKE THE SPIDER, THE PERFORMERS NAVIGATE AN IN-BETWEEN STATE, WEAVING FRAGILE CONNECTIONS BETWEEN INSTINCT, FEAR, AND TRANSFORMATION, INVITING THE AUDIENCE INTO A LIVING RITUAL RATHER THAN A FIXED PERFORMANCE.
+
+C
+
+— Text: Ohii Katya`,
+    previewImage: localExhibitionImage("p-r-i-m-o-r-d-i-a", "1.webp"),
+    heroImage: localExhibitionImage("p-r-i-m-o-r-d-i-a", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "p-r-i-m-o-r-d-i-a",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "horizontal" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "horizontal" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "horizontal" },
+        { filename: "20.webp", orientation: "horizontal" },
+        { filename: "21.webp", orientation: "horizontal" },
+        { filename: "22.webp", orientation: "vertical" },
+        { filename: "23.webp", orientation: "horizontal" },
+        { filename: "24.webp", orientation: "horizontal" },
+      ],
+      "Greta Windfuhr, Shuto Kitagawa",
+    ),
+  },
+
+  {
+    slug: "the-word-for-world-is-poem",
+    title: "The Word for World is Poem",
+    subtitle: "Ángela Jiménez Durán",
+    venue: "Lehmann Gallery",
+    gallery: "Lehmann Gallery",
+    city: "Porto",
+    country: "Portugal",
+    year: "2026",
+    dates: "26 September 2026 — 7 November 2026",
+    startDate: "26 September 2026",
+    endDate: "7 November 2026",
+    dateSource: "exhibition",
+    artists: ["Ángela Jiménez Durán"],
+    curator: "FIlipa Nunes da Rocha",
+    photographer: "Dinis Santos",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/65d41e36",
+    description: `The Word for World is Poem | A Palavra para Mundo é Poema is the first solo exhibition by Ángela Jiménez Durán (b. 1996, Madrid; lives and works in Paris) at Lehmann Gallery.
+
+The exhibition’s title draws inspiration from Ursula K. Le Guin’s seminal science fiction novel The Word for World is Forest, in which an alien language uses a single word to encompass both “world” and “forest”. Borrowing from this ecological and linguistic overlap, Jiménez Durán constructs a territory where poetry becomes the foundational principle for world-building. Spanning painting, sculpture, and installation, the exhibition draws visitors into a choreography of entities and poems, invoking the artist’s ongoing investigation
+
+into the four elements, material transformation, and geological fiction. By engaging with the agency of matter, Jiménez Durán blurs the boundaries between the human and the non-human, and her work unfolds as a discontinuous narrative in which materialities and fictional elements intertwine to imagine uncertain futures.
+
+Song (for Ángela Jiménez Durán)
+
+And the waters all came
+
+at the right time
+
+to hear your song.
+
+And some fell from the sky,
+
+some slid
+
+down the embankment
+
+and others gushed forth,
+
+geyser-like,
+
+from the centre of the earth,
+
+in the concrete certainty
+
+that the poem
+
+you deliver
+
+is one of these airy places
+
+of the possibility
+
+of our continuing.
+
+And few things more
+
+moving:
+
+to offer the world
+
+the poem
+
+that continues it.
+
+The Word for World is Poem functions
+
+as a three-leaf screen where we find three figures:
+
+The word.
+
+The world.
+
+The poem.
+
+Like a love letter that is opened with the curiosity of receiving affection upon paper, the screen delivers its images one by one, just like a tarot deck shuffled for an encounter with time. And, when it is gathered, after days of being open, and the panels meet, already folded, it tells us: A word is a world, is a poem, and is a world once again.
+
+A poem is an elementary configuration that gathers the windows of all the houses where we have ever lived and polishes them, until there remain only and solely the shapes of the frames, clean and already removed from their utilitarian value. To find our poem is to allow ourselves to collect all the openings of the places through which light entered, light that, unlike almost everything, does not
+
+negotiate the occupation of space.
+
+In the revelation that poetry is the fundamental means of conjugating the world, the exercise of verse will be the driving force behind daily sustenance. The brilliant Natália Correia used to say to those undernourished of dreams that poetry is to be eaten, a source of unique and vital potency. Unlike food ingested through the mouth, we do not choose this one, as it enters us straight through the ears and the eyes: its own home, this body. Poetry is generous and luminous like light, and so, each time we give ourselves over and open up to the poem, the images of what is essential are redistributed. After all, the fairest thing we can do with our life is to deliver to it its song. And anything other than that will be judged meagre, it will be very little indeed, and neither we nor any other entity will even remember it.
+
+To deliver the song.
+
+It is certain that water is the oldest means of transport and communication we know. Song is words mixed with water, and that is why people sometimes drool when they sing or tear up as soon as they are moved while speaking of the beautiful, which is the same thing.
+
+As if all the water existing in the body manifested itself in the moments when we tell our most intimate, vulnerable, and cherished stories, in a single movement that wishes to overflow it, such is the enthusiasm for the expression of what runs inside, driven by a gush of energy. And even sweat, seasoned with salt, appears expanding freely across the skin.
+
+The sentences running across taut linen, the seemingly damp and shiny matter of the summoned beings, the colour of a full moon, and the clay in raw, muscular earthenware. All of this is Ángela Jiménez Durán revealing her song to us. And, to sing it to us, she chooses as title The Word for World is Poem, in direct company of Ursula K. Le Guin’s book, The Word for World Is Forest, because opening
+
+ourselves is also reuniting with those we feel close to us, and that always surpasses the conventions of space and time.
+
+We can then read the exhibition from three acts: the world presented by loved ones, ancestral beings invited for this moment; the integration of the verb into the linen canvases, like a choreographed aquatic landscape; and the inner world, which erupts from the lower floor and feeds existence with vigour. The feeling that there is a civilisational, verbal matter circulating, which constructs and is constructed by history, accompanied by the ancient beings who visit it and by water itself, is put into perspective by the robustness of the raw matter, which erupts from the subsoil with a sensual playfulness. Knowing its charm, the ancestors wish to know its reverse, and, for that reason, remain in the room until the end.
+
+One of the entities present is Balzac himself, in a direct reference by Jiménez Durán to the bronze sculpture of the writer, commissioned from Rodin and exhibited in public space in Paris in 1939. Balzac thought of water as a direct access to nostalgia, unlike the mountains and the green landscape, which resolve it. Perhaps his presence in the room relates to the curiosity of knowing this new clay, freshly arrived and adventurous in its ways; perhaps he still has something more to tell us.
+
+And there we shall be, we and the works, to listen to him. The sculpture that welcomes us at the entrance, ear of the universe, tells us that this is a place of constant listening: of whoever visits, but also of whoever is there, the works themselves, in a continuous process of development and openness to the momentum.
+
+— Text: Filipa Nunes Da Rocha`,
+    previewImage: localExhibitionImage("the-word-for-world-is-poem", "1.webp"),
+    heroImage: localExhibitionImage("the-word-for-world-is-poem", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "the-word-for-world-is-poem",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "horizontal" },
+        { filename: "17.webp", orientation: "horizontal" },
+        { filename: "18.webp", orientation: "horizontal" },
+      ],
+      "Dinis Santos",
+    ),
+  },
+
   {
     slug: "companions-act-i",
     title: "Companions: Act I",
