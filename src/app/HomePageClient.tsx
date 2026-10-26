@@ -1233,6 +1233,7 @@ export default function HomePageClient({
     if (!showFeaturedBanners) return filtered;
     const PINS: Array<{ slug: string; index: number }> = [
       { slug: "preserved-unfixed-bachurina", index: 0 },
+      { slug: "companions-act-i", index: 1 },
       { slug: "preserved-unfixed-poster", index: 6 },
     ];
     const next = filtered.slice();
