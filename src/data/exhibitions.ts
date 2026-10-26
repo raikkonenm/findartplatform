@@ -144,6 +144,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "companions-act-i": ["GROUP SHOW", "HYBRID BODIES", "ANIMALITY", "MYTH", "INSTALLATION", "RITUAL"],
   "preserved-unfixed-poster": ["ARCHIVE", "OBJECTHOOD", "MATERIAL MEMORY"],
   "preserved-unfixed-bachurina": ["ARCHIVE", "OBJECTHOOD", "MATERIAL MEMORY", "MEMORY", "FRAGMENT"],
   "chronic-inflammation-adler": ["BODY", "FEMININITY", "SURVEILLANCE", "INSTALLATION", "IDENTITY", "MYTH"],
@@ -300,6 +301,56 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "companions-act-i",
+    title: "Companions: Act I",
+    subtitle: "Hou Ching, Min-Jia, Brad Nath",
+    venue: "Hours",
+    gallery: "Hours",
+    city: "Berlin",
+    country: "Germany",
+    year: "2026",
+    dates: "8 October — 1 November 2026",
+    startDate: "8 October 2026",
+    endDate: "1 November 2026",
+    dateSource: "exhibition",
+    artists: ["Hou Ching", "Min-Jia", "Brad Nath"],
+    photographer: "Max Eulitz",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/1ad51d2b",
+    description: `Crystalline birds perch atop the tree of knowledge. Shy, flaccid wings sprout from furry husks. A chimeric wrestler sheds their skin in mid-air, exploding like a star. When the oracle of ascension chirps, what becomes of those who answer the call?
+
+As we enter the space, we almost bump into Hou Ching's towering stand of papier-mâché and putty, firmly anchored to the ground. Emerging from the ruins of Baroque stuccowork, a jaunty porcelain tree grows towards the gallery ceiling, branches of curved wood sprouting from each joint. Among its makeshift limbs, a scene of predation unfolds between a snake and a dove. In the adjoining room, a drawing echoes this tangled world: primordial plants rise above a reclining figure, their curling stems merging with ornamental scrollwork.
+
+Out of the corner of our eye, we notice another strange creature perched on the wall. As we turn, an entire swarm of moth-like beings seems to ripple across its surface like a silken thread. These are the creatures of Brad Nath's Murmuration. We let our gaze wander and encounter others, 111 in all. A celebration of the uninvited. Somehow, we feel alarmed by their collectivity. Yet they sit motionless, side by side, simply there.
+
+In Min-Jia's works, chimeric wrestlers are caught between performative human and animal forms. We follow their bodies through gestures of flight and fall as they make clumsy efforts to become something else. At times they charge; at others, they take a more guarded stance. Animal characteristics have long been projected onto othered bodies, casting them as beyond control. But here, we see it crossing into play, allowing unknown forms of intimacy to emerge.
+
+Moving through Companions: Act I, the first of three acts, a transformation begins to take hold. Gods, breathe inspiration into our endeavours, for change is upon us. It may be possible, after all, to open ourselves to companionship, with all its entanglements.
+
+— Text: Yanne Horas`,
+    previewImage: localExhibitionImage("companions-act-i", "1.webp"),
+    heroImage: localExhibitionImage("companions-act-i", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "companions-act-i",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "horizontal" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+      ],
+      "Max Eulitz",
+    ),
+  },
+
   {
     slug: "preserved-unfixed-poster",
     title: "PRESERVED, UNFIXED BY YASY BACHURINA",
