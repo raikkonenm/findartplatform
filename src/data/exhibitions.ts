@@ -144,6 +144,8 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "spatenprobe": ["INSTALLATION", "MACHINE", "MATERIALITY", "ORGANIC SYSTEMS", "LABOR", "OBJECTHOOD"],
+  "apis-mellifera-concerto": ["INSTALLATION", "SOUND", "NON-HUMAN", "TECHNOLOGY", "ANIMALITY", "ECOLOGY"],
   "clearview": ["MACHINE", "TECHNOLOGY", "INSTALLATION", "MATERIALITY", "TEXTILE", "ECOLOGY"],
   "ausgeweidet-gutted": ["GROUP SHOW", "RITUAL", "MATERIALITY", "DECAY", "ANIMALITY", "ORGANIC SYSTEMS"],
   "hat-happens-on-earth-stays-on-earth": ["BODY", "RITUAL", "SPIRITUALITY", "MEMORY", "TECHNOLOGY", "INSTALLATION"],
@@ -317,6 +319,103 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  {
+    slug: "spatenprobe",
+    title: "Spatenprobe",
+    subtitle: "Ivan Geddert",
+    venue: "BLOOM",
+    gallery: "BLOOM",
+    city: "Düsseldorf",
+    country: "Germany",
+    year: "2026",
+    dates: "16 October — 14 November 2026",
+    startDate: "16 October 2026",
+    endDate: "14 November 2026",
+    dateSource: "exhibition",
+    artists: ["Ivan Geddert"],
+    curator: "Ji Sue Byun",
+    photographer: "Johannes Bendzulla",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/20ed6161",
+    description: `An upcoming trip to the field for the event is planned with precision. It is a barn where the equipment is stored and prepared. It is workshops where we conceive our devices. Before the area is worked on, it must be measured. Its size must correspond to the project. The machine will help us. We will be satisfied.
+
+BLOOM is pleased to present a solo exhibition by Berlin-based artist Ivan Geddert. The exhibition brings together a selection of new sculptural works. The title Spatenprobe (spade test) refers to the field of agriculture. As a simple method of soil analysis, the spade test provides immediate insight into the nature of the soil: a piece of soil is dug out, lifted, and examined for its quality. At the same time, the title addresses the underground location of the exhibition space. Its walls dig into the earth and hold back the surrounding earth. The exhibition space thus appears as a kind of underground capsule.
+
+Ivan Geddert explores the connections between physicality and mechanical processes. His interest lies in physical labor as well as psychological states and the interdependencies that arise from the interplay of mechanical and natural forces. Like machines, Geddert's works consist of several interconnected components. The moving appendages evoke human limbs while simultaneously alluding to function and action. The frequent use of natural materials lends Geddert's sculptures an organic, living appearance. This is contrasted by fragments of steel and wire. The various materials and forms do not stand side by side in isolation, but are related to one another through complex mechanisms. Through these mechanical constraints, an image emerges of an inner state of a psychological dimension. Fixations create a snapshot of a tense standstill — a space of resonance between mechanics and the body, dependence and resistance, function and vulnerability, between the visible and what can only be surmised.
+
+— Text: Ji Sue Byun`,
+    coverImage: localExhibitionImage("spatenprobe", "cover.webp"),
+    previewImage: localExhibitionImage("spatenprobe", "cover.webp"),
+    heroImage: localExhibitionImage("spatenprobe", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "spatenprobe",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "horizontal" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+      ],
+      "Johannes Bendzulla",
+    ),
+  },
+
+  {
+    slug: "apis-mellifera-concerto",
+    title: "Apis Mellifera Concerto",
+    subtitle: "Amélie Laurence Fortin",
+    venue: "Sporobole",
+    gallery: "Sporobole",
+    city: "Sherbrooke",
+    country: "Canada",
+    year: "2026",
+    dates: "2 October — 27 November 2026",
+    startDate: "2 October 2026",
+    endDate: "27 November 2026",
+    dateSource: "exhibition",
+    artists: ["Amélie Laurence Fortin"],
+    photographer: "Jean-Michel Naud",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/8270af6f",
+    description: `Amélie Laurence Fortin's Apis Mellifera Concerto is a sound, sculptural, and video installation that delves into research on the behavioral intelligence of bees. Created following a residency at Sporobole as part of the Chantier IA (sound cohort) in 2025, the work aims to deepen reflection on questions related to the language of human life, non-human life, and artificial intelligence (AI).
+
+Technological advances in recent decades have facilitated the adoption of non-interventionist scientific methodologies in research on living organisms; this field is now moving away from an anthropocentric worldview. In computer science, scientists have replicated the neural networks of bees to design computational systems. In the field of AI, research draws inspiration from the bee's energy efficiency to develop compact networks: unlike LLMs, bees demonstrate that a small neural network is sufficient to develop advanced cognitive abilities. The process of autonomous navigation mimics the visual orientation of insects to guide robots or vehicles through space without the need for complex mapping. Bees act somewhat like a living mirror of our idealized automated computer systems.
+
+In the 20th century, German professor Karl von Frisch discovered that bees communicate with one another the locations of flower fields through dance (circular and wiggling). Through this discovery — which earned him a Nobel Prize in 1973 — the researcher demonstrated that bees possess a complex behavioral language based on trigonometry. Ethologist Martin Lindauer, a student of Von Frisch, subsequently developed a methodology for studying individual bees within a swarm, allowing him to observe signs of democracy among bees. Research on the bees' democratic system was further solidified by the work of Thomas D. Seeley of Cornell University.
+
+In collaboration with Renaud Gervais, a creative developer at Sporobole, Amélie Laurence Fortin created a generative, behavior-based sound instrument that replicates each stage of the democratic decision-making process among honeybees when they split the hive to search for a new one. The bees' movements through the space between the hive and the research sites, as well as the dances they use to communicate their voting intentions, become here a veritable score of their democratic system. The installation is ambisonic and invites the audience to move through the space to explore, in turn, the conceptual territory.
+
+The installation also includes a video component featuring a colony of bees filmed in macro. The magnification created by the change in scale of the insects transforms this contemplative video piece into an ode to movement and to life in its organized chaos; it also reminds us that the individual is inseparable from the collective.
+
+— Director of Photography: Emiko Okime · Cello: Michał Bromboszcz · Programming: Renaud Gervais.`,
+    coverImage: localExhibitionImage("apis-mellifera-concerto", "cover.webp"),
+    previewImage: localExhibitionImage("apis-mellifera-concerto", "cover.webp"),
+    heroImage: localExhibitionImage("apis-mellifera-concerto", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "apis-mellifera-concerto",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "horizontal" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "horizontal" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "horizontal" },
+        { filename: "8.webp", orientation: "horizontal" },
+        { filename: "9.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+      ],
+      "Jean-Michel Naud",
+    ),
+  },
+
   {
     slug: "clearview",
     title: "CLEARVIEW",
@@ -854,7 +953,8 @@ It is the feeling that accompanies us when we see a pack of stray dogs hunting t
 And feare, and griefe, and paine for my deserts, for my deserts,Are my hopes since hope is gone.
 
 — Text: Sebastian Cichocki`,
-    previewImage: localExhibitionImage("within-and-for-each-other", "1.webp"),
+    coverImage: localExhibitionImage("within-and-for-each-other", "cover.webp"),
+    previewImage: localExhibitionImage("within-and-for-each-other", "cover.webp"),
     heroImage: localExhibitionImage("within-and-for-each-other", "1.webp"),
     images: localExhibitionGalleryWithOrientations(
       "within-and-for-each-other",
@@ -1909,19 +2009,27 @@ Alix-Tabeling's sculptures and installations bring together pagan figures, folkl
   {
     slug: "ritual-for-happiness-gudwin",
     title: "Ritual for Happiness",
+    subtitle: "Misha Gudwin",
+    venue: "automat",
+    gallery: "automat",
+    city: "Saarbrücken",
+    country: "Germany",
     year: "2026",
-    postDate: "06 October 2026",
-    sortDate: "06 October 2026",
-    dateSource: "instagram-post",
+    dates: "26 September — 18 October 2026",
+    startDate: "26 September 2026",
+    endDate: "18 October 2026",
+    dateSource: "exhibition",
     artists: ["Misha Gudwin"],
     photographer: "Misha Gudwin",
-    summary: "At @automat_space, Saarbrücken, Germany · 26 September – 18 October 2026. Exhibition assistance: @skromnaya.i.",
+    source: "ofluxo.net",
+    sourceUrl: "https://www.ofluxo.net/ritual-for-happiness-misha-gudwin-automat-saarbrucken-germany/",
     description: `Ritual for Happiness is a system of magical attributes in which everyday objects, architectural elements, and design objects are transformed into artworks and become part of a kind of contemporary ritual.
 
 Within the exhibition space, these objects become attributes of a magical ritual — a kind of rite aimed at achieving eternal happiness, lightness, and freedom. In a contemporary world filled with crises, anxiety, and a sense of instability, magical thinking becomes a protective mechanism that allows us, at least temporarily, to believe in the possibility of controlling the uncontrollable.
 
-At @automat_space, Saarbrücken, Germany · 26 September – 18 October 2026. Exhibition assistance: @skromnaya.i.`,
-    previewImage: localExhibitionImage("gudwin", "1.webp"),
+Exhibition assistance: @skromnaya.i.`,
+    coverImage: localExhibitionImage("ritual-for-happiness-gudwin", "cover.webp"),
+    previewImage: localExhibitionImage("ritual-for-happiness-gudwin", "cover.webp"),
     heroImage: localExhibitionImage("gudwin", "1.webp"),
     images: localExhibitionGallery(
       "gudwin",
