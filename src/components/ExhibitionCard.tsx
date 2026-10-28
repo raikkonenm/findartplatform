@@ -66,6 +66,11 @@ const DESKTOP_SLIDESHOW_SLUGS = new Set([
   "ritual-for-happiness-gudwin",
   "inner-licht-iacolare",
   "acacia-bloom",
+  "chronic-inflammation-adler",
+  "unzucht-kiss-the-devil-s-arse",
+  "within-and-for-each-other",
+  "i-am-just-a-dog",
+  "ausgeweidet-gutted",
 ]);
 
 const ALL_IMAGE_SLIDESHOW_SLUGS = new Set([

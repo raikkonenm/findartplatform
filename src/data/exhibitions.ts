@@ -344,7 +344,8 @@ Architecture: Sigita Simona Paplauskaitė
 Light design: Julius Kuršys
 
 The exhibition is Co-financed by the Lithuanian Council for Culture.`,
-    previewImage: localExhibitionImage("clearview", "1.webp"),
+    coverImage: localExhibitionImage("clearview", "cover.webp"),
+    previewImage: localExhibitionImage("clearview", "cover.webp"),
     heroImage: localExhibitionImage("clearview", "1.webp"),
     images: localExhibitionGalleryWithOrientations(
       "clearview",
@@ -412,7 +413,8 @@ The exhibition is Co-financed by the Lithuanian Council for Culture.`,
 In doing so, "ausgeweidet / gutted" strips away the protective shell of objects and belief systems, questioning what new meanings emerge from the hollowed-out remains.
 
 — Text: Leonie Holtkamp`,
-    previewImage: localExhibitionImage("ausgeweidet-gutted", "1.webp"),
+    coverImage: localExhibitionImage("ausgeweidet-gutted", "cover.webp"),
+    previewImage: localExhibitionImage("ausgeweidet-gutted", "cover.webp"),
     heroImage: localExhibitionImage("ausgeweidet-gutted", "1.webp"),
     images: localExhibitionGalleryWithOrientations(
       "ausgeweidet-gutted",
@@ -772,7 +774,8 @@ Billie Clarken’s series Chewing Tongue likewise begins with material that is a
 Both artistic practices work with materials and images that have already passed through other uses and contexts. Their earlier functions do not disappear entirely but remain present as traces and associations. At the same time, their original contexts cannot simply be reconstructed. With each relocation and reconfiguration, new relationships emerge between material, space and perception. Clarken’s encased image-objects and Pytowski’s walk-in architecture mutually alter the conditions under which they are perceived.
 
 — Text: Alexander Pütz, Undine Rietz`,
-    previewImage: localExhibitionImage("what-holds", "1.webp"),
+    coverImage: localExhibitionImage("what-holds", "cover.webp"),
+    previewImage: localExhibitionImage("what-holds", "cover.webp"),
     heroImage: localExhibitionImage("what-holds", "1.webp"),
     images: localExhibitionGalleryWithOrientations(
       "what-holds",
@@ -899,7 +902,8 @@ ntolerance / 2025, from which the exhibition takes its title, is constructed fro
 In Souvenir / 2025, Hirakawa enlarges a postcard depicting a Japanese squat toilet photographed during the Occupation and reorients the image horizontally, transforming the toilet into an image resembling a urinal. Recalling Marcel Duchamp’s Fountain, the work brings into view the external gaze directed towards Japanese everyday culture at the time, while also drawing attention to forms of life and cultural identity that are gradually disappearing through processes of social transformation. At the same time, it proposes a rereading, from an Asian perspective, of the frameworks through which contemporary art has largely been shaped in the West. The work embodies a critical sensibility that Hirakawa describes as “self-deprecating dark humour”. 
 
 For Intended Accidental Ingestion / 2026, Hirakawa ingested the tip of a projectile fired from a 9mm round that he acquired at a flea market. After passing through his body, 69 hours and 44 minutes later, it was incorporated into the work. Confronted with the situation surrounding US military bases in Okinawa, and Japan’s deeply entangled relationship with the US military from the post-war period to the present, Hirakawa attempts to take in—through the physical act of literally “swallowing”—a reality for which no simple answer can be found. Blackened by gastric acid after passing through his body, the projectile is presented together with an upturned piece of US military surplus furniture, a glass tumbler, and a tin ashtray stamped “Made in Occupied Japan”. Through these works, Intolerance approaches from different angles the ways in which the past remains inseparable from the present, continuing to act upon our everyday lives. We invite you to encounter Youki Hirakawa’s practice, which brings to the surface the histories embedded in ordinary life and the political structures that lie beneath them.`,
-    previewImage: localExhibitionImage("intolerance", "1.webp"),
+    coverImage: localExhibitionImage("intolerance", "cover.webp"),
+    previewImage: localExhibitionImage("intolerance", "cover.webp"),
     heroImage: localExhibitionImage("intolerance", "1.webp"),
     images: localExhibitionGalleryWithOrientations(
       "intolerance",
@@ -1241,7 +1245,8 @@ One thing is certain: the world will survive. We do not know in what form, but b
 with it.
 
 — Text: Magda Ujma`,
-    previewImage: localExhibitionImage("glimmer", "1.webp"),
+    coverImage: localExhibitionImage("glimmer", "cover.webp"),
+    previewImage: localExhibitionImage("glimmer", "cover.webp"),
     heroImage: localExhibitionImage("glimmer", "1.webp"),
     images: localExhibitionGalleryWithOrientations(
       "glimmer",
