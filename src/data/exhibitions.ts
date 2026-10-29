@@ -2010,8 +2010,8 @@ Alix-Tabeling's sculptures and installations bring together pagan figures, folkl
     slug: "ritual-for-happiness-gudwin",
     title: "Ritual for Happiness",
     subtitle: "Misha Gudwin",
-    venue: "automat",
-    gallery: "automat",
+    venue: "Automat",
+    gallery: "Automat",
     city: "Saarbrücken",
     country: "Germany",
     year: "2026",
@@ -2023,18 +2023,71 @@ Alix-Tabeling's sculptures and installations bring together pagan figures, folkl
     photographer: "Misha Gudwin",
     source: "ofluxo.net",
     sourceUrl: "https://www.ofluxo.net/ritual-for-happiness-misha-gudwin-automat-saarbrucken-germany/",
-    description: `Ritual for Happiness is a system of magical attributes in which everyday objects, architectural elements, and design objects are transformed into artworks and become part of a kind of contemporary ritual.
+    description: `On the one hand, the city presents us with opportunities for identification, a sense of home and familiarity. On the contrary, the pace and dynamism of urban life mean that shared realities are few and far between. People and places in the flow of the city sometimes seem to belong together, yet they do not experience or inhabit the same world. This fluidity of perception can arise from the individual personality of the observer or the ever-changing nature of the city's appearance and use of space.
 
-Within the exhibition space, these objects become attributes of a magical ritual — a kind of rite aimed at achieving eternal happiness, lightness, and freedom. In a contemporary world filled with crises, anxiety, and a sense of instability, magical thinking becomes a protective mechanism that allows us, at least temporarily, to believe in the possibility of controlling the uncontrollable.
+Despite the harshness of the built environment, it is the sense of change that predominates. It is not the street, but movement itself that becomes the terrain.
 
-Exhibition assistance: @skromnaya.i.`,
+The encounter with this constant diffuseness and the densely colliding constructions of reality is overlaid by systems of signs and order in architecture and transport. In order to perceive this aesthetically, to open up interpretations of structure and to depart from pre-established guidance, the Paris-based artist Misha Gudwin explores possibilities for the decontextualisation of forms and objects through strategic walks. Through such experimental shifts in perception regarding architectural elements, technical and infrastructural shapes, and found objects in vacant lots, building ruins, and along the roadside, they reveal these constructs as carriers of meaning and symbolism for the artist's sculptural work.
+
+Gudwin's interdisciplinary approach began in the 2010s through exploratory forays into backyards, onto rooftops or into the city's 'non-places', thereby giving him a sense of abstract participation in the city's movements. His exploratory wanderings visually encompass forms and structures, penetrate meanings and fragment "not things, but figures of things that signify other things".
+
+For Gudwin, the urban landscape invites one to break down associations, to discover scenes and stories in concrete details, and thus to actively aestheticise one's surroundings. Architectural components such as frieze ornamentation, spires or lightning conductors are imbued with subjectively attributed meanings and take on a new presence in abstracted forms as installations, sculptures or paintings.
+
+The exhibition at Automat project space in Saarbrücken shows a central piece reimagining an ornamental ridge finial or lightning conductors and demonstrates how Gudwin transforms his reinterpretation of his surroundings into magical energetic objects, creating a cohesive environment. With a centrally placed spear-like sculpture featuring floral, antenna-like outgrowths, Gudwin opens up the space via a floor graphic leading to the wall objects made from found street objects. The ray and circular diagrams on the floor and wall create the impression of an energy exchange between the works and reinforce an esoteric atmosphere. The artist complements his first solo show in Germany with a mural on nearby Försterstraße, which will stay up permanently.
+
+Misha Gudwin lives and works in Paris. He is represented by Fabula Gallery, Moscow and Voskhod Gallery, Basel.
+
+— Text: Timo Poeppel`,
     coverImage: localExhibitionImage("ritual-for-happiness-gudwin", "cover.webp"),
     previewImage: localExhibitionImage("ritual-for-happiness-gudwin", "cover.webp"),
-    heroImage: localExhibitionImage("gudwin", "1.webp"),
-    images: localExhibitionGallery(
-      "gudwin",
-      ["1.webp", "2.webp", "3.webp", "4.webp", "5.webp"],
-      "vertical",
+    heroImage: localExhibitionImage("ritual-for-happiness-gudwin", "1.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "ritual-for-happiness-gudwin",
+      [
+        { filename: "1.webp", orientation: "horizontal" },
+        { filename: "2.webp", orientation: "vertical" },
+        { filename: "3.webp", orientation: "vertical" },
+        { filename: "4.webp", orientation: "vertical" },
+        { filename: "5.webp", orientation: "vertical" },
+        { filename: "6.webp", orientation: "vertical" },
+        { filename: "7.webp", orientation: "vertical" },
+        { filename: "8.webp", orientation: "vertical" },
+        { filename: "9.webp", orientation: "vertical" },
+        { filename: "10.webp", orientation: "vertical" },
+        { filename: "11.webp", orientation: "vertical" },
+        { filename: "12.webp", orientation: "vertical" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "vertical" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "vertical" },
+        { filename: "20.webp", orientation: "vertical" },
+        { filename: "21.webp", orientation: "vertical" },
+        { filename: "22.webp", orientation: "vertical" },
+        { filename: "23.webp", orientation: "vertical" },
+        { filename: "24.webp", orientation: "vertical" },
+        { filename: "25.webp", orientation: "vertical" },
+        { filename: "26.webp", orientation: "vertical" },
+        { filename: "27.webp", orientation: "vertical" },
+        { filename: "28.webp", orientation: "vertical" },
+        { filename: "29.webp", orientation: "vertical" },
+        { filename: "30.webp", orientation: "vertical" },
+        { filename: "31.webp", orientation: "vertical" },
+        { filename: "32.webp", orientation: "vertical" },
+        { filename: "33.webp", orientation: "vertical" },
+        { filename: "34.webp", orientation: "vertical" },
+        { filename: "35.webp", orientation: "vertical" },
+        { filename: "36.webp", orientation: "vertical" },
+        { filename: "37.webp", orientation: "vertical" },
+        { filename: "38.webp", orientation: "horizontal" },
+        { filename: "39.webp", orientation: "horizontal" },
+        { filename: "40.webp", orientation: "horizontal" },
+        { filename: "41.webp", orientation: "vertical" },
+        { filename: "42.webp", orientation: "vertical" },
+        { filename: "43.webp", orientation: "vertical" },
+      ],
       "Misha Gudwin",
     ),
   },
