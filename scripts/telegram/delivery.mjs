@@ -66,32 +66,69 @@ export class GitHubLedger {
 
 export { TelegramClient } from './telegram-client.mjs';
 
-export async function deliver(pack, { client, ledger, resendId, deploymentSha, sleep = pause }) {
+function receiptsFor(result) {
+  return (Array.isArray(result) ? result : [result]).map(message => ({ messageId: message.message_id, kind: message.document ? 'document' : message.photo ? 'photo' : message.text ? 'text' : 'unknown', filename: message.document?.file_name, bytes: message.document?.file_size, textHash: message.text ? hash(message.text) : undefined }));
+}
+
+export async function deliver(pack, { client, ledger, resendId, resumeOnly = false, deploymentSha, sleep = pause }) {
   if (!pack.ready || pack.status !== 'published') throw new Error('Validation or publication status blocks live delivery');
   const destination = hash(client.chatId);
   if (!resendId && [...ledger.records.values()].some(record => record.id === pack.id && record.revisionHash === pack.revisionHash && record.destination === destination && record.complete)) return { skipped: 'duplicate' };
   const key = fingerprint({ id: pack.id, revisionHash: pack.revisionHash, destination, resendId: resendId || 'automatic' });
+  if (resumeOnly && !ledger.records.has(key)) throw new Error('No matching resume checkpoint exists; refusing to start a new delivery.');
   const planHash = fingerprint(pack.steps.map(step => ({ method: step.method, text: step.text, mediaType: step.mediaType, files: step.files?.map(file => file.filename) })));
   const record = ledger.records.get(key) || { key, id: pack.id, revisionHash: pack.revisionHash, revision: pack.revision, destination, deploymentSha, planHash, steps: {} };
   if (record.complete) return { skipped: 'duplicate' };
   if (record.planHash !== planHash) throw new Error('Partially delivered payload changed; review before resending');
   await client.verifyPrivateChat();
+  async function individualFiles(step, index) {
+    const progress = record.steps[index];
+    progress.transport = 'individual-files'; progress.parts ||= {};
+    await ledger.put(record);
+    for (const [fileIndex, file] of step.files.entries()) {
+      const part = progress.parts[fileIndex];
+      if (part?.status === 'complete') continue;
+      if (['in-flight', 'uncertain'].includes(part?.status)) throw new Error(`File ${fileIndex + 1} has an uncertain outcome; refusing a duplicate.`);
+      progress.parts[fileIndex] = { status: 'in-flight' }; await ledger.put(record);
+      let result;
+      try { result = await client.request(step.mediaType === 'photo' ? 'sendPhoto' : 'sendDocument', {}, [file], step.mediaType); }
+      catch (error) { progress.parts[fileIndex].status = error.ambiguous === false ? 'failed' : 'uncertain'; await ledger.put(record); throw error; }
+      progress.parts[fileIndex] = { status: 'complete', receipts: receiptsFor(result) };
+      progress.receipts = Object.values(progress.parts).flatMap(part => part.receipts || []);
+      progress.messageIds = progress.receipts.map(receipt => receipt.messageId);
+      await ledger.put(record);
+      console.log(`Telegram step ${index + 1}: file ${fileIndex + 1}/${step.files.length} acknowledged.`);
+      await sleep(1200);
+    }
+    return progress.receipts;
+  }
   for (const [index, step] of pack.steps.entries()) {
     const previous = record.steps[index];
-    if (previous?.status === 'complete') continue;
+    if (previous?.status === 'complete') { console.log(`Telegram step ${index + 1}/${pack.steps.length} already confirmed; skipped.`); continue; }
     if (previous?.status === 'in-flight' || previous?.status === 'uncertain') throw new Error(`Step ${index + 1} may already have been delivered. Review Telegram before an explicit manual resend.`);
-    record.steps[index] = { status: 'in-flight', started: new Date().toISOString() };
+    record.steps[index] = { ...previous, status: 'in-flight', started: new Date().toISOString() };
     await ledger.put(record);
-    let result;
-    try { result = await client.request(step.method, step.text === undefined ? {} : { text: step.text }, step.files || [], step.mediaType); }
+    let receipts;
+    try {
+      if (previous?.transport === 'individual-files') receipts = await individualFiles(step, index);
+      else {
+        try { receipts = receiptsFor(await client.request(step.method, step.text === undefined ? {} : { text: step.text }, step.files || [], step.mediaType)); }
+        catch (error) {
+          // A definite attachment-resolution rejection delivered no album.
+          // Preserve source bytes/order and journal every individual file.
+          if (step.method !== 'sendMediaGroup' || error.ambiguous !== false || !/\(400\).*Wrong file identifier\/HTTP URL/i.test(error.message)) throw error;
+          console.log(`Telegram step ${index + 1}: album attachment rejected; using individually checkpointed files.`);
+          receipts = await individualFiles(step, index);
+        }
+      }
+    }
     catch (error) {
       record.steps[index].status = error.ambiguous === false ? 'failed' : 'uncertain';
       await ledger.put(record); throw error;
     }
-    const messages = Array.isArray(result) ? result : [result];
-    record.steps[index] = { status: 'complete', messageIds: messages.map(message => message.message_id), receipts: messages.map(message => ({ messageId: message.message_id, kind: message.document ? 'document' : message.photo ? 'photo' : message.text ? 'text' : 'unknown', filename: message.document?.file_name, bytes: message.document?.file_size, textHash: message.text ? hash(message.text) : undefined })), completed: new Date().toISOString() };
+    record.steps[index] = { ...record.steps[index], status: 'complete', messageIds: receipts.map(receipt => receipt.messageId), receipts, completed: new Date().toISOString() };
     await ledger.put(record);
-    console.log(`Telegram step ${index + 1}/${pack.steps.length} acknowledged (${messages.length} message(s)).`);
+    console.log(`Telegram step ${index + 1}/${pack.steps.length} acknowledged (${receipts.length} message(s)).`);
     await sleep(1200);
   }
   record.complete = true; record.completed = new Date().toISOString(); await ledger.put(record);

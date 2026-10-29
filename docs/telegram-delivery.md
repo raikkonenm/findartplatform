@@ -62,6 +62,8 @@ For local dispatch only, supply `GITHUB_REPOSITORY` and a GitHub token with Acti
 
 GitHub's Run workflow UI also accepts content type, slug and a dry-run checkbox (checked by default). Every newly dispatched live manual run is an intentional resend. Rerunning the same workflow run resumes its existing checkpoint instead of inventing a new resend ID.
 
+To continue a partially delivered manual run after a code fix, fill its original numeric ID into `resume_run`, or use `--resume-run <original-run-id>` with the dispatch command. Resume mode requires the exact existing content/destination/plan checkpoint and cannot start a fresh delivery. Confirmed steps are skipped. A definite album attachment rejection can fall back to individually uploaded files, preserving bytes/names/order and checkpointing each file; uncertain outcomes never trigger this fallback.
+
 ## Reliability and recovery
 
 There is one durable GitHub issue comment per destination/content/fingerprint/manual-run key, written by `github-actions[bot]`. It checkpoints every step before and after delivery and stores returned Telegram message IDs. Completed revisions are skipped automatically. It does not use expiring Actions cache as the duplicate authority and does not create a state branch that would trigger Vercel.

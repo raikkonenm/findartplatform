@@ -1,6 +1,32 @@
 import { readFile } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
 
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+export async function multipartUpload(method, params, files, mediaType) {
+  const boundary = 'findart_' + randomUUID().replaceAll('-', '');
+  const fields = { ...params };
+  const names = files.map((_, index) => method === 'sendMediaGroup' ? `media_file_${index}` : method === 'sendPhoto' ? 'photo' : 'document');
+  if (method === 'sendMediaGroup') {
+    if (files.length < 2 || files.length > 10 || !['document', 'photo'].includes(mediaType)) throw new Error('Invalid Telegram media group');
+    fields.media = files.map((file, index) => ({ type: mediaType, media: `attach://${names[index]}`, ...(mediaType === 'document' ? { disable_content_type_detection: true } : {}) }));
+  }
+  if (method === 'sendDocument') fields.disable_content_type_detection = true;
+  const chunks = [];
+  for (const [name, value] of Object.entries(fields)) {
+    chunks.push(Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="${name}"\r\n\r\n${typeof value === 'string' ? value : JSON.stringify(value)}\r\n`));
+  }
+  for (const [index, file] of files.entries()) {
+    if (!file.filename || /["\r\n]/.test(file.filename)) throw new Error('Invalid upload filename');
+    const mime = mediaType === 'photo' || method === 'sendPhoto' ? 'image/jpeg' : 'application/octet-stream';
+    chunks.push(Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="${names[index]}"; filename="${file.filename}"\r\nContent-Type: ${mime}\r\n\r\n`));
+    chunks.push(await readFile(file.path));
+    chunks.push(Buffer.from('\r\n'));
+  }
+  chunks.push(Buffer.from(`--${boundary}--\r\n`));
+  const body = Buffer.concat(chunks);
+  return { body, headers: { 'Content-Type': `multipart/form-data; boundary=${boundary}`, 'Content-Length': String(body.length) } };
+}
 
 export class TelegramClient {
   constructor({ token, chatId, expectedUsername, fetchImpl = fetch, sleep = pause, attempts = 5, readTimeout = 15000 }) {
@@ -19,14 +45,7 @@ export class TelegramClient {
         // multipart body to getMe or use multipart for connection checks.
         body = JSON.stringify(params); headers = { 'Content-Type': 'application/json' };
       } else {
-        body = new FormData();
-        for (const [key, value] of Object.entries(params)) body.set(key, typeof value === 'string' ? value : JSON.stringify(value));
-        if (method === 'sendMediaGroup') body.set('media', JSON.stringify(files.map((file, index) => ({ type: mediaType, media: `attach://file${index}`, ...(mediaType === 'document' ? { disable_content_type_detection: true } : {}) }))));
-        for (const [index, file] of files.entries()) {
-          const key = method === 'sendMediaGroup' ? `file${index}` : method === 'sendPhoto' ? 'photo' : 'document';
-          body.set(key, new Blob([await readFile(file.path)], { type: mediaType === 'photo' || method === 'sendPhoto' ? 'image/jpeg' : 'application/octet-stream' }), file.filename);
-        }
-        if (method === 'sendDocument') body.set('disable_content_type_detection', 'true');
+        ({ body, headers } = await multipartUpload(method, params, files, mediaType));
       }
       let response, raw;
       try {

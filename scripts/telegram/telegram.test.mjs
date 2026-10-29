@@ -9,6 +9,51 @@ import { buildPackage, groups, archiveParts, zipBytes, fingerprint } from './pac
 import { deliver, TelegramClient, FileLedger, GitHubLedger } from './delivery.mjs';
 import { deploymentEvent, latestProductionSha, liveDeliveryAllowed } from './deployment.mjs';
 
+test('native multipart round-trip resolves every document and photo attachment to unchanged bytes', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'findart-multipart-'));
+  const files = [];
+  for (let i = 0; i < 3; i++) { const file = { path: path.join(directory, `${i}.webp`), filename: `${i}.webp` }; await writeFile(file.path, Buffer.from([i, 1, 2, 255, 13, 10])); files.push(file); }
+  for (const type of ['document', 'photo']) {
+    const client = new TelegramClient({ token: 'test', chatId: '123', fetchImpl: async (url, options) => {
+      assert.equal(Number(options.headers['Content-Length']), options.body.length);
+      const form = await new Request('http://localhost/upload', { method: 'POST', headers: options.headers, body: options.body }).formData();
+      const media = JSON.parse(form.get('media'));
+      assert.equal(media.length, files.length);
+      for (const [i, entry] of media.entries()) {
+        assert.equal(entry.type, type);
+        const attachment = form.get(entry.media.slice('attach://'.length));
+        assert.ok(attachment instanceof Blob);
+        assert.equal(attachment.name, files[i].filename);
+        assert.deepEqual(Buffer.from(await attachment.arrayBuffer()), await readFile(files[i].path));
+      }
+      return new Response(JSON.stringify({ ok: true, result: files.map((_, i) => ({ message_id: i + 1 })) }));
+    } });
+    await client.request('sendMediaGroup', {}, files, type);
+  }
+});
+
+test('resume-only refuses a new delivery and retains confirmed caption/TXT across file fallback', async () => {
+  const ledger = new FileLedger(await mkdtemp(path.join(tmpdir(), 'findart-resume-files-'))); await ledger.load();
+  const pack = { id: 'exhibition:partial', revisionHash: 'same-content', ready: true, status: 'published', steps: [{ method: 'sendMessage', text: 'caption' }, { method: 'sendDocument', files: [{ filename: 'caption.txt' }] }, { method: 'sendMediaGroup', mediaType: 'document', files: [{ filename: 'cover.webp' }, { filename: '1.webp' }] }] };
+  const calls = [];
+  const client = { chatId: '123', verifyPrivateChat: async () => {}, request: async (method, fields, files) => {
+    calls.push(method === 'sendMessage' ? fields.text : files.map(file => file.filename).join(','));
+    if (method === 'sendMediaGroup') { const error = new Error('Telegram sendMediaGroup rejected the request (400): Wrong file identifier/HTTP URL specified'); error.ambiguous = false; throw error; }
+    if (files[0]?.filename === '1.webp') { const error = new Error('Temporary explicit failure'); error.ambiguous = false; throw error; }
+    return { message_id: calls.length, document: files[0] ? { file_name: files[0].filename } : undefined, text: fields.text };
+  } };
+  await assert.rejects(deliver(pack, { client, ledger, resendId: 'old-run', resumeOnly: true }), /No matching resume/);
+  await assert.rejects(deliver(pack, { client, ledger, resendId: 'old-run', sleep: async () => {} }));
+  const before = calls.length;
+  client.request = async (method, fields, files) => { calls.push(files[0].filename); return { message_id: calls.length, document: { file_name: files[0].filename } }; };
+  await deliver(pack, { client, ledger, resendId: 'old-run', resumeOnly: true, sleep: async () => {} });
+  assert.deepEqual(calls.slice(before), ['1.webp']);
+  assert.equal(calls.filter(value => value === 'caption').length, 1);
+  assert.equal(calls.filter(value => value === 'caption.txt').length, 1);
+  assert.equal(calls.filter(value => value === 'cover.webp').length, 1);
+  await ledger.close();
+});
+
 test('manual permission never enables automatic delivery', () => {
   const env = { TELEGRAM_DELIVERY_ENABLED: 'false', TELEGRAM_MANUAL_DELIVERY_ENABLED: 'true' };
   assert.equal(liveDeliveryAllowed({ automatic: true }, env), false);

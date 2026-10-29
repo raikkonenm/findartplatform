@@ -9,7 +9,7 @@ import { deploymentEvent, latestProductionSha, liveDeliveryAllowed } from './tel
 
 const engineRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const flags = new Map(), positional = [];
-const values = new Set(['--root', '--output', '--event-file']);
+const values = new Set(['--root', '--output', '--event-file', '--resume-run']);
 const switches = new Set(['--dry-run', '--send', '--resend', '--dispatch', '--resolve-event', '--no-zip']);
 for (let i = 2; i < process.argv.length; i++) {
   const arg = process.argv[i];
@@ -31,8 +31,10 @@ async function main() {
     } else if (env.GITHUB_EVENT_NAME === 'workflow_dispatch') {
       const inputs = event.inputs || {};
       const dryRun = inputs.dry_run !== 'false';
+      const resumeRun = (inputs.resume_run || '').trim();
+      if (resumeRun && !/^\d+$/.test(resumeRun)) throw new Error('Resume run must be a numeric manual workflow run ID.');
       if (!dryRun && !liveDeliveryAllowed({ automatic: false }, env)) throw new Error('Manual live delivery is disabled; enable TELEGRAM_MANUAL_DELIVERY_ENABLED for an approved manual run.');
-      resolved = { sha: dryRun ? env.GITHUB_SHA : await latestProductionSha({ repository: env.GITHUB_REPOSITORY, token: env.GITHUB_TOKEN }), automatic: false, dryRun, type: inputs.content_type, slug: inputs.slug, resendId: env.GITHUB_RUN_ID };
+      resolved = { sha: dryRun ? env.GITHUB_SHA : await latestProductionSha({ repository: env.GITHUB_REPOSITORY, token: env.GITHUB_TOKEN }), automatic: false, dryRun, type: inputs.content_type, slug: inputs.slug, resendId: resumeRun || env.GITHUB_RUN_ID, resumeOnly: Boolean(resumeRun) };
     }
     if (!resolved) { await appendFile(env.GITHUB_OUTPUT, 'eligible=false\n'); return; }
     if (!/^[a-f0-9]{40}$/i.test(resolved.sha)) throw new Error('Invalid published commit SHA');
@@ -45,7 +47,7 @@ async function main() {
     const [type, slug] = positional;
     if (!['exhibition', 'artwork', 'feature'].includes(type) || !/^[a-z0-9][a-z0-9-]*$/.test(slug || '')) throw new Error('Usage: npm run telegram:resend -- <exhibition|artwork|feature> <slug> --dispatch [--send]');
     if (!/^[\w.-]+\/[\w.-]+$/.test(env.GITHUB_REPOSITORY || '') || !env.GITHUB_TOKEN) throw new Error('Configure GITHUB_REPOSITORY and an actions:write GITHUB_TOKEN to dispatch the serialized workflow');
-    await githubRequest(`/repos/${env.GITHUB_REPOSITORY}/actions/workflows/telegram-content.yml/dispatches`, { token: env.GITHUB_TOKEN, method: 'POST', body: { ref: env.TELEGRAM_DEFAULT_BRANCH || 'main', inputs: { content_type: type, slug, dry_run: flags.has('--send') ? 'false' : 'true' } } });
+    await githubRequest(`/repos/${env.GITHUB_REPOSITORY}/actions/workflows/telegram-content.yml/dispatches`, { token: env.GITHUB_TOKEN, method: 'POST', body: { ref: env.TELEGRAM_DEFAULT_BRANCH || 'main', inputs: { content_type: type, slug, dry_run: flags.has('--send') ? 'false' : 'true', ...(flags.has('--resume-run') ? { resume_run: flags.get('--resume-run') } : {}) } } });
     console.log('Manual workflow requested. Follow its result in GitHub Actions.'); return;
   }
   const root = path.resolve(flags.get('--root') || engineRoot);
@@ -84,7 +86,7 @@ async function main() {
         const pack = await buildPackage(item, { root, output, includeZip: !flags.has('--no-zip') });
         const baselineMatch = event?.automatic && migrationBaseline[pack.id] === pack.revisionHash;
         const delivery = live
-          ? baselineMatch ? { skipped: 'migration-baseline' } : await deliver(pack, { client, ledger, deploymentSha: event.sha, resendId: event.automatic ? undefined : event.resendId })
+          ? baselineMatch ? { skipped: 'migration-baseline' } : await deliver(pack, { client, ledger, deploymentSha: event.sha, resendId: event.automatic ? undefined : event.resendId, resumeOnly: event.resumeOnly })
           : { dryRun: true, ...(baselineMatch ? { wouldSkip: 'migration-baseline' } : {}) };
         results.push({ id: pack.id, ready: pack.ready, directory: pack.directory, images: pack.images.length, steps: pack.steps.length, errors: pack.errors, warnings: pack.warnings, ...delivery });
         console.log(`${pack.id}: ${pack.ready ? 'ready' : 'REVIEW REQUIRED'}, ${pack.images.length} images, ${pack.steps.length} delivery steps. ${pack.directory}`);
