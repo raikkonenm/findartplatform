@@ -1,10 +1,14 @@
+import type { ContentPublication } from "./contentDelivery";
+
 export type EditorialImage = {
   src: string;
+  originalSrc?: string;
   width: number;
   height: number;
 };
 
 export type EditorialArtist = {
+  social?: ContentPublication;
   slug: string;
   artistName: string;
   instagramHandle: string;

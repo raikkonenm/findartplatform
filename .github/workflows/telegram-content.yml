@@ -1,0 +1,90 @@
+name: Telegram content delivery
+
+on:
+  repository_dispatch:
+    types: [vercel.deployment.success]
+  workflow_dispatch:
+    inputs:
+      content_type:
+        description: Existing content type
+        type: choice
+        options: [exhibition, artwork, feature]
+        default: exhibition
+        required: true
+      slug:
+        description: Existing unique content slug
+        type: string
+        required: true
+      dry_run:
+        description: Prepare a package without sending to Telegram
+        type: boolean
+        default: true
+        required: true
+
+# One writer for the durable ledger, including manual resends. Never cancel an
+# in-flight upload. Every scan includes all opted-in published content, so a
+# replaced pending event is covered by the next successful production scan.
+concurrency:
+  group: findart-telegram-delivery
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  deployments: read
+  issues: write
+
+jobs:
+  deliver:
+    if: github.event_name == 'workflow_dispatch' || vars.TELEGRAM_DELIVERY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      TELEGRAM_DELIVERY_ENABLED: ${{ vars.TELEGRAM_DELIVERY_ENABLED }}
+      TELEGRAM_MANUAL_DELIVERY_ENABLED: ${{ vars.TELEGRAM_MANUAL_DELIVERY_ENABLED }}
+      TELEGRAM_BOT_USERNAME: FINDART_content_bot
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+      TELEGRAM_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          path: automation
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: automation/package-lock.json
+      - run: npm ci
+        working-directory: automation
+      - run: npm run test:telegram
+        working-directory: automation
+      - name: Resolve successful publication or manual preview
+        id: event
+        working-directory: automation
+        run: node scripts/telegram-export.mjs --resolve-event
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - uses: actions/checkout@v4
+        if: steps.event.outputs.eligible == 'true'
+        with:
+          ref: ${{ steps.event.outputs.published_sha }}
+          path: published
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Validate and deliver published content
+        if: steps.event.outputs.eligible == 'true'
+        working-directory: automation
+        run: node scripts/telegram-export.mjs --root ../published --event-file "$RUNNER_TEMP/findart-telegram-event.json"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TELEGRAM_STATE_ISSUE: ${{ vars.TELEGRAM_STATE_ISSUE }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.event.outputs.eligible == 'true'
+        with:
+          name: telegram-content-review-${{ github.run_id }}
+          path: automation/.telegram-delivery/packages/
+          retention-days: 7
+          if-no-files-found: warn

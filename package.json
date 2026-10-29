@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "telegram:export": "node scripts/telegram-export.mjs",
+    "telegram:resend": "node scripts/telegram-export.mjs --resend",
+    "test:telegram": "node --test scripts/telegram/*.test.mjs",
     "dev": "next dev",
     "prebuild": "node scripts/generate-image-variants.js",
     "build": "next build",

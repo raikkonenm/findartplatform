@@ -1,5 +1,6 @@
 import { salivaImport13Seeds } from "./salivaImport13";
 import { coverImageForTitle } from "./coverImages";
+import type { ContentPublication } from "./contentDelivery";
 
 export const semanticTags = [
   "INSTALLATION",
@@ -50,6 +51,7 @@ export const semanticTags = [
 export type SemanticTag = (typeof semanticTags)[number];
 
 export type Exhibition = {
+  social?: ContentPublication;
   slug: string;
   title: string;
   subtitle?: string;
@@ -76,6 +78,7 @@ export type Exhibition = {
   heroImage: string;
   images: {
     src: string;
+    originalSrc?: string;
     orientation?: "horizontal" | "vertical";
     caption?: string;
   }[];
@@ -2008,6 +2011,13 @@ Alix-Tabeling's sculptures and installations bring together pagan figures, folkl
 
   {
     slug: "ritual-for-happiness-gudwin",
+    social: {
+      status: "published",
+      revision: 1,
+      language: "en",
+      excerpt: "Despite the harshness of the built environment, it is the sense of change that predominates. It is not the street, but movement itself that becomes the terrain.",
+      credits: [{ role: "Text", people: [{ name: "Timo Poeppel" }] }],
+    },
     title: "Ritual for Happiness",
     subtitle: "Misha Gudwin",
     venue: "Automat",

@@ -11,3 +11,10 @@ tmp/
 !.env.example
 npm-debug.log*
 *.tsbuildinfo
+.telegram-delivery/
+# Keep local Claude settings ignored, but version the requested reusable skill.
+!.claude/
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/telegram-export/
