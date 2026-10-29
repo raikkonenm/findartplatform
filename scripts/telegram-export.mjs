@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { loadCatalog } from './telegram/content.mjs';
-import { buildPackage } from './telegram/package.mjs';
+import { buildPackage, fingerprint } from './telegram/package.mjs';
 import { GitHubLedger, TelegramClient, deliver, githubRequest } from './telegram/delivery.mjs';
 import { deploymentEvent, latestProductionSha, liveDeliveryAllowed } from './telegram/deployment.mjs';
 
@@ -63,8 +63,19 @@ async function main() {
   if (event?.automatic) selected = catalog.filter(item => item.social?.status === 'published');
   else {
     const type = event?.type || positional[0], slug = event?.slug || positional[1];
-    const item = catalog.find(item => item.type === type && item.slug === slug);
+    let item = catalog.find(item => item.type === type && item.slug === slug);
     if (!item) throw new Error('Content not found. Supply the existing content type and unique slug.');
+    // Manual exports of existing publications may carry reviewed delivery-only
+    // metadata, without editing or redeploying the website's catalog. Bind it to
+    // the exact published record; automatic scans never consume this manifest.
+    if (!item.social) {
+      const manifest = JSON.parse(await readFile(path.join(engineRoot, 'scripts', 'telegram', 'manual-publications.json'), 'utf8'));
+      const entry = manifest[`${item.type}:${item.slug}`];
+      if (entry) {
+        if (fingerprint(item) !== entry.sourceHash) throw new Error('Manual publication metadata does not match this catalog record; review before sending.');
+        item = { ...item, ...(entry.title ? { title: entry.title } : {}), social: entry.social };
+      }
+    }
     selected = [item];
   }
   let ledger, client;

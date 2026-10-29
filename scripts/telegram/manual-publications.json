@@ -1,0 +1,97 @@
+{
+  "exhibition:companions-act-i": {
+    "sourceHash": "8d10007580e45b32b2894032f2c1a47526e89e4e7e82c11938a253915e7acd5f",
+    "sources": [
+      "https://www.findartplatform.com/exhibitions/companions-act-i"
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "Crystalline birds perch atop the tree of knowledge. Shy, flaccid wings sprout from furry husks.",
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Yanne Horas"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "exhibition:hat-happens-on-earth-stays-on-earth": {
+    "sourceHash": "a0d1f50bf438e51c3bbd8adfd43a6ae44fae3e6f0b86b909892b01eefb93eb88",
+    "title": "What Happens on Earth Stays on Earth",
+    "sources": [
+      "https://www.findartplatform.com/exhibitions/hat-happens-on-earth-stays-on-earth",
+      "https://www.ofluxo.net/what-happens-on-earth-stays-on-earth-magdalena-lazar-bliss-warsaw/"
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "Lazar is an artist who comes from Upper Silesia, a region characterized by its mining history and her works in this solo exhibition are profoundly influenced not only by her personal experience, but also by family memory.",
+      "credits": [
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "bliss gallery"
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Eva Slabá"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "exhibition:clearview": {
+    "sourceHash": "dd04f9588d5c52064486e2c32234ede0044951b236f5fef96b44e04c22c576a8",
+    "sources": [
+      "https://www.findartplatform.com/exhibitions/clearview"
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "The exhibition PAKUI HARDWARE. CLEARVIEW traces the material infrastructure, transformations, and footprint of the development of AI and machine vision.",
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Eliza Urwanowicz-Rojecka"
+            },
+            {
+              "name": "Jakub Wróblewski"
+            }
+          ]
+        },
+        {
+          "role": "Architecture",
+          "people": [
+            {
+              "name": "Sigita Simona Paplauskaitė"
+            }
+          ]
+        },
+        {
+          "role": "Light design",
+          "people": [
+            {
+              "name": "Julius Kuršys"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
