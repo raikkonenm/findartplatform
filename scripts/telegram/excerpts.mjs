@@ -38,7 +38,7 @@ function interest(text, count) {
 export function selectExcerpt(text, { budget, preferred = '', sourceLabel = 'Original curatorial prose' } = {}) {
   const warnings = [], errors = [];
   const preferredCount = sentenceCount(preferred);
-  if (preferred && preferredCount >= 5 && preferredCount <= 10 && preferred.length <= budget && text.includes(preferred)) {
+  if (preferred && preferredCount >= 5 && preferredCount <= 7 && preferred.length <= budget && text.includes(preferred)) {
     return { excerpt: preferred, count: preferredCount, warnings, errors };
   }
   const blocks = proseBlocks(text);
@@ -48,10 +48,7 @@ export function selectExcerpt(text, { budget, preferred = '', sourceLabel = 'Ori
   const minimum = maximum < 5 ? maximum : 5;
   for (const { block, spans } of passages) {
     for (let start = 0; start < spans.length; start++) {
-      for (let count = Math.min(10, spans.length - start); count >= Math.max(1, minimum); count--) {
-        // When shortening an automatic selection, prefer 5–7 complete sentences
-        // rather than squeezing eight or nine in at the character limit.
-        if (maximum >= 10 && count > 7 && count < 10) continue;
+      for (let count = Math.min(7, spans.length - start); count >= Math.max(1, minimum); count--) {
         const excerpt = block.slice(spans[start].start, spans[start + count - 1].end);
         const paragraphStart = spans[start].start === 0 || /\n\s*\n\s*$/.test(block.slice(0, spans[start].start));
         const danglingStart = /^(?:In order to (?:perceive|understand) this|This|These|Those|Such|It|They|He|She|Through such)\b/i.test(excerpt);
@@ -67,7 +64,7 @@ export function selectExcerpt(text, { budget, preferred = '', sourceLabel = 'Ori
       : 'The available source excerpt cannot fit with all credits within 2,200 characters; editorial review is required.');
     return { excerpt: '', count: 0, warnings, errors };
   }
-  if (maximum < 5) warnings.push(`${sourceLabel} has only ${maximum} sentence(s) in its longest continuous passage; using the maximum available excerpt below the 5–10 sentence target.`);
+  if (maximum < 5) warnings.push(`${sourceLabel} has only ${maximum} sentence(s) in its longest continuous passage; using the maximum available excerpt below the 5–7 sentence target.`);
   if (preferred && preferredCount < 5 && maximum >= 5) warnings.push('Stored excerpt was shorter than five sentences; selected a continuous passage from the full original text.');
   return { excerpt: chosen.excerpt, count: chosen.count, warnings, errors };
 }

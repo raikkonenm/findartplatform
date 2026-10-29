@@ -80,7 +80,7 @@ test('full original text expands a short hint into one substantive continuous pa
   item.social.excerpt = 'The doors open today.';
   const result = contentCaption(item);
   assert.deepEqual(result.errors, []);
-  assert.ok(result.excerptSentences >= 5 && result.excerptSentences <= 10);
+  assert.ok(result.excerptSentences >= 5 && result.excerptSentences <= 7);
   assert.ok(item.description.includes(result.excerpt), 'The complete quotation must occur as one unedited source substring');
   assert.ok(result.excerpt.includes('collective memory'));
   assert.ok(result.excerpt.includes('sculpture'));
@@ -89,7 +89,7 @@ test('full original text expands a short hint into one substantive continuous pa
   assert.ok(result.caption.includes(`“${result.excerpt}”`));
 });
 
-test('a reviewed continuous 5–10 sentence selection is preserved exactly', () => {
+test('a reviewed continuous 5–7 sentence selection is preserved exactly', () => {
   const item = exhibition();
   const passage = 'The installation explores urban memory. Its sculptures preserve architectural traces. Each object carries a specific history. Photography connects these fragments to public space. The artist questions how places are perceived. Material transformations make those relationships visible.';
   item.description = `A source introduction.\n\n${passage}\n\n— Text: Author`;
@@ -98,6 +98,16 @@ test('a reviewed continuous 5–10 sentence selection is preserved exactly', () 
   assert.equal(result.excerpt, passage);
   assert.equal(result.excerptSentences, 6);
   assert.deepEqual(result.errors, []);
+});
+
+test('even a reviewed ten-sentence excerpt is reduced to at most seven complete source sentences', () => {
+  const item = exhibition();
+  item.description = Array.from({ length: 10 }, (_, i) => `The artist transforms material ${i + 1} through sculpture and memory.`).join(' ');
+  item.social.excerpt = item.description;
+  const result = contentCaption(item);
+  assert.deepEqual(result.errors, []);
+  assert.ok(result.excerptSentences >= 5 && result.excerptSentences <= 7);
+  assert.ok(item.description.includes(result.excerpt));
 });
 
 test('the character budget reduces a long passage to 5–7 sentences without losing any credit', () => {
@@ -335,7 +345,7 @@ test('actual Ritual data distinguishes its artist from the documented text autho
   assert.ok(result.caption.includes('Text: #TimoPoeppel'));
   assert.ok(item.description.includes(item.social.excerpt));
   assert.ok(item.description.includes(result.excerpt));
-  assert.ok(result.excerptSentences >= 5 && result.excerptSentences <= 10);
+  assert.ok(result.excerptSentences >= 5 && result.excerptSentences <= 7);
   assert.equal(sentenceCount(result.excerpt), result.excerptSentences);
   assert.ok(result.caption.length <= 2200);
   assert.ok(result.excerpt.includes('Misha Gudwin'));
