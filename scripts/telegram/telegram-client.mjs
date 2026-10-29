@@ -50,7 +50,9 @@ export class TelegramClient {
       if (result.ok === false && (code === 429 || code >= 500) && attempt + 1 < this.attempts) {
         await this.sleep(Math.max(1, result.parameters?.retry_after || 2 ** attempt) * 1000); continue;
       }
-      const error = new Error(`Telegram ${method} rejected the request (${code}).`);
+      let detail = String(result.description || '');
+      for (const secret of [this.token, this.chatId]) detail = detail.split(secret).join('[REDACTED]');
+      const error = new Error(`Telegram ${method} rejected the request (${code})${detail ? ': ' + detail : '.'}`);
       error.ambiguous = result.ok !== false; throw error;
     }
   }
@@ -58,6 +60,7 @@ export class TelegramClient {
     if (this.expectedUsername) {
       const bot = await this.request('getMe');
       if (bot.username?.toLowerCase() !== this.expectedUsername.replace(/^@/, '').toLowerCase()) throw new Error('Telegram token belongs to a different bot; refusing delivery');
+      if (String(bot.id) === this.chatId) throw new Error('TELEGRAM_CHAT_ID points to the bot itself, not your private user chat. Start the bot and configure your personal chat ID.');
     }
     const chat = await this.request('getChat');
     if (chat.type !== 'private' || String(chat.id) !== this.chatId) throw new Error('Configured destination is not the exact private chat; refusing delivery');

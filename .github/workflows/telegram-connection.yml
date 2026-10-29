@@ -40,7 +40,7 @@ jobs:
             report.tokenFormatValid = /^\d+:[A-Za-z0-9_-]+$/.test(token);
             report.chatIdFormatValid = /^[1-9]\d*$/.test(chatId);
             async function telegram(method, fields = {}) {
-              if (!['getMe', 'getChat'].includes(method)) throw new Error('Connection diagnostics cannot send Telegram messages.');
+              if (!['getMe', 'getChat', 'getUpdates'].includes(method)) throw new Error('Connection diagnostics cannot send Telegram messages.');
               try {
                 const response = await fetch('https://api.telegram.org/bot' + token + '/' + method, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(fields), signal: AbortSignal.timeout(15000) });
                 const raw = await response.text();
@@ -54,18 +54,25 @@ jobs:
             report.getMe = { ok: me.ok, code: me.code, description: me.description, correctBot: me.result?.username?.toLowerCase() === 'findart_content_bot' };
             if (me.ok && report.getMe.correctBot && /^[1-9]\d*$/.test(chatId)) {
               const chat = await telegram('getChat', { chat_id: chatId });
-              report.getChat = { ok: chat.ok, code: chat.code, description: chat.description, private: chat.result?.type === 'private', matchesConfiguredId: String(chat.result?.id) === chatId };
+              report.getChat = { ok: chat.ok, code: chat.code, description: chat.description, private: chat.result?.type === 'private', matchesConfiguredId: String(chat.result?.id) === chatId, destinationIsBotItself: String(me.result?.id) === chatId };
+              if (!report.getChat.destinationIsBotItself && chat.ok) {
+                const updates = await telegram('getUpdates', { timeout: 0, limit: 100 });
+                report.startCommand = { readable: updates.ok, foundForConfiguredPrivateChat: updates.ok && updates.result.some(update => String(update.message?.chat?.id) === chatId && update.message?.from?.is_bot === false && /^\/start(?:\s|$|@)/.test(update.message?.text || '')) };
+              }
             } else report.getChat = { ok: false, skipped: true, reason: !me.ok ? 'token rejected' : !report.getMe.correctBot ? 'different bot token' : 'CHAT_ID is not a positive numeric private chat ID' };
             const issue = Number(process.env.TELEGRAM_STATE_ISSUE);
             try {
               const comments = await github.paginate(github.rest.issues.listComments, { ...context.repo, issue_number: issue, per_page: 100 });
               const checkpoints = comments.filter(c => c.user?.login === 'github-actions[bot]' && c.body.startsWith('<!-- findart-telegram:v1 -->\n')).map(c => JSON.parse(c.body.slice('<!-- findart-telegram:v1 -->\n'.length)));
               report.deliveryCheckpoints = checkpoints.length;
-              report.partialOrCompletedMessages = checkpoints.reduce((n, record) => n + Object.keys(record.steps || {}).length, 0);
+              const steps = checkpoints.flatMap(record => Object.values(record.steps || {}));
+              report.partialOrCompletedMessages = steps.reduce((n, step) => n + (step.messageIds || []).length, 0);
+              report.uncertainSteps = steps.filter(step => ['in-flight', 'uncertain'].includes(step.status)).length;
+              report.explicitlyRejectedSteps = steps.filter(step => step.status === 'failed').length;
               await github.rest.issues.createComment({ ...context.repo, issue_number: issue, body: '<!-- findart-telegram-connection:v1 -->\nConnection diagnostic run ' + context.runId + '. getMe=' + me.ok + ', getChat=' + Boolean(report.getChat.ok) + '. No Telegram messages or media were sent by this diagnostic.' });
               report.issueWrite = { ok: true, issue };
             } catch (error) { report.issueWrite = { ok: false, status: error.status || 'request-failed' }; }
-            report.ready = report.getMe.ok && report.getMe.correctBot && report.getChat.ok && report.getChat.private && report.getChat.matchesConfiguredId && report.issueWrite.ok && report.partialOrCompletedMessages === 0;
+            report.ready = report.getMe.ok && report.getMe.correctBot && report.getChat.ok && report.getChat.private && report.getChat.matchesConfiguredId && !report.getChat.destinationIsBotItself && report.issueWrite.ok && report.partialOrCompletedMessages === 0 && report.uncertainSteps === 0;
             fs.writeFileSync(process.env.RUNNER_TEMP + '/telegram-diagnostic/connection-report.json', JSON.stringify(report, null, 2));
             console.log('CONNECTION_REPORT=' + JSON.stringify(report));
             if (!report.ready) core.setFailed('Connection check failed. See the sanitized connection report; no content was sent.');
