@@ -64,6 +64,22 @@ jobs:
             fs.writeFileSync(process.env.RUNNER_TEMP + '/telegram-diagnostic/connection-report.json', JSON.stringify(report, null, 2));
             console.log('CONNECTION_REPORT=' + JSON.stringify(report));
             if (!report.ready) core.setFailed('Connection check failed. See the sanitized connection report; no content was sent.');
+      - name: Check the actual production Telegram client without sending content
+        uses: actions/github-script@v7
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        with:
+          script: |
+            const fs = require('node:fs');
+            const { pathToFileURL } = require('node:url');
+            const source = await github.rest.repos.getContent({ ...context.repo, path: 'scripts/telegram/telegram-client.mjs', ref: context.sha });
+            const file = process.env.RUNNER_TEMP + '/findart-telegram-client.mjs';
+            fs.writeFileSync(file, Buffer.from(source.data.content, 'base64'));
+            const { TelegramClient } = await import(pathToFileURL(file).href);
+            const client = new TelegramClient({ token: process.env.TELEGRAM_BOT_TOKEN, chatId: process.env.TELEGRAM_CHAT_ID, expectedUsername: 'FINDART_content_bot', attempts: 2 });
+            await client.verifyPrivateChat();
+            console.log('PRODUCTION_CLIENT_CONNECTION_OK: getMe and getChat confirmed; no content or media sent.');
       - uses: actions/upload-artifact@v4
         if: always()
         with:

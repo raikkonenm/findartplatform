@@ -64,54 +64,7 @@ export class GitHubLedger {
   async close() {}
 }
 
-export class TelegramClient {
-  constructor({ token, chatId, expectedUsername, fetchImpl = fetch, sleep = pause, attempts = 5 }) {
-    if (!token || !/^[1-9]\d*$/.test(chatId || '')) throw new Error('TELEGRAM_BOT_TOKEN and a numeric private TELEGRAM_CHAT_ID are required');
-    this.token = token; this.chatId = String(chatId); this.fetch = fetchImpl; this.sleep = sleep; this.attempts = attempts;
-    this.expectedUsername = expectedUsername;
-  }
-  async request(method, fields = {}, files = [], mediaType) {
-    for (let attempt = 0; attempt < this.attempts; attempt++) {
-      const form = new FormData(); if (method !== 'getMe') form.set('chat_id', this.chatId);
-      for (const [key, value] of Object.entries(fields)) form.set(key, typeof value === 'string' ? value : JSON.stringify(value));
-      if (method === 'sendMessage') form.set('link_preview_options', JSON.stringify({ is_disabled: true }));
-      if (method === 'sendMediaGroup') {
-        form.set('media', JSON.stringify(files.map((file, index) => ({ type: mediaType, media: `attach://file${index}`, ...(mediaType === 'document' ? { disable_content_type_detection: true } : {}) }))));
-      }
-      for (const [index, file] of files.entries()) {
-        const key = method === 'sendMediaGroup' ? `file${index}` : method === 'sendPhoto' ? 'photo' : 'document';
-        form.set(key, new Blob([await readFile(file.path)], { type: mediaType === 'photo' || method === 'sendPhoto' ? 'image/jpeg' : 'application/octet-stream' }), file.filename);
-      }
-      if (method === 'sendDocument') form.set('disable_content_type_detection', 'true');
-      let response, result;
-      try {
-        response = await this.fetch(`https://api.telegram.org/bot${this.token}/${method}`, { method: 'POST', body: form, signal: AbortSignal.timeout(120_000) });
-        result = await response.json();
-      } catch {
-        if (['getChat', 'getMe'].includes(method) && attempt + 1 < this.attempts) { await this.sleep(2 ** attempt * 1000); continue; }
-        const error = new Error(`Telegram ${method} has an unknown outcome; automatic resend is stopped.`);
-        error.ambiguous = !['getChat', 'getMe'].includes(method); throw error;
-      }
-      if (response.ok && result.ok) return result.result;
-      const code = result.error_code || response.status;
-      // Only explicit API rejections are safe to retry. Lost responses may
-      // already have delivered a message and must not be blindly repeated.
-      if (result.ok === false && (code === 429 || code >= 500) && attempt + 1 < this.attempts) {
-        await this.sleep(Math.max(1, result.parameters?.retry_after || 2 ** attempt) * 1000); continue;
-      }
-      const error = new Error(`Telegram ${method} rejected the request (${code}).`);
-      error.ambiguous = result.ok !== false; throw error;
-    }
-  }
-  async verifyPrivateChat() {
-    if (this.expectedUsername) {
-      const bot = await this.request('getMe');
-      if (bot.username?.toLowerCase() !== this.expectedUsername.replace(/^@/, '').toLowerCase()) throw new Error('Telegram token belongs to a different bot; refusing delivery');
-    }
-    const chat = await this.request('getChat');
-    if (chat.type !== 'private' || String(chat.id) !== this.chatId) throw new Error('Configured destination is not the exact private chat; refusing delivery');
-  }
-}
+export { TelegramClient } from './telegram-client.mjs';
 
 export async function deliver(pack, { client, ledger, resendId, deploymentSha, sleep = pause }) {
   if (!pack.ready || pack.status !== 'published') throw new Error('Validation or publication status blocks live delivery');

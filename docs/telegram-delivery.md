@@ -86,10 +86,12 @@ A failed checkpoint write also stops the run. Preserve the issue/comments and pr
 - `scripts/telegram/content.mjs`: existing-data adapters, captions, dates, verified credits and validation.
 - `scripts/telegram/package.mjs`: inventory, source preference, semantic fingerprint, previews, ZIPs and exact payload plan.
 - `scripts/telegram/delivery.mjs`: private destination check, bounded API retries and durable step checkpoints.
+- `scripts/telegram/telegram-client.mjs`: native-only Telegram client; JSON for non-file methods, trimmed secret inputs and sanitized transport errors.
 - `scripts/telegram/deployment.mjs`: successful-production event and manual publication verification.
 - `scripts/telegram/published-baseline.json`: one-time existing-content migration exclusion; do not update during normal publication.
 - `scripts/telegram/telegram.test.mjs`: formatting, media, publication and reliability tests.
 - `.github/workflows/telegram-content.yml`: post-publication observer and manual workflow; does not deploy the site.
+- `.github/workflows/telegram-connection.yml`: connection-only getMe/getChat, issue-write and failed-run diagnostics; no content sending.
 - `.claude/skills/telegram-export/SKILL.md`: reusable Claude command.
 - `CLAUDE.md`: publishing convention.
 - `docs/telegram-delivery.md`: configuration, usage, limits, recovery and file inventory.

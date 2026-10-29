@@ -16,6 +16,16 @@ test('manual permission never enables automatic delivery', () => {
   assert.equal(liveDeliveryAllowed(null, env), false);
 });
 
+test('connection methods use JSON and normalize secret whitespace without logging values', async () => {
+  const requests = [];
+  const client = new TelegramClient({ token: '  test-token\n', chatId: ' 123\n', expectedUsername: 'FINDART_content_bot', fetchImpl: async (url, options) => {
+    requests.push({ method: url.endsWith('/getMe') ? 'getMe' : 'getChat', contentType: options.headers['Content-Type'], body: JSON.parse(options.body), hasWhitespace: /\s/.test(url) });
+    return new Response(JSON.stringify({ ok: true, result: url.endsWith('/getMe') ? { username: 'FINDART_content_bot' } : { id: 123, type: 'private' } }));
+  } });
+  await client.verifyPrivateChat();
+  assert.deepEqual(requests, [{ method: 'getMe', contentType: 'application/json', body: {}, hasWhitespace: false }, { method: 'getChat', contentType: 'application/json', body: { chat_id: '123' }, hasWhitespace: false }]);
+});
+
 const exhibition = (names = ['Alice Smith']) => ({ type: 'exhibition', slug: 'example', title: 'Actual Title', artists: names, photographer: 'Bob Jones', gallery: 'Real Gallery', city: 'Paris', country: 'France', startDate: '2026-03-12', endDate: '2026-04-20', description: 'Actual source sentence. Another actual sentence.', publicUrl: 'https://www.findartplatform.com/exhibitions/example', social: { status: 'published', revision: 1, language: 'en', excerpt: 'Actual source sentence.' } });
 
 test('exact uppercase headlines for one, two, three and four artists', () => {
