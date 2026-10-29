@@ -13,6 +13,9 @@ export type ContentPublication = {
   gallery?: DeliveryPerson;
   credits?: Array<{ role: string; people: DeliveryPerson[] }>;
   requiredCredits?: string[];
+  // One verbatim, continuous 5–10 sentence curatorial passage. Shorter source
+  // texts are reported; the generator expands legacy short selections and
+  // reserves every credit within the 2,200-character caption limit.
   excerpt?: string;
   // For a non-English source, an editor must supply and verify the translation.
   translatedExcerpt?: { text: string; sourceText: string; language: "en"; verified: boolean };

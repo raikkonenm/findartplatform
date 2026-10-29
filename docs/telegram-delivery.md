@@ -66,7 +66,15 @@ GitHub's Run workflow UI also accepts content type, slug and a dry-run checkbox 
 
 To continue a partially delivered manual run after a code fix, fill its original numeric ID into `resume_run`, or use `--resume-run <original-run-id>` with the dispatch command. Resume mode requires the exact existing content/destination/plan checkpoint and cannot start a fresh delivery. Confirmed steps are skipped. A definite album attachment rejection can fall back to individually uploaded files, preserving bytes/names/order and checkpointing each file; uncertain outcomes never trigger this fallback.
 
+For an explicitly requested caption correction, use `--caption-only` (or the manual workflow's `caption_only` checkbox). Prepare and review the new text in dry-run first. This manual-only scope has exactly two delivery steps: the updated plain text and its identical UTF-8 TXT. It does not read or package source images, generate previews or ZIPs, or send an administrative message. It keeps the same serialized workflow, private-chat verification and durable API-receipt journal, with a separate caption-only fingerprint. Automatic and ordinary full-package sends remain unchanged.
+
 ## Reliability and recovery
+
+### Curatorial quotations
+
+Every future caption selects a substantive, continuous **5–10 sentence** passage from the full original curatorial prose, preserving its exact wording and paragraph breaks. A reviewed `social.excerpt` within this range is preferred; older short excerpts are expanded from the full description. Automatic selection favours artistic practice, materials and ideas, paragraph openings, and complete sentences. Bibliographic references, role-credit blocks and isolated verse are excluded. This is deterministic selection of source text, not generated interpretation.
+
+The generator reserves the entire uppercase headline, all artists/curator/photo/additional roles, gallery and dates before fitting the quotation into **2,200 characters**. When shortening a longer selection it prefers **5–7 sentences**. A genuinely shorter source uses its maximum continuous passage and emits a warning. If five full source sentences cannot fit alongside every credit, validation blocks sending for editorial review. Verified English translations obey the same rules and cannot be expanded from untranslated material. `payload.json` records `excerpt` and `excerptSentences` for review.
 
 There is one durable GitHub issue comment per destination/content/fingerprint/manual-run key, written by `github-actions[bot]`. It checkpoints every step before and after delivery and stores returned Telegram message IDs. Completed revisions are skipped automatically. It does not use expiring Actions cache as the duplicate authority and does not create a state branch that would trigger Vercel.
 

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile, readdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
@@ -8,6 +8,7 @@ import { contentCaption, dateRange, creditName, nameHashtag, loadCatalog } from 
 import { buildPackage, groups, archiveParts, zipBytes, fingerprint } from './package.mjs';
 import { deliver, TelegramClient, FileLedger, GitHubLedger } from './delivery.mjs';
 import { deploymentEvent, latestProductionSha, liveDeliveryAllowed } from './deployment.mjs';
+import { sentenceCount } from './excerpts.mjs';
 
 test('native multipart round-trip resolves every document and photo attachment to unchanged bytes', async () => {
   const directory = await mkdtemp(path.join(tmpdir(), 'findart-multipart-'));
@@ -73,6 +74,77 @@ test('connection methods use JSON and normalize secret whitespace without loggin
 
 const exhibition = (names = ['Alice Smith']) => ({ type: 'exhibition', slug: 'example', title: 'Actual Title', artists: names, photographer: 'Bob Jones', gallery: 'Real Gallery', city: 'Paris', country: 'France', startDate: '2026-03-12', endDate: '2026-04-20', description: 'Actual source sentence. Another actual sentence.', publicUrl: 'https://www.findartplatform.com/exhibitions/example', social: { status: 'published', revision: 1, language: 'en', excerpt: 'Actual source sentence.' } });
 
+test('full original text expands a short hint into one substantive continuous passage', () => {
+  const item = exhibition();
+  item.description = 'The doors open today. Visitors are welcome.\n\nThe artist explores collective memory through sculpture. Found materials become carriers of personal history. The installation transforms domestic objects into unfamiliar structures. These works question the boundary between intimacy and public space. Photography reveals traces of absent bodies. The exhibition invites reflection on how places acquire meaning.\n\n— Text: Real Author\n\n(1) Bibliographic material must not enter the quotation.';
+  item.social.excerpt = 'The doors open today.';
+  const result = contentCaption(item);
+  assert.deepEqual(result.errors, []);
+  assert.ok(result.excerptSentences >= 5 && result.excerptSentences <= 10);
+  assert.ok(item.description.includes(result.excerpt), 'The complete quotation must occur as one unedited source substring');
+  assert.ok(result.excerpt.includes('collective memory'));
+  assert.ok(result.excerpt.includes('sculpture'));
+  assert.ok(!result.excerpt.includes('— Text:'));
+  assert.ok(!result.excerpt.includes('Bibliographic'));
+  assert.ok(result.caption.includes(`“${result.excerpt}”`));
+});
+
+test('a reviewed continuous 5–10 sentence selection is preserved exactly', () => {
+  const item = exhibition();
+  const passage = 'The installation explores urban memory. Its sculptures preserve architectural traces. Each object carries a specific history. Photography connects these fragments to public space. The artist questions how places are perceived. Material transformations make those relationships visible.';
+  item.description = `A source introduction.\n\n${passage}\n\n— Text: Author`;
+  item.social.excerpt = passage;
+  const result = contentCaption(item);
+  assert.equal(result.excerpt, passage);
+  assert.equal(result.excerptSentences, 6);
+  assert.deepEqual(result.errors, []);
+});
+
+test('the character budget reduces a long passage to 5–7 sentences without losing any credit', () => {
+  const item = exhibition();
+  const sentence = 'The artist explores relationships between sculpture, memory and public space through found architectural materials, transforming the traces of everyday urban experience into installations that invite the viewer to reconsider familiar surroundings.';
+  item.description = Array(10).fill(sentence).join(' ');
+  delete item.social.excerpt;
+  item.curator = 'Real Curator';
+  item.social.credits = [{ role: 'Text', people: [{ name: 'Real Author' }] }, { role: 'Light design', people: [{ name: 'Real Designer' }] }];
+  const result = contentCaption(item);
+  assert.deepEqual(result.errors, []);
+  assert.ok(result.excerptSentences >= 5 && result.excerptSentences <= 7);
+  assert.ok(result.caption.length <= 2200);
+  for (const credit of ['Artist(s): #AliceSmith', 'Curator: #RealCurator', 'Photo: #BobJones', 'Text: #RealAuthor', 'Light design: #RealDesigner', 'Real Gallery, Paris, France, 12 March - 20 April 2026']) assert.ok(result.caption.includes(credit));
+  assert.ok(item.description.includes(result.excerpt));
+});
+
+test('genuinely short prose uses every available sentence and reports the limitation', () => {
+  const item = exhibition();
+  const result = contentCaption(item);
+  assert.equal(result.excerpt, item.description);
+  assert.equal(result.excerptSentences, 2);
+  assert.ok(result.warnings.some(warning => /only 2 sentence/.test(warning)));
+  assert.deepEqual(result.errors, []);
+});
+
+test('five source sentences that cannot fit require review instead of shortened quotes or dropped credits', () => {
+  const item = exhibition();
+  item.description = Array(6).fill('The sculpture ' + 'preserves material memory '.repeat(35) + 'through its form.').join(' ');
+  delete item.social.excerpt;
+  const result = contentCaption(item);
+  assert.ok(result.errors.some(error => /Five complete source sentences cannot fit/.test(error)));
+  assert.ok(result.caption.includes('Photo: #BobJones'));
+  assert.ok(result.caption.includes('Artist(s): #AliceSmith'));
+  assert.equal(result.excerpt, '');
+});
+
+test('a verified translation is never expanded with invented or untranslated sentences', () => {
+  const item = exhibition();
+  item.social.language = 'de';
+  item.social.translatedExcerpt = { verified: true, language: 'en', sourceText: item.description, text: 'The sculpture explores memory. Its materials carry traces of a place.' };
+  const result = contentCaption(item);
+  assert.equal(result.excerpt, item.social.translatedExcerpt.text);
+  assert.ok(result.warnings.some(warning => /Verified English translation has only 2/.test(warning)));
+  assert.deepEqual(result.errors, []);
+});
+
 test('exact uppercase headlines for one, two, three and four artists', () => {
   const cases = [
     [['Alice Smith'], 'ACTUAL TITLE BY ALICE SMITH'],
@@ -116,6 +188,27 @@ test('missing credits, drafts, invented excerpts, translations and length requir
 test('standalone artwork does not fabricate exhibition information', () => {
   const item = { type: 'artwork', slug: 'work', title: 'Blue', artists: [{ name: 'Alice Smith' }], year: '2026', medium: 'Oil', dimensions: '20 x 30 cm', publicUrl: 'https://www.findartplatform.com/collect', social: { status: 'published', revision: 1, language: 'en' } };
   const result = contentCaption(item); assert.deepEqual(result.errors, []); assert.equal(result.caption, 'BLUE BY ALICE SMITH\n\nArtist(s): #AliceSmith');
+});
+
+test('caption-only update sends exactly text and identical TXT, without reading or packaging media', async () => {
+  const output = await mkdtemp(path.join(tmpdir(), 'findart-caption-only-'));
+  const item = exhibition();
+  item.coverImage = '/missing-image.webp'; item.images = [{ src: '/another-missing-image.webp' }];
+  const pack = await buildPackage(item, { root: '/does-not-exist', output, captionOnly: true });
+  assert.equal(pack.ready, true);
+  assert.equal(pack.scope, 'caption-only');
+  assert.deepEqual(pack.images, []);
+  assert.deepEqual(pack.steps.map(step => step.method), ['sendMessage', 'sendDocument']);
+  assert.equal(pack.steps[0].text, await readFile(pack.steps[1].files[0].path, 'utf8'));
+  assert.ok(!(await readdir(pack.directory)).some(name => /\.zip$/.test(name)));
+  assert.deepEqual(await readdir(path.join(pack.directory, 'previews')), []);
+  const ledger = new FileLedger(path.join(output, 'ledger')); await ledger.load();
+  const sent = [];
+  const client = { chatId: '123', verifyPrivateChat: async () => {}, request: async (method, fields, files) => { sent.push({ method, fields, files }); return { message_id: sent.length }; } };
+  await deliver(pack, { ledger, client, resendId: 'approved-caption-update', sleep: async () => {} });
+  assert.equal(sent.length, 2);
+  assert.equal(sent[1].files[0].filename, 'example-caption.txt');
+  await ledger.close();
 });
 
 test('43+ photos: order, source bytes, preview selection, text and multipart plan', async () => {
@@ -241,4 +334,10 @@ test('actual Ritual data distinguishes its artist from the documented text autho
   assert.ok(result.caption.startsWith('RITUAL FOR HAPPINESS BY MISHA GUDWIN\n\n'));
   assert.ok(result.caption.includes('Text: #TimoPoeppel'));
   assert.ok(item.description.includes(item.social.excerpt));
+  assert.ok(item.description.includes(result.excerpt));
+  assert.ok(result.excerptSentences >= 5 && result.excerptSentences <= 10);
+  assert.equal(sentenceCount(result.excerpt), result.excerptSentences);
+  assert.ok(result.caption.length <= 2200);
+  assert.ok(result.excerpt.includes('Misha Gudwin'));
+  assert.ok(result.excerpt.includes('sculptural work'));
 });

@@ -89,17 +89,22 @@ export function archiveParts(files, limit = UPLOAD_LIMIT) {
   return parts;
 }
 
-export async function buildPackage(item, { root, output, includeZip = true }) {
-  const validation = contentCaption(item), images = await inventory(item, root);
+export async function buildPackage(item, { root, output, includeZip = true, captionOnly = false }) {
+  const validation = contentCaption(item), images = captionOnly ? { files: [], errors: [], warnings: [] } : await inventory(item, root);
   validation.errors.push(...images.errors); validation.warnings.push(...images.warnings);
   const id = `${item.type}:${item.slug}`;
-  const semantic = { format: 1, id, caption: validation.caption, description: item.description, year: item.year, medium: item.medium, dimensions: item.dimensions, publicUrl: validation.publicUrl, galleryCaptions: (item.images || []).map(image => image.caption || ''), images: images.files.map(({ selected, sha256, cover }) => ({ selected, sha256, cover })) };
+  const semantic = captionOnly ? { format: 1, scope: 'caption-only', id, caption: validation.caption, publicUrl: validation.publicUrl } : { format: 1, id, caption: validation.caption, description: item.description, year: item.year, medium: item.medium, dimensions: item.dimensions, publicUrl: validation.publicUrl, galleryCaptions: (item.images || []).map(image => image.caption || ''), images: images.files.map(({ selected, sha256, cover }) => ({ selected, sha256, cover })) };
   const revisionHash = fingerprint(semantic);
   const directory = path.resolve(output, item.type, item.slug, revisionHash.slice(0, 12));
   await mkdir(path.join(directory, 'previews'), { recursive: true });
   const captionPath = path.join(directory, `${item.slug}-caption.txt`);
   await writeFile(captionPath, validation.caption, 'utf8');
   const steps = [{ method: 'sendMessage', text: validation.caption }, { method: 'sendDocument', files: [{ path: captionPath, filename: path.basename(captionPath) }] }];
+  if (captionOnly) {
+    const report = { id, revision: item.social?.revision, revisionHash, status: item.social?.status ?? 'unmanaged', scope: 'caption-only', ready: validation.errors.length === 0, ...validation, images: [], steps };
+    await writeFile(path.join(directory, 'payload.json'), JSON.stringify(report, null, 2), 'utf8');
+    return { ...report, directory };
+  }
   for (const batch of groups(images.files)) steps.push({ method: batch.length === 1 ? 'sendDocument' : 'sendMediaGroup', mediaType: 'document', files: batch });
   const previews = [];
   for (const file of images.files.slice(0, 10)) {

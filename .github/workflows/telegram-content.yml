@@ -25,6 +25,11 @@ on:
         type: string
         required: false
         default: ''
+      caption_only:
+        description: Send only the updated caption and its identical TXT, without media or ZIP
+        type: boolean
+        required: false
+        default: false
 
 # One writer for the durable ledger, including manual resends. Never cancel an
 # in-flight upload. Every scan includes all opted-in published content, so a
