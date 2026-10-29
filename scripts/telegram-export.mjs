@@ -89,7 +89,12 @@ async function main() {
         results.push({ id: pack.id, ready: pack.ready, directory: pack.directory, images: pack.images.length, steps: pack.steps.length, errors: pack.errors, warnings: pack.warnings, ...delivery });
         console.log(`${pack.id}: ${pack.ready ? 'ready' : 'REVIEW REQUIRED'}, ${pack.images.length} images, ${pack.steps.length} delivery steps. ${pack.directory}`);
         if (!pack.ready) process.exitCode = 2;
-      } catch (error) { results.push({ id: `${item.type}:${item.slug}`, error: error.message }); process.exitCode = 1; }
+      } catch (error) {
+        let message = error.message || 'Delivery failed';
+        for (const secret of [env.TELEGRAM_BOT_TOKEN, env.GITHUB_TOKEN, env.TELEGRAM_CHAT_ID]) if (secret) message = message.split(secret).join('[REDACTED]');
+        console.error(`${item.type}:${item.slug}: ${message}`);
+        results.push({ id: `${item.type}:${item.slug}`, error: message }); process.exitCode = 1;
+      }
     }
   } finally { await ledger?.close(); }
   await mkdir(output, { recursive: true });
