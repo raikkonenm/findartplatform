@@ -37,13 +37,18 @@ jobs:
             const report = { run: context.runId, botTokenPresent: Boolean(process.env.TELEGRAM_BOT_TOKEN), chatIdPresent: Boolean(process.env.TELEGRAM_CHAT_ID), automaticDeliveryChanged: false };
             const token = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
             const chatId = (process.env.TELEGRAM_CHAT_ID || '').trim();
+            report.tokenFormatValid = /^\d+:[A-Za-z0-9_-]+$/.test(token);
+            report.chatIdFormatValid = /^[1-9]\d*$/.test(chatId);
             async function telegram(method, fields = {}) {
               if (!['getMe', 'getChat'].includes(method)) throw new Error('Connection diagnostics cannot send Telegram messages.');
               try {
                 const response = await fetch('https://api.telegram.org/bot' + token + '/' + method, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(fields), signal: AbortSignal.timeout(15000) });
-                const data = await response.json();
+                const raw = await response.text();
+                let data;
+                try { data = JSON.parse(raw); }
+                catch { return { ok: false, code: 'non-json-http-' + response.status }; }
                 return { ok: response.ok && data.ok, code: data.error_code || response.status, description: data.ok ? undefined : String(data.description || '').replaceAll(token, '[REDACTED]').replaceAll(chatId, '[CHAT_ID]'), result: data.result };
-              } catch { return { ok: false, code: 'transport-error' }; }
+              } catch (error) { return { ok: false, code: String(error.cause?.code || error.code || error.name || 'transport-error').replace(/[^A-Za-z0-9_-]/g, '') }; }
             }
             const me = await telegram('getMe');
             report.getMe = { ok: me.ok, code: me.code, description: me.description, correctBot: me.result?.username?.toLowerCase() === 'findart_content_bot' };
@@ -65,6 +70,7 @@ jobs:
             console.log('CONNECTION_REPORT=' + JSON.stringify(report));
             if (!report.ready) core.setFailed('Connection check failed. See the sanitized connection report; no content was sent.');
       - name: Check the actual production Telegram client without sending content
+        if: always()
         uses: actions/github-script@v7
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
