@@ -16,6 +16,11 @@ import { renderDraft, DRAFT } from './render.mjs';
 import { prepareSubmission } from './prepare.mjs';
 import { deliverDraft } from './deliver.mjs';
 import { runWorker } from './worker.mjs';
+import { checkConnections } from './connections.mjs';
+import { PrivateStore } from './store.mjs';
+import { wakeSubmissionWorker, cronAuthorized } from './wake.mjs';
+import { cacheSourceFiles, restoreSourceFiles } from './source-cache.mjs';
+import { selectExcerpt, sentenceCount } from '../telegram/excerpts.mjs';
 import { zipBytes, hash } from '../telegram/package.mjs';
 
 const KEY = 'a'.repeat(64), PYTHON = process.env.SUBMISSIONS_PYTHON || 'python';
@@ -24,6 +29,7 @@ const empty = () => ({ value: '', evidence: [] });
 const evidence = value => ({ value, evidence: [{ sourceId: 'submission', quote: `Artist Alice Smith; title Real Project; curator Carol White; photo Bob Jones; @alice_smith; Real Gallery; Paris; France; 12 March 2026; 20 April 2026; https://example.test; residency; 1 June 2026; applicant@example.test.` }] });
 function rawAnalysis(type = 'exhibition') {
   const scalar = Object.fromEntries(['title','submittedBy','contactEmail','organization','gallery','city','country','startDate','endDate','website','instagram','deadline','opportunityType','applicationUrl'].map(key => [key, empty()]));
+  scalar.presentations = []; scalar.eventRelationship = { kind: 'single', evidence: [] };
   return { ...scalar, type, title: evidence('Real Project'), artists: [{ name: evidence('Alice Smith'), instagram: evidence('@alice_smith') }], curators: [{ name: evidence('Carol White'), instagram: empty() }], photographers: [{ name: evidence('Bob Jones'), instagram: empty() }], additionalCredits: [], gallery: evidence('Real Gallery'), city: evidence('Paris'), country: evidence('France'), startDate: evidence('12 March 2026'), endDate: evidence('20 April 2026'), website: evidence('https://example.test'), opportunityType: evidence('residency'), deadline: evidence('1 June 2026'), applicationUrl: evidence('https://example.test'), editorial: { mode: 'verbatim', text: passage, sourceId: 'submission', sourceQuote: passage, sourceLanguage: 'en' }, uncertainties: [] };
 }
 const sourceText = evidence('').evidence[0].quote + '\n\n' + passage;
@@ -109,9 +115,10 @@ test('hallucinated facts and quotes are rejected; summaries remain unquoted and 
 });
 
 test('separately dated exhibition chapters retain their own source-backed locations and opening dates', () => {
-  const text = 'Chapter One, City One, 12 March 2026 - 20 April 2026. Chapter Two, City Two, 14 March 2026 - 20 April 2026.';
+  const text = 'This exhibition has two chapters. Chapter One, City One, 12 March 2026 - 20 April 2026. Chapter Two, City Two, 14 March 2026 - 20 April 2026.';
   const supported = value => ({ value, evidence: [{ sourceId: 'chapters', quote: text }] });
   const raw = rawAnalysis();
+  raw.eventRelationship = { kind: 'chapters', evidence: [{ sourceId: 'chapters', quote: text }] };
   raw.presentations = [['Chapter One','City One','12 March 2026'], ['Chapter Two','City Two','14 March 2026']].map(([title, city, startDate]) => ({ title: supported(title), city: supported(city), startDate: supported(startDate), endDate: supported('20 April 2026') }));
   const verified = validateAnalysis(raw, [...sources, { id: 'chapters', text }], 'exhibition');
   const draft = renderDraft({ type: 'exhibition', source: 'form', fields: {} }, verified, {});
@@ -120,6 +127,45 @@ test('separately dated exhibition chapters retain their own source-backed locati
   assert.ok(draft.card.includes('Location: City One / City Two'));
   raw.presentations[1].startDate.value = '15 March 2026';
   assert.equal(validateAnalysis(raw, [...sources, { id: 'chapters', text }], 'exhibition').facts.presentations[1].startDate, '');
+  for (const kind of ['independent','unclear']) {
+    raw.eventRelationship.kind = kind;
+    assert.throws(() => renderDraft({ type: 'exhibition', fields: {} }, validateAnalysis(raw, [...sources, { id: 'chapters', text }], 'exhibition'), {}), /SEPARATE_EXHIBITIONS/);
+  }
+});
+
+test('incoming drafts accept ten coherent source sentences while published exports retain their seven-sentence default', () => {
+  const text = Array.from({ length: 10 }, (_, index) => `The artist transforms material number ${index+1}.`).join(' ');
+  assert.equal(sentenceCount(selectExcerpt(text, { preferred: text, budget: 1800, maximumSentences: 10 }).excerpt), 10);
+  assert.ok(sentenceCount(selectExcerpt(text, { preferred: text, budget: 1800 }).excerpt) <= 7);
+});
+
+test('modern Supabase server keys use apikey without an invalid JWT bearer header', async () => {
+  const store = new PrivateStore({ SUBMISSIONS_SUPABASE_URL: 'https://private-test.supabase.co', SUBMISSIONS_SUPABASE_SECRET_KEY: 'sb_secret_synthetic' }, async (_url, options) => {
+    assert.equal(options.headers.apikey, 'sb_secret_synthetic'); assert.equal(options.headers.Authorization, undefined);
+    return new Response('{}');
+  });
+  await store.health();
+  assert.throws(() => new PrivateStore({ SUBMISSIONS_SUPABASE_URL: 'https://private-test.supabase.co', SUBMISSIONS_SUPABASE_SECRET_KEY: 'sb_publishable_synthetic' }), /PRIVATE_STORAGE_NOT_CONFIGURED/);
+});
+
+test('connection probes verify private storage, bot, AI schema and mailbox without content sends or secret output', async () => {
+  const env = { SUBMISSIONS_HMAC_KEY: KEY, SUBMISSIONS_SUPABASE_URL: 'https://private-test.supabase.co', SUBMISSIONS_SUPABASE_SECRET_KEY: 'sb_secret_synthetic', TELEGRAM_BOT_TOKEN: 'synthetic-bot-secret', TELEGRAM_CHAT_ID: '12345', OPENAI_API_KEY: 'synthetic-openai-secret', SUBMISSIONS_OPENAI_MODEL: 'configured-model', GMAIL_CLIENT_ID: 'client', GMAIL_CLIENT_SECRET: 'secret', GMAIL_REFRESH_TOKEN: 'refresh', GMAIL_SUBMISSIONS_ADDRESS: 'forms@example.test', GMAIL_SUBMISSIONS_QUERY: 'label:Forms', GMAIL_SUBMISSIONS_START_AFTER: '2026-10-30T00:00:00Z' };
+  let probe;
+  const store = { bucket: 'private', health: async () => ({ schemaVersion: 2, rlsEnabled: true, publicAccessRevoked: true, publicRpcRevoked: true, privateStoragePolicy: true }), getBucket: async () => ({ public: false }), putObject: async (_key, bytes) => { probe = bytes; }, getObject: async () => probe };
+  const client = { verifyPrivateChat: async () => {} }, gmail = { profile: async () => ({ emailAddress: env.GMAIL_SUBMISSIONS_ADDRESS }) };
+  const fetchImpl = async (url, options) => {
+    if (url.startsWith('https://api.openai.com/')) {
+      const body = JSON.parse(options.body); assert.equal(body.store, false); assert.equal(body.tools, undefined); assert.equal(body.text.format.strict, true);
+      return new Response(JSON.stringify({ status: 'completed', output: [{ content: [{ type: 'output_text', text: '{"ok":true}' }] }], usage: { input_tokens: 10, output_tokens: 5 } }));
+    }
+    assert.ok(url.includes('/object/public/')); assert.equal(options.headers, undefined);
+    return new Response('{}', { status: 404 });
+  };
+  const result = await checkConnections(env, { store, client, gmail, fetchImpl });
+  assert.equal(result.coreReady, true); assert.equal(result.allSourcesReady, true); assert.equal(result.sent, 0);
+  for (const secret of [env.TELEGRAM_BOT_TOKEN,env.OPENAI_API_KEY,env.SUBMISSIONS_SUPABASE_SECRET_KEY,env.GMAIL_SUBMISSIONS_ADDRESS]) assert.ok(!JSON.stringify(result).includes(secret));
+  store.getBucket = async () => ({ public: true });
+  assert.equal((await checkConnections(env, { store, client, gmail, fetchImpl })).coreReady, false);
 });
 
 test('AI request has no tools, no persistent response storage and strict structured output', async () => {
@@ -279,4 +325,50 @@ test('direct form delivery does not connect to Gmail when its optional switch is
   const result = await runWorker({ GITHUB_ACTIONS: 'true', TELEGRAM_SUBMISSIONS_ENABLED: 'true' }, { store, gmail, client: {} });
   assert.deepEqual(result, { accepted: 0, completed: 0, review: 0, retry: 0 });
   assert.equal(claims, 1);
+});
+
+test('an approved manual run selects exactly one UUID and never polls Gmail or enables automatic delivery', async () => {
+  const id = '11111111-1111-4111-8111-111111111111'; const selected = [];
+  const job = { id, progress: { prepared: { status: 'editorial-draft', approved: false, identity: 'test', files: [], steps: [] } } };
+  const store = { claim: async (_owner, jobId) => { selected.push(jobId); return job; }, save: async () => {}, summary: async jobId => { assert.equal(jobId, id); return { complete: true, confirmedFiles: 0, expectedFiles: 0, uncertainSteps: 0 }; } };
+  const env = { GITHUB_ACTIONS: 'true', GMAIL_SUBMISSIONS_ENABLED: 'true', TELEGRAM_SUBMISSIONS_MANUAL_ENABLED: 'true', TELEGRAM_SUBMISSIONS_ENABLED: 'false' };
+  const result = await runWorker(env, { store, jobId: id, gmail: { profile: () => { throw new Error('No inbox polling during test'); } }, client: { verifyPrivateChat: async () => {} } });
+  assert.deepEqual(selected, [id]); assert.equal(result.completed, 1); assert.equal(env.TELEGRAM_SUBMISSIONS_ENABLED, 'false');
+  await assert.rejects(runWorker({ ...env, TELEGRAM_SUBMISSIONS_MANUAL_ENABLED: 'false' }, { jobId: id }), /NOT_AUTHORIZED/);
+  await assert.rejects(runWorker(env, { jobId: 'all' }), /NOT_AUTHORIZED/);
+});
+
+test('a transient AI failure before sending releases only the same preparation job for a bounded retry', async () => {
+  const saved = [], job = { id: 'private', payload: {}, progress: {} };
+  const store = { claim: async () => job, save: async (_job, status, release) => saved.push({ status, release }) };
+  const result = await runWorker({ GITHUB_ACTIONS: 'true', TELEGRAM_SUBMISSIONS_ENABLED: 'true' }, { store, client: {}, prepare: async () => { throw new Error('SUBMISSIONS_AI_HTTP_503'); } });
+  assert.equal(result.retry, 1); assert.equal(result.review, 0); assert.equal(job.progress.preparationAttempts, 1);
+  assert.deepEqual(saved.at(-1), { status: 'pending', release: true });
+});
+
+test('original materials survive an AI retry privately without downloading expiring source links again', async () => {
+  const directory = await mkdtemp(path.join(tmpdir(), 'findart-source-cache-'));
+  const file = path.join(directory, 'statement.txt'); await writeFile(file, 'Actual original applicant statement.');
+  await writeFile(path.join(directory, 'incoming.json'), JSON.stringify([{ path: file, filename: 'statement.txt', source: 'provided attachment' }]));
+  const objects = new Map(), job = { id: 'private-job', progress: {} };
+  const store = { putObject: async (key, bytes) => objects.set(key, bytes), getObject: async key => objects.get(key), save: async () => {} };
+  await cacheSourceFiles(job, directory, { downloadWarnings: [] }, store);
+  const restored = await restoreSourceFiles(job, path.join(directory, 'restored'), { SUBMISSIONS_PYTHON: PYTHON }, store);
+  assert.ok(restored.documents.some(document => document.text === 'Actual original applicant statement.'));
+  assert.equal(job.progress.sourceFiles.length, 1);
+  objects.set(job.progress.sourceFiles[0].objectKey, Buffer.from('tampered'));
+  await assert.rejects(restoreSourceFiles(job, path.join(directory, 'tampered'), {}, store), /INTEGRITY/);
+});
+
+test('Vercel wake is production-only, revives inactivity only, and dispatches without applicant data', async () => {
+  const env = { SUBMISSIONS_WORKER_WAKE_ENABLED: 'true', VERCEL_ENV: 'production', SUBMISSIONS_GITHUB_ACTIONS_TOKEN: 'synthetic-github-token' };
+  const calls = [];
+  const fetchImpl = async (url, options) => { calls.push({ url, method: options.method, body: options.body }); return options.method === 'GET' ? new Response('{"state":"disabled_inactivity"}') : new Response(null, { status: 204 }); };
+  assert.deepEqual(await wakeSubmissionWorker({ ...env, VERCEL_ENV: 'preview' }, fetchImpl), { disabled: true });
+  assert.equal(calls.length, 0);
+  assert.deepEqual(await wakeSubmissionWorker(env, fetchImpl), { dispatched: true, revived: true });
+  assert.deepEqual(calls.map(call => call.method), ['GET','PUT','POST']);
+  assert.deepEqual(JSON.parse(calls[2].body), { ref: 'main' });
+  assert.deepEqual(await wakeSubmissionWorker(env, async () => new Response('{"state":"disabled_manually"}')), { disabledByOwner: true, dispatched: false });
+  assert.ok(cronAuthorized('Bearer ' + KEY, KEY)); assert.ok(!cronAuthorized('Bearer wrong', KEY)); assert.ok(!cronAuthorized(null, undefined));
 });

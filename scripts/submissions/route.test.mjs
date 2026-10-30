@@ -11,7 +11,7 @@ const native = createRequire(file), loaded = { exports: {} };
 new Function('require','module','exports',code)(name => name === 'next/server' ? { NextResponse: { json: (body, options) => new Response(JSON.stringify(body), { status: options?.status || 200 }) } } : native(name), loaded, loaded.exports);
 const { POST } = loaded.exports;
 async function configured(overrides, callback) {
-  const names = ['RESEND_API_KEY','SUBMISSION_FROM_EMAIL','SUBMISSIONS_CAPTURE_ENABLED','SUBMISSIONS_HMAC_KEY','SUBMISSIONS_SUPABASE_URL','SUBMISSIONS_SUPABASE_SERVICE_ROLE_KEY'];
+  const names = ['RESEND_API_KEY','SUBMISSION_FROM_EMAIL','SUBMISSIONS_CAPTURE_ENABLED','SUBMISSIONS_HMAC_KEY','SUBMISSIONS_SUPABASE_URL','SUBMISSIONS_SUPABASE_SECRET_KEY','SUBMISSIONS_SUPABASE_SERVICE_ROLE_KEY','SUBMISSIONS_WORKER_WAKE_ENABLED','SUBMISSIONS_GITHUB_ACTIONS_TOKEN','VERCEL_ENV'];
   const previous = Object.fromEntries(names.map(name => [name, process.env[name]]));
   const original = globalThis.fetch;
   for (const name of names) delete process.env[name];
@@ -87,5 +87,23 @@ test('failed email and invalid form inputs never enqueue a private job', async (
     assert.equal(calls.length, 0);
     assert.equal((await POST(request({ submissionType: 'exhibition', Name: 'Applicant', Email: 'test@example.test', 'Download Link': 'https://www.dropbox.com/a' }))).status, 502);
     assert.deepEqual(calls, ['https://api.resend.com/emails']);
+  });
+});
+
+test('a failed cloud wake preserves email success and the private queue without forwarding applicant data to GitHub', async () => {
+  await configured({ SUBMISSIONS_CAPTURE_ENABLED: 'true', SUBMISSIONS_HMAC_KEY: 'x'.repeat(64), SUBMISSIONS_SUPABASE_URL: 'https://private-test.supabase.co', SUBMISSIONS_SUPABASE_SECRET_KEY: 'sb_secret_synthetic', SUBMISSIONS_WORKER_WAKE_ENABLED: 'true', SUBMISSIONS_GITHUB_ACTIONS_TOKEN: 'synthetic-github-token', VERCEL_ENV: 'production' }, async () => {
+    const calls = [], logged = [], originalError = console.error;
+    console.error = value => logged.push(value);
+    globalThis.fetch = async (url, options) => {
+      calls.push(url);
+      if (url.endsWith('/dispatches')) { assert.deepEqual(JSON.parse(options.body), { ref: 'main' }); return new Response('{}', { status: 503 }); }
+      if (url.startsWith('https://api.github.com/')) return new Response('{"state":"active"}');
+      return new Response('{}');
+    };
+    try {
+      const response = await POST(request({ submissionType: 'exhibition', Name: 'Applicant', Email: 'private@example.test', 'Download Link': 'https://www.dropbox.com/private' }));
+      assert.equal(response.status, 200); assert.equal(calls.length, 4);
+      assert.deepEqual(logged, ['FINDART_SUBMISSION_WORKER_WAKE_FAILED_QUEUE_PRESERVED']);
+    } finally { console.error = originalError; }
   });
 });

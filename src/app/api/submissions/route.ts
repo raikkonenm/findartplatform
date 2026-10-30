@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { captureEnabled, captureSubmission, makeReceipt } from "../../../../scripts/submissions/intake.mjs";
+import { wakeSubmissionWorker } from "../../../../scripts/submissions/wake.mjs";
 
 // All submissions and inquiries route to a single mailbox.
 const SUBMISSION_RECIPIENT = "raikkonenmaria7@gmail.com";
@@ -214,12 +215,18 @@ export async function POST(request: Request) {
   }
 
   if (receipt) {
+    let captured = false;
     try {
       await captureSubmission({ id: receipt.id, type: submissionType, fields: payload }, process.env);
+      captured = true;
     } catch {
       // Email has already succeeded. Preserve form success/payment redirect;
       // the filtered Gmail adapter can recover the signed notification later.
       console.error("FINDART_SUBMISSION_CAPTURE_FAILED_EMAIL_FALLBACK");
+    }
+    if (captured) {
+      try { await wakeSubmissionWorker(process.env); }
+      catch { console.error("FINDART_SUBMISSION_WORKER_WAKE_FAILED_QUEUE_PRESERVED"); }
     }
   }
 

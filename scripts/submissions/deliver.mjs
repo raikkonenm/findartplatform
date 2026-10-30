@@ -43,7 +43,7 @@ export async function deliverDraft(job, { store, client, directory, sleep = paus
     delivery.steps[index] = { ...delivery.steps[index], status: 'complete', receipt: confirmed };
     await store.save(job, 'sending');
     const expected = file ? pack.files[step.fileIndex] : null;
-    if (expected ? confirmed.kind !== 'document' || confirmed.filename !== expected.filename || confirmed.bytes !== expected.bytes : confirmed.textHash !== hash(step.fields.text)) {
+    if (expected ? confirmed.kind !== 'document' || confirmed.filename !== expected.filename || confirmed.bytes !== expected.bytes || (expected.kind === 'image' && confirmed.mimeType !== 'image/jpeg') : confirmed.textHash !== hash(step.fields.text)) {
       job.error_code = 'TELEGRAM_RECEIPT_MISMATCH'; await store.save(job, 'review'); return { review: true };
     }
     await sleep(1200);

@@ -62,8 +62,13 @@ export async function collectMaterials(payload, { directory, env = {}, gmail, do
   }
   await writeFile(path.join(directory, 'incoming.json'), JSON.stringify(incoming));
   if (!extract) return { incoming, warnings };
+  return extractCollected(directory, env, warnings);
+}
+
+export async function extractCollected(directory, env = {}, downloadWarnings = []) {
   const script = path.resolve(import.meta.dirname, 'extract_materials.py');
   await new Promise((resolve, reject) => execFile(env.SUBMISSIONS_PYTHON || 'python', [script, directory], { timeout: 45000, maxBuffer: 16000, windowsHide: true }, error => error ? reject(new Error('MATERIAL_EXTRACTION_PROCESS_FAILED')) : resolve()));
   const extracted = JSON.parse(await readFile(path.join(directory, 'extracted.json'), 'utf8'));
-  return { ...extracted, warnings: [...warnings, ...extracted.warnings], incomingCount: incoming.length };
+  const incoming = JSON.parse(await readFile(path.join(directory, 'incoming.json'), 'utf8'));
+  return { ...extracted, warnings: [...downloadWarnings, ...extracted.warnings], downloadWarnings, incomingCount: incoming.length };
 }

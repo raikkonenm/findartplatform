@@ -13,9 +13,10 @@ export function textChunks(text, limit = 3800) {
   if (chunk) chunks.push(chunk);
   return chunks;
 }
-export async function prepareSubmission(payload, { directory, env, gmail, reviewedAnalysis, collect = collectMaterials, analyse = analyseSubmission } = {}) {
+export async function prepareSubmission(payload, { directory, env, gmail, reviewedAnalysis, collect = collectMaterials, analyse = analyseSubmission, onMaterials } = {}) {
   await mkdir(directory, { recursive: true });
   const materials = await collect(payload, { directory, env, gmail });
+  if (onMaterials) await onMaterials(materials);
   const sources = sourceDocuments(payload, materials);
   if (sources.some(source => source.truncated)) materials.warnings.push({ code: 'AI_SOURCE_TEXT_TRUNCATED', source: 'Document size limit; full source remains in original material' });
   const rawAnalysis = reviewedAnalysis || await analyse(sources, payload.type, env);

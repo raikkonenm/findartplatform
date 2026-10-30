@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '3-58/5 * * * *'
   workflow_dispatch:
+    inputs:
+      test_job_id:
+        description: One existing private job UUID for an approved test; leave empty for normal processing
+        type: string
+        required: false
+        default: ''
 
 # Shared transport lock with published-content delivery. Payload/state remain
 # separate. No cancellation of a possibly in-flight Telegram request.
@@ -16,7 +22,7 @@ permissions:
 
 jobs:
   submissions:
-    if: vars.GMAIL_SUBMISSIONS_ENABLED == 'true' || vars.TELEGRAM_SUBMISSIONS_ENABLED == 'true'
+    if: (github.event_name == 'workflow_dispatch' && inputs.test_job_id != '' && vars.TELEGRAM_SUBMISSIONS_MANUAL_ENABLED == 'true') || vars.GMAIL_SUBMISSIONS_ENABLED == 'true' || vars.TELEGRAM_SUBMISSIONS_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -33,12 +39,27 @@ jobs:
       - run: npm ci
       - run: python -m pip install -r scripts/submissions/requirements.txt
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr
+      - name: Verify connections before the single approved test
+        if: github.event_name == 'workflow_dispatch' && inputs.test_job_id != ''
+        run: node scripts/submissions-connections.mjs
+        env:
+          SUBMISSIONS_SUPABASE_URL: ${{ secrets.SUBMISSIONS_SUPABASE_URL }}
+          SUBMISSIONS_SUPABASE_SECRET_KEY: ${{ secrets.SUBMISSIONS_SUPABASE_SECRET_KEY }}
+          SUBMISSIONS_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUBMISSIONS_SUPABASE_SERVICE_ROLE_KEY }}
+          SUBMISSIONS_HMAC_KEY: ${{ secrets.SUBMISSIONS_HMAC_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SUBMISSIONS_OPENAI_MODEL: ${{ vars.SUBMISSIONS_OPENAI_MODEL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       - name: Process private queue (aggregate counts only)
         run: node scripts/submissions-worker.mjs
         env:
           GMAIL_SUBMISSIONS_ENABLED: ${{ vars.GMAIL_SUBMISSIONS_ENABLED }}
           TELEGRAM_SUBMISSIONS_ENABLED: ${{ vars.TELEGRAM_SUBMISSIONS_ENABLED }}
+          TELEGRAM_SUBMISSIONS_MANUAL_ENABLED: ${{ vars.TELEGRAM_SUBMISSIONS_MANUAL_ENABLED }}
+          SUBMISSIONS_MANUAL_TEST_JOB_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.test_job_id || '' }}
           SUBMISSIONS_SUPABASE_URL: ${{ secrets.SUBMISSIONS_SUPABASE_URL }}
+          SUBMISSIONS_SUPABASE_SECRET_KEY: ${{ secrets.SUBMISSIONS_SUPABASE_SECRET_KEY }}
           SUBMISSIONS_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUBMISSIONS_SUPABASE_SERVICE_ROLE_KEY }}
           SUBMISSIONS_HMAC_KEY: ${{ secrets.SUBMISSIONS_HMAC_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

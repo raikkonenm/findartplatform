@@ -20,6 +20,9 @@ async function main() {
     return;
   }
   if (args.length) throw new Error('UNSUPPORTED_WORKER_OPTION');
-  console.log(JSON.stringify(await runWorker(process.env)));
+  const jobId = process.env.SUBMISSIONS_MANUAL_TEST_JOB_ID || undefined;
+  const result = await runWorker(process.env, { jobId });
+  console.log(JSON.stringify(result));
+  if (jobId && (!result.test?.complete || result.test?.uncertainSteps || result.test?.confirmedFiles !== result.test?.expectedFiles)) process.exitCode = 1;
 }
 main().catch(failClosed);

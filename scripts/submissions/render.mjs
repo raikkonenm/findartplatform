@@ -12,6 +12,7 @@ function personCredit(person, warnings) {
 }
 export function renderDraft(payload, analysis, materials = {}) {
   const { facts, type, editorial } = analysis;
+  if (type === 'exhibition' && (facts.eventRelationship === 'independent' || (facts.presentations?.length > 1 && facts.eventRelationship !== 'chapters'))) throw new Error('SEPARATE_EXHIBITIONS_REQUIRE_EDITORIAL_REVIEW');
   const warnings = [...analysis.warnings, ...(materials.warnings || []).map(item => `${item.code}: ${item.source}`)];
   const names = facts.artists.map(person => person.name);
   let heading = line(facts.title || (type === 'artist' ? names.join(' and ') : type === 'index' ? facts.organization : ''));
@@ -58,7 +59,7 @@ export function renderDraft(payload, analysis, materials = {}) {
   let text = '';
   if (editorial.text) {
     const quoted = editorial.mode === 'verbatim';
-    const selected = selectExcerpt(editorial.source, { preferred: editorial.preferred, budget: 2200 - base.join('\n\n').length - (quoted ? 4 : 2), sourceLabel: quoted ? 'Original curatorial prose' : 'AI draft summary' });
+    const selected = selectExcerpt(editorial.source, { preferred: editorial.preferred, budget: 2200 - base.join('\n\n').length - (quoted ? 4 : 2), sourceLabel: quoted ? 'Original curatorial prose' : 'AI draft summary', maximumSentences: 10 });
     warnings.push(...selected.warnings, ...selected.errors);
     if (selected.excerpt) text = quoted ? `“${selected.excerpt}”` : selected.excerpt;
   }
@@ -79,7 +80,7 @@ export function renderDraft(payload, analysis, materials = {}) {
     `Download links: ${providedLinks(payload).join('\n') || 'Not provided'}`,
     `Payment status: ${payload.type === 'contribute' ? 'Not required — free editorial form' : 'Not verified'}`,
     `Images obtained: ${(materials.images || []).length}`,
-    '', ...warnings.map(warning => `REVIEW: ${warning}`),
+    '', ...[...new Set(warnings)].map(warning => `REVIEW: ${warning}`),
   ].join('\n');
   return { status: 'editorial-draft', type, caption, card, warnings: [...new Set(warnings)], sourceEmail: email || '', approved: false };
 }
