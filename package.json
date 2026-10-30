@@ -6,6 +6,8 @@
     "telegram:export": "node scripts/telegram-export.mjs",
     "telegram:resend": "node scripts/telegram-export.mjs --resend",
     "test:telegram": "node --test scripts/telegram/*.test.mjs",
+    "test:submissions": "node --test scripts/submissions/*.test.mjs",
+    "submissions:dry-run": "node scripts/submissions-worker.mjs --dry-run",
     "dev": "next dev",
     "prebuild": "node scripts/generate-image-variants.js",
     "build": "next build",

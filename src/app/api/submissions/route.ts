@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { captureEnabled, captureSubmission, makeReceipt } from "../../../../scripts/submissions/intake.mjs";
 
 // All submissions and inquiries route to a single mailbox.
 const SUBMISSION_RECIPIENT = "raikkonenmaria7@gmail.com";
@@ -181,6 +182,11 @@ export async function POST(request: Request) {
 
   const text = fields.map((field) => `${field}:\n${payload[field]}`).join("\n\n");
   const subject = subjectFor(submissionType, payload);
+  // Disabled by default. A signed private receipt correlates the direct event
+  // with its email copy; applicant content is never sent to public GitHub state.
+  const receipt = captureEnabled(process.env) && ["exhibition", "artist", "contribute", "opportunity", "index"].includes(submissionType)
+    ? (() => { try { return makeReceipt(submissionType, payload, process.env.SUBMISSIONS_HMAC_KEY); } catch { return null; } })()
+    : null;
 
   try {
     const response = await fetch("https://api.resend.com/emails", {
@@ -194,7 +200,8 @@ export async function POST(request: Request) {
         to: [SUBMISSION_RECIPIENT],
         reply_to: payload.Email || undefined,
         subject,
-        text,
+        text: receipt ? `${text}\n\n${receipt.marker}` : text,
+        ...(receipt ? { headers: { "X-Findart-Submission-ID": receipt.id } } : {}),
       }),
       cache: "no-store",
     });
@@ -204,6 +211,16 @@ export async function POST(request: Request) {
     }
   } catch {
     return NextResponse.json({ error: "Unable to send submission." }, { status: 502 });
+  }
+
+  if (receipt) {
+    try {
+      await captureSubmission({ id: receipt.id, type: submissionType, fields: payload }, process.env);
+    } catch {
+      // Email has already succeeded. Preserve form success/payment redirect;
+      // the filtered Gmail adapter can recover the signed notification later.
+      console.error("FINDART_SUBMISSION_CAPTURE_FAILED_EMAIL_FALLBACK");
+    }
   }
 
   return NextResponse.json({ ok: true });
