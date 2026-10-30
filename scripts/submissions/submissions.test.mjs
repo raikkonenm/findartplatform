@@ -108,6 +108,20 @@ test('hallucinated facts and quotes are rejected; summaries remain unquoted and 
   assert.equal(validateAnalysis(summary, sources, 'artist').editorial.text, '');
 });
 
+test('separately dated exhibition chapters retain their own source-backed locations and opening dates', () => {
+  const text = 'Chapter One, City One, 12 March 2026 - 20 April 2026. Chapter Two, City Two, 14 March 2026 - 20 April 2026.';
+  const supported = value => ({ value, evidence: [{ sourceId: 'chapters', quote: text }] });
+  const raw = rawAnalysis();
+  raw.presentations = [['Chapter One','City One','12 March 2026'], ['Chapter Two','City Two','14 March 2026']].map(([title, city, startDate]) => ({ title: supported(title), city: supported(city), startDate: supported(startDate), endDate: supported('20 April 2026') }));
+  const verified = validateAnalysis(raw, [...sources, { id: 'chapters', text }], 'exhibition');
+  const draft = renderDraft({ type: 'exhibition', source: 'form', fields: {} }, verified, {});
+  assert.ok(draft.caption.includes('Chapter One, City One, 12 March - 20 April 2026'));
+  assert.ok(draft.caption.includes('Chapter Two, City Two, 14 March - 20 April 2026'));
+  assert.ok(draft.card.includes('Location: City One / City Two'));
+  raw.presentations[1].startDate.value = '15 March 2026';
+  assert.equal(validateAnalysis(raw, [...sources, { id: 'chapters', text }], 'exhibition').facts.presentations[1].startDate, '');
+});
+
 test('AI request has no tools, no persistent response storage and strict structured output', async () => {
   const output = rawAnalysis();
   const result = await analyseSubmission(sources, 'exhibition', { OPENAI_API_KEY: 'test', SUBMISSIONS_OPENAI_MODEL: 'configured-model' }, async (_url, options) => {
@@ -189,6 +203,16 @@ test('ZIP traversal and DOCX entities are rejected before writing outside the wo
   assert.equal(result.images.length, 0);
   assert.ok(result.warnings.some(warning => warning.code === 'ARCHIVE_UNSAFE_PATH'));
   assert.ok(result.warnings.some(warning => warning.code === 'DOCUMENT_XML_ENTITY_BLOCKED'));
+});
+
+test('Dropbox empty root directory metadata is ignored while absolute file paths remain blocked', async () => {
+  const jpeg = await sharp({ create: { width: 600, height: 500, channels: 3, background: '#abc123' } }).jpeg().toBuffer();
+  const root = { name: '/', bytes: Buffer.alloc(0) };
+  const valid = zipBytes([root, { name: 'installation.jpg', bytes: jpeg }]);
+  const unsafe = zipBytes([root, { name: '/installation.jpg', bytes: jpeg }]);
+  const { result } = await extractFixture([{ filename: 'dropbox.zip', bytes: valid }, { filename: 'absolute.zip', bytes: unsafe }]);
+  assert.deepEqual(result.images.map(image => image.filename), ['installation.jpg']);
+  assert.equal(result.warnings.filter(warning => warning.code === 'ARCHIVE_UNSAFE_PATH').length, 1);
 });
 
 test('PDF press-release text is read without executing embedded document content', async () => {

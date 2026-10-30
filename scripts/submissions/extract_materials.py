@@ -81,6 +81,11 @@ def safe_entries(archive):
     expanded = 0
     for entry in entries:
         name = entry.filename
+        # Dropbox folder downloads include a harmless empty root directory.
+        # It is metadata only, never a path to extract. Absolute files and all
+        # other unsafe paths remain rejected for the entire archive.
+        if name == '/' and entry.is_dir() and entry.file_size == 0 and not stat.S_ISLNK(entry.external_attr >> 16) and not entry.flag_bits & 1:
+            continue
         parts = PurePosixPath(name)
         if '\\' in name or parts.is_absolute() or '..' in parts.parts or re.match(r'^[A-Za-z]:', name): raise ValueError('ARCHIVE_UNSAFE_PATH')
         if stat.S_ISLNK(entry.external_attr >> 16) or entry.flag_bits & 1: raise ValueError('ARCHIVE_LINK_OR_ENCRYPTED')

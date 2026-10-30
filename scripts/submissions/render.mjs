@@ -24,13 +24,20 @@ export function renderDraft(payload, analysis, materials = {}) {
   for (const credit of facts.additionalCredits) addPeople(credit.role, credit.people);
   if (['opportunity','index'].includes(type) && facts.organization) credits.push(`Organization: ${line(facts.organization)}`);
   const location = [facts.city, facts.country].filter(Boolean).map(line).join(', ');
+  const exhibitionDates = (start, end) => {
+    if (!start || !end) return [start, end].filter(Boolean).map(line).join(' - ');
+    try { return dateRange(start, end); }
+    catch { warnings.push('EXHIBITION_DATES_REQUIRE_REVIEW'); return [start, end].map(line).join(' - '); }
+  };
   if (type === 'exhibition') {
-    let dates = '';
-    if (facts.startDate && facts.endDate) {
-      try { dates = dateRange(facts.startDate, facts.endDate); } catch { warnings.push('EXHIBITION_DATES_REQUIRE_REVIEW'); }
+    if (facts.presentations?.length > 1) {
+      const venue = [facts.gallery, facts.country].filter(Boolean).map(line).join(', ');
+      if (venue) credits.push(venue);
+      for (const presentation of facts.presentations) credits.push([presentation.title, presentation.city, exhibitionDates(presentation.startDate, presentation.endDate)].filter(Boolean).map(line).join(', '));
+    } else {
+      const venue = [facts.gallery, location, exhibitionDates(facts.startDate, facts.endDate)].filter(Boolean).join(', ');
+      if (venue) credits.push(venue);
     }
-    const venue = [facts.gallery, location, dates].filter(Boolean).join(', ');
-    if (venue) credits.push(venue);
     if (!names.length) warnings.push('ARTISTS_NOT_PROVIDED');
     if (!facts.photographers.length) warnings.push('PHOTO_CREDIT_NOT_PROVIDED');
   } else {
@@ -66,8 +73,8 @@ export function renderDraft(payload, analysis, materials = {}) {
     `Project / Exhibition: ${present(line(facts.title))}`,
     `Website: ${present(line(facts.website || payload.fields?.['Website URL'] || payload.fields?.['Website (optional)']))}`,
     `Instagram: ${present(line(facts.instagram || payload.fields?.Instagram || facts.artists.map(person => person.instagram).filter(Boolean).join(', ')))}`,
-    `Location: ${present(location || line(payload.fields?.Location))}`,
-    `Dates: ${present([facts.startDate, facts.endDate].filter(Boolean).map(line).join(' — ') || line(facts.deadline))}`,
+    `Location: ${present(facts.presentations?.length > 1 ? facts.presentations.map(presentation => line(presentation.city)).filter(Boolean).join(' / ') : location || line(payload.fields?.Location))}`,
+    `Dates: ${present(facts.presentations?.length > 1 ? facts.presentations.map(presentation => [presentation.title, presentation.city, exhibitionDates(presentation.startDate, presentation.endDate)].filter(Boolean).map(line).join(', ')).join('; ') : [facts.startDate, facts.endDate].filter(Boolean).map(line).join(' — ') || line(facts.deadline))}`,
     `Original submission: ${payload.source === 'gmail' ? 'Gmail message ' + payload.gmailMessageId : 'Website form ' + (payload.submissionId || '')}; original-submission.txt`,
     `Download links: ${providedLinks(payload).join('\n') || 'Not provided'}`,
     `Payment status: ${payload.type === 'contribute' ? 'Not required — free editorial form' : 'Not verified'}`,

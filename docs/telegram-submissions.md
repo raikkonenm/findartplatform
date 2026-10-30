@@ -57,6 +57,8 @@ Download support and explicit limits:
 
 Provided image order is preserved; duplicate bytes and technical icons/logos/thumbnails are excluded. The existing JPEG exporter copies original JPEG bytes unchanged, converts other supported photo formats at quality 95, 4:4:4, sRGB without resizing, and changes extensions to `.jpg`. Original website images are untouched. Each JPEG uses `sendDocument`, never compressed Telegram photos. ZIP parts contain the exact exported JPEG bytes and fit the existing upload limit.
 
+Dropbox ZIPs may contain a zero-byte `/` directory marker. This one metadata entry is ignored without extracting any absolute path; absolute file entries, traversal, links and encrypted entries remain blocked. For multi-location exhibitions, extract each separately dated presentation with its own evidenced title, city and date range. Preserve each chapter's opening date in both the administrative card and editorial credits; do not apply one city's date to every location. Unparseable date wording remains visible for review rather than being silently discarded.
+
 Delivery order is the administrative card, English editorial text, caption TXT, original submission TXT, JPEG documents, then JPEG ZIP part(s). All documents have the draft label as their Telegram caption. The caption TXT contains copy-ready editorial text and has `EDITORIAL-DRAFT` in its filename. The private administrative card includes the requested submission fields, original source reference, all available download links, warnings and actual obtained-image count.
 
 ## Checkpoints and recovery
