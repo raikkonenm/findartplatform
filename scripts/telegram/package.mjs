@@ -3,6 +3,7 @@ import { mkdir, readFile, realpath, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 import { contentCaption } from './content.mjs';
+import { exportJpegs, JPEG_POLICY } from './jpeg.mjs';
 
 export const UPLOAD_LIMIT = 49_000_000; // Below the hosted Bot API's 50 MB limit.
 export const hash = value => createHash('sha256').update(value).digest('hex');
@@ -39,19 +40,19 @@ export async function inventory(item, root) {
       if (seen.has(absolute)) continue;
       seen.add(absolute);
       const bytes = await readFile(absolute);
-      if (bytes.length > UPLOAD_LIMIT) errors.push(`Image exceeds document upload limit: ${selected}`);
       const meta = await sharp(bytes).metadata();
-      files.push({ index: files.length + 1, src: source.src, selected, path: absolute, filename: path.basename(absolute), bytes: bytes.length, sha256: hash(bytes), cover: source.cover, provenance, format: meta.format, width: meta.width, height: meta.height });
+      if (meta.pages > 1) throw new Error('Multi-frame images require review');
+      files.push({ index: files.length + 1, src: source.src, selected, path: absolute, filename: path.basename(absolute), bytes: bytes.length, sha256: hash(bytes), cover: source.cover, provenance, format: meta.format, width: meta.width, height: meta.height, orientation: meta.orientation });
     } catch { errors.push(`Missing, unsafe or unreadable image: ${source.originalSrc || source.src}`); }
   }
   if (!files.length) errors.push('No associated images available');
   const webp = files.filter(file => file.format === 'webp').length;
-  if (webp) warnings.push(`${webp} document(s) are available WebP website assets. Original uploads are not documented; no original-quality claim is made.`);
+  if (webp) warnings.push(`${webp} source image(s) are WebP website assets; export-only JPEG copies will be created. Original uploads are not documented.`);
   return { files, errors, warnings };
 }
 
-// Standard uncompressed ZIP32. The source bytes are stored unchanged; no image
-// conversion is involved. Each part is an independent, valid ZIP archive.
+// Standard uncompressed ZIP32. Each independent archive stores exactly the
+// exported JPEG document bytes, with no further image conversion.
 const CRC_TABLE = Array.from({ length: 256 }, (_, value) => {
   for (let i = 0; i < 8; i++) value = value & 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1;
   return value >>> 0;
@@ -89,34 +90,31 @@ export function archiveParts(files, limit = UPLOAD_LIMIT) {
   return parts;
 }
 
-export async function buildPackage(item, { root, output, includeZip = true, captionOnly = false }) {
-  const validation = contentCaption(item), images = captionOnly ? { files: [], errors: [], warnings: [] } : await inventory(item, root);
+export async function buildPackage(item, { root, output, includeZip = true, captionOnly = false, mediaOnly = false }) {
+  if (captionOnly && mediaOnly) throw new Error('Choose caption-only or media-only, not both');
+  const validation = mediaOnly ? { caption: '', warnings: [], errors: [], publicUrl: item.publicUrl } : contentCaption(item);
+  if (mediaOnly && item.social?.status !== 'published') validation.errors.push('Content is not explicitly marked published.');
+  if (mediaOnly && (!Number.isInteger(item.social?.revision) || item.social.revision < 1)) validation.errors.push('A positive publication revision is required.');
+  const images = captionOnly ? { files: [], errors: [], warnings: [] } : await inventory(item, root);
   validation.errors.push(...images.errors); validation.warnings.push(...images.warnings);
   const id = `${item.type}:${item.slug}`;
-  const semantic = captionOnly ? { format: 1, scope: 'caption-only', id, caption: validation.caption, publicUrl: validation.publicUrl } : { format: 1, id, caption: validation.caption, description: item.description, year: item.year, medium: item.medium, dimensions: item.dimensions, publicUrl: validation.publicUrl, galleryCaptions: (item.images || []).map(image => image.caption || ''), images: images.files.map(({ selected, sha256, cover }) => ({ selected, sha256, cover })) };
+  const imageIdentity = { imageExport: JPEG_POLICY, images: images.files.map(({ selected, sha256, cover }) => ({ selected, sha256, cover })) };
+  const semantic = captionOnly ? { format: 1, scope: 'caption-only', id, caption: validation.caption, publicUrl: validation.publicUrl } : mediaOnly ? { format: 2, scope: 'media-only', id, ...imageIdentity } : { format: 2, id, caption: validation.caption, description: item.description, year: item.year, medium: item.medium, dimensions: item.dimensions, publicUrl: validation.publicUrl, galleryCaptions: (item.images || []).map(image => image.caption || ''), ...imageIdentity };
   const revisionHash = fingerprint(semantic);
   const directory = path.resolve(output, item.type, item.slug, revisionHash.slice(0, 12));
-  await mkdir(path.join(directory, 'previews'), { recursive: true });
+  await mkdir(directory, { recursive: true });
   const captionPath = path.join(directory, `${item.slug}-caption.txt`);
-  await writeFile(captionPath, validation.caption, 'utf8');
-  const steps = [{ method: 'sendMessage', text: validation.caption }, { method: 'sendDocument', files: [{ path: captionPath, filename: path.basename(captionPath) }] }];
+  if (!mediaOnly) await writeFile(captionPath, validation.caption, 'utf8');
+  const steps = mediaOnly ? [] : [{ method: 'sendMessage', text: validation.caption }, { method: 'sendDocument', files: [{ path: captionPath, filename: path.basename(captionPath) }] }];
   if (captionOnly) {
     const report = { id, revision: item.social?.revision, revisionHash, status: item.social?.status ?? 'unmanaged', scope: 'caption-only', ready: validation.errors.length === 0, ...validation, images: [], steps };
     await writeFile(path.join(directory, 'payload.json'), JSON.stringify(report, null, 2), 'utf8');
     return { ...report, directory };
   }
-  for (const batch of groups(images.files)) steps.push({ method: batch.length === 1 ? 'sendDocument' : 'sendMediaGroup', mediaType: 'document', files: batch });
-  const previews = [];
-  for (const file of images.files.slice(0, 10)) {
-    try {
-      const target = path.join(directory, 'previews', `${String(file.index).padStart(3, '0')}-${path.parse(file.filename).name}.jpg`);
-      const ratio = file.width / file.height;
-      await sharp(await readFile(file.path)).rotate().resize({ width: 1280, height: 1280, fit: ratio > 20 || ratio < 0.05 ? 'contain' : 'inside', withoutEnlargement: true, background: '#ffffff' }).flatten({ background: '#ffffff' }).jpeg({ quality: 85 }).toFile(target);
-      previews.push({ path: target, filename: path.basename(target) });
-    } catch { validation.errors.push(`Could not produce photo preview for ${file.selected}`); }
-  }
-  if (previews.length) steps.push({ method: previews.length === 1 ? 'sendPhoto' : 'sendMediaGroup', mediaType: 'photo', files: previews });
-  validation.warnings.push('Preview JPEGs are lossy display copies; the document files remain unchanged.');
+  const exported = await exportJpegs(images.files, directory, UPLOAD_LIMIT);
+  images.files = exported.files; images.errors.push(...exported.errors);
+  validation.errors.push(...exported.errors); validation.warnings.push(...exported.warnings);
+  for (const file of images.files) steps.push({ method: 'sendDocument', mediaType: 'document', files: [file] });
   if (includeZip && images.files.length && !images.errors.length) {
     for (const [index, part] of archiveParts(images.files).entries()) {
       const target = path.join(directory, `${item.slug}-images-part-${String(index + 1).padStart(2, '0')}.zip`);
@@ -125,9 +123,9 @@ export async function buildPackage(item, { root, output, includeZip = true, capt
     }
   }
   const admin = [validation.publicUrl, `Content: ${id}`, `Revision: ${item.social?.revision ?? 'missing'} / ${revisionHash}`, `Images: ${images.files.length} unique document files; ${item.images?.length || 0} gallery entries; cover included first.`, item.type === 'artwork' ? `Year: ${item.year || 'unknown'}; Medium: ${item.medium || 'unknown'}; Dimensions: ${item.dimensions || 'unknown'}` : '', ...validation.warnings.map(warning => `Warning: ${warning}`), ...validation.errors.map(error => `REVIEW: ${error}`)].filter(Boolean).join('\n');
-  for (let start = 0; start < admin.length; start += 3500) steps.push({ method: 'sendMessage', text: admin.slice(start, start + 3500), administrative: true });
-  const report = { id, revision: item.social?.revision, revisionHash, status: item.social?.status ?? 'unmanaged', ready: validation.errors.length === 0, ...validation, images: images.files, steps };
+  if (!mediaOnly) for (let start = 0; start < admin.length; start += 3500) steps.push({ method: 'sendMessage', text: admin.slice(start, start + 3500), administrative: true });
+  const report = { id, revision: item.social?.revision, revisionHash, status: item.social?.status ?? 'unmanaged', scope: mediaOnly ? 'media-only' : 'full', imageExport: JPEG_POLICY, ready: validation.errors.length === 0, ...validation, images: images.files, steps };
   await writeFile(path.join(directory, 'payload.json'), JSON.stringify(report, null, 2), 'utf8');
-  await writeFile(path.join(directory, 'image-inventory.tsv'), ['Order\tFilename\tBytes\tSource\tSHA256', ...images.files.map(file => `${file.index}\t${file.filename}\t${file.bytes}\t${file.selected}\t${file.sha256}`)].join('\n'), 'utf8');
+  await writeFile(path.join(directory, 'image-inventory.tsv'), ['Order\tFilename\tBytes\tSource\tSourceSHA256\tJPEG_SHA256\tDimensions\tConverted', ...images.files.map(file => `${file.index}\t${file.filename}\t${file.bytes}\t${file.selected}\t${file.sourceSha256}\t${file.sha256}\t${file.width}x${file.height}\t${file.converted}`)].join('\n'), 'utf8');
   return { ...report, directory };
 }

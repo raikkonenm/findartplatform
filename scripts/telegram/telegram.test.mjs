@@ -9,6 +9,8 @@ import { buildPackage, groups, archiveParts, zipBytes, fingerprint } from './pac
 import { deliver, TelegramClient, FileLedger, GitHubLedger } from './delivery.mjs';
 import { deploymentEvent, latestProductionSha, liveDeliveryAllowed } from './deployment.mjs';
 import { sentenceCount } from './excerpts.mjs';
+import { exportJpegs, JPEG_POLICY } from './jpeg.mjs';
+import { multipartUpload } from './telegram-client.mjs';
 
 test('native multipart round-trip resolves every document and photo attachment to unchanged bytes', async () => {
   const directory = await mkdtemp(path.join(tmpdir(), 'findart-multipart-'));
@@ -211,7 +213,7 @@ test('caption-only update sends exactly text and identical TXT, without reading 
   assert.deepEqual(pack.steps.map(step => step.method), ['sendMessage', 'sendDocument']);
   assert.equal(pack.steps[0].text, await readFile(pack.steps[1].files[0].path, 'utf8'));
   assert.ok(!(await readdir(pack.directory)).some(name => /\.zip$/.test(name)));
-  assert.deepEqual(await readdir(path.join(pack.directory, 'previews')), []);
+  assert.ok(!(await readdir(pack.directory)).includes('previews'));
   const ledger = new FileLedger(path.join(output, 'ledger')); await ledger.load();
   const sent = [];
   const client = { chatId: '123', verifyPrivateChat: async () => {}, request: async (method, fields, files) => { sent.push({ method, fields, files }); return { message_id: sent.length }; } };
@@ -221,7 +223,7 @@ test('caption-only update sends exactly text and identical TXT, without reading 
   await ledger.close();
 });
 
-test('43+ photos: order, source bytes, preview selection, text and multipart plan', async () => {
+test('43+ photos: ordered JPEG documents, unchanged existing JPEG, no photo messages and JPEG ZIP', async () => {
   const root = await mkdtemp(path.join(tmpdir(), 'findart-telegram-'));
   await mkdir(path.join(root, 'public', 'gallery'), { recursive: true });
   const jpeg = await sharp({ create: { width: 20, height: 20, channels: 3, background: '#cccccc' } }).jpeg().toBuffer();
@@ -232,14 +234,33 @@ test('43+ photos: order, source bytes, preview selection, text and multipart pla
   const pack = await buildPackage(item, { root, output: path.join(root, 'output') });
   assert.equal(pack.ready, true); assert.equal(pack.images.length, 43);
   assert.equal(pack.images[0].filename, '1.jpg'); assert.equal(pack.images[0].cover, true);
-  assert.equal(pack.images.at(-1).filename, '43.webp');
-  assert.deepEqual(pack.steps.filter(step => step.mediaType === 'document').map(step => step.files.length), [10, 10, 10, 10, 3]);
-  assert.equal(pack.steps.find(step => step.mediaType === 'photo').files.length, 10);
+  assert.equal(pack.images.at(-1).filename, '43.jpg');
+  assert.deepEqual(pack.steps.filter(step => step.mediaType === 'document').map(step => step.files.length), Array(43).fill(1));
+  assert.ok(!pack.steps.some(step => ['sendPhoto', 'sendMediaGroup'].includes(step.method)));
+  for (const [index, file] of pack.images.entries()) {
+    assert.equal(file.filename, `${index + 1}.jpg`);
+    const metadata = await sharp(await readFile(file.path)).metadata();
+    assert.equal(metadata.format, 'jpeg'); assert.equal(metadata.width, 20); assert.equal(metadata.height, 20);
+    assert.equal(file.converted, index !== 0);
+    assert.equal(file.jpegQuality, index === 0 ? null : 95);
+  }
   assert.equal(await readFile(pack.steps[1].files[0].path, 'utf8'), pack.caption);
   assert.deepEqual(await readFile(pack.images[0].path), jpeg);
   assert.ok(pack.warnings.some(value => value.includes('WebP')));
   const archive = pack.steps.find(step => step.files?.[0].filename.endsWith('.zip'));
-  assert.ok((await readFile(archive.files[0].path)).length < 49_000_000);
+  const zip = await readFile(archive.files[0].path);
+  assert.ok(zip.length < 49_000_000);
+  let offset = 0;
+  for (const file of pack.images) {
+    assert.equal(zip.readUInt32LE(offset), 0x04034b50);
+    const size = zip.readUInt32LE(offset + 18), nameLength = zip.readUInt16LE(offset + 26), extra = zip.readUInt16LE(offset + 28);
+    const name = zip.subarray(offset + 30, offset + 30 + nameLength).toString();
+    assert.equal(name, `${String(file.index).padStart(3, '0')}/${file.filename}`);
+    const dataStart = offset + 30 + nameLength + extra;
+    assert.deepEqual(zip.subarray(dataStart, dataStart + size), await readFile(file.path));
+    offset = dataStart + size;
+  }
+  assert.deepEqual(await readFile(path.join(root, 'public/gallery/2.webp')), webp);
   const repeated = await buildPackage({ ...item, sortDate: 'unrelated feed ordering', social: { ...item.social, revision: 2 } }, { root, output: path.join(root, 'output') });
   assert.equal(pack.revisionHash, repeated.revisionHash, 'Revision bumps or feed sorting alone are not meaningful updates');
   await writeFile(path.join(root, 'public', 'gallery', '2.webp'), await sharp(jpeg).tint('#ff0000').webp().toBuffer());
@@ -258,6 +279,89 @@ test('ZIP parts stay under budget, preserve filenames and grouping handles singl
     assert.ok(data.length < 1000); assert.equal(data.readUInt32LE(0), 0x04034b50);
   }
   assert.deepEqual(groups(Array(21)).map(group => group.length), [10, 10, 1]);
+});
+
+test('WebP conversion uses JPEG quality 95, full chroma and oriented resolution without touching source', async () => {
+  const folder = await mkdtemp(path.join(tmpdir(), 'findart-jpeg-quality-'));
+  const pixels = Buffer.alloc(48 * 32 * 3);
+  for (let y = 0; y < 32; y++) for (let x = 0; x < 48; x++) { const i = (y * 48 + x) * 3; pixels[i] = x * 5; pixels[i + 1] = y * 7; pixels[i + 2] = (x + y) * 3; }
+  const source = await sharp(pixels, { raw: { width: 48, height: 32, channels: 3 } }).webp().withMetadata({ orientation: 6 }).toBuffer();
+  const sourcePath = path.join(folder, 'Installation View.webp'); await writeFile(sourcePath, source);
+  const result = await exportJpegs([{ index: 1, path: sourcePath, filename: 'Installation View.webp', selected: '/Installation View.webp', sha256: fingerprint('unused'), format: 'webp' }], folder, 49_000_000);
+  assert.ok(result.errors.some(error => /Source changed/.test(error)));
+  const { hash } = await import('./package.mjs');
+  const exported = await exportJpegs([{ index: 1, path: sourcePath, filename: 'Installation View.webp', selected: '/Installation View.webp', sha256: hash(source), format: 'webp' }], folder, 49_000_000);
+  assert.deepEqual(exported.errors, []);
+  const file = exported.files[0], bytes = await readFile(file.path), meta = await sharp(bytes).metadata();
+  assert.equal(file.filename, 'Installation View.jpg');
+  assert.equal(meta.format, 'jpeg'); assert.equal(meta.width, 32); assert.equal(meta.height, 48);
+  assert.equal(meta.chromaSubsampling, '4:4:4'); assert.equal(meta.isProgressive, false);
+  assert.equal(JPEG_POLICY.quality, 95);
+  const dqt = bytes.indexOf(Buffer.from([0xff, 0xdb]));
+  assert.ok(dqt > 0);
+  assert.deepEqual([...bytes.subarray(dqt + 5, dqt + 13)], [2, 1, 1, 1, 1, 1, 2, 1], 'The actual JPEG luminance table must encode quality 95');
+  const reference = await sharp(source).rotate().removeAlpha().raw().toBuffer();
+  const decoded = await sharp(bytes).removeAlpha().raw().toBuffer();
+  let squared = 0; for (let i = 0; i < reference.length; i++) squared += (reference[i] - decoded[i]) ** 2;
+  const psnr = 10 * Math.log10(255 ** 2 / (squared / reference.length));
+  assert.ok(psnr > 38, `JPEG conversion fidelity is too low: ${psnr} dB`);
+  assert.deepEqual(await readFile(sourcePath), source);
+  const limited = await exportJpegs([{ index: 1, path: sourcePath, filename: 'Installation View.webp', selected: '/Installation View.webp', sha256: hash(source), format: 'webp' }], folder, 50);
+  assert.ok(limited.errors.some(error => /upload limit/.test(error)));
+});
+
+test('existing JPEGs keep exact bytes and EXIF; JPEG documents have image/jpeg MIME', async () => {
+  const folder = await mkdtemp(path.join(tmpdir(), 'findart-jpeg-existing-'));
+  const source = await sharp({ create: { width: 48, height: 32, channels: 3, background: '#aabbcc' } }).jpeg({ quality: 83 }).withMetadata({ orientation: 6 }).toBuffer();
+  const sourcePath = path.join(folder, 'Original.jpeg'); await writeFile(sourcePath, source);
+  const { hash } = await import('./package.mjs');
+  const exported = await exportJpegs([{ index: 1, path: sourcePath, filename: 'Original.jpeg', selected: '/Original.jpeg', sha256: hash(source), format: 'jpeg' }], folder, 49_000_000);
+  assert.deepEqual(exported.errors, []);
+  const file = exported.files[0];
+  assert.equal(file.filename, 'Original.jpg'); assert.equal(file.converted, false);
+  assert.deepEqual(await readFile(file.path), source);
+  const upload = await multipartUpload('sendDocument', { chat_id: '123' }, [file], 'document');
+  const form = await new Request('http://localhost/upload', { method: 'POST', ...upload }).formData();
+  assert.equal(form.get('document').type, 'image/jpeg');
+  assert.equal(form.get('document').name, 'Original.jpg');
+  assert.equal(form.get('disable_content_type_detection'), 'true');
+});
+
+test('artwork media-only sends JPEGs and ZIP only and preserves colliding original basenames', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'findart-artwork-media-'));
+  await mkdir(path.join(root, 'public/photos'), { recursive: true });
+  const jpeg = await sharp({ create: { width: 30, height: 50, channels: 3, background: '#abcdef' } }).jpeg().toBuffer();
+  const png = await sharp({ create: { width: 40, height: 60, channels: 4, background: '#00000000' } }).png().toBuffer();
+  await writeFile(path.join(root, 'public/photos/Work.jpeg'), jpeg);
+  await writeFile(path.join(root, 'public/photos/Work.png'), png);
+  const item = { type: 'artwork', slug: 'sculpture', publicUrl: 'https://www.findartplatform.com/collect', coverImage: '/photos/Work.jpeg', images: [{ src: '/photos/Work.png' }], social: { status: 'published', revision: 1 } };
+  const pack = await buildPackage(item, { root, output: path.join(root, 'output'), mediaOnly: true });
+  assert.equal(pack.ready, true); assert.equal(pack.scope, 'media-only');
+  assert.deepEqual(pack.images.map(file => file.filename), ['Work.jpg', 'Work.jpg']);
+  assert.notEqual(pack.images[0].path, pack.images[1].path);
+  assert.deepEqual(await readFile(pack.images[0].path), jpeg);
+  const decoded = await sharp(await readFile(pack.images[1].path)).raw().toBuffer();
+  assert.ok(decoded.every(value => value === 255), 'Transparent source must flatten on white');
+  assert.ok(pack.steps.every(step => step.method === 'sendDocument' && step.files.length === 1));
+  assert.equal(pack.steps.length, 3);
+  assert.ok(pack.steps.at(-1).files[0].filename.endsWith('.zip'));
+  assert.ok(!(await readdir(pack.directory)).some(name => name.endsWith('.txt') || name === 'previews'));
+  const ledger = new FileLedger(path.join(root, 'ledger')); await ledger.load();
+  let sent = 0;
+  const client = { chatId: '123', verifyPrivateChat: async () => {}, request: async (method, fields, files) => {
+    assert.equal(method, 'sendDocument'); assert.equal(fields.text, undefined); assert.equal(files.length, 1);
+    assert.ok(/\.(jpg|zip)$/.test(files[0].filename));
+    return { message_id: ++sent, document: { file_name: files[0].filename, mime_type: files[0].filename.endsWith('.jpg') ? 'image/jpeg' : 'application/zip' } };
+  } };
+  await deliver(pack, { ledger, client, resendId: 'approved-media-only', sleep: async () => {} });
+  assert.equal(sent, 3);
+  assert.equal([...ledger.records.values()][0].steps[0].receipts[0].mimeType, 'image/jpeg');
+  await ledger.close();
+  await assert.rejects(buildPackage(item, { root, output: path.join(root, 'bad'), mediaOnly: true, captionOnly: true }), /not both/);
+  const draft = await buildPackage({ ...item, social: { status: 'draft' } }, { root, output: path.join(root, 'draft'), mediaOnly: true });
+  assert.equal(draft.ready, false);
+  assert.ok(draft.errors.some(error => /published/.test(error)));
+  assert.ok(draft.errors.some(error => /revision/.test(error)));
 });
 
 test('durable duplicate prevention, recovery, draft blocking and intentional resend', async () => {

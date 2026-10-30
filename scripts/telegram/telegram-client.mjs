@@ -18,7 +18,7 @@ export async function multipartUpload(method, params, files, mediaType) {
   }
   for (const [index, file] of files.entries()) {
     if (!file.filename || /["\r\n]/.test(file.filename)) throw new Error('Invalid upload filename');
-    const mime = mediaType === 'photo' || method === 'sendPhoto' ? 'image/jpeg' : 'application/octet-stream';
+    const mime = mediaType === 'photo' || method === 'sendPhoto' || /\.jpe?g$/i.test(file.filename) ? 'image/jpeg' : 'application/octet-stream';
     chunks.push(Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="${names[index]}"; filename="${file.filename}"\r\nContent-Type: ${mime}\r\n\r\n`));
     chunks.push(await readFile(file.path));
     chunks.push(Buffer.from('\r\n'));

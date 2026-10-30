@@ -30,6 +30,11 @@ on:
         type: boolean
         required: false
         default: false
+      media_only:
+        description: Send only JPEG documents and ZIP, without caption, TXT or previews
+        type: boolean
+        required: false
+        default: false
 
 # One writer for the durable ledger, including manual resends. Never cancel an
 # in-flight upload. Every scan includes all opted-in published content, so a

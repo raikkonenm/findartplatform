@@ -67,7 +67,7 @@ export class GitHubLedger {
 export { TelegramClient } from './telegram-client.mjs';
 
 function receiptsFor(result) {
-  return (Array.isArray(result) ? result : [result]).map(message => ({ messageId: message.message_id, kind: message.document ? 'document' : message.photo ? 'photo' : message.text ? 'text' : 'unknown', filename: message.document?.file_name, bytes: message.document?.file_size, textHash: message.text ? hash(message.text) : undefined }));
+  return (Array.isArray(result) ? result : [result]).map(message => ({ messageId: message.message_id, kind: message.document ? 'document' : message.photo ? 'photo' : message.text ? 'text' : 'unknown', filename: message.document?.file_name, bytes: message.document?.file_size, mimeType: message.document?.mime_type, textHash: message.text ? hash(message.text) : undefined }));
 }
 
 export async function deliver(pack, { client, ledger, resendId, resumeOnly = false, deploymentSha, sleep = pause }) {

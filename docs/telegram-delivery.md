@@ -40,12 +40,11 @@ When the automatic switch is off, repository-dispatch jobs are skipped. Manual d
 
 1. Exact caption text in one plain message, with no Markdown parse mode or extra commentary.
 2. UTF-8 caption TXT containing the identical string, without an added trailing newline.
-3. Cover and ordered gallery files as documents, deduplicated by actual local path. Groups contain at most ten; a remaining singleton uses `sendDocument`.
-4. A JPEG preview album: cover first, then up to nine gallery images in source order. A singleton uses `sendPhoto`. These are lossy previews, clearly separate from unchanged document bytes.
-5. Independent ZIP parts containing unchanged source bytes, each below 49,000,000 bytes. Original basenames are preserved inside ordered `001/`, `002/` directories. `--no-zip` omits this optional step for local preparation.
-6. Separate administrative text with the real public URL, content type, revision, counts, artwork fields where applicable and all warnings.
+3. Cover and ordered gallery files as **JPEG `.jpg` documents**, deduplicated by actual local path. Each image uses its own `sendDocument` request with `image/jpeg` MIME. Compressed photo messages and preview albums are not generated or sent.
+4. Independent ZIP parts containing the exact same exported JPEG bytes, each below 49,000,000 bytes. Original basenames (with `.jpg` extension) are preserved inside ordered `001/`, `002/` directories. `--no-zip` omits this optional step for local preparation.
+5. Separate administrative text with the real public URL, content type, revision, counts, artwork fields where applicable and all warnings.
 
-The 49 MB cap leaves headroom below the hosted Bot API's 50 MB document limit. An individual source image above the cap blocks delivery for review; it is not silently recompressed or omitted. Only local files under real `public/` are accepted; path traversal, remote media URLs, broken original paths and escaping symlinks block validation. WebP fallback is explicitly reported, never called original or lossless conversion.
+The 49 MB cap leaves headroom below the hosted Bot API's 50 MB document limit. An exported JPEG above the cap blocks delivery for review; it is not silently resized, recompressed at lower quality or omitted. Only local sources under real `public/` are accepted; path traversal, remote media URLs, broken original paths and escaping symlinks block validation. Existing JPEGs are copied byte-for-byte without recompression, including EXIF. WebP and other non-JPEG photos are converted to baseline sRGB JPEG at **quality 95, 4:4:4 chroma**, automatically oriented and flattened on white, without resizing. Conversion cannot recover detail absent from a lossy source. Names retain their original basenames with extension `.jpg`; indexed export folders prevent collisions. Source and exported hashes, formats and dimensions are recorded. Website assets are never modified.
 
 ## Manual commands
 
@@ -56,7 +55,7 @@ npm run telegram:resend -- exhibition ritual-for-happiness-gudwin --dispatch --s
 npm run test:telegram
 ```
 
-Dry-run is the default, and needs no secrets or network access. Output goes to ignored `.telegram-delivery/packages/<type>/<slug>/<fingerprint>/`: caption TXT, `image-inventory.tsv`, `payload.json`, JPEG previews and ZIPs; `run-report.json` summarizes validation. Outputs are never put under `public/`. Review artifacts in Actions expire after seven days; this expiry does not affect the permanent duplicate ledger.
+Dry-run is the default, and needs no secrets or network access. Output goes to ignored `.telegram-delivery/packages/<type>/<slug>/<fingerprint>/`: caption TXT, `image-inventory.tsv`, `payload.json`, JPEG documents and ZIPs; `run-report.json` summarizes validation. Outputs are never put under `public/`. Review artifacts in Actions expire after seven days; this expiry does not affect the permanent duplicate ledger.
 
 For explicitly requested exports of legacy publications without `social` metadata, `scripts/telegram/manual-publications.json` holds reviewed delivery-only metadata and its source references. Each entry must match the canonical hash of the entire existing catalog record; a changed record requires review. This manifest is used only for an explicitly selected manual item, never for automatic scans. Manual workflow runs use their selected workflow commit for the exporter and the verified Production SHA for website content, so an export branch can send existing publications without merging or deploying website changes.
 
@@ -67,6 +66,8 @@ GitHub's Run workflow UI also accepts content type, slug and a dry-run checkbox 
 To continue a partially delivered manual run after a code fix, fill its original numeric ID into `resume_run`, or use `--resume-run <original-run-id>` with the dispatch command. Resume mode requires the exact existing content/destination/plan checkpoint and cannot start a fresh delivery. Confirmed steps are skipped. A definite album attachment rejection can fall back to individually uploaded files, preserving bytes/names/order and checkpointing each file; uncertain outcomes never trigger this fallback.
 
 For an explicitly requested caption correction, use `--caption-only` (or the manual workflow's `caption_only` checkbox). Prepare and review the new text in dry-run first. This manual-only scope has exactly two delivery steps: the updated plain text and its identical UTF-8 TXT. It does not read or package source images, generate previews or ZIPs, or send an administrative message. It keeps the same serialized workflow, private-chat verification and durable API-receipt journal, with a separate caption-only fingerprint. Automatic and ordinary full-package sends remain unchanged.
+
+For an explicitly requested image-format update, use `--media-only` (or `media_only` in the manual workflow). It sends only individual JPEG documents followed by ZIP parts, with no caption, TXT, preview or administrative message. It has a separate image-only fingerprint bound to the ordered source hashes and JPEG export policy. It cannot be combined with caption-only mode. Ordinary full packages use the same permanent JPEG policy. The existing single-writer journal, private-chat checks, receipt checkpoints and automatic-delivery switch remain in force.
 
 ## Reliability and recovery
 
@@ -96,7 +97,8 @@ A failed checkpoint write also stops the run. Preserve the issue/comments and pr
 - `src/data/editorial.ts`: optional publication metadata and original media paths.
 - `scripts/telegram-export.mjs`: offline/manual/CI entry point and safe live gate.
 - `scripts/telegram/content.mjs`: existing-data adapters, captions, dates, verified credits and validation.
-- `scripts/telegram/package.mjs`: inventory, source preference, semantic fingerprint, previews, ZIPs and exact payload plan.
+- `scripts/telegram/package.mjs`: inventory, source preference, semantic fingerprint, JPEG ZIPs and exact payload plan.
+- `scripts/telegram/jpeg.mjs`: export-only JPEG conversion at quality 95, full resolution and byte-preserving reuse of existing JPEGs.
 - `scripts/telegram/delivery.mjs`: private destination check, bounded API retries and durable step checkpoints.
 - `scripts/telegram/telegram-client.mjs`: native-only Telegram client; JSON for non-file methods, trimmed secret inputs and sanitized transport errors.
 - `scripts/telegram/deployment.mjs`: successful-production event and manual publication verification.
