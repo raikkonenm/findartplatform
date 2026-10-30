@@ -35,11 +35,10 @@ function interest(text, count) {
   return Math.min(practice.length, 12) + Math.min(ideas.length, 12) * 1.5 + count * 1.2 - admin.length * 6;
 }
 
-export function selectExcerpt(text, { budget, preferred = '', sourceLabel = 'Original curatorial prose', maximumSentences = 7 } = {}) {
-  if (!Number.isInteger(maximumSentences) || maximumSentences < 5 || maximumSentences > 10) throw new Error('Invalid excerpt sentence limit');
+export function selectExcerpt(text, { budget, preferred = '', sourceLabel = 'Original curatorial prose' } = {}) {
   const warnings = [], errors = [];
   const preferredCount = sentenceCount(preferred);
-  if (preferred && preferredCount >= 5 && preferredCount <= maximumSentences && preferred.length <= budget && text.includes(preferred)) {
+  if (preferred && preferredCount >= 5 && preferredCount <= 7 && preferred.length <= budget && text.includes(preferred)) {
     return { excerpt: preferred, count: preferredCount, warnings, errors };
   }
   const blocks = proseBlocks(text);
@@ -49,7 +48,7 @@ export function selectExcerpt(text, { budget, preferred = '', sourceLabel = 'Ori
   const minimum = maximum < 5 ? maximum : 5;
   for (const { block, spans } of passages) {
     for (let start = 0; start < spans.length; start++) {
-      for (let count = Math.min(maximumSentences, spans.length - start); count >= Math.max(1, minimum); count--) {
+      for (let count = Math.min(7, spans.length - start); count >= Math.max(1, minimum); count--) {
         const excerpt = block.slice(spans[start].start, spans[start + count - 1].end);
         const paragraphStart = spans[start].start === 0 || /\n\s*\n\s*$/.test(block.slice(0, spans[start].start));
         const danglingStart = /^(?:In order to (?:perceive|understand) this|This|These|Those|Such|It|They|He|She|Through such)\b/i.test(excerpt);
@@ -65,7 +64,7 @@ export function selectExcerpt(text, { budget, preferred = '', sourceLabel = 'Ori
       : 'The available source excerpt cannot fit with all credits within 2,200 characters; editorial review is required.');
     return { excerpt: '', count: 0, warnings, errors };
   }
-  if (maximum < 5) warnings.push(`${sourceLabel} has only ${maximum} sentence(s) in its longest continuous passage; using the maximum available excerpt below the 5–${maximumSentences} sentence target.`);
+  if (maximum < 5) warnings.push(`${sourceLabel} has only ${maximum} sentence(s) in its longest continuous passage; using the maximum available excerpt below the 5–7 sentence target.`);
   if (preferred && preferredCount < 5 && maximum >= 5) warnings.push('Stored excerpt was shorter than five sentences; selected a continuous passage from the full original text.');
   return { excerpt: chosen.excerpt, count: chosen.count, warnings, errors };
 }

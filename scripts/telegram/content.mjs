@@ -79,16 +79,6 @@ export function dateRange(start, end) {
   return `${label(a)}${a.year !== b.year ? ` ${a.year}` : ''} - ${label(b)} ${b.year}`;
 }
 
-export function contentHeadline(item, names) {
-  let headline = item.title?.trim() || '';
-  if (item.type === 'exhibition' && names.length >= 4) { if (!/\(group exhibition\)$/i.test(headline)) headline += ' (GROUP EXHIBITION)'; }
-  else if (names.length) {
-    const joined = names.length < 3 ? names.join(' and ') : names.slice(0, -1).join(', ') + ' and ' + names.at(-1);
-    if (!(item.type === 'feature' && headline.toLowerCase() === joined.toLowerCase()) && !headline.toLowerCase().endsWith(` by ${joined.toLowerCase()}`)) headline += ` by ${joined}`;
-  }
-  return headline.toUpperCase();
-}
-
 export function contentCaption(item) {
   const errors = [], warnings = [];
   const social = item.social || {};
@@ -98,7 +88,12 @@ export function contentCaption(item) {
   if (!item.title?.trim() || /[\r\n]/.test(item.title)) errors.push('A single-line full title is required.');
   const people = social.artists || (item.artists || []).map(person => typeof person === 'string' ? { name: person } : person);
   const names = people.map(person => person.name).filter(Boolean);
-  const headline = contentHeadline(item, names);
+  let headline = item.title?.trim() || '';
+  if (item.type === 'exhibition' && names.length >= 4) { if (!/\(group exhibition\)$/i.test(headline)) headline += ' (GROUP EXHIBITION)'; }
+  else if (names.length) {
+    const joined = names.length < 3 ? names.join(' and ') : names.slice(0, -1).join(', ') + ' and ' + names.at(-1);
+    if (!(item.type === 'feature' && headline.toLowerCase() === joined.toLowerCase()) && !headline.toLowerCase().endsWith(` by ${joined.toLowerCase()}`)) headline += ` by ${joined}`;
+  }
   const description = (item.description || '').replace(/\r\n/g, '\n');
   let excerpt = '', excerptSource = '', preferred = '', excerptSentences = 0;
   if (social.translatedExcerpt) {

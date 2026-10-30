@@ -1,8 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "crons": [
-    { "path": "/api/submissions/worker-wake", "schedule": "0 3 * * *" }
-  ],
   "redirects": [
     {
       "source": "/:path*",
