@@ -164,7 +164,13 @@ function deliver_(config, key, packet, messageId, until) {
       try {
         if (step.link) blob = download_(step.link);
         else {
-          var file = step.attachment, data = file.body.data || Gmail.Users.Messages.Attachments.get('me', messageId, file.body.attachmentId).data;
+          var file = step.attachment, data;
+          try { data = file.body.data || Gmail.Users.Messages.Attachments.get('me', messageId, file.body.attachmentId).data; }
+          catch (_) {
+            state.readFailures = (state.readFailures || 0) + 1;
+            config.properties.setProperty(key, JSON.stringify(state));
+            return state.readFailures >= 3 ? { held: true } : { pending: true };
+          }
           blob = Utilities.newBlob(Utilities.base64DecodeWebSafe(data), file.mime, file.name);
         }
         blob = document_(blob);
@@ -181,7 +187,7 @@ function deliver_(config, key, packet, messageId, until) {
       return state.uncertain ? { held: true } : { pending: true };
     }
     var matches = blob ? result.document && result.document.file_name === blob.getName() && result.document.file_size === blob.getBytes().length && (blob.getContentType() !== 'image/jpeg' || result.document.mime_type === 'image/jpeg') : result.text === text;
-    state.ids.push(result.message_id); state.next = i + 1; state.failures = 0; delete state.inflight;
+    state.ids.push(result.message_id); state.next = i + 1; state.failures = 0; state.readFailures = 0; delete state.inflight;
     if (!matches) state.uncertain = true;
     config.properties.setProperty(key, JSON.stringify(state));
     if (!matches) return { held: true };

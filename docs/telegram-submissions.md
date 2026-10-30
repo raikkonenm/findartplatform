@@ -49,4 +49,6 @@ The existing GitHub Actions environment can perform one explicitly enabled **syn
 
 That transport test does **not** authorize or enable the Gmail account's timer. Only the owner's successful `setupAndEnable` run proves Google-side activation. Do not report the system as fully automatic until that step is confirmed.
 
+The controlled test on 30 October 2026 succeeded in [Actions run 41066684183](https://github.com/raikkonenm/findartplatform/actions/runs/41066684183): Telegram acknowledged one synthetic submission (message 221), one JPEG document (message 222, 1,691 bytes, `image/jpeg`) and one TXT document (message 223, 59 bytes, `text/plain`). The test flag was then disabled. No real applications were forwarded and no Google timer was enabled by that run.
+
 Official references: [Google time triggers](https://developers.google.com/apps-script/guides/triggers/installable), [Advanced Gmail service](https://developers.google.com/apps-script/advanced/gmail), [private Script Properties](https://developers.google.com/apps-script/guides/properties), [native image conversion](https://developers.google.com/apps-script/reference/base/blob#getAs(String)).

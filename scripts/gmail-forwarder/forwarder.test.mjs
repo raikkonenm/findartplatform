@@ -54,6 +54,17 @@ test('JPEG documents keep exact original bytes and filenames become jpg; unsuppo
   assert.equal(sent.length,1); assert.equal(sent[0].document,undefined); assert.match(sent[0].text,/could not be attached/);
 });
 
+test('a temporary Gmail attachment read failure resumes without marking its document delivered or repeating text', async () => {
+  let reads=0,sends=0;
+  const {api,properties}=await loadForwarder({Gmail:{Users:{Messages:{Attachments:{get:()=>{if(++reads===1)throw new Error('Temporary Gmail outage');return{data:Buffer.from('original document').toString('base64url')};}}}}},UrlFetchApp:{fetch:(_url,options)=>{
+    sends++;const blob=options.payload.document;
+    return response(blob?{message_id:sends,document:{file_name:blob.getName(),file_size:blob.getBytes().length,mime_type:blob.getContentType()}}:{message_id:sends,text:options.payload.text});
+  }}});
+  const config={token:'synthetic',chat:'12345',properties},packet={steps:[{text:'Original fields'},{attachment:{name:'statement.txt',mime:'text/plain',body:{attachmentId:'private-reference'}}}]};
+  assert.ok(api.deliver_(config,'P_read',packet,'id',Date.now()+10000).pending);assert.equal(sends,1);
+  assert.ok(api.deliver_(config,'P_read',packet,'id',Date.now()+10000).complete);assert.equal(sends,2);assert.equal(reads,2);
+});
+
 test('one Gmail source prevents duplicate copies and never marks mail read or forwards personal messages', async () => {
   const labels=[], sent=[], one=syntheticMessage(), two={...one,id:'duplicate-copy'};
   const personal=syntheticMessage(); personal.id='personal';personal.payload={...personal.payload,headers:[{name:'From',value:'personal@example.invalid'},{name:'Subject',value:'Hello'}]};
