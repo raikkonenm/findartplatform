@@ -330,7 +330,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
   {
     slug: "c-r-e-a-m-cash-rules-everything-around-me",
     social: {
-      status: "draft",
+      status: "published",
       revision: 1,
       language: "en",
       // Verbatim opening sentence of the ofluxo essay. The validator counts
@@ -338,13 +338,16 @@ const exhibitionSeeds: ExhibitionSeed[] = [
       // count); keeping a single sentence stays under the 1–3 cap. Longer-form
       // passage lives in `description`.
       excerpt: "Set in a former bank in Lima, C.R.E.A.M. (Cash Rules Everything Around Me) examines the material forms of global financial power (its bureaucracies, ledgers and currencies) and the counterfeit economies that unsettle its sovereignty.",
-      // Photo credit is not available on ofluxo (images attributed to
-      // "respective authors, photographers and, where applicable, the
-      // gallery"). The dry-run flags Missing Photo and keeps the item in
-      // editorial review — intended behavior per CLAUDE.md's "never silently
-      // drop credits" rule. Flip social.status to "published" and add a real
-      // Photo credit before approving a live send.
-      credits: [{ role: "Text", people: [{ name: "Elia-Rosa Guirous-Amasse" }] }],
+      // Photo credit documented at ofluxo as "respective authors, photographers
+      // and, where applicable, the gallery". No individual photographer is
+      // named, so the courtesy source — Mueve — is credited as Photo in the
+      // caption. Kept inside social.credits (not on the top-level `photographer`
+      // field) so no /photographers/mueve taxonomy page gets created; the real
+      // credit is a gallery-level courtesy, not an authored photo.
+      credits: [
+        { role: "Text", people: [{ name: "Elia-Rosa Guirous-Amasse" }] },
+        { role: "Photo", people: [{ name: "Mueve" }] },
+      ],
     },
     title: "C.R.E.A.M. (Cash Rules Everything Around Me)",
     venue: "Mueve",
