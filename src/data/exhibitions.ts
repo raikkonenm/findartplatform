@@ -147,6 +147,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "c-r-e-a-m-cash-rules-everything-around-me": ["GROUP SHOW", "INSTALLATION", "ARCHIVE", "OBJECTHOOD"],
   "spatenprobe": ["INSTALLATION", "MACHINE", "MATERIALITY", "ORGANIC SYSTEMS", "LABOR", "OBJECTHOOD"],
   "apis-mellifera-concerto": ["INSTALLATION", "SOUND", "NON-HUMAN", "TECHNOLOGY", "ANIMALITY", "ECOLOGY"],
   "clearview": ["MACHINE", "TECHNOLOGY", "INSTALLATION", "MATERIALITY", "TEXTILE", "ECOLOGY"],
@@ -322,6 +323,115 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: c-r-e-a-m-cash-rules-everything-around-me
+  // Source: ofluxo.net. User-attached cover (Mykolas Valantinas, escalator with
+  // Lithuanian 1000-litas note) is 01.webp; 02–45 are the ofluxo installation
+  // and work views in page order. social.status is "draft" until deploy flips it.
+  {
+    slug: "c-r-e-a-m-cash-rules-everything-around-me",
+    social: {
+      status: "draft",
+      revision: 1,
+      language: "en",
+      // Verbatim opening sentence of the ofluxo essay. The validator counts
+      // "." before whitespace as sentence terminators (so "U.S." inflates the
+      // count); keeping a single sentence stays under the 1–3 cap. Longer-form
+      // passage lives in `description`.
+      excerpt: "Set in a former bank in Lima, C.R.E.A.M. (Cash Rules Everything Around Me) examines the material forms of global financial power (its bureaucracies, ledgers and currencies) and the counterfeit economies that unsettle its sovereignty.",
+      // Photo credit is not available on ofluxo (images attributed to
+      // "respective authors, photographers and, where applicable, the
+      // gallery"). The dry-run flags Missing Photo and keeps the item in
+      // editorial review — intended behavior per CLAUDE.md's "never silently
+      // drop credits" rule. Flip social.status to "published" and add a real
+      // Photo credit before approving a live send.
+      credits: [{ role: "Text", people: [{ name: "Elia-Rosa Guirous-Amasse" }] }],
+    },
+    title: "C.R.E.A.M. (Cash Rules Everything Around Me)",
+    venue: "Mueve",
+    gallery: "Mueve",
+    city: "Lima",
+    country: "Peru",
+    year: "2026",
+    dates: "23 September — 18 October 2026",
+    startDate: "23 September 2026",
+    endDate: "18 October 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Miguel Aguirre",
+      "Priscilla Benyahia",
+      "Jimena Chávez Delion",
+      "Emilio Martínez Poppe",
+      "Mykolas Valantinas",
+    ],
+    curator: "Elia-Rosa Guirous-Amasse",
+    source: "ofluxo.net",
+    sourceUrl: "https://www.ofluxo.net/c-r-e-a-m-cash-rules-everything-around-me-group-exhibition-mueve-miraflores/",
+    description: `Set in a former bank in Lima, C.R.E.A.M. (Cash Rules Everything Around Me) examines the material forms of global financial power (its bureaucracies, ledgers and currencies) and the counterfeit economies that unsettle its sovereignty. Peru has been named the world's leading source of counterfeit U.S. dollars for over a decade, and in 2012 the U.S. Secret Service opened a permanent office in Lima. Here, every note that crosses a counter carries an unspoken question: is this the real thing, or its double?
+
+The exhibition is less an investigation into Lima's counterfeiting trade than an inquiry into the ontological questions that fake money raises. The counterfeit is not the exception to monetary authority but its mirror, a shadow epistemology that exposes how fragile that authority is. If the real and its copy have become indistinguishable, the deeper unrest is not about what is fake, but about why we agreed to believe any of it was real. Like identity in André Gide's Les Faux-Monnayeurs, currency is not a fixed truth but a performance sustained by agreement.
+
+The show draws on David Graeber's Debt: The First 5,000 Years, which challenges the myth that money arose from barter and argues that it emerged to enforce debt through the implicit threat of imperial violence. His student, the Guatemalan anthropologist Julio Linares, extends this argument in Decolonizing Money (2026). He calls for the dollar's abolition and a re-investigation of the systems it displaced, from Mesoamerican cacao to West African cowries, currencies whose value lay in their perishability.
+
+Five international artists excavate specific counterfeit histories, from the Andes to Kabylia, North America and the Baltics. Miguel Aguirre reproduces Turner's The Fighting Temeraire 1:1 in the palette of a twenty-pound note, exposing art-market and monetary valuation as twin fictions arbitrated by institutions with colonial roots. Priscilla Benyahia revives the forgotten history of the Kabyle jewelers of Aït-El-Arba, who struck fake gold louis from a mountain hideout, recasting forgery as an act of resistance that survives in wedding coins and dancers' belts. Jimena Chávez Delion traces the visual grammar of debt in Lima, from loan forms and security grilles to informal lending ads, and recreates the drying and ritual perforation of counterfeit notes. Emilio Martínez Poppe presents a 1:1 photograph of the view from a Philadelphia municipal employee's office window, paired with an engraved anonymous interview that brings city government to a human scale. Mykolas Valantinas enters the backroom of counterfeit production through the archives of his father, Ritis Valantinas, designer of Lithuania's first litas after the fall of the USSR, linking forgery to economic sovereignty and destabilization.
+
+Underlying the exhibition is a burning desire to explore collaborative, horizontal and less extractive economic systems. It surfaces most plainly in Polka Dots and…, by Benyahia and Chávez Delion, where chocolate coins exist only to be consumed collectively. The work evokes Bitcoin while rejecting its logic of accumulation, and in its refusal value dissolves through consumption rather than multiplying through scarcity.
+
+— Text: Elia-Rosa Guirous-Amasse`,
+    coverImage: localExhibitionImage("c-r-e-a-m-cash-rules-everything-around-me", "01.webp"),
+    previewImage: localExhibitionImage("c-r-e-a-m-cash-rules-everything-around-me", "01.webp"),
+    heroImage: localExhibitionImage("c-r-e-a-m-cash-rules-everything-around-me", "02.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "c-r-e-a-m-cash-rules-everything-around-me",
+      [
+        { filename: "01.webp", orientation: "vertical" },
+        { filename: "02.webp", orientation: "horizontal" },
+        { filename: "03.webp", orientation: "vertical" },
+        { filename: "04.webp", orientation: "horizontal" },
+        { filename: "05.webp", orientation: "vertical" },
+        { filename: "06.webp", orientation: "horizontal" },
+        { filename: "07.webp", orientation: "vertical" },
+        { filename: "08.webp", orientation: "horizontal" },
+        { filename: "09.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "horizontal" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "vertical" },
+        { filename: "17.webp", orientation: "vertical" },
+        { filename: "18.webp", orientation: "vertical" },
+        { filename: "19.webp", orientation: "horizontal" },
+        { filename: "20.webp", orientation: "vertical" },
+        { filename: "21.webp", orientation: "horizontal" },
+        { filename: "22.webp", orientation: "horizontal" },
+        { filename: "23.webp", orientation: "horizontal" },
+        { filename: "24.webp", orientation: "vertical" },
+        { filename: "25.webp", orientation: "vertical" },
+        { filename: "26.webp", orientation: "vertical" },
+        { filename: "27.webp", orientation: "horizontal" },
+        { filename: "28.webp", orientation: "horizontal" },
+        { filename: "29.webp", orientation: "vertical" },
+        { filename: "30.webp", orientation: "horizontal" },
+        { filename: "31.webp", orientation: "horizontal" },
+        { filename: "32.webp", orientation: "horizontal" },
+        { filename: "33.webp", orientation: "horizontal" },
+        { filename: "34.webp", orientation: "horizontal" },
+        { filename: "35.webp", orientation: "vertical" },
+        { filename: "36.webp", orientation: "horizontal" },
+        { filename: "37.webp", orientation: "vertical" },
+        { filename: "38.webp", orientation: "vertical" },
+        { filename: "39.webp", orientation: "vertical" },
+        { filename: "40.webp", orientation: "vertical" },
+        { filename: "41.webp", orientation: "vertical" },
+        { filename: "42.webp", orientation: "horizontal" },
+        { filename: "43.webp", orientation: "horizontal" },
+        { filename: "44.webp", orientation: "horizontal" },
+        { filename: "45.webp", orientation: "horizontal" },
+      ],
+    ),
+  },
+  // AI_INGEST_END: c-r-e-a-m-cash-rules-everything-around-me
   {
     slug: "spatenprobe",
     title: "Spatenprobe",
