@@ -18,3 +18,4 @@ npm-debug.log*
 !.claude/skills/
 .claude/skills/*
 !.claude/skills/telegram-export/
+!.claude/skills/ingest-exhibition/
