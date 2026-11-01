@@ -62,10 +62,20 @@ AI ingest: <Title> — <Venue>, <City> <Year> [<slug>]
 Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>
 ```
 
-Push to main. Vercel builds, succeeds, dispatches `vercel.deployment.success`, the telegram workflow fires, bot sends. Report back to the user with:
+Push to main.
+
+Immediately after the push, trigger the Telegram workflow directly — do NOT rely on Vercel's `vercel.deployment.success` repository_dispatch, which is unreliable in this project. If a local `.env.telegram` exists (gitignored, contains `GITHUB_REPOSITORY` and a GitHub token with `actions:write`), run:
+
+```
+node --env-file=.env.telegram scripts/telegram-export.mjs exhibition <slug> --dispatch --send
+```
+
+That POSTs to the workflow dispatch endpoint; the hosted runner then takes over, re-validates with the published SHA, and sends to the bot. If `.env.telegram` is missing, tell the user once what to put in it (two lines: `GITHUB_REPOSITORY=raikkonenm/findartplatform` and `GITHUB_TOKEN=<fine-grained PAT with Actions:write + Contents:read on this repo>`), and remind them this is a one-time setup — after it exists the dispatch step runs on every ingest with no further action.
+
+Report back to the user with:
 
 1. Live URL on findartplatform.com.
 2. Dry-run summary (image count, delivery steps, any warnings — not errors, those blocked the commit).
-3. Expected bot timing (~1–2 min Vercel build + ~1 min workflow).
+3. Dispatch result: either "workflow dispatched, bot sends in ~1 min" or "`.env.telegram` missing, set it up once as above."
 
 Do NOT ingest if the source material is non-English and the user has not provided a verified English `translatedExcerpt` — the exporter blocks this correctly, and inventing a translation violates CLAUDE.md. Do NOT ingest if the images are not accessible (Cloudflare 403 on every URL, broken paths) — ask the user to attach them manually. Do NOT invent artist names, dates, or photographers; stop and ask when a required field is missing from the source.
