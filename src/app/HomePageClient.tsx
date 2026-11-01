@@ -4,7 +4,7 @@ import { Suspense, useCallback, useState, useMemo, useRef, useEffect, type React
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { exhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
+import { exhibitions, homepageExhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { LazyBannerVideo } from "@/components/LazyBannerVideo";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { LatestOpportunities } from "@/components/LatestOpportunities";
@@ -1179,7 +1179,7 @@ export default function HomePageClient({
 
   const filtered = useMemo(
     () => {
-      return exhibitions.filter((ex) => {
+      return (showFeaturedBanners ? homepageExhibitions : exhibitions).filter((ex) => {
         // Art objects (single-work Instagram-style posts) belong only in
         // the homepage feed. The /exhibitions archive index is the
         // canonical list of actual exhibitions and must exclude them.
@@ -1223,32 +1223,6 @@ export default function HomePageClient({
     },
     [location, year, tag, onViewOnly, nowMs, search, showFeaturedBanners],
   );
-
-  // Homepage-only pins (dense grid, 5-col desktop → flat index →
-  //   col = idx % 5, row = floor(idx / 5)):
-  //   0  →  row 1 pos 1  →  Preserved, Unfixed (full install card)
-  //   6  →  row 2 pos 2  →  Preserved, Unfixed poster-announcement
-  // On /exhibitions these pins don't apply — natural sort wins.
-  const feedExhibitions = useMemo(() => {
-    if (!showFeaturedBanners) return filtered;
-    const PINS: Array<{ slug: string; index: number }> = [
-      { slug: "preserved-unfixed-bachurina", index: 0 },
-      { slug: "companions-act-i", index: 1 },
-      { slug: "preserved-unfixed-poster", index: 6 },
-    ];
-    const next = filtered.slice();
-    // Splice from the lowest final index upward so later splices
-    // target slots that are already stable after prior insertions.
-    const sorted = [...PINS].sort((a, b) => a.index - b.index);
-    for (const pin of sorted) {
-      const currentIdx = next.findIndex((ex) => ex.slug === pin.slug);
-      if (currentIdx === -1) continue;
-      const [item] = next.splice(currentIdx, 1);
-      const insertAt = Math.min(pin.index, next.length);
-      next.splice(insertAt, 0, item);
-    }
-    return next;
-  }, [filtered, showFeaturedBanners]);
 
   const tagOptions: SelectedTag[] = ["ALL", ...semanticTags];
   const desktopLocationLabel =
@@ -1518,7 +1492,7 @@ export default function HomePageClient({
           </p>
         ) : (
           <MasonryGrid
-            exhibitions={feedExhibitions}
+            exhibitions={filtered}
             eagerCount={1}
             initialIsMobile={initialIsMobile}
             density={density}

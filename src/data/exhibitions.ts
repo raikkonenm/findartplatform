@@ -9060,24 +9060,91 @@ const HOMEPAGE_ORDER = [
 
 const homepageOrderIndex = new Map<string, number>(HOMEPAGE_ORDER.map((slug, index) => [slug, index]));
 
-export const exhibitions: Exhibition[] = [...mappedExhibitions].sort((first, second) => {
-  const firstIndex = homepageOrderIndex.get(first.slug);
-  const secondIndex = homepageOrderIndex.get(second.slug);
+// Save the current Explore sequence as publication history, rather than pinning
+// individual cards to grid positions. New seeds remain unlisted and appear above
+// this history automatically. The exhibitions archive keeps its original order.
+const EXPLORE_PUBLISHED_ORDER = [
+  "preserved-unfixed-bachurina",
+  "companions-act-i",
+  "rubenbladder-scott-galvan-macco-oaxaca-mexico",
+  "c-r-e-a-m-cash-rules-everything-around-me",
+  "spatenprobe",
+  "apis-mellifera-concerto",
+  "preserved-unfixed-poster",
+  "clearview",
+  "ausgeweidet-gutted",
+  "hat-happens-on-earth-stays-on-earth",
+  "living-collapse",
+  "i-am-just-a-dog",
+  "besides-bodies",
+  "keeping-the-peels",
+  "what-holds",
+  "within-and-for-each-other",
+  "intolerance",
+  "larval-tears",
+  "glimmer",
+  "unzucht-kiss-the-devil-s-arse",
+  "suculenta-arana",
+  "p-r-i-m-o-r-d-i-a",
+  "the-word-for-world-is-poem",
+  "chronic-inflammation-adler",
+  "dead-letter-office-benta",
+  "common-skin-fantasy-bilbao-moros",
+  "inner-licht-iacolare",
+  "ghosts-and-gods-stoklosa-alix-tabeling",
+  "ritual-for-happiness-gudwin",
+  "acacia-bloom",
+  "cosmologies-at-play",
+  "eureka-by-koesy",
+  "the-solemnity-of-the-repulsive",
+  "kin-too",
+  "as-the-sap-rises",
+  "the-spirit-is-willing-but-the-flesh-is-weak",
+  "dog-and-angel",
+  "the-creeper-in-the-dusk",
+  "rama-torcida-paulina-mellado",
+  "subsurface-povilanskaite-schweers",
+  "mouth-sarah-friend",
+  "the-jewel-box-nanna-starck",
+  "nexus-open-studio-anais-gauthier",
+  "ancient-girl-starter-pack-mikulas-zimula",
+  "a-flower-is-growing-inside-me-nils-alix-tabeling",
+  "alex-upcoming-series",
+  "bunny-bunker-no-1-lizzy",
+  "flood-hannah-rowan",
+  "i-see-you-falling-in-my-den-andrea-ferrero",
+  "koesy-between-reality-and-virtual",
+  "signal-v-runtak-collection",
+  "fight-or-flight-sex-bethanien",
+  "the-room-is-empty-but-pregnant-xue-ying",
+  "call-me-gravity-wiels",
+  ...HOMEPAGE_ORDER,
+] as const;
 
-  if (firstIndex !== undefined && secondIndex !== undefined) {
-    return firstIndex - secondIndex;
-  }
-  // New exhibitions whose slug is not yet listed in HOMEPAGE_ORDER float to the
-  // top of the feed automatically. Slugs that ARE in HOMEPAGE_ORDER always stay
-  // in their fixed positions — adding a new exhibition never moves them.
-  // Convention: new seeds go at the top of exhibitionSeeds; among two "unlisted"
-  // seeds, the earlier position in exhibitionSeeds wins (Array.prototype.sort is
-  // stable), so the most recently added seed appears first.
-  if (firstIndex !== undefined) return 1;
-  if (secondIndex !== undefined) return -1;
+const exploreOrderIndex = new Map<string, number>(EXPLORE_PUBLISHED_ORDER.map((slug, index) => [slug, index]));
 
-  return 0;
-});
+function byPublishedOrder(order: ReadonlyMap<string, number>) {
+  return (first: Exhibition, second: Exhibition) => {
+    const firstIndex = order.get(first.slug);
+    const secondIndex = order.get(second.slug);
+
+    if (firstIndex !== undefined && secondIndex !== undefined) {
+      return firstIndex - secondIndex;
+    }
+    // Unlisted exhibitions appear before the saved publication history. Listed
+    // exhibitions retain their relative order and move down as new seeds arrive.
+    // Convention: new seeds go at the top of exhibitionSeeds; among two "unlisted"
+    // seeds, the earlier position in exhibitionSeeds wins (Array.prototype.sort is
+    // stable), so the most recently added seed appears first.
+    if (firstIndex !== undefined) return 1;
+    if (secondIndex !== undefined) return -1;
+
+    return 0;
+  };
+}
+
+export const exhibitions: Exhibition[] = [...mappedExhibitions].sort(byPublishedOrder(homepageOrderIndex));
+export const homepageExhibitions: Exhibition[] = [...mappedExhibitions].sort(byPublishedOrder(exploreOrderIndex));
 
 export function getExhibition(slug: string) {
   return exhibitions.find((exhibition) => exhibition.slug === slug);
