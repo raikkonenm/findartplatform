@@ -15,10 +15,27 @@ type IndexEntry = {
   subtitle: string;
   kind: "video" | "carousel";
   media: string | string[];
+  poster?: string;
   fit?: "cover" | "contain";
 };
 
 const ENTRIES: IndexEntry[] = [
+  {
+    name: "JENNA SUTELA",
+    href: "https://jennasutela.com/",
+    subtitle: "jennasutela.com",
+    kind: "video",
+    media: "/directory/jenna-sutela.web.mp4",
+    poster: "/directory/jenna-sutela.webp",
+  },
+  {
+    name: "ALEXANDRA DAISY GINSBERG",
+    href: "https://www.daisyginsberg.com/",
+    subtitle: "daisyginsberg.com",
+    kind: "video",
+    media: "/directory/daisy-ginsberg.web.mp4",
+    poster: "/directory/daisy-ginsberg.webp",
+  },
   {
     name: "IRENE MOLINA",
     href: "https://irenemolina.xyz/",
@@ -236,6 +253,7 @@ function DirectoryCard({ entry }: { entry: IndexEntry }) {
               loop
               playsInline
               preload="metadata"
+              poster={entry.poster}
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025]"
             >
               <source src={entry.media as string} type="video/mp4" />
