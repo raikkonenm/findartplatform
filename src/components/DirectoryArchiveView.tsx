@@ -21,6 +21,38 @@ type IndexEntry = {
 
 const ENTRIES: IndexEntry[] = [
   {
+    name: "KATJA NOVITSKOVA",
+    href: "https://www.katjanovitskova.com/",
+    subtitle: "katjanovitskova.com",
+    kind: "video",
+    media: "/directory/katja-novitskova.web.mp4",
+    poster: "/directory/katja-novitskova.webp",
+  },
+  {
+    name: "SOFT OPENING",
+    href: "https://www.softopening.london/",
+    subtitle: "softopening.london",
+    kind: "video",
+    media: "/directory/soft-opening.web.mp4",
+    poster: "/directory/soft-opening.webp",
+  },
+  {
+    name: "SOFIA CRESPO",
+    href: "https://sofiacrespo.com/",
+    subtitle: "sofiacrespo.com",
+    kind: "video",
+    media: "/directory/sofia-crespo.web.mp4",
+    poster: "/directory/sofia-crespo.webp",
+  },
+  {
+    name: "THEO TRIANTAFYLLIDIS",
+    href: "https://slimetech.org/",
+    subtitle: "slimetech.org",
+    kind: "video",
+    media: "/directory/slimetech.web.mp4",
+    poster: "/directory/slimetech.webp",
+  },
+  {
     name: "JENNA SUTELA",
     href: "https://jennasutela.com/",
     subtitle: "jennasutela.com",
