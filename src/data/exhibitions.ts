@@ -147,6 +147,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "rubenbladder-scott-galvan-macco-oaxaca-mexico": ["MATERIALITY", "OBJECTHOOD", "ANIMALITY", "DOMESTICITY", "HYBRID BODIES"],
   "c-r-e-a-m-cash-rules-everything-around-me": ["GROUP SHOW", "INSTALLATION", "ARCHIVE", "OBJECTHOOD"],
   "spatenprobe": ["INSTALLATION", "MACHINE", "MATERIALITY", "ORGANIC SYSTEMS", "LABOR", "OBJECTHOOD"],
   "apis-mellifera-concerto": ["INSTALLATION", "SOUND", "NON-HUMAN", "TECHNOLOGY", "ANIMALITY", "ECOLOGY"],
@@ -323,6 +324,69 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: rubenbladder-scott-galvan-macco-oaxaca-mexico
+  // Source: ofluxo.net. User-attached cover (sculptural head with pink sock,
+  // orange eyes, prosthetic hook) is 01.webp; 02–16 are the ofluxo installation
+  // and work views in page order. Photographer Pacu named at source.
+  {
+    slug: "rubenbladder-scott-galvan-macco-oaxaca-mexico",
+    social: {
+      status: "published",
+      revision: 1,
+      language: "en",
+      // Verbatim opening sentence of the essay. One real sentence terminator
+      // ("City.") → 1 counted, well under the validator's 1–3 cap.
+      excerpt: "I wait for Scott Galván to return from the kitchen at his luminous studio in downtown of Mexico City.",
+      credits: [{ role: "Text", people: [{ name: "Violeta Celis" }] }],
+    },
+    title: "RUBENBLADDER",
+    subtitle: "Scott Galván",
+    venue: "MACCO",
+    gallery: "MACCO",
+    city: "Oaxaca",
+    country: "Mexico",
+    year: "2026",
+    dates: "16 July — 1 November 2026",
+    startDate: "16 July 2026",
+    endDate: "1 November 2026",
+    dateSource: "exhibition",
+    artists: ["Scott Galván"],
+    curator: "Violeta Celis",
+    photographer: "Pacu",
+    source: "ofluxo.net",
+    sourceUrl: "https://www.ofluxo.net/rubenbladder-scott-galvan-macco-oaxaca-mexico/",
+    description: `I wait for Scott Galván to return from the kitchen at his luminous studio in downtown of Mexico City. He brings a cup of coffee and pauses at the image of two cats: "it is unclear exactly what they are looking at, one gazes at the ground, the other at the abyss". There is a comic undertone to it; their eyes seem to belong to another place. Further down, a canvas emulates the laconic movement of those two figures; their bristling fur is rendered through a graphic gesture that softly mutates into paint. "Riña de Gatos" by Francisco de Goya is an oil painting that suggests a conflict between two felines; but for Scott, it signifies the exact opposite: the fear inherent in immediate emotional relationships. His work subverts the most traditional perception of the pictorial problem; because it is not merely painting, but also drawing and relief, it is object that overflows space, all within the same instant of the multiverse. His narratives are unfoldings that open winks to pop culture, insects transformed into carnival rides in neighborhood fairs with laminated frames that evoke the windows of that other orange worm of the urban underworld. A voracity of images contained within a single one. A scrolling perspective precedes the placement of caterpillars and butterflies, or the fascination with the media representation of cats.
+
+Rubenbladder is a project comprising new work for MACCO in Oaxaca. The title responds to a wordplay that might find its reference in layers of collective imaginaries, where the artist makes his own interests and motifs coincide. A recurring strategy of stridencies, parallels, and dark humor that confronts the viewer while imploding the fakes within nature, like the communication devices that imitate and disrupt what is deemed real or "original." In the new contemporary domesticity permeated by the myth of self-sufficiency, relationships are governed by prioritizing the efficiency of forms, based on the notion that living beings requiring less care are the ones deserving of our affection—like a ponytail, or cats, whose urine is so easy to manage. For the artist, all elements of his ever-expanding imaginary share the same principles: efficiency, the appearance of something bigger, and a familiarity marked by an abysmal affective distance.
+
+— Text: Violeta Celis`,
+    coverImage: localExhibitionImage("rubenbladder-scott-galvan-macco-oaxaca-mexico", "01.webp"),
+    previewImage: localExhibitionImage("rubenbladder-scott-galvan-macco-oaxaca-mexico", "01.webp"),
+    heroImage: localExhibitionImage("rubenbladder-scott-galvan-macco-oaxaca-mexico", "02.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "rubenbladder-scott-galvan-macco-oaxaca-mexico",
+      [
+        { filename: "01.webp", orientation: "horizontal" },
+        { filename: "02.webp", orientation: "horizontal" },
+        { filename: "03.webp", orientation: "vertical" },
+        { filename: "04.webp", orientation: "horizontal" },
+        { filename: "05.webp", orientation: "horizontal" },
+        { filename: "06.webp", orientation: "horizontal" },
+        { filename: "07.webp", orientation: "horizontal" },
+        { filename: "08.webp", orientation: "horizontal" },
+        { filename: "09.webp", orientation: "horizontal" },
+        { filename: "10.webp", orientation: "horizontal" },
+        { filename: "11.webp", orientation: "horizontal" },
+        { filename: "12.webp", orientation: "horizontal" },
+        { filename: "13.webp", orientation: "vertical" },
+        { filename: "14.webp", orientation: "horizontal" },
+        { filename: "15.webp", orientation: "vertical" },
+        { filename: "16.webp", orientation: "horizontal" },
+      ],
+      "Pacu",
+    ),
+  },
+  // AI_INGEST_END: rubenbladder-scott-galvan-macco-oaxaca-mexico
   // AI_INGEST_START: c-r-e-a-m-cash-rules-everything-around-me
   // Source: ofluxo.net. User-attached cover (Mykolas Valantinas, escalator with
   // Lithuanian 1000-litas note) is 01.webp; 02–45 are the ofluxo installation
