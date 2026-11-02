@@ -149,6 +149,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "white-noise-anna-uddenberg": ["INSTALLATION", "BODY", "MACHINE", "LABOR", "OBJECTHOOD"],
   "kore-irina-razumovskaya": ["MATERIALITY","BODY","MEMORY","FRAGMENT","MYTH"],
   "powernap-manor-grunewald": ["DREAM LOGIC","BODY","IDENTITY","LABOR"],
   "transaction-joshua-abelow-katya-kirilloff": ["INSTALLATION","OBJECTHOOD","MATERIALITY","DOMESTICITY"],
@@ -331,6 +332,44 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: white-noise-anna-uddenberg
+  // Website only: Telegram export explicitly disabled at the user's request.
+  // Full English essay and all seven photographs were supplied by the user.
+  {
+    slug: "white-noise-anna-uddenberg",
+    title: "White Noise",
+    subtitle: "Anna Uddenberg",
+    venue: "Telegraph Gallery",
+    gallery: "Telegraph Gallery",
+    city: "Olomouc",
+    country: "Czech Republic",
+    year: "2026",
+    dates: "22 October 2026 — 4 February 2027",
+    startDate: "22 October 2026",
+    endDate: "4 February 2027",
+    dateSource: "exhibition",
+    artists: ["Anna Uddenberg"],
+    curator: "Samuel Staples",
+    exhibitionText: "Samuel Staples",
+    source: "Telegraph Gallery",
+    sourceUrl: "https://telegraph.cz/en/white-noise-anna-uddenberg",
+    description: "White Noise takes the enclosed architecture of the contemporary office space as an organizing structure, extending Anna Uddenberg’s ongoing interest in functionality as a means of control. Comprising her largest body of work to date, the exhibition becomes a Koolhaasian Junkspace: a compressed administrative interior of suspended ceilings, fluorescent light, partitions, ventilation systems, and Herman Miller office chairs. Uddenberg’s fragmented and increasingly disembodied figures lose their corporeal autonomy, becoming extensions of the furniture and systems that contain them; the body itself becomes part of the infrastructure.\n\nThe office in White Noise is deliberately generic. Gray wall-to-wall carpet, modular partitions, artificial light, and standardized furniture produce an environment without obvious geographical or temporal specificity, one that could be reproduced almost anywhere. A lowered ceiling compresses the gallery into a gridded administrative interior, altering the viewer’s physical relation to the space, while the absence of natural light makes the passage of time increasingly difficult to register. Above the ceiling, cables, ventilation, lighting, and technical systems normally kept out of view remain exposed. The environment is immediately recognizable, yet difficult to locate: familiar enough to require little conscious attention, but sufficiently displaced to produce a persistent sense of unease.\n\nThis contradiction is central to Uddenberg’s engagement with Rem Koolhaas’s concept of Junkspace: an architecture accumulated through systems intended to facilitate contemporary life, yet increasingly detached from the bodies inhabiting it. The exhibition’s psychological tension lies in the gap between an environment designed to accommodate the body and the conditions to which that body must nevertheless adapt. Sound requires management; exposure requires partitions; prolonged sitting requires ergonomic correction; the disappearance of natural time requires artificial illumination. Each accommodation seems to disclose another problem.\n\nH-shaped panels divide the gallery into individual workstations without fully enclosing them, offering the appearance of privacy while preserving the visibility of the larger grid. Each figure occupies its own designated space but remains exposed to the environment surrounding it. Privacy becomes yet another spatial condition through which behaviour is organized.\n\nUddenberg’s figures appear suspended within these partitioned spaces, their bodies increasingly difficult to separate from the structures that support them. Reduced to torsos, or pairs of legs, fragmented anatomical forms are stretched across and folded into Herman Miller Aeron chairs, whose mesh surfaces and rigid frames contour the body while remaining almost transparent around it. Designed to adapt to the individual body, the Aeron appears here to produce the opposite relation.\n\nUddenberg’s office-like environment is structured by repetition, self-regulation, and the abstraction of labour. After moving to Berlin in 2015, Uddenberg worked in customer support for a car-sharing company, occupying what she has described as the position of a “human buffer” between the company and its customers. Calls were measured in time, actions registered through predetermined codes, and workers made responsible for tracking their own activity. This repetition eventually produced a peculiar temporal detachment in which one working day became difficult to distinguish from the next.\n\nA new sound work extends the installation into the auditory field. Responding to the existing sounds of the building, its ambient frequencies—the hum of ventilation, electrical systems, and fluorescent lighting—are amplified and synthesized until the sound becomes almost indistinguishable from the infrastructure surrounding it. It has no obvious relation to an exterior world, belonging instead to an interior engineered to maintain its own continuous atmosphere. White noise occupies a peculiar threshold of perception: continuously present yet capable of receding from conscious awareness.\n\nAdministrative logic emerges in White Noise as a low-level, continuous form of aggression, dispersed throughout the environment rather than exercised by any singular authority. Nothing in the space appears overtly hostile. Its light, furniture, partitions, and sound all ostensibly exist to make the body more comfortable, productive, private, and autonomous. Yet every solution requires another adjustment, another support, another system through which the body must learn to move. Like the white noise itself, these conditions exert their pressure most effectively when they cease to be consciously perceived.\n\n— Text: Samuel Staples\n\nProduction: Erika Kovačičová, Mira Macík, Hana Kozáková\nGraphic Design: Jakub Kovařík\nProofreading & Translation: Barbora Kubová\nConstruction: Zbyněk Hanečka, Jan Čechák, Peter Zenka",
+    summary: "Anna Uddenberg transforms office architecture into an installation examining ergonomics, control and bodily autonomy.",
+    social: {"status":"draft","revision":1,"language":"en","credits":[{"role":"Text","people":[{"name":"Samuel Staples"}]},{"role":"Production","people":[{"name":"Erika Kovačičová"},{"name":"Mira Macík"},{"name":"Hana Kozáková"}]},{"role":"Graphic Design","people":[{"name":"Jakub Kovařík"}]},{"role":"Proofreading & Translation","people":[{"name":"Barbora Kubová"}]},{"role":"Construction","people":[{"name":"Zbyněk Hanečka"},{"name":"Jan Čechák"},{"name":"Peter Zenka"}]}]},
+    coverImage: localExhibitionImage("white-noise-anna-uddenberg", "01.webp"),
+    previewImage: localExhibitionImage("white-noise-anna-uddenberg", "01.webp"),
+    heroImage: localExhibitionImage("white-noise-anna-uddenberg", "01.webp"),
+    images: localExhibitionGalleryWithOrientations("white-noise-anna-uddenberg", [
+      {"filename":"01.webp","orientation":"vertical"},
+      {"filename":"02.webp","orientation":"vertical"},
+      {"filename":"03.webp","orientation":"vertical"},
+      {"filename":"04.webp","orientation":"vertical"},
+      {"filename":"05.webp","orientation":"vertical"},
+      {"filename":"06.webp","orientation":"vertical"},
+      {"filename":"07.webp","orientation":"vertical"},
+    ]),
+  },
+  // AI_INGEST_END: white-noise-anna-uddenberg
   // AI_INGEST_START: kore-irina-razumovskaya
   {
     slug: "kore-irina-razumovskaya",
