@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { editorialSavedKey, type EditorialArtist } from "@/data/editorial";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
+import { ViewportSlideshow } from "./ViewportSlideshow";
 
 const SLIDESHOW_ARTISTS = new Set([
   "isabelle-albuquerque",
@@ -16,44 +16,36 @@ const SLIDESHOW_ARTISTS = new Set([
 export function EditorialCard({
   artist,
   eager = false,
+  sizes = "(min-width: 1024px) 20vw, (min-width: 768px) 33vw, 100vw",
 }: {
   artist: EditorialArtist;
   eager?: boolean;
+  sizes?: string;
 }) {
   const slideshow = SLIDESHOW_ARTISTS.has(artist.slug) && artist.images.length > 1;
-  const [activeSlide, setActiveSlide] = useState(0);
   const { isSaved, toggleSaved } = useSavedExhibitions();
   const savedKey = editorialSavedKey(artist.slug);
   const saved = isSaved(savedKey);
-
-  useEffect(() => {
-    if (!slideshow) return;
-    const interval = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % artist.images.length);
-    }, 1000);
-    return () => window.clearInterval(interval);
-  }, [artist.images.length, slideshow]);
 
   return (
     <article className="group relative min-w-0">
       <Link href={`/features/${artist.slug}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden rounded bg-neutral-100 md:rounded-none">
-          {(slideshow ? artist.images : [artist.coverImage]).map((image, index) => (
+          {slideshow ? (
+            <ViewportSlideshow images={artist.images} alt={`${artist.artistName} editorial portrait`} sizes={sizes} priority={eager} />
+          ) : (
             <Image
-              key={image.src}
-              src={image.src}
-              alt={index === 0 ? `${artist.artistName} editorial portrait` : ""}
+              src={artist.coverImage.src}
+              alt={`${artist.artistName} editorial portrait`}
               fill
-              className={`object-cover transition-[opacity,transform] duration-500 ease-out md:group-hover:scale-[1.025] ${
-                index === activeSlide ? "opacity-100" : "opacity-0"
-              }`}
-              priority={eager && index === 0}
-              {...(eager && index === 0
+              className="object-cover transition-[opacity,transform] duration-500 ease-out md:group-hover:scale-[1.025]"
+              priority={eager}
+              {...(eager
                 ? { fetchPriority: "high" as const }
                 : { loading: "lazy" as const })}
-              sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, 100vw"
+              sizes={sizes}
             />
-          ))}
+          )}
         </div>
         <div className="archive-card-copy pt-5">
           <h2 className="editorial-serif break-words text-[clamp(0.9rem,4vw,1.3rem)] leading-[1.08] tracking-[-0.035em] md:text-[clamp(1rem,1.7vw,1.65rem)] md:leading-[1.02]">

@@ -132,6 +132,9 @@ export function MasonryGrid({
   latestOpportunities?: (isMobile: boolean) => ReactNode;
 }) {
   const [columnCount, isMobile] = useColumnCount(initialIsMobile, density);
+  const cardSizes = density === "dense"
+    ? "(min-width: 1024px) 20vw, (min-width: 768px) 33vw, 50vw"
+    : "(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw";
 
   const items: BucketItem[] = interleavedArtists && interleavedArtists.length > 0
     ? interleaveArtists(exhibitions, interleavedArtists)
@@ -178,7 +181,7 @@ export function MasonryGrid({
       return <SubmitAdCard key="submit-ad" />;
     }
     if (item.kind === "artist") {
-      return <EditorialCard key={`artist-${item.artist.slug}`} artist={item.artist} />;
+      return <EditorialCard key={`artist-${item.artist.slug}`} artist={item.artist} sizes={cardSizes} />;
     }
     return (
       <ExhibitionCard
@@ -186,6 +189,7 @@ export function MasonryGrid({
         exhibition={item.exhibition}
         eager={item.flatIdx < eagerCount}
         hideMobileSubtitle={hideMobileSubtitles}
+        sizes={cardSizes}
       />
     );
   };

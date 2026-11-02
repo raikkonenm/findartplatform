@@ -1,11 +1,11 @@
 "use client";
 
 import { Suspense, useCallback, useState, useMemo, useRef, useEffect, type ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { exhibitions, homepageExhibitions, semanticTags, type SemanticTag } from "@/data/exhibitions";
 import { LazyBannerVideo } from "@/components/LazyBannerVideo";
+import { ViewportSlideshow } from "@/components/ViewportSlideshow";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { LatestOpportunities } from "@/components/LatestOpportunities";
 import { editorialArtists } from "@/data/editorial";
@@ -41,49 +41,15 @@ function FeaturedExhibitionSlideshow({
   const slides = [initialSrc, ...(exhibition?.images.map((image) => image.src) ?? [])].filter(
     (src, index, items) => items.indexOf(src) === index,
   );
-  const [activeSlide, setActiveSlide] = useState(0);
-
-  useEffect(() => {
-    if (slides.length < 2) return;
-    const interval = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % slides.length);
-    }, 1000);
-
-    return () => window.clearInterval(interval);
-  }, [slides.length]);
-
-  // Only mount the current slide and the next one in the cycle so the
-  // browser never prefetches 10 full-resolution banners on first load.
-  // Previously every slide was in the DOM with opacity 0/1 — mobile
-  // Chrome still started early fetches for every "lazy" <Image>
-  // that lived inside the viewport, so hero LCP was tanked by ~10
-  // parallel 100-150 KB WebP downloads per card.
-  const nextSlide = slides.length > 1 ? (activeSlide + 1) % slides.length : -1;
-
   return (
-    <div className="relative h-full w-full">
-      {slides.map((src, index) => {
-        const isActive = index === activeSlide;
-        const isNext = index === nextSlide;
-        if (!isActive && !isNext) return null;
-        return (
-          <Image
-            key={src}
-            src={src}
-            alt={isActive ? alt : ""}
-            fill
-            priority={priority && isActive}
-            {...(priority && isActive
-              ? { fetchPriority: "high" as const }
-              : { loading: "lazy" as const })}
-            sizes={sizes}
-            className={`object-cover transition-opacity duration-300 ease-in-out ${
-              isActive ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        );
-      })}
-    </div>
+    <ViewportSlideshow
+      images={slides.map((src) => ({ src }))}
+      alt={alt}
+      sizes={sizes}
+      priority={priority}
+      className="relative h-full w-full"
+      imageClassName="object-cover transition-opacity duration-300 ease-in-out"
+    />
   );
 }
 
@@ -97,7 +63,7 @@ type MobileSlide = {
   media: React.ReactNode;
 };
 
-function MobileFeaturedCarousel() {
+function MobileFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
@@ -113,7 +79,7 @@ function MobileFeaturedCarousel() {
           slug="der-kopf-ist-rund"
           initialSrc="/banner/banner1.webp"
           alt="Der Kopf ist rund exhibition installation view"
-          priority
+          priority={initialIsMobile}
           sizes="100vw"
         />
       ),
@@ -416,7 +382,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
                 slug="der-kopf-ist-rund"
                 initialSrc="/banner/banner1.webp"
                 alt="Der Kopf ist rund exhibition installation view"
-                priority
+                priority={!initialIsMobile}
                 sizes="33vw"
               />
             </Link>
@@ -1319,7 +1285,7 @@ export default function HomePageClient({
 
       {showFeaturedBanners && (
         <>
-          <MobileFeaturedCarousel />
+          <MobileFeaturedCarousel initialIsMobile={initialIsMobile} />
           <DesktopFeaturedCarousel initialIsMobile={initialIsMobile} />
         </>
       )}

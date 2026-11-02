@@ -2,17 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import type { Exhibition } from "@/data/exhibitions";
 import { displayExhibitionTitle } from "@/lib/displayExhibitionTitle";
 import { displayVenueText } from "@/lib/displayVenueText";
 import { OnViewDot } from "./OnViewDot";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
+import { ViewportSlideshow } from "./ViewportSlideshow";
 
 type ExhibitionCardProps = {
   exhibition: Exhibition;
   eager?: boolean;
   hideMobileSubtitle?: boolean;
+  sizes?: string;
 };
 
 const DESKTOP_SLIDESHOW_SLUGS = new Set([
@@ -79,38 +80,12 @@ const ALL_IMAGE_SLIDESHOW_SLUGS = new Set([
   "rot-summer",
 ]);
 
-function CardSlideshow({ exhibition, title }: { exhibition: Exhibition; title: string }) {
+function CardSlideshow({ exhibition, title, sizes, eager }: { exhibition: Exhibition; title: string; sizes: string; eager: boolean }) {
   const slides = ALL_IMAGE_SLIDESHOW_SLUGS.has(exhibition.slug)
     ? exhibition.images
     : exhibition.images.filter((image) => image.orientation === "vertical");
-  const [activeSlide, setActiveSlide] = useState(0);
-
-  useEffect(() => {
-    if (slides.length < 2) return;
-
-    const interval = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % slides.length);
-    }, 1000);
-
-    return () => window.clearInterval(interval);
-  }, [slides.length]);
-
   return (
-    <div className="absolute inset-0">
-      {slides.map((image, index) => (
-        <Image
-          key={image.src}
-          src={image.src}
-          alt={index === 0 ? `${title} exhibition view` : ""}
-          fill
-          loading="lazy"
-          className={`object-cover transition-[opacity,transform] duration-500 ease-out md:group-hover:scale-[1.025] ${
-            index === activeSlide ? "opacity-100" : "opacity-0"
-          }`}
-          sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 50vw"
-        />
-      ))}
-    </div>
+    <ViewportSlideshow images={slides} alt={`${title} exhibition view`} sizes={sizes} priority={eager} />
   );
 }
 
@@ -135,6 +110,7 @@ export function ExhibitionCard({
   exhibition,
   eager = false,
   hideMobileSubtitle = false,
+  sizes = "(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw",
 }: ExhibitionCardProps) {
   const aspect = aspectClassForSlug(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
@@ -150,21 +126,19 @@ export function ExhibitionCard({
     <article className="group relative">
       <Link href={`/exhibitions/${exhibition.slug}`} className="block">
         <div className={`relative ${aspect} overflow-hidden rounded bg-neutral-100 md:rounded-none`}>
-          <Image
+          {!desktopSlideshow && <Image
             src={exhibition.coverImage ?? exhibition.previewImage}
             alt={`${title} exhibition view`}
             fill
-            className={`object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025] ${
-              desktopSlideshow ? "hidden" : ""
-            }`}
+            className="object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025]"
             priority={eager}
             {...(eager
               ? { fetchPriority: "high" as const }
               : { loading: "lazy" as const })}
-            sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
-          />
+            sizes={sizes}
+          />}
           {desktopSlideshow && (
-            <CardSlideshow exhibition={exhibition} title={title} />
+            <CardSlideshow exhibition={exhibition} title={title} sizes={sizes} eager={eager} />
           )}
         </div>
         <div className="archive-card-copy pt-5">

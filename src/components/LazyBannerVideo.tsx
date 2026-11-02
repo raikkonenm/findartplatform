@@ -25,7 +25,7 @@ export function LazyBannerVideo({
   alt,
   className,
   onlyDesktop = false,
-  rootMargin = "200px",
+  rootMargin = "0px",
 }: {
   src: string;
   poster: string;
@@ -35,7 +35,9 @@ export function LazyBannerVideo({
   rootMargin?: string;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [visible, setVisible] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const [canUseVideo, setCanUseVideo] = useState(!onlyDesktop);
 
   // On mount in a browser, decide whether to hydrate the video at all.
@@ -55,18 +57,16 @@ export function LazyBannerVideo({
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {
-      // Fallback: just load it.
-      setVisible(true);
-      return;
+      const frame = window.requestAnimationFrame(() => setVisible(true));
+      return () => window.cancelAnimationFrame(frame);
     }
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setVisible(true);
-            io.disconnect();
-            break;
+            setLoaded(true);
           }
+          setVisible(entry.isIntersecting);
         }
       },
       { rootMargin },
@@ -74,6 +74,13 @@ export function LazyBannerVideo({
     io.observe(el);
     return () => io.disconnect();
   }, [canUseVideo, rootMargin]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (visible) void video.play().catch(() => {});
+    else video.pause();
+  }, [visible]);
 
   return (
     <div ref={ref} className={`relative h-full w-full ${className ?? ""}`}>
@@ -87,8 +94,9 @@ export function LazyBannerVideo({
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
       />
-      {canUseVideo && visible && (
+      {canUseVideo && (loaded || visible) && (
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
