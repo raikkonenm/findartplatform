@@ -14,6 +14,9 @@ export type ContentPublication = {
   credits?: Array<{ role: string; people: DeliveryPerson[] }>;
   requiredCredits?: string[];
   excerpt?: string;
+  // Original curatorial text for Telegram when the website has a short overview.
+  // This is evidence for a verbatim quotation, never an invented expansion.
+  quotationSource?: { text: string; language: string; verified: boolean; sourceUrl?: string };
   // For a non-English source, an editor must supply and verify the translation.
   translatedExcerpt?: { text: string; sourceText: string; language: "en"; verified: boolean };
   coverOriginalSrc?: string;

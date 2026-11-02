@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import ts from 'typescript';
+import { selectExhibitionExcerpt, sentenceSpans } from './exhibition-excerpt.mjs';
 
 export const SITE = 'https://www.findartplatform.com';
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -94,18 +95,32 @@ export function contentCaption(item) {
     if (!(item.type === 'feature' && headline.toLowerCase() === joined.toLowerCase()) && !headline.toLowerCase().endsWith(` by ${joined.toLowerCase()}`)) headline += ` by ${joined}`;
   }
   const description = (item.description || '').replace(/\r\n/g, '\n');
-  let excerpt = '';
+  const documentedSource = social.quotationSource;
+  let source = description;
+  if (documentedSource) {
+    if (!documentedSource.verified || !documentedSource.text?.trim() || !documentedSource.language) errors.push('Quotation source must contain editor-verified original text and its language.');
+    else source = documentedSource.text.replace(/\r\n/g, '\n');
+  }
+  let excerpt = '', quotationSource = '', preferredExcerpt = '';
   if (social.translatedExcerpt) {
     const translation = social.translatedExcerpt;
-    if (!translation.verified || translation.language !== 'en' || !translation.sourceText || !description.includes(translation.sourceText)) errors.push('Translation must be editor-verified and reference the actual source description.');
-    else excerpt = translation.text;
-  } else if (social.language === 'en') {
-    excerpt = social.excerpt || description.split(/\n\s*\n/)[0]?.match(/[^.!?]+[.!?](?:["”’]|$|\s)/g)?.slice(0, 2).join('').trim() || '';
-    if (excerpt && !description.includes(excerpt)) errors.push('Selected quotation is not verbatim source text.');
+    if (!translation.verified || translation.language !== 'en' || !translation.sourceText || !source.includes(translation.sourceText)) errors.push('Translation must be editor-verified and reference the actual source description.');
+    else {
+      excerpt = translation.text;
+      quotationSource = translation.text;
+      if (item.type === 'exhibition' && sentenceSpans(source).length >= 5 && sentenceSpans(translation.text).length < 5) errors.push('The verified English translation is too short; supply a connected translation of 5–10 original sentences.');
+    }
+  } else if ((documentedSource?.language || social.language) === 'en') {
+    if (item.type === 'exhibition') {
+      if (item.descriptionKind === 'overview' && !documentedSource) errors.push('The website description is an editorial overview, not the original curatorial text. Supply social.quotationSource with verified original English text for a 5–10-sentence quotation.');
+      else { quotationSource = source; preferredExcerpt = social.excerpt || ''; }
+    } else {
+      excerpt = social.excerpt || description.split(/\n\s*\n/)[0]?.match(/[^.!?]+[.!?](?:["”’]|$|\s)/g)?.slice(0, 2).join('').trim() || '';
+      if (excerpt && !description.includes(excerpt)) errors.push('Selected quotation is not verbatim source text.');
+    }
   } else if (description) errors.push('An English source or verified English translation is required; no automatic invented quotation.');
-  if (!excerpt && item.type === 'exhibition') errors.push('An actual exhibition excerpt is required.');
   const sentences = (excerpt.match(/[.!?](?=\s|$|["”])/g) || []).length;
-  if (excerpt && (sentences > 3 || (item.type === 'exhibition' && sentences < 1) || /\n\s*\n/.test(excerpt))) errors.push('Excerpt must contain one to three sentences.');
+  if (item.type !== 'exhibition' && excerpt && (sentences > 3 || /\n\s*\n/.test(excerpt))) errors.push('Feature and artwork excerpts must contain one to three sentences.');
   const roles = new Map();
   if (people.length) roles.set('Artist(s)', people);
   if (item.curator) roles.set('Curator', [{ name: item.curator }]);
@@ -124,24 +139,32 @@ export function contentCaption(item) {
     try { creditLines.push(`${role}: ${participants.map(person => creditName(person, warnings)).join(', ')}`); }
     catch (error) { errors.push(error.message); }
   }
-  const blocks = [headline.toUpperCase()];
-  if (excerpt) blocks.push(`“${excerpt.trim()}”`);
-  if (item.type === 'exhibition') blocks.push('~ Full exhibition documentation is available on findartplatform.com');
-  if (creditLines.length) blocks.push(creditLines.join('\n'));
+  const tail = [];
+  if (item.type === 'exhibition') tail.push('~ Full exhibition documentation is available on findartplatform.com');
+  if (creditLines.length) tail.push(creditLines.join('\n'));
   if (item.type === 'exhibition') {
     try {
       const gallery = social.gallery?.instagram?.verified ? creditName(social.gallery) : social.gallery?.name || item.gallery || item.venue;
       if (!gallery || !item.city || !item.country) throw new Error('Gallery, city and country are required for an exhibition.');
       if ([gallery, item.city, item.country].some(value => /[\r\n]/.test(value))) throw new Error('Gallery and location fields must each be single-line.');
       if (!social.gallery?.instagram?.verified) warnings.push('No verified gallery Instagram handle; using its documented name.');
-      blocks.push(`${gallery}, ${item.city}, ${item.country}, ${dateRange(item.startDate, item.endDate)}`);
+      tail.push(`${gallery}, ${item.city}, ${item.country}, ${dateRange(item.startDate, item.endDate)}`);
     } catch (error) { errors.push(error.message); }
   }
   const url = social.publicUrl || item.publicUrl;
   try { const parsed = new URL(url); if (parsed.origin !== SITE || !parsed.pathname.startsWith('/')) throw new Error(); }
   catch { errors.push('An actual HTTPS FindArt public URL is required.'); }
-  const caption = blocks.join('\n\n');
+  const captionFor = text => [headline.toUpperCase(), ...(text ? [`“${text.trim()}”`] : []), ...tail].join('\n\n');
+  let excerptSentences = sentenceSpans(excerpt).length;
+  if (item.type === 'exhibition' && quotationSource) {
+    const selection = selectExhibitionExcerpt({ source: quotationSource, preferred: preferredExcerpt, maxCharacters: 2200 - captionFor('').length - 4 });
+    excerpt = selection.excerpt;
+    excerptSentences = selection.sentences;
+    errors.push(...selection.errors); warnings.push(...selection.warnings);
+  }
+  if (!excerpt && item.type === 'exhibition' && !errors.some(error => /quotation|translation/i.test(error))) errors.push('An actual exhibition quotation source is required.');
+  const caption = captionFor(excerpt);
   if (/\p{Extended_Pictographic}/u.test(caption)) errors.push('Caption contains an emoji; editorial review is required.');
   if (caption.length > 2200) errors.push(`Caption is ${caption.length} UTF-16 units; exceeds 2,200. Review required; credits were not cut.`);
-  return { caption, warnings: [...new Set(warnings)], errors: [...new Set(errors)], publicUrl: url };
+  return { caption, excerptSentences, warnings: [...new Set(warnings)], errors: [...new Set(errors)], publicUrl: url };
 }

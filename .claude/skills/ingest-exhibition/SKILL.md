@@ -34,7 +34,7 @@ Build `social`:
 - `status: "published"` — the user has explicitly opted into auto-delivery.
 - `revision: 1` for a new ingest.
 - `language: "en"`.
-- `excerpt`: one verbatim sentence (not a paragraph) from the opening of the essay. The validator counts `[.!?]` followed by whitespace as sentence terminators, so abbreviations like "U.S." inflate the count; staying at one real sentence (which still typically counts as 1–2 after abbreviations) stays under the 1–3 cap. The excerpt MUST appear verbatim in `description` — never edit the quoted text.
+- `excerpt`: one connected, substantive **5–10-sentence** passage from the original curatorial text, revealing the concept, artistic practice and central ideas. Preserve wording, punctuation and paragraph breaks. Reserve every credit and the documentation footer within 2,200 characters; if ten sentences do not fit, select a shorter complete passage of at least five. The exporter expands legacy short selections from the original source, but a new ingest must not deliberately select one sentence. If the original itself has fewer than five sentences, use all available text and explicitly report that limitation. If the website contains an editorial overview rather than the original essay, provide separate verified `social.quotationSource: { text, language, verified: true, sourceUrl }`; never quote the overview as the curator or fabricate additional source text.
 - `credits`:
   - `{ role: "Text", people: [{ name: "<essay author>" }] }` when the source attributes the essay (ofluxo always does).
   - `{ role: "Photo", people: [{ name: "<Gallery name>" }] }` when no individual photographer is named — the gallery is the courtesy source. Keep this in `social.credits`, NOT in the top-level `photographer` field, so no `/photographers/<gallery>` taxonomy page is created.
@@ -44,7 +44,7 @@ Run `npx tsc --noEmit` (should finish silently) and then `npm run telegram:expor
 
 - `ready: true, errors: []` → proceed to commit.
 - Anything else → fix the entry (not the validator). Common cases:
-  - "Excerpt must contain one to three sentences" — the excerpt has too many `.`-followed-by-space counts; drop to a single short sentence.
+  - A 5–10-sentence passage cannot fit with all credits — choose a shorter connected source passage of at least five complete sentences; never reduce it to a single sentence or delete credits to pass validation.
   - "Selected quotation is not verbatim source text" — the excerpt string doesn't appear exactly in `description`; copy it directly from the essay.
   - "Missing required credit: Photo" — no Photo credit; add the gallery as courtesy source.
   - "An actual HTTPS FindArt public URL is required" — stale `publicUrl` in `social`; usually omit and let the exporter derive it from the slug.

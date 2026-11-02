@@ -49,6 +49,12 @@ The 49 MB cap leaves headroom below the hosted Bot API's 50 MB document limit. A
 
 ## Manual commands
 
+### Exhibition quotations
+
+Captions use a connected verbatim passage of **5–10 complete sentences** from the original curatorial text. `social.excerpt` is an editorial preference: old one-sentence selections are expanded from that same source automatically. New ingests should select the meaningful passage directly. Sentence counting handles titles, initials and decimal numbers, and quoted paragraph breaks are preserved. All credits, venue, dates, headline and the documentation footer are reserved before selecting a passage under Instagram's 2,200-character limit. A passage is shortened only at sentence boundaries; if five sentences cannot fit, the package requires review rather than silently falling back to one sentence.
+
+When the actual original has fewer than five sentences, the exporter includes all available text and records an explicit warning in the review report and administrative Telegram message. An editorial website overview is not a substitute for the original source. Supply editor-verified `social.quotationSource: { text, language, verified: true, sourceUrl }` for the bot when its original source differs from the website description. Verified translations must also provide 5–10 connected English sentences when the original is long enough. The exporter never invents text, combines disconnected passages or changes the website to satisfy the caption rule. These changes do not enable automation or authorize resending photographs/ZIPs.
+
 ```text
 npm run telegram:export -- exhibition ritual-for-happiness-gudwin --dry-run
 npm run telegram:resend -- exhibition ritual-for-happiness-gudwin --dispatch

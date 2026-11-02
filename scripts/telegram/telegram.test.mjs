@@ -121,7 +121,7 @@ test('standalone artwork does not fabricate exhibition information', () => {
 test('exhibition documentation line follows the quotation only in exported captions', () => {
   const item = exhibition();
   const result = contentCaption(item);
-  assert.ok(result.caption.includes('“Actual source sentence.”\n\n~ Full exhibition documentation is available on findartplatform.com\n\nArtist(s):'));
+  assert.ok(result.caption.includes('“Actual source sentence. Another actual sentence.”\n\n~ Full exhibition documentation is available on findartplatform.com\n\nArtist(s):'));
   assert.ok(!item.description.includes('Full exhibition documentation'));
 });
 
