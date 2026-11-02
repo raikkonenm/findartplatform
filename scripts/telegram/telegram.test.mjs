@@ -118,6 +118,13 @@ test('standalone artwork does not fabricate exhibition information', () => {
   const result = contentCaption(item); assert.deepEqual(result.errors, []); assert.equal(result.caption, 'BLUE BY ALICE SMITH\n\nArtist(s): #AliceSmith');
 });
 
+test('exhibition documentation line follows the quotation only in exported captions', () => {
+  const item = exhibition();
+  const result = contentCaption(item);
+  assert.ok(result.caption.includes('“Actual source sentence.”\n\n~ Full exhibition documentation is available on findartplatform.com\n\nArtist(s):'));
+  assert.ok(!item.description.includes('Full exhibition documentation'));
+});
+
 test('43+ photos: order, source bytes, preview selection, text and multipart plan', async () => {
   const root = await mkdtemp(path.join(tmpdir(), 'findart-telegram-'));
   await mkdir(path.join(root, 'public', 'gallery'), { recursive: true });

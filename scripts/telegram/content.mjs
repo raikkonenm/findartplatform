@@ -126,6 +126,7 @@ export function contentCaption(item) {
   }
   const blocks = [headline.toUpperCase()];
   if (excerpt) blocks.push(`“${excerpt.trim()}”`);
+  if (item.type === 'exhibition') blocks.push('~ Full exhibition documentation is available on findartplatform.com');
   if (creditLines.length) blocks.push(creditLines.join('\n'));
   if (item.type === 'exhibition') {
     try {

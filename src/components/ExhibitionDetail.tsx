@@ -614,6 +614,14 @@ export function ExhibitionDetail({
               {paragraph}
             </p>
           ))}
+          {exhibition.descriptionKind === "overview" && exhibition.sourceUrl ? (
+            <p className="mt-6 text-[11px] leading-5 text-neutral-500">
+              Exhibition overview. Full text and source: {" "}
+              <a href={exhibition.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:opacity-60">
+                {exhibition.source ?? "Read more"}
+              </a>
+            </p>
+          ) : null}
         </section>
 
         {panelGallery.length > 0 && (
