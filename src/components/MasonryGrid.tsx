@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { Exhibition } from "@/data/exhibitions";
 import type { EditorialArtist } from "@/data/editorial";
 import { EditorialCard } from "./EditorialCard";
@@ -114,6 +114,8 @@ export function MasonryGrid({
   interleavedArtists,
   pinSubmitAd = false,
   latestOpportunities,
+  initialVisibleCount,
+  batchSize = 15,
 }: {
   exhibitions: Exhibition[];
   eagerCount?: number;
@@ -130,6 +132,18 @@ export function MasonryGrid({
   pinSubmitAd?: boolean;
   /** Desktop: top of last column. Mobile: in the last column after four feed cards. */
   latestOpportunities?: (isMobile: boolean) => ReactNode;
+  /**
+   * Render only the first N feed items on mount; remaining items load in
+   * `batchSize` chunks as the user scrolls past an IntersectionObserver
+   * sentinel. Leave undefined to render everything up front (archive /
+   * standalone pages behave as before).
+   *
+   * Used on the homepage to cut initial DOM from ~220 <img> to ~50, so
+   * mobile hydrates in one JS task instead of nineteen.
+   */
+  initialVisibleCount?: number;
+  /** How many items the sentinel reveals per scroll event. */
+  batchSize?: number;
 }) {
   const [columnCount, isMobile] = useColumnCount(initialIsMobile, density);
   const cardSizes = density === "dense"
@@ -166,8 +180,36 @@ export function MasonryGrid({
     });
   }
 
+  // Virtualization: on mount render only `initialVisibleCount` items,
+  // reveal the rest in `batchSize` chunks via a sentinel at the bottom
+  // of the grid. SSR uses the initial state so the markup renders the
+  // same subset the hydrated client renders on first paint.
+  const [visibleCount, setVisibleCount] = useState<number>(
+    initialVisibleCount ?? items.length,
+  );
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (initialVisibleCount === undefined) return; // non-virtualized caller
+    if (visibleCount >= items.length) return;
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((current) => Math.min(current + batchSize, items.length));
+        }
+      },
+      { rootMargin: "800px" }, // start fetching a screen early
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [initialVisibleCount, visibleCount, items.length, batchSize]);
+
+  const visibleItems = initialVisibleCount === undefined ? items : items.slice(0, visibleCount);
+
   const columns: BucketItem[][] = Array.from({ length: columnCount }, () => []);
-  items.forEach((item, itemIndex) => {
+  visibleItems.forEach((item, itemIndex) => {
     columns[itemIndex % columnCount].push(item);
   });
 
@@ -197,19 +239,25 @@ export function MasonryGrid({
   // Insert after bucketing: exhibitions keep their existing column and order,
   // and each column keeps its natural heights and gaps around the module.
   const moduleIndex = isMobile ? Math.ceil(4 / columnCount) : 0;
+  const virtualized = initialVisibleCount !== undefined && visibleCount < items.length;
   return (
-    <div className="archive-card-grid masonry-rows">
-      {columns.map((column, colIdx) => (
-        <div className="masonry-col" key={colIdx}>
-          {colIdx === columnCount - 1 ? (
-            <>
-              {column.slice(0, moduleIndex).map(renderItem)}
-              {opportunityModule}
-              {column.slice(moduleIndex).map(renderItem)}
-            </>
-          ) : column.map(renderItem)}
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="archive-card-grid masonry-rows">
+        {columns.map((column, colIdx) => (
+          <div className="masonry-col" key={colIdx}>
+            {colIdx === columnCount - 1 ? (
+              <>
+                {column.slice(0, moduleIndex).map(renderItem)}
+                {opportunityModule}
+                {column.slice(moduleIndex).map(renderItem)}
+              </>
+            ) : column.map(renderItem)}
+          </div>
+        ))}
+      </div>
+      {virtualized ? (
+        <div ref={sentinelRef} aria-hidden="true" className="h-8 w-full" />
+      ) : null}
+    </>
   );
 }

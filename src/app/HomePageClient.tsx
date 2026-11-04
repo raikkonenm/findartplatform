@@ -1471,6 +1471,13 @@ export default function HomePageClient({
                 <LatestOpportunities initialToday={opportunitiesToday} mobilePreview={isMobile} />
               </Suspense>
             ) : undefined}
+            // Cut SSR DOM from ~220 <img> to ~50 — the rest stream in via
+            // IntersectionObserver as the user scrolls. Mobile LCP was 12s
+            // because React was still hydrating 223 nodes when the LCP
+            // image needed to decode. Only the homepage uses this; the
+            // standalone /exhibitions archive keeps rendering everything.
+            initialVisibleCount={initialIsMobile ? 10 : 24}
+            batchSize={initialIsMobile ? 10 : 18}
           />
         )}
       </section>
