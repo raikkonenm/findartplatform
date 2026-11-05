@@ -480,7 +480,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "summary": "A climbable textile sculpture and multiplayer game connect physical participation with collective virtual bodies.",
     "social": {
         "status": "draft",
-        "revision": 1,
+        "revision": 2,
         "language": "en"
     },
     "coverImage": "/exhibitions/feral-metaverse-spider-theo-triantafyllidis/01.webp",
@@ -491,7 +491,27 @@ const exhibitionSeeds: ExhibitionSeed[] = [
             "filename": "01.webp",
             "orientation": "horizontal",
             "caption": "Exhibition documentation. Photo: Andrew Judd."
-      }
+      },
+      { filename: "02.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "03.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "04.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "05.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "06.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "07.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "08.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "09.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "10.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "11.webp", orientation: "vertical", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "12.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "13.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "14.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "15.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "16.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "17.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "18.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "19.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "20.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." },
+      { filename: "21.webp", orientation: "horizontal", caption: "Exhibition documentation. Photo: Andrew Judd." }
 ]),
   },
   // AI_INGEST_END: feral-metaverse-spider-theo-triantafyllidis
