@@ -23,6 +23,7 @@ Insert the entry at the TOP of `exhibitionSeeds[]` in `src/data/exhibitions.ts` 
 - `artists` with correct diacritics as published in the body text (body text overrides the credits line when they disagree — typos in the credit line like "Emlio" don't belong on the website).
 - `curator` (string), `photographer` only when a specific person is named by the source.
 - `source`, `sourceUrl`.
+- Keep source URLs and original-post URLs as internal research metadata only. Never append "Exhibition overview", "Full text and source", "Read more", or a promotional source link to the public exhibition description or metadata panel. Do not expose Saliva, Daily Lazy, Ofluxo, Artviewer, or other source publications through a "View post" link. Preserve documented artist, curator, author and photographer credits.
 - `description`: full essay verbatim, template literal, paragraphs separated by blank lines, ending with `— Text: <Author>` if the source attributes the essay.
 - `coverImage`, `previewImage` both pointing to `01.webp`; `heroImage` to a landscape view (usually `02.webp`).
 - `images`: `localExhibitionGalleryWithOrientations("<slug>", [ { filename, orientation }, … ])` using the TSV output from the helper verbatim.

@@ -236,7 +236,7 @@ function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
     return joinEntityLinks("photographer", parts);
   })();
 
-  // Required order: Dates, Venue, Artists, Curators, Photo, View, Tags, Exhibition Text.
+  // Required order: Dates, Venue, Artists, Curators, Photo, Tags, Exhibition Text.
   // Each row is rendered only if its value exists. Dates get a tiny
   // on-view dot rendered inline before the date string when the
   // exhibition is running today.
@@ -255,21 +255,6 @@ function PanelMetadata({ exhibition }: { exhibition: Exhibition }) {
     { label: "Artists", value: artistsJoined },
     { label: "Curators", value: curatorJoined },
     { label: "Photo", value: photographerNode },
-    exhibition.instagramUrl
-      ? {
-          label: "View",
-          value: (
-            <a
-              href={exhibition.instagramUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="transition-opacity hover:opacity-55"
-            >
-              View post
-            </a>
-          ),
-        }
-      : { label: "View" },
     {
       label: "Tags",
       value:
@@ -614,14 +599,6 @@ export function ExhibitionDetail({
               {paragraph}
             </p>
           ))}
-          {exhibition.descriptionKind === "overview" && exhibition.sourceUrl ? (
-            <p className="mt-6 text-[11px] leading-5 text-neutral-500">
-              Exhibition overview. Full text and source: {" "}
-              <a href={exhibition.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:opacity-60">
-                {exhibition.source ?? "Read more"}
-              </a>
-            </p>
-          ) : null}
         </section>
 
         {panelGallery.length > 0 && (
