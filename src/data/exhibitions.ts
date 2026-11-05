@@ -149,6 +149,13 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "plagues-patrick-goddard": ["INSTALLATION","ANIMALITY","BODY","SURVEILLANCE","NON-HUMAN"],
+  "feral-metaverse-spider-theo-triantafyllidis": ["INSTALLATION","DIGITAL MYTH","SIMULATION","BODY","TECHNOLOGY"],
+  "tranquil-nightmare-puiyan-fong": ["INSTALLATION","RITUAL","BODY","MEMORY","DOMESTICITY"],
+  "becoming-a-body-of-others-linda-marwan": ["BODY","HYBRID BODIES","NON-HUMAN","MUTATION","MATERIALITY"],
+  "drift-index-matej-mihevc": ["INSTALLATION","TECHNOLOGY","SIMULATION","ARCHIVE","DIGITAL MYTH"],
+  "rites-of-passage-gwangju": ["GROUP SHOW","INSTALLATION","RITUAL","TRANSFORMATION","LIMINALITY"],
+  "pennys-judith-hopf-alf-lechner": ["INSTALLATION","OBJECTHOOD","MATERIALITY","TRANSFORMATION","MATERIAL MEMORY"],
   "white-noise-anna-uddenberg": ["INSTALLATION", "BODY", "MACHINE", "LABOR", "OBJECTHOOD"],
   "kore-irina-razumovskaya": ["MATERIALITY","BODY","MEMORY","FRAGMENT","MYTH"],
   "powernap-manor-grunewald": ["DREAM LOGIC","BODY","IDENTITY","LABOR"],
@@ -332,6 +339,1097 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: plagues-patrick-goddard
+  // Website only: Telegram explicitly excluded by the user.
+  {
+    "slug": "plagues-patrick-goddard",
+    "title": "Plagues",
+    "subtitle": "Patrick Goddard",
+    "venue": "Balazsi Gallery",
+    "gallery": "Balazsi Gallery",
+    "city": "Palma de Mallorca",
+    "country": "Spain",
+    "year": "2026",
+    "dates": "19 September 2026 — 5 March 2027",
+    "startDate": "19 September 2026",
+    "endDate": "5 March 2027",
+    "dateSource": "exhibition",
+    "artists": [
+        "Patrick Goddard"
+    ],
+    "source": "Art Viewer",
+    "sourceUrl": "https://artviewer.org/patrick-goddard-at-balazsi-gallery-palma-de-mallorca/",
+    "description": "Patrick Goddard’s first exhibition at Balazsi Gallery examines how societies decide which bodies belong and which are treated as a threat. Charcoal drawings from the Denizens series begin with nocturnal thermal photographs taken on Wanstead Flats, a surviving area of common land in East London. Human and animal figures become difficult to distinguish through the camera’s heat-sensitive view. A wall installation of thirty-eight lead frogs turns the idea of an uncontrolled population into a physical presence. The film Animal Antics approaches related questions through a zoo, a domesticated dog and the confinement of wild animals. Across drawing, sculpture and film, the exhibition connects ownership, visibility and classification to the histories and present conditions of shared space.",
+    "descriptionKind": "overview",
+    "summary": "Drawing, lead sculpture and film examine belonging, enclosure and the classification of human and animal bodies.",
+    "social": {
+        "status": "draft",
+        "revision": 1,
+        "language": "en"
+    },
+    "coverImage": "/exhibitions/plagues-patrick-goddard/01.webp",
+    "previewImage": "/exhibitions/plagues-patrick-goddard/01.webp",
+    "heroImage": "/exhibitions/plagues-patrick-goddard/02.webp",
+    images: localExhibitionGalleryWithOrientations("plagues-patrick-goddard", [
+      {
+            "filename": "01.webp",
+            "orientation": "vertical",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "02.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "03.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "04.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "05.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "06.webp",
+            "orientation": "vertical",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "07.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "08.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "09.webp",
+            "orientation": "vertical",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "10.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "11.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "12.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "13.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "14.webp",
+            "orientation": "vertical",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "15.webp",
+            "orientation": "vertical",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      },
+      {
+            "filename": "16.webp",
+            "orientation": "vertical",
+            "caption": "Exhibition documentation. Courtesy of the artist and Balazsi Gallery."
+      }
+]),
+  },
+  // AI_INGEST_END: plagues-patrick-goddard
+  // AI_INGEST_START: feral-metaverse-spider-theo-triantafyllidis
+  // Website only: Telegram explicitly excluded by the user.
+  {
+    "slug": "feral-metaverse-spider-theo-triantafyllidis",
+    "title": "Feral Metaverse (Spider)",
+    "subtitle": "Theo Triantafyllidis",
+    "venue": "Frieze London",
+    "gallery": "Frieze London",
+    "city": "London",
+    "country": "United Kingdom",
+    "year": "2026",
+    "dates": "14 October 2026 — 18 October 2026",
+    "startDate": "14 October 2026",
+    "endDate": "18 October 2026",
+    "dateSource": "exhibition",
+    "artists": [
+        "Theo Triantafyllidis"
+    ],
+    "photographer": "Andrew Judd",
+    "source": "OFluxo",
+    "sourceUrl": "https://www.ofluxo.net/feral-metaverse-spider-theo-triantafyllidis-frieze-london-2026/",
+    "description": "Theo Triantafyllidis brings sculpture and multiplayer gameplay together in a participatory installation commissioned for the Frieze London Artist Award 2026. The textile-covered spider invites visitors to climb, balance and coordinate their movements. Its body also provides access to an online game in which avatars join together to gain new abilities. Cooperation on screen develops alongside the practical negotiation of sharing a physical structure with strangers. The project continues the artist’s investigation of a collectively shaped internet commons through play and mutual dependence. The commission is co-produced with Forma in collaboration with Google Arts & Culture, with the work courtesy of the artist and The Breeder.",
+    "descriptionKind": "overview",
+    "summary": "A climbable textile sculpture and multiplayer game connect physical participation with collective virtual bodies.",
+    "social": {
+        "status": "draft",
+        "revision": 1,
+        "language": "en"
+    },
+    "coverImage": "/exhibitions/feral-metaverse-spider-theo-triantafyllidis/01.webp",
+    "previewImage": "/exhibitions/feral-metaverse-spider-theo-triantafyllidis/01.webp",
+    "heroImage": "/exhibitions/feral-metaverse-spider-theo-triantafyllidis/01.webp",
+    images: localExhibitionGalleryWithOrientations("feral-metaverse-spider-theo-triantafyllidis", [
+      {
+            "filename": "01.webp",
+            "orientation": "horizontal",
+            "caption": "Exhibition documentation. Photo: Andrew Judd."
+      }
+]),
+  },
+  // AI_INGEST_END: feral-metaverse-spider-theo-triantafyllidis
+  // AI_INGEST_START: tranquil-nightmare-puiyan-fong
+  {
+    "slug": "tranquil-nightmare-puiyan-fong",
+    "title": "Tranquil Nightmare",
+    "subtitle": "PuiYan Fong",
+    "venue": "Off-space: SENDER",
+    "gallery": "Off-space: SENDER",
+    "city": "Hamburg",
+    "country": "Germany",
+    "year": "2026",
+    "dates": "2 October 2026 — 11 October 2026",
+    "startDate": "2 October 2026",
+    "endDate": "11 October 2026",
+    "dateSource": "exhibition",
+    "artists": [
+        "PuiYan Fong"
+    ],
+    "curator": "Jenni Schurr",
+    "source": "OFluxo",
+    "sourceUrl": "https://www.ofluxo.net/tranquil-nightmare-puiyan-fong-off-space-sender-hamburg/",
+    "description": "PuiYan Fong transforms found baby bathtubs and potty trainers into objects resembling ceremonial altars. Materials associated with bodily cleansing and waste become settings for feelings that are often difficult to acknowledge publicly. The installation addresses shame, loss and desire through an encounter between domestic objects and ritual form. Curated by Jenni Schurr at Off-space: SENDER, the exhibition places vulnerability and healing in close relation. Objects once used to care for the body become sites of remembrance, unsettling divisions between purity and the profane.",
+    "descriptionKind": "overview",
+    "summary": "Found sanitary objects become ceremonial forms addressing shame, loss, desire and healing.",
+    "social": {
+        "status": "published",
+        "revision": 1,
+        "language": "en",
+        "artists": [
+            {
+                "name": "PuiYan Fong"
+            }
+        ],
+        "gallery": {
+            "name": "Off-space: SENDER"
+        },
+        "credits": [
+            {
+                "role": "Photo",
+                "people": [
+                    {
+                        "name": "Off-space: SENDER"
+                    }
+                ]
+            }
+        ],
+        "quotationSource": {
+            "text": "Entering Tranquil Nightmare is to enter a space of worship; not dedicated to personified figures, but to repressed and often unspoken feelings like shame, loss, and desire. Embodied through Fong’s distinctive use of found baby bathtubs and potty trainers. These objects once used as vessels for waste and cleansing are transformed into ceremonial altar-like objects that question the division purity and profane.\n\nBy transforming sanitary infrastructure into altars of commemoration, Tranquil Nightmare invites viewers into an environment that simultaneously recalls a butcher’s table of vulnerability and a sanctuary of healing.",
+            "language": "en",
+            "verified": true,
+            "sourceUrl": "https://www.ofluxo.net/tranquil-nightmare-puiyan-fong-off-space-sender-hamburg/"
+        },
+        "excerpt": "Entering Tranquil Nightmare is to enter a space of worship; not dedicated to personified figures, but to repressed and often unspoken feelings like shame, loss, and desire. Embodied through Fong’s distinctive use of found baby bathtubs and potty trainers. These objects once used as vessels for waste and cleansing are transformed into ceremonial altar-like objects that question the division purity and profane.\n\nBy transforming sanitary infrastructure into altars of commemoration, Tranquil Nightmare invites viewers into an environment that simultaneously recalls a butcher’s table of vulnerability and a sanctuary of healing.",
+        "coverOriginalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-61.jpg"
+    },
+    "coverImage": "/exhibitions/tranquil-nightmare-puiyan-fong/01.webp",
+    "previewImage": "/exhibitions/tranquil-nightmare-puiyan-fong/01.webp",
+    "heroImage": "/exhibitions/tranquil-nightmare-puiyan-fong/03.webp",
+    images: localExhibitionGalleryWithOrientations("tranquil-nightmare-puiyan-fong", [
+      {
+            "filename": "01.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-61.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "02.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-1.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "03.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-3.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "04.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-8.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "05.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-11.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "06.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-12.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "07.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-13.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "08.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-16.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "09.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-21.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "10.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-25.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "11.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-38.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "12.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-41.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "13.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-42.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "14.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-45.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "15.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-49.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "16.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-50.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "17.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-57.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "18.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-59.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "19.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-60.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "20.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-62.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "21.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-65.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      },
+      {
+            "filename": "22.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/tranquil-nightmare-puiyan-fong/originals/Sender-66.jpg",
+            "caption": "Exhibition documentation. Courtesy of the artist and Off-space: SENDER."
+      }
+]),
+  },
+  // AI_INGEST_END: tranquil-nightmare-puiyan-fong
+  // AI_INGEST_START: becoming-a-body-of-others-linda-marwan
+  {
+    "slug": "becoming-a-body-of-others-linda-marwan",
+    "title": "Becoming a Body of Others",
+    "subtitle": "Linda Marwan",
+    "venue": "Robert Koepke Haus",
+    "gallery": "Robert Koepke Haus",
+    "city": "Schieder-Schwalenberg",
+    "country": "Germany",
+    "year": "2026",
+    "dates": "4 October 2026 — 1 November 2026",
+    "startDate": "4 October 2026",
+    "endDate": "1 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+        "Linda Marwan"
+    ],
+    "curator": "Dr Mayarì Granados",
+    "photographer": "Benno Sattler, Linda Marwan",
+    "source": "Saliva",
+    "sourceUrl": "https://saliva.live/exhibitions/da82b9b5",
+    "description": "Linda Marwan develops a population of hybrid sculptural creatures during her Schwalenberg Fellowship. Drawing on fantasy, gaming and horror, the works combine human, animal and environmental forms. Digital modelling and 3D printing meet handmade elements, complicating distinctions between biological and artificial bodies. The multipart Imp Incubator stages the emergence of non-human infants from an external placenta, bringing reproductive anxieties into contact with humour and care. Other creatures invoke mandrakes, fairies and whale-like bodies. The exhibition considers vulnerability and responsibility through beings whose unfamiliar appearance invites an empathetic response.",
+    "descriptionKind": "overview",
+    "summary": "Hybrid sculptural creatures explore corporeal openness, reproductive anxieties and responsibility for non-human life.",
+    "social": {
+        "status": "published",
+        "revision": 1,
+        "language": "en",
+        "artists": [
+            {
+                "name": "Linda Marwan"
+            }
+        ],
+        "gallery": {
+            "name": "Robert Koepke Haus"
+        },
+        "credits": [
+            {
+                "role": "Photo",
+                "people": [
+                    {
+                        "name": "Benno Sattler"
+                    },
+                    {
+                        "name": "Linda Marwan"
+                    }
+                ]
+            }
+        ],
+        "quotationSource": {
+            "text": "In 2026, the Schwalenberg Fellowship was awarded to Leipzig-based artist Linda Marwan. In Schwalenberg, Marwan continued and expanded her project Becoming a Body of Others.\n\nThe project playfully engages with the history and concept of the monster, creating sculptures that appear as hybrid beings and refer to the empathetic network of living organisms. Marwan's works are influenced by gaming as well as the fantasy and horror genres. What may initially appear alien or even frightening becomes equally fascinating. Marwan's creatures connect humans with animals, as well as landscapes with the bodies that inhabit them. In doing so, they examine corporeality from the perspective of openness and self-surrender. To create them, Marwan primarily employs 3D modelling and 3D printing. In some of these sculptures, the printed and handmade elements ultimately merge into a seemingly homogeneous body.\n\nActing as manifestations of the fear of one’s own dissolution into the unfamiliar, these critters remind us of the interdependence between everything that is. The appearance of monsters accompanies the world becoming increasingly inhospitable.\n\nFor the exhibition, Marwan developed the multipart sculpture Imp Incubator, featuring three imp babies. The imps, goblin-like creatures, emerge from an extracorporeal placenta and are in the process of separating from their umbilical cords. One imp is attempting to bite through its own cord, another lies on a coiled one with its unusually long feet raised in the air, while a third has fallen asleep on the reddish placental parts sucking its thumb.\n\nThe placenta, unsettlingly resembling a kneeling body without a head, not only recalls its organic origin but, through its fusion with parts of Gothic armour, also acquires biomechanical features, hinting at the possibility of an artificial origin, as its extracorporeal nature already suggests.\n\nThe evident engagement with female corporeality and the birth of another, non-human being stands in the tradition of gynaehorror, a subgenre and analytical concept in horror film that addresses anatomical and biological anxieties surrounding the female body, including experiences and fears relating to pregnancy, childbirth, abortion and the use of reproductive technologies.\n\nDespite addressing these primal human fears, the imps, like all of Marwan's beings, possess a cute, humorous aspect. Their faces are playful, cheeky and sweet, conforming to the Kindchenschema. In Marwan's Imp Incubator the emphasis is less on fleeing from fear than on (parental) devotion. Marwan's sculptures imply the responsibility of accepting the creatures with whom we share this world for what they are, taking responsibility for them, and caring for them.\n\nAlongside the imps, Marwan sculpted a mandrake and a fairy-like creature called Night Sprite. The mandrake, a plant whose roots often resemble human figures, frequently appears in myths and legends and is attributed magical powers, which the artist also invokes through her fantasy worlds inspired by the Middle Ages and transposed into contemporary computer games.\n\nOther creatures emerge with human features and details associated with threat or pain, such as Orca Larva (the Baby) (2025), a whale-like infant with sharp teeth whom the artist nurses at her own breast, or Totfund (2026), which appears as a stranded dead body, a mixture of whale and reptile, with sharp teeth and human-like, claw-shaped fingernails.",
+            "language": "en",
+            "verified": true,
+            "sourceUrl": "https://saliva.live/exhibitions/da82b9b5"
+        },
+        "excerpt": "The project playfully engages with the history and concept of the monster, creating sculptures that appear as hybrid beings and refer to the empathetic network of living organisms. Marwan's works are influenced by gaming as well as the fantasy and horror genres. What may initially appear alien or even frightening becomes equally fascinating. Marwan's creatures connect humans with animals, as well as landscapes with the bodies that inhabit them. In doing so, they examine corporeality from the perspective of openness and self-surrender. ",
+        "coverOriginalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/2b318f74-19dd-4b04-907e-270a1872c1e4.jpg"
+    },
+    "coverImage": "/exhibitions/becoming-a-body-of-others-linda-marwan/01.webp",
+    "previewImage": "/exhibitions/becoming-a-body-of-others-linda-marwan/01.webp",
+    "heroImage": "/exhibitions/becoming-a-body-of-others-linda-marwan/02.webp",
+    images: localExhibitionGalleryWithOrientations("becoming-a-body-of-others-linda-marwan", [
+      {
+            "filename": "01.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/2b318f74-19dd-4b04-907e-270a1872c1e4.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "02.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/5c8b8e3f-3133-421a-bd74-69d5af62d771.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "03.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/fbf547bf-9f46-46d5-bd7e-255b8751ddae.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "04.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/94cd22d3-b17e-419f-a14c-70ceb9056fa7.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "05.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/c34146e0-80cf-4358-a6c1-7b2d53b8a9ff.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "06.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/1471c684-240a-40b0-884d-8d2a26b2300f.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "07.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/7e1b0bd5-7814-46c5-89fb-e599d36f9963.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "08.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/38e186b6-de08-4775-ae2e-595ea3d2bf43.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "09.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/6ff8d944-689d-46fd-9671-fbd12a1ac284.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "10.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/b44bdc01-826f-4db4-a6e1-333858ce47ed.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "11.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/d1a26959-70d4-4f6a-8263-0416c1edcdf4.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "12.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/e5ac332b-2510-4c8c-b35b-0eeb40853272.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "13.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/5c30bec9-8ad1-4dd7-a220-f383dbf32750.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "14.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/0cfb1cc8-cfea-4fed-af3a-628751f7bf5b.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "15.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/beaffff3-6247-4739-ae3a-a1f7e203543e.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "16.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/b042256e-2ab9-46e5-b39f-404e461b3800.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "17.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/6d240f53-6e60-40e3-8307-a72b5a4af2f0.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "18.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/e690cc38-037d-497e-afcb-91ca825c411f.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "19.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/801a625b-33a1-4fc6-8da9-6e249abc6eaa.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "20.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/6183c3c4-df89-430e-99e6-437b25763374.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "21.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/7cca47e6-3b69-4de6-86dc-7fdc82e328e5.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "22.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/f4cb0b52-70dd-4314-97ee-d03eb02305c6.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "23.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/cd3d0d67-f1b8-4279-92ef-f7c53984f422.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      },
+      {
+            "filename": "24.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/becoming-a-body-of-others-linda-marwan/originals/0ee7a0a2-8aac-4648-9d72-733d702882aa.jpg",
+            "caption": "Exhibition documentation. Photo: Benno Sattler, Linda Marwan."
+      }
+]),
+  },
+  // AI_INGEST_END: becoming-a-body-of-others-linda-marwan
+  // AI_INGEST_START: drift-index-matej-mihevc
+  {
+    "slug": "drift-index-matej-mihevc",
+    "title": "Drift Index",
+    "subtitle": "Matej Mihevc",
+    "venue": "Aksioma",
+    "gallery": "Aksioma",
+    "city": "Ljubljana",
+    "country": "Slovenia",
+    "year": "2026",
+    "dates": "7 October 2026 — 13 November 2026",
+    "startDate": "7 October 2026",
+    "endDate": "13 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+        "Matej Mihevc"
+    ],
+    "curator": "Maja Burja",
+    "photographer": "Domen Pal",
+    "exhibitionText": "Maja Burja",
+    "source": "Saliva",
+    "sourceUrl": "https://saliva.live/exhibitions/5d47fcf3",
+    "description": "Matej Mihevc constructs a fictional research environment around the figure of the drifter, an observer of images and media fragments circulating through automated cultural systems. Screens, thermal printouts and magnifying tools give material form to an investigation of visual codes. The Drift Index network connects amateur researchers searching for overlooked patterns within increasingly self-contained image economies. Curator and text author Maja Burja relates their activity to the history of trend detection and its absorption into marketing. The exhibition considers how generative content and platform systems shape desire, identity and attention, while leaving space for exploratory forms of looking without an immediate productive goal.",
+    "descriptionKind": "overview",
+    "summary": "A speculative research environment investigates autonomous image production, media fragments and technological feedback loops.",
+    "social": {
+        "status": "published",
+        "revision": 1,
+        "language": "en",
+        "artists": [
+            {
+                "name": "Matej Mihevc"
+            }
+        ],
+        "gallery": {
+            "name": "Aksioma"
+        },
+        "credits": [
+            {
+                "role": "Text",
+                "people": [
+                    {
+                        "name": "Maja Burja"
+                    }
+                ]
+            }
+        ],
+        "quotationSource": {
+            "text": "“It’s as though the creative process is no longer contained within an individual skull, if indeed it ever was. Everything, today, is to some extent the reflection of something else.”¹\n\n\n\nCardboard-sealed windows provisionally separate the drifter’s space from the sweltering atmosphere of a self-digesting grey zone. Shifting air masses carry plastiglomerated detritus inside, an omnipresent metabolic dust that gathers in the corners of the studio. Every so often, the winds bring in an interesting remnant: an abandoned fragment of latent desire, which the drifter examines under a magnifying glass during network outages. When the connection is restored, the dormant surfaces of the screens are flooded by a luminous stream of content, directing the gaze along the actualised vectors of autonomous cultural production. A matter of sampling, engineering and market co-optation – at once everyone’s and no one’s. Successful immersion in the generative mass requires the drifter to be struck by a detail that triggers an obsessive search for something indefinable. This is followed by rapid intuitive validation on the local server and combing through the printouts of related coordinates that have been captured on thermal rolls throughout the day. Magnification, sharpening, solarisation… Once the inkling of a drift has been consolidated, it is time to post to Drift Index. The Drift Index network formed on the vestiges of subcultures and against the backdrop of an omnipresent and flattened visuality. It connects self-proclaimed drifters who use the network interface to conduct amateur investigations into visual codes and media artefacts in the interspaces of a self-contained system. Drifters can be compared to coolhunters, who at the turn of the millennium searched the streets for early signs of future trends – sneakers, baggy jeans, gaming consoles and the like. Mass marketing would then equip these with an image, a story and the aura of a world of their own, translating them into market objects and identities. With the dematerialisation and platformisation of markets, the dominance of automated marketing loops, and the capacity for the endless generation of personalised content, cultural production has become an autonomous creator of infinite consumer subjectivities. Images no longer function merely as carriers of meaning, but as complex feedback systems² and affective attractors³ within a collective hallucinatory exchange. In an environment of post-synthetic and ubiquitous production, the drifter spends his time in unproductively attentive observation – mapping overlooked artefacts, channels and connections, and aimlessly exploring the field of possibilities within the currents of images…",
+            "language": "en",
+            "verified": true,
+            "sourceUrl": "https://saliva.live/exhibitions/5d47fcf3"
+        },
+        "excerpt": "Cardboard-sealed windows provisionally separate the drifter’s space from the sweltering atmosphere of a self-digesting grey zone. Shifting air masses carry plastiglomerated detritus inside, an omnipresent metabolic dust that gathers in the corners of the studio. Every so often, the winds bring in an interesting remnant: an abandoned fragment of latent desire, which the drifter examines under a magnifying glass during network outages. When the connection is restored, the dormant surfaces of the screens are flooded by a luminous stream of content, directing the gaze along the actualised vectors of autonomous cultural production. A matter of sampling, engineering and market co-optation – at once everyone’s and no one’s.",
+        "coverOriginalSrc": "/exhibitions/drift-index-matej-mihevc/originals/fb047279-319f-459d-89f7-d58c7780db20.jpg"
+    },
+    "coverImage": "/exhibitions/drift-index-matej-mihevc/01.webp",
+    "previewImage": "/exhibitions/drift-index-matej-mihevc/01.webp",
+    "heroImage": "/exhibitions/drift-index-matej-mihevc/02.webp",
+    images: localExhibitionGalleryWithOrientations("drift-index-matej-mihevc", [
+      {
+            "filename": "01.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/fb047279-319f-459d-89f7-d58c7780db20.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "02.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/e1becad7-b21b-48a6-a3f5-edb94ffaa25b.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "03.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/e3c363ef-5772-4009-a3fd-09a3317ba263.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "04.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/3e0df5af-6afe-475b-b34a-7812d3a282aa.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "05.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/e93611de-7b13-410c-aeb1-a5c70f542b23.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "06.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/3a1ada34-d3e5-4b53-9bc1-7224e7bd975d.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "07.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/13c161f5-746e-488d-8457-647e5ff4a409.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "08.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/6757c009-1d4c-472e-93dd-92ace756bb8f.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "09.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/a742e2bd-ab62-483b-afd3-842ab6ab123a.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "10.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/c101149c-5db6-4d73-8f2b-ae13610af00d.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "11.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/6971e97f-299b-4b32-b3e2-ec55b38f0773.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "12.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/8c3d228b-1de1-4394-8e13-fab832b4da58.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "13.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/75f7d142-7b11-41d0-84ca-123961b15ddf.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "14.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/ade865bd-9a43-46e8-970f-84c846578de9.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "15.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/2dbec670-4901-4b15-b03e-bf8130ebafc3.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "16.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/08056c9b-5e3b-4d50-aca2-976149caef40.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "17.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/66b1a0ab-a506-4dd2-88cc-151a14d31d66.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "18.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/67fc1db9-84ce-4222-93ae-7c456bc384e6.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "19.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/1a8d8d4a-133f-40af-b0e8-9b53eaf9aecc.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "20.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/5001884f-6357-4de5-becc-c3f98b575652.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      },
+      {
+            "filename": "21.webp",
+            "orientation": "horizontal",
+            "originalSrc": "/exhibitions/drift-index-matej-mihevc/originals/0ac040f7-79ed-44d6-acd1-9e5c17ee560e.jpg",
+            "caption": "Exhibition documentation. Photo: Domen Pal."
+      }
+]),
+  },
+  // AI_INGEST_END: drift-index-matej-mihevc
+  // AI_INGEST_START: rites-of-passage-gwangju
+  {
+    "slug": "rites-of-passage-gwangju",
+    "title": "Rites of Passage",
+    "subtitle": "Group Exhibition",
+    "venue": "Leeleenam Studio",
+    "gallery": "Leeleenam Studio",
+    "city": "Gwangju",
+    "country": "South Korea",
+    "year": "2026",
+    "dates": "5 September 2026 — 15 November 2026",
+    "startDate": "5 September 2026",
+    "endDate": "15 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+        "Ula Lucińska",
+        "Michał Knychaus",
+        "Alicja Bielawska",
+        "Urszula Broll",
+        "Park Saengkwang",
+        "Yeesookyung",
+        "Anna Zaradny"
+    ],
+    "curator": "Paulina Olszewska",
+    "photographer": "Kuba Celej",
+    "source": "Adam Mickiewicz Institute; user-supplied documentation",
+    "sourceUrl": "https://www.e-flux.com/announcements/6787324/rites-of-passage",
+    "description": "Rites of Passage brings artists from Poland and Korea together in the Poland Pavilion at the 16th Gwangju Biennale. Curated by Paulina Olszewska and organised by the Adam Mickiewicz Institute, the exhibition considers transitions in individual lives and collective experience. Ula Lucińska and Michał Knychaus participate as the duo Inside Job, alongside Alicja Bielawska, Urszula Broll, Park Saengkwang, Yeesookyung and Anna Zaradny. Works in varied media form a sequence of environments through which visitors move, making the experience of transition part of the exhibition’s spatial structure. The project approaches change through both gradual transformations and clearly felt thresholds.\n\n“The journey through the pavilion becomes a physical experience of crossing a threshold—of moving from one state of being to another.”",
+    "descriptionKind": "overview",
+    "summary": "Polish and Korean artists explore transition through a sequence of environments in the Poland Pavilion at Gwangju Biennale.",
+    "social": {
+        "status": "published",
+        "revision": 1,
+        "language": "en",
+        "artists": [
+            {
+                "name": "Ula Lucińska",
+                "instagram": {
+                    "handle": "@ula.lucinska",
+                    "verified": true,
+                    "source": "User-supplied publication credits, 5 November 2026"
+                }
+            },
+            {
+                "name": "Michał Knychaus",
+                "instagram": {
+                    "handle": "@michalknychaus",
+                    "verified": true,
+                    "source": "User-supplied publication credits, 5 November 2026"
+                }
+            },
+            {
+                "name": "Alicja Bielawska"
+            },
+            {
+                "name": "Urszula Broll"
+            },
+            {
+                "name": "Park Saengkwang"
+            },
+            {
+                "name": "Yeesookyung"
+            },
+            {
+                "name": "Anna Zaradny"
+            }
+        ],
+        "gallery": {
+            "name": "Leeleenam Studio",
+            "instagram": {
+                "handle": "@leeleenam_studio",
+                "verified": true,
+                "source": "User-supplied publication credits, 5 November 2026"
+            }
+        },
+        "credits": [
+            {
+                "role": "Photo courtesy",
+                "people": [
+                    {
+                        "name": "Adam Mickiewicz Institute"
+                    }
+                ]
+            },
+            {
+                "role": "Organized by",
+                "people": [
+                    {
+                        "name": "Adam Mickiewicz Institute"
+                    }
+                ]
+            }
+        ],
+        "quotationSource": {
+            "text": "The journey through the pavilion becomes a physical experience of crossing a threshold—of moving from one state of being to another.",
+            "language": "en",
+            "verified": true,
+            "sourceUrl": "https://www.e-flux.com/announcements/6787324/rites-of-passage"
+        },
+        "excerpt": "The journey through the pavilion becomes a physical experience of crossing a threshold—of moving from one state of being to another.",
+        "coverOriginalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-02.jpg"
+    },
+    "coverImage": "/exhibitions/rites-of-passage-gwangju/01.webp",
+    "previewImage": "/exhibitions/rites-of-passage-gwangju/01.webp",
+    "heroImage": "/exhibitions/rites-of-passage-gwangju/01.webp",
+    images: localExhibitionGalleryWithOrientations("rites-of-passage-gwangju", [
+      {
+            "filename": "01.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-02.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      },
+      {
+            "filename": "02.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-01.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      },
+      {
+            "filename": "03.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-03.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      },
+      {
+            "filename": "04.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-04.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      },
+      {
+            "filename": "05.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-05.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      },
+      {
+            "filename": "06.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-06.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      },
+      {
+            "filename": "07.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-07.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      },
+      {
+            "filename": "08.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-08.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      },
+      {
+            "filename": "09.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-09.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      },
+      {
+            "filename": "10.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/rites-of-passage-gwangju/originals/rites-of-passage-gwangju-10.jpg",
+            "caption": "Exhibition documentation. Photo: Kuba Celej."
+      }
+]),
+  },
+  // AI_INGEST_END: rites-of-passage-gwangju
+  // AI_INGEST_START: pennys-judith-hopf-alf-lechner
+  {
+    "slug": "pennys-judith-hopf-alf-lechner",
+    "title": "Pennys",
+    "subtitle": "Judith Hopf and Alf Lechner",
+    "venue": "Lechner Museum",
+    "gallery": "Lechner Museum",
+    "city": "Ingolstadt",
+    "country": "Germany",
+    "year": "2026",
+    "dates": "17 May 2026 — 11 April 2027",
+    "startDate": "17 May 2026",
+    "endDate": "11 April 2027",
+    "dateSource": "exhibition",
+    "artists": [
+        "Judith Hopf",
+        "Alf Lechner"
+    ],
+    "curator": "Dominik Bais",
+    "photographer": "Jens Gerber",
+    "source": "Lechner Museum; user-supplied documentation",
+    "sourceUrl": "https://lechner-museum.de/en/ausstellung/pennys",
+    "description": "Pennys places the work of Judith Hopf in dialogue with sculptures by Alf Lechner at the Lechner Museum. Familiar forms associated with travel, construction and circulation appear detached from their expected uses. Brick pears and luggage, concrete tyres and an opening in a wall suggest movement while remaining materially grounded. Lechner’s steel works introduce another approach to weight, pressure and the transformation of form. Curated by Dominik Bais, the exhibition connects these different practices through questions of stability, motion and value.\n\n“The exhibition captures moments when something starts to roll or comes to a standstill. Much seems to be in motion, yet remains stationary.”",
+    "descriptionKind": "overview",
+    "summary": "Judith Hopf and Alf Lechner bring movement, stillness, material weight and everyday value into dialogue.",
+    "social": {
+        "status": "published",
+        "revision": 1,
+        "language": "en",
+        "artists": [
+            {
+                "name": "Judith Hopf",
+                "instagram": {
+                    "handle": "@judith_hopf",
+                    "verified": true,
+                    "source": "User-supplied publication credits, 5 November 2026"
+                }
+            },
+            {
+                "name": "Alf Lechner"
+            }
+        ],
+        "gallery": {
+            "name": "Lechner Museum",
+            "instagram": {
+                "handle": "@lechnermuseum",
+                "verified": true,
+                "source": "https://lechner-museum.de/en/ausstellung/pennys"
+            }
+        },
+        "credits": [
+            {
+                "role": "Curator",
+                "people": [
+                    {
+                        "name": "Dominik Bais",
+                        "instagram": {
+                            "handle": "@dominikbais",
+                            "verified": true,
+                            "source": "User-supplied publication credits, 5 November 2026"
+                        }
+                    }
+                ]
+            },
+            {
+                "role": "Photo",
+                "people": [
+                    {
+                        "name": "Jens Gerber",
+                        "instagram": {
+                            "handle": "@jensgerberfotografie",
+                            "verified": true,
+                            "source": "User-supplied publication credits, 5 November 2026"
+                        }
+                    }
+                ]
+            },
+            {
+                "role": "Courtesy",
+                "people": [
+                    {
+                        "name": "kaufmann repetto",
+                        "instagram": {
+                            "handle": "@kaufmannrepetto",
+                            "verified": true,
+                            "source": "User-supplied publication credits, 5 November 2026"
+                        }
+                    },
+                    {
+                        "name": "Deborah Schamoni",
+                        "instagram": {
+                            "handle": "@deborahschamoni",
+                            "verified": true,
+                            "source": "User-supplied publication credits, 5 November 2026"
+                        }
+                    }
+                ]
+            }
+        ],
+        "quotationSource": {
+            "text": "The exhibition captures moments when something starts to roll or comes to a standstill. Much seems to be in motion, yet remains stationary.",
+            "language": "en",
+            "verified": true,
+            "sourceUrl": "https://lechner-museum.de/en/ausstellung/pennys"
+        },
+        "excerpt": "The exhibition captures moments when something starts to roll or comes to a standstill. Much seems to be in motion, yet remains stationary.",
+        "coverOriginalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-02.jpg"
+    },
+    "coverImage": "/exhibitions/pennys-judith-hopf-alf-lechner/01.webp",
+    "previewImage": "/exhibitions/pennys-judith-hopf-alf-lechner/01.webp",
+    "heroImage": "/exhibitions/pennys-judith-hopf-alf-lechner/01.webp",
+    images: localExhibitionGalleryWithOrientations("pennys-judith-hopf-alf-lechner", [
+      {
+            "filename": "01.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-02.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      },
+      {
+            "filename": "02.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-01.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      },
+      {
+            "filename": "03.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-03.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      },
+      {
+            "filename": "04.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-04.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      },
+      {
+            "filename": "05.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-05.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      },
+      {
+            "filename": "06.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-06.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      },
+      {
+            "filename": "07.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-07.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      },
+      {
+            "filename": "08.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-08.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      },
+      {
+            "filename": "09.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-09.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      },
+      {
+            "filename": "10.webp",
+            "orientation": "vertical",
+            "originalSrc": "/exhibitions/pennys-judith-hopf-alf-lechner/originals/pennys-judith-hopf-alf-lechner-10.jpg",
+            "caption": "Exhibition documentation. Photo: Jens Gerber."
+      }
+]),
+  },
+  // AI_INGEST_END: pennys-judith-hopf-alf-lechner
   // AI_INGEST_START: white-noise-anna-uddenberg
   // Website only: Telegram export explicitly disabled at the user's request.
   // Full English essay and all seven photographs were supplied by the user.
