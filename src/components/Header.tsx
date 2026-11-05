@@ -97,6 +97,7 @@ export function Header({ overlay = false }: HeaderProps) {
           </button>
           <Link
             href="/saved"
+            prefetch={false}
             aria-label="View saved items"
             className={`transition-opacity hover:opacity-55 focus-visible:outline-none`}
           >

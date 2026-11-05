@@ -220,7 +220,7 @@ export function MasonryGrid({
       return <EditorialPromoCard key="editorial-promo" />;
     }
     if (item.kind === "submit-ad") {
-      return <SubmitAdCard key="submit-ad" />;
+      return <SubmitAdCard key="submit-ad" sizes={cardSizes} />;
     }
     if (item.kind === "artist") {
       return <EditorialCard key={`artist-${item.artist.slug}`} artist={item.artist} sizes={cardSizes} />;

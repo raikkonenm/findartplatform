@@ -174,7 +174,7 @@ function MobileFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean 
                     {inner}
                   </a>
                 ) : (
-                  <Link href={slide.href} aria-label={slide.ariaLabel} className="block">
+                  <Link href={slide.href} prefetch={false} aria-label={slide.ariaLabel} className="block">
                     {inner}
                   </Link>
                 )}
@@ -375,6 +375,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
           <article className="min-w-0">
             <Link
               href="/exhibitions/der-kopf-ist-rund"
+              prefetch={false}
               aria-label="View Der Kopf ist rund exhibition"
               className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
@@ -392,6 +393,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
               </p>
               <Link
                 href="/exhibitions/der-kopf-ist-rund"
+                prefetch={false}
                 className="editorial-serif mt-2 block break-words text-[clamp(1rem,1.7vw,1.65rem)] uppercase leading-[1.02] tracking-[-0.035em] text-neutral-900 transition-opacity hover:opacity-60"
               >
                 Der Kopf ist rund, damit das Denken die Richtung wechseln kann
@@ -405,6 +407,7 @@ function DesktopFeaturedCarousel({ initialIsMobile }: { initialIsMobile: boolean
           <article className="min-w-0">
             <Link
               href="/exhibitions/axial-core"
+              prefetch={false}
               aria-label="View Axial-Core exhibition"
               className="relative block aspect-[16/9] overflow-hidden bg-neutral-100"
             >
@@ -1272,6 +1275,7 @@ export default function HomePageClient({
             </button>
             <Link
               href="/saved"
+              prefetch={false}
               aria-label="View saved items"
               className="text-neutral-900 transition-opacity hover:opacity-55 focus-visible:outline-none"
             >
@@ -1459,7 +1463,7 @@ export default function HomePageClient({
         ) : (
           <MasonryGrid
             exhibitions={filtered}
-            eagerCount={1}
+            eagerCount={showFeaturedBanners ? 0 : 1}
             initialIsMobile={initialIsMobile}
             density={density}
             editorialPromo={showEditorialPromo}

@@ -124,7 +124,7 @@ export function ExhibitionCard({
     // flex layout (48px column gap, 64px row gap), so the card itself
     // stays markup-only — no wrapper margins here.
     <article className="group relative">
-      <Link href={`/exhibitions/${exhibition.slug}`} className="block">
+      <Link href={`/exhibitions/${exhibition.slug}`} prefetch={false} className="block">
         <div className={`relative ${aspect} overflow-hidden rounded bg-neutral-100 md:rounded-none`}>
           {!desktopSlideshow && <Image
             src={exhibition.coverImage ?? exhibition.previewImage}
@@ -134,7 +134,7 @@ export function ExhibitionCard({
             priority={eager}
             {...(eager
               ? { fetchPriority: "high" as const }
-              : { loading: "lazy" as const })}
+              : { loading: "lazy" as const, fetchPriority: "low" as const })}
             sizes={sizes}
           />}
           {desktopSlideshow && (

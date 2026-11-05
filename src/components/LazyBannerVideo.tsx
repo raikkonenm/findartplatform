@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * Shows a cheap poster image until the player is within the viewport
- * (IntersectionObserver), then swaps in a `<video>` element with
- * autoplay + muted + loop. The video uses `preload="none"` so no
- * bytes are fetched before intersection; once visible, we flip to
- * `preload="auto"` and let the browser stream.
+ * (IntersectionObserver), then attaches the video source and starts
+ * playback. Keeping the player/poster in the initial markup avoids
+ * replacing the first visible image with a late-loading player.
+ * Offscreen players have no source and use `preload="none"`.
  *
  * The homepage featured-banner strip has four tiles side-by-side. Two
  * of them are videos (AC + Workflow). Before this component, both
@@ -26,6 +26,8 @@ export function LazyBannerVideo({
   className,
   onlyDesktop = false,
   rootMargin = "0px",
+  priority = false,
+  visibleRatio = 0,
 }: {
   src: string;
   poster: string;
@@ -33,12 +35,21 @@ export function LazyBannerVideo({
   className?: string;
   onlyDesktop?: boolean;
   rootMargin?: string;
+  priority?: boolean;
+  visibleRatio?: number;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [visible, setVisible] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [canUseVideo, setCanUseVideo] = useState(!onlyDesktop);
+  const [pageVisible, setPageVisible] = useState(true);
+
+  useEffect(() => {
+    const update = () => setPageVisible(!document.hidden);
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
 
   // On mount in a browser, decide whether to hydrate the video at all.
   // `onlyDesktop` + narrow viewport = stay on the poster; the mobile
@@ -57,30 +68,34 @@ export function LazyBannerVideo({
     const el = ref.current;
     if (!el) return;
     if (typeof IntersectionObserver === "undefined") {
-      const frame = window.requestAnimationFrame(() => setVisible(true));
+      const frame = window.requestAnimationFrame(() => {
+        setLoaded(true);
+        setVisible(true);
+      });
       return () => window.cancelAnimationFrame(frame);
     }
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
+          const inView = entry.isIntersecting && entry.intersectionRatio >= visibleRatio;
+          if (inView) {
             setLoaded(true);
           }
-          setVisible(entry.isIntersecting);
+          setVisible(inView);
         }
       },
-      { rootMargin },
+      { rootMargin, threshold: visibleRatio },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [canUseVideo, rootMargin]);
+  }, [canUseVideo, rootMargin, visibleRatio]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (visible) void video.play().catch(() => {});
+    if (visible && pageVisible) void video.play().catch(() => {});
     else video.pause();
-  }, [visible]);
+  }, [visible, pageVisible, loaded, canUseVideo]);
 
   return (
     <div ref={ref} className={`relative h-full w-full ${className ?? ""}`}>
@@ -90,24 +105,24 @@ export function LazyBannerVideo({
       <img
         src={poster}
         alt={alt}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : undefined}
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover"
       />
-      {canUseVideo && (loaded || visible) && (
+      {canUseVideo && (
         <video
           ref={videoRef}
-          autoPlay
+          src={loaded ? src : undefined}
+          autoPlay={visible && pageVisible}
           muted
           loop
           playsInline
-          preload="auto"
-          poster={poster}
+          preload={loaded ? "auto" : "none"}
+          poster={priority || loaded ? poster : undefined}
           aria-label={alt}
-          className="absolute inset-0 h-full w-full object-cover"
-        >
-          <source src={src} type="video/mp4" />
-        </video>
+          className={`absolute inset-0 h-full w-full object-cover ${priority || loaded ? "opacity-100" : "opacity-0"}`}
+        />
       )}
     </div>
   );

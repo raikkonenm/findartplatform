@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Header } from "./Header";
 import { IndexImageCarousel } from "./IndexImageCarousel";
+import { LazyBannerVideo } from "./LazyBannerVideo";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "./MobileFilterSheet";
 import { HeartIcon, useSavedExhibitions } from "./SavedExhibitions";
 
@@ -138,6 +139,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "irenemolina.xyz",
     kind: "video",
     media: "/directory/irenemolina.web.mp4",
+    poster: "/directory/irenemolina.poster.webp",
   },
   {
     name: "STINE DEJA",
@@ -145,6 +147,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "stinedeja.com",
     kind: "video",
     media: "/directory/stinedeja.web.mp4",
+    poster: "/directory/stinedeja.poster.webp",
   },
   {
     name: "INSIDE JOB",
@@ -152,6 +155,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "ulalucinska.com",
     kind: "video",
     media: "/directory/inside-job.web.mp4",
+    poster: "/directory/inside-job.poster.webp",
   },
   {
     name: "NATHAN CARÊME",
@@ -159,6 +163,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "nathancareme.fr",
     kind: "video",
     media: "/directory/nathancareme.web.mp4",
+    poster: "/directory/nathancareme.poster.webp",
   },
   {
     name: "RUBY CHEN",
@@ -166,6 +171,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "rubyljchen.com",
     kind: "video",
     media: "/directory/rubychen.web.mp4",
+    poster: "/directory/rubychen.poster.webp",
   },
   {
     name: "IVANA BASIC",
@@ -187,6 +193,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "juliabelova.com",
     kind: "video",
     media: "/directory/juliabelova.web.mp4",
+    poster: "/directory/juliabelova.poster.webp",
   },
   {
     name: "ANDREA FERRERO",
@@ -194,6 +201,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "andrea-ferrero.com",
     kind: "video",
     media: "/directory/andrea-ferrero.web.mp4",
+    poster: "/directory/andrea-ferrero.poster.webp",
   },
   {
     name: "ANGELIKA PUFF",
@@ -201,6 +209,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "angelikapuff.com",
     kind: "video",
     media: "/directory/angelikapuff.web.mp4",
+    poster: "/directory/angelikapuff.poster.webp",
   },
   {
     name: "TAEWON AHN",
@@ -208,6 +217,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "irupp.kr",
     kind: "video",
     media: "/directory/taewon.web.mp4",
+    poster: "/directory/taewon.poster.webp",
   },
   {
     name: "AGNES QUESTIONMARK",
@@ -215,6 +225,7 @@ const ENTRIES: IndexEntry[] = [
     subtitle: "agnesquestionmark.com",
     kind: "video",
     media: "/directory/agnesquestionmark.web.mp4",
+    poster: "/directory/agnesquestionmark.poster.webp",
   },
 ];
 
@@ -291,8 +302,8 @@ export function DirectoryArchiveView() {
           </p>
         ) : viewMode === "grid" ? (
           <div className={`mt-10 grid gap-x-8 gap-y-14 ${gridColsClass}`}>
-            {visible.map((entry) => (
-              <DirectoryCard key={entry.name} entry={entry} />
+            {visible.map((entry, index) => (
+              <DirectoryCard key={entry.name} entry={entry} priority={index < 3} />
             ))}
           </div>
         ) : (
@@ -329,7 +340,7 @@ export function DirectoryArchiveView() {
   );
 }
 
-function DirectoryCard({ entry }: { entry: IndexEntry }) {
+function DirectoryCard({ entry, priority }: { entry: IndexEntry; priority: boolean }) {
   const savedKey = `directory:${entry.href}`;
   const { isSaved, toggleSaved } = useSavedExhibitions();
   const saved = isSaved(savedKey);
@@ -343,17 +354,14 @@ function DirectoryCard({ entry }: { entry: IndexEntry }) {
       >
         <div className="relative aspect-[2/1] overflow-hidden rounded bg-neutral-100 md:rounded-none">
           {entry.kind === "video" ? (
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster={entry.poster}
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out md:group-hover:scale-[1.025]"
-            >
-              <source src={entry.media as string} type="video/mp4" />
-            </video>
+            <LazyBannerVideo
+              src={entry.media as string}
+              poster={entry.poster!}
+              alt={`${entry.name} website preview`}
+              priority={priority}
+              visibleRatio={0.5}
+              className="transition-transform duration-500 ease-out md:group-hover:scale-[1.025]"
+            />
           ) : (
             <IndexImageCarousel
               images={entry.media as string[]}

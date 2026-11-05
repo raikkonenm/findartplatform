@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Footer } from "@/components/Footer";
-import { GlobalSearchOverlay } from "@/components/GlobalSearchOverlay";
+import { DeferredGlobalSearchOverlay } from "@/components/DeferredGlobalSearchOverlay";
 import { SavedExhibitionsProvider } from "@/components/SavedExhibitions";
 import { SearchPanelProvider } from "@/components/SearchPanelContext";
 import "./globals.css";
@@ -118,7 +118,7 @@ export default function RootLayout({
             {children}
             <Footer />
             {modal}
-            <GlobalSearchOverlay />
+            <DeferredGlobalSearchOverlay />
           </SearchPanelProvider>
         </SavedExhibitionsProvider>
       </body>

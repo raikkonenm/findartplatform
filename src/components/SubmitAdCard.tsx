@@ -9,7 +9,7 @@ import Link from "next/link";
  * but links to /submit and uses `/promo/submit-exhibition-bg.webp`
  * as the background.
  */
-export function SubmitAdCard() {
+export function SubmitAdCard({ sizes = "(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw" }: { sizes?: string }) {
   return (
     <article>
       <Link
@@ -22,7 +22,8 @@ export function SubmitAdCard() {
           alt=""
           fill
           loading="lazy"
-          sizes="(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw"
+          fetchPriority="low"
+          sizes={sizes}
           className="object-cover"
         />
         <span className="absolute inset-0 bg-black/15 transition-colors duration-300 group-hover:bg-black/25" />
