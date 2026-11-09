@@ -1515,6 +1515,71 @@ const CURATED_OPPORTUNITIES: Opportunity[] = [
     ],
     applyUrl: "https://wurlitzerfoundation.org/apply",
   },
+  // --- User curated batch 2026-11-09: 4 further prizes/awards/commissions ---
+  {
+    slug: "npg-herbert-smith-freehills-kramer-portrait-award-2027", organizer: "National Portrait Gallery (Herbert Smith Freehills Kramer)",
+    title: "Herbert Smith Freehills Kramer Portrait Award 2027",
+    deadline: "1 December 2026", deadlineDate: "2026-12-01", location: "London, United Kingdom",
+    audience: "Artists aged 18+ worldwide working in painting, specifically contemporary portraiture; works painted from life or photographic reference in the last year",
+    audiences: ["Individual artists"], type: ["Awards & Prizes", "Exhibitions", "Open Calls"],
+    fields: ["Painting", "Portrait"], rewards: ["Cash Prize", "Exhibition"],
+    rewardSummary: "£35,000 First Prize + NPG exhibition", applicationFee: "See website",
+    tags: ["PRIZE", "PORTRAIT", "PAINTING", "LONDON"],
+    intro: ["The Herbert Smith Freehills Kramer Portrait Award is one of the most prestigious international portrait painting prizes, culminating in an annual exhibition at the National Portrait Gallery in London. The 2027 edition offers a £35,000 First Prize plus commission opportunities and additional awards."],
+    sections: [
+      { title: "Who can apply", items: ["Artists aged 18 or over, from any country", "Painters working in contemporary portraiture", "Works created in the past year (from life or photographic reference)"] },
+      { title: "What you get", items: ["£35,000 First Prize", "Exhibition at the National Portrait Gallery, London", "Commission opportunities with the winner's sitter selection", "Additional prizes for runner-up positions"] },
+    ],
+    applyUrl: "https://www.npg.org.uk/whatson/exhibitions/2027/herbert-smith-freehills-kramer-portrait-award-2027",
+  },
+  {
+    slug: "gottlieb-foundation-individual-support-grant-2027", organizer: "Adolph & Esther Gottlieb Foundation",
+    title: "Gottlieb Foundation Individual Support Grant 2027",
+    deadline: "15 January 2027", deadlineDate: "2027-01-15", location: "International",
+    audience: "Mature painters, sculptors and printmakers with at least 20 years of committed studio practice in a mature phase of their work; demonstrated financial need",
+    audiences: ["Individual artists", "Mid-career / established artists"], type: ["Grants & Stipends", "Open Calls"],
+    fields: ["Painting", "Sculpture", "Printmaking"], rewards: ["Funding"],
+    rewardSummary: "$25,000 unrestricted grant", applicationFee: "FREE",
+    tags: ["GRANT", "MID-CAREER", "PAINTING", "SCULPTURE", "FUNDED"],
+    intro: ["The Adolph & Esther Gottlieb Foundation awards unrestricted Individual Support Grants to mature painters, sculptors and printmakers whose studio practice spans at least 20 years. The grant is designed for artists in serious need of financial assistance while continuing to work in a mature phase of their practice."],
+    sections: [
+      { title: "Who can apply", items: ["Painters, sculptors and printmakers", "At least 20 years of committed studio practice", "Mature phase of work", "Demonstrated financial need"] },
+      { title: "What you get", items: ["$25,000 unrestricted grant", "No restrictions on how funds are used", "Awarded annually to individuals worldwide"] },
+    ],
+    applyUrl: "https://www.gottliebfoundation.org/individual-support-grant-1",
+  },
+  {
+    slug: "royal-society-sculptors-first-plinth-2027", organizer: "Royal Society of Sculptors",
+    title: "First Plinth Public Art Award 2027",
+    deadline: "12 January 2027", deadlineDate: "2027-01-12", location: "United Kingdom",
+    audience: "Sculptors — members and non-members of the Royal Society of Sculptors; emerging and mid-career practitioners especially encouraged",
+    audiences: ["Individual artists", "Emerging / young artists"], type: ["Awards & Prizes", "Commissions", "Open Calls"],
+    fields: ["Sculpture", "Public Art"], rewards: ["Funding", "Production", "Exhibition"],
+    rewardSummary: "£20,000 production award + public plinth commission", applicationFee: "FREE",
+    tags: ["PRIZE", "SCULPTURE", "PUBLIC ART", "COMMISSION", "UK", "FUNDED"],
+    intro: ["First Plinth is the Royal Society of Sculptors' flagship public art award, giving one artist a £20,000 production budget to realise a major new outdoor sculpture on a prominent public plinth in the UK. A platform for sculptors to make large-scale, publicly-sited work."],
+    sections: [
+      { title: "Who can apply", items: ["Sculptors (members and non-members of the Royal Society of Sculptors)", "Emerging and mid-career practitioners especially encouraged", "UK-eligible applicants"] },
+      { title: "What you get", items: ["£20,000 production award", "Realisation of a major new public sculpture on the plinth", "Significant public visibility and press coverage", "Mentorship and curatorial support from the Royal Society of Sculptors"] },
+    ],
+    applyUrl: "https://sculptors.org.uk/awards/first-plinth-public-art-award",
+  },
+  {
+    slug: "code-art-palo-alto-lytton-plaza-2027", organizer: "City of Palo Alto Public Art Program",
+    title: "Code:ART 2027 — Lytton Plaza Installation",
+    deadline: "16 November 2026, 23:59 PST", deadlineDate: "2026-11-16", location: "Palo Alto, United States",
+    audience: "Individual artists and artist teams; artists aged 18+ (team: at least one 18+ able to contract with the City); no prior Code:ART commission in current cycle",
+    audiences: ["Individual artists", "Collectives / groups"], type: ["Commissions", "Open Calls"],
+    fields: ["New Media", "Digital", "Public Art", "Installation"], rewards: ["Funding", "Production", "Exhibition"],
+    rewardSummary: "$20,000 project budget — single centrepiece commission", applicationFee: "FREE",
+    tags: ["COMMISSION", "PUBLIC ART", "DIGITAL", "USA", "FUNDED"],
+    intro: ["A separate, higher-budget Code:ART 2027 track from the City of Palo Alto: one centrepiece interactive installation at Lytton Plaza during the festival (13–16 October 2027, 6–10 pm nightly). Artists may propose existing work adaptable to the plaza or submit qualifications with a new concept for its specific site."],
+    sections: [
+      { title: "Who can apply", items: ["Individual artists and artist teams nationally and internationally", "Must be 18+ (for teams, at least one member 18+ able to contract with the City)", "Only one commission across the two Code:ART calls (Interactive Media + Lytton Plaza) per cycle"] },
+      { title: "What you get", items: ["$20,000 project budget for the Lytton Plaza centrepiece installation", "Prime festival placement at Lytton Plaza in downtown Palo Alto", "Temporary exhibition during Code:ART (13–16 October 2027, 6–10 pm nightly)"] },
+    ],
+    applyUrl: "https://cpapublicart.slideroom.com/",
+  },
 ];
 
 type ArtRabbitKind =
@@ -1641,7 +1706,11 @@ const ART_RABBIT_OPPORTUNITIES: Opportunity[] = [
   artRabbitOpportunity({ slug: "future-focus-artist-call-out-2026", organizer: "Positive Life Workshops CIC", title: "Artist Call-Out: Future Focus", deadline: "20 December 2026", deadlineDate: "2026-12-20", location: "St Helens, United Kingdom", audience: "Artists and community groups able to lead inclusive creative workshops", audiences: ["Individual artists", "Collectives / groups"], kind: "collaboration", tags: ["COMMUNITY", "SOCIAL PRACTICE"], fields: ["Social Practice", "Interdisciplinary"], rewardSummary: "£750 for three sessions", intro: ["Positive Life Workshops seeks artists to lead creative workshops exploring wellbeing, resilience and community connection."], applyUrl: "https://forms.gle/StgcyHH92Ut2asxP9" }),
   artRabbitOpportunity({ slug: "nars-international-residency-2026", organizer: "NARS Foundation", title: "NARS International Residency Program", deadline: "31 December 2026", deadlineDate: "2026-12-31", location: "Brooklyn, United States", audience: "Emerging and mid-career artists working in any discipline", kind: "residency", tags: ["STUDIO SPACE", "MENTORSHIP", "EXHIBITION"], rewardSummary: "Studio, curatorial support and public programming", applicationFee: "US$35", intro: ["NARS Foundation offers three-, six- and twelve-month residencies with studio access, studio visits and an international artistic community."], applyUrl: "https://www.narsfoundation.org/residencies" }),
   artRabbitOpportunity({ slug: "nicola-arts-open-call-2026", organizer: "NICOLA Arts", title: "Open Call for Artists", deadline: "31 December 2026", deadlineDate: "2026-12-31", location: "United Kingdom", audience: "Artists and creatives proposing workshops, talks, performances, readings and participatory events", kind: "open-call", tags: ["COMMUNITY", "PERFORMANCE", "WORKSHOPS"], fields: ["Performance", "Social Practice"], intro: ["NICOLA Arts invites proposals for intimate creative and participatory events in its gallery space."], applyUrl: "https://docs.google.com/forms/d/e/1FAIpQLScIAvU10bkVmU6kS3BBxELNpqLby-dbD_PwSxKE5dhiEi-mIw/viewform?usp=publish-editor" }),
-  artRabbitOpportunity({ slug: "pollock-krasner-artist-grants", organizer: "Pollock-Krasner Foundation", title: "Pollock-Krasner Foundation Artist Grants", deadline: "31 December 2026", deadlineDate: "2026-12-31", location: "International", audience: "Professional visual artists working in painting, sculpture or works on paper with an active exhibition record", kind: "grant", tags: ["PAINTING", "SCULPTURE", "FUNDING"], fields: ["Painting", "Sculpture"], rewardSummary: "Grants up to $50,000", applicationFee: "FREE", intro: ["Pollock-Krasner Foundation provides unrestricted grants for professional visual artists' materials, studios, exhibitions and living expenses."], applyUrl: "https://www.pkf.org/grants/grant-for-artists/" }),
+  // Pollock-Krasner accepts applications year-round — there is no fixed
+  // submission deadline per the foundation's own `how-to-apply` page. The
+  // deadlineDate is set to end of 2027 so the entry stays in the active
+  // feed without claiming a specific due date.
+  artRabbitOpportunity({ slug: "pollock-krasner-artist-grants", organizer: "Pollock-Krasner Foundation", title: "Pollock-Krasner Foundation Artist Grants", deadline: "Rolling applications — no fixed deadline", deadlineDate: "2027-12-31", location: "International", audience: "Professional visual artists working in painting, sculpture or works on paper with an active exhibition record", kind: "grant", tags: ["PAINTING", "SCULPTURE", "FUNDING", "ROLLING"], fields: ["Painting", "Sculpture"], rewardSummary: "Grants up to $50,000", applicationFee: "FREE", intro: ["Pollock-Krasner Foundation provides unrestricted grants for professional visual artists' materials, studios, exhibitions and living expenses. Applications are accepted on a rolling basis throughout the year — there is no fixed submission deadline."], applyUrl: "https://www.pkf.org/how-to-apply/" }),
   artRabbitOpportunity({ slug: "revart-artist-interview-2026", organizer: "RevArt", title: "RevArt Artist Interview 2026", deadline: "31 December 2026", deadlineDate: "2026-12-31", location: "Online", audience: "Artists of all backgrounds and career stages", kind: "collaboration", tags: ["PUBLICATION", "EDITORIAL"], fields: ["Writing", "Visual Arts"], rewardSummary: "Featured interview and promotion", intro: ["RevArt invites artists to share their creative journeys through a featured interview on its website, newsletter and social channels."], applyUrl: "https://airtable.com/appVBqyF9L6JTM6EI/pagh1TfE1JhIXQEjV/form" }),
   artRabbitOpportunity({ slug: "international-mute-photo-festival-2027", organizer: "Photonisos Arts & Culture NPO", title: "International Mute Photo Festival", deadline: "30 April 2027", deadlineDate: "2027-04-30", location: "Europe", audience: "Photographers worldwide working with children's thermal print cameras", kind: "open-call", tags: ["PHOTOGRAPHY", "EXHIBITION"], fields: ["Photography"], intro: ["The first International Mute Photo Festival invites photographic series made exclusively with children's thermal print cameras under the theme Nature ate the pixels."], applyUrl: "https://linktr.ee/mutephotofestival" }),
   // --- ArtRabbit ingest batch 2026-09-11 (7 new records from artist-opportunities index) ---
