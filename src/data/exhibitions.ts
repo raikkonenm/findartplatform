@@ -149,6 +149,11 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "transhuman-5-dysis-kunstverein-gottingen-2026": ["POSTHUMAN", "RUINS", "LIMINALITY", "TRANSFORMATION", "GROUP SHOW", "INSTALLATION"],
+  "novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026": ["MATERIALITY", "BODY", "TRANSFORMATION", "NON-HUMAN", "ORGANIC SYSTEMS"],
+  "klausykla-confessional-kristijonas-gurcinas-vilnius-2026": ["RITUAL", "MYTH", "SPIRITUALITY", "DREAM LOGIC", "MEMORY"],
+  "infinite-energy-hack-jung-shirken-malt-house-nyc-2026": ["POST-INDUSTRIAL", "TECHNOLOGY", "MACHINE", "SIMULATION", "SOUND", "SPECULATIVE FICTION"],
+  "whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026": ["MEMORY", "ABSENCE", "DISPLACEMENT", "MATERIAL MEMORY", "DOMESTICITY"],
   "plagues-patrick-goddard": ["INSTALLATION","ANIMALITY","BODY","SURVEILLANCE","NON-HUMAN"],
   "feral-metaverse-spider-theo-triantafyllidis": ["INSTALLATION","DIGITAL MYTH","SIMULATION","BODY","TECHNOLOGY"],
   "tranquil-nightmare-puiyan-fong": ["INSTALLATION","RITUAL","BODY","MEMORY","DOMESTICITY"],
@@ -339,6 +344,310 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: transhuman-5-dysis-kunstverein-gottingen-2026
+  // Source: saliva.live. User-attached cover (dark hall with skeleton display,
+  // hanging objects and mirrored panel) is 01.webp. Telegram: PUBLISHED.
+  {
+    slug: "transhuman-5-dysis-kunstverein-gottingen-2026",
+    social: {
+      status: "published",
+      revision: 1,
+      language: "en",
+      excerpt: "Eleven individual international artists, as well as one duo, offer an opportunity for such reflection through their works on display in the rooms of the Old Town Hall in Göttingen. Together, under the \"direction\" of curator Stephan Klee, they deliberately stage a possible state of the world following our current civilization: in this future, all that remains of our cultivated way of life is abandoned terrain. Accordingly, only a few scattered sculptures, images, and art objects in the medieval setting offer a glimpse of past human activities; often stripped of their function or even deformed, they bear witness to our current high culture - which, for the world of the exhibition, is now a thing of the past. People have largely abandoned this place. Film scenes depict dysfunctional modes of transportation and dilapidated architecture.",
+      artists: [
+        { name: "Birte Bosse", instagram: { handle: "@birtebosse", verified: true, source: "saliva.live" } },
+        { name: "Simon Faithfull", instagram: { handle: "@simonfaithfull", verified: true, source: "saliva.live" } },
+        { name: "Olga Fedorova", instagram: { handle: "@olgamikhfedorova", verified: true, source: "saliva.live" } },
+        { name: "Stella Geppert", instagram: { handle: "@stella.geppert", verified: true, source: "saliva.live" } },
+        { name: "Bastian Hoffmann", instagram: { handle: "@_bastianhoffmann", verified: true, source: "saliva.live" } },
+        { name: "Virginie Ittah", instagram: { handle: "@virginie_ittah", verified: true, source: "saliva.live" } },
+        { name: "Delia Jürgens", latinName: "Delia Juergens", instagram: { handle: "@deliajuergens", verified: true, source: "saliva.live" } },
+        { name: "Felix Kiessling", instagram: { handle: "@felix_kiessling", verified: true, source: "saliva.live" } },
+        { name: "Frederik Marks", instagram: { handle: "@frederikmarks_", verified: true, source: "saliva.live" } },
+        { name: "Aline Schwörer", latinName: "Aline Schwoerer", instagram: { handle: "@aline_schwoerer", verified: true, source: "saliva.live" } },
+        { name: "Astali/Peirce" },
+        { name: "Geerten Verheus" },
+      ],
+      gallery: { name: "Kunstverein Göttingen", instagram: { handle: "@kunstverein_goettingen", verified: true, source: "saliva.live" } },
+      credits: [{ role: "Text", people: [{ name: "Stephan Klee" }] }],
+    },
+    title: "TRANSHUMAN N°5 Dysis",
+    venue: "Altes Rathaus",
+    gallery: "Kunstverein Göttingen",
+    city: "Göttingen",
+    country: "Germany",
+    year: "2026",
+    dates: "17 October — 13 December 2026",
+    startDate: "17 October 2026",
+    endDate: "13 December 2026",
+    dateSource: "exhibition",
+    artists: [
+      "Astali/Peirce",
+      "Birte Bosse",
+      "Simon Faithfull",
+      "Olga Fedorova",
+      "Stella Geppert",
+      "Bastian Hoffmann",
+      "Virginie Ittah",
+      "Delia Jürgens",
+      "Felix Kiessling",
+      "Frederik Marks",
+      "Aline Schwörer",
+      "Geerten Verheus",
+    ],
+    curator: "Stephan Klee",
+    photographer: "Peter Heller",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/8bf3ed22",
+    description: `The ancient Greek word "Dysis" - Δύσις - has a number of meanings, such as the descend of a celestial body, the west (where the sun sets), twilight, but also "hiding place." In Greek mythology, Dysis is also the name of the goddess who protects the sunset and, by extension, the twilight phase marking the transition from day to night - a time considered to be one of reflection and transformation.
+
+In 2026, as part of its annual theme "Transhuman Tendencies," the Kunstverein Göttingen will showcase works by artists who engage critically with the question of what consequences the idea, or even ideology, of optimizing humanity through innovative technologies might have for life.
+
+In Dysis, the group exhibition that rounds out this year's exhibition program, the artists explore the admittedly unsettling question of whether our world is currently in a phase of transition from one era or epoch to another; in other words, whether we are currently experiencing a period of fundamental change that challenges us to reflect.
+
+Eleven individual international artists, as well as one duo, offer an opportunity for such reflection through their works on display in the rooms of the Old Town Hall in Göttingen. Together, under the "direction" of curator Stephan Klee, they deliberately stage a possible state of the world following our current civilization: in this future, all that remains of our cultivated way of life is abandoned terrain. Accordingly, only a few scattered sculptures, images, and art objects in the medieval setting offer a glimpse of past human activities; often stripped of their function or even deformed, they bear witness to our current high culture - which, for the world of the exhibition, is now a thing of the past. People have largely abandoned this place. Film scenes depict dysfunctional modes of transportation and dilapidated architecture.
+
+The works on display form a network of artistic testimonies and traces of a former presence, of past activity. As if at a crime scene, visitors can grasp the aftermath of something that once was, without being able to fully unravel what actually happened.
+
+Simon Faithfull displays the flooded vacation home of a mechanical engineer; Bastian Hoffmann contributes a Porsche engine that has melted onto the floor; Stella Geppert freezes the clay-stirred traces of a group of working people; Birte Bosse installs broken-off concrete reinforcing bars; and Astali/Peirce place an already mineralized T-shirt - to name just a few examples.
+
+All the exhibited works are characterized by an underlying enigmatic quality; they evoke thoughts and feelings without ever being able to offer a plausible explanation or a clear reason for their alienating, bizarre-seeming presence. At the same time, an otherwise unusual convergence of everyday life and art emerges, raising questions such as: "Is this the art on display, or was it already there before?" Adding to the sense of disorientation are individual creatures from a possible animated, posthuman future that seem to be conquering this fallow terrain. Examples include the wax creature by Virginie Ittah or the new species created by Aline Schwörer.
+
+The scenario depicted for the near future posits the end of transhumanism and the beginning of a new era of posthumanism. The exhibition thus portrays a phase of transition - the coexistence of two eras in flux - perhaps also linked to the unease, uncertainty, or even fascination inherent in a liminal experience. A liminal state of "no longer" or "not yet" is created, linked to questions such as: Are we already at the end of an era, and what are its relics? How might we position ourselves in this twilight of the West? What future might await us "the morning after"?
+
+In this sense, this concluding exhibition for 2026 can also be seen as a kind of bridge to the upcoming exhibition year 2027, which will be dedicated to the theme of posthuman visions.
+
+— Text: Stephan Klee`,
+    coverImage: localExhibitionImage("transhuman-5-dysis-kunstverein-gottingen-2026", "01.webp"),
+    previewImage: localExhibitionImage("transhuman-5-dysis-kunstverein-gottingen-2026", "01.webp"),
+    heroImage: localExhibitionImage("transhuman-5-dysis-kunstverein-gottingen-2026", "01.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "transhuman-5-dysis-kunstverein-gottingen-2026",
+      [{ filename: "01.webp", orientation: "horizontal" }],
+      "Peter Heller",
+    ),
+  },
+  // AI_INGEST_END: transhuman-5-dysis-kunstverein-gottingen-2026
+  // AI_INGEST_START: novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026
+  // Source: saliva.live. Cover (silver sculpture inside foil box with red lining).
+  // Telegram: DRAFT (user excluded).
+  {
+    slug: "novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026",
+    social: {
+      status: "draft",
+      revision: 1,
+      language: "en",
+    },
+    title: "Novo Hipotálamo | New Hypottalamus",
+    subtitle: "Gabriel Ribeiro",
+    venue: "Galeria Refresco",
+    gallery: "Galeria Refresco",
+    city: "Rio de Janeiro",
+    country: "Brazil",
+    year: "2026",
+    dates: "18 September — 13 November 2026",
+    startDate: "18 September 2026",
+    endDate: "13 November 2026",
+    dateSource: "exhibition",
+    artists: ["Gabriel Ribeiro"],
+    curator: "Daniela Avellar",
+    photographer: "Julia Thompson",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/6066876b",
+    description: `I. Allegory
+
+Millions of years ago, our vertebrate ancestors, aquatic beings, tried their luck on dry land. Ever since, we have existed as terrestrial beings, responding and reacting to a succession of environmental conditions, exchanges, and affections. As humans, we are composed of matter: metal flows through our blood; our bones are, in effect, living stones, the calcium that sustains them is of stellar origin, the result of nuclear fusion within stars that have long since gone extinct. The history of what we consider «living» is, therefore, inseparable from an intimacy with what we consider «non-living»: the rains that flood our cities, the force of the tides, sandy soils, heat, water, as well as the silicon that now inhabits our computers and the plastic that gives shape to our shopping bags.
+
+A single force runs through everything: from vulnerable human bodies and their nervous systems to complex machines. Yet, it must be noted that this vitalism, which recognizes forces and capacities within matter and stands in opposition to the anthropocentrism inherent in certain ways of understanding the world, is contingent upon a process of «doing.» As Karen Barad might suggest, matter is that which is «done,» or that which emerges through its own movements, a «doing» that relies on the actions, relationships, and encounters between things.
+
+The hypothalamus is a small structure located at the base of the brain, yet it is crucial for regulating the body. It functions as a translation center. It receives signals from the outside (light, temperature, an encounter with another body) as well as signals from within (glucose levels, sodium concentration in the blood, hormonal rhythms). Based on the intersection of these inputs, it generates responses: thirst, hunger, sleep, or the impulse to seek out shade or water. Contemporary neuroscience often describes it as an interface between the internal and external environments. The hypothalamus does not make decisions on its own; it is a mediation node, a structure that exists by continuously converting what arrives into what is returned to the world.
+
+It is this structure that Gabriel Ribeiro adopts as an allegory for his solo exhibition, describing his works, in fact, as «small hypothalami» and extending the metaphor to a different scale.
+
+The artist transforms this structure into a visible, dynamic, and concrete form: the capacity to imagine a new hypothalamus, a kind of fictional attempt to produce a double, an alternative interface between the inside and the outside, the organism and the environment, a meeting of matter and matter. In this sense, he aligns himself with the notion that matter is, categorically, a form of «doing.» Driven by a keen desire to observe how matter can move, he creates sculptures made possible through 3D printing. Here, we have the opportunity to see a hypothalamus, its structure enlarged forty-fold, manipulated with a heat gun, and subsequently cast in aluminum.
+
+II. Reaction
+
+A word that appears decisively in the artist's vocabulary is «reaction.» Given his near-scientific interest in materiality, and witnessing his passionate engagement with the diverse possibilities of the media he explores, one might once again draw a parallel between Ribeiro's practice and the teachings of Karen Barad, who suggests that light, as indeterminate matter, depends on the apparatuses that allow us to observe it. In this light, Gabriel Ribeiro's creative process gains a distinct momentum: the media he selects serve as surfaces and conduits that fundamentally exemplify transformative material encounters. It is worth noting that many of these works were created using sunlight, an inherently variable and unpredictable resource. Many of the pieces gathered here can be understood as the outcomes of encounters and heat exchanges that unfold amidst various contingencies.
+
+One process involving sunlight manifests in polyurethane foams, which react to light in a manner analogous to how human skin responds through tanning, a process that can be, for the human body, at once pleasurable and painful. Some small foam pieces bear the imprint of glass objects, specifically, tubes and vases. This dynamic, systemic concept, inspired by these forms, appears fundamental here for two reasons: on one hand, it highlights how Gabriel Ribeiro's work resonates with interpretations of a vitalism intrinsic to things (and to speech, among other elements).
+
+The objects employed by the artist, mundane items such as glasses and goblets, inspire notions of transition and emerge here as elements that emulate the physiology of the human body. These vessels serve as containers, allowing for the storage and transport of water. In this sense, an interplay arises between the acts of making, feeling, emulating, and crafting. Beyond the physico-chemical manifestation brought forth by light, one might suggest the presence of a latent, unmanifested humidity within the body of Gabriel Ribeiro's work.
+
+The exhibition structures that support the pieces selected for this show—energizing the space through a grid-like network of interconnected points—create a dynamism in which, at a deeper level, humidity persists as a mysterious residue. Water is thus present throughout the cyanotype process, even if it does not appear in the final image. The mixing of chemicals, the saturation of the substrate, and the final washing stage all rely on an aqueous medium—a process that echoes the function of the glasses themselves: their capacity to move, to contain, to expel, or to discard.
+
+Finally, we encounter pieces featuring a different chromatic expression—distinct from the yellows found in the foams or the reds in the color cyanotypes. These appear as radiant points of light against the white background of the mat board (responding to the resonances of the images depicted there with precise, singular focus). They form a grayish pair, in which two objects seem to emerge through a phantasmagoric channel. Made possible by the use of expired photographic paper—exposed once more to the effects of sunlight and heat—these works represent what Ribeiro describes as a form of "stress that makes something visible." It is as if they allude to the capacity of heat and overheating to penetrate the nervous system, triggering responses, turbulence, and adaptations. Curiously, these objects are bowls—vessels from which we might consume steaming broths or refreshing salads. Furthermore, they rest against the wall, as if rhyming with the structure that provides a prosthetic skin to the gallery space—a panel of intriguing thickness, composed of silicone applied over a fabric bearing solar prints; a sense of moisture that is not overt, but rather implicit.
+
+Thus, much as nothing exists before being touched by the encounters that traverse it, Gabriel Ribeiro's solo exhibition reveals a vitality inherent to the works themselves—works that emerge and constantly renew themselves within the exhibition space and its framing. They exemplify a highly specific kind of encounter: a juxtaposition of intention and chance, medium and support, which further highlights the material condition of the human body—a body networked with a range of non-human agents. Through staged processes involving the transport of water and the reception of heat as transformative agents—where the narrative itself is likewise transported and transformed—we witness a dynamic body of work. It engages deeply with contemporary issues, less through a logocentric or discursive impulse, and more through the compelling path of a creative practice attuned to the inherent potential of the media employed.
+
+— Text: Daniela Avellar`,
+    coverImage: localExhibitionImage("novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026", "01.webp"),
+    previewImage: localExhibitionImage("novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026", "01.webp"),
+    heroImage: localExhibitionImage("novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026", "01.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026",
+      [{ filename: "01.webp", orientation: "vertical" }],
+      "Julia Thompson",
+    ),
+  },
+  // AI_INGEST_END: novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026
+  // AI_INGEST_START: klausykla-confessional-kristijonas-gurcinas-vilnius-2026
+  // Source: saliva.live. Cover (dark wooden spiked frame with dog-teeth image).
+  // Telegram: PUBLISHED.
+  {
+    slug: "klausykla-confessional-kristijonas-gurcinas-vilnius-2026",
+    social: {
+      status: "published",
+      revision: 1,
+      language: "en",
+      excerpt: "\"Klausykla\" (en. \"Confessional\") continues and transforms the themes first explored in Kristijonas Gurčinas's painting exhibition \"Fantasmagorija,\" presented in the summer of 2026, which examined contemporary humans' relationship with transcendence, images of death, and their echoes in pop culture. This time, these themes are transferred to a more intimate setting – the confessional. Unlike in a traditional church, the act of confession in the exhibition is visual rather than verbal, so it is unclear from which side of the confessional grille the works are being viewed. Here, mythological narratives, biblical characters, fairy-tale motifs, and video game icons converge in a single space – as profane as a worn-out chapel bench and as sacred as a midnight conversation on kitchen stools.\n\n\"Klausykla\" is presented here as a paradox – in a traditionally intimate and sincere space, alongside sensitive openness, there also exists disbelief, insincerity, and sometimes even irony or performativity.",
+      artists: [
+        { name: "Kristijonas Gurčinas", latinName: "Kristijonas Gurcinas", instagram: { handle: "@gurc1nas", verified: true, source: "saliva.live" } },
+      ],
+      gallery: { name: "VAA gallery ARTIFEX", instagram: { handle: "@vdaartifex", verified: true, source: "saliva.live" } },
+    },
+    title: "Klausykla (Confessional)",
+    venue: "VAA gallery ARTIFEX",
+    gallery: "VAA gallery ARTIFEX",
+    city: "Vilnius",
+    country: "Lithuania",
+    year: "2026",
+    dates: "20 October — 13 November 2026",
+    startDate: "20 October 2026",
+    endDate: "13 November 2026",
+    dateSource: "exhibition",
+    artists: ["Kristijonas Gurčinas"],
+    photographer: "Valerija Semeniuk",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/e8256601",
+    description: `"Klausykla" (en. "Confessional") continues and transforms the themes first explored in Kristijonas Gurčinas's painting exhibition "Fantasmagorija," presented in the summer of 2026, which examined contemporary humans' relationship with transcendence, images of death, and their echoes in pop culture. This time, these themes are transferred to a more intimate setting – the confessional. Unlike in a traditional church, the act of confession in the exhibition is visual rather than verbal, so it is unclear from which side of the confessional grille the works are being viewed. Here, mythological narratives, biblical characters, fairy-tale motifs, and video game icons converge in a single space – as profane as a worn-out chapel bench and as sacred as a midnight conversation on kitchen stools.
+
+"Klausykla" is presented here as a paradox – in a traditionally intimate and sincere space, alongside sensitive openness, there also exists disbelief, insincerity, and sometimes even irony or performativity. Human frailties intertwine in the act of forgiveness and repentance: ranging from deep piety to doubt or scepticism.
+
+Guiding the mind and gaze between one's own sins and those of others, the artist presents seven paintings set in wooden frames created specifically for them, reminiscent of church furnishings or secret compartments. Yet these do not contain relics of saints, but rather fragments of the collective imagination prevalent today, shards of cultural memory, secrets, fears, and desires. In this way, the artist creates a unique mythology from imagery of diverse origins, speaking intimately of sin – an inescapable aspect of the human experience.
+
+✦✦✦✦✦
+
+Thanks to: Mykolas, Kristina, Gustė, Paulius, and other friends…
+
+The exhibition is funded by the Lithuanian Council for Culture.
+
+Participant bios
+
+Kristijonas Gurčinas (b. 2001) is an emerging artist of the younger generation who graduated with a bachelor's degree in painting in 2024 and a master's degree in painting in 2026. Since 2020, he has participated in exhibitions and competitions and curated group exhibitions. "Klausykla" is his third solo exhibition. The artist's work interweaves painting, objects, installation, and principles of archiving, allowing for an analysis of the relationship between personal memory, collective imagination, and cultural references.`,
+    coverImage: localExhibitionImage("klausykla-confessional-kristijonas-gurcinas-vilnius-2026", "01.webp"),
+    previewImage: localExhibitionImage("klausykla-confessional-kristijonas-gurcinas-vilnius-2026", "01.webp"),
+    heroImage: localExhibitionImage("klausykla-confessional-kristijonas-gurcinas-vilnius-2026", "01.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "klausykla-confessional-kristijonas-gurcinas-vilnius-2026",
+      [{ filename: "01.webp", orientation: "horizontal" }],
+      "Valerija Semeniuk",
+    ),
+  },
+  // AI_INGEST_END: klausykla-confessional-kristijonas-gurcinas-vilnius-2026
+  // AI_INGEST_START: infinite-energy-hack-jung-shirken-malt-house-nyc-2026
+  // Source: saliva.live. Cover (industrial space with rusty metal apparatus
+  // suspended, concrete columns, cityscape beyond). Telegram: PUBLISHED.
+  {
+    slug: "infinite-energy-hack-jung-shirken-malt-house-nyc-2026",
+    social: {
+      status: "published",
+      revision: 1,
+      language: "en",
+      excerpt: "Infinite Energy Hack is a collaborative project by sculptor Eugene Jung and sound artist Ben Shirken. At the center of the project is Infinite Energy Solutions (IES), a sustainability-driven EcoTech startup conceived by Jung and Shirken as a speculative container for exploring emerging relationships between humanity, technology, and the environment. Headquartered in a reclaimed industrial site in Harlem's Factory District and Innovation Triangle, IES is committed not only to researching actionable solutions for the production of limitless energy, but to actively embedding them within real-world operations.\n\nInfinite Energy Hack is informed by the cognitive hazards associated with what theorist Timothy Morton calls hyperobjects: phenomena so massively distributed in space and time that humans cannot perceive or even fully comprehend them (\"Global Warming;\" \"The Supply Chain\"). Because we exist as a part of hyperobjects, our attempts to understand them are bound up with the very systems that sustain them, and are therefore subject to their limitations.",
+      artists: [
+        { name: "Eugene Jung", instagram: { handle: "@Newgenejung", verified: true, source: "saliva.live" } },
+        { name: "Ben Shirken", instagram: { handle: "@Ex.wiish", verified: true, source: "saliva.live" } },
+      ],
+      gallery: { name: "Malt House", instagram: { handle: "@Lower_cavity", verified: true, source: "saliva.live" } },
+    },
+    title: "Infinite Energy Hack",
+    venue: "Malt House",
+    gallery: "Malt House",
+    city: "New York",
+    country: "United States",
+    year: "2026",
+    dates: "16 October — 15 November 2026",
+    startDate: "16 October 2026",
+    endDate: "15 November 2026",
+    dateSource: "exhibition",
+    artists: ["Eugene Jung", "Ben Shirken"],
+    photographer: "Etienne Frossard",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/78074f7b",
+    description: `Infinite Energy Hack is a collaborative project by sculptor Eugene Jung and sound artist Ben Shirken. At the center of the project is Infinite Energy Solutions (IES), a sustainability-driven EcoTech startup conceived by Jung and Shirken as a speculative container for exploring emerging relationships between humanity, technology, and the environment. Headquartered in a reclaimed industrial site in Harlem's Factory District and Innovation Triangle, IES is committed not only to researching actionable solutions for the production of limitless energy, but to actively embedding them within real-world operations.
+
+Infinite Energy Hack is informed by the cognitive hazards associated with what theorist Timothy Morton calls hyperobjects: phenomena so massively distributed in space and time that humans cannot perceive or even fully comprehend them ("Global Warming;" "The Supply Chain"). Because we exist as a part of hyperobjects, our attempts to understand them are bound up with the very systems that sustain them, and are therefore subject to their limitations.
+
+In order to effectively navigate such structures, IES advocates for resistance to the deeply embedded anthropocentrism of conventional thought, and a recognition that even non-living materials possess their own forms of agency. Philosopher Jane Bennett argues that any action is rarely just a human endeavor; instead, it occurs through "agentic assemblages"—structures produced by the complex interactions of human activity, non-human systems, and environmental forces. Infinite Energy Hack is such a structure, manifested through a proprietary IES interface that allows emergent forms of the near-future to be projected into the present.
+
+Visitors entering IES's temporary operations hub first encounter a desktop computer displaying the company's website. This workstation also functions as the nerve center for the agentic experiments unfolding throughout the space. The sounds of these tests emanate throughout the room: liquid-powered windmills emit alert transmissions, repurposed gas tanks and oil drums communicate encrypted messages to one another, and solar panels convert light into electrical interference. These interconnected objects constitute a collective entity, continually articulating the operational sounds of their own functioning.
+
+Participant bios
+
+Eugene Jung & Ben Shirken mine the ambiguous zone between hidden real-world systems and their collapse, constructing environments and installations that expose the networks quietly reprogramming contemporary life.
+
+Jung's practice models scenarios of global catastrophe through the construction of speculative, post-apocalyptic landscapes, employing semi-fictive materials to construct alternative realities that expose how urban development, capital flow, and technology operate without visible traces. In parallel, Shirken fuses sound, sculpture, and spatial design to interrogate how tools of communication, analysis, and production continually rewire our relationship to the present. His practice speculates on the unforeseen, emergent effects arising from the entanglement of digital networks and automated systems.
+
+Together, their work moves between ruin and emergence. Their collaboration considers not only the losses left in the long wake of technological progress, but who or what is responsible, and the strange new realities that might be assembling themselves in the rubble.
+
+Eugene Jung (b.1995) lives and works between New York and Seoul. She has held solo exhibitions at Simjae Boxing Studio, Museumhead, and Art Sonje Center Art Hall, Seoul. She has also participated in group exhibitions at the Hessel Museum of Art, NY; Busan Biennale; Thaddaeus Ropac; Arko Art Center; Audio Visual Pavilion Lab; and Doosan Gallery, among others. Jung was named to the Forbes 30 Under 30 Asia and the Dazed 100 Asia (2025).
+
+Ben Shirken (b.1996) is an artist living in New York whose work spans installation, sound, audiovisual performance, and sculpture. Shirken's works have been presented at Pioneer Works, KAJE, Cannes Immersive (France), IFFR, Artissima (Turin), WSA, Brooklyn Academy of Music, New Museum, Rhizome, Pageant Performing Arts Theater, and Sustain Release. He is the founder of 29 Speedway, a record label, performance series, and multimedia studio focused on experimental electronic music.`,
+    coverImage: localExhibitionImage("infinite-energy-hack-jung-shirken-malt-house-nyc-2026", "01.webp"),
+    previewImage: localExhibitionImage("infinite-energy-hack-jung-shirken-malt-house-nyc-2026", "01.webp"),
+    heroImage: localExhibitionImage("infinite-energy-hack-jung-shirken-malt-house-nyc-2026", "01.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "infinite-energy-hack-jung-shirken-malt-house-nyc-2026",
+      [{ filename: "01.webp", orientation: "vertical" }],
+      "Etienne Frossard",
+    ),
+  },
+  // AI_INGEST_END: infinite-energy-hack-jung-shirken-malt-house-nyc-2026
+  // AI_INGEST_START: whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026
+  // Source: saliva.live. Cover (cardboard box with cat-head sculpture on
+  // black-and-white checkered floor). Telegram: DRAFT (user excluded).
+  {
+    slug: "whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026",
+    social: {
+      status: "draft",
+      revision: 1,
+      language: "en",
+    },
+    title: "Whoever lives here will keep losing something",
+    venue: "Przeciąg Gallery",
+    gallery: "Przeciąg Gallery",
+    city: "Warsaw",
+    country: "Poland",
+    year: "2026",
+    dates: "16 October — 15 November 2026",
+    startDate: "16 October 2026",
+    endDate: "15 November 2026",
+    dateSource: "exhibition",
+    artists: ["Jan Możdżyński", "Kacper Tomaszewski"],
+    curator: "Mateusz Włodarek",
+    photographer: "Szymon Sokołowski",
+    source: "saliva.live",
+    sourceUrl: "https://saliva.live/exhibitions/abdc409d",
+    description: `In their latest works, Jan and Kacper journey through memory and construct topographies of recollections. In this way, they map the terrain they walk upon today. In doing so, they grapple with their own decisions and with time passing faster than we are ready for. They are interested not in what we remember, but in the way we navigate our memories—where we pause, what we return to, and from what perspective we look back on the past.
+
+Jan Możdżyński paints scenes that never happened: a walk with a dog that isn't there, greeting an old acquaintance whom he hopes to meet soon but doesn't yet know when. His cat sits behind the wheel of a car and stares through the window with apparent indifference—it's hard to tell whether he's longing or sad. Nevertheless, his works spring from very real emotions—decisions, regret, relief, and longing—for which reality has made no room and for which Jan must construct a space. Into these imagined spaces, the artist introduces objects he carries in his memory: from a dresser in his own room to a table in the living room and his brother's computer. They reappear in a new context, recognizable by their shape, though it is often unclear why these particular objects were chosen. The paintings are rendered in a very subdued and muted color palette, as if scenes observed from the distance of time were slowly fading.
+
+Kacper Tomaszewski, on the other hand, takes as his starting point spaces that once existed. His sculptures, made of dark, cold steel, revolve around the experience of moving and change. He asks what "my place" is and what weight the space in which we live carries. He works with the concept of home, which appears in his works as something material and imbued with an emotional layer—something that cannot be packed into boxes. Walls, furniture, and small furnishings retain traces of everyday life that remain even after we move out. Kacper explores whether, thanks to these traces, it's possible to settle in and make ourselves at home once again in a place we've already left. His latest sculptures aren't firmly anchored in space; they stand on metal casters, like office chairs. They are pieces of temporary furniture that can be moved aside and rolled away at any moment.
+
+The exhibition's title is a quote from Yōko Ogawa's novel "The Memory Police". The protagonist's mother explains to her that on the island, things disappear one by one, and no one can hold on to everything forever. She speaks of this without fear, as if it were something ordinary. For Ogawa, loss is not a catastrophe but a condition of everyday life, and the question is what we do with what remains. The same is true of the latest works by Możdżyński and Tomaszewski. The former builds spaces for what did not happen; the latter examines what remains of the places he has left behind. Neither asks how not to lose, but rather how to live in a world where loss is inevitable.
+
+— Text: Mateusz Włodarek`,
+    coverImage: localExhibitionImage("whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026", "01.webp"),
+    previewImage: localExhibitionImage("whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026", "01.webp"),
+    heroImage: localExhibitionImage("whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026", "01.webp"),
+    images: localExhibitionGalleryWithOrientations(
+      "whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026",
+      [{ filename: "01.webp", orientation: "horizontal" }],
+      "Szymon Sokołowski",
+    ),
+  },
+  // AI_INGEST_END: whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026
   // AI_INGEST_START: plagues-patrick-goddard
   // Website only: Telegram explicitly excluded by the user.
   {
