@@ -55,7 +55,7 @@ export default function EditorialPage() {
           {selections.length > 0 && (
             <div className="mt-16 md:mt-24">
               <p className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">
-                Curated selections
+                Essays &amp; curated selections
               </p>
               <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 sm:gap-x-6 md:gap-x-8 md:gap-y-14 lg:grid-cols-4">
                 {selections.map((selection) => {
@@ -77,7 +77,7 @@ export default function EditorialPage() {
                           />
                         </div>
                         <p className="mt-3 text-[10px] uppercase tracking-[0.22em] text-neutral-500">
-                          Editorial
+                          {selection.kind === "essay" ? "Essay" : "Editorial"}
                         </p>
                         <h2 className="editorial-serif mt-2 break-words text-[clamp(0.95rem,1.7vw,1.2rem)] leading-[1.15] tracking-[-0.02em]">
                           {selection.title}
@@ -85,6 +85,9 @@ export default function EditorialPage() {
                         <p className="mt-2 text-[12.5px] leading-[1.5] text-neutral-600">
                           {selection.subtitle}
                         </p>
+                        {selection.kind === "essay" && (
+                          <p className="mt-3 text-[11px] leading-5 text-neutral-500">By {selection.author}</p>
+                        )}
                       </Link>
                     </li>
                   );

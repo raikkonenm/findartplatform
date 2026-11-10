@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { EditorialSelectionArticle } from "@/components/EditorialSelectionArticle";
 import { ArtistEditorialSelectionArticle } from "@/components/ArtistEditorialSelectionArticle";
+import { EditorialEssayArticle } from "@/components/EditorialEssayArticle";
 import {
   editorialSelections,
   getEditorialSelectionCoverImage,
@@ -72,7 +73,9 @@ function jsonLd(slug: string) {
     url: canonical,
     datePublished: selection.publishedAt,
     dateModified: selection.modifiedAt ?? selection.publishedAt,
-    author: { "@type": "Organization", name: "FindArt Platform" },
+    author: selection.kind === "essay"
+      ? { "@type": "Person", name: selection.author }
+      : { "@type": "Organization", name: "FindArt Platform" },
     publisher: {
       "@type": "Organization",
       name: "FindArt Platform",
@@ -86,7 +89,9 @@ function jsonLd(slug: string) {
           name: artist.artistName,
           url: `${SITE_URL}${entityHref("artist", artist.artistName)}`,
         }))
-      : undefined,
+      : selection.kind === "essay"
+        ? [{ "@type": "Person", name: selection.artistName, url: `${SITE_URL}${entityHref("artist", selection.artistName)}` }]
+        : undefined,
   };
 
   const breadcrumbs = {
@@ -121,7 +126,9 @@ export default async function EditorialArticlePage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
-      {selection.kind === "artists" ? (
+      {selection.kind === "essay" ? (
+        <EditorialEssayArticle selection={selection} />
+      ) : selection.kind === "artists" ? (
         <ArtistEditorialSelectionArticle selection={selection} />
       ) : (
         <EditorialSelectionArticle selection={selection} />
