@@ -149,6 +149,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "surface-tension-of-blue-kenji-sakai": ["INSTALLATION", "MATERIALITY", "IDENTITY", "MEMORY", "TRANSFORMATION"],
   "transhuman-5-dysis-kunstverein-gottingen-2026": ["POSTHUMAN", "RUINS", "LIMINALITY", "TRANSFORMATION", "GROUP SHOW", "INSTALLATION"],
   "novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026": ["MATERIALITY", "BODY", "TRANSFORMATION", "NON-HUMAN", "ORGANIC SYSTEMS"],
   "klausykla-confessional-kristijonas-gurcinas-vilnius-2026": ["RITUAL", "MYTH", "SPIRITUALITY", "DREAM LOGIC", "MEMORY"],
@@ -344,6 +345,94 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: surface-tension-of-blue-kenji-sakai
+  // Artist-supplied exhibition text and 38 photographs. Cover: IMG_3792.JPG.
+  {
+    slug: "surface-tension-of-blue-kenji-sakai",
+    title: "Surface Tension of Blue",
+    subtitle: "Kenji Sakai",
+    venue: "INGAHEE",
+    gallery: "INGAHEE",
+    city: "Seoul",
+    country: "South Korea",
+    year: "2026",
+    dates: "6 November — 3 December 2026",
+    startDate: "6 November 2026",
+    endDate: "3 December 2026",
+    dateSource: "exhibition",
+    artists: ["Kenji Sakai"],
+    photographer: "@choi_chul_lim",
+    exhibitionText: "Gahee In",
+    source: "Artist submission",
+    sourceUrl: "https://drive.google.com/drive/folders/1xfEofKa98xpQCTWh5j6l8wkHtlKAUQjj",
+    description: `On Forms at the Edge of Collapse
+
+Surface tension is the force by which a liquid holds itself together. As the molecules within a liquid pull toward one another, its outer boundary tightens into a thin membrane. This is why water poured to the brim of a glass swells slightly above the rim without spilling, and why a drop keeps its rounded shape. The membrane is tightest just before it overflows. At that moment, when the pull to disperse exactly meets the pull to cohere, form is at once most unstable and most distinct. Human groups behave in much the same way. Each person pulls in their own direction, yet an unseen force holds them within a single boundary.
+
+Working across painting, printmaking, and sculpture between Tokyo and London, Kenji Sakai (b. 1996, Kyoto) examines the relationship between the individual and the collective. His interest lies less in relationships themselves than in the structures that drive them: rules no one has written down but everyone follows, which decide how we act and how close we stand to one another. Sakai does not depict these rules directly. Instead, he gives form to the traces they leave within a person. In his paintings, curves and shapes push against one another yet interlock, and though they seem ready to scatter, they remain within a single picture plane.
+
+Surface Tension of Blue, the artist’s first solo exhibition in Korea, presented at INGAHEE, frames this tension through the physical phenomenon of surface tension. The exhibition comprises three series of paintings, Wings of Shadow, Held in Place, and Surface Tension of Blue, along with the floor drawing Sediment of Shadow.
+
+Entering the gallery, visitors first encounter Wings of Shadow I on the facing wall. Forms in white, grey, and pale blue fold and unfold across the canvas like wings or membranes, while deep black cuts into every gap between them. Along the edges where light forms meet dark space sit black circles and fine, thorn-like lines. The forms press against one another yet lock together at their edges, gathering into a single vortex. None stands apart; none dissolves into the whole. Each keeps its own contour while belonging to the group, a direct image of the relationship between individual and collective that runs through Sakai’s practice. A dark band crosses the middle of the canvas, dividing upper from lower, yet the forms that spill across it keep it from becoming a true border.
+
+In the Held in Place series, the forms are confined to compartments. Each canvas, 24 centimeters wide, is divided into three compartments and enclosed in a stainless steel frame. Stars, circles, and tentacle-like forms come to rest, one to each compartment. The dividing lines keep the forms from mingling, while the cold metal frame holds the whole firmly in place. The frame both protects the forms and confines them. Hung below eye level, some close to the floor, the works ask visitors to lower themselves to look. The closer one comes, the clearer it is that the outer frame determines the size and position of every form within.
+
+In the series that shares the exhibition’s title, Surface Tension of Blue, the tension spreads across the entire surface. Over grounds where black and blue collide as if exerting pressure on one another, white strokes rise and overlap like waves, or like flames about to go out. The lines bend, tangle, and clash, yet none escapes the edge of the canvas. Like water at the brim, every movement is held within the picture’s boundary. Set in wood frames, the two darker canvases hang side by side as a pair, while Surface Tension of Blue IV, nearly grey in tone, presents the same structure at a different temperature. Sakai describes his work as “finding beauty in silence and emptiness.” In this series, silence is not the absence of anything. It is countless movements held still against one another.
+
+The tension of the paintings continues onto the gallery floor. Sediment of Shadow is a drawing made directly on the floor in black powder of finely ground marble and limestone. Curves that begin in the corner where wall meets floor flow out toward the center of the room, overlapping the cracks in the concrete to form another terrain. Where the powder gathers densely, it is as defined as the forms in the paintings; toward the edges, the particles scatter and fade. Within a single drawing, form held together and particles coming apart are visible at once.
+
+The powder is composed primarily of calcium carbonate. Limestone largely forms from the remains of shells and coral accumulated over long stretches of time, and marble is limestone transformed again by heat and pressure. Sakai describes his work as concerned with “inner memories and personal mutations sedimented within the self.” When stone that has been deposited and transformed is ground back into powder and laid on the floor, those words stop being a metaphor and become matter. The powder is not fixed in place; a passing footstep can disturb it, and over the course of the exhibition it leaves a slightly different surface each day. A small skeletal sculpture fixed to the wall and silver metal pieces resting on the powder appear as painted forms that have stepped out into the room.
+
+Every work in Surface Tension of Blue holds the same moment: not the moment a form is completed, but the moment just before it overflows or scatters. From the painting on the facing wall to the small canvases near the floor, from the brushstrokes on the wall to the powder below, the forms push against one another yet remain, in the end, within a single surface. Standing before that thin boundary, visitors may come to recognize that they, too, sustain the same tension each day, within rules and relationships they cannot see.
+
+— Text: Gahee In
+
+Opening hours: Wednesday – Saturday, 1–6 PM.`,
+    coverImage: localExhibitionImage("surface-tension-of-blue-kenji-sakai", "01.webp"),
+    previewImage: localExhibitionImage("surface-tension-of-blue-kenji-sakai", "01.webp"),
+    heroImage: localExhibitionImage("surface-tension-of-blue-kenji-sakai", "01.webp"),
+    images: localExhibitionGalleryWithOrientations("surface-tension-of-blue-kenji-sakai", [
+      { filename: "01.webp", orientation: "horizontal" },
+      { filename: "02.webp", orientation: "vertical" },
+      { filename: "03.webp", orientation: "vertical" },
+      { filename: "04.webp", orientation: "horizontal" },
+      { filename: "05.webp", orientation: "horizontal" },
+      { filename: "06.webp", orientation: "horizontal" },
+      { filename: "07.webp", orientation: "vertical" },
+      { filename: "08.webp", orientation: "vertical" },
+      { filename: "09.webp", orientation: "horizontal" },
+      { filename: "10.webp", orientation: "horizontal" },
+      { filename: "11.webp", orientation: "vertical" },
+      { filename: "12.webp", orientation: "vertical" },
+      { filename: "13.webp", orientation: "horizontal" },
+      { filename: "14.webp", orientation: "horizontal" },
+      { filename: "15.webp", orientation: "horizontal" },
+      { filename: "16.webp", orientation: "vertical" },
+      { filename: "17.webp", orientation: "vertical" },
+      { filename: "18.webp", orientation: "vertical" },
+      { filename: "19.webp", orientation: "vertical" },
+      { filename: "20.webp", orientation: "horizontal" },
+      { filename: "21.webp", orientation: "horizontal" },
+      { filename: "22.webp", orientation: "horizontal" },
+      { filename: "23.webp", orientation: "horizontal" },
+      { filename: "24.webp", orientation: "vertical" },
+      { filename: "25.webp", orientation: "horizontal" },
+      { filename: "26.webp", orientation: "horizontal" },
+      { filename: "27.webp", orientation: "vertical" },
+      { filename: "28.webp", orientation: "horizontal" },
+      { filename: "29.webp", orientation: "horizontal" },
+      { filename: "30.webp", orientation: "vertical" },
+      { filename: "31.webp", orientation: "horizontal" },
+      { filename: "32.webp", orientation: "horizontal" },
+      { filename: "33.webp", orientation: "horizontal" },
+      { filename: "34.webp", orientation: "horizontal" },
+      { filename: "35.webp", orientation: "vertical" },
+      { filename: "36.webp", orientation: "vertical" },
+      { filename: "37.webp", orientation: "horizontal" },
+      { filename: "38.webp", orientation: "vertical" },
+    ], "@choi_chul_lim"),
+  },
+  // AI_INGEST_END: surface-tension-of-blue-kenji-sakai
   // AI_INGEST_START: transhuman-5-dysis-kunstverein-gottingen-2026
   // Source: saliva.live. User-attached cover (dark hall with skeleton display,
   // hanging objects and mirrored panel) is 01.webp. Telegram: PUBLISHED.
