@@ -15,7 +15,11 @@ export function EditorialEssayArticle({ selection }: { selection: EssayEditorial
           <h1 className="editorial-serif mt-4 break-words text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.08] tracking-[-0.02em]">
             {selection.title}
           </h1>
-          <p className="mt-5 text-[13px] leading-6 text-neutral-600">By {selection.author}</p>
+          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] leading-6 text-neutral-600">
+            <p>By {selection.author}</p>
+            <span aria-hidden="true">·</span>
+            <time dateTime={selection.publishedAt}>{selection.publishedAtDisplay}</time>
+          </div>
         </header>
 
         <figure className="mt-10 md:mt-12">

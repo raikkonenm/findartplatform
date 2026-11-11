@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 
 const ABOUT_TITLE = "About — FindArt Platform";
 const ABOUT_DESCRIPTION =
-  "FindArt Platform is an independent contemporary art platform founded by Maria Raikkonen and developed as part of Art Curatorial Nomads — exhibitions, opportunities, editorial features, and an expanding index of contemporary art.";
+  "FindArt Platform is an independent contemporary art platform founded by Maria Raikkonen — exhibitions, opportunities, editorial features, and an expanding index of contemporary art.";
 const ABOUT_URL = "https://www.findartplatform.com/about";
 
 export const metadata: Metadata = {
@@ -54,35 +54,19 @@ export default function AboutPage() {
                 className="underline decoration-1 decoration-neutral-400 underline-offset-4 transition-opacity hover:opacity-55"
               >
                 Maria Raikkonen
-              </a>{" "}
-              and developed as part of{" "}
-              <a
-                href="https://www.artcnomad.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="underline decoration-1 decoration-neutral-400 underline-offset-4 transition-opacity hover:opacity-55"
-              >
-                Art Curatorial Nomads
-              </a>{" "}
-              &mdash; a curatorial initiative exploring contemporary art practices across
-              borders.
+              </a>.
             </p>
             <p>
               Bringing together exhibitions, opportunities, editorial features, and an
-              expanding index, FindArt operates as both a living archive and a tool for
+              expanding index, FindArt serves as both a living archive and a resource for
               discovering contemporary art. The platform connects artistic and curatorial
               practices across galleries, institutions, independent spaces, and emerging
-              contexts worldwide.
+              art contexts worldwide.
             </p>
             <p>
-              Rather than focusing on a single geography or institutional network, FindArt
-              traces connections across different art scenes, making practices, projects,
-              and resources easier to find, navigate, and revisit.
-            </p>
-            <p>
-              Content is developed through ongoing editorial research and open submissions,
-              allowing the platform to document what has happened, follow what is happening
-              now, and make visible what is emerging next.
+              Through its curated selection of projects, open calls, and editorial content,
+              FindArt aims to make contemporary art more accessible while creating connections
+              between artists, curators, and the wider international art community.
             </p>
             <p>
               For submissions, visit{" "}
