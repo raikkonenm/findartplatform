@@ -149,6 +149,13 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul": ["GROUP SHOW", "MATERIALITY", "EROSION", "MATERIAL MEMORY"],
+  "hauntology-and-the-never-ending-presence": ["GROUP SHOW", "MEMORY", "ARCHIVE", "MATERIALITY", "TECHNOLOGY"],
+  "cabalgando-entranas-santiago-gomez": ["BODY", "TECHNOLOGY", "HYBRID BODIES", "POSTHUMAN"],
+  "too-hot-for-heaven-too-cold-for-hell": ["BODY", "MACHINE", "RITUAL", "ORGANIC SYSTEMS"],
+  "erbleichen-neu-winterthur": ["GROUP SHOW", "RUINS", "MEMORY", "MATERIALITY"],
+  "modern-language-association-ditch-projects": ["GROUP SHOW", "OBJECTHOOD", "MATERIALITY"],
+  "zzz-baris-cavusoglu-pluto-valencia": ["BODY", "DREAM LOGIC", "MACHINE", "MEMORY"],
   "surface-tension-of-blue-kenji-sakai": ["INSTALLATION", "MATERIALITY", "IDENTITY", "MEMORY", "TRANSFORMATION"],
   "transhuman-5-dysis-kunstverein-gottingen-2026": ["POSTHUMAN", "RUINS", "LIMINALITY", "TRANSFORMATION", "GROUP SHOW", "INSTALLATION"],
   "novo-hipotalamo-gabriel-ribeiro-refresco-rio-2026": ["MATERIALITY", "BODY", "TRANSFORMATION", "NON-HUMAN", "ORGANIC SYSTEMS"],
@@ -345,6 +352,1748 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul
+  {
+    "slug": "rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul",
+    "title": "Rake",
+    "venue": "CYLINDER TWO",
+    "gallery": "CYLINDER TWO",
+    "city": "Seoul",
+    "country": "South Korea",
+    "year": "2026",
+    "dates": "29 August 2026 — 27 September 2026",
+    "startDate": "2026-08-29",
+    "endDate": "2026-09-27",
+    "dateSource": "exhibition",
+    "artists": [
+      "Lucas Dupuy",
+      "Sunwon Chang"
+    ],
+    "source": "Exhibition material and Instagram accounts supplied by the user, 12 November 2026",
+    "description": "<Rake> begins with the landscape of a river. Just as flowing water gradually shapes and displaces the surface of stones, the exhibition proposes the gesture of raking as a way of reading both artists’ practices—one that leaves traces, accumulates information, and continually rereads the surface of an image.",
+    "coverImage": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/01.webp",
+    "previewImage": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/01.webp",
+    "heroImage": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/01.webp",
+        "originalSrc": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/01.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/02.webp",
+        "originalSrc": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/02.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/03.webp",
+        "originalSrc": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/03.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/04.webp",
+        "originalSrc": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/04.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/05.webp",
+        "originalSrc": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/05.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/06.webp",
+        "originalSrc": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/06.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/07.webp",
+        "originalSrc": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/07.jpg",
+        "orientation": "vertical"
+      }
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "<Rake> begins with the landscape of a river. Just as flowing water gradually shapes and displaces the surface of stones, the exhibition proposes the gesture of raking as a way of reading both artists’ practices—one that leaves traces, accumulates information, and continually rereads the surface of an image.",
+      "coverOriginalSrc": "/exhibitions/rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul/01.jpg",
+      "artists": [
+        {
+          "name": "Lucas Dupuy",
+          "instagram": {
+            "handle": "@lucas__dupuy",
+            "verified": true,
+            "source": "Exhibition material and Instagram accounts supplied by the user, 12 November 2026"
+          }
+        },
+        {
+          "name": "Sunwon Chang",
+          "instagram": {
+            "handle": "@graytomato__",
+            "verified": true,
+            "source": "Exhibition material and Instagram accounts supplied by the user, 12 November 2026"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "CYLINDER TWO",
+        "instagram": {
+          "handle": "@cylinder_________",
+          "verified": true,
+          "source": "Exhibition material and Instagram accounts supplied by the user, 12 November 2026"
+        }
+      },
+      "credits": [
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "CYLINDER TWO"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  // AI_INGEST_END: rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul
+  // AI_INGEST_START: hauntology-and-the-never-ending-presence
+  {
+    "slug": "hauntology-and-the-never-ending-presence",
+    "title": "Hauntology and the Never-Ending Presence",
+    "venue": "Fotograf Zone Gallery",
+    "gallery": "Fotograf Zone Gallery",
+    "city": "Prague",
+    "country": "Czech Republic",
+    "year": "2026",
+    "dates": "10 November 2026 — 13 November 2026",
+    "startDate": "2026-11-10",
+    "endDate": "2026-11-13",
+    "dateSource": "exhibition",
+    "artists": [
+      "Néphéli Barbas",
+      "Radek Brousil",
+      "Younsik Kim",
+      "Marika Krčmářová",
+      "Kim-Camille Kreuz",
+      "David Střeleček",
+      "Ljuba Šlechtová",
+      "Lesia Vasylchenko",
+      "Stanislav Zábrodský"
+    ],
+    "source": "saliva.live",
+    "sourceUrl": "https://saliva.live/exhibitions/4a494034",
+    "description": "At Fotograf Zone Gallery in Prague, nine artists examine how images and materials carry different experiences of time. The exhibition connects digital circulation with physical processes such as erosion, ageing and the accumulation of traces. Its curatorial framework revisits hauntology through the difficulty of escaping a continuously renewed present. Sculpture, installation and other media bring imagined futures into contact with the material conditions that shape them.",
+    "descriptionKind": "overview",
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "artists": [
+        {
+          "name": "Néphéli Barbas",
+          "instagram": {
+            "handle": "@nepheli.barbas",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/4a494034"
+          }
+        },
+        {
+          "name": "Radek Brousil",
+          "instagram": {
+            "handle": "@radekbrousil",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/4a494034"
+          }
+        },
+        {
+          "name": "Younsik Kim",
+          "instagram": {
+            "handle": "@ssik.k",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/4a494034"
+          }
+        },
+        {
+          "name": "Marika Krčmářová",
+          "instagram": {
+            "handle": "@marikakrcmarova",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/4a494034"
+          }
+        },
+        {
+          "name": "Kim-Camille Kreuz",
+          "instagram": {
+            "handle": "@_kimcamille_",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/4a494034"
+          }
+        },
+        {
+          "name": "David Střeleček",
+          "instagram": {
+            "handle": "@evanula1",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/4a494034"
+          }
+        },
+        {
+          "name": "Ljuba Šlechtová",
+          "instagram": {
+            "handle": "@ljuba.slechta",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/4a494034"
+          }
+        },
+        {
+          "name": "Lesia Vasylchenko",
+          "instagram": {
+            "handle": "@lesia_____vasylchenko",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/4a494034"
+          }
+        },
+        {
+          "name": "Stanislav Zábrodský",
+          "instagram": {
+            "handle": "@stanislav.zabrodsky",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/4a494034"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "Fotograf Zone Gallery",
+        "instagram": {
+          "handle": "@fotograf.zone",
+          "verified": true,
+          "source": "https://saliva.live/exhibitions/4a494034"
+        }
+      },
+      "coverOriginalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/01.png",
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Karolína Voleská",
+              "instagram": {
+                "handle": "@___treperenda___",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/4a494034"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "curator": "Karolína Voleská",
+    "photographer": "Klára Kudláček",
+    "coverImage": "/exhibitions/hauntology-and-the-never-ending-presence/01.webp",
+    "previewImage": "/exhibitions/hauntology-and-the-never-ending-presence/01.webp",
+    "heroImage": "/exhibitions/hauntology-and-the-never-ending-presence/02.webp",
+    "images": [
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/01.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/01.png",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/02.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/02.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/03.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/03.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/04.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/04.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/05.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/05.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/06.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/06.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/07.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/07.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/08.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/08.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/09.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/09.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/10.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/10.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/11.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/11.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/12.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/12.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/13.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/13.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/14.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/14.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/15.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/15.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/16.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/16.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/17.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/17.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/18.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/18.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      },
+      {
+        "src": "/exhibitions/hauntology-and-the-never-ending-presence/19.webp",
+        "originalSrc": "/exhibitions/hauntology-and-the-never-ending-presence/19.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Klára Kudláček"
+      }
+    ]
+  },
+  // AI_INGEST_END: hauntology-and-the-never-ending-presence
+  // AI_INGEST_START: cabalgando-entranas-santiago-gomez
+  {
+    "slug": "cabalgando-entranas-santiago-gomez",
+    "title": "Cabalgando Entrañas",
+    "venue": "Plaga",
+    "gallery": "Plaga",
+    "city": "Mexico City",
+    "country": "Mexico",
+    "year": "2026",
+    "dates": "17 September 2026 — 17 October 2026",
+    "startDate": "2026-09-17",
+    "endDate": "2026-10-17",
+    "dateSource": "exhibition",
+    "artists": [
+      "Santiago Gómez"
+    ],
+    "source": "saliva.live",
+    "sourceUrl": "https://saliva.live/exhibitions/aacaca16",
+    "description": "Santiago Gómez’s solo exhibition at Plaga in Mexico City brings sculptural bodies into contact with technological infrastructures and histories of trade. Printed forms, fluids, screens and improvised systems suggest organisms whose boundaries no longer hold. The project draws connections between colonial navigation, contemporary commerce and the circulation of desire. Its installations approach the body as something porous and continually altered by the networks it inhabits.",
+    "descriptionKind": "overview",
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "artists": [
+        {
+          "name": "Santiago Gómez",
+          "instagram": {
+            "handle": "@santiago_gomezch",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/aacaca16"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "Plaga",
+        "instagram": {
+          "handle": "@plaaaaaga",
+          "verified": true,
+          "source": "https://saliva.live/exhibitions/aacaca16"
+        }
+      },
+      "coverOriginalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/01.png",
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Rodrigo Ramírez",
+              "instagram": {
+                "handle": "@rodrigo_ramirezr",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/aacaca16"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "photographer": "Miguel Dávila",
+    "coverImage": "/exhibitions/cabalgando-entranas-santiago-gomez/01.webp",
+    "previewImage": "/exhibitions/cabalgando-entranas-santiago-gomez/01.webp",
+    "heroImage": "/exhibitions/cabalgando-entranas-santiago-gomez/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/01.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/01.png",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/02.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/02.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/03.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/03.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/04.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/04.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/05.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/05.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/06.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/06.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/07.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/07.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/08.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/08.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/09.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/09.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/10.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/10.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/11.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/11.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/12.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/12.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/13.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/13.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/14.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/14.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/15.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/15.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/16.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/16.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/17.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/17.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/18.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/18.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/19.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/19.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/20.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/20.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/21.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/21.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/22.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/22.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/23.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/23.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/24.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/24.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/25.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/25.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      },
+      {
+        "src": "/exhibitions/cabalgando-entranas-santiago-gomez/26.webp",
+        "originalSrc": "/exhibitions/cabalgando-entranas-santiago-gomez/26.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Miguel Dávila"
+      }
+    ]
+  },
+  // AI_INGEST_END: cabalgando-entranas-santiago-gomez
+  // AI_INGEST_START: too-hot-for-heaven-too-cold-for-hell
+  {
+    "slug": "too-hot-for-heaven-too-cold-for-hell",
+    "title": "Too hot for Heaven too cold for Hell",
+    "venue": "Il Sedile-Flusso Project",
+    "gallery": "Il Sedile-Flusso Project",
+    "city": "Putignano",
+    "country": "Italy",
+    "year": "2026",
+    "dates": "10 October 2026 — 10 December 2026",
+    "startDate": "2026-10-10",
+    "endDate": "2026-12-10",
+    "dateSource": "exhibition",
+    "artists": [
+      "Arianna Ladogana"
+    ],
+    "source": "saliva.live",
+    "sourceUrl": "https://saliva.live/exhibitions/b38b288e",
+    "description": "Arianna Ladogana’s installation at Il Sedile-Flusso Project connects three ceramic forms through water, sound, light and machinery. A basin with a hand, a head and a larger vessel become parts of a distributed anatomy. Pumps and oxygen bubbles sustain the work’s circulation, making technical devices essential to its apparent life. The project explores bodily permeability and the relations between ritual space, marine origins and artificial systems.",
+    "descriptionKind": "overview",
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "artists": [
+        {
+          "name": "Arianna Ladogana",
+          "instagram": {
+            "handle": "@arylad",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/b38b288e"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "Il Sedile-Flusso Project",
+        "instagram": {
+          "handle": "@flussoproject",
+          "verified": true,
+          "source": "https://saliva.live/exhibitions/b38b288e"
+        }
+      },
+      "coverOriginalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/01.png",
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Like A Little Disaster",
+              "instagram": {
+                "handle": "@like_a_little_disaster",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/b38b288e"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Il Sedile-Flusso Project"
+            }
+          ]
+        }
+      ]
+    },
+    "curator": "Like A Little Disaster",
+    "coverImage": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/01.webp",
+    "previewImage": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/01.webp",
+    "heroImage": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/02.webp",
+    "images": [
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/01.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/01.png",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/02.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/02.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/03.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/03.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/04.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/04.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/05.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/05.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/06.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/06.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/07.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/07.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/08.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/08.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/09.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/09.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/10.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/10.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/11.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/11.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/12.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/12.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/13.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/13.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/14.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/14.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/15.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/15.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/16.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/16.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/17.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/17.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/18.webp",
+        "originalSrc": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/18.jpg",
+        "orientation": "horizontal"
+      }
+    ]
+  },
+  // AI_INGEST_END: too-hot-for-heaven-too-cold-for-hell
+  // AI_INGEST_START: erbleichen-neu-winterthur
+  {
+    "slug": "erbleichen-neu-winterthur",
+    "title": "Erbleichen",
+    "venue": "NEU!",
+    "gallery": "NEU!",
+    "city": "Winterthur",
+    "country": "Switzerland",
+    "year": "2026",
+    "dates": "6 November 2026 — 27 November 2026",
+    "startDate": "2026-11-06",
+    "endDate": "2026-11-27",
+    "dateSource": "exhibition",
+    "artists": [
+      "Marlene Coates",
+      "Nadine K. Cenoz",
+      "Jáno Möckel",
+      "Jo Jakob Hübner",
+      "Ellen Martine Heuser",
+      "SNEM SNEM",
+      "Fernando Obieta",
+      "Vital Romero",
+      "Fadri Cadonau",
+      "Nemo Bleuer",
+      "Anton Andrienko",
+      "Elio Mueller"
+    ],
+    "source": "saliva.live",
+    "sourceUrl": "https://saliva.live/exhibitions/7207d9e2",
+    "description": "Erbleichen brings together twelve artists at NEU! in Winterthur, curated by Jürgen Baumann and Bene Andrist. The accompanying text follows an injured traveller moving through an unfamiliar, partly ruined landscape. Bodily fatigue, improvised support structures and uncertain perception shape this narrative. The exhibition places different artistic practices alongside that speculative journey, approaching vulnerability, memory and the traces left by changing environments.",
+    "descriptionKind": "overview",
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "artists": [
+        {
+          "name": "Marlene Coates",
+          "instagram": {
+            "handle": "@marlenevioletta",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "Nadine K. Cenoz",
+          "instagram": {
+            "handle": "@nadine.k.cenoz",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "Jáno Möckel",
+          "instagram": {
+            "handle": "@_jano.moeckel_",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "Jo Jakob Hübner",
+          "instagram": {
+            "handle": "@dolfmenagonz",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "Ellen Martine Heuser",
+          "instagram": {
+            "handle": "@ellenmartineheuser",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "SNEM SNEM",
+          "instagram": {
+            "handle": "@snem.snem",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "Fernando Obieta"
+        },
+        {
+          "name": "Vital Romero",
+          "instagram": {
+            "handle": "@thirdbrain",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "Fadri Cadonau",
+          "instagram": {
+            "handle": "@contrasecco",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "Nemo Bleuer",
+          "instagram": {
+            "handle": "@_orrrg",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "Anton Andrienko",
+          "instagram": {
+            "handle": "@andrienko___",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        },
+        {
+          "name": "Elio Mueller",
+          "instagram": {
+            "handle": "@eliomueller",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/7207d9e2"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "NEU!",
+        "instagram": {
+          "handle": "@neu_neu_neu_neu_neu_neu",
+          "verified": true,
+          "source": "https://saliva.live/exhibitions/7207d9e2"
+        }
+      },
+      "coverOriginalSrc": "/exhibitions/erbleichen-neu-winterthur/01.png",
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Jürgen Baumann",
+              "instagram": {
+                "handle": "@juergen_baumann",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/7207d9e2"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "curator": "Jürgen Baumann, Bene Andrist",
+    "photographer": "Brechtelbert Dünkelbirn",
+    "coverImage": "/exhibitions/erbleichen-neu-winterthur/01.webp",
+    "previewImage": "/exhibitions/erbleichen-neu-winterthur/01.webp",
+    "heroImage": "/exhibitions/erbleichen-neu-winterthur/02.webp",
+    "images": [
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/01.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/01.png",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/02.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/02.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/03.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/03.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/04.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/04.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/05.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/05.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/06.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/06.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/07.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/07.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/08.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/08.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/09.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/09.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/10.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/10.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/11.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/11.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/12.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/12.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/13.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/13.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/14.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/14.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/15.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/15.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/16.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/16.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/17.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/17.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/18.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/18.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/19.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/19.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/20.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/20.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/21.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/21.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/22.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/22.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/23.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/23.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/24.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/24.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/25.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/25.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      },
+      {
+        "src": "/exhibitions/erbleichen-neu-winterthur/26.webp",
+        "originalSrc": "/exhibitions/erbleichen-neu-winterthur/26.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Brechtelbert Dünkelbirn"
+      }
+    ]
+  },
+  // AI_INGEST_END: erbleichen-neu-winterthur
+  // AI_INGEST_START: modern-language-association-ditch-projects
+  {
+    "slug": "modern-language-association-ditch-projects",
+    "title": "Gene's Presents \"Modern Language Association\"",
+    "venue": "Ditch Projects",
+    "gallery": "Ditch Projects",
+    "city": "Springfield",
+    "country": "United States",
+    "year": "2026",
+    "dates": "17 October 2026 — 15 November 2026",
+    "startDate": "2026-10-17",
+    "endDate": "2026-11-15",
+    "dateSource": "exhibition",
+    "artists": [
+      "Matthew Dickman",
+      "Marcus Fischer",
+      "Noah Greene",
+      "Ido Radon",
+      "Morgan Ritter",
+      "Justin Cole Smith"
+    ],
+    "source": "saliva.live",
+    "sourceUrl": "https://saliva.live/exhibitions/9f4c2ccb",
+    "description": "Curated by Keith J. Varadi at Ditch Projects in Springfield, this group exhibition brings together Matthew Dickman, Marcus Fischer, Noah Greene, Ido Radon, Morgan Ritter and Justin Cole Smith. Varadi frames the selection through poetry as a way of noticing relations within everyday experience. The participating artists retain distinct visual languages while entering a shared conversation about form, perception and connection. Objects and images become occasions for reading the ordinary from unfamiliar positions.",
+    "descriptionKind": "overview",
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "artists": [
+        {
+          "name": "Matthew Dickman",
+          "instagram": {
+            "handle": "@matthewdickmanauthor",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/9f4c2ccb"
+          }
+        },
+        {
+          "name": "Marcus Fischer",
+          "instagram": {
+            "handle": "@marcusfischer",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/9f4c2ccb"
+          }
+        },
+        {
+          "name": "Noah Greene",
+          "instagram": {
+            "handle": "@noah___greene",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/9f4c2ccb"
+          }
+        },
+        {
+          "name": "Ido Radon",
+          "instagram": {
+            "handle": "@idoradon",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/9f4c2ccb"
+          }
+        },
+        {
+          "name": "Morgan Ritter",
+          "instagram": {
+            "handle": "@raisin_consciousness",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/9f4c2ccb"
+          }
+        },
+        {
+          "name": "Justin Cole Smith",
+          "instagram": {
+            "handle": "@justincolesmith",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/9f4c2ccb"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "Ditch Projects",
+        "instagram": {
+          "handle": "@ditchprojects",
+          "verified": true,
+          "source": "https://saliva.live/exhibitions/9f4c2ccb"
+        }
+      },
+      "coverOriginalSrc": "/exhibitions/modern-language-association-ditch-projects/01.png",
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Keith J. Varadi",
+              "instagram": {
+                "handle": "@genes_dispensary",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/9f4c2ccb"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Ditch Projects"
+            }
+          ]
+        }
+      ]
+    },
+    "curator": "Keith J. Varadi",
+    "coverImage": "/exhibitions/modern-language-association-ditch-projects/01.webp",
+    "previewImage": "/exhibitions/modern-language-association-ditch-projects/01.webp",
+    "heroImage": "/exhibitions/modern-language-association-ditch-projects/02.webp",
+    "images": [
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/01.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/01.png",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/02.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/02.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/03.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/03.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/04.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/04.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/05.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/05.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/06.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/06.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/07.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/07.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/08.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/08.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/09.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/09.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/10.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/10.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/11.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/11.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/12.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/12.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/13.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/13.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/14.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/14.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/15.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/15.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/16.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/16.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/17.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/17.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/18.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/18.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/19.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/19.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/20.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/20.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/21.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/21.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/22.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/22.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/23.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/23.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/24.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/24.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/25.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/25.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/26.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/26.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/27.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/27.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/28.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/28.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/29.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/29.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/30.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/30.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/31.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/31.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/32.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/32.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/33.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/33.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/34.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/34.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/35.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/35.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/36.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/36.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/37.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/37.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/38.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/38.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/39.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/39.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/40.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/40.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/41.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/41.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/42.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/42.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/43.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/43.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/44.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/44.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/45.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/45.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/46.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/46.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/47.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/47.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/modern-language-association-ditch-projects/48.webp",
+        "originalSrc": "/exhibitions/modern-language-association-ditch-projects/48.jpg",
+        "orientation": "horizontal"
+      }
+    ]
+  },
+  // AI_INGEST_END: modern-language-association-ditch-projects
+  // AI_INGEST_START: zzz-baris-cavusoglu-pluto-valencia
+  {
+    "slug": "zzz-baris-cavusoglu-pluto-valencia",
+    "title": "ZZZ",
+    "venue": "PLUTO",
+    "gallery": "PLUTO",
+    "city": "Valencia",
+    "country": "Spain",
+    "year": "2026",
+    "dates": "19 September — 19 October 2026",
+    "startDate": "2026-09-19",
+    "endDate": "2026-10-19",
+    "dateSource": "exhibition",
+    "artists": [
+      "Barış Çavuşoğlu"
+    ],
+    "photographer": "Bernat Perez",
+    "source": "ofluxo.net",
+    "sourceUrl": "https://www.ofluxo.net/zzz-baris-cavusoglu-pluto-valencia/",
+    "description": "I’m about to fall asleep on the couch.\n\nMy kneecap aches.\n\nThe leather couch is warm, but the side of my body that isn’t touching it is cold.\n\nThere’s a black cat on me.\n\nAcross from me is a steel kitchen unit. Its surface shines. Dozens of fingerprints show on the upper shelf. I’ve wanted to wipe them off for months, but they always appear when I can excuse putting it off.\n\nThe cat jumps off. I turn my face towards the couch.\n\nI’m about to fall asleep. I feel restless. Something that would turn me on comes to mind. The leather cushion I’m holding gets too warm. I push it away a little and let its cool surface fall against my body. Within seconds it warms up again. My watch bothers me. I take it off and let it slip from my fingers into the gap between the cushion and the couch. I’m afraid I’ll forget where it is. This fear ends within seconds.\n\nI open my eyes briefly, then close them again.\n\nMy thoughts are becoming more fluid. I can tell I’m about to fall asleep.\n\nAgain, freeing myself from the everyday frustrations keeping me awake, the sculpture I’m making… I feel myself falling and wake up. The upper right of the sculpture I’m making… I seem to fall asleep. This time I stay asleep longer. I’m climbing down from a large crane. I hand the camera to a smiling woman I don’t know. I ask her to take our picture. I’m not sure she can fit the large structure behind us into the frame. At 0.5x we’ll come out dark because it’s evening. At 1x the structure won’t fit. We pose. I take the camera back. The photographs are terrible. I smile and thank her. The song ends, the woman walks away, and I wake with the silence before the next song.\n\nI breathe.\n\nCool, sharp air enters through my nose. I hold on to this breeze. I recognise the music and I’m pleased. I drift off again and suddenly feel troubled. A momentary heat sears me from the back of my neck to my stomach. I’m sad, thinking I’m wide awake and back at the beginning.\n\nLike in the game where I died, I realise I’m starting again from where I lost on my way to sleep. I’m glad. I’m on the lower ground floor. On a balcony facing the back door of a kitchen covered in ugly tiles. White light and yellow tiles. One foot behind the other, I lean against the wall. The foot on the ground carries my weight. The other helps me balance.\n\nI yawn. My nose is blocked. I sniff. I move the thick lump of snot on the right in circles at the back of my throat and swallow it. The new song bothers me. I lose myself in a yawn, as if my mouth will tear open. I’m awake. I yawn again and my right eye waters. The wetness disturbs me. The wound where I’ve bitten the skin around my left index fingernail stings. My tear grows and runs down my right cheek. A sharp pain appears in my left ear and disappears. The drop on my cheek suddenly becomes unbearable. Moving for the first time in a long while, I wipe it away. And scratch my cheek. The itch becomes a barely there saltwater sting. I’m very tired. My friend turns to look at me. I’m very tired. I swallow. I run one finger over another. Someone with curly hair. the waiter takes receipts out of his pocket. The parking attendants laugh among themselves. My fingertips are numb and coarse. As if their last joints are connected to a single nerve ending.\n\nGrey frame. Everyone in the dormitories. I go up to the mezzanine. The boy in the yellow jacket holds a sheet of yellow acetate. His skull is large, the little brain inside is spinning. You’ve done well, says someone I don’t know. It’s nicer inside.\n\nI could live for three months on this money, he says, maybe four. A mediator would be good. Glasses on my left I’m standing. The plastic on my right shines.\n\nBrings a vase. Holds on tight with both hands while coming down the stairs. Comes down very easily.\n\nCoffee is free for the older ones. The vase almost falls. The man in front of me has an interesting vent at the back of his jacket. Like a pocket upside down. A necklace hangs out of it. The necklace is mine.\n\nThe hairs on my leg are falling out. Yellow light blinks on the wooden shelves..\n\nVoadafone calls, I wake up.",
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "I’m about to fall asleep on the couch.\n\nMy kneecap aches.\n\nThe leather couch is warm, but the side of my body that isn’t touching it is cold.\n\nThere’s a black cat on me.\n\nAcross from me is a steel kitchen unit. Its surface shines. Dozens of fingerprints show on the upper shelf. I’ve wanted to wipe them off for months, but they always appear when I can excuse putting it off.",
+      "artists": [
+        {
+          "name": "Barış Çavuşoğlu",
+          "latinName": "Baris Cavusoglu"
+        }
+      ],
+      "gallery": {
+        "name": "PLUTO",
+        "instagram": {
+          "handle": "@pluto______________",
+          "verified": true,
+          "source": "https://www.ofluxo.net/zzz-baris-cavusoglu-pluto-valencia/"
+        }
+      },
+      "coverOriginalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/01.png"
+    },
+    "coverImage": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/01.webp",
+    "previewImage": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/01.webp",
+    "heroImage": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/01.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/01.png",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/02.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/02.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/03.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/03.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/04.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/04.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/05.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/05.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/06.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/06.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/07.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/07.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/08.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/08.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/09.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/09.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/10.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/10.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/11.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/11.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/12.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/12.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/13.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/13.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/14.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/14.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/15.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/15.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/16.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/16.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/17.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/17.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/18.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/18.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/19.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/19.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/20.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/20.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/21.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/21.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/22.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/22.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/23.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/23.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/24.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/24.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/25.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/25.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/26.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/26.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/27.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/27.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/28.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/28.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/29.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/29.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/30.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/30.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/31.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/31.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/32.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/32.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/33.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/33.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/34.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/34.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/35.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/35.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/36.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/36.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/37.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/37.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/38.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/38.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/39.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/39.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/40.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/40.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/41.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/41.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/42.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/42.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/43.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/43.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/44.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/44.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      },
+      {
+        "src": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/45.webp",
+        "originalSrc": "/exhibitions/zzz-baris-cavusoglu-pluto-valencia/45.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Bernat Perez"
+      }
+    ]
+  },
+  // AI_INGEST_END: zzz-baris-cavusoglu-pluto-valencia
   // AI_INGEST_START: surface-tension-of-blue-kenji-sakai
   // Artist-supplied exhibition text and 38 photographs. Cover: IMG_3792.JPG.
   {
@@ -636,12 +2385,12 @@ Kristijonas Gurčinas (b. 2001) is an emerging artist of the younger generation 
   // AI_INGEST_END: klausykla-confessional-kristijonas-gurcinas-vilnius-2026
   // AI_INGEST_START: infinite-energy-hack-jung-shirken-malt-house-nyc-2026
   // Source: saliva.live. Cover (industrial space with rusty metal apparatus
-  // suspended, concrete columns, cityscape beyond). Telegram: PUBLISHED.
+  // suspended, concrete columns, cityscape beyond). Telegram: DRAFT (user excluded from this delivery).
   {
     slug: "infinite-energy-hack-jung-shirken-malt-house-nyc-2026",
     social: {
-      status: "published",
-      revision: 1,
+      status: "draft",
+      revision: 2,
       language: "en",
       excerpt: "Infinite Energy Hack is a collaborative project by sculptor Eugene Jung and sound artist Ben Shirken. At the center of the project is Infinite Energy Solutions (IES), a sustainability-driven EcoTech startup conceived by Jung and Shirken as a speculative container for exploring emerging relationships between humanity, technology, and the environment. Headquartered in a reclaimed industrial site in Harlem's Factory District and Innovation Triangle, IES is committed not only to researching actionable solutions for the production of limitless energy, but to actively embedding them within real-world operations.\n\nInfinite Energy Hack is informed by the cognitive hazards associated with what theorist Timothy Morton calls hyperobjects: phenomena so massively distributed in space and time that humans cannot perceive or even fully comprehend them (\"Global Warming;\" \"The Supply Chain\"). Because we exist as a part of hyperobjects, our attempts to understand them are bound up with the very systems that sustain them, and are therefore subject to their limitations.",
       artists: [
@@ -686,11 +2435,116 @@ Ben Shirken (b.1996) is an artist living in New York whose work spans installati
     coverImage: localExhibitionImage("infinite-energy-hack-jung-shirken-malt-house-nyc-2026", "01.webp"),
     previewImage: localExhibitionImage("infinite-energy-hack-jung-shirken-malt-house-nyc-2026", "01.webp"),
     heroImage: localExhibitionImage("infinite-energy-hack-jung-shirken-malt-house-nyc-2026", "01.webp"),
-    images: localExhibitionGalleryWithOrientations(
-      "infinite-energy-hack-jung-shirken-malt-house-nyc-2026",
-      [{ filename: "01.webp", orientation: "vertical" }],
-      "Etienne Frossard",
-    ),
+    images: [
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/01.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/01.png",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/02.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/02.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/03.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/03.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/04.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/04.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/05.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/05.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/06.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/06.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/07.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/07.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/08.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/08.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/09.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/09.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/10.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/10.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/11.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/11.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/12.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/12.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/13.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/13.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/14.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/14.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/15.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/15.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/16.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/16.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/17.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/17.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      },
+      {
+        "src": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/18.webp",
+        "originalSrc": "/exhibitions/infinite-energy-hack-jung-shirken-malt-house-nyc-2026/18.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: Etienne Frossard"
+      }
+    ],
   },
   // AI_INGEST_END: infinite-energy-hack-jung-shirken-malt-house-nyc-2026
   // AI_INGEST_START: whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026
