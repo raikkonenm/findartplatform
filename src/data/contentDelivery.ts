@@ -9,6 +9,8 @@ export type ContentPublication = {
   status: "draft" | "published";
   revision: number;
   language: string;
+  // Explicitly labelled website summaries are separate from curatorial quotations.
+  captionFormat?: "curatorial-quotation" | "editorial-overview";
   artists?: DeliveryPerson[];
   gallery?: DeliveryPerson;
   credits?: Array<{ role: string; people: DeliveryPerson[] }>;

@@ -73,6 +73,36 @@ test('connection methods use JSON and normalize secret whitespace without loggin
 
 const exhibition = (names = ['Alice Smith']) => ({ type: 'exhibition', slug: 'example', title: 'Actual Title', artists: names, photographer: 'Bob Jones', gallery: 'Real Gallery', city: 'Paris', country: 'France', startDate: '2026-03-12', endDate: '2026-04-20', description: 'Actual source sentence. Another actual sentence.', publicUrl: 'https://www.findartplatform.com/exhibitions/example', social: { status: 'published', revision: 1, language: 'en', excerpt: 'Actual source sentence.' } });
 
+test('explicit editorial overview is labelled and never presented as a curatorial quote', () => {
+  const item = exhibition();
+  item.descriptionKind = 'overview';
+  item.social.captionFormat = 'editorial-overview';
+  delete item.social.excerpt;
+  const result = contentCaption(item);
+  assert.deepEqual(result.errors, []);
+  assert.ok(result.caption.includes('Exhibition overview:\n' + item.description));
+  assert.ok(!result.caption.includes('“' + item.description));
+  assert.ok(result.caption.includes('Photo: #BobJones'));
+  assert.ok(result.warnings.some(warning => warning.includes('not a verbatim')));
+  delete item.social.captionFormat;
+  assert.ok(contentCaption(item).errors.some(error => error.includes('original curatorial text')));
+});
+
+test('editorial overview does not accept absent, mismatched or mixed source text', () => {
+  const item = exhibition();
+  item.social.captionFormat = 'editorial-overview';
+  assert.ok(contentCaption(item).errors.some(error => error.includes('labelled website overview')));
+  item.descriptionKind = 'overview';
+  item.social.excerpt = 'Unrelated writing.';
+  assert.ok(contentCaption(item).errors.some(error => error.includes('match the actual')));
+  item.social.excerpt = item.description;
+  item.social.quotationSource = {text:item.description,language:'en',verified:true};
+  assert.ok(contentCaption(item).errors.some(error => error.includes('cannot be mixed')));
+  delete item.social.quotationSource;
+  item.social.language = 'fr';
+  assert.ok(contentCaption(item).errors.some(error => error.includes('reviewed English')));
+});
+
 test('exact uppercase headlines for one, two, three and four artists', () => {
   const cases = [
     [['Alice Smith'], 'ACTUAL TITLE BY ALICE SMITH'],

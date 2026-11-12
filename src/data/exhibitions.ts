@@ -660,8 +660,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "At Fotograf Zone Gallery in Prague, nine artists examine how images and materials carry different experiences of time. The exhibition connects digital circulation with physical processes such as erosion, ageing and the accumulation of traces. Its curatorial framework revisits hauntology through the difficulty of escaping a continuously renewed present. Sculpture, installation and other media bring imagined futures into contact with the material conditions that shape them.",
     "descriptionKind": "overview",
     "social": {
-      "status": "draft",
-      "revision": 1,
+      "status": "published",
+      "revision": 2,
       "language": "en",
       "artists": [
         {
@@ -759,8 +759,35 @@ const exhibitionSeeds: ExhibitionSeed[] = [
               }
             }
           ]
+        },
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Karolína Voleská",
+              "instagram": {
+                "handle": "@___treperenda___",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/4a494034"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Klára Kudláček",
+              "instagram": {
+                "handle": "@klarakudlacek",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/4a494034"
+              }
+            }
+          ]
         }
-      ]
+      ],
+      "captionFormat": "editorial-overview"
     },
     "curator": "Karolína Voleská",
     "photographer": "Klára Kudláček",
@@ -906,8 +933,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "Santiago Gómez’s solo exhibition at Plaga in Mexico City brings sculptural bodies into contact with technological infrastructures and histories of trade. Printed forms, fluids, screens and improvised systems suggest organisms whose boundaries no longer hold. The project draws connections between colonial navigation, contemporary commerce and the circulation of desire. Its installations approach the body as something porous and continually altered by the networks it inhabits.",
     "descriptionKind": "overview",
     "social": {
-      "status": "draft",
-      "revision": 1,
+      "status": "published",
+      "revision": 2,
       "language": "en",
       "artists": [
         {
@@ -941,8 +968,22 @@ const exhibitionSeeds: ExhibitionSeed[] = [
               }
             }
           ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Miguel Dávila",
+              "instagram": {
+                "handle": "@migueldavila__",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/aacaca16"
+              }
+            }
+          ]
         }
-      ]
+      ],
+      "captionFormat": "editorial-overview"
     },
     "photographer": "Miguel Dávila",
     "coverImage": "/exhibitions/cabalgando-entranas-santiago-gomez/01.webp",
@@ -1129,8 +1170,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "Arianna Ladogana’s installation at Il Sedile-Flusso Project connects three ceramic forms through water, sound, light and machinery. A basin with a hand, a head and a larger vessel become parts of a distributed anatomy. Pumps and oxygen bubbles sustain the work’s circulation, making technical devices essential to its apparent life. The project explores bodily permeability and the relations between ritual space, marine origins and artificial systems.",
     "descriptionKind": "overview",
     "social": {
-      "status": "draft",
-      "revision": 1,
+      "status": "published",
+      "revision": 2,
       "language": "en",
       "artists": [
         {
@@ -1172,8 +1213,22 @@ const exhibitionSeeds: ExhibitionSeed[] = [
               "name": "Il Sedile-Flusso Project"
             }
           ]
+        },
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Like A Little Disaster",
+              "instagram": {
+                "handle": "@like_a_little_disaster",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/b38b288e"
+              }
+            }
+          ]
         }
-      ]
+      ],
+      "captionFormat": "editorial-overview"
     },
     "curator": "Like A Little Disaster",
     "coverImage": "/exhibitions/too-hot-for-heaven-too-cold-for-hell/01.webp",
@@ -1305,8 +1360,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "Erbleichen brings together twelve artists at NEU! in Winterthur, curated by Jürgen Baumann and Bene Andrist. The accompanying text follows an injured traveller moving through an unfamiliar, partly ruined landscape. Bodily fatigue, improvised support structures and uncertain perception shape this narrative. The exhibition places different artistic practices alongside that speculative journey, approaching vulnerability, memory and the traces left by changing environments.",
     "descriptionKind": "overview",
     "social": {
-      "status": "draft",
-      "revision": 1,
+      "status": "published",
+      "revision": 2,
       "language": "en",
       "artists": [
         {
@@ -1423,8 +1478,38 @@ const exhibitionSeeds: ExhibitionSeed[] = [
               }
             }
           ]
+        },
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Jürgen Baumann",
+              "instagram": {
+                "handle": "@juergen_baumann",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/7207d9e2"
+              }
+            },
+            {
+              "name": "Bene Andrist",
+              "instagram": {
+                "handle": "@woweemeowee",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/7207d9e2"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Brechtelbert Dünkelbirn"
+            }
+          ]
         }
-      ]
+      ],
+      "captionFormat": "editorial-overview"
     },
     "curator": "Jürgen Baumann, Bene Andrist",
     "photographer": "Brechtelbert Dünkelbirn",

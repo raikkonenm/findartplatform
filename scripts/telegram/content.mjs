@@ -82,6 +82,8 @@ export function dateRange(start, end) {
 export function contentCaption(item) {
   const errors = [], warnings = [];
   const social = item.social || {};
+  const overview = social.captionFormat === 'editorial-overview';
+  if (social.captionFormat && !['curatorial-quotation', 'editorial-overview'].includes(social.captionFormat)) errors.push('Unknown caption format.');
   if (social.status !== 'published') errors.push('Content is not explicitly marked published.');
   if (!Number.isInteger(social.revision) || social.revision < 1) errors.push('A positive publication revision is required.');
   if (!item.slug || !/^[a-z0-9][a-z0-9-]*$/.test(item.slug)) errors.push('Invalid unique slug.');
@@ -102,7 +104,14 @@ export function contentCaption(item) {
     else source = documentedSource.text.replace(/\r\n/g, '\n');
   }
   let excerpt = '', quotationSource = '', preferredExcerpt = '';
-  if (social.translatedExcerpt) {
+  if (overview) {
+    if (item.type !== 'exhibition' || item.descriptionKind !== 'overview') errors.push('Editorial overview captions require an exhibition with a labelled website overview.');
+    if (social.language !== 'en') errors.push('Editorial overview must be reviewed English text.');
+    if (documentedSource || social.translatedExcerpt) errors.push('Editorial overview cannot be mixed with curatorial quotation metadata.');
+    excerpt = (social.excerpt || description).trim();
+    if (!excerpt || !description.includes(excerpt)) errors.push('Editorial overview must match the actual website overview.');
+    warnings.push('Caption is an editorial exhibition overview, not a verbatim curatorial quotation.');
+  } else if (social.translatedExcerpt) {
     const translation = social.translatedExcerpt;
     if (!translation.verified || translation.language !== 'en' || !translation.sourceText || !source.includes(translation.sourceText)) errors.push('Translation must be editor-verified and reference the actual source description.');
     else {
@@ -154,7 +163,7 @@ export function contentCaption(item) {
   const url = social.publicUrl || item.publicUrl;
   try { const parsed = new URL(url); if (parsed.origin !== SITE || !parsed.pathname.startsWith('/')) throw new Error(); }
   catch { errors.push('An actual HTTPS FindArt public URL is required.'); }
-  const captionFor = text => [headline.toUpperCase(), ...(text ? [`“${text.trim()}”`] : []), ...tail].join('\n\n');
+  const captionFor = text => [headline.toUpperCase(), ...(text ? [overview ? `Exhibition overview:\n${text.trim()}` : `“${text.trim()}”`] : []), ...tail].join('\n\n');
   let excerptSentences = sentenceSpans(excerpt).length;
   if (item.type === 'exhibition' && quotationSource) {
     const selection = selectExhibitionExcerpt({ source: quotationSource, preferred: preferredExcerpt, maxCharacters: 2200 - captionFor('').length - 4 });
@@ -162,7 +171,7 @@ export function contentCaption(item) {
     excerptSentences = selection.sentences;
     errors.push(...selection.errors); warnings.push(...selection.warnings);
   }
-  if (!excerpt && item.type === 'exhibition' && !errors.some(error => /quotation|translation/i.test(error))) errors.push('An actual exhibition quotation source is required.');
+  if (!overview && !excerpt && item.type === 'exhibition' && !errors.some(error => /quotation|translation/i.test(error))) errors.push('An actual exhibition quotation source is required.');
   const caption = captionFor(excerpt);
   if (/\p{Extended_Pictographic}/u.test(caption)) errors.push('Caption contains an emoji; editorial review is required.');
   if (caption.length > 2200) errors.push(`Caption is ${caption.length} UTF-16 units; exceeds 2,200. Review required; credits were not cut.`);
