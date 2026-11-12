@@ -149,6 +149,7 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "goodnight-morning-ilaria-vinci-istituto-svizzero-milan": ["INSTALLATION", "DREAM LOGIC", "LIMINALITY", "MYTH", "TRANSFORMATION"],
   "rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul": ["GROUP SHOW", "MATERIALITY", "EROSION", "MATERIAL MEMORY"],
   "hauntology-and-the-never-ending-presence": ["GROUP SHOW", "MEMORY", "ARCHIVE", "MATERIALITY", "TECHNOLOGY"],
   "cabalgando-entranas-santiago-gomez": ["BODY", "TECHNOLOGY", "HYBRID BODIES", "POSTHUMAN"],
@@ -352,6 +353,180 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: goodnight-morning-ilaria-vinci-istituto-svizzero-milan
+  {
+    "slug": "goodnight-morning-ilaria-vinci-istituto-svizzero-milan",
+    "title": "Goodnight Morning",
+    "venue": "Istituto Svizzero",
+    "gallery": "Istituto Svizzero",
+    "city": "Milan",
+    "country": "Italy",
+    "year": "2026",
+    "dates": "18 September 2026 — 29 November 2026",
+    "startDate": "2026-09-18",
+    "endDate": "2026-11-29",
+    "dateSource": "exhibition",
+    "artists": [
+      "Ilaria Vinci"
+    ],
+    "curator": "Lucrezia Calabrò Visconti",
+    "photographer": "Giulio Boem, Ilaria Vinci",
+    "source": "Exhibition text, credits and Instagram accounts supplied by the user, 12 November 2026",
+    "description": "Vinci’s work, which encompasses sculpture, installation, and drawing, uses the fantastical as a lens through which to engage with reality. Her projects articulate fictional universes that become speculative tools for negotiating the construction of the real. ‘Goodnight Morning’ presents a series of new sculptures that evoke the liminal passage from wakefulness into sleep, and back. A wishing well - a popular motif devised to construct, manage, and quantify desire - rises from the shipping crate of a freshly delivered work. The felling of trees collides with the topos of the enchanted forest, while newspapers transfigure the day’s horrifying events into hybrid entities that are blown away.",
+    "coverImage": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/01.webp",
+    "previewImage": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/01.webp",
+    "heroImage": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/01.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/01.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/02.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/02.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/03.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/03.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/04.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/04.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/05.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/05.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/06.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/06.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/07.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/07.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/08.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/08.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/09.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/09.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/10.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/10.jpg",
+        "orientation": "horizontal"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/11.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/11.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/12.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/12.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/13.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/13.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/14.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/14.jpg",
+        "orientation": "vertical"
+      },
+      {
+        "src": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/15.webp",
+        "originalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/15.jpg",
+        "orientation": "vertical"
+      }
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "Vinci’s work, which encompasses sculpture, installation, and drawing, uses the fantastical as a lens through which to engage with reality. Her projects articulate fictional universes that become speculative tools for negotiating the construction of the real. ‘Goodnight Morning’ presents a series of new sculptures that evoke the liminal passage from wakefulness into sleep, and back. A wishing well - a popular motif devised to construct, manage, and quantify desire - rises from the shipping crate of a freshly delivered work. The felling of trees collides with the topos of the enchanted forest, while newspapers transfigure the day’s horrifying events into hybrid entities that are blown away.",
+      "coverOriginalSrc": "/exhibitions/goodnight-morning-ilaria-vinci-istituto-svizzero-milan/01.jpg",
+      "artists": [
+        {
+          "name": "Ilaria Vinci",
+          "instagram": {
+            "handle": "@ily_flying",
+            "verified": true,
+            "source": "Exhibition text, credits and Instagram accounts supplied by the user, 12 November 2026"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "Istituto Svizzero",
+        "instagram": {
+          "handle": "@istitutosvizzero",
+          "verified": true,
+          "source": "Exhibition text, credits and Instagram accounts supplied by the user, 12 November 2026"
+        }
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Lucrezia Calabrò Visconti",
+              "instagram": {
+                "handle": "@lucreziacalabrovisconti",
+                "verified": true,
+                "source": "Exhibition text, credits and Instagram accounts supplied by the user, 12 November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Giulio Boem",
+              "instagram": {
+                "handle": "@giulioboem",
+                "verified": true,
+                "source": "Exhibition text, credits and Instagram accounts supplied by the user, 12 November 2026"
+              }
+            },
+            {
+              "name": "Ilaria Vinci",
+              "instagram": {
+                "handle": "@ily_flying",
+                "verified": true,
+                "source": "Exhibition text, credits and Instagram accounts supplied by the user, 12 November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "With support",
+          "people": [
+            {
+              "name": "ErnstUndOlgaGublerHablützelStiftung"
+            },
+            {
+              "name": "GalleriaAliceAmati"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  // AI_INGEST_END: goodnight-morning-ilaria-vinci-istituto-svizzero-milan
   // AI_INGEST_START: rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul
   {
     "slug": "rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul",
