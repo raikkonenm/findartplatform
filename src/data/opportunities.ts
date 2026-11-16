@@ -27,6 +27,1749 @@ export function opportunitySavedKey(slug: string): string {
 }
 
 const CURATED_OPPORTUNITIES: Opportunity[] = [
+  // Import: user-supplied editorial dataset, 16 November 2026.
+  {
+    "slug": "archaive-ai-cultural-memory-residencies-2027",
+    "organizer": "ARCHAIVE",
+    "title": "ARCHAIVE: Artist Residencies on AI and Cultural Memory 2027",
+    "deadline": "07 December 2026, 23:55 Europe/Berlin",
+    "deadlineDate": "2026-12-07",
+    "location": "Germany, Italy, Netherlands, Portugal and Spain",
+    "audience": "Emerging and mid-career artists aged 18 or over who are nationals of, or resident in, a Creative Europe participating country. Projects must engage critically or creatively with AI. Applications in English.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Digital",
+      "Research",
+      "Visual Arts"
+    ],
+    "rewards": [
+      "Funding"
+    ],
+    "rewardSummary": "EUR 5,000 artist fee per selected artist, paid in instalments. Travel and accommodation arrangements have not yet been confirmed.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "DIGITAL",
+      "RESEARCH"
+    ],
+    "intro": [
+      "ARCHAIVE will select 18 artists to explore generative AI through cultural memory and media-art archives. Participants work with one of five European partner institutions through in-person or hybrid residencies, supported by curatorial guidance, technical mentoring and archival access. Each artist develops a documented digital artwork and contributes to a public showcase. The EUR 5,000 artist fee is confirmed; travel and accommodation support remains unconfirmed."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Emerging and mid-career artists aged 18 or over who are nationals of, or resident in, a Creative Europe participating country. Projects must engage critically or creatively with AI. Applications in English."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "EUR 5,000 artist fee per selected artist, paid in instalments. Travel and accommodation arrangements have not yet been confirmed."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Residencies take place in 2027; timing and length vary by host."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 07 December 2026, 23:55 Europe/Berlin",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://archaive.eu/news/international-open-call-for-artists/"
+  },
+  {
+    "slug": "ehin-dirty-lab-artist-residencies-2027-2028",
+    "organizer": "European Hybrid Intelligence Network",
+    "title": "EHIN Dirty Lab Artist Residencies 2027–2028",
+    "deadline": "04 December 2026, 23:59 Europe/Berlin",
+    "deadlineDate": "2026-12-04",
+    "location": "Belgium, Croatia, Germany, Serbia, Slovenia and Spain",
+    "audience": "Established individual artists or collectives with professional exhibition/project experience, resident or tax-resident in the EU or an eligible non-EU country under the official guide. A fiscal identification number and ability to travel are required. Applicants must not be affiliated with consortium partners.",
+    "audiences": [
+      "Individual artists",
+      "Collectives / groups"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Digital",
+      "Interdisciplinary"
+    ],
+    "rewards": [
+      "Funding",
+      "Production"
+    ],
+    "rewardSummary": "Up to EUR 25,000 per residency for fees and production. Artist fees may not exceed 35% of the grant. Travel and accommodation are arranged separately with the hosts. Any additional second-phase co-production funding is conditional.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "DIGITAL",
+      "INTERDISCIPLINARY"
+    ],
+    "intro": [
+      "EHIN offers six cross-institutional residencies connecting artists with scientists and environmental practitioners. Projects investigate living systems, interspecies communication and biocomputing through field research and artistic production. Each artist works with a first host and a second partner institution, shares the process through public events and develops exhibition-ready work. Funding supports both artist fees and production, rather than an unrestricted EUR 25,000 personal award."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Established individual artists or collectives with professional exhibition/project experience, resident or tax-resident in the EU or an eligible non-EU country under the official guide. A fiscal identification number and ability to travel are required. Applicants must not be affiliated with consortium partners."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "Up to EUR 25,000 per residency for fees and production. Artist fees may not exceed 35% of the grant. Travel and accommodation are arranged separately with the hosts. Any additional second-phase co-production funding is conditional."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "February 2027–January 2028; final group exhibition and symposium planned for October 2028."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 04 December 2026, 23:59 Europe/Berlin",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://europeanhybridintelligencenetwork.eu/open-call/"
+  },
+  {
+    "slug": "les-factotum-petites-ecuries-residency-2027",
+    "organizer": "Les Factotum / Les Petites Écuries",
+    "title": "Les Factotum / Les Petites Écuries Research and Creation Residency 2027",
+    "deadline": "01 December 2026",
+    "deadlineDate": "2026-12-01",
+    "location": "Nantes, France",
+    "audience": "Professional visual artists; practices crossing into craft and design are welcome. Priority is given to artists based outside the local département. Applicants must identify the Atelier Petite Métallerie craft practitioners with whom they wish to collaborate.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Applied Arts",
+      "Design"
+    ],
+    "rewards": [
+      "Funding",
+      "Production",
+      "Accommodation",
+      "Travel"
+    ],
+    "rewardSummary": "EUR 2,000 residency grant; EUR 1,500 production budget; EUR 500 exhibition-rights payment. Accommodation and a 20 m² workspace provided; one return journey reimbursed up to EUR 220.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "APPLIED ARTS"
+    ],
+    "intro": [
+      "This research and production residency invites a professional visual artist to collaborate with metalworking practitioners in the Factotum network. The selected artist receives accommodation, workspace, technical and artistic support, a residency grant and a separate production budget. New work will be presented at Les Petites Écuries during the Wave visual-arts biennial, with an additional exhibition-rights payment. Art, craft and design approaches are welcome."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Professional visual artists; practices crossing into craft and design are welcome. Priority is given to artists based outside the local département. Applicants must identify the Atelier Petite Métallerie craft practitioners with whom they wish to collaborate."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "EUR 2,000 residency grant; EUR 1,500 production budget; EUR 500 exhibition-rights payment. Accommodation and a 20 m² workspace provided; one return journey reimbursed up to EUR 220."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "One month between mid-May and early July 2027; exhibition in autumn 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 01 December 2026",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://lespetitesecuriesnantes.fr/2027_appel-a-residence-petite-metallerie"
+  },
+  {
+    "slug": "hordaland-nordic-baltic-residency-2027-2028",
+    "organizer": "Hordaland Kunstsenter",
+    "title": "Hordaland Kunstsenter Nordic and Baltic Residency 2027/2028",
+    "deadline": "01 December 2026",
+    "deadlineDate": "2026-12-01",
+    "location": "Bergen, Norway",
+    "audience": "Artists with a permanent address in an eligible Nordic or Baltic country or territory, excluding Norway. Citizenship is not required. Full-time students and artists enrolled in an artistic PhD programme are ineligible.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Funding",
+      "Accommodation",
+      "Travel",
+      "Studio Space"
+    ],
+    "rewardSummary": "NOK 30,000 stipend for the full two-month residency; accommodation covered and organised; travel support up to EUR 500. Dedicated desk/workspace and project-room access when available. Visa costs are the artist’s responsibility.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "RESEARCH"
+    ],
+    "intro": [
+      "Hordaland Kunstsenter offers two-month research residencies in central Bergen for artists based in eligible Nordic and Baltic countries. The programme welcomes diverse and interdisciplinary practices, providing a stipend, accommodation, travel support and connections to local production networks. Residents develop their work without a requirement to deliver a finished object, but share their research through a public presentation or conversation during the stay."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Artists with a permanent address in an eligible Nordic or Baltic country or territory, excluding Norway. Citizenship is not required. Full-time students and artists enrolled in an artistic PhD programme are ineligible."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "NOK 30,000 stipend for the full two-month residency; accommodation covered and organised; travel support up to EUR 500. Dedicated desk/workspace and project-room access when available. Visa costs are the artist’s responsibility."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Two-month periods in spring 2027, autumn 2027, winter 2027 or spring 2028."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 01 December 2026",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://kunstsenter.no/triangle/5"
+  },
+  {
+    "slug": "bibliothek-andreas-zuest-studio-residency-2027",
+    "organizer": "Bibliothek Andreas Züst",
+    "title": "Bibliothek Andreas Züst Studio Residency 2027",
+    "deadline": "15 December 2026",
+    "deadlineDate": "2026-12-15",
+    "location": "Switzerland",
+    "audience": "Duos and collectives of up to five cultural practitioners from Switzerland and elsewhere in Europe, across visual art, literature, new media, music, performance, design, architecture, film, photography and related disciplines.",
+    "audiences": [
+      "Collectives / groups"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Interdisciplinary",
+      "Research"
+    ],
+    "rewards": [
+      "Accommodation",
+      "Travel",
+      "Meals",
+      "Studio Space"
+    ],
+    "rewardSummary": "Accommodation, shared workspace, basic groceries and travel costs covered. An additional CHF 750 living-cost subsidy may be requested.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "INTERDISCIPLINARY",
+      "RESEARCH"
+    ],
+    "intro": [
+      "The Bibliothek Andreas Züst invites duos and collectives to spend six weeks working at the Alpenhof in eastern Switzerland. Residents have access to the library, a shared studio, individual bedrooms and quiet working areas throughout the building. The programme supports cross-disciplinary cultural practice and collaborative research, with travel, accommodation and basic groceries covered. An additional living-cost subsidy is available by request."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Duos and collectives of up to five cultural practitioners from Switzerland and elsewhere in Europe, across visual art, literature, new media, music, performance, design, architecture, film, photography and related disciplines."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "Accommodation, shared workspace, basic groceries and travel costs covered. An additional CHF 750 living-cost subsidy may be requested."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "4 July–15 August 2027, six weeks."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 15 December 2026",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://bibliothekandreaszuest.net/stipendium/"
+  },
+  {
+    "slug": "art-circle-austria-wolfgangsee-2027",
+    "organizer": "ART CIRCLE International",
+    "title": "ART CIRCLE Austria: Wolfgangsee 2027",
+    "deadline": "15 December 2026",
+    "deadlineDate": "2026-12-15",
+    "location": "St. Wolfgang, Austria",
+    "audience": "Professional working artists from all fields, with a focus on visual arts and particular interest in performance. Students are excluded except PhD researchers. Workspaces have no specialist equipment. Partners, family members and pets cannot accompany residents.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Performance"
+    ],
+    "rewards": [
+      "Funding",
+      "Production",
+      "Accommodation",
+      "Meals",
+      "Exhibition"
+    ],
+    "rewardSummary": "EUR 500 artist stipend, materials up to EUR 400 per artist, free single-room hotel accommodation and meals, and a final group exhibition. Artists pay their own travel.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "PERFORMANCE"
+    ],
+    "intro": [
+      "ART CIRCLE brings professional artists to Wolfgangsee for a short residency combining independent making, public studio hours and a final group exhibition. Participants stay in local hotels and work in informal spaces in and around them. The programme provides an artist stipend, a materials allowance, accommodation and meals, while travel remains the artist’s responsibility. Performance artists are especially encouraged in this edition."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Professional working artists from all fields, with a focus on visual arts and particular interest in performance. Students are excluded except PhD researchers. Workspaces have no specialist equipment. Partners, family members and pets cannot accompany residents."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "EUR 500 artist stipend, materials up to EUR 400 per artist, free single-room hotel accommodation and meals, and a final group exhibition. Artists pay their own travel."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "11–19 April 2027, according to the official call PDF."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 15 December 2026",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://artcircle.si/en/open-call/"
+  },
+  {
+    "slug": "radical-sabbatical-2027",
+    "organizer": "Eastside Projects and University Collections, University of Birmingham",
+    "title": "Radical Sabbatical 2027",
+    "deadline": "20 November 2026, 23:59 Europe/London",
+    "deadlineDate": "2026-11-20",
+    "location": "Birmingham, United Kingdom",
+    "audience": "Artists based in the United Kingdom. Proposals should connect the applicant’s practice with the touch theme and one or more of the academics listed in the call.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Interdisciplinary",
+      "Research"
+    ],
+    "rewards": [
+      "Funding",
+      "Production"
+    ],
+    "rewardSummary": "GBP 3,500 artist fee plus GBP 500 production budget per artist. Two artists selected.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "INTERDISCIPLINARY",
+      "RESEARCH"
+    ],
+    "intro": [
+      "Radical Sabbatical pairs two UK-based artists with academics at the University of Birmingham for six months of research and development. The 2027 theme is touch, opening routes into sensory experience, digital technology, materiality, memory, accessibility and embodied knowledge. Artists receive a fee and separate production support, with regular conversations and a final sharing event rather than a prescribed exhibition format."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Artists based in the United Kingdom. Proposals should connect the applicant’s practice with the touch theme and one or more of the academics listed in the call."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "GBP 3,500 artist fee plus GBP 500 production budget per artist. Two artists selected."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Six-month residencies beginning January 2027; final sharing and evaluation in June/July 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 20 November 2026, 23:59 Europe/London",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://eastsideprojects.org/projects/apply-now-radical-sabbatical-2027-residencies/"
+  },
+  {
+    "slug": "studio-voltaire-tender-living-residency-2027",
+    "organizer": "Studio Voltaire",
+    "title": "Studio Voltaire: Tender Living Residency 2027",
+    "deadline": "22 November 2026, 23:59 Europe/London",
+    "deadlineDate": "2026-11-22",
+    "location": "London, United Kingdom",
+    "audience": "Emerging trans, non-binary and gender-questioning visual artists based in the UK outside London. Individual applications only, not collectives. The call lists exclusions for applicants primarily working in music, dance, architecture, fashion, theatre, craft or design.",
+    "audiences": [
+      "Individual artists",
+      "Collectives / groups"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts"
+    ],
+    "rewards": [
+      "Funding",
+      "Accommodation",
+      "Travel",
+      "Studio Space"
+    ],
+    "rewardSummary": "GBP 300 weekly living stipend for ten weeks, accessible private live/work studio, one return journey to London, London zones 1–2 travel card, mentoring and professional-development support.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS"
+    ],
+    "intro": [
+      "Tender Living offers an emerging trans, non-binary or gender-questioning visual artist ten weeks of supported living and working at Studio Voltaire in London. The self-directed residency includes a private accessible live/work studio, a weekly stipend, travel support and mentoring within an established artist community. Applicants must live elsewhere in the UK. Research and outcomes are shared through collaboratively developed open studios or public events."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Emerging trans, non-binary and gender-questioning visual artists based in the UK outside London. Individual applications only, not collectives. The call lists exclusions for applicants primarily working in music, dance, architecture, fashion, theatre, craft or design."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "GBP 300 weekly living stipend for ten weeks, accessible private live/work studio, one return journey to London, London zones 1–2 travel card, mentoring and professional-development support."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "3 February–14 April 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 22 November 2026, 23:59 Europe/London",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://studiovoltaire.org/residencies/open-call-tender-living-residency/"
+  },
+  {
+    "slug": "cryptic-nights-2027-2028",
+    "organizer": "Cryptic",
+    "title": "Cryptic Nights 2027/28 Open Call",
+    "deadline": "19 November 2026, 12:00 Europe/London",
+    "deadlineDate": "2026-11-19",
+    "location": "Glasgow, United Kingdom",
+    "audience": "Emerging artists based in Scotland developing existing projects that combine original sound or music with performance, installation, screen-based art or technology.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Sound Art",
+      "Performance",
+      "Installation",
+      "Video",
+      "Digital"
+    ],
+    "rewards": [
+      "Funding",
+      "Publication"
+    ],
+    "rewardSummary": "GBP 800 fee for solo artists or up to GBP 2,000 for groups, one mentoring session, up to two residency days plus a performance/presentation, and professional photo/video documentation.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "SOUND ART",
+      "PERFORMANCE"
+    ],
+    "intro": [
+      "Cryptic Nights invites emerging Scotland-based artists to develop existing work that combines sound or music with other art forms. Selected projects receive a fee, a short development residency, mentoring and a public presentation, with professional documentation. The opportunity suits interdisciplinary performance, installation, screen and technology practices seeking a supported next stage for a work already in development."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Emerging artists based in Scotland developing existing projects that combine original sound or music with performance, installation, screen-based art or technology."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "GBP 800 fee for solo artists or up to GBP 2,000 for groups, one mentoring session, up to two residency days plus a performance/presentation, and professional photo/video documentation."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Presentation opportunities in the 2027/28 programme; individual dates to be agreed."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 19 November 2026, 12:00 Europe/London",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://www.cryptic.org.uk/cryptic-nights-2027-28-open-call/"
+  },
+  {
+    "slug": "mfah-core-residency-2027-2029",
+    "organizer": "The Museum of Fine Arts, Houston / Glassell School of Art",
+    "title": "Core Residency Program 2027–2029",
+    "deadline": "08 January 2027",
+    "deadlineDate": "2027-01-08",
+    "location": "Houston, United States",
+    "audience": "Emerging artists and critical writers, including international applicants. The program welcomes alternative educational pathways; a graduate degree is not required. Fellows must reside in Houston during the residency.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Writing"
+    ],
+    "rewards": [
+      "Funding"
+    ],
+    "rewardSummary": "USD 100,000 over the 23-month residency, described by the organizer as USD 50,000 per year, plus a health-care stipend. Do not assume housing is provided.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "WRITING"
+    ],
+    "intro": [
+      "The Glassell School of Art offers an intensive residency for emerging artists and critical writers seeking to develop a sustainable practice. Fellows join a community centered on artistic development, critical exchange and engagement with Houston. The 23-month award provides substantial financial support. International applications are welcome, making this a particularly compelling opportunity for practitioners ready for an extended commitment to their work."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Emerging artists and critical writers, including international applicants. The program welcomes alternative educational pathways; a graduate degree is not required. Fellows must reside in Houston during the residency."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "USD 100,000 over the 23-month residency, described by the organizer as USD 50,000 per year, plus a health-care stipend. Do not assume housing is provided."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "2027–2029; 23 months."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 08 January 2027",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://www.mfah.org/events/core-residency-program-info-session"
+  },
+  {
+    "slug": "kent-cultural-alliance-service-residency-2027",
+    "organizer": "Kent Cultural Alliance",
+    "title": "SFW Resident Artist Program: SERVICE, Spring 2027",
+    "deadline": "01 December 2026, 17:00 America/New_York",
+    "deadlineDate": "2026-12-01",
+    "location": "Chestertown, United States",
+    "audience": "Career artists from the United States. International artists may apply only if they already hold a visa permitting legal work in the United States; tourist visas are not accepted. Current degree candidates are ineligible. Community engagement is mandatory.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Social Practice"
+    ],
+    "rewards": [
+      "Funding",
+      "Travel",
+      "Production",
+      "Accommodation",
+      "Studio Space"
+    ],
+    "rewardSummary": "USD 7,500 artist stipend; travel reimbursement up to USD 1,000; studio and gallery expense reimbursement up to USD 1,500; on-site private en-suite accommodation and studio.",
+    "applicationFee": "FREE",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "SOCIAL PRACTICE"
+    ],
+    "intro": [
+      "This six-week live-in residency explores service through collaboration with community organizations in Chestertown, Maryland. Selected artists develop work responding to local needs, lead educational activities and share their practice through public events and an exhibition. The program combines an artist stipend with housing, studio access and capped reimbursements for travel and production, supporting practitioners whose work involves civic or social engagement."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Career artists from the United States. International artists may apply only if they already hold a visa permitting legal work in the United States; tourist visas are not accepted. Current degree candidates are ineligible. Community engagement is mandatory."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "USD 7,500 artist stipend; travel reimbursement up to USD 1,000; studio and gallery expense reimbursement up to USD 1,500; on-site private en-suite accommodation and studio."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "March 14–April 24, 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 01 December 2026, 17:00 America/New_York",
+          "Application fee: Free to apply"
+        ]
+      }
+    ],
+    "applyUrl": "https://kentculture.org/residency/"
+  },
+  {
+    "slug": "daisy-lane-print-book-residency-2027",
+    "organizer": "Bainbridge Island Museum of Art",
+    "title": "Daisy Lane Print & Book Artist Residency 2027",
+    "deadline": "01 December 2026",
+    "deadlineDate": "2026-12-01",
+    "location": "Bainbridge Island, United States",
+    "audience": "Artists living in the United States or its territories, regardless of citizenship, at any career stage. Applicants should be familiar with at least one available printmaking or book-art process and able to work independently.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Printmaking",
+      "Visual Arts"
+    ],
+    "rewards": [
+      "Funding",
+      "Production",
+      "Accommodation",
+      "Meals"
+    ],
+    "rewardSummary": "USD 350 per week unrestricted stipend, USD 500 materials budget, housing for non-local residents, several round-trip ferry tickets and USD 125 per week expense account at the museum bistro. No travel stipend; other expenses remain the artist’s responsibility.",
+    "applicationFee": "USD 0; optional USD 25 contribution.",
+    "tags": [
+      "RESIDENCY",
+      "PRINTMAKING",
+      "VISUAL ARTS"
+    ],
+    "intro": [
+      "Daisy Lane supports printmakers and book artists through focused residencies at a newly renovated studio near Bainbridge Island Museum of Art. Artists can work with letterpress, screenprinting, Risograph and related practices while connecting with a museum community. Each two-to-four-week residency combines studio access, a weekly stipend and project materials support. Non-local residents receive nearby accommodation, although travel to the residency is not funded."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Artists living in the United States or its territories, regardless of citizenship, at any career stage. Applicants should be familiar with at least one available printmaking or book-art process and able to work independently."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "USD 350 per week unrestricted stipend, USD 500 materials budget, housing for non-local residents, several round-trip ferry tickets and USD 125 per week expense account at the museum bistro. No travel stipend; other expenses remain the artist’s responsibility."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Two to four consecutive weeks during 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 01 December 2026",
+          "Application fee: USD 0; optional USD 25 contribution."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.biartmuseum.org/daisy-lane/"
+  },
+  {
+    "slug": "mmfa-impressions-artist-residency-2027",
+    "organizer": "Montreal Museum of Fine Arts / Conseil des arts de Montréal",
+    "title": "Impressions Artist Residency 2027",
+    "deadline": "02 December 2026, 17:00 America/Toronto",
+    "deadlineDate": "2026-12-02",
+    "location": "Montréal, Canada",
+    "audience": "Professional independent visual artists from an immigrant background who belong to a cultural community or visible minority; Canadian citizens or permanent residents; resident on the island of Montreal for at least one year; fewer than seven years of professional experience in Quebec. Additional exclusions apply, including artists already represented in the museum collection.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Funding"
+    ],
+    "rewardSummary": "CAD 9,000 total: CAD 6,000 honorarium and CAD 3,000 allowance, equivalent to CAD 375 per week over eight weeks. Includes eight hours of curatorial guidance and access to museum research resources.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "RESEARCH"
+    ],
+    "intro": [
+      "The Impressions residency invites a Montreal-based visual artist to research the collections of the Montreal Museum of Fine Arts and develop a fresh perspective on their holdings. The eight-week program emphasizes research rather than on-site production, providing an honorarium, weekly allowance, curatorial guidance and archive access. It specifically supports eligible artists from immigrant backgrounds at an early stage of their professional practice in Quebec."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Professional independent visual artists from an immigrant background who belong to a cultural community or visible minority; Canadian citizens or permanent residents; resident on the island of Montreal for at least one year; fewer than seven years of professional experience in Quebec. Additional exclusions apply, including artists already represented in the museum collection."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "CAD 9,000 total: CAD 6,000 honorarium and CAD 3,000 allowance, equivalent to CAD 375 per week over eight weeks. Includes eight hours of curatorial guidance and access to museum research resources."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "March 22–May 14, 2027; changes may be agreed with the museum."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 02 December 2026, 17:00 America/Toronto",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://www.mbam.qc.ca/en/news/call-for-applications-impressions-artist-residency-2026-2027/"
+  },
+  {
+    "slug": "khn-residency-2027-session-2",
+    "organizer": "Kimmel Harding Nelson Center for the Arts",
+    "title": "Kimmel Harding Nelson Residency: 2027 Session 2",
+    "deadline": "01 March 2027",
+    "deadlineDate": "2027-03-01",
+    "location": "Nebraska City, United States",
+    "audience": "Visual and interdisciplinary artists, writers and composers from the United States and internationally. Selection is based on discipline-specific review of work samples and statements. A number of transitional residencies are reserved for recent graduates.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Interdisciplinary",
+      "Writing",
+      "Sound Art"
+    ],
+    "rewards": [
+      "Funding",
+      "Accommodation",
+      "Studio Space"
+    ],
+    "rewardSummary": "USD 175 weekly food stipend, housing with a private bedroom and bathroom, and private studio space. Travel is the artist’s responsibility except cab fare from Omaha or Lincoln on arrival or departure.",
+    "applicationFee": "USD 35; non-waivable.",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "INTERDISCIPLINARY"
+    ],
+    "intro": [
+      "The Kimmel Harding Nelson Center for the Arts offers self-directed residencies for artists, writers and composers in Nebraska City. Residents receive accommodation, a private studio and a weekly food stipend, with stays lasting two to eight weeks. An anonymous review process focuses on the quality of submitted work and project intentions. The second 2027 session welcomes international applicants seeking uninterrupted time to develop their practice."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Visual and interdisciplinary artists, writers and composers from the United States and internationally. Selection is based on discipline-specific review of work samples and statements. A number of transitional residencies are reserved for recent graduates."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "USD 175 weekly food stipend, housing with a private bedroom and bathroom, and private studio space. Travel is the artist’s responsibility except cab fare from Omaha or Lincoln on arrival or departure."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "July 12–December 17, 2027; individual residencies last two to eight weeks."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 01 March 2027",
+          "Application fee: USD 35; non-waivable."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.khncenterforthearts.org/residencyresident-application/application-information"
+  },
+  {
+    "slug": "jentel-summer-fall-residency-2027",
+    "organizer": "Jentel Artist Residency",
+    "title": "Jentel Artist Residency: Summer/Fall 2027",
+    "deadline": "15 January 2027, 12:00 America/Denver",
+    "deadlineDate": "2027-01-15",
+    "location": "Banner, Wyoming, United States",
+    "audience": "Visual artists, writers and composers aged at least 25 who are US citizens or reside in the United States during the residency year. Established and emerging practitioners may apply. Full-time degree students are ineligible; applicants should check the current form for enrollment restrictions.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Writing",
+      "Sound Art"
+    ],
+    "rewards": [
+      "Funding",
+      "Accommodation",
+      "Studio Space"
+    ],
+    "rewardSummary": "USD 300 total stipend, distributed as USD 100 at the end of each of three weeks, plus a private bedroom and separate studio. Residents cover travel, food, materials and other personal or production expenses. USD 100 reservation deposit required if selected; late cancellation restrictions apply.",
+    "applicationFee": "USD 30; non-refundable and non-waivable.",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "WRITING"
+    ],
+    "intro": [
+      "Jentel offers focused residencies in the foothills of Wyoming’s Bighorn Mountains for visual artists, writers and composers. Each resident has a private bedroom and separate studio within a small creative community. Three-week stays include a modest living-expense stipend and an opportunity to introduce work through Jentel Presents. Applicants should budget separately for travel, food and materials and review the program’s citizenship or residence requirements."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Visual artists, writers and composers aged at least 25 who are US citizens or reside in the United States during the residency year. Established and emerging practitioners may apply. Full-time degree students are ineligible; applicants should check the current form for enrollment restrictions."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "USD 300 total stipend, distributed as USD 100 at the end of each of three weeks, plus a private bedroom and separate studio. Residents cover travel, food, materials and other personal or production expenses. USD 100 reservation deposit required if selected; late cancellation restrictions apply."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Summer/Fall 2027 sessions run May 15–December 7; each residency starts on the 15th and ends on the 7th of the following month."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 15 January 2027, 12:00 America/Denver",
+          "Application fee: USD 30; non-refundable and non-waivable."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.jentelarts.org/apply"
+  },
+  {
+    "slug": "fresh-arts-space-taking-residency-2027",
+    "organizer": "Fresh Arts",
+    "title": "Space Taking Artist Residency 2027",
+    "deadline": "23 November 2026, 23:59 America/Chicago",
+    "deadlineDate": "2026-11-23",
+    "location": "Houston, United States",
+    "audience": "Houston-area multidisciplinary artists, creatives, collectives and curators developing public programs or exhibitions. The program welcomes emerging and mid-career practitioners and focuses on traditionally underrepresented artists.",
+    "audiences": [
+      "Individual artists",
+      "Collectives / groups",
+      "Curators"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Interdisciplinary",
+      "Curating",
+      "Social Practice"
+    ],
+    "rewards": [
+      "Funding",
+      "Exhibition"
+    ],
+    "rewardSummary": "USD 3,600 per project, inclusive of artist fees and all project costs; additional creative-services funding amount to be determined. Includes mentorship, marketing support and six weeks of gallery access. The organizer’s estimated total resource value is not a cash grant.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "INTERDISCIPLINARY",
+      "CURATING"
+    ],
+    "intro": [
+      "Fresh Arts invites Houston-area practitioners to transform gallery space through exhibitions, performances, workshops and other public activities. Two artists or teams will receive mentor-guided project development followed by six weeks of access to a gallery at Winter Street Studios. The award supports artist time and production within a single project budget. Residents lead planning, installation and activation, with additional promotional and professional-development support."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Houston-area multidisciplinary artists, creatives, collectives and curators developing public programs or exhibitions. The program welcomes emerging and mid-career practitioners and focuses on traditionally underrepresented artists."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "USD 3,600 per project, inclusive of artist fees and all project costs; additional creative-services funding amount to be determined. Includes mentorship, marketing support and six weeks of gallery access. The organizer’s estimated total resource value is not a cash grant."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Residency activations in March–April and July–August 2027, preceded by mentorship."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 23 November 2026, 23:59 America/Chicago",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://fresharts.submittable.com/submit/27c1634b-783e-4d11-ad6f-a85993c2c667/2027-space-taking-artist-residency-call-for-proposals"
+  },
+  {
+    "slug": "bronx-su-casa-artist-residency-2027",
+    "organizer": "Bronx Council on the Arts",
+    "title": "SU-CASA Artist Residency 2027: Bronx",
+    "deadline": "06 December 2026, 23:59 America/New_York",
+    "deadlineDate": "2026-12-06",
+    "location": "New York City — Bronx, United States",
+    "audience": "Individual artists aged 18 or older who reside in the Bronx and are not currently enrolled full-time in a degree-granting institution. Artists may apply through only one local arts council in one borough. No fiscal sponsor is required. A minimum of 20 contact hours is expected.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Social Practice"
+    ],
+    "rewards": [
+      "Funding",
+      "Production"
+    ],
+    "rewardSummary": "USD 6,000 artist stipend plus USD 2,000 materials and supplies budget, with access to Materials for the Arts resources.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "SOCIAL PRACTICE"
+    ],
+    "intro": [
+      "SU-CASA connects artists with older adult centers to create participatory arts experiences for local communities. Bronx-based artists can propose a project or series of cultural activities, followed by a public presentation such as an exhibition, reading or performance. The residency provides a separate artist stipend and materials budget. Selected practitioners work with their assigned center to refine the project and coordinate a suitable activity schedule."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Individual artists aged 18 or older who reside in the Bronx and are not currently enrolled full-time in a degree-granting institution. Artists may apply through only one local arts council in one borough. No fiscal sponsor is required. A minimum of 20 contact hours is expected."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "USD 6,000 artist stipend plus USD 2,000 materials and supplies budget, with access to Materials for the Arts resources."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "January–June 30, 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 06 December 2026, 23:59 America/New_York",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://bronxcouncilonthearts.submittable.com/submit"
+  },
+  {
+    "slug": "smack-mellon-artist-studio-2027-2028",
+    "organizer": "Smack Mellon",
+    "title": "Smack Mellon Artist Studio Program 2027–2028",
+    "deadline": "01 December 2026",
+    "deadlineDate": "2026-12-01",
+    "location": "New York City — Brooklyn, United States",
+    "audience": "Emerging or early-career artists within the first two to ten years of their public careers; aged 18 or older; US citizens or permanent residents. Applicants must have been legal NYC residents filing NYC taxes for at least one year before the deadline, remain NYC-based throughout, not be degree students and demonstrate studio need.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts"
+    ],
+    "rewards": [
+      "Studio Space",
+      "Equipment"
+    ],
+    "rewardSummary": "Free private studio and shared production facilities for eleven months. A stipend is funding-dependent and neither its availability nor amount is guaranteed. No living accommodation is provided.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS"
+    ],
+    "intro": [
+      "Smack Mellon provides six early-career New York City artists with private workspace and access to shared production facilities in Dumbo, Brooklyn. The eleven-month program also creates opportunities for curator visits and public open studios. It addresses the cost of maintaining an artistic practice in the city. Applicants should treat free studio space as the confirmed benefit: any cash stipend depends on funding, and housing is not included."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Emerging or early-career artists within the first two to ten years of their public careers; aged 18 or older; US citizens or permanent residents. Applicants must have been legal NYC residents filing NYC taxes for at least one year before the deadline, remain NYC-based throughout, not be degree students and demonstrate studio need."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "Free private studio and shared production facilities for eleven months. A stipend is funding-dependent and neither its availability nor amount is guaranteed. No living accommodation is provided."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "September 8, 2027–August 8, 2028."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 01 December 2026",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://www.smackmellon.org/opportunities/artist-studio-program-2027-28/"
+  },
+  {
+    "slug": "sado-island-galaxy-art-festival-2027",
+    "organizer": "Sado International Art Promotion Organization",
+    "title": "Sado Island Galaxy Art Festival 2027 Open Call",
+    "deadline": "22 December 2026, 17:00 Asia/Tokyo",
+    "deadlineDate": "2026-12-22",
+    "location": "Sado, Japan",
+    "audience": "Individuals and groups of all nationalities, aged 18 or over. Applicants must be able to research, produce, install, present and remove their projects on Sado Island, respecting local communities and the environment. Up to two proposals may be submitted.",
+    "audiences": [
+      "Individual artists",
+      "Collectives / groups"
+    ],
+    "type": [
+      "Commissions"
+    ],
+    "fields": [
+      "Public Art",
+      "Installation"
+    ],
+    "rewards": [
+      "Production"
+    ],
+    "rewardSummary": "Production grant of up to JPY 2,000,000 per selected project, subject to budget review. This is a total project budget, not an unrestricted personal award. The organiser assists with accommodation arrangements, research and installation coordination; accommodation is not stated to be separately paid.",
+    "applicationFee": "JPY 1,500 per project proposal",
+    "tags": [
+      "COMMISSION",
+      "PUBLIC ART",
+      "INSTALLATION"
+    ],
+    "intro": [
+      "Create a site-responsive artwork or public project for Sado Island Galaxy Art Festival in Japan. The call welcomes installations, performances, community collaborations and other experimental proposals engaging with the island’s environment and cultural heritage. Approximately four or five projects will be selected. Applicants must submit an achievable plan and itemised budget covering the full production lifecycle, from research and installation to removal and site restoration."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Individuals and groups of all nationalities, aged 18 or over. Applicants must be able to research, produce, install, present and remove their projects on Sado Island, respecting local communities and the environment. Up to two proposals may be submitted."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "Production grant of up to JPY 2,000,000 per selected project, subject to budget review. This is a total project budget, not an unrestricted personal award. The organiser assists with accommodation arrangements, research and installation coordination; accommodation is not stated to be separately paid."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Festival: 17 July–7 November 2027. Installation completed by 10 July 2027; dismantling and site restoration completed by late November 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 22 December 2026, 17:00 Asia/Tokyo",
+          "Application fee: JPY 1,500 per project proposal"
+        ]
+      }
+    ],
+    "applyUrl": "https://sado-art.com/en/news/4499/"
+  },
+  {
+    "slug": "i-light-singapore-2027-open-call",
+    "organizer": "i Light Singapore",
+    "title": "i Light Singapore 2027 Open Call",
+    "deadline": "01 December 2026, 23:59 Asia/Singapore",
+    "deadlineDate": "2026-12-01",
+    "location": "Singapore",
+    "audience": "Artists and creatives across Asia proposing light-art installations for Marina Bay. Proposals must respond to the theme Resonance and meet the technical and installation requirements in the official guidelines.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Commissions"
+    ],
+    "fields": [
+      "Public Art",
+      "Installation",
+      "Digital"
+    ],
+    "rewards": [
+      "Production",
+      "Travel",
+      "Accommodation"
+    ],
+    "rewardSummary": "Artwork budget capped at SGD 18,000, including artist/design fees, production and specified project expenses. The festival separately covers specified transport and insurance costs, including return sea freight where applicable, and airfare and accommodation for one artist for up to five days/four nights for installation and the opening. Overseas payments may be subject to withholding tax.",
+    "applicationFee": "See website",
+    "tags": [
+      "COMMISSION",
+      "PUBLIC ART",
+      "INSTALLATION"
+    ],
+    "intro": [
+      "Propose a light-art installation for Marina Bay at the thirteenth edition of i Light Singapore. Under the theme Resonance, the festival invites artists to explore connections and responses through light, sound and movement. Selected proposals receive an artwork budget and defined logistical support. Designs must account for public interaction, outdoor conditions and maintenance throughout the festival, with technical drawings and a detailed budget required."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Artists and creatives across Asia proposing light-art installations for Marina Bay. Proposals must respond to the theme Resonance and meet the technical and installation requirements in the official guidelines."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "Artwork budget capped at SGD 18,000, including artist/design fees, production and specified project expenses. The festival separately covers specified transport and insurance costs, including return sea freight where applicable, and airfare and accommodation for one artist for up to five days/four nights for installation and the opening. Overseas payments may be subject to withholding tax."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "June 2027; exact festival dates should be checked with the organiser."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 01 December 2026, 23:59 Asia/Singapore",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://www.ilightsingapore.gov.sg/about/2027-open-call/"
+  },
+  {
+    "slug": "down-the-lane-artist-residency-2027",
+    "organizer": "Down the Lane Studios and Culture Focus",
+    "title": "Down the Lane Artist Residency 2027",
+    "deadline": "20 December 2026",
+    "deadlineDate": "2026-12-20",
+    "location": "Melbourne, Australia",
+    "audience": "Practising artists worldwide, at any career stage and working in any medium. Writers, playwrights and directors may also apply. Applicants must submit in English and be available for the full month in Melbourne.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts"
+    ],
+    "rewards": [
+      "Travel",
+      "Accommodation",
+      "Studio Space",
+      "Production"
+    ],
+    "rewardSummary": "Return airfare, private accommodation, a private studio and workshop access, plus an AUD 500 production budget. The published package does not explicitly include food or a daily living allowance.",
+    "applicationFee": "AUD 50, non-refundable",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS"
+    ],
+    "intro": [
+      "Spend a month developing new work in Melbourne through a residency for one practising artist. Down the Lane combines private accommodation and a dedicated studio with introductions to local artists, curators and galleries. Applicants should demonstrate a consistent practice and propose a realistic project suited to the available space and production budget. The resident is expected to work independently and participate in an open studio."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Practising artists worldwide, at any career stage and working in any medium. Writers, playwrights and directors may also apply. Applicants must submit in English and be available for the full month in Melbourne."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "Return airfare, private accommodation, a private studio and workshop access, plus an AUD 500 production budget. The published package does not explicitly include food or a daily living allowance."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "One month in March 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 20 December 2026",
+          "Application fee: AUD 50, non-refundable"
+        ]
+      }
+    ],
+    "applyUrl": "https://www.culturefocus.com.au/down-the-lane-residency-2027"
+  },
+  {
+    "slug": "yao-residency-02-2027-2028",
+    "organizer": "YÁO Alternative Space",
+    "title": "YÁO Residency #02, 2027–2028",
+    "deadline": "31 December 2026",
+    "deadlineDate": "2026-12-31",
+    "location": "Taiwan",
+    "audience": "Artists, makers, researchers and interdisciplinary practitioners aged 18 or over, of any nationality, with an ongoing creative practice and an interest in research, exchange and local engagement.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Research",
+      "Interdisciplinary"
+    ],
+    "rewards": [
+      "Funding",
+      "Production",
+      "Travel",
+      "Accommodation"
+    ],
+    "rewardSummary": "Research phase: accommodation, up to NTD 20,000 production reimbursement, NTD 10,000 total living stipend, and travel support including up to NTD 20,000 reimbursement for one international round trip. Exhibition phase: accommodation, NTD 10,000 living stipend and travel support including up to NTD 20,000 international round-trip reimbursement. Also includes venues and specified documentation and presentation support.",
+    "applicationFee": "NTD 300 for Taiwan-based applicants; USD 10 for international applicants; non-refundable",
+    "tags": [
+      "RESIDENCY",
+      "RESEARCH",
+      "INTERDISCIPLINARY"
+    ],
+    "intro": [
+      "YÁO invites practitioners to develop their work through encounters with everyday life, materials and local environments in Taiwan. The programme begins with a research residency and Open Studio, followed by a later exhibition phase after time for reflection and development. Applicants need a clear research direction rather than a fully resolved exhibition proposal. Support includes accommodation, capped travel and production reimbursements, and a modest total living stipend."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Artists, makers, researchers and interdisciplinary practitioners aged 18 or over, of any nationality, with an ongoing creative practice and an interest in research, exchange and local engagement."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "Research phase: accommodation, up to NTD 20,000 production reimbursement, NTD 10,000 total living stipend, and travel support including up to NTD 20,000 reimbursement for one international round trip. Exhibition phase: accommodation, NTD 10,000 living stipend and travel support including up to NTD 20,000 international round-trip reimbursement. Also includes venues and specified documentation and presentation support."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Research residency: 21 August–21 November 2027. Open Studio: 27 October–16 November 2027. Final exhibition in 2028, with dates agreed with the selected artist."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 31 December 2026",
+          "Application fee: NTD 300 for Taiwan-based applicants; USD 10 for international applicants; non-refundable"
+        ]
+      }
+    ],
+    "applyUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfQ5-RBrfPckf4O9A5LeDrAzbFlXHzBkYrpPyTiy3HeKc8BkQ/viewform"
+  },
+  {
+    "slug": "mophradat-new-agents-2027",
+    "organizer": "Mophradat",
+    "title": "Mophradat New Agents 2027",
+    "deadline": "06 December 2026",
+    "deadlineDate": "2026-12-06",
+    "location": "Multiple locations / online",
+    "audience": "Artists, curators and researchers with at least five years of active arts practice, completed projects, significant firsthand experience living in the Arab world, strong Arabic and basic English. Applicants must reside within GMT−1 to GMT+3 and commit to all collective activities. The organiser’s general eligibility criteria also apply.",
+    "audiences": [
+      "Individual artists",
+      "Collectives / groups",
+      "Curators"
+    ],
+    "type": [
+      "Grants & Stipends"
+    ],
+    "fields": [
+      "Interdisciplinary"
+    ],
+    "rewards": [
+      "Funding",
+      "Travel"
+    ],
+    "rewardSummary": "USD 6,000 discretionary stipend, paid in three instalments of USD 2,500, USD 2,500 and USD 1,000. Mophradat also covers retreat travel and a budget for the group’s public event.",
+    "applicationFee": "See website",
+    "tags": [
+      "FELLOWSHIP",
+      "INTERDISCIPLINARY"
+    ],
+    "intro": [
+      "New Agents brings together experienced arts practitioners for a collective curatorial process rather than a series of individual projects. Participants exchange ideas through online workshops and seminars, attend a retreat in Athens, and jointly develop a public event in Brussels. The programme provides a discretionary stipend alongside shared project support. It is intended for practitioners with substantial experience of the Arab world and a willingness to commit fully to collaborative work."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Artists, curators and researchers with at least five years of active arts practice, completed projects, significant firsthand experience living in the Arab world, strong Arabic and basic English. Applicants must reside within GMT−1 to GMT+3 and commit to all collective activities. The organiser’s general eligibility criteria also apply."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "USD 6,000 discretionary stipend, paid in three instalments of USD 2,500, USD 2,500 and USD 1,000. Mophradat also covers retreat travel and a budget for the group’s public event."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Ten months from 1 March 2027. Online work, a one-week Athens retreat in July 2027, and a concluding public event in Brussels."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 06 December 2026",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://mophradat.org/program/new-agents/"
+  },
+  {
+    "slug": "nesr-art-foundation-residency-2027",
+    "organizer": "NESR Art Foundation",
+    "title": "NESR Art Foundation Residency 2027",
+    "deadline": "20 November 2026, 23:30 Africa/Luanda",
+    "deadlineDate": "2026-11-20",
+    "location": "Luanda, Angola",
+    "audience": "Emerging artists who are both citizens and residents of Angola, Cape Verde, Guinea-Bissau, Mozambique or São Tomé and Príncipe. Artists without previous international exhibitions or institutional support are prioritised. Artist collectives cannot apply.",
+    "audiences": [
+      "Individual artists",
+      "Collectives / groups"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts"
+    ],
+    "rewards": [
+      "Funding",
+      "Production",
+      "Travel",
+      "Accommodation",
+      "Studio Space"
+    ],
+    "rewardSummary": "Furnished artist studio, shared accommodation, a living-expenses stipend paid in local currency, a foundation-managed production grant, mentoring, travel to and from Angola for non-Angolan artists, and an Angola visa. Monetary amounts are not published; costs not listed remain the artist’s responsibility.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS"
+    ],
+    "intro": [
+      "NESR Art Foundation offers emerging artists from five Portuguese-speaking African countries a supported period of practice in Luanda. Residents receive studio space, shared accommodation, mentoring and financial support for living and production, with international travel support for eligible non-Angolan participants. Selection prioritises artists who have not yet benefited from international exhibitions or institutional backing. Applications may be submitted in English or Portuguese."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Emerging artists who are both citizens and residents of Angola, Cape Verde, Guinea-Bissau, Mozambique or São Tomé and Príncipe. Artists without previous international exhibitions or institutional support are prioritised. Artist collectives cannot apply."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "Furnished artist studio, shared accommodation, a living-expenses stipend paid in local currency, a foundation-managed production grant, mentoring, travel to and from Angola for non-Angolan artists, and an Angola visa. Monetary amounts are not published; costs not listed remain the artist’s responsibility."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Sessions in February–April, May–July and October–December 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 20 November 2026, 23:30 Africa/Luanda",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://www.nesrartfoundation.com/"
+  },
+  {
+    "slug": "iaspis-mmca-changdong-seoul-2027",
+    "organizer": "Swedish Arts Grants Committee / IASPIS and MMCA Changdong",
+    "title": "IASPIS Residency at MMCA Changdong, Seoul 2027",
+    "deadline": "02 December 2026, 14:00 (organizer local time; timezone not specified)",
+    "deadlineDate": "2026-12-02",
+    "location": "Seoul, South Korea",
+    "audience": "Professional visual artists based in Sweden. The programme welcomes varied materials, methods and artistic approaches. Facilities include workspace but no workshops.",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts"
+    ],
+    "rewards": [
+      "Funding"
+    ],
+    "rewardSummary": "SEK 60,000 grant intended to cover international travel, living expenses and certain material costs during the residency.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS"
+    ],
+    "intro": [
+      "IASPIS offers Sweden-based visual artists a residency at MMCA Changdong in Seoul. The programme provides a working context for developing artistic practice and building relationships with Korean and international artists, curators and researchers. A grant contributes to travel, living and material expenses. Applicants should assess whether the facilities suit their work: the residency offers workspace, but specialist production workshops are not available."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Professional visual artists based in Sweden. The programme welcomes varied materials, methods and artistic approaches. Facilities include workspace but no workshops."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "SEK 60,000 grant intended to cover international travel, living expenses and certain material costs during the residency."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "30 September–9 December 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 02 December 2026, 14:00 (organizer local time; timezone not specified)",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://www.konstnarsnamnden.se/en/news/apply-to-iaspis-residency-in-seoul-at-mmca-changdong/"
+  },
+  {
+    "slug": "yamanashi-media-arts-award-2026-27",
+    "organizer": "Yamanashi Prefecture",
+    "title": "Yamanashi Media Arts Award 2026–27",
+    "deadline": "19 November 2026, 17:00 Asia/Tokyo",
+    "deadlineDate": "2026-11-19",
+    "location": "Japan",
+    "audience": "Individuals and groups of any nationality, age and professional level. Applicants must live in Japan or have a Japan-based collaborator for the judging process. Minors require guardian consent. Previous award winners are excluded, though previous shortlisted entrants may apply.",
+    "audiences": [
+      "Individual artists",
+      "Collectives / groups"
+    ],
+    "type": [
+      "Awards & Prizes"
+    ],
+    "fields": [
+      "Digital",
+      "Interdisciplinary"
+    ],
+    "rewards": [
+      "Cash Prize",
+      "Production"
+    ],
+    "rewardSummary": "Y-GOLD: JPY 500,000 for one winner; Y-SILVER: JPY 200,000 each for two winners; Y-CRYSTAL: JPY 500,000 for one winner. Selected works may receive up to JPY 150,000 each toward presentation costs, including installation, removal and transport.",
+    "applicationFee": "FREE",
+    "tags": [
+      "AWARD",
+      "DIGITAL",
+      "INTERDISCIPLINARY"
+    ],
+    "intro": [
+      "Yamanashi Media Arts Award recognises experimental expression engaging with media and technology. Eligible work spans moving image, animation, installation, performance, interactive art, games and other approaches that can be assessed online. Entry is free, and cash prizes accompany a selected-work exhibition. International applicants are welcome, but those living outside Japan must have a local collaborator to support the judging process."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Individuals and groups of any nationality, age and professional level. Applicants must live in Japan or have a Japan-based collaborator for the judging process. Minors require guardian consent. Previous award winners are excluded, though previous shortlisted entrants may apply."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "Y-GOLD: JPY 500,000 for one winner; Y-SILVER: JPY 200,000 each for two winners; Y-CRYSTAL: JPY 500,000 for one winner. Selected works may receive up to JPY 150,000 each toward presentation costs, including installation, removal and transport."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Selected-work exhibition planned for 6–28 March 2027; awards announced in mid-March 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 19 November 2026, 17:00 Asia/Tokyo",
+          "Application fee: Free to apply"
+        ]
+      }
+    ],
+    "applyUrl": "https://y-artaward.jp/"
+  },
+  {
+    "slug": "tobe-maki-art-activity-grant-2027",
+    "organizer": "Tobe Maki Foundation",
+    "title": "Tobe Maki Foundation Art Activity Grant 2027",
+    "deadline": "01 December 2026, 23:59 (organizer local time; timezone not specified)",
+    "deadlineDate": "2026-12-01",
+    "location": "Japan",
+    "audience": "Individual artists and small arts organisations organising eligible in-person exhibitions or performances in Japan. The individual organiser or organisation representative must be aged 40 or under on 1 April 2027. Supporting documentation includes a residence certificate for individual applicants and a recommendation. Merely exhibiting in another organiser’s event is not eligible.",
+    "audiences": [
+      "Individual artists",
+      "Organizations & non-profits"
+    ],
+    "type": [
+      "Grants & Stipends"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Performance"
+    ],
+    "rewards": [
+      "Funding"
+    ],
+    "rewardSummary": "JPY 200,000–1,000,000 per project, assessed against the event budget deficit and proposal scale. Supports eligible presentation costs such as venue hire, transport, fees and publicity, not artwork production or rehearsal costs. Refunds may be required if actual income substantially exceeds projections.",
+    "applicationFee": "See website",
+    "tags": [
+      "GRANT",
+      "VISUAL ARTS",
+      "PERFORMANCE"
+    ],
+    "intro": [
+      "This grant helps younger artists and small cultural organisations present exhibitions and performances in Japan. Funding is directed toward the costs of organising a public event, rather than creating the artwork itself. Visual art, design and specified music-based programmes are eligible, including combinations of these disciplines. Applicants need a concrete event plan, a budget, supporting records and an independent recommendation."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "Individual artists and small arts organisations organising eligible in-person exhibitions or performances in Japan. The individual organiser or organisation representative must be aged 40 or under on 1 April 2027. Supporting documentation includes a residence certificate for individual applicants and a recommendation. Merely exhibiting in another organiser’s event is not eligible."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "JPY 200,000–1,000,000 per project, assessed against the event budget deficit and proposal scale. Supports eligible presentation costs such as venue hire, transport, fees and publicity, not artwork production or rehearsal costs. Refunds may be required if actual income substantially exceeds projections."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Supported events must take place between April 2027 and the end of March 2028."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 01 December 2026, 23:59 (organizer local time; timezone not specified)",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://tobe-maki.or.jp/artact/"
+  },
+  {
+    "slug": "acc-visual-arts-residency-2027",
+    "organizer": "Asia Culture Center",
+    "title": "ACC Visual Arts Residency 2027",
+    "deadline": "26 November 2026, 18:00 Asia/Seoul",
+    "deadlineDate": "2026-11-26",
+    "location": "Gwangju, South Korea",
+    "audience": "The inaugural pilot is restricted to artists based in the Jeonnam–Gwangju Special Metropolitan City region. Visual art fields include painting, photography, sculpture and installation. Six teams are expected to be selected.",
+    "audiences": [
+      "Individual artists",
+      "Collectives / groups"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Photography",
+      "Sculpture",
+      "Installation"
+    ],
+    "rewards": [
+      "Production",
+      "Studio Space",
+      "Equipment",
+      "Exhibition"
+    ],
+    "rewardSummary": "KRW 10,000,000 in production funding per selected team, an individual workroom, access to ACC production equipment, critical and expert programmes, and a final exhibition.",
+    "applicationFee": "See website",
+    "tags": [
+      "RESIDENCY",
+      "VISUAL ARTS",
+      "PHOTOGRAPHY"
+    ],
+    "intro": [
+      "The Asia Culture Center’s new visual arts residency supports artists working in the Jeonnam–Gwangju region. Its inaugural edition explores the theme House: Places That Hold Memories, inviting interpretations of home through memory, identity and community. Selected teams receive production funding, workspace and access to the centre’s creative infrastructure. The programme combines research, experimentation, production and critique before a final presentation."
+    ],
+    "sections": [
+      {
+        "title": "Who can apply",
+        "items": [
+          "The inaugural pilot is restricted to artists based in the Jeonnam–Gwangju Special Metropolitan City region. Visual art fields include painting, photography, sculpture and installation. Six teams are expected to be selected."
+        ]
+      },
+      {
+        "title": "What you get",
+        "items": [
+          "KRW 10,000,000 in production funding per selected team, an individual workroom, access to ACC production equipment, critical and expert programmes, and a final exhibition."
+        ]
+      },
+      {
+        "title": "Programme dates",
+        "items": [
+          "Approximately six months beginning in January 2027."
+        ]
+      },
+      {
+        "title": "Application",
+        "items": [
+          "Deadline: 26 November 2026, 18:00 Asia/Seoul",
+          "Application fee: Not verified; check the official call"
+        ]
+      }
+    ],
+    "applyUrl": "https://www.acc.go.kr/main/board/board.do?PID=0701&action=Read&boardID=NOTICE&idx=2886"
+  },
+
   {
     slug: "darkoum-residencies-2027-morocco",
     organizer: "Institut français du Maroc",
