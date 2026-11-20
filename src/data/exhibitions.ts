@@ -600,8 +600,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "Christine Bruu brings together six artists around the stories that can begin with an object or a place. Her accompanying publication starts with a fragment of a discarded stove and follows the lives imagined around its former home.\n\nDomestic details, abandoned possessions and images become openings into histories that remain incomplete. The exhibition approaches looking as an active process: a way to connect material evidence with memory, curiosity and invention.",
     "descriptionKind": "overview",
     "sourceUrl": "https://artviewer.org/a-point-of-entry-at-melk-oslo/",
-    "coverImage": "/exhibitions/a-point-of-entry-melk-oslo-2026/01.webp",
-    "previewImage": "/exhibitions/a-point-of-entry-melk-oslo-2026/01.webp",
+    "coverImage": "/exhibitions/a-point-of-entry-melk-oslo-2026/09.webp",
+    "previewImage": "/exhibitions/a-point-of-entry-melk-oslo-2026/09.webp",
     "heroImage": "/exhibitions/a-point-of-entry-melk-oslo-2026/01.webp",
     "images": [
       {
@@ -697,7 +697,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     ],
     "social": {
       "status": "draft",
-      "revision": 1,
+      "revision": 2,
       "language": "en",
       "captionFormat": "editorial-overview",
       "excerpt": "Christine Bruu brings together six artists around the stories that can begin with an object or a place. Her accompanying publication starts with a fragment of a discarded stove and follows the lives imagined around its former home.\n\nDomestic details, abandoned possessions and images become openings into histories that remain incomplete. The exhibition approaches looking as an active process: a way to connect material evidence with memory, curiosity and invention.",
@@ -1460,8 +1460,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "Ye-eun Min uses beeswax to explore relationships in which different identities meet without becoming interchangeable. The material can hold a structure, soften under heat and take on another configuration, making the conditions of support and change physically visible.\n\nPaintings and installations extend across the interior and exterior of PINPOINT ART CENTRE. Curated by Hyun Kim, MY WE considers coexistence through contact, mutual influence and the traces that one person or form leaves in another.",
     "descriptionKind": "overview",
     "sourceUrl": "https://saliva.live/exhibitions/e437c053",
-    "coverImage": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/01.webp",
-    "previewImage": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/01.webp",
+    "coverImage": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/02.webp",
+    "previewImage": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/02.webp",
     "heroImage": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/01.webp",
     "images": [
       {
@@ -1575,7 +1575,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     ],
     "social": {
       "status": "published",
-      "revision": 1,
+      "revision": 2,
       "language": "en",
       "captionFormat": "editorial-overview",
       "excerpt": "Ye-eun Min uses beeswax to explore relationships in which different identities meet without becoming interchangeable. The material can hold a structure, soften under heat and take on another configuration, making the conditions of support and change physically visible.\n\nPaintings and installations extend across the interior and exterior of PINPOINT ART CENTRE. Curated by Hyun Kim, MY WE considers coexistence through contact, mutual influence and the traces that one person or form leaves in another.",
@@ -1646,7 +1646,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
           ]
         }
       ],
-      "coverOriginalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/01.jpg"
+      "coverOriginalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/02.jpg"
     }
   },
   // AI_INGEST_END: my-we-ye-eun-min-pinpoint-seoul-2026
@@ -1677,8 +1677,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "Curated by Tarlan Lotfizadeh, Probability Clouds brings together six artists to consider migration through an analogy with quantum probability. The body is approached as a presence distributed between a former home, a changed home and the spaces connecting them.\n\nInstallation, film, photography and sculptural works address the uncertainty of belonging across places. The exhibition connects this unsettled geography to memory and embodied experience, asking how a person can inhabit several histories and locations at once.",
     "descriptionKind": "overview",
     "sourceUrl": "https://saliva.live/exhibitions/690be6a2",
-    "coverImage": "/exhibitions/probability-clouds-gossamer-fog-london-2026/01.webp",
-    "previewImage": "/exhibitions/probability-clouds-gossamer-fog-london-2026/01.webp",
+    "coverImage": "/exhibitions/probability-clouds-gossamer-fog-london-2026/03.webp",
+    "previewImage": "/exhibitions/probability-clouds-gossamer-fog-london-2026/03.webp",
     "heroImage": "/exhibitions/probability-clouds-gossamer-fog-london-2026/01.webp",
     "images": [
       {
@@ -1798,7 +1798,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     ],
     "social": {
       "status": "published",
-      "revision": 1,
+      "revision": 2,
       "language": "en",
       "captionFormat": "editorial-overview",
       "excerpt": "Curated by Tarlan Lotfizadeh, Probability Clouds brings together six artists to consider migration through an analogy with quantum probability. The body is approached as a presence distributed between a former home, a changed home and the spaces connecting them.\n\nInstallation, film, photography and sculptural works address the uncertainty of belonging across places. The exhibition connects this unsettled geography to memory and embodied experience, asking how a person can inhabit several histories and locations at once.",
@@ -1917,7 +1917,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
           ]
         }
       ],
-      "coverOriginalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/01.jpg"
+      "coverOriginalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/03.jpg"
     }
   },
   // AI_INGEST_END: probability-clouds-gossamer-fog-london-2026
@@ -2279,8 +2279,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "Nathalie Djurberg and Hans Berg transform Gió Marconi into an environment of animated films, enlarged bodily fragments and monumental flowers. Clay forms with marble-like surfaces recur across the sculptures and projected images, while sound and low light draw the separate rooms into a continuous experience.\n\nThe exhibition addresses longing through suggestion rather than a stable object of desire. Its mist-filled garden and uncanny anatomy create a setting in which familiar forms open onto fantasy, memory and myth.",
     "descriptionKind": "overview",
     "sourceUrl": "https://www.contemporaryartdaily.com/project/nathalie-djurberg-and-hans-berg-at-gio-marconi-milan-98498",
-    "coverImage": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/01.webp",
-    "previewImage": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/01.webp",
+    "coverImage": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/02.webp",
+    "previewImage": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/02.webp",
     "heroImage": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/01.webp",
     "images": [
       {
@@ -2816,7 +2816,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     ],
     "social": {
       "status": "draft",
-      "revision": 1,
+      "revision": 2,
       "language": "en",
       "captionFormat": "editorial-overview",
       "excerpt": "Nathalie Djurberg and Hans Berg transform Gió Marconi into an environment of animated films, enlarged bodily fragments and monumental flowers. Clay forms with marble-like surfaces recur across the sculptures and projected images, while sound and low light draw the separate rooms into a continuous experience.\n\nThe exhibition addresses longing through suggestion rather than a stable object of desire. Its mist-filled garden and uncanny anatomy create a setting in which familiar forms open onto fantasy, memory and myth.",
@@ -2873,8 +2873,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "Tobias Hauser approaches conflict through the physical tension of a tug of war. Carved wooden objects, rope, mixed-media works and skeletal forms connect the forces exerted on materials with struggles between people and political positions.\n\nCity maps introduce a distant, aerial perspective, while works from the Bones series return attention to bodily vulnerability. The exhibition moves between recognisable references to warfare and more ambiguous encounters with pressure, uncertainty and the consequences of action.",
     "descriptionKind": "overview",
     "sourceUrl": "https://daily-lazy.com/2026/11/tobias-hauser-at-fiebach-minninger-cologne.html",
-    "coverImage": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/01.webp",
-    "previewImage": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/01.webp",
+    "coverImage": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/03.webp",
+    "previewImage": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/03.webp",
     "heroImage": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/01.webp",
     "images": [
       {
@@ -2950,7 +2950,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     ],
     "social": {
       "status": "draft",
-      "revision": 1,
+      "revision": 2,
       "language": "en",
       "captionFormat": "editorial-overview",
       "excerpt": "Tobias Hauser approaches conflict through the physical tension of a tug of war. Carved wooden objects, rope, mixed-media works and skeletal forms connect the forces exerted on materials with struggles between people and political positions.\n\nCity maps introduce a distant, aerial perspective, while works from the Bones series return attention to bodily vulnerability. The exhibition moves between recognisable references to warfare and more ambiguous encounters with pressure, uncertainty and the consequences of action.",
@@ -3338,8 +3338,8 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     "description": "Lulu Cora Süss combines motorcycle exhausts with handbags, jewellery and other found elements in sculptures that reconsider the gendered meanings carried by objects. Cutting, casting, welding and sewing turn these existing associations into new bodily arrangements.\n\nMany works face the viewer as symmetrical, mask-like forms, with pink silicone strands extending from their assembled surfaces. Accompanied by a text by Jen Kratochvil, the exhibition approaches transformation as a way to remain visibly composite, resisting the demand for a single, settled identity.",
     "descriptionKind": "overview",
     "sourceUrl": "https://kubaparis.com/submission/626540",
-    "coverImage": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/01.webp",
-    "previewImage": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/01.webp",
+    "coverImage": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/04.webp",
+    "previewImage": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/04.webp",
     "heroImage": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/01.webp",
     "images": [
       {
@@ -3453,7 +3453,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
     ],
     "social": {
       "status": "published",
-      "revision": 1,
+      "revision": 2,
       "language": "en",
       "captionFormat": "editorial-overview",
       "excerpt": "Lulu Cora Süss combines motorcycle exhausts with handbags, jewellery and other found elements in sculptures that reconsider the gendered meanings carried by objects. Cutting, casting, welding and sewing turn these existing associations into new bodily arrangements.\n\nMany works face the viewer as symmetrical, mask-like forms, with pink silicone strands extending from their assembled surfaces. Accompanied by a text by Jen Kratochvil, the exhibition approaches transformation as a way to remain visibly composite, resisting the demand for a single, settled identity.",
@@ -3491,7 +3491,7 @@ const exhibitionSeeds: ExhibitionSeed[] = [
           ]
         }
       ],
-      "coverOriginalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/01.jpg"
+      "coverOriginalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/04.jpg"
     }
   },
   // AI_INGEST_END: it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026
