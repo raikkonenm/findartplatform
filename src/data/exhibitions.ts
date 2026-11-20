@@ -149,6 +149,19 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "thinking-through-your-cracks-and-veins-hamburg-2026": ["GROUP SHOW","INSTALLATION","MEMORY","ARCHIVE"],
+  "a-point-of-entry-melk-oslo-2026": ["GROUP SHOW","MEMORY","DOMESTICITY","OBJECTHOOD"],
+  "automatia-pitted-dates-helsinki-2026": ["GROUP SHOW","INSTALLATION","TECHNOLOGY","SIMULATION"],
+  "tonerr-aga-basement-copenhagen-2026": ["GROUP SHOW","ABSENCE","TRANSFORMATION","MATERIALITY"],
+  "my-we-ye-eun-min-pinpoint-seoul-2026": ["INSTALLATION","IDENTITY","TRANSFORMATION","MATERIALITY"],
+  "probability-clouds-gossamer-fog-london-2026": ["GROUP SHOW","DISPLACEMENT","MEMORY","BODY"],
+  "poeticas-organicas-santiago-mira-montoya-medellin-2026": ["INSTALLATION","ECOLOGY","MEMORY","TRANSFORMATION"],
+  "nothing-stay-stainless-berlinskej-model-prague-2026": ["GROUP SHOW","FEMININITY","BODY","ANIMALITY"],
+  "song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026": ["INSTALLATION","BODY","DREAM LOGIC","MYTH"],
+  "tug-of-war-tobias-hauser-cologne-2026": ["INSTALLATION","BODY","MATERIALITY","FRAGMENT"],
+  "you-got-what-you-deserved-lena-brudieux-bordeaux-2026": ["PHOTOGRAPHY","OBJECTHOOD","DOMESTICITY","TRANSFORMATION"],
+  "tonus-roman-bicek-matej-gavula-bratislava-2026": ["BODY","MATERIALITY","FRAGMENT","TRANSFORMATION"],
+  "it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026": ["HYBRID BODIES","IDENTITY","BODY","TRANSFORMATION"],
   "solarium-amelie-mckee-plicnik-london-2026": ["INSTALLATION","MATERIALITY","TECHNOLOGY","SIMULATION"],
   "from-body-to-body-veronika-cechmankova-julio-paris-2026": ["PHOTOGRAPHY","TEXTILE","MEMORY","BODY"],
   "someones-treasure-przeciag-s35-lodz-2026": ["GROUP SHOW","MEMORY","OBJECTHOOD","MATERIALITY"],
@@ -357,6 +370,3132 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: thinking-through-your-cracks-and-veins-hamburg-2026
+  {
+    "slug": "thinking-through-your-cracks-and-veins-hamburg-2026",
+    "title": "thinking through your cracks and veins",
+    "venue": "Kunstverein Harburger Bahnhof",
+    "gallery": "Kunstverein Harburger Bahnhof",
+    "city": "Hamburg",
+    "country": "Germany",
+    "year": "2026",
+    "dates": "3 October 2026 — 31 January 2027",
+    "startDate": "3 October 2026",
+    "endDate": "31 January 2027",
+    "dateSource": "exhibition",
+    "artists": [
+      "Bariteo Collective",
+      "Gordon Matta-Clark",
+      "Paula Hummer",
+      "Ruoru Mou",
+      "Swan Lee",
+      "Xheneta Imeri"
+    ],
+    "curator": "Klara Hülskamp",
+    "photographer": "Fred Dott",
+    "description": "The exhibition considers how encounters leave impressions in people, buildings and objects. Its six artistic positions use film, drawing, sculpture and installation to examine relationships that remain present after their immediate circumstances have disappeared.\n\nThe station building becomes part of this inquiry. Concealed spaces and architectural layers connect the exhibited works to the history held within the hall, asking visitors to notice what survives beneath familiar surfaces.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://artviewer.org/thinking-through-your-cracks-and-veins-at-kunstverein-harburger-bahnhof-hamburg/",
+    "coverImage": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/01.webp",
+    "previewImage": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/01.webp",
+    "heroImage": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/02.webp",
+    "images": [
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/01.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/01.jpg",
+        "orientation": "vertical",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/02.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/02.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/03.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/03.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/04.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/04.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/05.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/05.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/06.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/06.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/07.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/07.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/08.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/08.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/09.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/09.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/10.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/10.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/11.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/11.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/12.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/12.jpg",
+        "orientation": "vertical",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/13.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/13.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/14.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/14.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/15.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/15.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/16.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/16.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/17.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/17.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/18.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/18.jpg",
+        "orientation": "vertical",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      },
+      {
+        "src": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/19.webp",
+        "originalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/19.jpg",
+        "orientation": "horizontal",
+        "caption": "thinking through your cracks and veins, Kunstverein Harburger Bahnhof, Hamburg, 2026. Exhibition documentation. Photo: Fred Dott."
+      }
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "The exhibition considers how encounters leave impressions in people, buildings and objects. Its six artistic positions use film, drawing, sculpture and installation to examine relationships that remain present after their immediate circumstances have disappeared.\n\nThe station building becomes part of this inquiry. Concealed spaces and architectural layers connect the exhibited works to the history held within the hall, asking visitors to notice what survives beneath familiar surfaces.",
+      "artists": [
+        {
+          "name": "Bariteo Collective"
+        },
+        {
+          "name": "Gordon Matta-Clark"
+        },
+        {
+          "name": "Paula Hummer"
+        },
+        {
+          "name": "Ruoru Mou"
+        },
+        {
+          "name": "Swan Lee"
+        },
+        {
+          "name": "Xheneta Imeri"
+        }
+      ],
+      "gallery": {
+        "name": "Kunstverein Harburger Bahnhof"
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Klara Hülskamp"
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Fred Dott"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "Kunstverein Harburger Bahnhof"
+            }
+          ]
+        }
+      ],
+      "coverOriginalSrc": "/exhibitions/thinking-through-your-cracks-and-veins-hamburg-2026/originals/01.jpg"
+    }
+  },
+  // AI_INGEST_END: thinking-through-your-cracks-and-veins-hamburg-2026
+  // AI_INGEST_START: a-point-of-entry-melk-oslo-2026
+  {
+    "slug": "a-point-of-entry-melk-oslo-2026",
+    "title": "A Point of Entry",
+    "venue": "MELK",
+    "gallery": "MELK",
+    "city": "Oslo",
+    "country": "Norway",
+    "year": "2026",
+    "dates": "15 October 2026 — 8 November 2026",
+    "startDate": "15 October 2026",
+    "endDate": "8 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Cecilia Jiménez Ojeda",
+      "Erlend Rødsten",
+      "Johanne Hestvold",
+      "Max Barel",
+      "Morten Andenæs",
+      "Øyvind Bast"
+    ],
+    "curator": "Christine Bruu",
+    "exhibitionText": "Christine Bruu",
+    "description": "Christine Bruu brings together six artists around the stories that can begin with an object or a place. Her accompanying publication starts with a fragment of a discarded stove and follows the lives imagined around its former home.\n\nDomestic details, abandoned possessions and images become openings into histories that remain incomplete. The exhibition approaches looking as an active process: a way to connect material evidence with memory, curiosity and invention.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://artviewer.org/a-point-of-entry-at-melk-oslo/",
+    "coverImage": "/exhibitions/a-point-of-entry-melk-oslo-2026/01.webp",
+    "previewImage": "/exhibitions/a-point-of-entry-melk-oslo-2026/01.webp",
+    "heroImage": "/exhibitions/a-point-of-entry-melk-oslo-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/01.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/02.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/03.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/04.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/05.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/06.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/07.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/08.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/09.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/10.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/11.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/12.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/13.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/14.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/15.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/16.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/17.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      },
+      {
+        "src": "/exhibitions/a-point-of-entry-melk-oslo-2026/18.webp",
+        "orientation": "horizontal",
+        "caption": "A Point of Entry, MELK, Oslo, 2026. Exhibition documentation. Courtesy MELK."
+      }
+    ],
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Christine Bruu brings together six artists around the stories that can begin with an object or a place. Her accompanying publication starts with a fragment of a discarded stove and follows the lives imagined around its former home.\n\nDomestic details, abandoned possessions and images become openings into histories that remain incomplete. The exhibition approaches looking as an active process: a way to connect material evidence with memory, curiosity and invention.",
+      "artists": [
+        {
+          "name": "Cecilia Jiménez Ojeda"
+        },
+        {
+          "name": "Erlend Rødsten"
+        },
+        {
+          "name": "Johanne Hestvold"
+        },
+        {
+          "name": "Max Barel"
+        },
+        {
+          "name": "Morten Andenæs"
+        },
+        {
+          "name": "Øyvind Bast"
+        }
+      ],
+      "gallery": {
+        "name": "MELK"
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Christine Bruu"
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Christine Bruu"
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "MELK"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "MELK"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  // AI_INGEST_END: a-point-of-entry-melk-oslo-2026
+  // AI_INGEST_START: automatia-pitted-dates-helsinki-2026
+  {
+    "slug": "automatia-pitted-dates-helsinki-2026",
+    "title": "Automatia",
+    "venue": "Pitted Dates",
+    "gallery": "Pitted Dates",
+    "city": "Helsinki",
+    "country": "Finland",
+    "year": "2026",
+    "dates": "11 September 2026 — 25 October 2026",
+    "startDate": "11 September 2026",
+    "endDate": "25 October 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Henna Vainio",
+      "Ida Tomminen",
+      "Iida Sofia Hirvonen",
+      "Ilmari Gryta",
+      "Jaakko Pallasvuo",
+      "Juhana Moisander",
+      "Xiao Zhiyu"
+    ],
+    "curator": "Sakari Tervo",
+    "photographer": "Sakari Tervo",
+    "exhibitionText": "Iida Sofia Hirvonen",
+    "description": "Automatia brings seven artists into a conversation about repetition, perception and the systems that organise experience. A commissioned poem by Iida Sofia Hirvonen accompanies works spanning video, painting, ceramics, printed images and mechanical movement.\n\nThe exhibition connects everyday habits with the pressures of mediated life. Its different materials and rhythms invite attention to emotional feedback, recurring patterns and the possibility of responding to them differently.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://artviewer.org/automatia-at-pitted-dates-helsinki/",
+    "coverImage": "/exhibitions/automatia-pitted-dates-helsinki-2026/01.webp",
+    "previewImage": "/exhibitions/automatia-pitted-dates-helsinki-2026/01.webp",
+    "heroImage": "/exhibitions/automatia-pitted-dates-helsinki-2026/02.webp",
+    "images": [
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/01.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/01.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/02.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/02.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/03.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/03.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/04.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/04.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/05.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/05.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/06.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/06.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/07.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/07.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/08.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/08.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/09.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/09.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/10.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/10.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/11.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/11.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/12.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/12.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/13.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/13.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/14.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/14.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/15.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/15.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/16.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/16.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/17.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/17.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/18.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/18.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/19.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/19.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/20.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/20.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/21.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/21.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/22.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/22.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/23.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/23.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/24.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/24.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/25.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/25.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/26.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/26.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/27.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/27.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/28.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/28.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/29.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/29.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/30.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/30.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/31.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/31.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/32.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/32.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/33.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/33.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/34.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/34.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/35.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/35.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/36.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/36.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/37.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/37.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/38.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/38.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/39.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/39.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/40.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/40.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/41.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/41.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/42.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/42.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/43.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/43.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/44.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/44.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/45.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/45.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/46.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/46.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/47.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/47.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/48.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/48.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/49.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/49.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/50.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/50.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/51.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/51.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/52.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/52.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/53.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/53.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/54.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/54.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/55.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/55.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/56.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/56.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/57.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/57.jpg",
+        "orientation": "horizontal",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/58.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/58.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/59.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/59.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/60.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/60.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/61.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/61.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      },
+      {
+        "src": "/exhibitions/automatia-pitted-dates-helsinki-2026/62.webp",
+        "originalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/62.jpg",
+        "orientation": "vertical",
+        "caption": "Automatia, Pitted Dates, Helsinki, 2026. Exhibition documentation. Photo: Sakari Tervo."
+      }
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Automatia brings seven artists into a conversation about repetition, perception and the systems that organise experience. A commissioned poem by Iida Sofia Hirvonen accompanies works spanning video, painting, ceramics, printed images and mechanical movement.\n\nThe exhibition connects everyday habits with the pressures of mediated life. Its different materials and rhythms invite attention to emotional feedback, recurring patterns and the possibility of responding to them differently.",
+      "artists": [
+        {
+          "name": "Henna Vainio"
+        },
+        {
+          "name": "Ida Tomminen"
+        },
+        {
+          "name": "Iida Sofia Hirvonen"
+        },
+        {
+          "name": "Ilmari Gryta"
+        },
+        {
+          "name": "Jaakko Pallasvuo"
+        },
+        {
+          "name": "Juhana Moisander"
+        },
+        {
+          "name": "Xiao Zhiyu"
+        }
+      ],
+      "gallery": {
+        "name": "Pitted Dates"
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Sakari Tervo"
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Iida Sofia Hirvonen"
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Sakari Tervo"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "Pitted Dates"
+            }
+          ]
+        }
+      ],
+      "coverOriginalSrc": "/exhibitions/automatia-pitted-dates-helsinki-2026/originals/01.jpg"
+    }
+  },
+  // AI_INGEST_END: automatia-pitted-dates-helsinki-2026
+  // AI_INGEST_START: tonerr-aga-basement-copenhagen-2026
+  {
+    "slug": "tonerr-aga-basement-copenhagen-2026",
+    "title": "TONERR",
+    "venue": "AGA Basement",
+    "gallery": "AGA Basement",
+    "city": "Copenhagen",
+    "country": "Denmark",
+    "year": "2026",
+    "dates": "13 November 2026 — 9 December 2026",
+    "startDate": "13 November 2026",
+    "endDate": "9 December 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Kristyan Nicholson",
+      "Aske Hyldborg Jensen"
+    ],
+    "photographer": "Aske Hyldborg Jensen",
+    "exhibitionText": "Ed Atkins",
+    "description": "Kristyan Nicholson and Aske Hyldborg Jensen present TONERR at AGA Basement. The exhibition approaches loss through changes in material and image, considering how something can return in an altered and unfamiliar form.\n\nAn accompanying text by Ed Atkins frames these returns as unstable transformations rather than faithful recoveries. The project places disappearance alongside the persistence of objects, inviting attention to what remains and what is changed by its reappearance.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://saliva.live/exhibitions/f9143195",
+    "coverImage": "/exhibitions/tonerr-aga-basement-copenhagen-2026/01.webp",
+    "previewImage": "/exhibitions/tonerr-aga-basement-copenhagen-2026/01.webp",
+    "heroImage": "/exhibitions/tonerr-aga-basement-copenhagen-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/01.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/02.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/03.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/04.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/05.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/06.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/07.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/08.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/09.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/10.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/11.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/12.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/13.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/14.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/15.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/16.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/17.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/18.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/19.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/20.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/21.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/22.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/23.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      },
+      {
+        "src": "/exhibitions/tonerr-aga-basement-copenhagen-2026/24.webp",
+        "orientation": "horizontal",
+        "caption": "TONERR, AGA Basement, Copenhagen, 2026. Exhibition documentation. Photo: Aske Hyldborg Jensen."
+      }
+    ],
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Kristyan Nicholson and Aske Hyldborg Jensen present TONERR at AGA Basement. The exhibition approaches loss through changes in material and image, considering how something can return in an altered and unfamiliar form.\n\nAn accompanying text by Ed Atkins frames these returns as unstable transformations rather than faithful recoveries. The project places disappearance alongside the persistence of objects, inviting attention to what remains and what is changed by its reappearance.",
+      "artists": [
+        {
+          "name": "Kristyan Nicholson",
+          "instagram": {
+            "handle": "@kristyan.nicholson",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/f9143195"
+          }
+        },
+        {
+          "name": "Aske Hyldborg Jensen"
+        }
+      ],
+      "gallery": {
+        "name": "AGA Basement",
+        "instagram": {
+          "handle": "@agaaaaaaaaateliers",
+          "verified": true,
+          "source": "https://saliva.live/exhibitions/f9143195"
+        }
+      },
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Ed Atkins"
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Aske Hyldborg Jensen"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "AGA Basement"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  // AI_INGEST_END: tonerr-aga-basement-copenhagen-2026
+  // AI_INGEST_START: my-we-ye-eun-min-pinpoint-seoul-2026
+  {
+    "slug": "my-we-ye-eun-min-pinpoint-seoul-2026",
+    "title": "MY WE",
+    "venue": "PINPOINT ART CENTRE",
+    "gallery": "PINPOINT ART CENTRE",
+    "city": "Seoul",
+    "country": "South Korea",
+    "year": "2026",
+    "dates": "13 November 2026 — 20 December 2026",
+    "startDate": "13 November 2026",
+    "endDate": "20 December 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Ye-eun Min"
+    ],
+    "curator": "Hyun Kim",
+    "exhibitionText": "Hyun Kim",
+    "description": "Ye-eun Min uses beeswax to explore relationships in which different identities meet without becoming interchangeable. The material can hold a structure, soften under heat and take on another configuration, making the conditions of support and change physically visible.\n\nPaintings and installations extend across the interior and exterior of PINPOINT ART CENTRE. Curated by Hyun Kim, MY WE considers coexistence through contact, mutual influence and the traces that one person or form leaves in another.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://saliva.live/exhibitions/e437c053",
+    "coverImage": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/01.webp",
+    "previewImage": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/01.webp",
+    "heroImage": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/01.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/01.jpg",
+        "orientation": "horizontal",
+        "caption": "Ye-eun Min, Before I Know It (2026), Bees Wax and Light, Ø9×37cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/02.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/02.jpg",
+        "orientation": "vertical",
+        "caption": "Ye-eun Min, Before I Know It (2026), Bees Wax and Light, Ø9×37cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/03.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/03.jpg",
+        "orientation": "vertical",
+        "caption": "Ye-eun Min, Before I Know It (2026), Bees Wax and Light, Ø9×37cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/04.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/04.jpg",
+        "orientation": "vertical",
+        "caption": "Ye-eun Min, Before I Know It (2026), Bees Wax and Light, Ø9×37cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/05.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/05.jpg",
+        "orientation": "horizontal",
+        "caption": "Ye-eun Min, Before I Know It (2026), Bees Wax and Light, Ø9×37cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/06.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/06.jpg",
+        "orientation": "horizontal",
+        "caption": "Ye-eun Min, Before I Know It (2026), Bees Wax and Light, Ø9×37cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/07.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/07.jpg",
+        "orientation": "horizontal",
+        "caption": "Ye-eun Min, Before I Know It (2026), Bees Wax and Light, Ø9×37cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/08.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/08.jpg",
+        "orientation": "vertical",
+        "caption": "Ye-eun Min, Before I Know It (2026), Bees Wax and Light, Ø9×37cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/09.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/09.jpg",
+        "orientation": "horizontal",
+        "caption": "Ye-eun Min, Before I Know It (2026), Bees Wax and Light, Ø9×37cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/10.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/10.jpg",
+        "orientation": "vertical",
+        "caption": "Ye-eun Min, Melt Me Just a Little, Touch Even the Smallest Part No.1 (2026), Bees Wax, 11x8x20cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/11.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/11.jpg",
+        "orientation": "vertical",
+        "caption": "Ye-eun Min, Melt Me Just a Little, Touch Even the Smallest Part No.1 (2026), Bees Wax, 11x8x20cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/12.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/12.jpg",
+        "orientation": "vertical",
+        "caption": "Just Because They Seep into Each Other Doesn’t Mean Their Colors Mix NO.1 (2026), Bees Wax, anti-reflective glass, stainless steel frame, 30x22x3.5cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/13.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/13.jpg",
+        "orientation": "vertical",
+        "caption": "Just Because They Seep into Each Other Doesn’t Mean Their Colors Mix NO.2 (2026), Bees Wax, anti-reflective glass, stainless steel frame, 30x22x3.5cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/14.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/14.jpg",
+        "orientation": "vertical",
+        "caption": "Just Because They Seep into Each Other Doesn’t Mean Their Colors Mix NO.3 (2026), Bees Wax, anti-reflective glass, stainless steel frame, 30x22x3.5cm Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/15.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/15.jpg",
+        "orientation": "vertical",
+        "caption": "Ye-eun Min, When Different, Misaligned Things Meet (2026), Bees Wax, 20x30x47cm, An Edition of 10. Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/16.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/16.jpg",
+        "orientation": "horizontal",
+        "caption": "Ye-eun Min, When Different, Misaligned Things Meet (2026), Bees Wax, 20x30x47cm, An Edition of 10 Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/17.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/17.jpg",
+        "orientation": "horizontal",
+        "caption": "Ye-eun Min, When Different, Misaligned Things Meet (2026), Bees Wax, 20x30x47cm, An Edition of 10 Courtesy PINPOINT ART CENTRE."
+      },
+      {
+        "src": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/18.webp",
+        "originalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/18.jpg",
+        "orientation": "vertical",
+        "caption": "Ye-eun Min, When Different, Misaligned Things Meet (2026), Bees Wax, 20x30x47cm, An Edition of 10 Courtesy PINPOINT ART CENTRE."
+      }
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Ye-eun Min uses beeswax to explore relationships in which different identities meet without becoming interchangeable. The material can hold a structure, soften under heat and take on another configuration, making the conditions of support and change physically visible.\n\nPaintings and installations extend across the interior and exterior of PINPOINT ART CENTRE. Curated by Hyun Kim, MY WE considers coexistence through contact, mutual influence and the traces that one person or form leaves in another.",
+      "artists": [
+        {
+          "name": "Ye-eun Min",
+          "instagram": {
+            "handle": "@ye.eun.min",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/e437c053"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "PINPOINT ART CENTRE",
+        "instagram": {
+          "handle": "@pinpointartcentre",
+          "verified": true,
+          "source": "https://saliva.live/exhibitions/e437c053"
+        }
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Hyun Kim",
+              "instagram": {
+                "handle": "@asthetikim",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/e437c053"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Hyun Kim",
+              "instagram": {
+                "handle": "@asthetikim",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/e437c053"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Pinpoint art centre",
+              "instagram": {
+                "handle": "@pinpointartcentre",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/e437c053"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "PINPOINT ART CENTRE"
+            }
+          ]
+        }
+      ],
+      "coverOriginalSrc": "/exhibitions/my-we-ye-eun-min-pinpoint-seoul-2026/originals/01.jpg"
+    }
+  },
+  // AI_INGEST_END: my-we-ye-eun-min-pinpoint-seoul-2026
+  // AI_INGEST_START: probability-clouds-gossamer-fog-london-2026
+  {
+    "slug": "probability-clouds-gossamer-fog-london-2026",
+    "title": "Probability Clouds: Body in a Potential Field [ H, H′ ]",
+    "venue": "Gossamer Fog, Enclave Project Space",
+    "gallery": "Gossamer Fog, Enclave Project Space",
+    "city": "London",
+    "country": "United Kingdom",
+    "year": "2026",
+    "dates": "2 October 2026 — 22 November 2026",
+    "startDate": "2 October 2026",
+    "endDate": "22 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Sirarpi Chibukhchyan",
+      "Asuf Ishaq",
+      "Harun Morrison",
+      "Hessam Samavatian",
+      "James Sibley",
+      "Abbas Zahedi"
+    ],
+    "curator": "Tarlan Lotfizadeh",
+    "photographer": "Tarlan Lotfizadeh",
+    "exhibitionText": "Tarlan Lotfizadeh",
+    "description": "Curated by Tarlan Lotfizadeh, Probability Clouds brings together six artists to consider migration through an analogy with quantum probability. The body is approached as a presence distributed between a former home, a changed home and the spaces connecting them.\n\nInstallation, film, photography and sculptural works address the uncertainty of belonging across places. The exhibition connects this unsettled geography to memory and embodied experience, asking how a person can inhabit several histories and locations at once.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://saliva.live/exhibitions/690be6a2",
+    "coverImage": "/exhibitions/probability-clouds-gossamer-fog-london-2026/01.webp",
+    "previewImage": "/exhibitions/probability-clouds-gossamer-fog-london-2026/01.webp",
+    "heroImage": "/exhibitions/probability-clouds-gossamer-fog-london-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/01.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/01.jpg",
+        "orientation": "horizontal",
+        "caption": "Probability Clouds: Body in a Potential Field [H,H'], (Installation view). Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/02.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/02.jpg",
+        "orientation": "horizontal",
+        "caption": "Sirarpi Chibukhchyan, Secret Garden, 2025.  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/03.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/03.jpg",
+        "orientation": "horizontal",
+        "caption": "James Sibley, Simi, 2026.  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/04.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/04.jpg",
+        "orientation": "horizontal",
+        "caption": "Probability Clouds: Body in a Potential Field [H,H'], (Installation view). Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/05.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/05.jpg",
+        "orientation": "horizontal",
+        "caption": "Abbas Zahedi, Metatopia SE8, 2026.  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/06.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/06.jpg",
+        "orientation": "horizontal",
+        "caption": "James Sibley, Two Chandeliers, 2026. Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/07.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/07.jpg",
+        "orientation": "horizontal",
+        "caption": "Sirarpi Chibukhchyan, Secret Garden, 2025,(detail).  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/08.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/08.jpg",
+        "orientation": "horizontal",
+        "caption": "Hessam Samavatian, Galaxies, 2026.  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/09.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/09.jpg",
+        "orientation": "horizontal",
+        "caption": "Abbas Zahedi, Ouranophobia (SE8), 2025.  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/10.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/10.jpg",
+        "orientation": "horizontal",
+        "caption": "Probability Clouds: Body in a Potential Field [H,H'], (Installation view).  Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/11.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/11.jpg",
+        "orientation": "vertical",
+        "caption": "Harun Morrison, Moving Image, 2026.  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/12.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/12.jpg",
+        "orientation": "horizontal",
+        "caption": "Harun Morrison, Stair Dance, 2021.  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/13.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/13.jpg",
+        "orientation": "horizontal",
+        "caption": "Probability Clouds: Body in a Potential Field [H,H'], (Installation view). Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/14.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/14.jpg",
+        "orientation": "horizontal",
+        "caption": "Probability Clouds: Body in a Potential Field [H,H'], (Installation view). Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/15.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/15.jpg",
+        "orientation": "horizontal",
+        "caption": "Hessam Samavatian, Galaxies, 2026.  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/16.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/16.jpg",
+        "orientation": "horizontal",
+        "caption": "Sirarpi Chibukhchyan, Secret Garden, 2025 (detail).  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/17.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/17.jpg",
+        "orientation": "vertical",
+        "caption": "Hessam Samavation, Untitled, 2025.  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026 Photo: Tarlan Lotfizadeh. Courtesy Gossamer Fog."
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/18.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/18.jpg",
+        "orientation": "horizontal",
+        "caption": "Asuf Ishaq, Articles of Home, 2021 (film still).  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026.  Image courtesy of the artist"
+      },
+      {
+        "src": "/exhibitions/probability-clouds-gossamer-fog-london-2026/19.webp",
+        "originalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/19.jpg",
+        "orientation": "horizontal",
+        "caption": "Asuf Ishaq, Articles of Home, 2021 (film still).  Probability Clouds: Body in a Potential Field [H,H'], Gossamer Fog, 2026. Image courtesy of the artist"
+      }
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Curated by Tarlan Lotfizadeh, Probability Clouds brings together six artists to consider migration through an analogy with quantum probability. The body is approached as a presence distributed between a former home, a changed home and the spaces connecting them.\n\nInstallation, film, photography and sculptural works address the uncertainty of belonging across places. The exhibition connects this unsettled geography to memory and embodied experience, asking how a person can inhabit several histories and locations at once.",
+      "artists": [
+        {
+          "name": "Sirarpi Chibukhchyan",
+          "instagram": {
+            "handle": "@sirarpichibukh",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/690be6a2"
+          }
+        },
+        {
+          "name": "Asuf Ishaq",
+          "instagram": {
+            "handle": "@asuf_ishaq",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/690be6a2"
+          }
+        },
+        {
+          "name": "Harun Morrison",
+          "instagram": {
+            "handle": "@harunishere",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/690be6a2"
+          }
+        },
+        {
+          "name": "Hessam Samavatian",
+          "instagram": {
+            "handle": "@hessamsamavatian",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/690be6a2"
+          }
+        },
+        {
+          "name": "James Sibley",
+          "instagram": {
+            "handle": "@james._.ess",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/690be6a2"
+          }
+        },
+        {
+          "name": "Abbas Zahedi",
+          "instagram": {
+            "handle": "@abbzah",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/690be6a2"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "Gossamer Fog, Enclave Project Space",
+        "instagram": {
+          "handle": "@gossamerfog",
+          "verified": true,
+          "source": "https://saliva.live/exhibitions/690be6a2"
+        }
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Tarlan Lotfizadeh",
+              "instagram": {
+                "handle": "@tarlan.lotfizadeh",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/690be6a2"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Tarlan Lotfizadeh",
+              "instagram": {
+                "handle": "@tarlan.lotfizadeh",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/690be6a2"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Tarlan Lotfizadeh",
+              "instagram": {
+                "handle": "@tarlan.lotfizadeh",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/690be6a2"
+              }
+            },
+            {
+              "name": "Gossamer Fog",
+              "instagram": {
+                "handle": "@gossamerfog",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/690be6a2"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "Gossamer Fog, Enclave Project Space"
+            }
+          ]
+        }
+      ],
+      "coverOriginalSrc": "/exhibitions/probability-clouds-gossamer-fog-london-2026/originals/01.jpg"
+    }
+  },
+  // AI_INGEST_END: probability-clouds-gossamer-fog-london-2026
+  // AI_INGEST_START: poeticas-organicas-santiago-mira-montoya-medellin-2026
+  {
+    "slug": "poeticas-organicas-santiago-mira-montoya-medellin-2026",
+    "title": "Poéticas orgánicas",
+    "venue": "Artist’s home",
+    "gallery": "Artist’s home",
+    "city": "Medellín",
+    "country": "Colombia",
+    "year": "2026",
+    "dates": "5 November 2026 — 8 November 2026",
+    "startDate": "5 November 2026",
+    "endDate": "8 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Santiago Mira Montoya"
+    ],
+    "photographer": "Pablo Peláez",
+    "exhibitionText": "Angelica Teuta",
+    "description": "Santiago Mira Montoya presents installations, sculpture, moving image and performance within his family home in Medellín. The exhibition begins with personal bereavement and expands into an investigation of natural cycles, material change and the memory carried by domestic space.\n\nPalm leaves, eggs, soil and plants connect intimate rituals with processes of decay and renewal. The house becomes both a setting for mourning and a place to consider how life continues through transformations of matter.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://saliva.live/exhibitions/ea4c4a44",
+    "coverImage": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/01.webp",
+    "previewImage": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/01.webp",
+    "heroImage": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/01.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/02.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/03.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/04.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/05.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/06.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/07.webp",
+        "orientation": "vertical",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/08.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/09.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/10.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/11.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/12.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/13.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/14.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/15.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      },
+      {
+        "src": "/exhibitions/poeticas-organicas-santiago-mira-montoya-medellin-2026/16.webp",
+        "orientation": "horizontal",
+        "caption": "Poéticas orgánicas, Artist’s home, Medellín, 2026. Exhibition documentation. Photo: Pablo Peláez."
+      }
+    ],
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Santiago Mira Montoya presents installations, sculpture, moving image and performance within his family home in Medellín. The exhibition begins with personal bereavement and expands into an investigation of natural cycles, material change and the memory carried by domestic space.\n\nPalm leaves, eggs, soil and plants connect intimate rituals with processes of decay and renewal. The house becomes both a setting for mourning and a place to consider how life continues through transformations of matter.",
+      "artists": [
+        {
+          "name": "Santiago Mira Montoya",
+          "instagram": {
+            "handle": "@santiagomiramont",
+            "verified": true,
+            "source": "https://saliva.live/exhibitions/ea4c4a44"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "Artist’s home"
+      },
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Angelica Teuta",
+              "instagram": {
+                "handle": "@angelicateuta",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/ea4c4a44"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Pablo Peláez",
+              "instagram": {
+                "handle": "@pablo_pelaez",
+                "verified": true,
+                "source": "https://saliva.live/exhibitions/ea4c4a44"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "Artist’s home"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  // AI_INGEST_END: poeticas-organicas-santiago-mira-montoya-medellin-2026
+  // AI_INGEST_START: nothing-stay-stainless-berlinskej-model-prague-2026
+  {
+    "slug": "nothing-stay-stainless-berlinskej-model-prague-2026",
+    "title": "NOTHING STAY STAINLESS",
+    "venue": "Berlinskej Model",
+    "gallery": "Berlinskej Model",
+    "city": "Prague",
+    "country": "Czech Republic",
+    "year": "2026",
+    "dates": "29 October 2026 — 10 November 2026",
+    "startDate": "29 October 2026",
+    "endDate": "10 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Anna Ruth",
+      "Emma Adler"
+    ],
+    "photographer": "Tomas Souček",
+    "description": "Anna Ruth and Emma Adler examine the social mechanisms that punish bodies and behaviours considered disorderly. The exhibition links misogyny and hostility towards city pigeons through questions of conformity, usefulness and exclusion.\n\nAdler isolates gestures associated with institutional power and turns familiar objects into charged images of resistance. Ruth works with rust and fragmented figures, connecting vulnerability with persistence. Together, their works treat the stain and the imperfect body as sites from which collective strength can emerge.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://www.ofluxo.net/nothing-stay-stainless-anna-ruth-and-emma-adler-berlinskej-model-prague/",
+    "coverImage": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/01.webp",
+    "previewImage": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/01.webp",
+    "heroImage": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/04.webp",
+    "images": [
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/01.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/01.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/02.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/02.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/03.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/03.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/04.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/04.jpg",
+        "orientation": "horizontal",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/05.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/05.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/06.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/06.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/07.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/07.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/08.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/08.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/09.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/09.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/10.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/10.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/11.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/11.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/12.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/12.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/13.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/13.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/14.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/14.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/15.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/15.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/16.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/16.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/17.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/17.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      },
+      {
+        "src": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/18.webp",
+        "originalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/18.jpg",
+        "orientation": "vertical",
+        "caption": "NOTHING STAY STAINLESS, Berlinskej Model, Prague, 2026. Exhibition documentation. Photo: Tomas Souček."
+      }
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Anna Ruth and Emma Adler examine the social mechanisms that punish bodies and behaviours considered disorderly. The exhibition links misogyny and hostility towards city pigeons through questions of conformity, usefulness and exclusion.\n\nAdler isolates gestures associated with institutional power and turns familiar objects into charged images of resistance. Ruth works with rust and fragmented figures, connecting vulnerability with persistence. Together, their works treat the stain and the imperfect body as sites from which collective strength can emerge.",
+      "artists": [
+        {
+          "name": "Anna Ruth"
+        },
+        {
+          "name": "Emma Adler"
+        }
+      ],
+      "gallery": {
+        "name": "Berlinskej Model"
+      },
+      "credits": [
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Tomas Souček"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "Berlinskej Model"
+            }
+          ]
+        }
+      ],
+      "coverOriginalSrc": "/exhibitions/nothing-stay-stainless-berlinskej-model-prague-2026/originals/01.jpg"
+    }
+  },
+  // AI_INGEST_END: nothing-stay-stainless-berlinskej-model-prague-2026
+  // AI_INGEST_START: song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026
+  {
+    "slug": "song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026",
+    "title": "Song of the Sirens",
+    "venue": "Gió Marconi",
+    "gallery": "Gió Marconi",
+    "city": "Milan",
+    "country": "Italy",
+    "year": "2026",
+    "dates": "1 October 2026 — 19 December 2026",
+    "startDate": "1 October 2026",
+    "endDate": "19 December 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Nathalie Djurberg",
+      "Hans Berg"
+    ],
+    "photographer": "Fabio Mantegna",
+    "description": "Nathalie Djurberg and Hans Berg transform Gió Marconi into an environment of animated films, enlarged bodily fragments and monumental flowers. Clay forms with marble-like surfaces recur across the sculptures and projected images, while sound and low light draw the separate rooms into a continuous experience.\n\nThe exhibition addresses longing through suggestion rather than a stable object of desire. Its mist-filled garden and uncanny anatomy create a setting in which familiar forms open onto fantasy, memory and myth.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://www.contemporaryartdaily.com/project/nathalie-djurberg-and-hans-berg-at-gio-marconi-milan-98498",
+    "coverImage": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/01.webp",
+    "previewImage": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/01.webp",
+    "heroImage": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/01.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/02.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/03.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/04.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/05.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/06.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/07.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/08.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/09.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/10.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/11.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/12.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/13.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/14.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/15.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/16.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/17.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/18.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/19.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/20.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/21.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/22.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/23.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/24.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/25.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/26.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/27.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/28.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/29.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/30.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/31.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/32.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/33.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/34.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/35.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/36.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/37.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/38.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/39.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/40.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/41.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/42.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/43.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/44.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/45.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/46.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/47.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/48.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/49.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/50.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/51.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/52.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/53.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/54.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/55.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/56.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/57.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/58.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/59.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/60.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/61.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/62.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/63.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/64.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/65.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/66.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/67.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/68.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/69.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/70.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/71.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/72.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/73.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/74.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/75.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/76.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/77.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/78.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/79.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/80.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/81.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/82.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/83.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/84.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/85.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/86.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/87.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/88.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/89.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/90.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/91.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/92.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/93.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/94.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/95.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/96.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/97.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/98.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/99.webp",
+        "orientation": "vertical",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/100.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/101.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/102.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/103.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/104.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/105.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      },
+      {
+        "src": "/exhibitions/song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026/106.webp",
+        "orientation": "horizontal",
+        "caption": "Song of the Sirens, Gió Marconi, Milan, 2026. Exhibition documentation. Photo: Fabio Mantegna."
+      }
+    ],
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Nathalie Djurberg and Hans Berg transform Gió Marconi into an environment of animated films, enlarged bodily fragments and monumental flowers. Clay forms with marble-like surfaces recur across the sculptures and projected images, while sound and low light draw the separate rooms into a continuous experience.\n\nThe exhibition addresses longing through suggestion rather than a stable object of desire. Its mist-filled garden and uncanny anatomy create a setting in which familiar forms open onto fantasy, memory and myth.",
+      "artists": [
+        {
+          "name": "Nathalie Djurberg"
+        },
+        {
+          "name": "Hans Berg"
+        }
+      ],
+      "gallery": {
+        "name": "Gió Marconi"
+      },
+      "credits": [
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Fabio Mantegna"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "Gió Marconi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  // AI_INGEST_END: song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026
+  // AI_INGEST_START: tug-of-war-tobias-hauser-cologne-2026
+  {
+    "slug": "tug-of-war-tobias-hauser-cologne-2026",
+    "title": "Tug of War",
+    "venue": "fiebach, minninger",
+    "gallery": "fiebach, minninger",
+    "city": "Cologne",
+    "country": "Germany",
+    "year": "2026",
+    "dates": "30 October 2026 — 5 December 2026",
+    "startDate": "30 October 2026",
+    "endDate": "5 December 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Tobias Hauser"
+    ],
+    "photographer": "Martin Plüddemann",
+    "exhibitionText": "Katrin Rollmann",
+    "description": "Tobias Hauser approaches conflict through the physical tension of a tug of war. Carved wooden objects, rope, mixed-media works and skeletal forms connect the forces exerted on materials with struggles between people and political positions.\n\nCity maps introduce a distant, aerial perspective, while works from the Bones series return attention to bodily vulnerability. The exhibition moves between recognisable references to warfare and more ambiguous encounters with pressure, uncertainty and the consequences of action.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://daily-lazy.com/2026/11/tobias-hauser-at-fiebach-minninger-cologne.html",
+    "coverImage": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/01.webp",
+    "previewImage": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/01.webp",
+    "heroImage": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/01.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/02.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/03.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/04.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/05.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/06.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/07.webp",
+        "orientation": "vertical",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/08.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/09.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/10.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/11.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/12.webp",
+        "orientation": "vertical",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/13.webp",
+        "orientation": "horizontal",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      },
+      {
+        "src": "/exhibitions/tug-of-war-tobias-hauser-cologne-2026/14.webp",
+        "orientation": "vertical",
+        "caption": "Tug of War, fiebach, minninger, Cologne, 2026. Exhibition documentation. Photo: Martin Plüddemann."
+      }
+    ],
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Tobias Hauser approaches conflict through the physical tension of a tug of war. Carved wooden objects, rope, mixed-media works and skeletal forms connect the forces exerted on materials with struggles between people and political positions.\n\nCity maps introduce a distant, aerial perspective, while works from the Bones series return attention to bodily vulnerability. The exhibition moves between recognisable references to warfare and more ambiguous encounters with pressure, uncertainty and the consequences of action.",
+      "artists": [
+        {
+          "name": "Tobias Hauser"
+        }
+      ],
+      "gallery": {
+        "name": "fiebach, minninger"
+      },
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Katrin Rollmann"
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Martin Plüddemann"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "fiebach, minninger"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  // AI_INGEST_END: tug-of-war-tobias-hauser-cologne-2026
+  // AI_INGEST_START: you-got-what-you-deserved-lena-brudieux-bordeaux-2026
+  {
+    "slug": "you-got-what-you-deserved-lena-brudieux-bordeaux-2026",
+    "title": "You got what you deserved",
+    "venue": "Ultra-Parc Gallery",
+    "gallery": "Ultra-Parc Gallery",
+    "city": "Bordeaux",
+    "country": "France",
+    "year": "2026",
+    "dates": "15 October 2026 — 15 November 2026",
+    "startDate": "15 October 2026",
+    "endDate": "15 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Lena Brudieux"
+    ],
+    "photographer": "Lena Brudieux",
+    "exhibitionText": "Hélène Dantic",
+    "description": "Lena Brudieux brings photographs and sculptural works into an examination of the rules that shape ordinary behaviour. Images from Popular Problems find unexpected connections between familiar situations, while repurposed administrative objects and instructions give authority a tangible form.\n\nThe exhibition connects social pressure with the forces that bend or reshape a material. Its arrangements consider adaptation, refusal and collapse, tracing the different responses that emerge when a body or an object meets a constraint.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://kubaparis.com/submission/626822",
+    "coverImage": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/01.webp",
+    "previewImage": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/01.webp",
+    "heroImage": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/01.webp",
+        "orientation": "horizontal",
+        "caption": "Popular Problems (serie), 2014-2026, inkjet printing, aluminum frame Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/02.webp",
+        "orientation": "horizontal",
+        "caption": "A spoon full of sadness, 2026 (left), Popular Problems (serie), 2014-2026 (right) Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/03.webp",
+        "orientation": "vertical",
+        "caption": "Popular Problems (serie), 2014-2026, inkjet printing, aluminum frame Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/04.webp",
+        "orientation": "vertical",
+        "caption": "A spoon full of sadness, 2026, steel, glass Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/05.webp",
+        "orientation": "horizontal",
+        "caption": "Popular Problems (serie), 2014-2026, The pine tree's decline, 2026 Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/06.webp",
+        "orientation": "horizontal",
+        "caption": "Les notices, 2026 (on the wall), The pine tree's decline, 2026, The turtle's escape, 2026 Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/07.webp",
+        "orientation": "horizontal",
+        "caption": "Nowhere to be found, 2026 (left), Les notices, 2026 (on the wall), The pine tree's decline, 2026, The turtle's escape, 2026 Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/08.webp",
+        "orientation": "horizontal",
+        "caption": "Les notices, 2026, paper tray, magnet, photograph Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/09.webp",
+        "orientation": "horizontal",
+        "caption": "Les notices, 2026, paper tray, magnet, photograph Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/10.webp",
+        "orientation": "horizontal",
+        "caption": "View of the exhibition Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/11.webp",
+        "orientation": "vertical",
+        "caption": "Nowhere to be found, 2026, plaster, resin, figurines Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/12.webp",
+        "orientation": "horizontal",
+        "caption": "Popular Problems (serie), 2014-2026, inkjet printing, aluminum frame Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/13.webp",
+        "orientation": "horizontal",
+        "caption": "View of the exhibition Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/14.webp",
+        "orientation": "vertical",
+        "caption": "The pine tree's decline, 2026, melted candle, box, steel, The turtle's escape, 2026, turtle figurine, box, steel Photo: Lena Brudieux."
+      },
+      {
+        "src": "/exhibitions/you-got-what-you-deserved-lena-brudieux-bordeaux-2026/15.webp",
+        "orientation": "vertical",
+        "caption": "The pine tree's decline, 2026, melted candle, box, steel Photo: Lena Brudieux."
+      }
+    ],
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Lena Brudieux brings photographs and sculptural works into an examination of the rules that shape ordinary behaviour. Images from Popular Problems find unexpected connections between familiar situations, while repurposed administrative objects and instructions give authority a tangible form.\n\nThe exhibition connects social pressure with the forces that bend or reshape a material. Its arrangements consider adaptation, refusal and collapse, tracing the different responses that emerge when a body or an object meets a constraint.",
+      "artists": [
+        {
+          "name": "Lena Brudieux"
+        }
+      ],
+      "gallery": {
+        "name": "Ultra-Parc Gallery"
+      },
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Hélène Dantic"
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Lena Brudieux"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "Ultra-Parc Gallery"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  // AI_INGEST_END: you-got-what-you-deserved-lena-brudieux-bordeaux-2026
+  // AI_INGEST_START: tonus-roman-bicek-matej-gavula-bratislava-2026
+  {
+    "slug": "tonus-roman-bicek-matej-gavula-bratislava-2026",
+    "title": "TONUS",
+    "venue": "UMRIAN Gallery",
+    "gallery": "UMRIAN Gallery",
+    "city": "Bratislava",
+    "country": "Slovakia",
+    "year": "2026",
+    "dates": "14 October 2026 — 20 November 2026",
+    "startDate": "14 October 2026",
+    "endDate": "20 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Roman Bicek",
+      "Matej Gavula"
+    ],
+    "curator": "Lucia Gavulová",
+    "photographer": "Adam Šakový",
+    "exhibitionText": "Lucia Gavulová",
+    "description": "Roman Bicek and Matej Gavula bring painting and sculpture together through the idea of an internal tension that keeps a form in place. Bicek builds and dissolves bodily fragments through pigment and gesture, while Gavula reconfigures materials and objects associated with earlier practical uses.\n\nCurated by Lucia Gavulová, the exhibition treats these practices as related ways of working with matter. Weight, support, resistance and muscular association connect the apparently still works to the viewer’s own physical experience.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://kubaparis.com/submission/626577",
+    "coverImage": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/01.webp",
+    "previewImage": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/01.webp",
+    "heroImage": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/01.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/02.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/03.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/04.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/05.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/06.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/07.webp",
+        "orientation": "vertical",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/08.webp",
+        "orientation": "vertical",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/09.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/10.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/11.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/12.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/13.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/14.webp",
+        "orientation": "vertical",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/15.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/16.webp",
+        "orientation": "vertical",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/17.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/18.webp",
+        "orientation": "vertical",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/19.webp",
+        "orientation": "vertical",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      },
+      {
+        "src": "/exhibitions/tonus-roman-bicek-matej-gavula-bratislava-2026/20.webp",
+        "orientation": "horizontal",
+        "caption": "TONUS, UMRIAN Gallery, Bratislava, 2026. Exhibition documentation. Photo: Adam Šakový."
+      }
+    ],
+    "social": {
+      "status": "draft",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Roman Bicek and Matej Gavula bring painting and sculpture together through the idea of an internal tension that keeps a form in place. Bicek builds and dissolves bodily fragments through pigment and gesture, while Gavula reconfigures materials and objects associated with earlier practical uses.\n\nCurated by Lucia Gavulová, the exhibition treats these practices as related ways of working with matter. Weight, support, resistance and muscular association connect the apparently still works to the viewer’s own physical experience.",
+      "artists": [
+        {
+          "name": "Roman Bicek"
+        },
+        {
+          "name": "Matej Gavula"
+        }
+      ],
+      "gallery": {
+        "name": "UMRIAN Gallery"
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Lucia Gavulová"
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Lucia Gavulová"
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Adam Šakový"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "UMRIAN Gallery"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  // AI_INGEST_END: tonus-roman-bicek-matej-gavula-bratislava-2026
+  // AI_INGEST_START: it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026
+  {
+    "slug": "it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026",
+    "title": "it dripped and it sparkled and I laughed a wish",
+    "venue": "KALI Gallery",
+    "gallery": "KALI Gallery",
+    "city": "Lucerne",
+    "country": "Switzerland",
+    "year": "2026",
+    "dates": "16 October 2026 — 4 December 2026",
+    "startDate": "16 October 2026",
+    "endDate": "4 December 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Lulu Cora Süss"
+    ],
+    "photographer": "Kim da Motta",
+    "exhibitionText": "Jen Kratochvil",
+    "description": "Lulu Cora Süss combines motorcycle exhausts with handbags, jewellery and other found elements in sculptures that reconsider the gendered meanings carried by objects. Cutting, casting, welding and sewing turn these existing associations into new bodily arrangements.\n\nMany works face the viewer as symmetrical, mask-like forms, with pink silicone strands extending from their assembled surfaces. Accompanied by a text by Jen Kratochvil, the exhibition approaches transformation as a way to remain visibly composite, resisting the demand for a single, settled identity.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://kubaparis.com/submission/626540",
+    "coverImage": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/01.webp",
+    "previewImage": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/01.webp",
+    "heroImage": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/01.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/01.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view, Lulu Cora Süss it dripped and it sparkled and I laughed a wish, KALI Gallery Lucerne, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/02.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/02.jpg",
+        "orientation": "vertical",
+        "caption": "Lulu Cora Süss, It Dripped And It Sparkled And I Laughed A Wish, Metal, Fabric, Silicone, Resin, 48 7/8 x 18 7/8 x 9 7/8 in, 124 x 48 x 25 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/03.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/03.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Lulu Cora Süss, It Dripped And It Sparkled And I Laughed A Wish, Metal, Fabric, Silicone, Resin, 48 7/8 x 18 7/8 x 9 7/8 in, 124 x 48 x 25 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/04.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/04.jpg",
+        "orientation": "vertical",
+        "caption": "Then Turn The Earth With Just One Simple Wish That Washed Out To The Sea, Metal, Plastic, Silicone, Resine, Glass, Jewellery, 35 3/8 x 18 7/8 x 20 1/2 in, 90 x 48 x 52 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/05.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/05.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view, Lulu Cora Süss it dripped and it sparkled and I laughed a wish, KALI Gallery Lucerne, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/06.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/06.jpg",
+        "orientation": "vertical",
+        "caption": "Lulu Cora Süss, Use To Ride On A Chrome Horse There Was Something I Forgot To Say, Metal, Silicone, Resin Jewellery, 30 1/4 x 20 1/8 x 4 3/4 in, 77 x 51 x 12 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/07.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/07.jpg",
+        "orientation": "vertical",
+        "caption": "Lulu Cora Süss, From Fierce And Rushing Rills, Leather, Metal, Wood, PU Foam, Plastic, Silicone, Jewellery, 53 1/8 x 57 1/8 x 8 1/4 in, 135 x 145 x 21 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/08.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/08.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Lulu Cora Süss, From Fierce And Rushing Rills, Leather, Metal, Wood, PU Foam, Plastic, Silicone, Jewellery, 53 1/8 x 57 1/8 x 8 1/4 in, 135 x 145 x 21 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/09.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/09.jpg",
+        "orientation": "vertical",
+        "caption": "Lulu Cora Süss, Before It All Slipped Down I Swallowed All Your Reckless Fate Metal, Plastic, Resin, 9 x 11 x 9 in, 23 x 28 x 23 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/10.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/10.jpg",
+        "orientation": "vertical",
+        "caption": "Lulu Cora Süss, One Plain Wish, Plasticrete, 4 3/4 x 5 1/8 x 2 in, 12 x 13 x 5 cm, Edition of 5, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/11.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/11.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view, Lulu Cora Süss it dripped and it sparkled and I laughed a wish, KALI Gallery Lucerne, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/12.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/12.jpg",
+        "orientation": "vertical",
+        "caption": "Lulu Cora Süss, Near The Breath Of A Swallow, Shyly Dropped As You Fell plastic, metal, silicone, jewellery, leather, 39 3/8 x 23 5/8 x 7 1/2 in, 100 x 60 x 19 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/13.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/13.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Lulu Cora Süss, Near The Breath Of A Swallow, Shyly Dropped As You Fell, plastic, metal, silicone, jewellery, leather, 39 3/8 x 23 5/8 x 7 1/2 in, 100 x 60 x 19 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/14.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/14.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view, Lulu Cora Süss it dripped and it sparkled and I laughed a wish, KALI Gallery Lucerne, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/15.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/15.jpg",
+        "orientation": "horizontal",
+        "caption": "Installation view, Lulu Cora Süss it dripped and it sparkled and I laughed a wish, KALI Gallery Lucerne, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/16.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/16.jpg",
+        "orientation": "vertical",
+        "caption": "Lulu Cora Süss, Her Cheeks In Chunks And a Flower Of Air, metal, silicone, wood, resin, 49 1/4 x 19 3/4 x 4 3/4 in, 125 x 50 x 12 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/17.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/17.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Lulu Cora Süss, Her Cheeks In Chunks And a Flower Of Air, metal, silicone, wood, resin, 49 1/4 x 19 3/4 x 4 3/4 in, 125 x 50 x 12 cm, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      },
+      {
+        "src": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/18.webp",
+        "originalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/18.jpg",
+        "orientation": "horizontal",
+        "caption": "Lulu Cora Süss, One Plain Wish, Plasticrete, 11 x 11 3/4 x 2 3/8 in 28 x 30 x 6 cm, Edition of 5, 2026, Photo by Kim da Motta, Courtesy of the artist and KALI Gallery"
+      }
+    ],
+    "social": {
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Lulu Cora Süss combines motorcycle exhausts with handbags, jewellery and other found elements in sculptures that reconsider the gendered meanings carried by objects. Cutting, casting, welding and sewing turn these existing associations into new bodily arrangements.\n\nMany works face the viewer as symmetrical, mask-like forms, with pink silicone strands extending from their assembled surfaces. Accompanied by a text by Jen Kratochvil, the exhibition approaches transformation as a way to remain visibly composite, resisting the demand for a single, settled identity.",
+      "artists": [
+        {
+          "name": "Lulu Cora Süss"
+        }
+      ],
+      "gallery": {
+        "name": "KALI Gallery"
+      },
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Jen Kratochvil"
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Kim da Motta"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "KALI Gallery"
+            }
+          ]
+        }
+      ],
+      "coverOriginalSrc": "/exhibitions/it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026/originals/01.jpg"
+    }
+  },
+  // AI_INGEST_END: it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026
+
   // AI_INGEST_START: solarium-amelie-mckee-plicnik-london-2026
   {
     "slug": "solarium-amelie-mckee-plicnik-london-2026",
@@ -3786,47 +6925,224 @@ Ben Shirken (b.1996) is an artist living in New York whose work spans installati
   },
   // AI_INGEST_END: infinite-energy-hack-jung-shirken-malt-house-nyc-2026
   // AI_INGEST_START: whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026
-  // Source: saliva.live. Cover (cardboard box with cat-head sculpture on
-  // black-and-white checkered floor). Telegram: DRAFT (user excluded).
   {
-    slug: "whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026",
-    social: {
-      status: "draft",
-      revision: 1,
-      language: "en",
-    },
-    title: "Whoever lives here will keep losing something",
-    venue: "Przeciąg Gallery",
-    gallery: "Przeciąg Gallery",
-    city: "Warsaw",
-    country: "Poland",
-    year: "2026",
-    dates: "16 October — 15 November 2026",
-    startDate: "16 October 2026",
-    endDate: "15 November 2026",
-    dateSource: "exhibition",
-    artists: ["Jan Możdżyński", "Kacper Tomaszewski"],
-    curator: "Mateusz Włodarek",
-    photographer: "Szymon Sokołowski",
-    source: "saliva.live",
-    sourceUrl: "https://saliva.live/exhibitions/abdc409d",
-    description: `In their latest works, Jan and Kacper journey through memory and construct topographies of recollections. In this way, they map the terrain they walk upon today. In doing so, they grapple with their own decisions and with time passing faster than we are ready for. They are interested not in what we remember, but in the way we navigate our memories—where we pause, what we return to, and from what perspective we look back on the past.
-
-Jan Możdżyński paints scenes that never happened: a walk with a dog that isn't there, greeting an old acquaintance whom he hopes to meet soon but doesn't yet know when. His cat sits behind the wheel of a car and stares through the window with apparent indifference—it's hard to tell whether he's longing or sad. Nevertheless, his works spring from very real emotions—decisions, regret, relief, and longing—for which reality has made no room and for which Jan must construct a space. Into these imagined spaces, the artist introduces objects he carries in his memory: from a dresser in his own room to a table in the living room and his brother's computer. They reappear in a new context, recognizable by their shape, though it is often unclear why these particular objects were chosen. The paintings are rendered in a very subdued and muted color palette, as if scenes observed from the distance of time were slowly fading.
-
-Kacper Tomaszewski, on the other hand, takes as his starting point spaces that once existed. His sculptures, made of dark, cold steel, revolve around the experience of moving and change. He asks what "my place" is and what weight the space in which we live carries. He works with the concept of home, which appears in his works as something material and imbued with an emotional layer—something that cannot be packed into boxes. Walls, furniture, and small furnishings retain traces of everyday life that remain even after we move out. Kacper explores whether, thanks to these traces, it's possible to settle in and make ourselves at home once again in a place we've already left. His latest sculptures aren't firmly anchored in space; they stand on metal casters, like office chairs. They are pieces of temporary furniture that can be moved aside and rolled away at any moment.
-
-The exhibition's title is a quote from Yōko Ogawa's novel "The Memory Police". The protagonist's mother explains to her that on the island, things disappear one by one, and no one can hold on to everything forever. She speaks of this without fear, as if it were something ordinary. For Ogawa, loss is not a catastrophe but a condition of everyday life, and the question is what we do with what remains. The same is true of the latest works by Możdżyński and Tomaszewski. The former builds spaces for what did not happen; the latter examines what remains of the places he has left behind. Neither asks how not to lose, but rather how to live in a world where loss is inevitable.
-
-— Text: Mateusz Włodarek`,
-    coverImage: localExhibitionImage("whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026", "01.webp"),
-    previewImage: localExhibitionImage("whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026", "01.webp"),
-    heroImage: localExhibitionImage("whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026", "01.webp"),
-    images: localExhibitionGalleryWithOrientations(
-      "whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026",
-      [{ filename: "01.webp", orientation: "horizontal" }],
-      "Szymon Sokołowski",
-    ),
+    "slug": "whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026",
+    "title": "Whoever lives here will keep losing something",
+    "venue": "Przeciąg Gallery",
+    "gallery": "Przeciąg Gallery",
+    "city": "Warsaw",
+    "country": "Poland",
+    "year": "2026",
+    "dates": "16 October 2026 — 15 November 2026",
+    "startDate": "16 October 2026",
+    "endDate": "15 November 2026",
+    "dateSource": "exhibition",
+    "artists": [
+      "Jan Możdżyński",
+      "Kacper Tomaszewski"
+    ],
+    "curator": "Mateusz Włodarek",
+    "photographer": "Szymon Sokołowski",
+    "exhibitionText": "Mateusz Włodarek",
+    "description": "Jan Możdżyński and Kacper Tomaszewski approach memory through imagined scenes and the remains of places once inhabited. Możdżyński paints situations that did not occur, giving everyday objects a role in possible encounters and unresolved feelings. Tomaszewski uses steel to examine the weight of a home that cannot simply be carried away.\n\nDrawings, paintings and movable sculptural forms bring these approaches together. Taking its title from Yōko Ogawa’s The Memory Police, the exhibition considers how to live with inevitable loss and with the fragments that continue to accompany us.",
+    "descriptionKind": "overview",
+    "sourceUrl": "https://www.ofluxo.net/whoever-lives-here-will-keep-losing-something-jan-mozdzynski-and-kacper-tomaszewski-przeciag-gallery-warsaw/",
+    "coverImage": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-01.webp",
+    "previewImage": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-01.webp",
+    "heroImage": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-02.webp",
+    "images": [
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-01.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-01.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-02.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-02.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-03.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-03.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-04.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-04.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-05.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-05.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-06.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-06.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-07.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-07.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-08.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-08.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-09.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-09.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-10.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-10.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-11.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-11.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-12.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-12.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-13.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-13.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-14.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-14.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-15.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-15.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-16.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-16.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-17.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-17.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-18.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-18.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-19.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-19.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-20.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-20.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-21.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-21.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-22.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-22.jpg",
+        "orientation": "vertical",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      },
+      {
+        "src": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/updated-23.webp",
+        "originalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-23.jpg",
+        "orientation": "horizontal",
+        "caption": "Whoever lives here will keep losing something, Przeciąg Gallery, Warsaw, 2026. Exhibition documentation. Photo: Szymon Sokołowski."
+      }
+    ],
+    "social": {
+      "status": "published",
+      "revision": 2,
+      "language": "en",
+      "captionFormat": "editorial-overview",
+      "excerpt": "Jan Możdżyński and Kacper Tomaszewski approach memory through imagined scenes and the remains of places once inhabited. Możdżyński paints situations that did not occur, giving everyday objects a role in possible encounters and unresolved feelings. Tomaszewski uses steel to examine the weight of a home that cannot simply be carried away.\n\nDrawings, paintings and movable sculptural forms bring these approaches together. Taking its title from Yōko Ogawa’s The Memory Police, the exhibition considers how to live with inevitable loss and with the fragments that continue to accompany us.",
+      "artists": [
+        {
+          "name": "Jan Możdżyński"
+        },
+        {
+          "name": "Kacper Tomaszewski"
+        }
+      ],
+      "gallery": {
+        "name": "Przeciąg Gallery"
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Mateusz Włodarek"
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Mateusz Włodarek"
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Szymon Sokołowski"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "Przeciąg Gallery"
+            }
+          ]
+        }
+      ],
+      "coverOriginalSrc": "/exhibitions/whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026/originals/updated-01.jpg"
+    }
   },
   // AI_INGEST_END: whoever-lives-here-mozdzynski-tomaszewski-warsaw-2026
   // AI_INGEST_START: plagues-patrick-goddard

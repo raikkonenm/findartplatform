@@ -38,6 +38,9 @@ export async function generateMetadata({
   return {
     title: { absolute: seoTitle },
     description,
+    ...(selection.kind === "essay" && selection.status === "draft"
+      ? { robots: { index: false, follow: false } }
+      : {}),
     alternates: { canonical },
     openGraph: {
       type: "article",
@@ -47,7 +50,7 @@ export async function generateMetadata({
       images: absoluteImage
         ? [{ url: absoluteImage, alt: `${selection.title} — cover` }]
         : undefined,
-      publishedTime: selection.publishedAt,
+      publishedTime: selection.kind === "essay" && selection.status === "draft" ? undefined : selection.publishedAt,
     },
     twitter: {
       card: "summary_large_image",
@@ -71,7 +74,7 @@ function jsonLd(slug: string) {
     headline: selection.title,
     description: selection.seoDescription ?? selection.subtitle,
     url: canonical,
-    datePublished: selection.publishedAt,
+    datePublished: selection.kind === "essay" && selection.status === "draft" ? undefined : selection.publishedAt,
     dateModified: selection.modifiedAt ?? selection.publishedAt,
     author: selection.kind === "essay"
       ? { "@type": "Person", name: selection.author }
@@ -90,7 +93,9 @@ function jsonLd(slug: string) {
           url: `${SITE_URL}${entityHref("artist", artist.artistName)}`,
         }))
       : selection.kind === "essay"
-        ? [{ "@type": "Person", name: selection.artistName, url: `${SITE_URL}${entityHref("artist", selection.artistName)}` }]
+        ? selection.artistName
+          ? [{ "@type": "Person", name: selection.artistName, ...(selection.coverExhibitionSlug ? { url: `${SITE_URL}${entityHref("artist", selection.artistName)}` } : {}) }]
+          : undefined
         : undefined,
   };
 

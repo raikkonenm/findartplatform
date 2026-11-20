@@ -1,5 +1,6 @@
 import { getExhibition } from "@/data/exhibitions";
 import { getEditorialArtist } from "@/data/editorial";
+import { submittedEditorialEssays } from "./submittedEditorialEssays";
 
 // A curated Editorial article that groups existing exhibitions from the
 // FindArt database under a shared theme. Everything except the intro
@@ -54,17 +55,34 @@ export type ArtistEditorialSelection = EditorialSelectionBase & {
   perArtistText: Record<string, string>;
 };
 
+export type EditorialEssayImage = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption: string;
+  credit: string;
+};
+
+export type EditorialEssayRun = { text: string; italic?: boolean; bold?: boolean };
+
 export type EssayEditorialSelection = Omit<EditorialSelectionBase, "intro"> & {
   kind: "essay";
   author: string;
-  artistName: string;
-  coverExhibitionSlug: string;
+  artistName?: string;
+  coverExhibitionSlug?: string;
+  coverImage?: EditorialEssayImage;
+  images?: Array<EditorialEssayImage & { afterParagraph: number }>;
+  paragraphs?: EditorialEssayRun[][];
+  credits?: Array<{ label: string; value: string }>;
+  status?: "draft" | "published";
   body: string;
 };
 
 export type EditorialSelection = ExhibitionEditorialSelection | ArtistEditorialSelection | EssayEditorialSelection;
 
 export const editorialSelections: EditorialSelection[] = [
+  ...submittedEditorialEssays,
   {
     kind: "essay",
     slug: "critical-essay-on-kenji-sakai",
@@ -225,7 +243,8 @@ export function getEditorialSelectionCoverImage(selection: EditorialSelection): 
     return getEditorialArtist(selection.coverArtistSlug)?.coverImage.src;
   }
   if (selection.kind === "essay") {
-    const exhibition = getExhibition(selection.coverExhibitionSlug);
+    if (selection.coverImage) return selection.coverImage.src;
+    const exhibition = selection.coverExhibitionSlug ? getExhibition(selection.coverExhibitionSlug) : undefined;
     return exhibition?.coverImage ?? exhibition?.previewImage;
   }
   const cover = getExhibition(selection.coverExhibitionSlug);
@@ -240,7 +259,7 @@ export function getEditorialSelectionCoverImage(selection: EditorialSelection): 
 // rather than render a broken article.
 for (const selection of editorialSelections) {
   if (selection.kind === "essay") {
-    if (!getExhibition(selection.coverExhibitionSlug)) {
+    if (!selection.coverImage && !(selection.coverExhibitionSlug && getExhibition(selection.coverExhibitionSlug))) {
       throw new Error(`Editorial essay "${selection.slug}" references a missing cover exhibition.`);
     }
     continue;
