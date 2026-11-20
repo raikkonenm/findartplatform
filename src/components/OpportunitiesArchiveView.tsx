@@ -85,7 +85,7 @@ function longDeadline(isoDate: string): string {
 }
 
 function daysRemainingLabel(isoDate: string, today: Date | null): string {
-  if (!today) return "";
+  if (!today || !isoDate) return "";
   const target = new Date(`${isoDate}T23:59:59`);
   const msPerDay = 86_400_000;
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -158,7 +158,7 @@ function OpportunitiesViewToggle({ viewMode, onChange }: { viewMode: ViewMode; o
   );
 }
 
-function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
+function FeeTag({ fee, compact = false, participation = false }: { fee: string; compact?: boolean; participation?: boolean }) {
   const isFree = fee.toUpperCase() === "FREE";
   const sizing = compact ? "px-2.5 py-1 text-[10px]" : "px-3 py-1.5 text-[11px]";
   return (
@@ -167,7 +167,7 @@ function FeeTag({ fee, compact = false }: { fee: string; compact?: boolean }) {
         isFree ? "free-tag-blink" : ""
       }`}
     >
-      {isFree ? "Free to apply" : compact ? fee : `Application fee ${fee}`}
+      {participation ? "Paid residency" : isFree ? "Free to apply" : compact ? fee : `Application fee ${fee}`}
     </span>
   );
 }
@@ -189,7 +189,7 @@ function OpportunityCard({ opportunity, onOpen, isSaved, onToggleSaved }: { oppo
       </button>
       <div className="mb-4 flex items-start justify-between gap-2 pr-12 md:mb-8 md:gap-3">
         <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 md:text-[10px]">{opportunity.organizer}</p>
-        <FeeTag fee={opportunity.applicationFee} />
+        <FeeTag fee={opportunity.participationFee ? "Paid residency" : opportunity.applicationFee} participation={!!opportunity.participationFee} />
       </div>
       <Link
         href={opportunityUrl(opportunity)}
@@ -310,7 +310,7 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
 
       {/* DEADLINE */}
       <div className="order-5 justify-self-end text-right md:order-none md:justify-self-start md:text-left">
-        <div className="text-[13px] text-neutral-900 md:text-neutral-800">{longDeadline(opportunity.deadlineDate)}</div>
+        <div className="text-[13px] text-neutral-900 md:text-neutral-800">{opportunity.deadlineDate ? longDeadline(opportunity.deadlineDate) : opportunity.deadline}</div>
         {daysLeft && (
           <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-neutral-400 md:hidden">{daysLeft}</div>
         )}
@@ -328,14 +328,14 @@ function OpportunityRow({ opportunity, onOpen, isSaved, onToggleSaved, today }: 
 
       {/* APPLICATION FEE — desktop */}
       <span className="hidden md:block">
-        <FeeTag fee={opportunity.applicationFee} compact />
+        <FeeTag fee={opportunity.applicationFee} compact participation={!!opportunity.participationFee} />
       </span>
 
       {/* TAGS column intentionally omitted (filter still available above). */}
 
       {/* FEE — mobile bottom-left */}
       <span className="order-4 text-[11px] uppercase tracking-[0.18em] text-neutral-700 md:hidden">
-        <FeeTag fee={opportunity.applicationFee} compact />
+        <FeeTag fee={opportunity.applicationFee} compact participation={!!opportunity.participationFee} />
       </span>
 
     </div>
@@ -359,7 +359,7 @@ function OpportunitiesListView({ opportunities, onOpen, isSaved, onToggleSaved, 
         </button>
         <span>Location</span>
         <span>For</span>
-        <span>Application Fee</span>
+        <span>Fees</span>
       </div>
 
       <div>
@@ -704,13 +704,17 @@ export function OpportunitiesArchiveView() {
       ? `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
       : null;
     const filtered = OPPORTUNITIES.filter((opportunity) => {
-      const notExpired = !todayISO || opportunity.deadlineDate >= todayISO;
+      const notExpired = opportunity.availability === "closed" ? false
+        : opportunity.availability === "rolling" || opportunity.availability === "unconfirmed"
+          || !todayISO || opportunity.deadlineDate >= todayISO;
       if (!notExpired) return false;
       const typeMatches = selectedFilters.type === FILTERS.type[0] || opportunity.type.includes(selectedFilters.type);
       const fieldMatches = selectedFilters.field === FILTERS.field[0] || opportunity.fields.includes(selectedFilters.field);
       const rewardMatches = selectedFilters.reward === FILTERS.reward[0] || opportunity.rewards.includes(selectedFilters.reward);
       const isFree = opportunity.applicationFee.toUpperCase() === "FREE";
-      const feeMatches = feeFilter === "all" || (feeFilter === "free" && isFree) || (feeFilter === "paid" && !isFree);
+      // A paid stay does not establish that there is a fee to apply.
+      const unverifiedPaidResidency = !!opportunity.participationFee && opportunity.applicationFee === "See website";
+      const feeMatches = feeFilter === "all" || (feeFilter === "free" && isFree) || (feeFilter === "paid" && !isFree && !unverifiedPaidResidency);
       const locationMatches = (() => {
         if (selectedLocation === "All") return true;
         if (opportunity.location === selectedLocation) return true;
@@ -724,6 +728,8 @@ export function OpportunitiesArchiveView() {
     });
     if (viewMode === "list") {
       return [...filtered].sort((a, b) => {
+        // Undated programmes follow dated calls in either sort direction.
+        if (!a.deadlineDate || !b.deadlineDate) return a.deadlineDate ? -1 : b.deadlineDate ? 1 : 0;
         const cmp = a.deadlineDate.localeCompare(b.deadlineDate);
         return sortDirection === "asc" ? cmp : -cmp;
       });

@@ -84,7 +84,7 @@ export function OpportunityTaxonomyPage({ entry }: { entry: OpportunityTaxonomyE
                     </span>
                   )}
                   <div className="justify-self-end text-right text-[13px] md:justify-self-start md:text-left">
-                    {opportunityDeadlineLabel(opportunity.deadlineDate)}
+                    {opportunity.deadlineDate ? opportunityDeadlineLabel(opportunity.deadlineDate) : opportunity.deadline}
                   </div>
                   <span className="hidden text-[13px] leading-snug text-neutral-700 md:block">
                     {locationParts.length > 0

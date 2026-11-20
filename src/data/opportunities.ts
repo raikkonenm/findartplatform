@@ -8,6 +8,8 @@ export type Opportunity = {
   title: string;
   deadline: string;
   deadlineDate: string;
+  deadlineAt?: string; // Exact organizer deadline, when documented.
+  deadlineTimeZone?: string;
   location: string;
   audience: string;
   audiences: string[];
@@ -16,6 +18,8 @@ export type Opportunity = {
   rewards: string[];
   rewardSummary: string;
   applicationFee: string;
+  participationFee?: string; // Cost of attending, separate from applying.
+  availability?: "rolling" | "unconfirmed" | "closed";
   tags: string[];
   intro: string[];
   sections: Array<{ title: string; items: string[] }>;
@@ -27,6 +31,1379 @@ export function opportunitySavedKey(slug: string): string {
 }
 
 const CURATED_OPPORTUNITIES: Opportunity[] = [
+  // Paid residency editorial handoff, November 2026; no invented deadlines.
+  {
+    "slug": "studio-kura-artist-residency",
+    "organizer": "Studio Kura",
+    "title": "Studio Kura — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Itoshima, Japan",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "JPY 140,000 per four weeks",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation, studio space and a final exhibition."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "JPY 140,000 per four weeks",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation, studio space and a final exhibition.",
+          "Meals, transport, art supplies and FabLab charges are additional. Confirm available dates directly; the published 2027 calendar currently shows full slots."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://studiokura.info/en/"
+  },
+  {
+    "slug": "arcus-research-2027-2028",
+    "organizer": "ARCUS Project",
+    "title": "ARCUS Research Summer 2027 / Winter 2028",
+    "deadline": "16 December 2026, 23:59:59 JST",
+    "deadlineDate": "2026-12-16",
+    "deadlineAt": "2026-12-16T23:59:59+09:00",
+    "deadlineTimeZone": "Asia/Tokyo",
+    "location": "Moriya, Japan",
+    "audience": "Artists, curators, researchers and cultural professionals; see eligibility",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "JPY 270,000 for one month; JPY 520,000 for two months; JPY 400,000 for six weeks",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation, studio space, orientation and an optional Show & Tell presentation."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "JPY 270,000 for one month; JPY 520,000 for two months; JPY 400,000 for six weeks",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation, studio space, orientation and an optional Show & Tell presentation.",
+          "Summer sessions run June–August 2027; the six-week winter session is 14 January–24 February 2028. Research-focused; specialist equipment is not provided. Cultural professionals must be able to communicate in English; students other than PhD candidates are ineligible."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "16 December 2026, 23:59:59 JST",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.arcus-project.com/en/open-call/"
+  },
+  {
+    "slug": "6okken-artist-residency",
+    "organizer": "6okken",
+    "title": "6okken — Artist Residency",
+    "deadline": "Rolling applications — confirm available dates",
+    "deadlineDate": "",
+    "availability": "rolling",
+    "location": "Fujikawaguchiko, Japan",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "JPY 280,000 per 26-night term; JPY 320,000 for summer terms",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. A house and access to shared workspaces in a small village near Lake Kawaguchi."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "JPY 280,000 per 26-night term; JPY 320,000 for summer terms",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A house and access to shared workspaces in a small village near Lake Kawaguchi.",
+          "Apply at least 60 days before the requested term. Several 2027 terms are waitlisted or full. Materials and specialist technical support are not included; winter kerosene is charged at cost."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Applications are accepted on an ongoing basis, subject to selection and capacity.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.6okken.org/residency"
+  },
+  {
+    "slug": "shiro-oni-studio-residency-2027",
+    "organizer": "Shiro Oni Studio",
+    "title": "Shiro Oni Studio — Artist Residency",
+    "deadline": "Applications closed — reference listing",
+    "deadlineDate": "",
+    "availability": "closed",
+    "location": "Onishi, Japan",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "JPY 450,000 for six weeks (2027 rate)",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION",
+      "CLOSED"
+    ],
+    "intro": [
+      "Self-funded artist residency. A private room, studio, woodworking and ceramics facilities, translation support and a final presentation."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "JPY 450,000 for six weeks (2027 rate)",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A private room, studio, woodworking and ceramics facilities, translation support and a final presentation.",
+          "Applications for the 2027 programme have closed. Materials are additional. Retained as a reference listing, not an active call."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Closed or fully booked programme; retained for reference.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://shirooni.com/contact/application-artist/"
+  },
+  {
+    "slug": "instinc-air-singapore",
+    "organizer": "INSTINC",
+    "title": "INSTINC — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Singapore",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "SGD 4,300 for six weeks",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Five weeks in a shared production studio followed by one exhibition week."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "SGD 4,300 for six weeks",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Five weeks in a shared production studio followed by one exhibition week.",
+          "Accommodation is not included. INSTINC takes a 35% commission on exhibition sales. Materials, external fabrication and project-specific technical arrangements should be agreed separately."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.instinc.com/artistresidencies/instincair"
+  },
+  {
+    "slug": "artudio-international-artist-residency",
+    "organizer": "Artudio",
+    "title": "Artudio — Artist Residency",
+    "deadline": "Rolling applications — confirm available dates",
+    "deadlineDate": "",
+    "availability": "rolling",
+    "location": "Kathmandu and Patan, Nepal",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "USD 750 for one month; USD 1,400 for two months",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation, shared studio facilities, cultural visits and presentation support."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "USD 750 for one month; USD 1,400 for two months",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation, shared studio facilities, cultural visits and presentation support.",
+          "The organizer advertises ongoing applications for 2027/28 and asks artists to apply at least three months ahead. Meals, materials, specialist production and some exhibition expenses are additional."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Applications are accepted on an ongoing basis, subject to selection and capacity.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://artudio.net/art-residency-2/"
+  },
+  {
+    "slug": "kala-yatra-artist-residency",
+    "organizer": "Kala Yatra",
+    "title": "Kala Yatra — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Kathmandu Valley, Nepal",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "EUR 200 for 14 days; EUR 400 for 30 days",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. A private room, shared workspace and opportunities to engage with the local art community."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "EUR 200 for 14 days; EUR 400 for 30 days",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A private room, shared workspace and opportunities to engage with the local art community.",
+          "Meals and materials are additional. Public presentation arrangements and specialist production facilities must be confirmed with the host. Ask for current dates before booking."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://kalayatra.org/artist-residency"
+  },
+  {
+    "slug": "air-mcube-international-residency",
+    "organizer": "Gallery Mcube",
+    "title": "Gallery Mcube — Artist Residency",
+    "deadline": "Rolling applications — confirm available dates",
+    "deadlineDate": "",
+    "availability": "rolling",
+    "location": "Lalitpur, Nepal",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "USD 800 / 1,400 / 1,800 for one / two / three months",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Private accommodation, shared studio facilities, gallery support and a five-day gallery exhibition."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "USD 800 / 1,400 / 1,800 for one / two / three months",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Private accommodation, shared studio facilities, gallery support and a five-day gallery exhibition.",
+          "Applications are accepted year-round. Food, materials, transport and optional tours are additional."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Applications are accepted on an ongoing basis, subject to selection and capacity.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://gallerymcube.com/artistsresidencyprogram/"
+  },
+  {
+    "slug": "banyan-hearts-studios-residency",
+    "organizer": "Banyan Hearts Studios",
+    "title": "Banyan Hearts Studios — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Hyderabad, India",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "INR 5,000 per day — previous individual quote, not a current public tariff",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. A four-to-eight-week studio-based residency for painting, printmaking, sculpture and terracotta, with accommodation for visiting artists."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "INR 5,000 per day — previous individual quote, not a current public tariff",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A four-to-eight-week studio-based residency for painting, printmaking, sculpture and terracotta, with accommodation for visiting artists.",
+          "The editorial quote included workshop access, raw materials and ceramics support; request a written itemized offer. Current dates are to be announced by the organizer. No individual discount or booking is implied."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.banyanhearts.in/learn"
+  },
+  {
+    "slug": "art-ichol-artist-residency",
+    "organizer": "Art Ichol",
+    "title": "Art Ichol — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Maihar, Madhya Pradesh, India",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "INR 7,500 per day — previous editorial quote; current tariff on request",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation, meals, studio access and local transport were included in the editorial offer."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "INR 7,500 per day — previous editorial quote; current tariff on request",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation, meals, studio access and local transport were included in the editorial offer.",
+          "Materials and specialist production require a separate estimate. No personal discount is advertised here; confirm inclusions, dates and the current public rate directly."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://artichol.in/"
+  },
+  {
+    "slug": "near-lucban-project-space-pilipinas",
+    "organizer": "Project Space Pilipinas",
+    "title": "Project Space Pilipinas — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Lucban, Philippines",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "USD 1,200 per month — previous invitation-based quote, not a current public tariff",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. A separate apartment and studio, team support and an agreed open studio or presentation were included in the editorial offer."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "USD 1,200 per month — previous invitation-based quote, not a current public tariff",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A separate apartment and studio, team support and an agreed open studio or presentation were included in the editorial offer.",
+          "Invitation-based programme for international artists. Food, materials, fabrication and transport are additional. Current availability must be confirmed with the organizer; the linked organizer archive is background information, not a current open-call form."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://projectspacepilipinas.blogspot.com/"
+  },
+  {
+    "slug": "aurora-artist-residency-aarps",
+    "organizer": "Aurora Artist Residency Program and Space",
+    "title": "Aurora Artist Residency Program and Space — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Dingalan, Philippines",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "Price on request",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation, workspace, two meals a day and a local coordinator were described in the programme information."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "Price on request",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation, workspace, two meals a day and a local coordinator were described in the programme information.",
+          "Historically offered stays of one week, one month or three months. Current dates, pricing and availability are unconfirmed; contact the organizer before planning travel."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://thebeachhouseproject.wordpress.com/casita-aurora-artist-residency/"
+  },
+  {
+    "slug": "stateless-house-artist-residency",
+    "organizer": "Stateless Mind",
+    "title": "Stateless Mind — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Langkawi, Malaysia",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "MYR 2,500 / 14 days; MYR 3,500 / 21 days; MYR 4,500 / 28 days — reconfirm current quote",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. A private bedroom, working areas, shared kitchen and connections with the local art community."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "MYR 2,500 / 14 days; MYR 3,500 / 21 days; MYR 4,500 / 28 days — reconfirm current quote",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A private bedroom, working areas, shared kitchen and connections with the local art community.",
+          "A self-directed setting for research and artistic exchange. Food and excursions are additional; an exhibition and specialist fabrication facilities are not guaranteed. Confirm available dates with the host."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.statelessmind.com/stateless-house"
+  },
+  {
+    "slug": "rimbun-dahan-international-open-residency",
+    "organizer": "Rimbun Dahan",
+    "title": "Rimbun Dahan — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Selangor, Malaysia",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "2026 rates: MYR 5,000 or MYR 7,000 per month, plus 8% SST; 2027 rates unconfirmed",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Living and working space in a garden setting for projects engaging Southeast Asian botany, environment, textiles or heritage."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "2026 rates: MYR 5,000 or MYR 7,000 per month, plus 8% SST; 2027 rates unconfirmed",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Living and working space in a garden setting for projects engaging Southeast Asian botany, environment, textiles or heritage.",
+          "The organizer states that all 2026 residencies are full. Do not assume 2027 availability or the same tariff. This international paid programme is for artists from outside ASEAN/Southeast Asia; an exhibition is not organized."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://rimbundahan.org/arts/residencies/open-residencies-for-international-artists/"
+  },
+  {
+    "slug": "afarm-studio-track-vietnam",
+    "organizer": "MoT+++ / +a.Farm",
+    "title": "MoT+++ / +a.Farm — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Ho Chi Minh City, Vietnam",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "USD 3,000 per month",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Living and working alongside a hosting artist, community exchange and help locating local resources."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "USD 3,000 per month",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Living and working alongside a hosting artist, community exchange and help locating local resources.",
+          "One-month minimum, with priority given to three-month stays. Materials are additional. Host pairings depend on practice, timing and fit; confirm the full agreement before committing."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://motplusplusplus.com/afarm/"
+  },
+  {
+    "slug": "mabiang-seni-art-residency",
+    "organizer": "Mabiang Seni",
+    "title": "Mabiang Seni — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Bali, Indonesia",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "IDR 8,000,000 Day Studio or IDR 20,000,000 Night Studio, per person for 30 days",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation and workspace for an independent, process-based practice."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "IDR 8,000,000 Day Studio or IDR 20,000,000 Night Studio, per person for 30 days",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation and workspace for an independent, process-based practice.",
+          "Both studio types can be used around the clock; their names do not restrict working hours. Artist visits can be requested. An exhibition is not guaranteed; confirm materials, support and current availability."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://mabiangseni.com/"
+  },
+  {
+    "slug": "sac-gallery-residency",
+    "organizer": "SAC Gallery",
+    "title": "SAC Gallery — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Bangkok and Chiang Mai, Thailand",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "Price on request — paid participation from October 2026",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Studios and connections with Thai artists, researchers, craftspeople and fabricators."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "Price on request — paid participation from October 2026",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Studios and connections with Thai artists, researchers, craftspeople and fabricators.",
+          "Bangkok emphasizes networking and research; Chiang Mai includes printmaking and ceramics facilities. Request a written quote for accommodation, workshop access, materials and technical support."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://sac.gallery/residency/"
+  },
+  {
+    "slug": "acentricspace-artist-residency",
+    "organizer": "ACENTRICSPACE",
+    "title": "ACENTRICSPACE — Artist Residency",
+    "deadline": "Rolling applications — confirm available dates",
+    "deadlineDate": "",
+    "availability": "rolling",
+    "location": "Shanghai, China",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "English page: RMB 7,700 / 15,000 / 22,000 for one / two / three months",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation, an individual studio and shared living facilities in Zhujiajiao, with optional exhibition participation."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "English page: RMB 7,700 / 15,000 / 22,000 for one / two / three months",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation, an individual studio and shared living facilities in Zhujiajiao, with optional exhibition participation.",
+          "The Chinese version lists RMB 6,600 / 13,000 / 19,000 for the same lengths. Obtain a written quote applicable to your application. Food, travel and materials are additional; a finished project or exhibition is not mandatory."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Applications are accepted on an ongoing basis, subject to selection and capacity.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.acentricspace.com/residency/"
+  },
+  {
+    "slug": "space-of-time-artist-residency",
+    "organizer": "Space of Time Gallery",
+    "title": "Space of Time Gallery — Artist Residency",
+    "deadline": "Applications closed — reference listing",
+    "deadlineDate": "",
+    "availability": "closed",
+    "location": "Beijing, China",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "USD 370 per week — historical 2026 rate",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION",
+      "CLOSED"
+    ],
+    "intro": [
+      "Self-funded artist residency. A room, small studio, basic meals and Beijing Capital airport transfer were described for two-to-four-week stays."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "USD 370 per week — historical 2026 rate",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A room, small studio, basic meals and Beijing Capital airport transfer were described for two-to-four-week stays.",
+          "The organizer states that the 2026 programme is fully booked. A new intake and its terms have not been confirmed. Reference listing only."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Closed or fully booked programme; retained for reference.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.space-of-time.com/artist-residency"
+  },
+  {
+    "slug": "red-corner-nomadic-residency-2027",
+    "organizer": "Nomadic Red Corner",
+    "title": "Red Corner: A Journey Through Time and Space 2027",
+    "deadline": "31 March 2027, or earlier if full",
+    "deadlineDate": "2027-03-31",
+    "location": "Ulaanbaatar and countryside, Mongolia",
+    "audience": "Artists and cultural practitioners with at least three years of professional experience",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "USD 1,900 for 14 days",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation, programme meals, airport pick-up, organized journeys and meetings with the local art community."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "USD 1,900 for 14 days",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation, programme meals, airport pick-up, organized journeys and meetings with the local art community.",
+          "Cohorts: 14–27 July or 1–14 August 2027. International flights are additional. Research and travel programme; a production studio or exhibition is not guaranteed. At least three years of professional experience and English communication are required. Applications may close early when full."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "31 March 2027, or earlier if full",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://redcorner-mongolia.com/9294-2/"
+  },
+  {
+    "slug": "pada-studios-international-residency",
+    "organizer": "PADA Studios",
+    "title": "PADA Studios — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Barreiro, Portugal",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "EUR 1,550 per month — editorial reference rate; reconfirm current tariff",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. A room, shared studios, access to wood and metal workshops, open studios and a group presentation."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "EUR 1,550 per month — editorial reference rate; reconfirm current tariff",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A room, shared studios, access to wood and metal workshops, open studios and a group presentation.",
+          "One-to-two-month stays were described in the editorial handoff. Flights, meals and materials are additional. Check the current programme for application rounds and dates."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.padastudios.com/international-residency"
+  },
+  {
+    "slug": "compeung-artist-in-residence",
+    "organizer": "ComPeung",
+    "title": "ComPeung — Artist Residency",
+    "deadline": "Applications closed — reference listing",
+    "deadlineDate": "",
+    "availability": "closed",
+    "location": "Chiang Mai, Thailand",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "USD 1,090 per month — historical rate, not a current offer",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION",
+      "CLOSED"
+    ],
+    "intro": [
+      "Self-funded artist residency. A rural artist-residency setting with accommodation, workspace and meals described in historical programme information."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "USD 1,090 per month — historical rate, not a current offer",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A rural artist-residency setting with accommodation, workspace and meals described in historical programme information.",
+          "The organizer marks the artist-in-residence programme as temporarily closed. Register interest directly for future opportunities; do not treat this as an active call or book at the historical rate."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Closed or fully booked programme; retained for reference.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://compeung.org/main/artist-in-residence/"
+  },
+  {
+    "slug": "vinyasa-earth-artist-escape",
+    "organizer": "Vinyasa Earth",
+    "title": "Vinyasa Earth — Artist Residency",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Jaipur, Rajasthan, India",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "Historical Artist Escape meal contribution: INR 900/day for short stays or INR 750/day for longer stays; reconfirm current terms",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. A creative-stay setting with shared accommodation, meals and space for independent practice, subject to the chosen programme."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "Historical Artist Escape meal contribution: INR 900/day for short stays or INR 750/day for longer stays; reconfirm current terms",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "A creative-stay setting with shared accommodation, meals and space for independent practice, subject to the chosen programme.",
+          "Artist Escape is a hybrid creative stay and retreat. The organizer also offers separate residency and sponsored formats; their eligibility, duration and costs differ. Request the exact current programme and full quote."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.vinyasa.earth/artist-escape"
+  },
+  {
+    "slug": "sanskriti-kendra-artist-residency",
+    "organizer": "Sanskriti Foundation",
+    "title": "Sanskriti Foundation — Artist Residency",
+    "deadline": "Rolling applications — confirm available dates",
+    "deadlineDate": "",
+    "availability": "rolling",
+    "location": "New Delhi, India",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
+    ],
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "Current full tariff on request; self-funded programme",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation, vegetarian meals and studio/workspace on a campus with collections of everyday art, terracotta and textiles."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "Current full tariff on request; self-funded programme",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation, vegetarian meals and studio/workspace on a campus with collections of everyday art, terracotta and textiles.",
+          "Applications are received year-round; the handbook asks for four-to-five months notice and describes two-to-twelve-week stays. Confirm current rates, workshop access and materials separately. Travel is self-funded."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Applications are accepted on an ongoing basis, subject to selection and capacity.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://www.sanskritifoundation.org/sanskriti-residency-handbook.pdf"
+  },
+
   // Import: user-supplied editorial dataset, 16 November 2026.
   {
     "slug": "archaive-ai-cultural-memory-residencies-2027",
@@ -3022,19 +4399,61 @@ const CURATED_OPPORTUNITIES: Opportunity[] = [
     applyUrl: "https://artinfoland.com/opportunities/k11-art-foundation-artist-prize-2026/",
   },
   {
-    slug: "farm-studio-rajasthan-2027", organizer: "Farm Studio International", title: "Farm Studio Artist Residency India 2027",
-    deadline: "15 November 2026", deadlineDate: "2026-11-15", location: "Andore, Rajasthan, India",
-    audience: "Artists from all disciplines",
-    audiences: ["Individual artists"], type: ["Residencies", "Open Calls"],
-    fields: ["Visual Arts", "Interdisciplinary"], rewards: ["Accommodation"],
-    rewardSummary: "1-month residency on a Rajasthan farm", applicationFee: "$850/month residency fee",
-    tags: ["RESIDENCY", "INDIA", "RURAL"],
-    intro: ["A rural residency in Rajasthan where artists can develop their work in a farming community and collaborate with Indian and international peers."],
-    sections: [
-      { title: "Who can apply", items: ["Artists from all disciplines"] },
-      { title: "What you get", items: ["1-month residency", "Private accommodation", "Studio and outdoor working spaces on a farm", "Talks, presentations and exhibitions with international artists", "Accommodation and meals included in cost"] },
+    "slug": "farm-studio-rajasthan-2027",
+    "organizer": "Farm Studio International",
+    "title": "Farm Studio Artist Residency India 2027",
+    "deadline": "Availability and dates unconfirmed",
+    "deadlineDate": "",
+    "availability": "unconfirmed",
+    "location": "Andore, Rajasthan, India",
+    "audience": "Artists and creative practitioners; check the organizer’s eligibility requirements",
+    "audiences": [
+      "Individual artists"
     ],
-    applyUrl: "https://farmstudioindia.org/art-residency/",
+    "type": [
+      "Residencies"
+    ],
+    "fields": [
+      "Visual Arts",
+      "Research"
+    ],
+    "rewards": [
+      "Other"
+    ],
+    "rewardSummary": "Self-funded residency; participation costs are paid by the artist.",
+    "applicationFee": "See website",
+    "participationFee": "USD 850 per session — previous editorial quote; reconfirm with organizer",
+    "tags": [
+      "RESIDENCY",
+      "PAID PARTICIPATION"
+    ],
+    "intro": [
+      "Self-funded artist residency. Accommodation, vegetarian meals, studio and outdoor workspaces, basic tools and presentation opportunities."
+    ],
+    "sections": [
+      {
+        "title": "Participation cost",
+        "items": [
+          "USD 850 per session — previous editorial quote; reconfirm with organizer",
+          "These are participation costs, not an application fee or an artist grant. No separate application fee has been verified; consult the organizer."
+        ]
+      },
+      {
+        "title": "Facilities and programme",
+        "items": [
+          "Accommodation, vegetarian meals, studio and outdoor workspaces, basic tools and presentation opportunities.",
+          "Published sessions: 3–28 October, 3–28 November and 3–28 December 2027. Materials and travel are additional. The current programme page does not publish an application deadline; the previous catalogue deadline is no longer used."
+        ]
+      },
+      {
+        "title": "Availability and terms",
+        "items": [
+          "Current intake, dates and availability must be confirmed directly.",
+          "Rates and inclusions can change. Historical and individually quoted prices are reference information, not a reservation or a guaranteed offer."
+        ]
+      }
+    ],
+    "applyUrl": "https://farmstudioindia.org/art-residency-artist-residency/"
   },
   {
     slug: "jamfactory-215-magill-adelaide-2027", organizer: "JamFactory × Helpmann Academy", title: "215 Magill Residency 2027 — Adelaide",

@@ -91,6 +91,7 @@ export function OpportunityDetailContent({
         </div>
       </dl>
       <div className="max-w-[720px] space-y-5 text-[15px] leading-[1.7]">
+        {opportunity.participationFee && <p><strong>Participation fee:</strong> {opportunity.participationFee}</p>}
         {opportunity.intro.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}
@@ -135,7 +136,7 @@ export function OpportunityDetailContent({
           rel="noopener noreferrer"
           className="border border-[var(--foreground)] bg-transparent px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--foreground)] transition-opacity hover:opacity-55"
         >
-          Apply <ExternalArrowIcon />
+          {opportunity.availability === "closed" || opportunity.availability === "unconfirmed" ? "Programme details" : "Apply"} <ExternalArrowIcon />
         </a>
       </div>
     </div>
