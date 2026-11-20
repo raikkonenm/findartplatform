@@ -149,6 +149,10 @@ function numberedLocalExhibitionGallery(
 }
 
 const semanticTagAssignments: Record<string, SemanticTag[]> = {
+  "solarium-amelie-mckee-plicnik-london-2026": ["INSTALLATION","MATERIALITY","TECHNOLOGY","SIMULATION"],
+  "from-body-to-body-veronika-cechmankova-julio-paris-2026": ["PHOTOGRAPHY","TEXTILE","MEMORY","BODY"],
+  "someones-treasure-przeciag-s35-lodz-2026": ["GROUP SHOW","MEMORY","OBJECTHOOD","MATERIALITY"],
+  "kuchen-garten-daria-arbuzova-mqwien-2026": ["INSTALLATION","DOMESTICITY","FEMININITY","TECHNOLOGY"],
   "goodnight-morning-ilaria-vinci-istituto-svizzero-milan": ["INSTALLATION", "DREAM LOGIC", "LIMINALITY", "MYTH", "TRANSFORMATION"],
   "rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul": ["GROUP SHOW", "MATERIALITY", "EROSION", "MATERIAL MEMORY"],
   "hauntology-and-the-never-ending-presence": ["GROUP SHOW", "MEMORY", "ARCHIVE", "MATERIALITY", "TECHNOLOGY"],
@@ -353,6 +357,980 @@ function tagsForExhibition(exhibition: Pick<ExhibitionSeed, "slug" | "title" | "
 }
 
 const exhibitionSeeds: ExhibitionSeed[] = [
+  // AI_INGEST_START: solarium-amelie-mckee-plicnik-london-2026
+  {
+    "slug": "solarium-amelie-mckee-plicnik-london-2026",
+    "title": "Solarium",
+    "venue": "Plicnik Space Initiative",
+    "city": "London",
+    "country": "United Kingdom",
+    "startDate": "6 November 2026",
+    "endDate": "19 December 2026",
+    "artists": [
+      "Amélie Mckee"
+    ],
+    "curator": "Kollektiv Collective",
+    "photographer": "Corey Bartle-Sanderson",
+    "description": "In a speculative scenario that complicates the promise of neoclassical virtue and technological utopia, Solarium marks Amélie Mckee’s debut solo exhibition at Plicnik Space Initiative in London. Curated by Kollektiv Collective, the exhibition brings together sculptures, found objects and spatial interventions in a site-specific, immersive installation. Staging how value, form and function change in relation to power over time, the exhibition challenges our relationship to the idea of progress.\n\nThrough material manipulations, Solarium considers how aesthetic frameworks galvanise forms of authority: from homogeneous culture to governmental bodies to art institutions. Marble, a signifier of wealth, is rendered as a soft-textured carpet, its individual sections misaligning into what looks like hazard warning stripes. Central to the exhibition space, two sculptural columns reference neoclassical architecture, commonly present in governmental buildings and museums to transmit authority. Dislocated onto the floor next to them, the Ionic column top is 3D-printed, its ancient character undermined by its deceptively light material. This recurring, deliberate artificiality suggests the extent to which said frameworks are themselves synthetic.\n\nThe metal design of the two columns is equally inspired by Nikola Tesla’s Wardenclyffe Tower, an unrealised project that intended to innovate wireless transmission. Borrowing a techno-utopian form, Mckee’s sculptures appear to harvest, transmit, or generate energy. As if a substitute for a power source, vintage uranium glass salad plates sit at the centre of the pillars. A byproduct of radium extraction, uranium glass became widely used in tableware and decorative objects in the 1920s–30s. Subsequently, its production rapidly declined as uranium supplies were restricted for nuclear weapons during the Cold War: a case of scientific research allegiance with the military-industrial complex. First home decor, then a war strategic asset, the history of uranium glass is a testament to how functional, symbolic and aesthetic roles shift with technological and socio-political development.\n\nThe fluorescence of the uranium glass is activated by the UV of the industrial insect lights installed in the space: their 365nm wavelength, at which insect vision is most responsive, is coincidentally the same one used to assess the purity of uranium glass. It similarly lights up the Monster energy drink – due to high riboflavin content – that fills the 1928 glass pin tray, known as “Girl in a Pool”, which floats above the floor-based column top. The hostility of an everyday appliance intended to kill, of the toxic-looking tableware and the glowing popular drink, goes hand in hand with the hostility embedded in the authoritarian co-opting of aesthetics.\n\nThe antagonistic scenography is contrasted with the soothing effects of the sound piece that emits winter storm ambience, echoing how the hard stone is made soft to walk on. The resulting setting is purposefully ambiguous, channelling the liminality of a display window, the sterility of a laboratory, and the surrealism of a simulation. In Solarium, all elements are at the mercy of context – referencing how systems of legitimacy are founded on contradictions.\n\n— Text: Kollektiv Collective\n\nAdditional booklet essay: The Other Green Energy by Digby Warde-Aldam.\nSpecial thanks to the Everdawn Foundation.",
+    "sourceUrl": "https://plicnik.space",
+    "social": {
+      "artists": [
+        {
+          "name": "Amélie Mckee",
+          "instagram": {
+            "handle": "@amelie.mckee",
+            "verified": true,
+            "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "Plicnik Space Initiative",
+        "instagram": {
+          "handle": "@plicnikspaceinitiative",
+          "verified": true,
+          "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+        }
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Kollektiv Collective",
+              "instagram": {
+                "handle": "@kollektiv_collective",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Kollektiv Collective",
+              "instagram": {
+                "handle": "@kollektiv_collective",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Corey Bartle-Sanderson"
+            }
+          ]
+        },
+        {
+          "role": "Courtesy",
+          "people": [
+            {
+              "name": "Plicnik Space Initiative",
+              "instagram": {
+                "handle": "@plicnikspaceinitiative",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Booklet essay",
+          "people": [
+            {
+              "name": "Digby Warde-Aldam"
+            }
+          ]
+        },
+        {
+          "role": "With support",
+          "people": [
+            {
+              "name": "Everdawn Foundation"
+            }
+          ]
+        }
+      ],
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "Through material manipulations, Solarium considers how aesthetic frameworks galvanise forms of authority: from homogeneous culture to governmental bodies to art institutions. Marble, a signifier of wealth, is rendered as a soft-textured carpet, its individual sections misaligning into what looks like hazard warning stripes. Central to the exhibition space, two sculptural columns reference neoclassical architecture, commonly present in governmental buildings and museums to transmit authority. Dislocated onto the floor next to them, the Ionic column top is 3D-printed, its ancient character undermined by its deceptively light material. This recurring, deliberate artificiality suggests the extent to which said frameworks are themselves synthetic.",
+      "coverOriginalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/01_Plicnik_Solarium_install.jpg"
+    },
+    "source": "Artist-supplied exhibition materials provided by the user, November 2026",
+    "gallery": "Plicnik Space Initiative",
+    "year": "2026",
+    "dates": "6 November 2026 — 19 December 2026",
+    "dateSource": "exhibition",
+    "coverImage": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/01.webp",
+    "previewImage": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/01.webp",
+    "heroImage": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/04.webp",
+    "images": [
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/01.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/01_Plicnik_Solarium_install.jpg",
+        "orientation": "horizontal",
+        "caption": "Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/02.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/02_Plicnik_Solarium_install.jpg",
+        "orientation": "horizontal",
+        "caption": "Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/03.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/03_Plicnik_Solarium_install.jpg",
+        "orientation": "horizontal",
+        "caption": "Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/04.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/04_Plicnik_Solarium_Amelie-Mckee_40524839-continued.jpg",
+        "orientation": "horizontal",
+        "caption": "40524839 continued (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/05.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/05_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina.jpg",
+        "orientation": "vertical",
+        "caption": "Cameo Ballerina (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/06.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/06_Plicnik_Solarium_install.jpg",
+        "orientation": "horizontal",
+        "caption": "Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/07.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/07_Plicnik_Solarium_install.jpg",
+        "orientation": "horizontal",
+        "caption": "Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/08.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/08_Plicnik_Solarium_install.jpg",
+        "orientation": "horizontal",
+        "caption": "Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/09.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/09_Plicnik_Solarium_Amelie-Mckee_Meditation.jpg",
+        "orientation": "horizontal",
+        "caption": "Meditation (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/10.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/10_Plicnik_Solarium_Amelie-Mckee_Meditation.jpg",
+        "orientation": "horizontal",
+        "caption": "Meditation (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/11.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/11_Plicnik_Solarium_Amelie-Mckee_Meditation.jpg",
+        "orientation": "horizontal",
+        "caption": "Meditation (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/12.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/12_Plicnik_Solarium_Amelie-Mckee_Meditation_Detail.jpg",
+        "orientation": "horizontal",
+        "caption": "Detail of Meditation (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/13.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/13_Plicnik_Solarium_Amelie-Mckee_Meditation_Detail.jpg",
+        "orientation": "horizontal",
+        "caption": "Detail of Meditation (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/14.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/14_Plicnik_Solarium_Amelie-Mckee_Meditation_Detail.jpg",
+        "orientation": "horizontal",
+        "caption": "Detail of Meditation (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/15.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/15_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina_Detail.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Cameo Ballerina (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/16.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/16_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina_Detail.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Cameo Ballerina (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/17.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/17_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina_Detail.jpg",
+        "orientation": "horizontal",
+        "caption": "Detail of Cameo Ballerina (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/18.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/18_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina_Detail.jpg",
+        "orientation": "horizontal",
+        "caption": "Detail of Cameo Ballerina (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/19.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/19_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina_Detail.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Cameo Ballerina (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/20.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/20_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina_Detail.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Cameo Ballerina (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/21.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/21_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina_Detail.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Cameo Ballerina (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/22.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/22_Plicnik_Solarium_Amelie-Mckee_Solarium_Detail.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/23.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/23_Plicnik_Solarium_Amelie-Mckee_Solarium_Detail.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/24.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/24_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina-and-Solarium_Detail.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Cameo Ballerina and Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      },
+      {
+        "src": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/25.webp",
+        "originalSrc": "/exhibitions/solarium-amelie-mckee-plicnik-london-2026/originals/25_Plicnik_Solarium_Amelie-Mckee_Cameo-Ballerina-and-Solarium_Detail.jpg",
+        "orientation": "vertical",
+        "caption": "Detail of Cameo Ballerina and Solarium (2026) by Amélie Mckee. Photography by Corey Bartle-Sanderson. Courtesy of Plicnik Space Initiative."
+      }
+    ]
+  },
+  // AI_INGEST_END: solarium-amelie-mckee-plicnik-london-2026
+  // AI_INGEST_START: from-body-to-body-veronika-cechmankova-julio-paris-2026
+  {
+    "slug": "from-body-to-body-veronika-cechmankova-julio-paris-2026",
+    "title": "From Body to Body",
+    "venue": "JULIO Artist-run Space",
+    "city": "Paris",
+    "country": "France",
+    "startDate": "12 November 2026",
+    "endDate": "22 November 2026",
+    "artists": [
+      "Veronika Čechmánková"
+    ],
+    "photographer": "Aurélien Mole",
+    "description": "I carefully keep a bottle of perfume that belonged to my great-grandmother Simone. It costs €83 on Sephora’s website, but mine is priceless. Very little is left, and what remains has probably turned, aged by the years. I don’t know whether it was her everyday perfume or the one for special occasions, the kind you ration down to the last centilitre, but I have imagined it so. It sits enthroned in my living room; I have never dared to spray it into the air, not even once. I found it in a suitcase that belonged to her, filled with fabric she had sewn into small envelopes that look like tobacco pouches, though I don’t really know what they were for: I don’t even know whether she smoked. These textile envelopes once had a function, but I no longer know what it was. I inherited them and so, de facto, they matter; I can’t get rid of them. I’ve quit smoking, so I try to find other uses for them, but they mostly lie at the back of my closet.\n\nIt is precisely these different social and intimate lives of objects that Veronika Čechmánková explores in her work, which draws in particular on the thought of Igor Kopytoff and his essay “The Cultural Biography of Things: Commoditization as Process”. Echoing the anthropologist’s dialectic, she considers the obsolescence of objects comparable to that of the human bodies that use them, and questions how their status in society changes depending on who has owned them, or which environments they have passed through.\n\nThrough the exhibition From Body to Body, the artist traces the itineraries of garments that circulate from hand to hand, from skin to skin, from generation to generation. The intimate nature of clothing, worn like a second skin, becomes the subject of an exploration into what these prolongations of ourselves represent. The exhibition seeks to trace these genealogies of what is given, passed down, and bequeathed. What we find in a closet, what keeps the scent of the people who wore it. What binds us to someone and what remains after them – for this exhibition is above all a story of filiation. Its pieces evoke affective traces, the bond that is embodied in and endures through these second-hand garments. Far from being passive relics, the clothes summoned by the artist are almost conceived as talismans, which, with each new owner, become imbued with new bonds, new memories and new meanings.\n\nIn her work, the artist also refers to concepts developed by Rosalind Krauss, notably the notion of the index: signs that emerge from a physical relationship with the real. In Veronika’s work, this relationship is twofold: the garment bears the imprint of the human body, then the photograph captures the imprint of that garment. In a quasi-performative action, the artist sets about layering and arranging compositions from inherited clothes, which she photographs before modifying them very slightly, producing a strangeness that is hard to detect. This distortion also marks the passing of time and the way our memories change as it goes by. This is what is at stake in the two photographs hung side by side, for which the artist has made wooden frames with an added function: they frame as much as they can be used to hang clothes.\n\nLikewise, the photographs printed on scarves escape their condition as static images, as stable forms. The scarf touches the body, passes from hand to hand, is knotted and crumpled, blurring all boundaries between printed image, textile object and sculptural object. The image printed on it also greets us at the entrance of the space. It is a superimposition of hands that reveals the true purpose of this exhibition, which is also – and perhaps above all – a tribute to those who share Veronika’s life. The hands of three generations of women overlap in a strange pose, pressing against one another, as if embarking on an odd attempt to pass stories on through the palm. Marked to varying degrees by the traces that only time can inflict on bodies, these hands bear witness to the lives of the women they belong to: a daughter, a mother, a grandmother, and as many stories told from one to the next to the next.\n\nFinally, the clothes rack in the entrance and the hooks on the wall evoke a fitting room, a place where garments wait for new bodies whose identity they may change, and a nod to the artist’s previous project, lejdy lena, which explored the imaginary surrounding clothing. In From Body to Body, these display devices evoke not only a place of storage or waiting, but also and above all a place of transition and transmission, echoing the work of Veronika’s grandmother, a seamstress. Her practice thus resonates with the words of writer Annie Ernaux in The Years, who says she wants, through writing, to “save something from the time when we will never be again”. Just like in this sentence that closes the book, Veronika, through her process of archiving, preserves the traces of an era and the experiences of those who lived it.\n\nThe whole invites us to question the ties we have with the objects that pass through our own families: where do they come from, who did they belong to, what functions did they have, and how has their meaning evolved through successive inheritances? At home, it is a bottle of “Fidji” that belonged to my great-grandmother Simone, which I have never dared to spray, and small fabric envelopes she had sewn, whose use I don’t know and which sleep at the back of a closet. I don’t know what these envelopes were, or what they will become, but I know I can’t part with them, and that the bottle, almost empty, will stay on the shelf, intact.\n\n— Text: emploi fictif (Sarah Lolley and Camille Velluet)",
+    "sourceUrl": "https://drive.google.com/drive/folders/1bUy1OwLPda74JrO7yvth60PwKY3TGraH",
+    "social": {
+      "artists": [
+        {
+          "name": "Veronika Čechmánková",
+          "instagram": {
+            "handle": "@veronikacechmankova",
+            "verified": true,
+            "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "JULIO Artist-run Space",
+        "instagram": {
+          "handle": "@julio_artist_run_space",
+          "verified": true,
+          "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+        }
+      },
+      "credits": [
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "emploi fictif (Sarah Lolley and Camille Velluet)",
+              "instagram": {
+                "handle": "@emploi_fictif",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Aurélien Mole"
+            }
+          ]
+        },
+        {
+          "role": "Artwork image",
+          "people": [
+            {
+              "name": "Veronika Čechmánková",
+              "instagram": {
+                "handle": "@veronikacechmankova",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        }
+      ],
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "Through the exhibition From Body to Body, the artist traces the itineraries of garments that circulate from hand to hand, from skin to skin, from generation to generation. The intimate nature of clothing, worn like a second skin, becomes the subject of an exploration into what these prolongations of ourselves represent. The exhibition seeks to trace these genealogies of what is given, passed down, and bequeathed. What we find in a closet, what keeps the scent of the people who wore it. What binds us to someone and what remains after them – for this exhibition is above all a story of filiation. Its pieces evoke affective traces, the bond that is embodied in and endures through these second-hand garments. Far from being passive relics, the clothes summoned by the artist are almost conceived as talismans, which, with each new owner, become imbued with new bonds, new memories and new meanings.",
+      "coverOriginalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-001.jpg"
+    },
+    "source": "Artist-supplied exhibition materials provided by the user, November 2026",
+    "gallery": "JULIO Artist-run Space",
+    "year": "2026",
+    "dates": "12 November 2026 — 22 November 2026",
+    "dateSource": "exhibition",
+    "coverImage": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/01.webp",
+    "previewImage": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/01.webp",
+    "heroImage": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/02.webp",
+    "images": [
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/01.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-001.jpg",
+        "orientation": "horizontal",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/02.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-002.jpg",
+        "orientation": "horizontal",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/03.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-003.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/04.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-004.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/05.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-005.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/06.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-006.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/07.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-007.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/08.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-008.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/09.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-009.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/10.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-010.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/11.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-011.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/12.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-012.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/13.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-013.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/14.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-014.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/15.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-015.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/16.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-016.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/17.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-017.jpg",
+        "orientation": "horizontal",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/18.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/ARSJULIO%202026-Veronika%20C%CC%8Cechma%CC%81nkova%CC%81-018.jpg",
+        "orientation": "vertical",
+        "caption": "From Body to Body by Veronika Čechmánková, JULIO Artist-run Space, 2026. Photo: Aurélien Mole."
+      },
+      {
+        "src": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/19.webp",
+        "originalSrc": "/exhibitions/from-body-to-body-veronika-cechmankova-julio-paris-2026/originals/Hand%20by%20Veronika%20%C4%8Cechm%C3%A1nkov%C3%A1.JPG",
+        "orientation": "vertical",
+        "caption": "Hand by Veronika Čechmánková. Artist-supplied artwork image; no separate photographic credit provided."
+      }
+    ]
+  },
+  // AI_INGEST_END: from-body-to-body-veronika-cechmankova-julio-paris-2026
+  // AI_INGEST_START: someones-treasure-przeciag-s35-lodz-2026
+  {
+    "slug": "someones-treasure-przeciag-s35-lodz-2026",
+    "title": "Someone’s treasure",
+    "venue": "Przeciąg Gallery × S35",
+    "city": "Łódź",
+    "country": "Poland",
+    "startDate": "13 November 2026",
+    "endDate": "29 November 2026",
+    "artists": [
+      "Kinga Dobosz",
+      "Piotr Maciejowska",
+      "Jan Mioduszewski",
+      "Tomek Paszkowicz",
+      "Marta Sundmann"
+    ],
+    "curator": "Bartłomiej Wawer",
+    "photographer": "Piotr Maciejowska",
+    "description": "You hide things more tightly, in paper, bubble wrap, stretch film, Styrofoam, until they disappear inside packaging, wrapped in a warm beige shade. A simple, cheap cardboard box grows fatter, swells and optimises itself in the warehouse, collecting applause from dust and dust mites.\n\nAn object's value does not derive solely from its material properties or objective rarity, but from the relationship we establish with it through memory, attachment and a sense of security. It is this subjective sense of value that sets an entire system of protection in motion: wrapping, securing, storing and, consequently, withdrawing the object from everyday use. The warehouse thus becomes a space in which value is simultaneously affirmed and suspended. The object is preserved, yet ceases to be present.\n\nThis is the moment when a treasure is hidden so well that it begins to disappear.",
+    "sourceUrl": "https://drive.google.com/drive/folders/1cN23W6FlOTihdsy7b0iaM0CS-8h16Xpo",
+    "social": {
+      "artists": [
+        {
+          "name": "Kinga Dobosz",
+          "instagram": {
+            "handle": "@unstable.context",
+            "verified": true,
+            "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+          }
+        },
+        {
+          "name": "Piotr Maciejowska",
+          "instagram": {
+            "handle": "@p.maciejowska",
+            "verified": true,
+            "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+          }
+        },
+        {
+          "name": "Jan Mioduszewski",
+          "instagram": {
+            "handle": "@jan.mioduszewski",
+            "verified": true,
+            "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+          }
+        },
+        {
+          "name": "Tomek Paszkowicz",
+          "instagram": {
+            "handle": "@tomek_paszkowicz",
+            "verified": true,
+            "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+          }
+        },
+        {
+          "name": "Marta Sundmann",
+          "instagram": {
+            "handle": "@sundmann.mp4",
+            "verified": true,
+            "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "Przeciąg Gallery",
+        "instagram": {
+          "handle": "@przeciag_galeria",
+          "verified": true,
+          "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+        }
+      },
+      "credits": [
+        {
+          "role": "Venue",
+          "people": [
+            {
+              "name": "S35",
+              "instagram": {
+                "handle": "@galeria_s35",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Bartłomiej Wawer",
+              "instagram": {
+                "handle": "@bartlomiejwawer",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Piotr Maciejowska",
+              "instagram": {
+                "handle": "@p.maciejowska",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        }
+      ],
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "You hide things more tightly, in paper, bubble wrap, stretch film, Styrofoam, until they disappear inside packaging, wrapped in a warm beige shade. A simple, cheap cardboard box grows fatter, swells and optimises itself in the warehouse, collecting applause from dust and dust mites.\n\nAn object's value does not derive solely from its material properties or objective rarity, but from the relationship we establish with it through memory, attachment and a sense of security. It is this subjective sense of value that sets an entire system of protection in motion: wrapping, securing, storing and, consequently, withdrawing the object from everyday use. The warehouse thus becomes a space in which value is simultaneously affirmed and suspended. The object is preserved, yet ceases to be present.\n\nThis is the moment when a treasure is hidden so well that it begins to disappear.",
+      "coverOriginalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/1.jpeg"
+    },
+    "source": "Artist-supplied exhibition materials provided by the user, November 2026",
+    "gallery": "Przeciąg Gallery × S35",
+    "year": "2026",
+    "dates": "13 November 2026 — 29 November 2026",
+    "dateSource": "exhibition",
+    "coverImage": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/01.webp",
+    "previewImage": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/01.webp",
+    "heroImage": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/01.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/1.jpeg",
+        "orientation": "horizontal",
+        "caption": "Exhibition view: Kinga Dobosz, „Composition HEA18/NS120/12”, 2026, steel, concrete, counterfeit banknotes, Jan Mioduszewski, „Transport”, 2008, oil on MDF board, Euro pallet, black cord, Tomek Paszkowicz, „Nothing V”, 2026, oil on canvas, Tomek Paszkowicz, „Nothing VI”, 2026, oil on canvas. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/02.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/2.jpeg",
+        "orientation": "vertical",
+        "caption": "Kinga Dobosz, „Composition HEA18/NS120/12”, detail, 2026, steel, concrete, counterfeit banknotes. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/03.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/3.jpeg",
+        "orientation": "vertical",
+        "caption": "Kinga Dobosz, „Composition HEA18/NS120/12”, 2026, steel, concrete, counterfeit banknotes. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/04.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/4.jpeg",
+        "orientation": "vertical",
+        "caption": "Jan Mioduszewski, „Transport”, 2008, oil on MDF board, Euro pallet, black cord. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/05.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/5.jpeg",
+        "orientation": "horizontal",
+        "caption": "Exhibition view: Tomek Paszkowicz, „Nothing V”, 2026, oil on canvas, Piotr Maciejowska, „Almost there”, 2026, ballpoint pens, steel chain, Kinga Dobosz, „Composition HEA18/NS120/12”, 2026, steel, concrete, counterfeit banknotes. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/06.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/6.jpeg",
+        "orientation": "vertical",
+        "caption": "Tomek Paszkowicz, „Nothing V”, 2026, oil on canvas, Tomek Paszkowicz, „Nothing VI”, 2026, oil on canvas. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/07.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/7.jpeg",
+        "orientation": "vertical",
+        "caption": "Tomek Paszkowicz, „Nothing V”, 2026, oil on canvas. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/08.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/8.jpeg",
+        "orientation": "vertical",
+        "caption": "Tomek Paszkowicz, „Nothing VI”, 2026, oil on canvas. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/09.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/9.jpeg",
+        "orientation": "horizontal",
+        "caption": "„Someone’s Treasure”: pattern roller (Jan Mioduszewski), Nokia phone (Marta Sundmann), print (Piotr Maciejowska), alien trinket box (Kinga Dobosz), drawing (Tomek Paszkowicz). Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/10.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/10.jpeg",
+        "orientation": "horizontal",
+        "caption": "Marta Sundmann, „What Are We Watching Today?” / „The Centre of the Home” (edition „My New Home”), 2026, video installation, Sony CRT television, vintage Sony Super Trinitron 29 box, polystyrene, tape, video loop, Piotr Maciejowska, „Almost there”, 2026, ballpoint pens, steel chain. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/11.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/11.jpeg",
+        "orientation": "vertical",
+        "caption": "Piotr Maciejowska, „Almost there”, 2026, ballpoint pens, steel chain. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/12.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/12.jpeg",
+        "orientation": "vertical",
+        "caption": "Piotr Maciejowska, „Almost there”, detail, 2026, ballpoint pens, steel chain. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/13.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/13.jpg",
+        "orientation": "vertical",
+        "caption": "Piotr Maciejowska, „Almost there”, detail, 2026, ballpoint pens, steel chain. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/14.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/14.jpeg",
+        "orientation": "horizontal",
+        "caption": "Marta Sundmann, „What Are We Watching Today?” / „The Centre of the Home” (edition „My New Home”), 2026, video installation, Sony CRT television, vintage Sony Super Trinitron 29 box, polystyrene, tape, video loop. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/15.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/15.jpeg",
+        "orientation": "horizontal",
+        "caption": "Marta Sundmann, „What Are We Watching Today?” / „The Centre of the Home” (edition „My New Home”), 2026, video installation, Sony CRT television, vintage Sony Super Trinitron 29 box, polystyrene, tape, video loop. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/16.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/16.jpeg",
+        "orientation": "vertical",
+        "caption": "Kinga Dobosz, „Mice”, 2026, stainless steel, graphite on Japanese paper. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/17.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/17.jpeg",
+        "orientation": "vertical",
+        "caption": "Exhibition view. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/18.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/18.jpeg",
+        "orientation": "vertical",
+        "caption": "Piotr Maciejowska, „On the Upside”, 2026, lampshades. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/19.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/19.jpeg",
+        "orientation": "vertical",
+        "caption": "Tomek Paszkowicz, „Nothing II”, 2026, oil on canvas. Photo: Piotr Maciejowska."
+      },
+      {
+        "src": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/20.webp",
+        "originalSrc": "/exhibitions/someones-treasure-przeciag-s35-lodz-2026/originals/20.jpeg",
+        "orientation": "vertical",
+        "caption": "Piotr Maciejowska, „Passer Partout I”, 2026, decorative leather-effect paper, felt, mat board. Photo: Piotr Maciejowska."
+      }
+    ]
+  },
+  // AI_INGEST_END: someones-treasure-przeciag-s35-lodz-2026
+  // AI_INGEST_START: kuchen-garten-daria-arbuzova-mqwien-2026
+  {
+    "slug": "kuchen-garten-daria-arbuzova-mqwien-2026",
+    "title": "Küchen-Garten",
+    "venue": "MuseumsQuartier Wien, Pop-Up Showroom",
+    "city": "Vienna",
+    "country": "Austria",
+    "startDate": "23 September 2026",
+    "endDate": "22 November 2026",
+    "artists": [
+      "Daria Arbuzova"
+    ],
+    "curator": "Arina Nekliudova",
+    "photographer": "(H)Gleb Rusalouski",
+    "description": "In the 1920s, the revolutionary Frankfurt Kitchen, designed by Margarete Schütte-Lihotzky, introduced an ideal model for organising movement and domestic labour, turning the kitchen into a highly efficient space and the woman into a “machine” for producing domestic comfort. In Küchen-Garten, Arbuzova examines the technocratic and patriarchal logics embedded in such modernist ideals, bringing the kitchen into dialogue with the garden — a space historically associated with fertility, harmony and utopia, evoking Ebenezer Howard’s Garden City.\n\nRather than reproducing modernist rationality, Arbuzova allows it to break down. Strict trajectories give way to chaotic movement, while the Küchen-Garten is being surrounded by a vegetal hedge that becomes a portal into an uncertain space. A window, a garden table and an elusive fairy blur the boundaries between the everyday and the mythical. The dish leaves it unclear whether it is meant for consumption or to serve as a pedestal for a mythical artefact. Küchen-Garten thus offers an ironic rethinking of modernist heritage. Against the renewed dominance of technocratic models, Arbuzova opens the rationalised space of the kitchen to play, chance and unpredictability, allowing the accidental and the hidden to grow through its carefully structured order.\n\n— Text: Arina Nekliudova and Zlata Pavlovskaia\n\nThis project is a cooperation with the Austrian Federal Ministry for European and International Affairs (Artists Solidarity Program Europe - ASoP).",
+    "sourceUrl": "https://drive.google.com/drive/folders/1IKjytESGtyJpDfMjqktOmP2kRGpuhpLh",
+    "social": {
+      "artists": [
+        {
+          "name": "Daria Arbuzova",
+          "instagram": {
+            "handle": "@dorittotheburrito",
+            "verified": true,
+            "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+          }
+        }
+      ],
+      "gallery": {
+        "name": "MuseumsQuartier Wien",
+        "instagram": {
+          "handle": "@mqwien",
+          "verified": true,
+          "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+        }
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Arina Nekliudova",
+              "instagram": {
+                "handle": "@arinnamaksimovna",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Curatorial assistance",
+          "people": [
+            {
+              "name": "Zlata Pavlovskaia",
+              "instagram": {
+                "handle": "@zlpv",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Arina Nekliudova",
+              "instagram": {
+                "handle": "@arinnamaksimovna",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            },
+            {
+              "name": "Zlata Pavlovskaia",
+              "instagram": {
+                "handle": "@zlpv",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "(H)Gleb Rusalouski",
+              "instagram": {
+                "handle": "@psgleb",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Exhibition design",
+          "people": [
+            {
+              "name": "(H)Gleb Rusalouski",
+              "instagram": {
+                "handle": "@psgleb",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "In cooperation with",
+          "people": [
+            {
+              "name": "Austrian Federal Ministry for European and International Affairs"
+            },
+            {
+              "name": "Artists Solidarity Program Europe"
+            }
+          ]
+        }
+      ],
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "In the 1920s, the revolutionary Frankfurt Kitchen, designed by Margarete Schütte-Lihotzky, introduced an ideal model for organising movement and domestic labour, turning the kitchen into a highly efficient space and the woman into a “machine” for producing domestic comfort. In Küchen-Garten, Arbuzova examines the technocratic and patriarchal logics embedded in such modernist ideals, bringing the kitchen into dialogue with the garden — a space historically associated with fertility, harmony and utopia, evoking Ebenezer Howard’s Garden City.\n\nRather than reproducing modernist rationality, Arbuzova allows it to break down. Strict trajectories give way to chaotic movement, while the Küchen-Garten is being surrounded by a vegetal hedge that becomes a portal into an uncertain space. A window, a garden table and an elusive fairy blur the boundaries between the everyday and the mythical. The dish leaves it unclear whether it is meant for consumption or to serve as a pedestal for a mythical artefact. Küchen-Garten thus offers an ironic rethinking of modernist heritage. Against the renewed dominance of technocratic models, Arbuzova opens the rationalised space of the kitchen to play, chance and unpredictability, allowing the accidental and the hidden to grow through its carefully structured order.",
+      "coverOriginalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/6_.jpg"
+    },
+    "source": "Artist-supplied exhibition materials provided by the user, November 2026",
+    "gallery": "MuseumsQuartier Wien, Pop-Up Showroom",
+    "year": "2026",
+    "dates": "23 September 2026 — 22 November 2026",
+    "dateSource": "exhibition",
+    "coverImage": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/01.webp",
+    "previewImage": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/01.webp",
+    "heroImage": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/02.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/1_.jpg",
+        "orientation": "vertical",
+        "caption": "A Whimsical Guest, 2026. 3D-printing, photopolymer resin, vintage table, plate, fork and knife from Vienna flea market. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/03.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/2_.jpg",
+        "orientation": "vertical",
+        "caption": "A Whimsical Guest, 2026. 3D-printing, photopolymer resin, vintage table, plate, fork and knife from Vienna flea market. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/04.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/3_.jpg",
+        "orientation": "vertical",
+        "caption": "A Whimsical Guest, 2026. 3D-printing, photopolymer resin, vintage table, plate, fork and knife from Vienna flea market. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/05.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/4_.jpg",
+        "orientation": "vertical",
+        "caption": "A Whimsical Guest, 2026. 3D-printing, photopolymer resin, vintage table, plate, fork and knife from Vienna flea market. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/06.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/5_.jpg",
+        "orientation": "vertical",
+        "caption": "A Whimsical Guest, 2026. 3D-printing, photopolymer resin, vintage table, plate, fork and knife from Vienna flea market. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/01.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/6_.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/07.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/7_.jpg",
+        "orientation": "vertical",
+        "caption": "Sometimes Poison Is A Cure, Too, series, 2026. Glass, plexiglass. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/08.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/8_.jpg",
+        "orientation": "vertical",
+        "caption": "Sometimes Poison Is A Cure, Too, series, 2026. Glass, plexiglass. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/09.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/9_.jpg",
+        "orientation": "vertical",
+        "caption": "Sometimes Poison Is A Cure, Too, series, 2026. Glass, plexiglass. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/10.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/10_.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/11.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/11_.jpg",
+        "orientation": "vertical",
+        "caption": "Love Language, 2026. 3D-printing, photopolymer resin. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/12.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/12_.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/13.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/13_.jpg",
+        "orientation": "vertical",
+        "caption": "Sometimes Poison Is A Cure, Too, series, 2026. Glass, plexiglass. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/14.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/14_.jpg",
+        "orientation": "vertical",
+        "caption": "A Mystery Box With Sugar, Spice And Everything Nice, 2026. 3D-printing, PLA plastic, glass. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/15.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/15_.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/16.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/16_.jpg",
+        "orientation": "vertical",
+        "caption": "A Window To The Garden, 2026. Lightbox, AI digital painting. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/17.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/17_.jpg",
+        "orientation": "vertical",
+        "caption": "Installation view. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/18.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/18_.jpg",
+        "orientation": "vertical",
+        "caption": "Sometimes Poison Is A Cure, Too, series, 2026. Glass, plexiglass. Photo: (H)Gleb Rusalouski."
+      },
+      {
+        "src": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/19.webp",
+        "originalSrc": "/exhibitions/kuchen-garten-daria-arbuzova-mqwien-2026/originals/19_.jpg",
+        "orientation": "vertical",
+        "caption": "Pretty Pointless Fence, 2026. PLA plastic, 3D-pen. Photo: (H)Gleb Rusalouski."
+      }
+    ]
+  },
+  // AI_INGEST_END: kuchen-garten-daria-arbuzova-mqwien-2026
+
   // AI_INGEST_START: goodnight-morning-ilaria-vinci-istituto-svizzero-milan
   {
     "slug": "goodnight-morning-ilaria-vinci-istituto-svizzero-milan",
@@ -5494,89 +6472,234 @@ with it.
   },
 
   {
-    slug: "unzucht-kiss-the-devil-s-arse",
-    title: "Unzucht - Kiss the Devil's Arse",
-    subtitle: "Itchi Fleischer",
-    venue: "Kunstbrücke am Wildenbruch",
-    gallery: "Kunstbrücke am Wildenbruch",
-    city: "Berlin",
-    country: "Germany",
-    year: "2026",
-    dates: "29 August 2026 — 31 October 2026",
-    startDate: "29 August 2026",
-    endDate: "31 October 2026",
-    dateSource: "exhibition",
-    artists: ["Itchi Fleischer"],
-    curator: "Johanna Engemann",
-    photographer: "Itchi Fleischer",
-    source: "saliva.live",
-    sourceUrl: "https://saliva.live/exhibitions/d43852ed",
-    description: `DE
-
-From today’s perspective, that the term “Unzucht” or its common English translation sodomy may seem
-out of step with the times when, in fact, it appeared as late as the 1960s in Section 175 of the West German
-Criminal Code (StGB). This provision criminalized sexual acts between men only and was not repealed
-until 1994. Itchi Fleischer’s first solo exhibition takes the antiquated expression of Unzucht to highlight
-parts of the extensive history of state violence against queer and femme people. However, Fleischer does
-not focus solely on criminal, but also moral persecution, Christian church writings and imagery serve thus
-as an equally important reference for the exhibition as the subtitle Kiss the Devil’s Arse suggests. Derived
-from the Latin osculum infame (kiss of shame), it refers to the ritual kiss given by a witch on the devil's
-anus, thereby creating a connection between male homosexuality and the female figure of the witch.
-
-The show is populated by mythical hybrid creatures, allusions to witchcraft, the bestial nature within
-humans, and the negative and positive connotations associated with it. It explores these notions through
-the blurred distinction between the good lamb and the satanic goat—what the state and the church have
-classified as “pure” and what as “impure”—and offers a strategy for breaking through this dichotomy.
-
-While the themes and terms at hand are serious, Fleischer encounters them with ornamental flourish,
-poeticism and a certain amount of cheekiness and irony, which are often part of queer aesthetic strategies.
-In their work, Fleischer often finds beauty in that which is marked as “outside of”, as leprous, abject or
-simply ugly and turns it into sculptures and performances which carry their own stories, resistance and
-liveliness. For Unzucht they bring references to famous ecclesiastical motifs, like the sacrificial lamb,
-together with queer subculture and some wicked witchery.
-
-The lamb takes inspiration from Jan van Eycks agnus dei, which is part of the Ghent Altarpiece. The
-template carries its own irony as the lamb spouts blood in a perfect, unnatural-looking arch straight into a
-chalice. Queering this absurd detail in The Shepherd’s Goods (2026), the sacrificed, a hybrid creature of
-man and animal, bleeds down into their own groin, further bringing into focus what is already alluded to
-in the title.
-
-On the other side of this biblically inspired parable is the satanic goat, referenced in the form of a satyr, a
-witch, and a drag persona embodied by Fleischer themselves in the photograph The Parable of the Blessed
-and Cursed, displayed in the entrance area.
-
-Through their work, Itchi Fleischer invites us to rethink what we perceive as Widernatürliche Unzucht
-(2026), as perverse evil, deviant, or guilt-ridden, and what ‘salvation’ we stand to gain in exchange for a
-completely sinless, pure act of self-sacrifice.
-
-— Text: Johanna Engemann`,
-    previewImage: localExhibitionImage("unzucht-kiss-the-devil-s-arse", "1.webp"),
-    heroImage: localExhibitionImage("unzucht-kiss-the-devil-s-arse", "1.webp"),
-    images: localExhibitionGalleryWithOrientations(
-      "unzucht-kiss-the-devil-s-arse",
-      [
-        { filename: "1.webp", orientation: "horizontal" },
-        { filename: "2.webp", orientation: "horizontal" },
-        { filename: "3.webp", orientation: "horizontal" },
-        { filename: "4.webp", orientation: "horizontal" },
-        { filename: "5.webp", orientation: "horizontal" },
-        { filename: "6.webp", orientation: "vertical" },
-        { filename: "7.webp", orientation: "horizontal" },
-        { filename: "8.webp", orientation: "vertical" },
-        { filename: "9.webp", orientation: "vertical" },
-        { filename: "10.webp", orientation: "horizontal" },
-        { filename: "11.webp", orientation: "horizontal" },
-        { filename: "12.webp", orientation: "horizontal" },
-        { filename: "13.webp", orientation: "horizontal" },
-        { filename: "14.webp", orientation: "horizontal" },
-        { filename: "15.webp", orientation: "horizontal" },
-        { filename: "16.webp", orientation: "horizontal" },
-        { filename: "17.webp", orientation: "horizontal" },
-        { filename: "18.webp", orientation: "vertical" },
-        { filename: "19.webp", orientation: "horizontal" },
+    "slug": "unzucht-kiss-the-devil-s-arse",
+    "title": "Unzucht – Kiss the Devil’s Arse",
+    "venue": "Kunstbrücke am Wildenbruch",
+    "city": "Berlin",
+    "country": "Germany",
+    "startDate": "29 August 2026",
+    "endDate": "31 October 2026",
+    "artists": [
+      "Itchi Fleischer"
+    ],
+    "curator": "Johanna Engemann",
+    "photographer": "Itchi Fleischer",
+    "description": "From today’s perspective, that the term “Unzucht” or its common English translation sodomy may seem out of step with the times when, in fact, it appeared as late as the 1960s in Section 175 of the West German Criminal Code (StGB). This provision criminalized sexual acts between men only and was not repealed until 1994. Itchi Fleischer’s first solo exhibition takes the antiquated expression of Unzucht to highlight parts of the extensive history of state violence against queer and femme people. However, Fleischer does not focus solely on criminal, but also moral persecution, Christian church writings and imagery serve thus as an equally important reference for the exhibition as the subtitle Kiss the Devil’s Arse suggests. Derived from the Latin osculum infame (kiss of shame), it refers to the ritual kiss given by a witch on the devil's anus, thereby creating a connection between male homosexuality and the female figure of the witch.\n\nThe show is populated by mythical hybrid creatures, allusions to witchcraft, the bestial nature within humans, and the negative and positive connotations associated with it. It explores these notions through the blurred distinction between the good lamb and the satanic goat—what the state and the church have classified as “pure” and what as “impure”—and offers a strategy for breaking through this dichotomy.\n\nWhile the themes and terms at hand are serious, Fleischer encounters them with ornamental flourish, poeticism and a certain amount of cheekiness and irony, which are often part of queer aesthetic strategies. In their work, Fleischer often finds beauty in that which is marked as “outside of”, as leprous, abject or simply ugly and turns it into sculptures and performances which carry their own stories, resistance and liveliness. For Unzucht they bring references to famous ecclesiastical motifs, like the sacrificial lamb, together with queer subculture and some wicked witchery.\n\nThe lamb takes inspiration from Jan van Eycks agnus dei, which is part of the Ghent Altarpiece. The template carries its own irony as the lamb spouts blood in a perfect, unnatural-looking arch straight into a chalice. Queering this absurd detail in The Shepherd’s Goods (2026), the sacrificed, a hybrid creature of man and animal, bleeds down into their own groin, further bringing into focus what is already alluded to in the title.\n\nOn the other side of this biblically inspired parable is the satanic goat, referenced in the form of a satyr, a witch, and a drag persona embodied by Fleischer themselves in the photograph The Parable of the Blessed and Cursed, displayed in the entrance area.\n\nThrough their work, Itchi Fleischer invites us to rethink what we perceive as Widernatürliche Unzucht (2026), as perverse evil, deviant, or guilt-ridden, and what ‘ salvation’ we stand to gain in exchange for a completely sinless, pure act of self-sacrifice.\n\n— Text: Johanna Engemann",
+    "sourceUrl": "https://drive.google.com/drive/folders/1m8dzRwJSC32tpYMArwLCZEEo2NRUsiQK",
+    "social": {
+      "artists": [
+        {
+          "name": "Itchi Fleischer",
+          "instagram": {
+            "handle": "@itchifleischer",
+            "verified": true,
+            "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+          }
+        }
       ],
-      "Itchi Fleischer",
-    ),
+      "gallery": {
+        "name": "Kunstbrücke am Wildenbruch",
+        "instagram": {
+          "handle": "@kunstbruecke_am_wildenbruch",
+          "verified": true,
+          "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+        }
+      },
+      "credits": [
+        {
+          "role": "Curator",
+          "people": [
+            {
+              "name": "Johanna Engemann",
+              "instagram": {
+                "handle": "@johanna_engemann",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Text",
+          "people": [
+            {
+              "name": "Johanna Engemann",
+              "instagram": {
+                "handle": "@johanna_engemann",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        },
+        {
+          "role": "Photo",
+          "people": [
+            {
+              "name": "Itchi Fleischer",
+              "instagram": {
+                "handle": "@itchifleischer",
+                "verified": true,
+                "source": "Artist-supplied exhibition submission in the user attachment, November 2026"
+              }
+            }
+          ]
+        }
+      ],
+      "status": "published",
+      "revision": 1,
+      "language": "en",
+      "excerpt": "From today’s perspective, that the term “Unzucht” or its common English translation sodomy may seem out of step with the times when, in fact, it appeared as late as the 1960s in Section 175 of the West German Criminal Code (StGB). This provision criminalized sexual acts between men only and was not repealed until 1994. Itchi Fleischer’s first solo exhibition takes the antiquated expression of Unzucht to highlight parts of the extensive history of state violence against queer and femme people. However, Fleischer does not focus solely on criminal, but also moral persecution, Christian church writings and imagery serve thus as an equally important reference for the exhibition as the subtitle Kiss the Devil’s Arse suggests. Derived from the Latin osculum infame (kiss of shame), it refers to the ritual kiss given by a witch on the devil's anus, thereby creating a connection between male homosexuality and the female figure of the witch.",
+      "coverOriginalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Unzucht%20-%20Exhibition.jpg"
+    },
+    "source": "Artist-supplied exhibition materials provided by the user, November 2026",
+    "gallery": "Kunstbrücke am Wildenbruch",
+    "year": "2026",
+    "dates": "29 August 2026 — 31 October 2026",
+    "dateSource": "exhibition",
+    "coverImage": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/01.webp",
+    "previewImage": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/01.webp",
+    "heroImage": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/01.webp",
+    "images": [
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/02.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Head%20of%20Satyr%201.jpg",
+        "orientation": "horizontal",
+        "caption": "Head of Satyr 1. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/03.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Head%20of%20Satyr%208.jpg",
+        "orientation": "vertical",
+        "caption": "Head of Satyr 8. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/04.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Kiss%20the%20Devil's%20Arse%202.jpg",
+        "orientation": "horizontal",
+        "caption": "Kiss the Devil's Arse 2. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/05.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Kiss%20the%20Devil's%20Arse%203.jpg",
+        "orientation": "horizontal",
+        "caption": "Kiss the Devil's Arse 3. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/06.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Kiss%20the%20Devil's%20Arse%206.jpg",
+        "orientation": "horizontal",
+        "caption": "Kiss the Devil's Arse 6. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/07.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Perverted%20Ways%201.jpg",
+        "orientation": "vertical",
+        "caption": "Perverted Ways 1. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/08.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Perverted%20Ways%202.jpg",
+        "orientation": "horizontal",
+        "caption": "Perverted Ways 2. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/09.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Perverted%20Ways%203.jpg",
+        "orientation": "horizontal",
+        "caption": "Perverted Ways 3. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/10.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Perverted%20Ways%2011.jpg",
+        "orientation": "vertical",
+        "caption": "Perverted Ways 11. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/11.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Stone%20Lyre%201.jpg",
+        "orientation": "vertical",
+        "caption": "Stone Lyre 1. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/12.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Stone%20Lyre%204.jpg",
+        "orientation": "vertical",
+        "caption": "Stone Lyre 4. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/13.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/The%20Shepherds%20Goods%201.jpg",
+        "orientation": "vertical",
+        "caption": "The Shepherds Goods 1. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/14.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/The%20Shepherds%20Goods%205.jpg",
+        "orientation": "horizontal",
+        "caption": "The Shepherds Goods 5. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/15.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/The%20Shepherds%20Goods%208.jpg",
+        "orientation": "horizontal",
+        "caption": "The Shepherds Goods 8. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/16.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/The%20Shepherds%20Goods%209.jpg",
+        "orientation": "horizontal",
+        "caption": "The Shepherds Goods 9. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/17.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Unzucht%20-%20Exhibition%202.jpg",
+        "orientation": "horizontal",
+        "caption": "Unzucht - Exhibition 2. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/18.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Unzucht%20-%20Exhibition%203.jpg",
+        "orientation": "horizontal",
+        "caption": "Unzucht - Exhibition 3. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/01.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Unzucht%20-%20Exhibition.jpg",
+        "orientation": "horizontal",
+        "caption": "Unzucht - Exhibition. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/19.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Unzucht%20-%20The%20Parable%20of%20the%20Blessed%20and%20Cursed.jpg",
+        "orientation": "horizontal",
+        "caption": "Unzucht - The Parable of the Blessed and Cursed. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/20.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Widernatu%CC%88rliche%20Unzucht%202.jpg",
+        "orientation": "horizontal",
+        "caption": "Widernatürliche Unzucht 2. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/21.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Widernatu%CC%88rliche%20Unzucht%204.jpg",
+        "orientation": "vertical",
+        "caption": "Widernatürliche Unzucht 4. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/22.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Widernatu%CC%88rliche%20Unzucht%206.jpg",
+        "orientation": "vertical",
+        "caption": "Widernatürliche Unzucht 6. Photo: Itchi Fleischer."
+      },
+      {
+        "src": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/23.webp",
+        "originalSrc": "/exhibitions/unzucht-kiss-the-devil-s-arse/submission-20261120/originals/Widernatu%CC%88rliche%20Unzucht.jpg",
+        "orientation": "vertical",
+        "caption": "Widernatürliche Unzucht. Photo: Itchi Fleischer."
+      }
+    ]
   },
 
   {
