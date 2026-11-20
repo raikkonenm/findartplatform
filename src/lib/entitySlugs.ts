@@ -1,4 +1,5 @@
 import { exhibitions, type Exhibition } from "@/data/exhibitions";
+import { allEditorialCreditEntities } from "@/data/editorialCredits";
 import {
   editorialArtists,
   getEditorialArtistMeta,
@@ -88,6 +89,11 @@ export function collectEntitySlugs(kind: EntityKind): Map<
         map.set(slug, { name: raw, exhibitions: [exhibition] });
       }
     }
+  }
+  for (const entity of allEditorialCreditEntities()) {
+    if (entity.kind !== kind) continue;
+    const slug = slugifyEntity(entity.name);
+    if (slug && !map.has(slug)) map.set(slug, { name: entity.name, exhibitions: [] });
   }
   return map;
 }
@@ -190,6 +196,11 @@ export function collectAuthorSlugs(): Map<
     } else {
       map.set(slug, { name: raw, exhibitions: [exhibition] });
     }
+  }
+  for (const entity of allEditorialCreditEntities()) {
+    if (entity.kind !== "author") continue;
+    const slug = slugifyEntity(entity.name);
+    if (slug && !map.has(slug)) map.set(slug, { name: entity.name, exhibitions: [] });
   }
   return map;
 }

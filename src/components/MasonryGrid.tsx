@@ -7,6 +7,9 @@ import { EditorialCard } from "./EditorialCard";
 import { EditorialPromoCard } from "./EditorialPromoCard";
 import { ExhibitionCard } from "./ExhibitionCard";
 import { SubmitAdCard } from "./SubmitAdCard";
+import { EditorialSelectionCard } from "./EditorialSelectionCard";
+import type { EditorialSelectionCardData } from "@/data/editorialSelections";
+import { interleaveEditorialItems, type EditorialFeedItem } from "@/lib/homeEditorialFeed";
 
 export type MasonryDensity = "normal" | "dense";
 
@@ -51,11 +54,13 @@ function useColumnCount(initialIsMobile: boolean, density: MasonryDensity): [num
   return [count, isMobile];
 }
 
-type BucketItem =
+type BaseBucketItem =
   | { kind: "exhibition"; exhibition: Exhibition; flatIdx: number }
   | { kind: "editorial"; flatIdx: number }
   | { kind: "submit-ad"; flatIdx: number }
   | { kind: "artist"; artist: EditorialArtist; flatIdx: number };
+
+type BucketItem = BaseBucketItem | EditorialFeedItem;
 
 // Interleave editorial artist cards among exhibitions so no two artist
 // cards land adjacent. Gap = ceil(exhibitions / (artists + 1)) with a
@@ -63,7 +68,7 @@ type BucketItem =
 function interleaveArtists(
   exhibitions: Exhibition[],
   artists: EditorialArtist[],
-): BucketItem[] {
+): BaseBucketItem[] {
   if (artists.length === 0) {
     return exhibitions.map((exhibition, flatIdx) => ({
       kind: "exhibition" as const,
@@ -72,7 +77,7 @@ function interleaveArtists(
     }));
   }
   const gap = Math.max(2, Math.ceil(exhibitions.length / (artists.length + 1)));
-  const out: BucketItem[] = [];
+  const out: BaseBucketItem[] = [];
   let artistIndex = 0;
   let flatIdx = 0;
   exhibitions.forEach((exhibition, exhibitionIndex) => {
@@ -112,6 +117,7 @@ export function MasonryGrid({
   editorialPromo = false,
   hideMobileSubtitles = false,
   interleavedArtists,
+  interleavedEditorials,
   pinSubmitAd = false,
   latestOpportunities,
   initialVisibleCount,
@@ -124,6 +130,7 @@ export function MasonryGrid({
   editorialPromo?: boolean;
   hideMobileSubtitles?: boolean;
   interleavedArtists?: EditorialArtist[];
+  interleavedEditorials?: EditorialSelectionCardData[];
   /**
    * When true, splice a static Submit-Exhibition ad card into the feed at
    * flat index 6 — the second slot of the second row in the dense
@@ -150,13 +157,16 @@ export function MasonryGrid({
     ? "(min-width: 1024px) 20vw, (min-width: 768px) 33vw, 50vw"
     : "(min-width: 1024px) 31vw, (min-width: 768px) 47vw, 100vw";
 
-  const items: BucketItem[] = interleavedArtists && interleavedArtists.length > 0
+  const baseItems: BaseBucketItem[] = interleavedArtists && interleavedArtists.length > 0
     ? interleaveArtists(exhibitions, interleavedArtists)
     : exhibitions.map((exhibition, flatIdx) => ({
         kind: "exhibition",
         exhibition,
         flatIdx,
       }));
+  const items: BucketItem[] = interleavedEditorials?.length
+    ? interleaveEditorialItems(baseItems, interleavedEditorials)
+    : baseItems;
   // Splice pinned cards into the flat items list. Each pinned index is
   // the FINAL slot that card should occupy, so we splice from the
   // LOWEST final index upward — then each subsequent splice targets a
@@ -216,6 +226,9 @@ export function MasonryGrid({
   const opportunityModule = latestOpportunities?.(isMobile);
 
   const renderItem = (item: BucketItem) => {
+    if (item.kind === "editorial-selection") {
+      return <EditorialSelectionCard key={`editorial-${item.selection.slug}`} selection={item.selection} sizes={cardSizes} feed />;
+    }
     if (item.kind === "editorial") {
       return <EditorialPromoCard key="editorial-promo" />;
     }

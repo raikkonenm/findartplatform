@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { renderExhibitionListPage } from "@/components/EntityPage";
 import { collectAuthorSlugs, getAuthorEntry } from "@/lib/entitySlugs";
+import { editorialSelectionsForContributor } from "@/lib/editorialRelations";
 
 export function generateStaticParams() {
   return Array.from(collectAuthorSlugs().keys()).map((slug) => ({ slug }));
@@ -16,8 +17,9 @@ export async function generateMetadata({
   const entry = getAuthorEntry(slug);
   if (!entry) return { title: "Not found" };
   const count = entry.exhibitions.length;
-  const title = `${entry.name} — Exhibition Text on FindArt`;
-  const description = `${count} ${count === 1 ? "exhibition" : "exhibitions"} on FindArt Platform with exhibition text by ${entry.name}.`;
+  const selections = editorialSelectionsForContributor("author", slug);
+  const title = selections.length ? `${entry.name} — Writing & Editorial | FindArt Platform` : `${entry.name} — Exhibition Text on FindArt`;
+  const description = selections.length ? `Read Editorial articles and exhibition texts by ${entry.name} on FindArt Platform.` : `${count} ${count === 1 ? "exhibition" : "exhibitions"} on FindArt Platform with exhibition text by ${entry.name}.`;
   const canonical = `https://www.findartplatform.com/author/${slug}`;
   return {
     title: { absolute: title },
@@ -36,9 +38,11 @@ export default async function AuthorPage({
   const { slug } = await params;
   const entry = getAuthorEntry(slug);
   if (!entry) return notFound();
+  const selections = editorialSelectionsForContributor("author", slug);
   return renderExhibitionListPage({
-    eyebrow: "Exhibition Text",
+    eyebrow: selections.length ? "Author" : "Exhibition Text",
     name: entry.name,
     exhibitions: entry.exhibitions,
+    editorialSelections: selections,
   });
 }

@@ -4,6 +4,9 @@ import { Header } from "@/components/Header";
 import { MasonryGrid } from "@/components/MasonryGrid";
 import { editorialArtists, type EditorialArtist } from "@/data/editorial";
 import type { Exhibition } from "@/data/exhibitions";
+import type { EditorialSelection } from "@/data/editorialSelections";
+import { editorialSelectionsForContributor } from "@/lib/editorialRelations";
+import { EditorialCardsSection } from "./EditorialCardsSection";
 import {
   ENTITY_ROUTE_SEGMENT,
   canonicalFacetValue,
@@ -85,9 +88,13 @@ export function renderEntityPage({
   if (!entry) return notFound();
 
   const totalCount = entry.exhibitions.length + entry.editorialArtists.length;
+  const selections = kind === "tag" ? [] : editorialSelectionsForContributor(kind, slug);
   // Human-friendly "1 exhibition" / "2 exhibitions" label — same
   // wording across every entity kind, per the taxonomy standardization.
-  const countLabel = `${totalCount} ${totalCount === 1 ? "exhibition" : "exhibitions"}`;
+  const exhibitionCountLabel = `${totalCount} ${totalCount === 1 ? "exhibition" : "exhibitions"}`;
+  const countLabel = selections.length
+    ? [totalCount ? exhibitionCountLabel : "", `${selections.length} ${selections.length === 1 ? "Editorial article" : "Editorial articles"}`].filter(Boolean).join(" · ")
+    : exhibitionCountLabel;
 
   return (
     <main className="min-h-screen bg-white pt-[65px] text-neutral-900">
@@ -104,14 +111,16 @@ export function renderEntityPage({
             {countLabel}
           </p>
 
-          <div className="mt-12 md:mt-16">
+          <EditorialCardsSection selections={selections} />
+          {totalCount > 0 && <div className="mt-12 md:mt-16">
+            {selections.length > 0 && <h2 className="mb-8 text-[10px] uppercase tracking-[0.28em] text-neutral-500">Exhibitions</h2>}
             <MasonryGrid
               exhibitions={entry.exhibitions}
               eagerCount={1}
               initialIsMobile={false}
               interleavedArtists={entry.editorialArtists.length > 0 ? entry.editorialArtists : undefined}
             />
-          </div>
+          </div>}
 
           {kind === "tag" && <TopicHubLinks exhibitions={entry.exhibitions} currentSlug={slug} />}
           {(kind === "gallery" || kind === "artist" || kind === "curator" || kind === "photographer") && (
@@ -312,11 +321,13 @@ export function renderExhibitionListPage({
   name,
   exhibitions,
   facet,
+  editorialSelections = [],
 }: {
   eyebrow: string;
   name: string;
   exhibitions: Exhibition[];
   facet?: { kind: "city" | "country"; displayName: string };
+  editorialSelections?: EditorialSelection[];
 }) {
   return (
     <main className="min-h-screen bg-white pt-[65px] text-neutral-900">
@@ -330,17 +341,21 @@ export function renderExhibitionListPage({
             {name}
           </h1>
           <p className="mt-4 text-[13px] uppercase tracking-[0.24em] text-neutral-500">
-            {exhibitions.length}{" "}
-            {exhibitions.length === 1 ? "exhibition" : "exhibitions"}
+            {[
+              exhibitions.length || editorialSelections.length === 0 ? `${exhibitions.length} ${exhibitions.length === 1 ? "exhibition" : "exhibitions"}` : "",
+              editorialSelections.length ? `${editorialSelections.length} ${editorialSelections.length === 1 ? "Editorial article" : "Editorial articles"}` : "",
+            ].filter(Boolean).join(" · ")}
           </p>
 
-          <div className="mt-12 md:mt-16">
+          <EditorialCardsSection selections={editorialSelections} />
+          {exhibitions.length > 0 && <div className="mt-12 md:mt-16">
+            {editorialSelections.length > 0 && <h2 className="mb-8 text-[10px] uppercase tracking-[0.28em] text-neutral-500">Exhibitions</h2>}
             <MasonryGrid
               exhibitions={exhibitions}
               eagerCount={1}
               initialIsMobile={false}
             />
-          </div>
+          </div>}
 
           {facet && (
             <FacetLinkIndex facet={facet} exhibitions={exhibitions} />
@@ -401,7 +416,12 @@ export function entityMetadata({
 }) {
   const entry = resolveEntry(kind, slug);
   if (!entry) return { title: "Not found" };
-  const { title, description } = metadataForKind(kind, entry.name);
+  const existing = metadataForKind(kind, entry.name);
+  const selections = kind === "tag" ? [] : editorialSelectionsForContributor(kind, slug);
+  const title = selections.length && entry.exhibitions.length === 0 ? `${entry.name} — ${EYEBROW[kind]} & Editorial | FindArt Platform` : existing.title;
+  const description = selections.length
+    ? `Explore Editorial articles and exhibition documentation connected with ${entry.name} as ${EYEBROW[kind].toLowerCase()} on FindArt Platform.`
+    : existing.description;
   const canonical = `${SITE_URL}/${ENTITY_ROUTE_SEGMENT[kind]}/${slug}`;
   return {
     title: { absolute: title },

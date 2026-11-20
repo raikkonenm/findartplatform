@@ -1,3 +1,4 @@
+import { editorialEssayCredits } from "./editorialCredits";
 import type { EssayEditorialSelection } from "./editorialSelections";
 
 // User-supplied essays, author and image credits verified against the submitted materials.
@@ -141,24 +142,7 @@ export const submittedEditorialEssays: EssayEditorialSelection[] = [
         }
       ]
     ],
-    "credits": [
-      {
-        "label": "Text",
-        "value": "Dayneris Brito"
-      },
-      {
-        "label": "Photography",
-        "value": "Anna Iwanczuk"
-      },
-      {
-        "label": "Courtesy",
-        "value": "LAC Collection Jean-Michel Attal"
-      },
-      {
-        "label": "Exhibition curator",
-        "value": "Serge Le Borgne"
-      }
-    ],
+    "credits": editorialEssayCredits["alpha-omega-and-dandelions-dayneris-brito"],
     "publishedAt": "2026-11-20",
     "publishedAtDisplay": "20 November 2026",
     "coverImage": {
@@ -448,32 +432,7 @@ export const submittedEditorialEssays: EssayEditorialSelection[] = [
         }
       ]
     ],
-    "credits": [
-      {
-        "label": "Text",
-        "value": "Joséphine May Bailey"
-      },
-      {
-        "label": "Artist",
-        "value": "Lucy Cade"
-      },
-      {
-        "label": "Exhibition",
-        "value": "CAMEO, Fitzrovia Gallery"
-      },
-      {
-        "label": "Curator",
-        "value": "Alinda Kring"
-      },
-      {
-        "label": "Photography",
-        "value": "Pete Tainsh and Lucy Cade, as credited with each image"
-      },
-      {
-        "label": "Courtesy",
-        "value": "The artist and Fitzrovia Gallery"
-      }
-    ],
+    "credits": editorialEssayCredits["a-woman-held-josephine-may-bailey"],
     "publishedAt": "2026-11-20",
     "publishedAtDisplay": "20 November 2026",
     "coverImage": {

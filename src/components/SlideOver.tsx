@@ -82,7 +82,7 @@ export function SlideOver({
     <div className="pointer-events-none fixed inset-0 z-[60] max-w-full overflow-x-hidden md:max-w-none">
       <button
         type="button"
-        aria-label="Close exhibition"
+        aria-label={`Close ${label}`}
         onClick={close}
         className={`pointer-events-auto absolute inset-0 hidden cursor-default bg-neutral-950 transition-opacity duration-300 md:block ${
           entered && !closing ? "opacity-[0.2]" : "opacity-0"

@@ -9,6 +9,7 @@ import { ViewportSlideshow } from "@/components/ViewportSlideshow";
 import { MasonryGrid, type MasonryDensity } from "@/components/MasonryGrid";
 import { LatestOpportunities } from "@/components/LatestOpportunities";
 import { editorialArtists } from "@/data/editorial";
+import type { EditorialSelectionCardData } from "@/data/editorialSelections";
 import { HeartIcon } from "@/components/SavedExhibitions";
 import { LayoutGlyphs, LayoutSection, MobileFilterSheet } from "@/components/MobileFilterSheet";
 import { MobileNavigationMenu } from "@/components/MobileNavigationMenu";
@@ -1060,12 +1061,14 @@ export default function HomePageClient({
   showEditorialPromo = true,
   initialDensity,
   opportunitiesToday,
+  editorialCards,
 }: {
   initialIsMobile: boolean;
   showFeaturedBanners?: boolean;
   showEditorialPromo?: boolean;
   initialDensity?: MasonryDensity;
   opportunitiesToday?: string;
+  editorialCards?: EditorialSelectionCardData[];
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -1469,6 +1472,7 @@ export default function HomePageClient({
             editorialPromo={showEditorialPromo}
             hideMobileSubtitles={showEditorialPromo}
             interleavedArtists={showFeaturedBanners ? editorialArtists : undefined}
+            interleavedEditorials={showFeaturedBanners ? editorialCards : undefined}
             pinSubmitAd={showFeaturedBanners}
             latestOpportunities={opportunitiesToday ? (isMobile) => (
               <Suspense fallback={null}>

@@ -80,10 +80,34 @@ const ALL_IMAGE_SLIDESHOW_SLUGS = new Set([
   "rot-summer",
 ]);
 
+// These galleries start with the chosen preview, then cycle through the
+// remaining photographs regardless of their orientation.
+const COVER_FIRST_SLIDESHOW_SLUGS = new Set([
+  "rubenbladder-scott-galvan-macco-oaxaca-mexico",
+  "transaction-joshua-abelow-katya-kirilloff",
+  "powernap-manor-grunewald",
+  "feral-metaverse-spider-theo-triantafyllidis",
+  "klausykla-confessional-kristijonas-gurcinas-vilnius-2026",
+  "plagues-patrick-goddard",
+  "transhuman-5-dysis-kunstverein-gottingen-2026",
+  "zzz-baris-cavusoglu-pluto-valencia",
+  "rake-lucas-dupuy-sunwon-chang-cylinder-two-seoul",
+  "someones-treasure-przeciag-s35-lodz-2026",
+  "it-dripped-and-it-sparkled-lulu-cora-suss-lucerne-2026",
+  "song-of-the-sirens-djurberg-berg-gio-marconi-milan-2026",
+  "probability-clouds-gossamer-fog-london-2026",
+  "automatia-pitted-dates-helsinki-2026",
+]);
+
 function CardSlideshow({ exhibition, title, sizes, eager }: { exhibition: Exhibition; title: string; sizes: string; eager: boolean }) {
-  const slides = ALL_IMAGE_SLIDESHOW_SLUGS.has(exhibition.slug)
+  const coverFirst = COVER_FIRST_SLIDESHOW_SLUGS.has(exhibition.slug);
+  const gallery = ALL_IMAGE_SLIDESHOW_SLUGS.has(exhibition.slug) || coverFirst
     ? exhibition.images
     : exhibition.images.filter((image) => image.orientation === "vertical");
+  const cover = exhibition.coverImage ?? exhibition.previewImage;
+  const slides = coverFirst
+    ? [{ src: cover }, ...gallery.filter(image => image.src !== cover)]
+    : gallery;
   return (
     <ViewportSlideshow images={slides} alt={`${title} exhibition view`} sizes={sizes} priority={eager} />
   );
@@ -114,7 +138,7 @@ export function ExhibitionCard({
 }: ExhibitionCardProps) {
   const aspect = aspectClassForSlug(exhibition.slug);
   const title = displayExhibitionTitle(exhibition.title);
-  const desktopSlideshow = DESKTOP_SLIDESHOW_SLUGS.has(exhibition.slug);
+  const desktopSlideshow = DESKTOP_SLIDESHOW_SLUGS.has(exhibition.slug) || COVER_FIRST_SLIDESHOW_SLUGS.has(exhibition.slug);
   const { isSaved, toggleSaved } = useSavedExhibitions();
   const saved = isSaved(exhibition.slug);
 

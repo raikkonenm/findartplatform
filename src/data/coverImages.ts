@@ -19,7 +19,7 @@ const coverImagePaths = [
   "/cover/KETEROS.webp",
   "/cover/Love.webp",
   "/cover/LUCA.jpg",
-  "/cover/MAIN DE FER, GANT DE VELOURS.webp",
+  "/cover/MAIN%20DE%20FER%2C%20GANT%20DE%20VELOURS.webp",
   "/cover/Massage Platz.webp",
   "/cover/METEMPSYCHOSIS.webp",
   "/cover/MOONLIT BOTANICAL COLOUR THEORIES.webp",

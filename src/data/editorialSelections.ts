@@ -1,6 +1,7 @@
 import { getExhibition } from "@/data/exhibitions";
 import { getEditorialArtist } from "@/data/editorial";
 import { submittedEditorialEssays } from "./submittedEditorialEssays";
+import type { EditorialCredit } from "./editorialCredits";
 
 // A curated Editorial article that groups existing exhibitions from the
 // FindArt database under a shared theme. Everything except the intro
@@ -74,12 +75,21 @@ export type EssayEditorialSelection = Omit<EditorialSelectionBase, "intro"> & {
   coverImage?: EditorialEssayImage;
   images?: Array<EditorialEssayImage & { afterParagraph: number }>;
   paragraphs?: EditorialEssayRun[][];
-  credits?: Array<{ label: string; value: string }>;
+  credits?: EditorialCredit[];
   status?: "draft" | "published";
   body: string;
 };
 
 export type EditorialSelection = ExhibitionEditorialSelection | ArtistEditorialSelection | EssayEditorialSelection;
+
+export type EditorialSelectionCardData = {
+  slug: string;
+  title: string;
+  subtitle: string;
+  kind: EditorialSelection["kind"];
+  image: string;
+  author?: string;
+};
 
 export const editorialSelections: EditorialSelection[] = [
   ...submittedEditorialEssays,
@@ -253,6 +263,18 @@ export function getEditorialSelectionCoverImage(selection: EditorialSelection): 
     cover?.coverImage ??
     cover?.previewImage
   );
+}
+
+export function getEditorialSelectionCard(selection: EditorialSelection): EditorialSelectionCardData | null {
+  const image = getEditorialSelectionCoverImage(selection);
+  if (!image) return null;
+  return { slug: selection.slug, title: selection.title, subtitle: selection.subtitle, kind: selection.kind, image,
+    ...(selection.kind === "essay" ? { author: selection.author } : {}) };
+}
+
+export function getEditorialSelectionCards(): EditorialSelectionCardData[] {
+  return editorialSelections.slice().sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .map(getEditorialSelectionCard).filter(card => card !== null);
 }
 
 // Validate at build time — a missing exhibition slug should fail loudly

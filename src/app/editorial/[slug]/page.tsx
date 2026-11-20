@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
-import { EditorialSelectionArticle } from "@/components/EditorialSelectionArticle";
-import { ArtistEditorialSelectionArticle } from "@/components/ArtistEditorialSelectionArticle";
-import { EditorialEssayArticle } from "@/components/EditorialEssayArticle";
+import { EditorialArticleContent } from "@/components/EditorialArticleContent";
 import {
   editorialSelections,
   getEditorialSelectionCoverImage,
   getEditorialSelection,
 } from "@/data/editorialSelections";
-import { entityHref } from "@/lib/entitySlugs";
+import { authorHref, entityHref } from "@/lib/entitySlugs";
 
 const SITE_URL = "https://www.findartplatform.com";
 
@@ -77,7 +75,7 @@ function jsonLd(slug: string) {
     datePublished: selection.kind === "essay" && selection.status === "draft" ? undefined : selection.publishedAt,
     dateModified: selection.modifiedAt ?? selection.publishedAt,
     author: selection.kind === "essay"
-      ? { "@type": "Person", name: selection.author }
+      ? { "@type": "Person", name: selection.author, url: `${SITE_URL}${authorHref(selection.author)}` }
       : { "@type": "Organization", name: "FindArt Platform" },
     publisher: {
       "@type": "Organization",
@@ -94,7 +92,7 @@ function jsonLd(slug: string) {
         }))
       : selection.kind === "essay"
         ? selection.artistName
-          ? [{ "@type": "Person", name: selection.artistName, ...(selection.coverExhibitionSlug ? { url: `${SITE_URL}${entityHref("artist", selection.artistName)}` } : {}) }]
+          ? [{ "@type": "Person", name: selection.artistName, url: `${SITE_URL}${entityHref("artist", selection.artistName)}` }]
           : undefined
         : undefined,
   };
@@ -131,13 +129,7 @@ export default async function EditorialArticlePage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
-      {selection.kind === "essay" ? (
-        <EditorialEssayArticle selection={selection} />
-      ) : selection.kind === "artists" ? (
-        <ArtistEditorialSelectionArticle selection={selection} />
-      ) : (
-        <EditorialSelectionArticle selection={selection} />
-      )}
+      <EditorialArticleContent selection={selection} />
     </main>
   );
 }
