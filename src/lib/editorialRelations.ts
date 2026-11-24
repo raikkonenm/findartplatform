@@ -15,6 +15,7 @@ function exhibitionNames(exhibition: Exhibition, kind: EditorialContributorKind)
 // exhibition references; never infer people from prose or manufacture bios.
 export function editorialSelectionsForContributor(kind: EditorialContributorKind, slug: string): EditorialSelection[] {
   return editorialSelections.filter(selection => {
+    if (selection.kind === "opportunities") return false;
     const matches = (name: string) => slugifyEntity(name) === slug;
     if (selection.kind === "essay" && kind === "author" && matches(selection.author)) return true;
     if (selection.kind === "essay" && kind === "artist" && selection.artistName && matches(selection.artistName)) return true;

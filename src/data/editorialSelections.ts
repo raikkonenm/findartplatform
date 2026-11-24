@@ -2,6 +2,7 @@ import { getExhibition } from "@/data/exhibitions";
 import { getEditorialArtist } from "@/data/editorial";
 import { submittedEditorialEssays } from "./submittedEditorialEssays";
 import type { EditorialCredit } from "./editorialCredits";
+import { OPPORTUNITIES } from "./opportunities";
 
 // A curated Editorial article that groups existing exhibitions from the
 // FindArt database under a shared theme. Everything except the intro
@@ -80,7 +81,13 @@ export type EssayEditorialSelection = Omit<EditorialSelectionBase, "intro"> & {
   body: string;
 };
 
-export type EditorialSelection = ExhibitionEditorialSelection | ArtistEditorialSelection | EssayEditorialSelection;
+export type OpportunityEditorialSelection = EditorialSelectionBase & {
+  kind: "opportunities";
+  coverImage: EditorialEssayImage;
+  opportunitySlugs: string[];
+};
+
+export type EditorialSelection = ExhibitionEditorialSelection | ArtistEditorialSelection | EssayEditorialSelection | OpportunityEditorialSelection;
 
 export type EditorialSelectionCardData = {
   slug: string;
@@ -92,6 +99,33 @@ export type EditorialSelectionCardData = {
 };
 
 export const editorialSelections: EditorialSelection[] = [
+  {
+    kind: "opportunities",
+    slug: "8-funding-calls-international-residencies-for-artists",
+    title: "8 funding calls & international residencies for artists",
+    subtitle: "Artist fees, production grants & supported mobility.",
+    intro: "This selection brings together programmes across Germany, Spain, Switzerland, the UK, the US and other European countries, supporting artistic research, interdisciplinary experimentation, production and international mobility.\n\nOpportunities include personal artist fees, monthly stipends, project grants, accommodation and travel support. Funding structures and eligibility requirements vary by programme.\n\nDeadlines: 22 November – 11 December 2026.",
+    publishedAt: "2026-11-23",
+    publishedAtDisplay: "23 November 2026",
+    coverImage: {
+      src: "/editorial/funding-calls-residencies/cover.webp",
+      width: 2048,
+      height: 2560,
+      alt: "FindArt selection of eight funding calls and international residencies, with an archive image from Mensch Maschine at E-WERK Luckenwalde.",
+      caption: "Mensch Maschine: Return to Earth, E-WERK Luckenwalde, 2025 programme (archive, not 2027).",
+      credit: "Image: E-WERK Luckenwalde / Kunststrom.",
+    },
+    opportunitySlugs: [
+      "mensch-maschine-visit-energy-ghosts-2027",
+      "ehin-dirty-lab-artist-residencies-2027-2028",
+      "archaive-ai-cultural-memory-residencies-2027",
+      "cove-park-awarded-residencies-2027-2028",
+      "bernheim-arboretum-residency-2027",
+      "frankfurt-moves-2027",
+      "traces-art-science-sion-2027",
+      "casa-de-velazquez-madrid-2027-2028",
+    ],
+  },
   ...submittedEditorialEssays,
   {
     kind: "essay",
@@ -249,6 +283,7 @@ export function getEditorialSelection(slug: string): EditorialSelection | undefi
 }
 
 export function getEditorialSelectionCoverImage(selection: EditorialSelection): string | undefined {
+  if (selection.kind === "opportunities") return selection.coverImage.src;
   if (selection.kind === "artists") {
     return getEditorialArtist(selection.coverArtistSlug)?.coverImage.src;
   }
@@ -280,6 +315,11 @@ export function getEditorialSelectionCards(): EditorialSelectionCardData[] {
 // Validate at build time — a missing exhibition slug should fail loudly
 // rather than render a broken article.
 for (const selection of editorialSelections) {
+  if (selection.kind === "opportunities") {
+    const missing = selection.opportunitySlugs.filter(slug => !OPPORTUNITIES.some(opportunity => opportunity.slug === slug));
+    if (missing.length) throw new Error(`Editorial selection "${selection.slug}" references missing opportunities: ${missing.join(", ")}`);
+    continue;
+  }
   if (selection.kind === "essay") {
     if (!selection.coverImage && !(selection.coverExhibitionSlug && getExhibition(selection.coverExhibitionSlug))) {
       throw new Error(`Editorial essay "${selection.slug}" references a missing cover exhibition.`);
