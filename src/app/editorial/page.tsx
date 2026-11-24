@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { editorialSelections, getEditorialSelectionCoverImage } from "@/data/editorialSelections";
+import { getOrderedEditorialSelections, getEditorialSelectionCoverImage } from "@/data/editorialSelections";
 
 const PAGE_URL = "https://www.findartplatform.com/editorial";
 const PAGE_TITLE = "Editorial — Contemporary Art Writing, Criticism & Curatorial Perspectives";
@@ -27,9 +27,7 @@ export const metadata: Metadata = {
 };
 
 export default function EditorialPage() {
-  const selections = editorialSelections.slice().sort((a, b) =>
-    b.publishedAt.localeCompare(a.publishedAt),
-  );
+  const selections = getOrderedEditorialSelections();
 
   return (
     <main className="min-h-screen bg-white pt-[65px] text-neutral-900">
@@ -41,12 +39,12 @@ export default function EditorialPage() {
           </h1>
 
           <div className="mt-10 max-w-3xl border-t border-neutral-200 pt-8 md:mt-14 md:pt-10">
-            <a
+            <Link
               href="/contribute"
               className="inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.22em] text-neutral-900 transition-opacity hover:opacity-60"
             >
               Contribute to FindArt <span aria-hidden="true">↗</span>
-            </a>
+            </Link>
             <p className="mt-4 text-[15px] leading-[1.6] text-neutral-700 md:text-[16px]">
               We welcome proposals for essays, interviews, exhibition texts, research and other editorial formats.
             </p>

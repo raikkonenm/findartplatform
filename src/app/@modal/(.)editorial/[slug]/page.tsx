@@ -7,7 +7,7 @@ export default async function InterceptedEditorialArticle({ params }: { params: 
   const { slug } = await params;
   const selection = getEditorialSelection(slug);
   if (!selection) return notFound();
-  return <SlideOver label={selection.title} contentKey={selection.slug}>
+  return <SlideOver key={selection.slug} label={selection.title} contentKey={selection.slug}>
     <EditorialArticleContent selection={selection} />
   </SlideOver>;
 }

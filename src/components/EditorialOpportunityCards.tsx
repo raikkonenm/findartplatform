@@ -28,7 +28,7 @@ export function EditorialOpportunityCards({ opportunities }: { opportunities: Op
 
   return (
     <section aria-labelledby={titleId} className="min-w-0">
-      <h2 id={titleId} className="text-[14px] uppercase tracking-[0.2em]">Explore the 8 programmes</h2>
+      <h2 id={titleId} className="text-[14px] uppercase tracking-[0.2em]">Explore the {opportunities.length} programmes</h2>
       <ol className="mt-5 space-y-4">
         {opportunities.map(opportunity => (
           <li key={opportunity.slug} className="min-w-0">

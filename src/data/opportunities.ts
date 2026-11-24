@@ -3205,7 +3205,7 @@ const CURATED_OPPORTUNITIES: Opportunity[] = [
     deadline: "30 November 2026",
     deadlineDate: "2026-11-30",
     location: "Morocco (9 cities)",
-    audience: "Artists developing a creation project",
+    audience: "French-speaking artists aged 18+ residing in Morocco, France or a Francophone African country, with more than five years of professional or artistic activity in one of these countries; solo or duo applications.",
     audiences: ["Individual artists"],
     type: ["Residencies"],
     fields: ["Visual Arts", "Interdisciplinary"],
@@ -3217,7 +3217,7 @@ const CURATED_OPPORTUNITIES: Opportunity[] = [
       "A one-month residency programme run by the Institut français du Maroc across a network of nine Moroccan cities, supporting artists developing a creation project between March and December 2027.",
     ],
     sections: [
-      { title: "Who can apply", items: ["Artists developing a creation project", "Specific restrictions by country of residence and professional experience may apply — see the official call"] },
+      { title: "Who can apply", items: ["French-speaking artists aged 18 or over", "Resident in Morocco, France or a Francophone African country", "More than five years of professional or artistic activity in one of these countries", "Solo or duo applications; available for the full residency"] },
       { title: "What you get", items: ["Residency of roughly one month between March and December 2027", "One of nine Moroccan cities", "Results announced mid-January 2027"] },
     ],
     applyUrl: "https://if-maroc.org/casablanca/projets/residences-darkoum-2027/",
@@ -3488,6 +3488,7 @@ const CURATED_OPPORTUNITIES: Opportunity[] = [
   },
   {
     slug: "talents-contemporains-water-2026",
+    availability: "closed",
     organizer: "Fondation François Schneider",
     title: "Talents Contemporains — Water Competition, 16th Edition",
     deadline: "22 November 2026",
@@ -3806,6 +3807,7 @@ const CURATED_OPPORTUNITIES: Opportunity[] = [
   },
   {
     slug: "villa-perochon-rencontres-2027",
+    availability: "closed",
     organizer: "La Villa Pérochon (Pour l'Instant)",
     title: "Encounters of Young International Photography 2027",
     deadline: "15 November 2026, 23:59",
@@ -4950,6 +4952,7 @@ const CURATED_OPPORTUNITIES: Opportunity[] = [
   },
   {
     slug: "code-art-palo-alto-lytton-plaza-2027", organizer: "City of Palo Alto Public Art Program",
+    availability: "closed",
     title: "Code:ART 2027 — Lytton Plaza Installation",
     deadline: "16 November 2026, 23:59 PST", deadlineDate: "2026-11-16", location: "Palo Alto, United States",
     audience: "Individual artists and artist teams; artists aged 18+ (team: at least one 18+ able to contract with the City); no prior Code:ART commission in current cycle",

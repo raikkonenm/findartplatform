@@ -3,6 +3,7 @@ import { getEditorialArtist } from "@/data/editorial";
 import { submittedEditorialEssays } from "./submittedEditorialEssays";
 import type { EditorialCredit } from "./editorialCredits";
 import { OPPORTUNITIES } from "./opportunities";
+import { submittedOpportunitySelections } from "./submittedOpportunitySelections";
 
 // A curated Editorial article that groups existing exhibitions from the
 // FindArt database under a shared theme. Everything except the intro
@@ -99,6 +100,7 @@ export type EditorialSelectionCardData = {
 };
 
 export const editorialSelections: EditorialSelection[] = [
+  ...submittedOpportunitySelections,
   {
     kind: "opportunities",
     slug: "8-funding-calls-international-residencies-for-artists",
@@ -282,6 +284,17 @@ export function getEditorialSelection(slug: string): EditorialSelection | undefi
   return editorialSelections.find((selection) => selection.slug === slug);
 }
 
+export function getOrderedEditorialSelections(): EditorialSelection[] {
+  const ordered = editorialSelections.slice().sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  const submittedSlugs = new Set(submittedOpportunitySelections.map(selection => selection.slug));
+  const followingKenji = ordered.filter(selection => submittedSlugs.has(selection.slug));
+  const remaining = ordered.filter(selection => !submittedSlugs.has(selection.slug));
+  const kenjiIndex = remaining.findIndex(selection => selection.slug === "critical-essay-on-kenji-sakai");
+  if (kenjiIndex < 0) return ordered;
+  remaining.splice(kenjiIndex + 1, 0, ...followingKenji);
+  return remaining;
+}
+
 export function getEditorialSelectionCoverImage(selection: EditorialSelection): string | undefined {
   if (selection.kind === "opportunities") return selection.coverImage.src;
   if (selection.kind === "artists") {
@@ -308,7 +321,7 @@ export function getEditorialSelectionCard(selection: EditorialSelection): Editor
 }
 
 export function getEditorialSelectionCards(): EditorialSelectionCardData[] {
-  return editorialSelections.slice().sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+  return getOrderedEditorialSelections()
     .map(getEditorialSelectionCard).filter(card => card !== null);
 }
 
